@@ -1,0 +1,261 @@
+﻿
+<div class="banner mb-2">
+    <div class="swiper-container swiper-container-horizontal" id="banners">
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-1.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-2.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-3.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-4.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-5.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-6.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-7.jpg" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <img ng-src="{{webImagePath}}banners/banner-8.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== RECENT BIG WINS SECTION ===== -->
+<div class="recent-big-wins-section" ng-if="hasCasino">
+    <div class="rbw-header">
+        <h3 class="rbw-title">Recent Big Wins</h3>
+        <div class="rbw-tabs">
+            <span class="rbw-tab" ng-class="{'active': !bigWinsFilter || bigWinsFilter === 'all'}" ng-click="bigWinsFilter='all'">All</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'popular'}" ng-click="bigWinsFilter='popular'">Popular</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'slots'}" ng-click="bigWinsFilter='slots'">Slots</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'exclusive'}" ng-click="bigWinsFilter='exclusive'">Exclusive</span>
+        </div>
+    </div>
+    <div class="rbw-games" id="bigWinsSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><div class="game_box tone-copper"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/TouchdownThunderHoldandWin.webp" alt="Touchdown Thunder" /></div><div class="game_box-info"><span class="game_box-name">Touchdown Thunder</span><span class="game_box-tag tag-coral">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-gold"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/StPatricksAquaMagicHoldandWin.webp" alt="St Patrick's Aqua Magic" /></div><div class="game_box-info"><span class="game_box-name">St Patrick's Aqua Magic</span><span class="game_box-tag tag-gold">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-lime"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/GoldOktoberfest.webp" alt="Gold Oktoberfest" /></div><div class="game_box-info"><span class="game_box-name">Gold Oktoberfest</span><span class="game_box-tag tag-lime">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-ruby"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/GoldofBaboon.webp" alt="Gold of Baboon" /></div><div class="game_box-info"><span class="game_box-name">Gold of Baboon</span><span class="game_box-tag tag-ruby">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-violet"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/FootballTap.webp" alt="Football Tap" /></div><div class="game_box-info"><span class="game_box-name">Football Tap</span><span class="game_box-tag tag-violet">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-olive"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/FireCrown.webp" alt="Fire Crown" /></div><div class="game_box-info"><span class="game_box-name">Fire Crown</span><span class="game_box-tag tag-olive">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-plum"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/DiamondStyle.webp" alt="Diamond Style" /></div><div class="game_box-info"><span class="game_box-name">Diamond Style</span><span class="game_box-tag tag-plum">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-sand"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/CloverSupremeHoldandWin.webp" alt="Clover Supreme" /></div><div class="game_box-info"><span class="game_box-name">Clover Supreme</span><span class="game_box-tag tag-sand">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-orange"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/BisonadoPrizeMatch.webp" alt="Bisonado Prize Match" /></div><div class="game_box-info"><span class="game_box-name">Bisonado Prize Match</span><span class="game_box-tag tag-orange">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-fuchsia"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/SoloReelBlitz.webp" alt="SoloReel Blitz" /></div><div class="game_box-info"><span class="game_box-name">SoloReel Blitz</span><span class="game_box-tag tag-fuchsia">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-amber"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/SoccerStormHoldandWin.webp" alt="Soccer Storm" /></div><div class="game_box-info"><span class="game_box-name">Soccer Storm</span><span class="game_box-tag tag-amber">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-emerald"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/Firedream7sHoldandWin.webp" alt="Firedream 7s" /></div><div class="game_box-info"><span class="game_box-name">Firedream 7s</span><span class="game_box-tag tag-emerald">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-flame"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/EagleHonor7s.webp" alt="Eagle Honor 7s" /></div><div class="game_box-info"><span class="game_box-name">Eagle Honor 7s</span><span class="game_box-tag tag-flame">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-aqua"><a ng-click="ctrl.openModal('login-modal')"><div class="game_box-media"><img ng-src="https://xyz.1exch.app/images/popular/new/CoinFlynnDeluxe.webp" alt="Coin Flynn Deluxe" /></div><div class="game_box-info"><span class="game_box-name">Coin Flynn Deluxe</span><span class="game_box-tag tag-aqua">Live</span></div></a></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== CATEGORIES SECTION ===== -->
+<div class="home-provider" ng-if="hasCasino">
+    <div class="hp-left">
+        <div class="hp-card hp-large hp-casino" ng-if="hasCasino">
+            <a ui-sref="promo.casino">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-diamond"></i><span>Casino</span></div>
+                    <p>Dive into our in-house games, live casino and slots</p>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/casino-wheel.png" alt="Casino" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-large hp-sports">
+            <a ui-sref="promo.sports">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-futbol-o"></i><span>Sports</span></div>
+                    <p>Bet on Football, Cricket, eSports & over 80 sports!</p>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/sports-trophy.png" alt="Sports" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="hp-right">
+        <div class="hp-card hp-small hp-crazytime" ng-if="hasCasino">
+            <a ui-sref="promo.casino">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-star"></i><span>Crazy Time</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/crazy-time.png" alt="Crazy Time" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-racing" ng-if="hasCasino">
+            <a ui-sref="promo.sports">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-flag-checkered"></i><span>Racing</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/racing.png" alt="Racing" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-aviator" ng-if="hasCasino">
+            <a ui-sref="promo.slotcasino">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-paper-plane"></i><span>Aviator</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/aviator.png" alt="Aviator" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-mines" ng-if="hasCasino">
+            <a ui-sref="promo.slotcasino">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-bomb"></i><span>Mines</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/mines.png" alt="Mines" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="main-tabs">
+        <div ng-include="'sports/template/loader-center.html'"
+             ng-show="isRequestProcessing"
+             class="d-flex w-100 justify-content-center position-absolute"></div>
+        <div class="chart-content mt-0" ng-if="!isRequestProcessing">
+            <div class="chart-body home-page-sports" ng-repeat="s in sports" ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0">
+                <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
+                    <a>
+                        <span>{{s.name}}</span>
+                        <i class="material-icons plus">expand_more</i>
+                    </a>
+                    <div class="event-count-block">
+                        {{s.competitions.length}} Events
+                    </div>
+                </div>
+                <div class="market-list collapse in">
+                    <div>
+                        <div class="market-data" ng-repeat="cmp in s.competitions">
+                            <div class="markets">
+                                <a class="sport-league">
+                                    <div class="sport-league-name"><span>{{cmp.name}}</span></div>
+                                    <h6 class="league-count d-flex flex-row align-items-center">
+                                        <span>{{(popularMarkets | filter:{event:{competitionId:cmp.id} }).length}}</span>
+                                        <span class="material-icons collapse-icon">expand_more</span>
+                                    </h6>
+                                </a>
+                                <div class="collapse in">
+                                    <a ng-repeat="h in popularMarkets | filter:{event:{competitionId:cmp.id} }" 
+                                       ng-click="ctrl.openModal('login-modal')"
+                                       class="event-name market-left">
+                                        <div class="sport-event">
+                                            <div class="event">
+                                                <div class="event-item">
+                                                    <div class="event-icon event-icon" ng-class="{'inplay':h.inPlay}">
+                                                        <span>
+                                                            <img ng-src="{{webImagePath}}icons/{{s.name|joinme}}.png" alt="cricket" width="18px">
+                                                        </span>
+                                                    </div>
+                                                    <div class="event-main-detail">
+                                                        <div class="event-detail justify-content-between">
+                                                            <div class="event-level-one">
+                                                                <div class="runner-one">
+                                                                    {{h.marketRunner[0].runner.name}}
+                                                                </div> <div class="runner-two">
+                                                                    {{h.marketRunner[1].runner.name}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <div class="event-level-two">
+                                                                    <div class="live-match" ng-show="h.inPlay">Live</div>
+                                                                    <div class="event-date-time">
+                                                                        {{h.event.openDate | toDays}} {{h.event.openDate | date:'HH:mm'}}
+                                                                        <div class="event-fb-details">
+                                                                            <div class="live-match one" ng-show="h.hasVideo">
+                                                                                <span class="material-icons">ondemand_video</span>
+                                                                            </div>
+                                                                            <div class="live-match two" ng-if="h.hasFancy">F</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> <div class="sport-market">
+                                                    <div class="match-rate" ng-init="m0 = h.marketRunner[0]">
+                                                        <div class="market-back d-blue" kt-animate-on-change="m0.backPrice[0].price" kt-click>
+                                                            <span class="odds">{{m0.backPrice[0].price}}</span>
+                                                        </div>
+                                                        <div class="market-lay d-pink" kt-animate-on-change="m0.layPrice[0].price" ng-if="h.bettingType!=6">
+                                                            <span class="odds">{{m0.layPrice[0].price}}</span>
+                                                        </div>
+                                                        <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
+                                                    </div>
+                                                    <div class="match-rate" ng-init="m2 = h.marketRunner[2]">
+                                                        <div class="market-back d-blue" ng-if="m2" kt-animate-on-change="m2.backPrice[0].price">
+                                                            <span class="odds">{{ m2.backPrice[0].price }}</span>
+                                                        </div>
+                                                        <div class="market-back d-blue" ng-if="!m2"><span class="odds">-</span></div>
+
+                                                        <div class="market-lay d-pink" ng-if="m2 && h.bettingType!=6">
+                                                            <span class="odds">{{ m2.layPrice[0].price }}</span>
+                                                        </div>
+                                                        <div class="market-lay d-pink" ng-if="!m2 || h.bettingType==6"><span class="odds">-</span></div>
+                                                    </div>
+                                                    <div class="match-rate" ng-init="m1 = h.marketRunner[1]">
+                                                        <div class="market-back d-blue" kt-animate-on-change="m1.backPrice[0].price">
+                                                            <span class="odds">{{m1.backPrice[0].price }}</span>
+                                                        </div>
+                                                        <div class="market-lay d-pink" kt-animate-on-change="m1.layPrice[0].price"
+                                                             ng-if="h.bettingType!=6">
+                                                            <span class="odds">{{m1.layPrice[0].price}}</span>
+                                                        </div>
+                                                        <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="footerTemplate" ></div>

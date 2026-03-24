@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Page Url</span>
+            <input type="text"
+                   ng-model="data.pageUrl" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Referrer Url</span>
+            <input type="text"
+                   ng-model="data.referrerUrl" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Server Name</span>
+            <input type="text"
+                   ng-model="data.serverName" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Log Level</span>
+            <input type="text" value="{{$parent.ctrl.getLogLevel(data.logLevel)}}"
+                    class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Date</span>
+            <input type="text"
+                   value="{{data.createdOn | date:'yyyy-MM-dd HH:mm'}}" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Short Message</span>
+            <textarea id="facebook" type="text"
+                      multiple rows="4"
+                      ng-model="data.shortMessage" class="form-control"></textarea>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Full Message</span>
+            <textarea id="facebook" type="text"
+                      multiple rows="6"
+                      ng-model="data.fullMessage" class="form-control"></textarea>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Ip Address</span>
+            <input type="text"
+                   ng-model="data.ipAddress" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">User Id</span>
+            <input type="text"
+                   ng-model="data.userId" class="form-control">
+        </div>
+    </div>
+</div>

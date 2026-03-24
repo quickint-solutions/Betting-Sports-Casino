@@ -1,0 +1,92 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar" ng-init="showother=true;showsports=true">
+            <div class="sidenav">
+                <div class="sidebar-top">
+                    <button class="dropdwn-btn" ng-class="{'active':showother}" ng-click="showother=!showother">
+                        others
+                    </button>
+                    <div class="dropdown-container" ng-show="showother">
+                        <ul>
+                            <li><a ui-sref="base.home.inplay">In-play</a></li>
+                            <li><a ui-sref="base.livegames">{{'fd.casino.label' | translate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-bottom">
+                    <button class="dropdwn-btn" ng-class="{'active':showsports}" ng-click="showsports=!showsports">
+                        all sports
+                    </button>
+                    <div class="dropdown-container" ng-show="showsports">
+                        <ul class="nested-menu">
+                            <li id="inner-menu" ng-repeat="sport in eventTypes" ng-if="sport.displayOrder>=0">
+                                <span class="plus" ng-class="{'minus':sport.isOpen}" ng-click="ctrl.openChild(sport,null,sport.id)">{{sport.name}}</span>
+                                <ul class="inner-nested" ng-class="{'active':sport.isOpen && sport.child.length>0}">
+                                    <li ng-repeat="ch1 in sport.child" ng-init="ch1.isRace=sport.isRace;ch1.isLiveGame=sport.isLiveGame">
+                                        <span style="padding-left:10px;" 
+                                              ng-class="{'minus':ch1.isOpen && !sport.isRace && !sport.isLiveGame,'plus':!sport.isRace && !sport.isLiveGame}"
+                                              ng-click="ctrl.openChild(ch1,sport.id,sport.id)">
+                                            <span ng-hide="sport.isRace || sport.isLiveGame">{{ch1.name}}</span>
+                                            <span ng-show="sport.isLiveGame">
+                                                <i class="fas fa-caret-right"></i>{{ch1.name}}
+                                            </span>
+                                            <span ng-show="sport.isRace">
+                                                <i class="fas fa-caret-right"></i>
+                                                <kt-date data-date-value="ch1.startTime" data-format="HH:mm"></kt-date>&nbsp;{{ch1.event.raceName}}
+                                            </span>
+                                        </span>
+                                        <ul class="inner-nested" ng-class="{'active':ch1.isOpen && ch1.child.length>0}">
+                                            <li ng-repeat="ch2 in ch1.child">
+                                                <span style="padding-left:20px;"
+                                                      ng-click="ctrl.openChild(ch2,ch1.id,sport.id)">
+                                                    <i class="fas fa-caret-right"></i>{{ch2.name}}
+                                                </span>
+
+                                            </li>
+                                        </ul>
+                                    </li>
+                                  
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 featured-box">
+            <div class="row row-5">
+
+                <div class="featured-box-detail" ui-view="center"
+                     ng-class="{'col-md-12':needsToHideRightSide,'col-md-9':!needsToHideRightSide}">
+                </div>
+
+                <!-- righr side bar  -->
+                <div class="col-md-3 sidebar-right" ng-hide="needsToHideRightSide">
+                    <div class="sidebar-inner">
+                        <div class="sidebar-right-inner">
+                            <div class="card my-bet" ng-show="isVideoActive">
+                                <a class="card-header" ng-click="showVideo=!showVideo" style="cursor:pointer;">
+                                    Live Match Status
+                                    <i class="fas float-right" ng-class="{'fa-chevron-down':showVideo,'fa-chevron-right':!showVideo}" aria-hidden="true"></i>
+                                </a>
+                                <div class="overview-detail"  ng-show="showVideo">
+                                    <div ng-show="wcs_video">
+                                        <kt-video-player wcs-config="wcs_video" style="height:180px" pause-me="{{ !showVideo}}" ng-if="wcs_video">
+                                        </kt-video-player>
+                                    </div>
+                                    <div style="width:100%;height:100%" ng-show="bf_video"><iframe width="312" height="180" scrolling="no" ng-src="{{bf_video}}"></iframe></div>
+                                </div>
+                            </div>
+                            <div ui-view="right_placebet">
+                            </div>
+                            <div ui-view="right_openbet">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

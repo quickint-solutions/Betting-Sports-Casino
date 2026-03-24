@@ -1,0 +1,40 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'marketrule.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-clarification-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditRule()"
+             cache-key="ktclarificationgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'user.name.label' | translate"
+                        data-sortable="'name'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.name}} </span>
+                    </td>
+                    <td data-title="::'market.rule.label' | translate" style="white-space:nowrap"
+                        data-sortable="'rule'" >
+                        <span>{{item.rule | limitTo:100}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean size-md'" class="boolean size-md">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditRule(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="delete{{$index}}" class="btn btn-danger"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteRule(item.id)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

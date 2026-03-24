@@ -1,0 +1,141 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="form-pannel mr-top-24">
+        <div class="row">
+            <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Table Name" ng-model="search.tableName" />
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text ">
+                    <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                               close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                            {{$select.selected.username}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                           class="ui-select-choices"
+                                           refresh="$parent.ctrl.searchUser($select.search)">
+                            <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                            &nbsp;-&nbsp;
+                            <span class="align-l" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                            <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </div>
+            <div class="col-sm-2">
+                <div>
+                    <a class="btn btn-secondary" ng-click="ctrl.refreshReportGrid();">{{'common.button.getpl' | translate}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mr-top-10">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                <ul class="input-list history-btn">
+                    <li><a ng-click="ctrl.setDates(0,'d')" class="btn btn-danger">{{'history.today.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-1,'d')" class="btn btn-danger">{{'history.fromyesterday.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-7,'d')" class="btn btn-danger">{{'history.last7day.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-30,'d')" class="btn btn-danger">{{'history.last30day.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-3,'M')" class="btn btn-danger">{{'history.last3month.label' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="master-class ">
+        <div class="master-main">
+            <div class="master_wrap mbg">
+                <div class="pl_table master-rightbg pl-market">
+                    <kt-grid grid-id="kt-marketreport-grid"
+                             load-items="ctrl.getPLbyMarket(params)"
+                             name-param="id"
+                             show-total="false"
+                             data-total="totalRows"
+                             cache-key="ktmarketreportgrid">
+                        <table ng-table="tableParams" class="table table-hover clickable member_table " id="kt-marketreport-grid"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <tbody ng-repeat="item in $data track by $index" class="info-text">
+                                <tr>
+                                    <td data-title="::'User' | translate">
+                                        <span>{{item.user.username }}&nbsp;({{item.user.userCode}})</span>
+                                    </td>
+                                    <td>
+                                        <a class="link-a" ng-click="$parent.$parent.$parent.ctrl.openBetReport(item);">
+                                            Round Wise PL
+                                        </a>
+                                        &nbsp;|&nbsp;
+                                        <a class="link-a" ng-click="$parent.$parent.$parent.ctrl.getPLByTable(item)">
+                                            Table Wise PL
+                                        </a>
+                                    </td>
+                                    <td header-class="'size-md align-r'" class="size-md align-r" data-title="::'pl.label' | translate">
+                                        <span title="{{item.win}}" ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win | number:2}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="expand-table" ng-if="item.show && item.userPLInfo.length>0">
+                                    <td></td>
+                                    <td class="expand-td">
+                                        <div class="expand-arrow"></div>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="boolean">Table Name</th>
+                                                    <th class="align-r boolean">Provider</th>
+                                                    <th class="align-r boolean">{{'pl.label' | translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="e in item.userPLInfo | orderBy:'win':true">
+                                                    <td class="boolean">
+                                                        <span>{{e.tableName }} </span>
+                                                    </td>
+                                                    <td class="align-r boolean">
+                                                        <span>{{$parent.$parent.$parent.$parent.$parent.ctrl.getTableProvider(e.provider) }} </span>
+                                                    </td>
+                                                    <td class="align-r boolean">
+                                                        <span ng-class="{'positive':e.win>=0,'negative':e.win<0}">{{e.win | number:2}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody ng-if="$data.length>0" class="summary-data">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="size-md align-r">{{$data | total:'stake' | number:2}}</td>
+                                    <td class="size-md align-r">{{$data | total:'win' | number:2}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

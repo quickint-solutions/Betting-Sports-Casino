@@ -1,0 +1,34 @@
+﻿<div class="content-wrap">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">
+                {{'casinobanking.label'| translate}}
+            </h1>
+        </header>
+        <div class="admin-down">
+            <div class="row total-data">
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.totalbalance.label' | translate}}</span><span class="positive icon icon-glc-icon"> {{balance.totalCasinoBalance | number:2}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">Casino Balance Down : </span><span class="icon icon-glc-icon" ng-class="{'negative':casinoBalanceDown<0,'positive':casinoBalanceDown>0}">
+                        {{casinoBalanceDown = balance.givenCasinoCredit - (balance.totalCasinoBalance ) | number:2}}
+                    </span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name"> {{ 'common.sabalance.label' | translate}} </span>
+                    <span class="icon icon-glc-icon" ng-class="{'positive':balance.casinoBalance>0,'negative':balance.casinoBalance<0}"> {{balance.casinoBalance | number:2}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.netbalance.label' | translate}}</span>
+                    <span class="icon icon-glc-icon" ng-class="{'positive':balance.casinoBalance + balance.totalCasinoBalance>0,'negative':balance.casinoBalance + balance.totalCasinoBalance<0}">
+                        {{balance.casinoBalance + balance.totalCasinoBalance | number:2}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="bankgrid">
+
+</div>

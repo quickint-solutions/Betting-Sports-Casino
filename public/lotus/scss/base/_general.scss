@@ -1,0 +1,1284 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+body {
+    scroll-behavior: smooth;
+}
+
+.full-size {
+    width: $width;
+    height: $height;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0px;
+}
+
+.icon-ladder {
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+        font-weight: bold;
+    }
+}
+
+.pad-l-20 {
+    padding-left: 20px !important;
+}
+
+a {
+    cursor: $cursor;
+
+    &:hover {
+        text-decoration: none !important;
+    }
+
+    &:focus {
+        outline: none !important;
+        text-decoration: none !important;
+    }
+}
+
+.pre-line {
+    line-height: unset !important;
+    white-space: pre-line;
+    vertical-align: unset !important;
+}
+
+.rpt-animate {
+    .ng-move,
+    .ng-enter,
+    .ng-leave {
+        -webkit-transition: opacity linear 0.5s;
+        -moz-transition: opacity linear 0.5s;
+        -ms-transition: opacity linear 0.5s;
+        -o-transition: opacity linear 0.5s;
+        transition: opacity linear 0.5s;
+    }
+
+    .ng-move,
+    .ng-enter,
+    .ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+    .ng-leave,
+    .ng-move.ng-move-active,
+    .ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+
+    .price .size {
+        &.ng-move, &.ng-enter, &.ng-leave {
+            transition: opacity 0s;
+        }
+    }
+}
+
+ul {
+    margin-bottom: 0px !important;
+    list-style-type: none;
+    padding-left: 0px;
+
+    li {
+        @include display(block);
+
+        ul {
+            li {
+                @include display(block);
+                float: none !important;
+                padding: 0px !important;
+            }
+        }
+    }
+}
+
+.refresh-btn {
+    cursor: $cursor;
+    background-color: $theme-color;
+    @include border-radius(4px);
+    color: $yellow;
+    @include padding(5px, 6px, 5px, 6px);
+}
+
+.button {
+    border-radius: 3px !important;
+    text-transform: capitalize;
+    width: $width;
+    padding: 3px !important;
+    font-size: 12px !important;
+}
+
+
+.select-btn {
+    background: rgba(29, 127, 30, 0.1);
+    color: $black-color;
+    border: 2px solid $green !important;
+    border-radius: 3px !important;
+
+    &:hover {
+        color: $black-color !important;
+        border-bottom: 2px solid $button-border !important;
+        border-right: 2px solid $button-border !important;
+        box-shadow: 1.5px 1.5px 0px 0px $button-shadow;
+    }
+}
+
+
+.button-disabled {
+    background-color: $medium-white;
+    color: $light-medium-grey;
+    border-color: $medium-white;
+    box-shadow: none;
+}
+
+.input-select {
+    @include padding(0px, 5px, 0px, 5px);
+
+    .input-box {
+        width: $width;
+        @include border-all(2px, solid, $border-color);
+        @include padding(2px, 4px, 2px, 4px);
+        @include border-radius(3px);
+        text-transform: capitalize;
+
+        &:focus {
+            @include border-all(2px, solid, $button);
+            outline: 0;
+        }
+    }
+}
+
+.img-100 {
+    width: $width;
+}
+
+table {
+    width: $width;
+}
+
+p {
+    margin-bottom: 0px !important;
+}
+
+.green {
+    color: $green;
+
+    &.disable {
+        color: #3a613a;
+    }
+}
+
+.green-light {
+    color: $light-green;
+}
+
+.yellow-light {
+    color: $yellow;
+}
+
+.red {
+    color: $red;
+
+    &.disable {
+        color: #9d5f5f;
+    }
+}
+
+.align-c {
+    text-align: $center;
+}
+
+.align-l {
+    text-align: left !important;
+}
+
+.align-r {
+    text-align: right !important;
+}
+
+.float-r {
+    float: right !important;
+}
+
+.float-l {
+    float: $float-left;
+}
+
+.bold {
+    @include txt(bold);
+}
+
+.font-n {
+    @include txt(normal);
+}
+
+.back {
+    background-color: $back1;
+}
+
+.lay {
+    background-color: $lay1;
+}
+
+.back1, .back-1 {
+    background-color: $back1;
+    min-width: 64px;
+}
+
+.back2, .back3, .back-2, .back-3 {
+    background-color: $back2;
+    min-width: 64px;
+}
+
+.lay1, .lay-1 {
+    background-color: $lay1;
+    min-width: 64px;
+}
+
+.lay2, .lay3, .lay-2, .lay-3 {
+    background-color: $lay2;
+    min-width: 64px;
+}
+
+.fa-bar-chart {
+    color: $dark-gray-black;
+    margin-right: 10px;
+}
+
+.td-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.input-highlight {
+    background-color: $theme-color;
+    color: white;
+}
+
+.back, .back1, .back2, .back3 {
+    &:hover {
+        background-color: $back-hover;
+    }
+}
+
+.lay, .lay1, .lay2, .lay3 {
+    &:hover {
+        background-color: $lay-hover;
+    }
+}
+
+.mr-top-10 {
+    margin-top: 10px;
+}
+
+.mr-right-5 {
+    margin-right: 5px;
+}
+
+.empty-score {
+    background-color: $white-color;
+    min-width: 64px;
+    // width:124px;
+    color: $black-color;
+    opacity: 0.6;
+    text-align: $center;
+    @include border-all(1px, solid, $border-color);
+    cursor: default !important;
+}
+
+.empty-score-2 {
+    min-width: 126px !important;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0px;
+}
+
+.negative {
+    color: $red !important;
+    //margin: 0 0 0 5px;
+}
+
+.positive {
+    color: $green;
+    //margin: 0 0 0 5px;
+}
+
+.out-play {
+    color: #cdcdcd;
+    margin-right: 3px;
+}
+
+.in-play {
+    color: $green;
+    margin-right: 3px;
+}
+
+.bet-heading {
+    @include padding(0px, 0px, 12px, 0px);
+    margin: 0 0 7px 0;
+    border-bottom: 1px solid rgba(8, 78, 131, 0.4);
+    color: $heading;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.check-icon {
+    color: $yellow;
+    font-size: 14px !important;
+    margin-right: 8px;
+    cursor: $cursor;
+}
+
+.form-invalid {
+    border-color: $btn-danger-bg;
+    color: $btn-danger-bg;
+}
+
+.warningMsg {
+    background-color: $yellow;
+    @include padding(0px, 5px, 0px, 5px);
+    @include line-height(24px);
+    @include resize($float-left, $width);
+    @include headline($black-color, $font-size-tab );
+}
+
+.uib-datepicker-popup.dropdown-menu {
+    padding: 0px !important;
+
+    .uib-daypicker {
+        tr {
+            th {
+                .btn-default {
+                    background-color: transparent !important;
+                    border: none !important;
+                    color: $black-color !important;
+                }
+            }
+
+            td {
+                /*.btn-default {
+                    background-color: transparent !important;
+                    color: #777777 !important;
+                    border: 1px solid #ccc !important;
+                }*/
+                .text-muted {
+                    color: #777777 !important;
+                }
+            }
+        }
+    }
+}
+
+.errorMsg {
+    background-color: $red;
+    @include padding(0px, 5px, 0px, 5px);
+    @include line-height(24px);
+    @include resize($float-left, $width);
+    @include headline($white-color, $font-size-tab );
+}
+
+
+/* ---- dropdown  ----- */
+.header-balance .menu-dropdown:hover, .master_header .menu-dropdown:hover {
+    .dropdown-menulist {
+        @include display(block);
+    }
+}
+
+.menu-dropdown {
+    @include position(relative);
+
+    a {
+        color: $white-color;
+        text-transform: capitalize;
+    }
+
+    .dropdown-menulist {
+        @include position(absolute, left 0px top 32px);
+        z-index: 1000;
+        display: none;
+        float: $float-left;
+        @include padding(0px, 0px, 0px, 0px);
+        // min-width: 160px;
+        list-style: none;
+        font-size: 14px;
+        text-align: $center;
+        background-color: $white-color;
+        @include border-all(1px, solid, $border-color);
+        @include border-radius(7px);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+        a {
+            padding: 10px !important;
+            float: $float-left;
+            @include line-height(15px);
+            width: $width;
+            font-size: 12px;
+            color: $black-color !important;
+            @include border(bottom, 1px, solid, $border-color);
+
+            &:hover {
+                background-color: #f3f8f8;
+            }
+        }
+
+        li {
+            @include resize($float-left, $width);
+        }
+    }
+}
+
+.error-page {
+    text-align: $center;
+}
+
+.grey-icon {
+    background: url(/public/images/grey-icon.png) no-repeat center center;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.black-icon {
+    background: url(/public/images/black-icon.png) no-repeat center center;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.column-2 {
+    tr.suspend:before, tr.ball:before, tr.roundover:before {
+        //content: "SUSPENDED";
+        //@include border-all(1px, solid, #ddd);
+        width: 34.9%;
+        right: -17.3%;
+    }
+
+
+    table {
+        th.th-col {
+            width: 65% !important;
+        }
+
+        tr {
+            td.match-title {
+                width: 66% !important;
+            }
+        }
+    }
+}
+
+.splash-blur {
+    @include position(absolute);
+    background: rgba(136, 136, 136, 0.59);
+    z-index: 100;
+
+    .centered-ring-blur {
+        text-align: $center;
+        height: $height;
+        -ms-transform: translate(40%, 35%);
+        -webkit-transform: translate(40%, 35%);
+        transform: translate(40%, 35%);
+        @include position(relative, left 0% top 0%);
+
+        .bet-spinner {
+            background-repeat: no-repeat !important;
+            height: 100px;
+            background-size: 98px !important;
+        }
+
+        .bigger-spinner {
+            background: url(/public/images/gif/bigger.gif);
+        }
+
+        .horizontal-spinner {
+            background: url(/public/images/gif/spinner.gif);
+        }
+
+        .round-spinner {
+            background: url(/public/images/gif/round.gif);
+        }
+    }
+}
+
+.transfer-svg {
+    width: 23px;
+    vertical-align: middle;
+    margin-right: 7px;
+    margin-top: -2px;
+}
+
+.base-ring {
+    overflow: hidden;
+    height: 86.5% !important;
+    width: 312px;
+
+    .centered-ring-blur {
+        -ms-transform: translate(50%, 35%) !important;
+        -webkit-transform: translate(50%, 35%) !important;
+        transform: translate(35%, 35%) !important;
+        overflow: hidden;
+    }
+}
+
+.grid-ring {
+    overflow: hidden;
+    height: 90% !important;
+    width: $width;
+
+    .centered-ring-blur {
+        -ms-transform: translate(50%, 35%) !important;
+        -webkit-transform: translate(50%, 35%) !important;
+        transform: translate(45%, 35%) !important;
+        overflow: hidden;
+    }
+}
+
+.status-btn {
+    @include position(relative);
+    @include display(inline-block);
+
+    .suspend {
+        background-color: $suspend-background;
+        @include border-all(1px, solid, $suspend-border);
+        @include txt(bold);
+        @include padding(2px, 5px, 2px, 5px);
+        @include headline( $suspend-color, 11px);
+        @include border-radius(3px);
+    }
+
+    .active {
+        background-color: $active-background;
+        @include border-all(1px, solid, $active-border);
+        @include txt(bold);
+        @include padding(2px, 5px, 2px, 5px);
+        @include headline($green, 11px);
+        @include border-radius(3px);
+    }
+
+    .fa {
+        font-size: 8px;
+        margin-right: 5px;
+    }
+}
+
+.tabbing-blue {
+    //min-width: 375px;
+    margin: 7px 0 15px 0 !important;
+    float: left;
+    @include border-all(1px, solid, $purple);
+    @include border-radius(3px);
+    background-color: $white-color;
+
+    li {
+        //width: 33.32%;
+        @include border(right, 1px, solid, $purple);
+        float: $float-left;
+
+        a {
+            padding: 0 20px;
+            @include line-height(27px);
+            height: 27px;
+            @include txt(bold);
+            @include headline($purple, 12px);
+            @include display (inline-block);
+            width: $width;
+            text-align: $center;
+            text-transform: capitalize;
+
+            &:hover {
+                background-color: $purple;
+                color: $white-color;
+            }
+        }
+
+        &:last-child {
+            border-right: 0px;
+        }
+    }
+
+    .active a {
+        background-color: $purple;
+        color: $white-color;
+    }
+}
+
+.ktdatepicker {
+    cursor: pointer;
+    background-color: $m_selectbox;
+    line-height: 26px;
+    padding: 5px 15px;
+
+    i {
+        padding-left: 10px;
+    }
+}
+
+.master-class {
+    select {
+        background-color: $m_selectbox !important;
+    }
+}
+
+select {
+    background-color: $white-color !important;
+    padding: 6px 10px;
+    cursor: pointer;
+    user-select: none;
+    outline: 0;
+    color: #fff !important;
+    height: 35px;
+    //font-size:14px !important;
+    margin-right: 10px;
+    width: auto !important;
+    float: left;
+    position: relative;
+    border: none !important;
+
+    &:hover {
+        box-shadow: none !important;
+    }
+    /*height: 34px;
+    width: 95%;
+    font-size: 13px;
+    background-color: $white-color !important;
+    color:#000!important;
+    @include padding(6px, 6px, 6px, 6px);
+    @include border-all(1px, solid, $heading !important);
+
+    &:hover {
+        box-shadow: 1.5px 1.5px 0px 0px $heading !important;
+    }*/
+}
+
+.pinned {
+    background-color: $green !important;
+}
+
+.add-pin {
+    cursor: $cursor;
+    background-color: #999;
+    @include headline($white-color !important, 11px !important);
+    @include padding(3px, 5px, 4px, 5px);
+    @include border-radius(100%);
+    margin: 3px;
+}
+
+.in-time {
+    padding-left: 4px;
+    @include headline($theme-success,13px);
+}
+
+.out-time {
+    color: $gray;
+    padding-left: 4px;
+}
+
+.history-btn {
+    margin-top: 12px;
+
+    .btn {
+        height: 29px;
+        margin: 0 5px;
+        float: $float-left;
+        @include line-height(15px);
+        @include border-radius(3px);
+        @include headline($white-color, 12px);
+        text-align: $center;
+        @include txt(normal);
+        background-color: $history-btn;
+        border: 1px solid $gray-black !important;
+        border-bottom: 2px solid $gray-black !important;
+        border-right: 2px solid $gray-black !important;
+
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $gray-black !important;
+            color: $white-color !important;
+        }
+
+        @include respond-to2(extra-small-screens) {
+            margin: 0 5px 10px 5px;
+        }
+
+        @include respond-to2(handhelds) {
+            margin: 0 5px 10px 5px;
+        }
+    }
+}
+
+.mr-top-24 {
+    margin-top: 24px;
+}
+
+.text-muted {
+    color: #fff !important;
+}
+
+.admin_full .text-muted {
+    color: #777 !important;
+}
+
+.form-control {
+    color: $black-color !important;
+    font-size: 14px !important;
+    border-radius: 0px !important;
+    width: 100% !important;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+
+.info {
+    @include headline($red, 10px);
+}
+
+.sportmenu-li {
+    .i-sport {
+        @include resize($float-left, 18px);
+        @include display(block);
+        margin-right: 10px;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        background-size: 18px 18px;
+        height: 18px;
+        font-size: 20px;
+    }
+
+    .Casino {
+        background-image: url(/public/images/icons/casino.png);
+    }
+
+    .kabaddi, .Kabaddi {
+        background-image: url(/public/images/icons/kabaddi.ico);
+    }
+
+    .Live, .Teen, .Teen-patti, .Exchange-games {
+        background-image: url(/public/images/icons/live.png);
+    }
+
+    .Poker {
+        background-image: url(/public/images/mobile/bets.png);
+    }
+
+    .Election, .Rajasthan {
+        background-image: url(/public/images/icons/election.png);
+    }
+
+    .Cricket {
+        background-image: url(/public/images/icons/cricket.png);
+    }
+
+    .Soccer, .Football {
+        background-image: url(/public/images/icons/soccer.png);
+    }
+
+    .Tennis {
+        background-image: url(/public/images/icons/tennis.png);
+    }
+
+    .Basketball {
+        background-image: url(/public/images/icons/basketball.png);
+    }
+
+    .Horse {
+        background-image: url(/public/images/icons/race-horse.png);
+    }
+
+    .Session {
+        background-image: url(/public/images/icons/session.png);
+    }
+
+    .Snooker {
+        background-image: url(/public/images/icons/snooker.png);
+    }
+
+    .Handball {
+        background-image: url(/public/images/icons/handball.png);
+    }
+
+    .Greyhound {
+        background-image: url(/public/images/icons/greyhound.png);
+    }
+
+    .Politics {
+        background-image: url(/public/images/icons/politics.png);
+    }
+
+    .Pool {
+        background-image: url(/public/images/icons/snooker.png);
+    }
+
+    .Rugby {
+        background-image: url(/public/images/icons/rugby.png);
+    }
+
+    .Royal {
+        background-image: url(/public/images/mobile/royalcasino.png);
+    }
+
+    .Special {
+        background-image: url(/public/images/mobile/special.png);
+    }
+}
+
+.sport-right-menu {
+    .cricket {
+        background-color: $cricket;
+
+        &:hover {
+            background-color: #730d00;
+        }
+    }
+
+    .soccer, .football {
+        background-color: $soccer;
+
+        &:hover {
+            background-color: #373737;
+        }
+    }
+
+    .tennis {
+        background-color: $tennis;
+
+        &:hover {
+            background-color: #689635;
+        }
+    }
+
+    .kabaddi {
+        background-color: #0aa8cc;
+
+        &:hover {
+            background-color: #689635;
+        }
+    }
+
+    .teen-patti, .exchange-games {
+        background-color: $teenpatti;
+
+        &:hover {
+            background-color: #689635;
+        }
+    }
+
+    .virtual-games {
+        background-color: $virtual-game;
+
+        &:hover {
+            background-color: #356b96;
+        }
+    }
+
+    .horse-racing {
+        background-color: $horse-race;
+
+        &:hover {
+            background-color: #74433d;
+        }
+    }
+
+    .rajasthan-election {
+        background-color: #8f19e5;
+
+        &:hover {
+            background-color: #1b4854;
+        }
+    }
+
+    .special-bets {
+        background-color: $specilbets;
+
+        &:hover {
+            background-color: #1b4854;
+        }
+    }
+
+    .greyhound-racing {
+        background-color: $greyhound-race;
+
+        &:hover {
+            background-color: #1b4854;
+        }
+    }
+
+    .royal-patti {
+        background-color: #33f392;
+
+        &:hover {
+            background-color: #1b4854;
+        }
+    }
+
+    .cricket-link {
+        background-color: #f3e9e7;
+        color: $cricket;
+
+        &:hover {
+            background-color: #ebd9d6;
+        }
+    }
+
+    .soccer-link, .football-link {
+        background-color: #e2e2e2;
+        color: $soccer;
+
+        &:hover {
+            background-color: #d5d5d5;
+        }
+    }
+
+    .tennis-link {
+        background-color: #eaefe5;
+        color: #587932;
+
+        &:hover {
+            background-color: #dde5d5;
+        }
+    }
+
+    .kabaddi-link {
+        background-color: rgba(133, 77, 70, 0.4);
+
+        &:hover {
+            background-color: #ebd9d6;
+        }
+    }
+
+    .teen-patti-link, .exchange-games-link {
+        background-color: rgba(129, 206, 118, 0.4);
+        color: $teenpatti;
+
+        &:hover {
+            background-color: rgba(129, 206, 118, 0.5);
+        }
+    }
+
+    .virtual-games-link {
+        background-color: rgba(129, 206, 118, 0.4);
+        color: $virtual-game;
+
+        &:hover {
+            background-color: rgba(129, 206, 118, 0.5);
+        }
+    }
+
+    .horse-racing-link {
+        background-color: rgba(133, 77, 70, 0.1);
+        color: $horse-race;
+
+        &:hover {
+            background-color: rgba(133, 77, 70, 0.4);
+        }
+    }
+
+    .rajasthan-election-link {
+        background-color: rgba(133, 77, 70, 0.4);
+
+        &:hover {
+            background-color: #ebd9d6;
+        }
+    }
+
+    .special-bets-link {
+        background-color: rgba(133, 77, 70, 0.4);
+        color: $specilbets;
+
+        &:hover {
+            background-color: #ebd9d6;
+        }
+    }
+
+    .greyhound-racing-link {
+        background-color: rgba(33, 88, 103, 0.1);
+        color: $greyhound-race;
+
+        &:hover {
+            background-color: rgba(33, 88, 103, 0.4);
+        }
+    }
+
+    .royalpatti-link {
+        background-color: rgba(133, 77, 70, 0.4);
+
+        &:hover {
+            background-color: #ebd9d6;
+        }
+    }
+
+    .sport-type-cricket {
+        color: $cricket;
+
+        &:hover {
+            background-color: #efddd9;
+        }
+    }
+
+    .sport-type-soccer, .sport-type-football {
+        color: $soccer;
+
+        &:hover {
+            background-color: #dedcdc;
+        }
+    }
+
+    .sport-type-tennis {
+        color: #587932;
+
+        &:hover {
+            background-color: #dae6ce;
+        }
+    }
+
+    .sport-type-kabaddi {
+        color: #8c1000;
+
+        &:hover {
+            background-color: #efddd9;
+        }
+    }
+
+    .sport-type-teen-patti, .sport-type-exchange-games {
+        color: $teenpatti;
+
+        &:hover {
+            background-color: rgba(129, 206, 118, 0.5);
+        }
+    }
+
+    .sport-type-virtual-games {
+        color: $virtual-game;
+
+        &:hover {
+            background-color: rgba(129, 206, 118, 0.5);
+        }
+    }
+
+    .sport-type-horse-racing {
+        color: #854d46;
+
+        &:hover {
+            background-color: rgba(133, 77, 70, 0.4);
+        }
+    }
+
+    .sport-type-rajasthan {
+        color: #8c1000;
+
+        &:hover {
+            background-color: #efddd9;
+        }
+    }
+
+    .sport-type-bets {
+        color: $specilbets;
+
+        &:hover {
+            background-color: #efddd9;
+        }
+    }
+
+    .sport-type-greyhound-racing {
+        color: #215867;
+
+        &:hover {
+            background-color: rgba(33, 88, 103, 0.4);
+        }
+    }
+
+    .sport-type-royalpatti {
+        color: #111;
+
+        &:hover {
+            background-color: #efddd9;
+        }
+    }
+
+    .sport-type-cricket.active {
+        background-color: $cricket;
+    }
+
+    .sport-type-soccer.active, .sport-type-football.active {
+        background-color: $soccer;
+    }
+
+    .sport-type-tennis.active {
+        background-color: $tennis;
+    }
+
+    .sport-type-kabaddi.active {
+        background-color: #8c1000;
+    }
+
+    .sport-type-teen-patti.active, .sport-type-exchange-games.active {
+        background-color: $teenpatti;
+    }
+
+    .sport-type-horse-racing.active {
+        background-color: $horse-race;
+    }
+
+    .sport-type-rajasthan.active {
+        background-color: #8c1000;
+    }
+
+    .sport-type-bets.active {
+        background-color: $specilbets;
+    }
+
+    .sport-type-greyhound-racing.active {
+        background-color: $greyhound-race;
+    }
+
+    .sport-type-royalpatti.active {
+        background-color: #111;
+    }
+}
+
+.left-icon {
+    &.icon-sport-horse-racing {
+        color: $horse-race;
+    }
+
+    &.icon-sport-greyhound-racing {
+        color: $greyhound-race;
+    }
+
+    &.icon-sport-cricket {
+        color: $cricket;
+    }
+
+    &.icon-sport-soccer, &.icon-sport-football {
+        color: $soccer;
+    }
+
+    &.icon-sport-tennis {
+        color: $tennis;
+    }
+
+    &.icon-sport-kabaddi {
+        color: #0aa8cc;
+    }
+
+    &.icon-sport-teen-patti, &.icon-sport-exchange-games {
+        color: $teenpatti;
+    }
+
+    &.icon-sport-rajasthan-election {
+        color: #8f19e5;
+    }
+
+    &.icon-sport-special-bets {
+        color: $specilbets;
+    }
+}
+
+.grid-spinner {
+    height: 58px;
+    margin-bottom: -28px;
+    margin-top: -24px;
+
+    .outside {
+        height: 58px;
+        margin-bottom: -28px;
+        margin-top: -24px;
+    }
+}
+
+.table-condensed, .datetimepicker .disabled, .datetimepicker .disabled:hover {
+    color: $theme-color !important;
+
+    .switch {
+        display: table-cell !important;
+    }
+}
+
+a[disabled] {
+    pointer-events: none;
+}
+
+button[disabled] {
+    pointer-events: none;
+}
+
+.padding-r {
+    padding-right: 15px;
+}
+
+.padding-l {
+    padding-left: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.table > tbody + tbody {
+    border: 0px !important;
+}
+
+.bet-delay {
+    padding-right: 15px;
+    font-weight: normal;
+}
+
+.input-group-addon {
+    color: black !important;
+    text-transform: capitalize;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.ab-suit {
+    font-size: 20px;
+    vertical-align: sub;
+
+    &.red {
+        color: red
+    }
+
+    &.black {
+        color: #0A6BB6;
+    }
+}
+
+.date-picker-wrapper {
+    .month-wrapper {
+        float: right;
+    }
+
+    .footer {
+        float: left;
+        padding-right: 10px;
+        width: unset;
+        background: transparent;
+        padding-left: 0px;
+
+        .shortcuts {
+            display: flex;
+            flex-direction: column;
+
+            span {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.twitter-timeline-rendered {
+    width: 100%;
+}

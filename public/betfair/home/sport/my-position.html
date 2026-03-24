@@ -1,0 +1,10 @@
+﻿<div class="run_matched position_match" ng-scrollbars style="max-height:475px">
+    <div class="position" ng-repeat="p in positions">
+        <div class="p_left">
+            <span>{{p.start}}</span>
+            <span ng-hide="p.start==p.end || $last">{{' - '+p.end}}</span>
+            <span ng-show="$last">+</span>
+        </div>
+        <span class="p_value" title="{{p.pl | toRate}}" ng-class="{'positive':p.pl>=0,'negative':p.pl<0}">{{p.pl | toRate}}</span>
+    </div>
+</div>

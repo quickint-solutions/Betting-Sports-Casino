@@ -1,0 +1,70 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'runners.label' | translate}}</h1>
+    </header>
+</div>
+<div class="col-sm-12 ">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" minlength="1" maxlength="200" 
+                               placeholder="Search by ID"
+                               required autofocus ng-model="search.id" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" minlength="1" maxlength="200" 
+                               placeholder="Search by name"
+                               required autofocus ng-model="search.name" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="btnSearch" class="btn btn-secondary"  ng-click="ctrl.refreshGrid()" style="width:100%;">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            {{'common.button.search' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="btnreset" class="btn btn-default" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                            {{'common.button.reset' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-runner-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditRunner()"
+             cache-key="ktrunnergrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'Id' | translate"
+                        data-sortable="'id'" data-header-class="'size-xl boolean'" class="size-xl boolean">
+                        <span>{{item.id}} </span>
+                    </td>
+                    <td data-title="::'runner.name.label' | translate"
+                        data-sortable="'name'" data-header-class="'size-xl'" class="size-xl">
+                        <span>{{item.name}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditRunner(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="video">
+    <div ng-if="wcsConfig.videoSource==0" style="color:white;font-size:14px;text-align:center;margin-top:50px">
+       <div ng-bind-html="wcsConfig.errorMessage"></div>
+    </div>
+
+    <kt-wcs-player wcs-config="wcsConfig" data-autoplay="{{autoplay}}" ng-if="wcsConfig.videoSource==1"
+                   data-allowf="{{allowf}}" data-pause-me="{{pauseMe}}" data-play-me="{{playMe}}">
+    </kt-wcs-player>
+    <kt-video-js-player wcs-config="wcsConfig" data-autoplay="{{autoplay}}" ng-if="wcsConfig.videoSource==3"
+                        data-allowf="{{allowf}}" data-pause-me="{{pauseMe}}" data-play-me="{{playMe}}">
+    </kt-video-js-player>
+   
+    <iframe ng-if="wcsConfig.videoSource==4 || wcsConfig.videoSource==6" ng-src="{{nanoURL}}"
+            style="width: 100%;height: 100%;margin: auto;border:0px;"></iframe>
+
+    <kt-video-js-player wcs-config="wcsConfig" data-autoplay="{{autoplay}}" ng-if="wcsConfig.videoSource==5 && urlFound"
+                        data-allowf="{{allowf}}" data-pause-me="{{pauseMe}}" data-play-me="{{playMe}}">
+    </kt-video-js-player>
+</div>

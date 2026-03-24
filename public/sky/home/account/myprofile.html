@@ -1,0 +1,167 @@
+﻿<div class="event my-profile">
+    <h1 class="title" ng-if="!fromMaster ">{{'myprofile.label' | translate}}</h1>
+
+    <div class="form-pannel" ng-show="fromMaster">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="event-heading">{{'myprofile.label' | translate}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row mr-top-10">
+        <div class="col-sm-6">
+            <div class="profile-wrap">
+                <h3 class="heading">{{'myprofile.aboutyou.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.name.label' | translate}}</dt>
+                    <dd>{{user.userCode}}</dd>
+
+                    <dt>{{'user.username.label' | translate}}</dt>
+                    <dd>{{user.username}}</dd>
+                    <dt>{{'user.mobile.label' | translate}}</dt>
+                    <dd>
+                        {{user.mobile}}
+                        <a ng-click="ctrl.openChangeMobile()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.manage']}"
+                           ng-if="!ctrl.$stateParams.memberid">
+                            Update Mobile <i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                    </dd>
+                    <dt>{{'user.password.label' | translate}}</dt>
+                    <dd>
+                        ********************************
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.manage']}"
+                           ng-if="!ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.member.manage']}"
+                           ng-if="ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                    </dd>
+
+                    <dt ng-if="!fromMember">{{'languages.label' | translate}}</dt>
+                    <dd ng-if="!fromMember" class="dd-lang">
+                        <select ng-model="$parent.user.languageId" ng-change="ctrl.languageChanged()">
+                            <option ng-repeat="l in languageList" value="{{l.id}}">
+                                {{l.name}}
+                            </option>
+                        </select>
+                    </dd>
+                </dl>
+            </div>
+
+
+            <div class="profile-wrap">
+                <h3 class="heading">{{'common.setting.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.currency.label' | translate}}</dt>
+                    <dd>{{user.currency.code}}</dd>
+
+                    <dt>{{'user.oddsformat.label' | translate}}</dt>
+                    <dd>--</dd>
+                    <dt ng-if="!fromMember">{{'user.timezone.label' | translate}}</dt>
+                    <dd ng-if="!fromMember">{{timezone}}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="profile-wrap">
+                <h3 class="heading">{{'common.betconfig.label' | translate}}</h3>
+                <table>
+                    <tr>
+                        <th> </th>
+                        <th class="align-c">{{'betconfig.min.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.max.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.delay.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.exposure.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.profit.label'|translate}}</th>
+                    </tr>
+                    <tr ng-repeat="e in eventTypes">
+                        <td style="padding-left:10px">{{e.name}}</td>
+                        <td class="align-c">{{e.minBet | toRate }}</td>
+                        <td class="align-c">{{e.maxBet  | toRate}}</td>
+                        <td class="align-c">{{e.betDelay}}</td>
+                        <td class="align-c">{{e.maxExposure  | toRate}}</td>
+                        <td class="align-c">{{e.maxProfit  | toRate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="change-mobile-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="overlay ">
+        <div class="dialog-container">
+            <div class="dialog" style="width: auto;">
+                <div class="dialog-header">
+                    <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                </div>
+                <section class="dialog-content no-close">
+                    <form ng-submit="ctrl.changeNumber()" name="changenumberform" class="left">
+                        <div class="pop-title">
+                            <div class="title">Update Mobile</div>
+                            <div>Change Your Mobile Number</div>
+                        </div>
+                        <kt-messages data-messages="changeMobileMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+
+                        <label class="label-text">Current Number:</label>
+                        <input class="login-input" type="text" placeholder="Old Mobile *"
+                               ng-maxlength=16 disabled
+                               ng-minlength="1" ng-model="changeMobileModel.oldMobileNo">
+
+                        <label class="label-text">New Number:</label>
+                        <div class="two_input">
+                            <div class="first_box">
+                                <ui-select ng-model="changeMobileModel.selectedCountry" theme="bootstrap"
+                                           on-select="ctrl.countryChanged(changeMobileModel)"
+                                           close-on-select="true">
+                                    <ui-select-match class="ui-select-match">
+                                        {{$select.selected.code}} ({{$select.selected.dialCode}})
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                       class="ui-select-choices"
+                                                       refresh="$parent.ctrl.searchCountry($select.search)">
+                                        <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                        (<span class="align-l" ng-bind-html="u.dialCode | highlight: $select.search"></span>)
+                                        &nbsp;
+                                        <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <input class="login-input" type="text" ng-model="changeMobileModel.newMobileNo"
+                                   maxlength="15" minlength="5" placeholder="New Mobile *" required>
+                        </div>
+                        <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=2">
+                            <input type="radio" class="ch" value="1" name="otpby" id="chek-1" ng-model="changeMobileModel.otpvia">Receive OTP via SMS
+                        </div>
+                        <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=1">
+                            <input type="radio" class="ch" value="2" name="otpby" ng-model="changeMobileModel.otpvia">Receive OTP via Whatsapp
+                        </div>
+                        <div class="otp-timer">
+                            <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                            </span>
+                            <button type="button" ng-click="otpEverClicked=true;ctrl.requestOtpForChange()" ng-show="resendTimer<=0"
+                                    ng-disabled="!changeMobileModel.newMobileNo">
+                                Send OTP
+                            </button>
+                        </div>
+                        <label class="label-text">OTP:</label>
+                        <input class="login-input" type="text" ng-model="changeMobileModel.otp" required title="Enter otp" placeholder="Otp *"
+                               ng-maxlength="6" ng-minlength="6">
+                        <div>
+                            <input class="login-button" type="submit" value="Change" ng-disabled="changenumberform.$invalid">
+                            <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                        </div>
+
+                    </form>
+                   
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

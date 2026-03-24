@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <label>{{::'creditref.current.label' | translate}} : &nbsp;</label>
+            <span>{{ creditRef.isCasino ? (creditRef.current ) : (creditRef.current | toRate)}}</span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+            <input type="text" kt-number-only minlength="1" maxlength="15" tabindex="1"
+                   placeholder="{{::'creditref.new.placeholder' | translate}}"
+                   ng-model="creditRef.creditRef" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user-secret" aria-hidden="true"></i></span>
+            <input type="password" minlength="1" maxlength="25"
+                   placeholder="{{::'user.password.placeholder' | translate}}" tabindex="2" autocomplete="new-password"
+                   required ng-model="creditRef.password" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+

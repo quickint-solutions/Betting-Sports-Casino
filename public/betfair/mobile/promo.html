@@ -1,0 +1,390 @@
+﻿<div class="mobile_view">
+    <div class="mb-main">
+        <div class="center">
+            <div class="mbmain-section">
+                <div class="header-logo">
+                    <img style="width:50%" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/book-logo.png" />
+                </div>
+
+                <div class="mb-detail">
+                    <img class="mbheader-img" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/mb-header-img.png" />
+                    <div class="welcom-detail">
+                        <h2 class="book-text">Welcome to <span style="text-transform:uppercase">{{displayName}}</span>!</h2>
+
+                        <div class="earn-module">
+                            <span ng-if="currentWebApp=='betx91'">
+                                <a class="earn">Free chips up to 2500</a>
+                            </span>
+                            <span ng-if="currentWebApp=='cbtf'">
+                                <a class="earn">Min. 5000 deposit</a>
+                            </span>
+                        </div>
+
+                        <a class="free-bet" href="#">free bets in bookmaker markets</a>
+
+                        <div class="register-div">
+                            <div class="r-details center">
+                                <button class="register-btn" id="register" ng-click="ctrl.openModal('register-modal')">Register</button><br />
+                                <button class="sign-btn" id="signin" ng-click="ctrl.openModal('login-modal')">Sign in</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-slider">
+                            <div class="slideshow-container">
+                                <div class="mySlides">
+                                    <img ng-src="{{imagePath}}images/{{currentWebApp}}/promo/sport-img.jpg">
+                                    <div class="t-text">
+                                        <h3 class="text-name">sport</h3>
+                                        <span class="s-info">Bet on the big events <br /> from around the world</span>
+                                        <a class="play-here" ng-click="ctrl.login()">play here</a>
+                                    </div>
+                                </div>
+                                <div class="mySlides">
+                                    <img ng-src="{{imagePath}}images/{{currentWebApp}}/promo/3patti.jpg">
+                                    <div class="t-text">
+                                        <h3 class="text-name">teenpatti</h3>
+                                        <span class="s-info">Choose from the india’s <br />most popular games</span>
+                                        <a class="play-here" ng-click="ctrl.login()">play here</a>
+                                    </div>
+                                </div>
+                                <div class="mySlides">
+                                    <img ng-src="{{imagePath}}images/{{currentWebApp}}/promo/casino.jpg">
+                                    <div class="t-text">
+                                        <h3 class="text-name">live casino</h3>
+                                        <span class="s-info">Play your favourite <br /> live casino games</span>
+                                        <a class="play-here" ng-click="ctrl.login()">play here</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-dot" style="text-align:center">
+                                <span class="dot" onclick="currentSlide(1)"></span>
+                                <span class="dot" onclick="currentSlide(2)"></span>
+                                <span class="dot" onclick="currentSlide(3)"></span>
+                            </div>
+                        </div>
+                        <div class="mb-footer center">
+                            <p class="register-text"></p>
+                            <p class="register-text">Please Gamble Responsibly.</p>
+                        </div>
+                        <div class="bfooter">
+                            <div class="row">
+                                <div class="col-sm-6" style="margin-bottom:10px;">
+                                    <div class="mb-about">
+                                        <h3 class="footer-title"><b>policy</b></h3>
+                                        <ul class="bfooter-menu">
+                                            <li><a ng-click="ctrl.openPrivacyPolicy();">privacy policy</a></li>
+                                            <li><a ng-click="ctrl.openCookiePolicy();">cookie policy</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-help">
+                                        <h3 class="footer-title"><b>regulations</b></h3>
+                                        <ul class="bfooter-menu">
+                                            <li><a ng-click="ctrl.openTermsConditions();">general terms and conditions</a></li>
+                                            <li><a ng-click="ctrl.openResponsibleGambling();">Responsible Gaming</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="mb-stati">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="footer-info center">
+                                        <h3 class="footer-title">&nbsp;</h3>
+                                        <span class="chat-now" style="display:block; margin-bottom:20px;">
+                                            <a class="chat-btn" ng-click="ctrl.chatNow()">chat now</a>
+                                            <a class="whatsapp" target="_blank" href="https://wa.me/{{supportDetail.whatsapp}}" ng-if="supportDetail.whatsapp">
+                                                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="telegram" target="_blank" href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram">
+                                                <i class="fa fa-telegram" aria-hidden="true"></i>
+                                            </a>
+                                        </span>
+                                        <div class="eighteenplus">
+                                            <span class="plus-18">18+</span>
+                                            <p class="copy-right" style="text-transform:uppercase">&copy; 2019 {{displayName}}</p>
+                                            <p class="copy-right" ng-repeat="ow in otherWhatsapp">
+                                                <a target="_blank" href="https://wa.me/{{ow}}"><i class="fa fa-whatsapp" aria-hidden="true"></i> {{ow}}</a>
+                                            </p>
+                                        </div>
+                                        <div class="bsocial-icon">
+                                            <span class="follow">follow us</span>
+                                            <ul>
+                                                <li>
+                                                    <a class="b-facebook" target="_blank" href="{{social.facebook}}"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                                    <a class="b-twitter" target="_blank" href="{{social.twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                                    <a class="b-insta" target="_blank" href="{{social.instagram}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                                    <a class="b-youtube" target="_blank" href="{{social.youtube}}"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                                                    <a class="b-youtube" ng-if="social.website" target="_blank" href="{{social.website}}"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <span class="mobile-app">
+                                            <a ng-click="ctrl.downloadAPK()"><img ng-src="{{imagePath}}images/{{currentWebApp}}/promo/android-app.png" /></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p class="footer-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-menulist">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a class="mb-menu" href="#">
+                                    <img class="svg-icon" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/sport.svg" />
+                                    sport
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a class="mb-menu" href="#">
+                                    <img class="svg-icon" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/live-games.svg" />
+                                    teen patti
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a class="mb-menu" href="#">
+                                    <img class="svg-icon" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/casino.svg" />
+                                    live casino
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a class="mb-menu" href="#">
+                                    <i class="fa fa-ellipsis-h more-icon"></i>
+                                    <span style="width: 100%;float: left;margin-top: 3px;">more</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="login-modal" class="bform-popup">
+    <div class="form-content sign-form">
+        <span class="close" ng-click="ctrl.closeAllMOdal()">&times;</span>
+        <h4 class="r-title center">SIGN IN TO YOUR ACCOUNT</h4>
+        <form class="register-popup" name="loginform" ng-submit="ctrl.login()">
+            <p>
+                <input type="text" placeholder="User / Email *" tabindex="1" autofocus required ng-model="loginModel.username">
+            </p>
+            <p>
+                <input type="password" data-type="password" placeholder="Password *" ng-maxlength=16
+                       ng-minlength="6"
+                       tabindex="2"
+                       required ng-model="loginModel.password">
+            </p>
+            <p class="captcha-div">
+                <span class="code">
+                    <span>
+                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                        <i class="fa fa-refresh refresh-btn" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                    </span>
+                </span>
+                <input type="text" name="captcha" ng-model="loginModel.captcha"
+                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                       placeholder="Captcha *" />
+            </p>
+            <p class="center">
+                <button class="r-btn" ng-disabled="loginform.$invalid" tabindex="4"
+                        type="submit">
+                    Login
+                </button>
+            </p>
+            <p class="b-forgot">
+                <a href=""><u>Forgot password?</u></a>
+                <a class="right" ng-click="ctrl.openModal('register-modal')"><u>Join Us</u></a>
+            </p>
+        </form>
+        <kt-messages data-messages="loginMessages"></kt-messages>
+    </div>
+</div>
+
+<div id="changepassword-modal" class="bform-popup">
+    <div class="form-content sign-form">
+        <span class="close" ng-click="ctrl.closeAllMOdal()">&times;</span>
+        <h4 class="r-title center">CHANGE YOUR ACCOUNT PASSWORD</h4>
+        <form class="register-popup" name="changepwform" ng-submit="ctrl.changePassword()">
+            <p>
+                <input type="password"
+                       placeholder="Old Password *"
+                       ng-maxlength=16
+                       ng-minlength="1"
+                       tabindex="1"
+                       required ng-model="changePasswordModel.oldpassword" data-type="password">
+            </p>
+            <p>
+                <input type="password"
+                       placeholder="New Password *"
+                       ng-maxlength=16
+                       ng-minlength="1"
+                       tabindex="1"
+                       required ng-model="changePasswordModel.newpassword" data-type="password">
+            </p>
+            <p>
+                <input type="password"
+                       placeholder="Confirm Password *"
+                       ng-maxlength=16
+                       ng-minlength="1"
+                       tabindex="1"
+                       required ng-model="changePasswordModel.confirmpassword" data-type="password">
+            </p>
+
+            <p class="center">
+                <button class="r-btn" ng-disabled="changepwform.$invalid" tabindex="4"
+                        type="submit">
+                    Change Password
+                </button>
+            </p>
+            <p class="b-forgot">
+                <a class="right" ng-click="ctrl.openModal('register-modal')"><u>Join Us</u></a>
+            </p>
+        </form>
+        <kt-messages data-messages="changePasswordMessages"></kt-messages>
+    </div>
+</div>
+
+<div id="register-modal" class="bform-popup">
+    <div class="form-content">
+        <span class="close" ng-click="ctrl.closeAllMOdal()">&times;</span>
+        <h4 class="r-title center">REGISTRATION</h4>
+        <form class="register-popup r-form" name="registerform" ng-submit="ctrl.register()">
+            <a class="r-offer" ng-if="currentWebApp!='fsports999'">
+                <div class="r-info">
+                    <h3 class="offer-title">welcome offer</h3>
+                    <p class="r-free">free bet</p>
+                    <div class="value">
+                        up to
+                        <span class="r-price"><b>₹2500</b></span>
+                    </div>
+                </div>
+                <div class="r-img">
+                    <img class="img-100" ng-src="{{imagePath}}images/{{currentWebApp}}/promo/register-offer.png" />
+                </div>
+            </a>
+            <p class="login-user">
+                <input type="email" maxlength="250"
+                       placeholder="Email *"
+                       tabindex="1" autocomplete="off"
+                       required autofocus ng-model="registerModel.email">
+            </p>
+            <p>
+                <input type="text" maxlength="15" minlength="11" size="11"
+                       placeholder="Mobile *" name="mobile"
+                       tabindex="2" autocomplete="off" kt-number-only
+                       required ng-model="registerModel.mobile">
+                <div style="float:right; padding:0 0 7px 0">
+                    <span class="sub-text">* Number with country code</span>
+                    <span class="sub-text">* OTP will be sent on this number</span>
+                </div>
+            </p>
+            <p>
+                <input type="text" maxlength="100"
+                       placeholder="Username *"
+                       tabindex="3" autocomplete="off"
+                       required ng-model="registerModel.username">
+            </p>
+            <p class="b-password">
+                <input type="password"
+                       placeholder="Password *"
+                       ng-maxlength=16
+                       ng-minlength="6"
+                       tabindex="4"
+                       required ng-model="registerModel.password" data-type="password">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </p>
+            <p class="b-password">
+                <input type="password"
+                       placeholder="Confirm Password *"
+                       ng-maxlength=16
+                       ng-minlength="6"
+                       tabindex="5"
+                       required ng-model="registerModel.confirmpassword" data-type="password">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </p>
+            <p class="captcha-div">
+                <span class="code">
+                    <span>
+                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                        <i class="fa fa-refresh " aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                    </span>
+                </span>
+                <input type="text" name="captcha" ng-model="registerModel.captcha"
+                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="6"
+                       placeholder="Code *" />
+            </p>
+            <p class="center"><button class="r-btn" type="submit" tabindex="7" ng-disabled="registerform.$invalid">Next</button></p>
+            <p class="form-footer center">Already have an account? <a class="r-sign" ng-click="ctrl.openModal('login-modal')">Sign in</a></p>
+        </form>
+        <kt-messages data-messages="registerMessages"></kt-messages>
+    </div>
+</div>
+
+<div id="verify-modal" class="bform-popup">
+    <div class="form-content sign-form">
+        <span class="close" ng-click="ctrl.closeAllMOdal()">&times;</span>
+        <h4 class="r-title center">VERIFY YOUR ACCOUNT</h4>
+        <form class="register-popup" name="verifyform" ng-submit="ctrl.confirmOpt()">
+            <p style="padding-bottom:15px;">
+                <span>We have sent OTP on below mobile number</span>
+            </p>
+            <p>
+                <input type="text" maxlength="15"
+                       placeholder="Mobile *" name="mobile"
+                       tabindex="1" autocomplete="off" disabled
+                       required value="{{verifyModel.mobile}}" class="form-control">
+            </p>
+            <p class="captcha-div">
+                <span class="code" style="top:5px;">
+                    <span style="margin: 5px;font-weight: bold;">{{resendTimer>0?ctrl.formatTime(resendTimer):''}}</span>
+                    <button type="button" class="btn btn-success float-r" style="margin-left: 18px; margin-bottom:3px;" ng-disabled="resendTimer>0" ng-click="ctrl.requestNewOtp()">
+                        &nbsp;Resend &nbsp;<i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </span>
+                <input type="text" name="captcha" ng-model="verifyModel.otp"
+                       maxlength="6" size="6" autocomplete="off" required tabindex="2"
+                       placeholder="OTP *" />
+            </p>
+            <p class="center">
+                <button class="r-btn" ng-disabled="verifyform.$invalid" tabindex="4"
+                        type="submit">
+                    Verify
+                </button>
+            </p>
+            <p class="b-forgot">
+                <a ng-click="ctrl.openModal('login-modal')"><u>Already have an account?&nbsp;<b>Sign In</b> </u></a>
+                <a class="right" ng-click="ctrl.openModal('register-modal')"><u>Join Us</u></a>
+            </p>
+        </form>
+        <kt-messages data-messages="verifyMessages"></kt-messages>
+    </div>
+</div>
+
+<script>
+    var slideIndex = 0;
+    showSlides();
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 3000); // Change image every 2 seconds
+    }
+</script>

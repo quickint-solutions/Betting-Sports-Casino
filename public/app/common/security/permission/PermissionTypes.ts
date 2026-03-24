@@ -1,0 +1,89 @@
+﻿angular.module('intranet.common')
+    .constant('permissionTypes', {
+        ADMIN_AREA: "admin",
+        CLEAR_CACHE: "admin.clear.cache",
+        MANAGE_WEBSITE: "admin.website.manage",
+        MANAGE_PERMISSION: "admin.permission.manage",
+        MANAGE_EVENT_TYPE: "admin.eventtype.manage",
+        MANAGE_COMPETITION: "admin.competition.manage",
+        MANAGE_EVENT: "admin.event.manage",
+        MANAGE_MARKET: "admin.market.manage",
+        MANAGE_RUNNER: "admin.runner.manage",
+        MANAGE_LANGUAGE: "admin.language.manage",
+        MANAGE_TRANSLATION: "admin.translation.manage",
+        VIEW_BETFAIR_ACCOUNT: "admin.betfair.account.view",
+        VIEW_BETFAIR_SPORTS: "admin.betfair.sports.view",
+        MANAGE_BOT: "admin.manage.bot",
+        MANAGE_BETFAIR_ACCOUNT: "admin.betfair.account.manage",
+
+        MASTER_AREA: "master",
+        VIEW_BET_BY_ID: "master.bet.view",
+        LIVE_BETS: "master.bet.live.view",
+        ADD_MEMBER: "master.member.add",
+        VIEW_MEMBER: "master.member.view",
+        EDIT_MEMBER: "master.member.edit",
+        DW: "master.dw",
+        VIEW_LOGIN_HISTORY_MEMBER: "master.loginhistory.member.view",
+
+        CLIENT_AREA: "client",
+        VIEW_LOGIN_HISTORY: "client.loginhistory.view",
+        //MANAGE_STAKECONFIG: "client.stake.config.manage",
+        PLACE_BET: "client.bet.place",
+        VIEW_BET: "client.bet.view",
+        //UPDATE_PROFILE: "client.profile.update",
+        //VIEW_BET_CONFIG: "client.betconfig.view",
+
+        VIEW_MARKET: "common.market.view",
+        VIEW_LANGUAGE: "common.language.view",
+        CHANGE_PASSWORD: "common.password.manage",
+        CHANGE_PASSWORD_MEMBER: "common.password.member.manage",
+        VIEW_ACCOUNTING: "common.accounting.view",
+        VIEW_BALANCE: "common.balance.view",
+
+        BM_AREA: "bookmaker",
+
+        MANAGE_COMMENTARY: "admin.commentary.manage",
+        MANAGE_SETTING: "admin.setting.manage",
+        MANAGE_VIDEO: "admin.video.manage",
+        VIEW_BETFAIR_BET: "betfair.bet.view",
+
+        ADMIN_MYREPORT: "admin.myreport.view",
+        MANAGE_MARKETRULE: "admin.marketrule.manage",
+        VIEW_VIDEO: "client.video.manage",
+
+        MANAGE_DEFAULT_PRICE: "admin.defaultprice.manage",
+        MANAGE_IP: "admin.ipaddress.manage",
+
+        VIEW_LOGIN_HISTORY_OPERATOR: "operator.loginhistory.member.view",
+        OPERATOR_AREA: "operator",
+
+        MANAGE_PAYMENT_NUMBER: "admin.paymentnumber.manage",
+        ADMIN_PAYTMWITHDRAWAL_MANAGE: "admin.paytmwithdrawal.manage",
+
+        UI_CLIENT_DEPOSIT_WITHDRAWAL: "ui.client.depositwithdrawal.process",
+        ADMIN_MARKET_RECLOSE: "admin.market.reclose",
+
+        UPDATE_PT_CONFIG: "admin.ptconfig.update",
+        VIEW_PT_CONFIG: "admin.ptconfig.view",
+
+        EVENT_MANAGEMENT: "master.event.manage",
+
+        UPDATE_NOTIFICATION: "admin.notification.update",
+        VIEW_NOTIFICATION: "admin.notification.view",
+
+        MANAGE_ADMIN_USER: "master.adminuser.manage",
+
+        MANAGE_DOWNLINE_FULLACCESS: "cp.downline.manage.fullaccess",
+        MANAGE_DOWNLINE_VIEW_ONLY: "cp.downline.manage.viewonly",
+        TRANSFER_FULLACCESS: "cp.transfer.fullaccess",
+        RISK_MANAGEMENT_FULLACCESS: "cp.riskmanagement.fullaccess",
+        REPORTS_FULLACCESS: "cp.reports.fullaccess",
+        PT_ON_OFF_FULLACCESS: "cp.pt.onoff.fullaccess",
+        STATEMENTS_FULLACCESS: "cp.statements.fullaccess",
+        AGGREGATE_ACCOUNTS_FULLACCESS: "cp.aggregateaccounts.fullaccess",
+        BANKING_DW_FULLACCESS: "cp.banking.dw.fullaccess",
+
+        ADMIN_MEMBER_MANAGE: "admin.member.manage",
+        ADMIN_SMSCONFIG_MANAGE: "admin.smsconfig.manage",
+        MANAGE_FAIRXPAY_REQUEST: "master.fairxpayrequest.manage"
+    });

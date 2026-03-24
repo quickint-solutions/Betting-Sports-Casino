@@ -1,0 +1,151 @@
+﻿
+<div ng-show="backData.length>0 || layData.length>0">
+    <form name="placebet" style="position:relative;padding-bottom: 5px;">
+        <div class="common-betprocess" ng-cloak="" ng-show="bet_loader.active()">
+            <div class="col-xs-12 betprocess">
+                <div class="row">
+                    <div class="col-xs-12" style="color: white;top: 49%;position: absolute;">
+                        Bet Placement in progress
+                    </div>
+                    <div class="col-xs-12 loader">
+                        <div class="bet-process">
+                            <!--<span class="delay" ng-show="betDelay>=0">{{betDelay}}</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="backData.length>0" ng-repeat="b in backData">
+            <div class="fact-content fc-desk back-bet" ng-repeat="e in b.eventData">
+                <div class="bet-box back-bg">
+                    <div class="bet-title">
+                        <a>{{b.name}}</a>
+                        <div>{{e.runnerName}}</div>
+                    </div>
+                    <a class="sid-img" ng-click="ctrl.deleteBet(1,e.marketId,e.runnerId)">
+                        <i class="close"></i>
+                    </a>
+                </div>
+                <div class="maxbet">
+                    <div class="maxbetcol" ng-show="e.minBet>0">Min Bet {{e.minBet | toRateOnly | shortNumber  }}</div>
+                    <div class="maxbetcol" ng-show="e.maxBet>0">Max Bet {{e.maxBet | toRateOnly | shortNumber  }}</div>
+                    <div class="maxbetcol" ng-show="e.maxProfit>0">Max Mrk. {{e.maxProfit | toRateOnly | shortNumber}}</div>
+                </div>
+                <div class="add-more">
+                    <div class="bet-header">Odds</div>
+                    <div class="bet-header">Stake</div>
+                    <div class="bet-header">Profit</div>
+                </div>
+                <div class="add-more" ng-init="e.toPrice=e.price">
+                    <div class="addvalue">
+                        <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                         data-min="{{e.minUnitValue}}"
+                                         data-max="{{e.maxUnitValue}}"
+                                         data-interval="{{e.interval}}"
+                                         data-ladder-type="{{e.priceLadderType}}"
+                                         data-messages="messages"
+                                         data-value-changed="ctrl.backOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                         data-value="e.price"
+                                         ng-if="e.canChange && e.bettingType!=8 "></kt-price-ladder>
+                        <span class="odd-v" ng-if="!e.canChange">{{e.price | number:2}}</span>
+                        <input kt-number-only allow-decimal="true" positive-only="true" class="placebet-khado" ng-if="e.bettingType==8" ng-model="e.price" />
+                        <span class="placebet-khado toValue" ng-if="e.price && e.bettingType==8">&nbsp;- {{ (e.price*1)  + (e.toPrice*1) - 1 }}</span>
+                    </div>
+                    <div class="addvalue">
+                        <input kt-number-only allow-decimal="true" positive-only="true" class="allval"
+                               ng-change="ctrl.calculateLiability(true);" ng-model="e.size" placeholder="Min : {{::e.minBet | toRate}}">
+                    </div>
+                    <div class="addvalue ">
+                        <span class="odd-v">
+                            <span ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">
+                                {{(e.price-1)*e.size | number:2}}
+                            </span>
+                            <span ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">
+                                {{((e.size*e.percentage)/100) | number:2}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="addbuttons">
+                    <button class="ad-val" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                        {{s.isMax ? '' : '+'}}{{s.isMax ? s.name : s.stake}}
+                    </button>
+                    <button class="ad-val" ng-click="e.size=''">Clear</button>
+                </div>
+
+            </div>
+        </div>
+        <div ng-show="layData.length>0" ng-repeat="l in layData">
+            <div class="fact-content fc-desk lay-bet" ng-repeat="e in l.eventData">
+                <div class="bet-box lay-bg">
+                    <div class="bet-title">
+                        <a>{{l.name}}</a>
+                        <div>{{e.runnerName}}</div>
+                    </div>
+                    <button class="sid-img" ng-click="ctrl.deleteBet(2,e.marketId,e.runnerId)">
+                        <i class="close"></i>
+                    </button>
+                </div>
+                <div class="maxbet">
+                    <div class="maxbetcol" ng-show="e.maxBet>0">Max Bet {{e.maxBet | toRate}}</div>
+                    <div class="maxbetcol" ng-show="e.maxProfit>0">Max Mrk. {{e.maxProfit | toRate}}</div>
+                </div>
+                <div class="add-more">
+                    <div class="bet-header">Odds</div>
+                    <div class="bet-header">Stake</div>
+                    <div class="bet-header">Liability</div>
+                </div>
+                <div class="add-more">
+                    <div class="addvalue">
+                        <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                         data-min="{{e.minUnitValue}}"
+                                         data-max="{{e.maxUnitValue}}"
+                                         data-interval="{{e.interval}}"
+                                         data-ladder-type="{{e.priceLadderType}}"
+                                         data-messages="messages"
+                                         data-value-changed="ctrl.layOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                         data-value="e.price"
+                                         ng-if="e.canChange">
+                        </kt-price-ladder>
+                        <span class="odd-v" ng-if="!e.canChange">{{e.price | number:2}}</span>
+                    </div>
+                    <div class="addvalue">
+                        <input kt-number-only allow-decimal="true" positive-only="true" class="allval"
+                               ng-change="ctrl.calculateLiability(true);" ng-model="e.size" placeholder="Min : {{::e.minBet | toRate}}">
+                    </div>
+                    <div class="addvalue ">
+                        <span class="odd-v">
+                            <span ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">
+                                {{(e.price-1)*e.size | number:2}}
+                            </span>
+                            <span ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">
+                                {{e.size | number:2}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="addbuttons">
+                    <button class="ad-val" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                        {{s.isMax ? '' : '+'}}{{s.isMax ? s.name : s.stake}}
+                    </button>
+                    <button class="ad-val" ng-click="e.size=''">Clear</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="orders">
+            <button class="plc-bet" type="submit" kt-has-claim claims="{Claims: ['client.bet.place']}" kt-click
+                    ng-disabled="!isValid" ng-click="ctrl.submitBet();">
+                <div class="sid-img">
+                    <i class="check-white"></i>
+                </div> Place All bet
+            </button>
+            <button ng-click="ctrl.deleteAllBets()">
+                <div class="sid-img">
+                    <i class="trash"></i>
+                </div>Cancel order
+            </button>
+        </div>
+    </form>
+</div>
+

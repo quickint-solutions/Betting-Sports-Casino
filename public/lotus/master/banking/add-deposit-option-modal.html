@@ -1,0 +1,64 @@
+﻿<div class="row ">
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Detail Type</span>
+            <select class="form-control" ng-model="item.detailType">
+                <option ng-repeat="s in depositOptions" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">
+                {{item.detailType==1 ? 'Account Number' : ctrl.getOptionsName(item.detailType)}}
+            </span>
+            <input class="form-control" type="text" maxlength="100" ng-model="item.acNo" placeholder="{{item.detailType==1 ? 'Account Number' : ctrl.getOptionsName(item.detailType)}}" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Account Holder</span>
+            <input class="form-control" type="text" maxlength="100" ng-model="item.acHolder" placeholder="Account Holder" />
+        </div>
+    </div>
+    <div class="col-sm-12 " ng-show="item.detailType==1">
+        <div class="input-group">
+            <span class="input-group-addon">IFSC</span>
+            <input class="form-control" type="text" maxlength="100" ng-model="item.ifsc" placeholder="IFSC Code" />
+        </div>
+    </div>
+    <div class="col-sm-12 " ng-show="item.detailType==1">
+        <div class="input-group">
+            <span class="input-group-addon">Bank Name</span>
+            <input class="form-control" type="text" maxlength="100" ng-model="item.bankName" placeholder="Bank Name" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Whatsapp Number</span>
+            <input class="form-control" type="text" min="10" max="16" ng-model="item.whatsAppNo" placeholder="Whatsapp Number" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Telegram Number</span>
+            <input class="form-control" type="text" min="10" max="16" ng-model="item.telegramNo" placeholder="Telegram Number" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Min. Deposit</span>
+            <input class="form-control" type="text" ng-model="item.minDeposit" placeholder="Minimum Deposit" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Max. Deposit</span>
+            <input class="form-control" type="text" ng-model="item.maxDeposit" placeholder="Maximum Deposit" />
+        </div>
+    </div>
+
+</div>

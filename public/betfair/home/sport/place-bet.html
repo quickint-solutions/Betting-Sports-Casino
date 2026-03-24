@@ -1,0 +1,233 @@
+﻿<div class="lazy-load-directive">
+    <div class="splash-blur base-ring" ng-cloak="" ng-show="bet_loader.active()">
+        <div class="col-xs-12 betprocess">
+            <div class="row">
+                <div class="col-xs-12">
+                    Your bet is being processed.<br />
+                    Please wait...
+                </div>
+                <div class="col-xs-12 loader">
+                    <span class="bet-process">
+                    </span>
+                    <label ng-if="betDelay>=0">{{betDelay}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="backData.length>0 || layData.length>0">
+        <section>
+            <div ng-show="messages" ng-repeat="msg in messages" class="bet-msg">
+                <div class="warningMsg" ng-if="msg.responseMessageType==2">
+                    {{msg.text}}
+                </div>
+                <div class="errorMsg" ng-if="msg.responseMessageType==8">
+                    {{msg.text}}
+                </div>
+            </div>
+            <form name="placebet">
+                <div class="bets-container">
+                    <div>
+                        <header class="bets-state-header">
+                            <h2 class="bets-state-header__title">Current odds bets</h2>
+                        </header>
+                        <div ng-show="backData.length>0">
+                            <header class="betslip-bets-header betslip-bets-header--back">
+                                <span class="betslip-bets-header__cell">Back (Bet For)</span>
+                                <div class="betslip-bets-header__values">
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Odds</span>
+                                    </span>
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Stake</span>
+                                    </span>
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Profit</span>
+                                    </span>
+                                </div>
+                            </header>
+                            <div ng-repeat="b in backData">
+                                <section class="betslip__potential-bet--back" ng-repeat="e in b.eventData">
+                                    <section class="betslip__editable-bet">
+                                        <div class="betslip__editable-bet__container">
+                                            <div class="betslip__editable-bet__item" icon="'close'" size="xsmall">
+                                                <button type="button" class="CKftH XrLMK" ng-click="$parent.$parent.ctrl.deleteBet(1,e.marketId,e.runnerId)">
+                                                    <div class="EqZoO">
+                                                        <svg class="svg-icon-default Afd7j" data-icon="close"
+                                                             data-style="Afd7j" viewBox="0 0 100 100">
+                                                            <path d="M100,12.5L87.5,0L50,37.5L12.5,0L0,12.5L37.5,50L0,87.5L12.5,100L50,62.5L87.5,100L100,87.5L62.5,50L100,12.5z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__runner">{{e.runnerName}}</span>
+                                        </div>
+                                        <div class="betslip__editable-bet__container">
+                                            <div class="betslip__editable-bet__item betslip__editable-bet__cell">
+                                                <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                                                 data-min="{{e.minUnitValue}}"
+                                                                 data-max="{{e.maxUnitValue}}"
+                                                                 data-interval="{{e.interval}}"
+                                                                 data-ladder-type="{{e.priceLadderType}}"
+                                                                 data-messages="messages"
+                                                                 data-value-changed="ctrl.backOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                                                 data-value="e.price"
+                                                                 ng-if="e.bettingType!=6 && e.bettingType!=7 && e.bettingType!=8  ">
+                                                </kt-price-ladder>
+                                                <input class="betslip-price-ladder__input" kt-number-only allow-decimal="true" positive-only="true"
+                                                       ng-if="e.bettingType==8" ng-model="e.price" />
+                                                <span class="placebet-khado toValue" ng-if="e.price && e.bettingType==8">&nbsp;- {{ (e.price*1)  + (e.toPrice*1) - 1 }}</span>
+                                                <span ng-if="e.bettingType==6 || e.bettingType==7">{{e.price | number:2}}</span>
+                                            </div>
+                                            <div class="betslip__editable-bet__item betslip__editable-bet__cell">
+
+                                                <input class="betslip-size-input"
+                                                       kt-number-only allow-decimal="true" positive-only="true"
+                                                       ng-click="ctrl.showStake('b',$parent.$index,$index)" ng-model="e.size"
+                                                       ng-change="ctrl.calculateLiability(true);"
+                                                       tabindex="2">
+                                            </div>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__cell" ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">
+                                                {{(e.price-1)*e.size | number:2}}
+                                            </span>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__cell" ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">
+                                                {{e.size | number:2}}
+                                            </span>
+                                        </div>
+                                    </section>
+                                    <section ng-show="'stakeb'+$parent.$index+''+$index==focusStake">
+                                        <div class="stake-focus">
+                                            <div class="stake-info back-2">
+                                                <span class="negative mrg-left-10" ng-if="e.maxBet">Max Bet : {{e.maxBet | toRateOnly | shortNumber }} </span>
+                                                <span class="negative mrg-left-10" ng-if="e.maxLiability">Loss Limit : {{e.maxLiability | toRateOnly | shortNumber }} </span>
+                                                <span class="negative mrg-left-10" ng-if="e.maxProfit">Max Profit : {{e.maxProfit | toRateOnly | shortNumber }} </span>
+                                            </div>
+                                            <div class="popup-list back-3">
+                                                <a class="btn back-1" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                                                    {{s.stake | shortNumber}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </section>
+                            </div>
+                        </div>
+                        <div ng-show="layData.length>0">
+                            <header class="betslip-bets-header betslip-bets-header--back">
+                                <span class="betslip-bets-header__cell">Lay (Bet Against)</span>
+                                <div class="betslip-bets-header__values">
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Odds</span>
+                                    </span>
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Stake</span>
+                                    </span>
+                                    <span class="betslip-bets-header__cell betslip-bets-header__cell--fixed-size">
+                                        <span>Liability</span>
+                                    </span>
+                                </div>
+                            </header>
+                            <div ng-repeat="b in layData">
+                                <section class="betslip__potential-bet--lay" ng-repeat="e in b.eventData">
+                                    <section class="betslip__editable-bet">
+                                        <div class="betslip__editable-bet__container">
+                                            <div class="betslip__editable-bet__item" icon="'close'" size="xsmall">
+                                                <button type="button" class="CKftH XrLMK" ng-click="$parent.$parent.ctrl.deleteBet(2,e.marketId,e.runnerId)">
+                                                    <div class="EqZoO">
+                                                        <svg class="svg-icon-default Afd7j" data-icon="close"
+                                                             data-style="Afd7j" viewBox="0 0 100 100">
+                                                            <path d="M100,12.5L87.5,0L50,37.5L12.5,0L0,12.5L37.5,50L0,87.5L12.5,100L50,62.5L87.5,100L100,87.5L62.5,50L100,12.5z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__runner">{{e.runnerName}}</span>
+                                        </div>
+                                        <div class="betslip__editable-bet__container">
+                                            <div class="betslip__editable-bet__item betslip__editable-bet__cell">
+                                                <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                                                 data-min="{{e.minUnitValue}}"
+                                                                 data-max="{{e.maxUnitValue}}"
+                                                                 data-interval="{{e.interval}}"
+                                                                 data-ladder-type="{{e.priceLadderType}}"
+                                                                 data-messages="messages"
+                                                                 data-value-changed="ctrl.layOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                                                 data-value="e.price"
+                                                                 ng-if="e.bettingType!=7 ">
+                                                </kt-price-ladder>
+                                                <span ng-if="e.bettingType==7 ">{{e.price | number:2}}</span>
+                                            </div>
+                                            <div class="betslip__editable-bet__item betslip__editable-bet__cell">
+
+                                                <input class="betslip-size-input"
+                                                       kt-number-only allow-decimal="true" positive-only="true"
+                                                       ng-click="ctrl.showStake('l',$parent.$index,$index)" ng-model="e.size"
+                                                       ng-change="ctrl.calculateLiability(true);"
+                                                       tabindex="2">
+                                            </div>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__cell" ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">
+                                                {{(e.price-1)*e.size | number:2}}
+                                            </span>
+                                            <span class="betslip__editable-bet__item betslip__editable-bet__cell" ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">
+                                                {{e.size | number:2}}
+                                            </span>
+                                        </div>
+                                    </section>
+                                    <section ng-show="'stakel'+$parent.$index+''+$index==focusStake">
+                                        <div class="stake-focus">
+                                            <div class="stake-info lay-2">
+                                                <span class="negative mrg-left-10" ng-if="e.maxBet">Max Bet : {{e.maxBet | toRateOnly | shortNumber }} </span>
+                                                <span class="negative mrg-left-10" ng-if="e.maxLiability">Loss Limit : {{e.maxLiability | toRateOnly | shortNumber }} </span>
+                                                <span class="negative mrg-left-10" ng-if="e.maxProfit">Max Profit : {{e.maxProfit | toRateOnly | shortNumber }} </span>
+                                            </div>
+                                            <div class="popup-list lay-3">
+                                                <a class="btn lay-1" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                                                    {{s.stake | shortNumber}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="betslip-footer potentials-footer">
+                    <div>
+                        <div class="potentials-footer__liability">
+                            <div class="potentials-footer__liability--text--value">
+                                <span class="potentials-footer__liability--text">Liability</span>:
+                                <span class="potentials-footer__liability--value">{{liability | number:2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="potentials-footer__actions">
+                        <div class="potentials-footer__action" size="small">
+                            <button type="button" class="DFMoS Qe-26 AUP11 _8USKG " ng-click="ctrl.deleteAllBets()">
+                                Cancel all selections
+                            </button>
+                        </div>
+                        <div class="potentials-footer__right-actions">
+                            <div class="potentials-footer__action" size="small">
+                                <div color="yellow-400">
+                                    <button type="submit" class="DFMoS Qe-26 AUP11 _8USKG ge-UC "
+                                            kt-has-claim claims="{Claims: ['client.bet.place']}" kt-click
+                                            ng-class="{'azaq9':!isValid}"
+                                            ng-disabled="!isValid" ng-click="ctrl.submitBet()"
+                                            tabindex="26">
+                                        Place Bet
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </form>
+        </section>
+    </div>
+    <section class="empty-state" ng-hide="backData.length>0 || layData.length>0">
+        <p class="empty-state__message">
+            Click on the odds to add selections to the betslip.
+        </p>
+    </section>
+</div>

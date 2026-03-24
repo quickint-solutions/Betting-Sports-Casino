@@ -1,0 +1,145 @@
+﻿
+
+<div class="header-top">
+    <ul>
+        <li>
+            <a ui-sref="base.home" ui-sref-active="router-link-active">Exchange</a>
+        </li>
+        <li><a ui-sref="base.home.casino" class="">Live Casino</a></li>
+        <li><a ui-sref="base.home.slotcasino" class="">Slot</a></li>
+    </ul>
+    <div class="depo-withdraw-btn"></div>
+</div>
+<div class="sidebar-left d-none-mobile" ui-view="sporttree" ng-if="dimdViewType!=3"></div>
+<div class="main-container">
+    <header class="header" ng-class="{'header-casino':dimdViewType==3}">
+        <div class="upcoming-fixure d-none-mobile">
+            <div class="fixure-title">Upcoming Fixure</div>
+            <div class="fixure-box-container">
+                <div id="carousel0">
+                    <div class="carousel-inner">
+                        <div ng-repeat="p in popularMarkets track by $index">
+                            <div class="fixure-box">
+                                <a>
+                                    <div>
+                                        <i class="d-icon mr-2 icon-{{p.eventTypeSourceId}}"></i>
+                                        {{p.event.name}}
+                                    </div>
+                                    <div>{{p.event.openDate | date:'dd/MM/yyyy hh:mm:ss'}} (UTC {{p.event.openDate | date:'Z'}})</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="news-bar d-none-mobile">
+            <marquee>
+                {{announcement}}
+            </marquee>
+            <div class="news-title">
+                <img ng-src="/public/images/{{currentWebApp}}/speaker.svg">
+            </div>
+        </div>
+        <div class="float-right header-right">
+            <div class="balance d-none-mobile">
+                <div>
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div>
+                    <span class="balance-value">pts: : <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code></span>
+                    <span class="balance-value">exp: <kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code></span>
+                </div>
+            </div>
+            <div data-toggle="collapse" data-target="#user-dropdown" class="username-info collapsed" aria-expanded="false" ng-click="userDrp=!userDrp">
+                <span class="user-icon"><i class="fas fa-user"></i></span>
+                <span class="username">{{user.username}}</span>
+                <img ng-src="/public/images/{{currentWebApp}}/arrow-down.svg">
+                <div id="user-dropdown" class="collapse user-dropdown" ng-class="{'show':userDrp}">
+                    <a ui-sref="base.home.account.profile" class="">Profile</a>
+                    <a ui-sref="base.home.account.statement" class="">Account Statement</a>
+                    <a ui-sref="base.home.account.transferonline" class="">Deposit/Withdrawal</a>
+                    <a ui-sref="base.home.account.bonusstatement" class="">Bonus Statement</a>
+                    <a ui-sref="base.home.account.bets.current" class="">My Bets</a>
+                    <a ng-click="$parent.ctrl.openStakeConfigModal()">Set Button Value</a>
+                    <div class="login-seperator"></div>
+                    <a ng-click="$parent.ctrl.logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="logo-box d-none-mobile logo-casino" ng-if="dimdViewType==3">
+        <div class="logo">
+            <a ui-sref="base.home" class="">
+                <img ng-src="{{imagePath}}/images/{{currentWebApp}}/logo.png" class="img-fluid">
+            </a>
+        </div>
+    </div>
+    <div class="center-main-content" ng-if="dimdViewType!=3">
+
+        <div class="center-container" ui-view="center" ng-if="dimdViewType==1">
+        </div>
+        <div id="right-sidebar-id" class="right-sidebar home-right-sidebar"
+             ng-show="dimdViewType==1">
+            <div class="home-casiono-icons d-none-mobile">
+                <section tabindex="0" class="hooper is-vertical">
+                    <div class="hooper-list">
+                        <ul class="hooper-track">
+                            <li aria-hidden="true" class="hooper-slide">
+                                <a class="">
+                                    <div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711619375651.png&quot;);"></div>
+                                </a>
+                            </li>
+                            <li aria-hidden="true" class="hooper-slide">
+                                <a class="">
+                                    <div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711619437289.png&quot;);"></div>
+                                </a>
+                            </li>
+                            <li aria-hidden="true" class="hooper-slide">
+                                <a class="">
+                                    <div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1686912004055.png&quot;);"></div>
+                                </a>
+                            </li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711619476840.png&quot;);"></div> </a></li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1686912036747.png&quot;);"></div> </a></li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1686912081556.png&quot;);"></div> </a></li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711619511598.png&quot;);"></div> </a></li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711619596058.png&quot;);"></div> </a></li>
+                            <li class="hooper-slide"><a><div class="carousal-63" style="background-image: url(&quot;/public/images/{{currentWebApp}}/casino_icons/1711696465146.png&quot;);"></div> </a></li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="fullwidthdetail-container" ng-if="dimdViewType==2">
+            <div>
+                <div class="casino-container" ui-view="center">
+                </div>
+                <div id="right-sidebar-id" class="right-sidebar casino-right-sidebar">
+                    <div class="tv-container" ng-show="isVideoActive" ng-init="videoExpanded=true">
+                        <div class="tv-title" ng-click="videoExpanded=!videoExpanded">
+                            <h4 class="mb-0 bet-slip-title">tv</h4>
+                            <i class="float-right fas " ng-class="{'fa-angle-up':videoExpanded,'fa-angle-down':!videoExpanded}"></i>
+                        </div>
+                        <div class="video-tv mt-1" ng-class="{'hide-tv':!videoExpanded}" style="max-height:180px;">
+                            <div ng-show="wcs_video">
+                                <kt-video-player wcs-config="wcs_video" style="height:180px" pause-me="{{ !videoExpanded}}" ng-if="wcs_video"></kt-video-player>
+                            </div>
+                            <div style="width:100%;height:100%" ng-show="bf_video">
+                                <iframe style="width:calc(100% - 20px)" height="185" scrolling="no" ng-src="{{bf_video}}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-view="right_placebet"></div>
+                    <div ui-view="right_openbet"></div>
+                </div>
+            </div>
+            <div ng-include="'dimd2/template/footer.html'" class="mobile-ftr">
+            </div>
+        </div>
+    </div>
+
+    <div class="center-main-content report-container" ui-view="center" ng-if="dimdViewType==3">
+    </div>
+</div>

@@ -1,0 +1,641 @@
+﻿<div class="my-wallet">
+    <h1 class="title">Transfer Online</h1>
+
+    <div class=" tab-wallet">
+        <div class="common-betprocess" ng-show="isPGLoaderActive">
+            <div class="col-xs-12 betprocess">
+                <div class="row">
+                    <div class="col-xs-12 loader">
+                        <div class="bet-process">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <ul class="tabs-container ">
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==5}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+                    <a class="tab-heading obd" ng-click="selectedPaymentTab=5">
+                        <i class="fa fa-bank"></i> Offline Deposit/Withdrawal
+                    </a>
+                </li>
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==0}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.fairex']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=0">
+                        <i class="payment-img fairxpay"></i>
+                    </a>
+                </li>
+
+                <li class="tab-container skrill" ng-class="{'active':selectedPaymentTab==2}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.skrill']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=2">
+                        <i class="payment-img skrill" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="tab-container neteller" ng-class="{'active':selectedPaymentTab==3}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.neteller']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=3">
+                        <i class="payment-img neteller" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="tab-container tether" ng-class="{'active':selectedPaymentTab==4}"
+                    ng-if="usdt">
+                    <a class="tab-heading" ng-click="$parent.selectedPaymentTab=4">
+                        <i class="payment-img tether" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==5" kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset;">
+                <h1 class="event-heading">Deposit Money</h1>
+                <div ng-bind-html="offlineBankDeposit.bankDetails"></div>
+                <div ng-if="offlineBankDeposit.whatsAppNo">
+                    {{offlineBankDeposit.whatsAppNo}} <a target="_blank" href="https://wa.me/{{offlineBankDeposit.whatsAppNo}}"> <i class="fa fa-whatsapp"></i></a>
+                </div>
+                <div ng-if="offlineBankDeposit.telegramNo">
+                    {{offlineBankDeposit.telegramNo}}  <a target="_blank" href="https://t.me/{{bankingDetail.telegramNo}}"> <i class="fa fa-telegram"></i></a>
+                </div>
+                <div ng-if="offlineBankDeposit.other">
+                    {{offlineBankDeposit.other}}
+                </div>
+            </div>
+
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Online</h1>
+               <kt-messages data-messages="offlineWithdrawalMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutofflineform" ng-submit="ctrl.withdrawOfflineNow()">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Name<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(3-50 characters required)</small>
+                                        </label>
+                                        <input type="text" minlength="3" maxlength="50"
+                                               placeholder="Name" required
+                                               ng-model="offlineWithdrawal.firstName " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Mobile<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(10-15 characters required)</small>
+                                        </label>
+                                        <input type="tel" minlength="10" maxlength="15"
+                                               placeholder="Mobile Number" required
+                                               ng-model="offlineWithdrawal.phone" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" minlength="6" maxlength="250"
+                                               placeholder="Email"
+                                               ng-model="offlineWithdrawal.email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                        <input type="number" minlength="1" maxlength="15"
+                                               placeholder="Amount"
+                                               string-to-number
+                                               kt-number-only allow-decimal="true"
+                                               required ng-model="offlineWithdrawal.amount" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">1) FILL UP UPI ID OR</label>
+                                        <label class="gt-lbl">
+                                            UPI ID <span class="red">&nbsp;**</span>
+                                            <small class="float-r">(max 50 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="1" maxlength="50"
+                                               placeholder="UPI ID"
+                                               ng-model="offlineWithdrawal.upiId " class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">2) FILL UP ACCOUNT DETAIL</label>
+                                        <label class="gt-lbl">
+                                            Account Number <span class="red">&nbsp;**</span>
+                                            <small class="float-r">(9-18 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="9" maxlength="18"
+                                               placeholder="Account Number"
+                                               ng-model="offlineWithdrawal.acNo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            IFSC<span class="red">&nbsp;**</span>
+                                            <small class="float-r">(11 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="11" maxlength="11"
+                                               placeholder="IFSC Code"
+                                               ng-model="offlineWithdrawal.ifscCode " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Bank Name<span class="red">&nbsp;**</span>
+                                            <small class="float-r">(4-50 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="4" maxlength="50"
+                                               placeholder="Bank Name"
+                                               ng-model="offlineWithdrawal.bankName " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Account Holder Name<span class="red">&nbsp;**</span>
+                                            <small class="float-r">(4-100 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="4" maxlength="100"
+                                               placeholder="Account Name"
+                                               ng-model="offlineWithdrawal.acName " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="stake-btn button small-btn float-r" type="submit"
+                                                ng-disabled="payoutofflineform.$invalid">
+                                            Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Cash</h1>
+                <kt-messages data-messages="offlineWithdrawalMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutcashofflineform" ng-submit="ctrl.withdrawCashOfflineNow()">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Name<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(3-50 characters required)</small>
+                                        </label>
+                                        <input type="text" minlength="3" maxlength="50"
+                                               placeholder="Name" required
+                                               ng-model="offlineWithdrawalCash.firstName " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Mobile<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(10-15 characters required)</small>
+                                        </label>
+                                        <input type="tel" minlength="10" maxlength="15"
+                                               placeholder="Mobile Number" required
+                                               ng-model="offlineWithdrawalCash.phone" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" minlength="6" maxlength="250"
+                                               placeholder="Email"
+                                               ng-model="offlineWithdrawalCash.email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                        <input type="number" minlength="1" maxlength="15"
+                                               placeholder="Amount"
+                                               string-to-number
+                                               kt-number-only allow-decimal="true"
+                                               required ng-model="offlineWithdrawalCash.amount" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Area<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(3-200 characters required)</small>
+                                        </label>
+                                        <input type="text" minlength="3" maxlength="200"
+                                               placeholder="Area" required
+                                               ng-model="offlineWithdrawalCash.area" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            City<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(3-100 characters required)</small>
+                                        </label>
+                                        <input type="text" minlength="3" maxlength="100"
+                                               placeholder="City" required
+                                               ng-model="offlineWithdrawalCash.city" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Cash Note <span class="red">&nbsp;*</span>
+                                            <small class="float-r">(1-50 characters required)</small>
+                                        </label>
+                                        <input type="text" minlength="1" maxlength="50"
+                                               placeholder="Cash Note Detail" required
+                                               ng-model="offlineWithdrawalCash.cashNote " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="stake-btn button small-btn float-r" type="submit"
+                                                ng-disabled="payoutcashofflineform.$invalid">
+                                            Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==0" kt-has-claim claims="{Claims: ['ui.client.payment.fairex']}">
+            <div style="padding: 5px 0px; font-size: 14px;" ng-if="whatsapp">
+                For any query related to deposit/withdrawal, please contact on <a target="_blank" href="https://wa.me/{{whatsapp}}"><i class="fa fa-whatsapp"></i> {{whatsapp}}</a>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="fairxpay.minDeposite">Minimum {{fairxpay.minDeposite | toRate }} deposit required.</small>
+                <small ng-if="fairxpay.maxDeposite">Maximum {{fairxpay.maxDeposite | toRate }} deposit possible.</small>
+
+                <kt-messages data-messages="depositFairxpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentfairxpayform" ng-submit="ctrl.depositFairxpayNow()">
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentfairxpayform.$invalid">
+                                    Start Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%;; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Cash</h1>
+                <kt-messages data-messages="payoutFairexpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutcashfairexform" ng-submit="ctrl.withdrawCashFairexpayNow()">
+                            <div class="form-group">
+                                <label>Name<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="50"
+                                       placeholder="Name" required
+                                       ng-model="fairxpayPayoutCash.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile<span class="red">&nbsp;*</span> </label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Mobile Number" required
+                                       ng-model="fairxpayPayoutCash.phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="fairxpayPayoutCash.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="fairxpayPayoutCash.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Area<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="200"
+                                       placeholder="Area" required
+                                       ng-model="fairxpayPayoutCash.area " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>City<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="100"
+                                       placeholder="City" required
+                                       ng-model="fairxpayPayoutCash.city" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cash Note <span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Cash Note Detail"
+                                       ng-model="fairxpayPayoutCash.cashNote " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutcashfairexform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Money</h1>
+                <small ng-if="fairxpayPayout.minWithdrwal">Minimum {{fairxpayPayout.minWithdrwal | toRateOnly | number:0}} withdrawal required.</small>
+                <small ng-if="fairxpayPayout.maxWithdrwal">Maximum {{fairxpayPayout.maxWithdrwal | toRateOnly | number:0}} withdrawal possible.</small>
+                <kt-messages data-messages="payoutFairexpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutfairexform" ng-submit="ctrl.withdrawFairexpayNow()">
+                            <div class="form-group">
+                                <label>Name<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="50"
+                                       placeholder="Name" required
+                                       ng-model="fairxpayPayout.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile<span class="red">&nbsp;*</span> </label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Mobile Number" required
+                                       ng-model="fairxpayPayout.phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="fairxpayPayout.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{fairxpayPayout.minWithdrwal | toRateOnly}}"
+                                       max="{{fairxpayPayout.maxWithdrwal | toRateOnly}}"
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="fairxpayPayout.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">1) FILL UP UPI ID OR</label>
+                                <label>UPI ID <span class="red">&nbsp;**</span> </label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="UPI ID"
+                                       ng-model="fairxpayPayout.upiId " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">2) FILL UP ACCOUNT DETAIL</label>
+                                <label>Account Number <span class="red">&nbsp;**</span> </label>
+                                <input type="text" minlength="9" maxlength="18"
+                                       placeholder="Account Number"
+                                       ng-model="fairxpayPayout.acNo" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>IFSC<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="11" maxlength="11"
+                                       placeholder="IFSC Code"
+                                       ng-model="fairxpayPayout.ifscCode " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Bank Name<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="4" maxlength="50"
+                                       placeholder="Bank Name"
+                                       ng-model="fairxpayPayout.bankName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Account Holder Name<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="4" maxlength="100"
+                                       placeholder="Account Name"
+                                       ng-model="fairxpayPayout.acName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutfairexform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment skrill" ng-show="selectedPaymentTab==2" kt-has-claim claims="{Claims: ['ui.client.payment.skrill']}">
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="skrill.minDeposite">Minimum {{skrill.minDeposite | toRate }} deposit required.</small>
+                <small ng-if="skrill.maxDeposite">Maximum {{skrill.maxDeposite | toRate }} deposit possible.</small>
+
+                <kt-messages data-messages="depositSkrillMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentskrillform" ng-submit="ctrl.depositSkrillNow()">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Name"
+                                       required ng-model="skrill.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Name"
+                                       required ng-model="skrill.lastName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="skrill.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="skrill.phoneNumber" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to deposit</label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{skrill.minDeposite | toRateOnly}}"
+                                       max="{{skrill.maxDeposite | toRateOnly}}"
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="skrill.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentskrillform.$invalid">
+                                    Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment neteller" ng-show="selectedPaymentTab==3" kt-has-claim claims="{Claims: ['ui.client.payment.neteller']}">
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="neteller.minDeposite">Minimum {{neteller.minDeposite | toRateOnly | number:0}} deposit required.</small>
+                <small ng-if="neteller.maxDeposite">Maximum {{neteller.maxDeposite | toRateOnly | number:0}} deposit possible.</small>
+                <kt-messages data-messages="depositNetellerMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentnetellerform" ng-submit="ctrl.depositNetellerNow()">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="neteller.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="neteller.phoneNumber " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to deposit</label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{neteller.minDeposite | toRateOnly}}"
+                                       max="{{neteller.maxDeposite | toRateOnly}}"
+                                       kt-number-only
+                                       required ng-model="neteller.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentnetellerform.$invalid">
+                                    Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;margin-top:10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Money</h1>
+                <small ng-if="netellerPayout.minWithdrwal">Minimum {{netellerPayout.minWithdrwal | toRateOnly | number:0}} withdrawal required.</small>
+                <small ng-if="netellerPayout.maxWithdrwal">Maximum {{netellerPayout.maxWithdrwal | toRateOnly | number:0}} withdrawal possible.</small>
+                <kt-messages data-messages="payoutNetellerMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutnetellerform" ng-submit="ctrl.withdrawNetellerNow()">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="netellerPayout.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="netellerPayout.phoneNumber " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw</label>
+                                <input type="text" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{netellerPayout.minWithdrwal | toRateOnly}}"
+                                       max="{{netellerPayout.maxWithdrwal | toRateOnly}}"
+                                       kt-number-only
+                                       required ng-model="netellerPayout.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutnetellerform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment tether" ng-show="selectedPaymentTab==4">
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%;clear:unset;">
+                <h1 class="event-heading">Deposit USDT</h1>
+                <small>Minimum 100 deposit required.</small>
+                <small ng-if="usdt.dwhatsapp">To deposit USDT contact on <a class="bold" target="_blank" href="https://wa.me/{{usdt.dwhatsapp}}"><i class="fa fa-whatsapp"></i> {{usdt.dwhatsapp}}</a></small>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <h1 class="event-heading">Withdraw USDT</h1>
+                <small>Maximum 8000 withdrawal possible.</small>
+                <small ng-if="usdt.wwhatsapp">To withdraw USDT contact on <a class="bold" target="_blank" href="https://wa.me/{{usdt.wwhatsapp}}"><i class="fa fa-whatsapp"></i> {{usdt.wwhatsapp}}</a></small>
+            </div>
+        </div>
+    </div>
+
+</div>
+

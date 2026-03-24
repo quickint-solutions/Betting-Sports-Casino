@@ -1,0 +1,120 @@
+﻿<div class="loader-table" ng-show="generalLoader.active()">
+    <div class="loader-container" ng-include="loadderTemplate"></div>
+</div>
+<div class="wrapper">
+    <div class="mb-header header">
+        <div class="container-fluid">
+            <div class="row row-5">
+                <div class="col-sm-6">
+                    <div class="" style="width:100%;">
+                        <div style="display: flex; min-height: 45px; align-items: center; flex-direction: row;">
+                            <a class="home-icon" ui-sref="mobile.base.home">
+                                <i class="fas fa-home"></i>
+                            </a>
+                            <a ui-sref="mobile.base.home" class="logo-img"></a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6" style="text-align:right;font-size:14px;">
+                    <div>
+                        <i class="fas fa-landmark"></i>
+                        <span style="margin-left:3px;">
+                            <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure+ balanceInfo.bonus}}"></kt-glc-code>
+                        </span>
+                    </div>
+                    <ul>
+                        <li>
+                            <a>
+                                <span>exp:<kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code></span>
+                            </a>
+                        </li>
+                        <li class="account" ng-init="isMenuOpen=false;">
+                            <div class="header-dropdown">
+                                <a class="header-drop" ng-click="isMenuOpen=!isMenuOpen">{{user.username}}<i class="fas fa-sort-down"></i></a>
+                                <div class="menu-content" ng-show="isMenuOpen" ng-click="isMenuOpen=false;">
+                                    <a ui-sref="mobile.base.openbets">
+                                        Open Bets
+                                    </a>
+                                    <a ui-sref="mobile.base.profile">
+                                        {{'myprofile.label' | translate}}
+                                    </a>
+                                    <a ui-sref="mobile.base.accountstatement">
+                                        {{'accountstatement.label' | translate}}
+                                    </a>
+                                    <a ui-sref="mobile.base.wallet">
+                                        {{'mywallet.label' | translate}}
+                                    </a>
+                                    <a ng-if="isB2C"
+                                       ui-sref="mobile.base.transferonline">
+                                        Deposit/Withdrawal
+                                    </a>
+                                    <a ui-sref="mobile.base.bonusstatement" ng-show="isB2C">
+                                        Bonus Statement
+                                    </a>
+                                    <a ui-sref="mobile.base.referralstatement" ng-show="hasReferral">
+                                        Referral Statement
+                                    </a>
+                                    <a ui-sref="mobile.base.currentbets"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                        {{'mybets.label' | translate}}
+                                    </a>
+                                    <a ui-sref="mobile.base.bethistory"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                        Bet History
+                                    </a>
+                                    <a ui-sref="mobile.base.profitloss"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                        ProfitLoss
+                                    </a>
+                                    <a ui-sref="mobile.base.fdprofitloss"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                        FD ProfitLoss
+                                    </a>
+                                    <a ui-sref="mobile.base.loginhistory"
+                                       kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                                        {{'loginhistory.label' | translate}}
+                                    </a>
+                                    <a ui-sref="mobile.base.settings">Set Button Values</a>
+                                    <a ui-sref="mobile.base.passwordchange">
+                                        Change Password
+                                    </a>
+                                    <a class="logout" ng-click="ctrl.logout();">logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="search-box" ng-init="isSearchOpen=false">
+        <div class="container-fluid">
+            <div class="row row-5">
+                <div id="searchbar" class="collapsed" ng-class="{'collapsed':!isSearchOpen}">
+                    <div id="search-box">
+                        <div id="sliding-panel-outer">
+                            <div id="sliding-panel-inner">
+                                <input type="text" id="search-input"
+                                       ng-change="ctrl.searchEvent(searchEvent)" ng-model="searchEvent" />
+                            </div>
+                            <ul class="suggestion-list" ng-show="searchEventList.length>0">
+                                <li ng-repeat="e in searchEventList">
+                                    <a ng-click="$parent.isSearchOpen=false;ctrl.eventSelected(e)">{{e.event.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="search-label" ng-click="isSearchOpen=!isSearchOpen">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div><!--#search-box-->
+                </div>
+                <marquee scrollamount="3" ng-if="announcement">{{announcement}}</marquee>
+            </div>
+        </div>
+    </div>
+    <!--center part where all other screen will be placed-->
+    <div class="mobilewrap main" ui-view="center">
+    </div>
+</div>

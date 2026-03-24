@@ -1,0 +1,58 @@
+﻿<!--<div class="video">
+    <div id="play" ng-click="ctrl.playPause(true)" kt-click>
+        <img ng-src="{{playButton}}" alt="">
+    </div>
+    <video class="display" id="remoteVideo" autoplay muted></video>
+    <div class="player">
+        <div class="status"></div>
+        <div class="play-pause play">
+            <span class="play-button" ng-click="ctrl.playPause(true)" kt-click>
+                <i class="fa fa-play-circle"></i>
+            </span>
+            <div class="pause-button" ng-click="ctrl.playPause(false)" kt-click>
+                <i class="fa fa-pause-circle"></i>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div>
+   
+    <div style="width: 100%; max-width: 640px; max-height: 480px;" id="video_container">
+        <video id="video-player"
+               class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"
+               controls preload="auto" data-setup='{"fluid": true}'>
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading
+                to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">
+                    supports
+                    HTML5 video
+                </a>
+            </p>
+        </video>
+    </div>
+
+
+    <!--<video id="remoteVideo" autoplay controls playsinline
+           style="display: none; width: 100%; max-width: 640px; max-height: 480px;"></video>
+    <img id="play_button" src="images/play.png" ng-click="ctrl.playWebRTCVideo()"
+         style="position: absolute; top: 30px; left: 30px; display: none;" />-->
+
+    <div class="video" id="web_video" style="display:none;">
+        <div id="play" ng-click="ctrl.playPause(true)" kt-click >
+            <img ng-src="{{playButton}}" alt="">
+        </div>
+        <video class="display" id="remoteVideo" autoplay muted  controls playsinline></video>
+        <div class="player">
+            <div class="status"></div>
+            <div class="play-pause play">
+                <span class="play-button" ng-click="ctrl.playPause(true)" kt-click>
+                    <i class="fa fa-play-circle"></i>
+                </span>
+                <div class="pause-button" ng-click="ctrl.playPause(false)" kt-click>
+                    <i class="fa fa-pause-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

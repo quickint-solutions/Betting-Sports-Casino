@@ -1,0 +1,18 @@
+﻿<span>
+   <span ng-repeat="step in steps |limitTo:steps.length-1 " class="breadcrumb-node" >
+        <a href="" ui-sref="{{step.ncyBreadcrumbStateRef}}" >
+            <span ng-if="!$first"><i class="fa fa-forward"></i></span>
+            <span title="{{step.ncyBreadcrumbLabel | translate}}" >
+                <i class="fa fa-{{step.ncyBreadcrumb.icon}}"></i>
+                <span class="active text-capitalize">{{step.ncyBreadcrumbLabel | translate}}&nbsp;</span>
+            </span>
+        </a>
+    </span>
+   <!-- <span ng-repeat="step in steps | limitTo:-1" class="breadcrumb-node last">
+        <a href="" ui-sref="{{step.ncyBreadcrumbStateRef}}">
+            {{step.ncyBreadcrumbLabel |translate}}
+        </a>
+    </span>-->
+</span>
+
+

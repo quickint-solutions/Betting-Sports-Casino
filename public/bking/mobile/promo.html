@@ -1,0 +1,819 @@
+﻿<div class="mobile-view">
+    <header class="header ">
+        <div class="header-container">
+            <div class="left-hd" >
+                <div class="month-time-mobile">
+                    <p>Device Time</p>
+                    <span id="time-mobile">{{currentDate | date:'HH:mm:ss'}}</span>
+                </div>
+            </div>
+            <div class="logo" >
+                <a class="logo-bg" ui-sref="mobile.seven.base.home">
+                </a>
+            </div>
+            <div class="right-hd" >
+                <button class="button modal-btn" ng-click="ctrl.openModal('login-modal')">
+                    <img ng-src="{{webImagePath}}user-client.png" alt="" class="icon">
+                    LOGIN
+                </button>
+                <button class="button modal-reg" ng-click="ctrl.openModal('verify-modal')" ng-if="isRegisterEnabled">
+                    <img ng-src="{{webImagePath}}user-client.png" alt="" class="icon">
+                    REGISTER
+                </button>
+            </div>
+           
+        </div>
+    </header>
+    <div class="center-mobile" id="center-mobile">
+        <div class="center-content">
+            <main class="main-container rpt-animate">
+                <div class="header-gm-name">
+                    <div class="gm-name">
+                        <button ng-class="{'gmActive':selectedEventTypeName=='!alleventypes'}"
+                                ng-click="selectedEventTypeName='!alleventypes'">
+                            <div class="sid-img">
+                                <i class="infinity"></i>
+                            </div> <span>All</span>
+                        </button>
+                        <button ng-repeat="eventtype in filteredSports"
+                                ng-class="{'gmActive':selectedEventTypeName==eventtype.name}"
+                                ng-click="$parent.$parent.selectedEventTypeName=eventtype.name"
+                                ng-if="eventtype.displayOrder>=0 && eventtype.showInMenu">
+                            <div class="sid-img ">
+                                <i class="icon-sport-{{eventtype.name |joinme}}"></i>
+                            </div><span>{{eventtype.name }}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="gamePlay no-event-parent" ng-if="(popularMarkets | filter:{eventTypeName:selectedEventTypeName}).length<=0">
+                    <div class="no_this_evnt">
+                        No event
+                    </div>
+                </div>
+                <div class="slick-parent" ng-if="selectedEventTypeName=='!alleventypes'">
+                    <div class="my-slick-wrapper">
+                        <img ng-src="{{webImagePath}}mobile-1.jpg" alt="">
+                        <img ng-src="{{webImagePath}}mobile-2.jpg" alt="">
+                        <img ng-src="{{webImagePath}}mobile-3.jpg" alt="">
+                        <img ng-src="{{webImagePath}}mobile-4.jpg" alt="">
+                        <img ng-src="{{webImagePath}}mobile-5.jpg" alt="">
+                        <img ng-src="{{webImagePath}}mobile-6.jpg" alt="">
+                    </div>
+                </div>
+                <div class="gamePlay all-gmplay" ng-if="(popularMarkets | filter:{inPlay:true,eventTypeName:selectedEventTypeName}).length>0">
+                    <div class="gamePLay-title">
+                        <div class="sid-img">
+                            <i class="inplay"></i>
+                        </div>
+                        <h2>IN-PLAY</h2>
+                    </div>
+                    <div class="transfer-home ng-hide">
+                        <a ng-click="ctrl.decideLogin()">Deposit Now</a>
+                    </div>
+
+                    <div class="header-gm-name">
+                        <div class="gmTitle">
+                            <div class="gmTitle-name-match">Match</div>
+                            <div class="gmTitle-name-set">state</div>
+                            <div class="gmTitle-set">
+                                <span>1</span>
+                                <span>x</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+                        <div class="gmContainer" ng-if="(popularMarkets | filter:{eventTypeName:selectedEventTypeName,inPlay:true}).length>0"
+                             ng-repeat="h in (popularMarkets | filter:{eventTypeName:$parent.selectedEventTypeName,inPlay:true})" ng-init="h.pin=ctrl.isMarketPinned(h.id)"
+                             id="tr_{{h.id}}">
+                            <div class="gmContent">
+                                <div class="bt-country">
+                                    <div class="ball-img sid-img">
+                                        <i class="icon-sport-{{h.eventTypeName|joinme}}"></i>
+                                    </div>
+                                    <button ng-click="ctrl.pinMe(h);">
+                                        <div class="ball-img sid-img">
+                                            <i ng-class="{'no-favourite':!h.pin,'favourite':h.pin}"></i>
+                                        </div>
+                                    </button>
+                                    <a class="country">
+                                        <div ng-if="h.bettingType==6" class="country-1">
+                                            <div class="count-nm">
+                                                {{h.event.name}}
+                                            </div>
+                                        </div>
+                                        <div ng-if="h.bettingType!=6" class="country-1" ng-repeat="m in h.marketRunner | limitTo:2">
+                                            <div class="count-number">
+                                                {{$index+1}}
+                                            </div>
+                                            <div class="count-nm">
+                                                {{m.runner.name}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="sc-rBLzX ">
+                                        <div class="dv" ng-show="h.hasVideo"><i class="tv-icon" aria-hidden="true"></i></div>
+                                        <div class="dv" ng-show="h.hasFancy">BM</div>
+                                    </div>
+                                    <div class="nk-play ">
+                                        <span ng-show="h.inPlay"> In-play</span>
+                                    </div>
+                                </div>
+                                <div class="factor"
+                                     ng-class="{'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} ">
+                                    <div class="fact">
+                                        <div class="fact-box back1" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                            <div class="fct">
+                                                <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.layPrice[0].size" ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}">
+                                            <div class="fct" ng-if="h.bettingType!=6">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fact">
+                                        <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]" ng-class="{'no-fct':!m2}">
+                                            <div class="fct" ng-if="m2">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                                             ng-class="{'no-fct':!m2 || h.bettingType==6,'lay1':m2 && h.bettingType!=6}">
+                                            <div ng-if="m2 && h.bettingType!=6" class="fct">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fact">
+                                        <div class="fact-box  back1" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                                            <div class="fct">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box " ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                                            <div class="fct" ng-if="h.bettingType!=6">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="gamePlay all-gmplay" ng-show="selectedEventTypeName=='!alleventypes'">
+                    <div class="gamePLay-title">
+                        <div class="sid-img">
+                            <i class="casino"></i>
+                        </div>
+                        <h2>Live Casino / Slot Games</h2>
+                    </div>
+                    <div class="content-games">
+                        <div class="play-games mix-game">
+                            <div class="game-box cards mix"
+                                 ng-repeat="lg in liveGamesMarkets | limitTo:12">
+                                <div class="play-buttons">
+                                    <a ng-click="ctrl.decideLogin()">PLAY</a>
+                                </div>
+                                <div class="game-img">
+                                    <label class="name" ng-if="lg.name"><span>{{lg.name}}</span></label>
+                                    <img ng-src="{{webImagePath}}{{lg.img}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gamePlay all-gmplay" ng-if="(popularMarkets| filter:{eventTypeName:selectedEventTypeName}).length>0">
+                    <div class="gamePLay-title">
+                        <div class="sid-img">
+                            <i class="inplay"></i>
+                        </div>
+                        <h2>Popoular</h2>
+                    </div>
+                    <div class="header-gm-name">
+                        <div class="gmTitle">
+                            <div class="gmTitle-name-match">Match</div>
+                            <div class="gmTitle-name-set">state</div>
+                            <div class="gmTitle-set">
+                                <span>1</span>
+                                <span>x</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+                        <div class="gmContainer" ng-repeat="h in popularMarkets| filter:{eventTypeName:selectedEventTypeName} | orderBy:'event.openDate'"
+                             ng-init="h.pin=ctrl.isMarketPinned(h.id)"
+                             id="tr_{{h.id}}">
+                            <div class="gmContent">
+                                <div class="bt-country">
+                                    <div class="ball-img sid-img">
+                                        <i class="icon-sport-{{h.eventTypeName|joinme}}"></i>
+                                    </div>
+                                    <button ng-click="ctrl.pinMe(h);">
+                                        <div class="ball-img sid-img">
+                                            <i ng-class="{'no-favourite':!h.pin,'favourite':h.pin}"></i>
+                                        </div>
+                                    </button>
+                                    <a class="country">
+                                        <div ng-if="h.bettingType==6" class="country-1">
+                                            <div class="count-nm">
+                                                {{h.event.name}}
+                                            </div>
+                                        </div>
+                                        <div ng-if="h.bettingType!=6" class="country-1" ng-repeat="m in h.marketRunner | limitTo:2">
+                                            <div class="count-number">
+                                                {{$index+1}}
+                                            </div>
+                                            <div class="count-nm">
+                                                {{m.runner.name}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="sc-rBLzX ">
+                                        <div class="dv" ng-show="h.hasVideo"><i class="tv-icon" aria-hidden="true"></i></div>
+                                        <div class="dv" ng-show="h.hasFancy">BM</div>
+                                    </div>
+                                    <div class="nk-play state">
+                                        <kt-date data-date-value="h.event.openDate" data-format="MMM-dd HH:mm:ss"></kt-date>
+                                    </div>
+                                </div>
+                                <div class="factor" ng-class="{'border-bottom':$last,'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} ">
+                                    <div class="fact">
+                                        <div class="fact-box  back1" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                            <div class="fct">
+                                                <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.layPrice[0].size" ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}">
+                                            <div class="fct" ng-if="h.bettingType!=6">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fact">
+                                        <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]" ng-class="{'no-fct':!m2}">
+                                            <div class="fct" ng-if="m2">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                                             ng-class="{'no-fct':!m2 || h.bettingType==6,'lay1':m2 && h.bettingType!=6}">
+                                            <div ng-if="m2 && h.bettingType!=6" class="fct">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fact">
+                                        <div class="fact-box  back1" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                                            <div class="fct">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                        <div class="fact-box " ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                                            <div class="fct" ng-if="h.bettingType!=6">
+                                                <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="gamePlay all-gmplay" ng-show="selectedEventTypeName=='!alleventypes' && currentWebApp=='9xbetexchange'">
+                    <div class="gamePLay-title">
+                        <div class="sid-img">
+                            <i class="icon-sport-other"></i>
+                        </div>
+                        <h2>How to connect crypto wallet with 9xbet</h2>
+                    </div>
+                    <div style="width: 100%; height: 200px; padding: 0px;margin-top:10px;">
+                        <div style="width: 100%; height: 200px;" class="ytd-9xbg">
+                            <iframe src="https://www.youtube.com/embed/Q1KwfRPGO0U?controls=2" style="width:100%;height:100%"
+                                    title="How to connect crypto wallet with 9xbet" frameborder="0"
+                                    loading="lazy"
+                                    allow=";accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div ng-include="footerTemplate" class="height100"></div>
+    </div>
+    <div class="sidebar-content" ng-class="{'active':leftMenuOpen}">
+        <div class="sidebar">
+            <h3>Quick Access</h3>
+            <ul class="side-list">
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ng-click="leftMenuOpen=false;ctrl.decideLogin()">
+                            <i class="inplay"></i>
+                            <span>In-play</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ng-click="leftMenuOpen=false;ctrl.decideLogin()">
+                            <i class="favourite"></i>
+                            <span>Favourites</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ng-click="leftMenuOpen=false;ctrl.decideLogin()">
+                            <i class="my-market"></i>
+                            <span>My Markets</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li ng-if="hasCasino">
+                    <div class="side-item">
+                        <a class="sid-img" ng-click="ctrl.decideLogin()">
+                            <i class="icon-sport-teen-patti"></i>
+                            <span>{{'fd.casino.label' | translate}}</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+            </ul>
+            <h3>Sports</h3>
+            <ul class="side-list">
+                <li ng-repeat="sport in sports" ng-if="sport.displayOrder>=0 ">
+                    <div class="side-item li-togle" ng-click="$parent.leftMenuOpen=false;ctrl.decideLogin()">
+                        <div class="sid-img">
+                            <i class="icon-sport-{{sport.name|joinme}}"></i>
+                            <span>{{sport.name}}</span>
+                        </div>
+                        <button class="chevr">
+                            <div>
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div class="top-side">
+                <div class="foo-18"><img ng-src="{{webImagePath}}18.png" alt=""></div>
+                <span>© 2020-2024</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-manu" ng-init="leftMenuOpen=false;showRightmenu=false;">
+        <div class="footer-item">
+            <div class="i-img burger" ng-click="leftMenuOpen=!leftMenuOpen">
+                <img ng-src="{{webImagePath}}burger.png" ng-show="!leftMenuOpen">
+                <img ng-src="{{webImagePath}}x.png" ng-show="leftMenuOpen">
+                <span>Menu</span>
+            </div>
+        </div>
+
+        <div class="footer-item">
+            <a class="i-img" ng-click="ctrl.decideLogin()" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}home-menu-active.png" class="act-img">
+                <img ng-src="{{webImagePath}}home-menu.png" class="non-act-img">
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="footer-item" ng-if="hasCasino">
+            <a class="i-img" ng-click="ctrl.decideLogin()" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}cards-inactive.png" class="non-act-img">
+                <img ng-src="{{webImagePath}}cards.png" class="act-img">
+                <span>Live Casino</span>
+            </a>
+        </div>
+        <div class="footer-item">
+            <a class="i-img" ng-click="ctrl.decideLogin()" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}sss-inactive.png" class="non-act-img">
+                <img ng-src="{{webImagePath}}sss.png" class="act-img">
+                <span>My Markets</span>
+            </a>
+        </div>
+        <div class="footer-item">
+            <div class="i-img" ng-click="ctrl.decideLogin()">
+                <img ng-src="{{webImagePath}}my-bet-menu-inactive.png" ng-show="!showRightmenu">
+                <img ng-src="{{webImagePath}}back-menu.png" ng-show="showRightmenu">
+                <span class="my-bets">My-Bets</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="whatsApp-float" ng-if="supportDetail.whatsapp">
+    <a href="{{supportDetail.whatsapp}}" target="_blank" title="Get a new ID instatly over whatsapp">
+        <img class="whatsApp_img" ng-src="/public/images/{{currentWebApp}}/whatsapp.svg" alt="">
+        <div class="circleIconPanel"></div>
+    </a>
+</div>
+<div id="captchaholder"></div>
+<div class="modal-overlay" id="login-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <img ng-src="{{webImagePath}}x.png" ng-click="ctrl.closeAllMOdal(true,$event)" class="popup-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended">
+                        <h2>Login</h2>
+                        <p>Welcome!</p>
+                        <form ng-submit="ctrl.login()" name="loginform">
+                            <kt-messages data-messages="loginMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <label style=" justify-content: space-between;">
+                                <span>{{loginMethod==1 ? 'Mobile' : 'Username'}}</span>
+                                <span ng-show="isRegisterEnabled" class="check" style="margin-top: -10px; justify-content: space-between; flex-direction: row;">
+                                    <label for="chek-2" style="margin-right: 10px;">
+                                        <input type="radio" class="ch" value="1" name="loginmethod" ng-model="loginMethod">Mobile
+                                    </label>
+                                    <label for="chek-2">
+                                        <input type="radio" class="ch" value="2" name="loginmethod" ng-model="loginMethod">ID
+                                    </label>
+                                </span>
+                            </label>
+                            <input type="text" autofocus required ng-model="loginModel.username" ng-if="loginMethod==2" placeholder="Enter Username">
+                            <div class="two-input" ng-if="loginMethod==1">
+                                <div class="input_text ">
+                                    <ui-select ng-model="loginModel.selectedCountry" theme="bootstrap"
+                                               close-on-select="true">
+                                        <ui-select-match class="ui-select-match">
+                                            {{$select.selected.code}} ({{$select.selected.dialCode}})
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                           class="ui-select-choices"
+                                                           refresh="$parent.ctrl.searchCountry($select.search)">
+                                            <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                            (<span class="align-l" ng-bind-html="u.dialCode | highlight: $select.search"></span>)
+                                            &nbsp;
+                                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                                <input maxlength="16" minlength="5" placeholder="Mobile *" required
+                                       name="mobile" ng-model="$parent.loginModel.username" class="rg-mobile">
+                            </div>
+
+                            <label for="password">password</label>
+                            <div class="ye">
+                                <input type="{{lshowPass ? 'text' : 'password'}}" placeholder="Enter Password" ng-maxlength="16" ng-minlength="6"
+                                       required ng-model="loginModel.password">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':lshowPass,'fa-eye':!lshowPass}" aria-hidden="true"
+                                   ng-click="lshowPass=!lshowPass"></i>
+                            </div>
+
+                            <div class="ye" ng-if="captchaMode==2">
+                                <div class="ye-img">
+                                    <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                </div>
+                                <input name="captcha" maxlength="4" size="4" ng-model="loginModel.captcha" required placeholder="Code *">
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <div class="check">
+                                <div class="popup" ng-class="{'show':!loginModel.overAge && loginModel.showAgeMsg}">
+                                    <span class="p-close"><i class="fa fa-times" aria-hidden="true" ng-click="loginModel.showAgeMsg=false"></i></span>
+                                    <span class="popup-info" id="mypopup">
+                                        You cannot proceed until you verify that you are over 18 years old.
+                                    </span>
+                                </div>
+                                <label for="chek-18"><input type="checkbox" class="ch" id="chek-18" ng-model="loginModel.overAge">I am over 18 years old</label>
+                                <label for="chek-rem"><input type="checkbox" class="ch" id="chek-rem" ng-model="loginModel.remember">Remember me</label>
+                            </div>
+                            <button type="submit" ng-disabled="loginform.$invalid" value="login" class="login">
+                                Login
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si" ng-if="isRegisterEnabled">
+                            <span>Forget your password? </span> <a ng-click="ctrl.openModal('forget-modal')">Reset</a>
+                        </div>
+                        <div class="si" ng-if="isRegisterEnabled">
+                            <span>Don't have account? </span> <a ng-click="ctrl.openModal('verify-modal')">Register</a>
+                        </div>
+                        <button type="button" ng-if="supportDetail.demoUsername" class="login" ng-click="ctrl.startDemoLogin()">
+                            Demo Login
+                            <img class="grid-spinner p-abs" ng-show="showDemoLoading" ng-src="{{spinnerImg}}" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="demo-login-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended">
+                        <h2>Demo Login</h2>
+                        <p>Welcome!</p>
+                        <form ng-submit="ctrl.demoLogin()" name="demologinform">
+                            <kt-messages data-messages="loginMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <div></div>
+                            <div class="ye">
+                                <div class="ye-img">
+                                    <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                </div>
+                                <input name="captcha" maxlength="4" size="4" ng-model="demoLoginModel.captcha" required placeholder="Code *">
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <button type="submit" ng-disabled="demologinform.$invalid" value="login" class="login">
+                                Demo Login
+                                <img class="grid-spinner p-abs" ng-show="showDemoLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si" ng-if="isRegisterEnabled">
+                            <span>Forget your password? </span> <a ng-click="ctrl.openModal('forget-modal')">Reset</a>
+                        </div>
+                        <div class="si" ng-if="isRegisterEnabled">
+                            <span>Already have an account? </span> <a ng-click="ctrl.openModal('login-modal')">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="changepassword-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <img ng-src="{{webImagePath}}x.png" ng-click="ctrl.closeAllMOdal(true,$event)" class="popup-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended">
+                        <h2>CHANGE YOUR ACCOUNT PASSWORD</h2>
+                        <form name="changepwform" ng-submit="ctrl.changePassword()">
+                            <kt-messages data-messages="changePasswordMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <label for="user">Current Password</label>
+                            <div class="ye">
+                                <input type="{{cshowOPass ? 'text' : 'password'}}"
+                                       placeholder="Old Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.oldpassword">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':cshowOPass,'fa-eye':!cshowOPass}" aria-hidden="true"
+                                   ng-click="cshowOPass=!cshowOPass"></i>
+                            </div>
+                            <label for="password">New Password</label>
+                            <div class="ye">
+                                <input type="{{cshowNPass ? 'text' : 'password'}}" placeholder="New Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.newpassword">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':cshowNPass,'fa-eye':!cshowNPass}" aria-hidden="true"
+                                   ng-click="cshowNPass=!cshowNPass"></i>
+                            </div>
+                            <label for="password">Confirm Password</label>
+                            <div class="ye">
+                                <input type="{{cshowCPass ? 'text' : 'password'}}" placeholder="Confirm Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.confirmpassword">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':cshowCPass,'fa-eye':!cshowCPass}" aria-hidden="true"
+                                   ng-click="cshowCPass=!cshowCPass"></i>
+                            </div>
+                            <button type="submit" ng-disabled="changepwform.$invalid" value="login" class="login">
+                                Submit
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si" ng-if="isRegisterEnabled">
+                            <span>Don't have account? </span> <a ng-click="ctrl.openModal('register-modal')">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="register-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <img ng-src="{{webImagePath}}x.png" ng-click="ctrl.closeAllMOdal(true,$event)" class="popup-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended">
+                        <h2>COMPLETE REGISTRATION</h2>
+                        <form name="registerform" ng-submit="ctrl.register()">
+                            <kt-messages data-messages="registerMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+
+                            <input type="text" maxlength="15" placeholder="Mobile *" name="mobile" autocomplete="off" disabled
+                                   required value="{{registerModel.mobile}}">
+
+                            <input maxlength="100" placeholder="Reference code (optional)" ng-model="registerModel.referralCode">
+                            <input maxlength="100" placeholder="Username *" required ng-model="registerModel.username">
+                            <div class="ye">
+                                <input type="{{showPass ? 'text' : 'password'}}" placeholder="Password *" ng-maxlength="16" ng-minlength="6"
+                                       required ng-model="registerModel.password">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':showPass,'fa-eye':!showPass}" aria-hidden="true" ng-click="showPass=!showPass"></i>
+                            </div>
+                            <div class="ye">
+                                <input type="{{showCPass ? 'text' : 'password'}}" placeholder="Confirm Password *" ng-maxlength="16" ng-minlength="6"
+                                       required ng-model="registerModel.confirmpassword">
+                                <i class="fa" ng-class="{'fa-eye-slash':showCPass,'fa-eye':!showCPass}" aria-hidden="true" ng-click="showCPass=!showCPass"></i>
+                            </div>
+                            <div class="ye" ng-if="captchaMode==2">
+                                <div class="ye-img">
+                                    <img ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                </div>
+                                <input name="captcha" maxlength="4" size="4" required ng-model="registerModel.captcha" placeholder="Code *">
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <div class="small-text">
+                                <span class="bold"><i>By continuing you will receive a one-time verification code to your phone number by SMS. Message and data rates may apply.</i></span>
+                            </div>
+                            <button type="submit" ng-disabled="registerform.$invalid" value="NEXT" class="login next">
+                                NEXT
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si">
+                            <span>Already have an account? </span> <a ng-click="ctrl.openModal('login-modal')">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="verify-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <img ng-src="{{webImagePath}}x.png" ng-click="ctrl.closeAllMOdal(true,$event)" class="popup-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended" ng-init="otpEverClicked=false;">
+                        <h2>VERIFY YOUR MOBILE</h2>
+                        <form name="verifyform" ng-submit="ctrl.confirmOpt()">
+                            <kt-messages data-messages="verifyMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <div class="two-input">
+                                <div class="input_text ">
+                                    <ui-select ng-model="verifyModel.selectedCountry" theme="bootstrap"
+                                               on-select="ctrl.countryChanged(verifyModel)"
+                                               close-on-select="true">
+                                        <ui-select-match class="ui-select-match">
+                                            {{$select.selected.code}} ({{$select.selected.dialCode}})
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                           class="ui-select-choices"
+                                                           refresh="$parent.ctrl.searchCountry($select.search)">
+                                            <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                            (<span class="align-l" ng-bind-html="u.dialCode | highlight: $select.search"></span>)
+                                            &nbsp;
+                                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                                <input maxlength="16" minlength="5" placeholder="Mobile *" required
+                                       name="mobile" ng-model="verifyModel.mobile" class="rg-mobile">
+                            </div>
+
+                            <div class="check" ng-show="verifyModel.selectedCountry.supportedChannel!=2">
+                                <label for="chek-1">
+                                    <input type="radio" class="ch" value="1" name="otpby" id="chek-1" ng-model="verifyModel.otpvia">Receive OTP via SMS
+                                </label>
+                               
+                            </div>
+                            <div class="check" ng-show="verifyModel.selectedCountry.supportedChannel!=1">
+                                <label for="chek-2">
+                                    <input type="radio" class="ch" value="2" name="otpby" ng-model="verifyModel.otpvia">Receive OTP via Whatsapp
+                                </label>
+                            </div>
+                            <div class="ye" ng-hide="resendTimer>0 || otpEverClicked || !verifyModel.mobile">
+                                <div class="ye-img" style="top:-23px;cursor:pointer" ng-click="otpEverClicked=true;ctrl.requestNewOtp()" >
+                                    <span class="login" style="font-size:11px !important">
+                                        Request OTP
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ye">
+                                <div class="ye-img">
+                                    <span style="margin: 5px;font-weight: bold;vertical-align:sub" ng-hide="resendTimer<=0">
+                                        {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                    </span>
+                                </div>
+                                <div class="ye-img" style="cursor:pointer" ng-click="ctrl.requestNewOtp()" ng-show="resendTimer<=0 && otpEverClicked">
+                                    <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                        Resend OTP
+                                    </span>
+                                </div>
+                                <input name="captcha" maxlength="6" size="6" ng-model="verifyModel.otp" required placeholder="OTP *">
+                            </div>
+
+                            <button type="submit" ng-disabled="verifyform.$invalid" value="verify" class="login">
+                                Verify
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si">
+                            <span>Already have an account? </span> <a ng-click="ctrl.openModal('login-modal')">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="forget-modal" ng-click="ctrl.closeAllMOdal(true,$event)">
+    <div class="table">
+        <div class="modal-box table-cell">
+            <div class="inner-modal no-close">
+                <img ng-src="{{webImagePath}}x.png" ng-click="ctrl.closeAllMOdal(true,$event)" class="popup-close">
+                <div class="cmodal-content no-close">
+                    <div class="willBeAppended" ng-init="otpEverClicked=false;">
+                        <h2>RESET PASSWORD</h2>
+                        <form name="forgetform" ng-submit="ctrl.forgotPassword()">
+                            <kt-messages data-messages="forgotMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <div class="small-text">
+                                <span>We will send OTP on below mobile number</span>
+                            </div>
+                            <div class="two-input">
+                                <div class="input_text ">
+                                    <ui-select ng-model="forgotModel.selectedCountry" theme="bootstrap"
+                                               on-select="ctrl.countryChanged(forgotModel)"
+                                               close-on-select="true">
+                                        <ui-select-match class="ui-select-match">
+                                            {{$select.selected.code}} ({{$select.selected.dialCode}})
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                           class="ui-select-choices"
+                                                           refresh="$parent.ctrl.searchCountry($select.search)">
+                                            <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                            (<span class="align-l" ng-bind-html="u.dialCode | highlight: $select.search"></span>)
+                                            &nbsp;
+                                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                                <input maxlength="16" minlength="5" placeholder="Mobile *" required
+                                       name="mobile" ng-model="forgotModel.mobile" class="rg-mobile">
+                            </div>
+
+                            <div class="check" ng-show="forgotModel.selectedCountry.supportedChannel!=2">
+                                <label for="chek-1">
+                                    <input type="radio" class="ch" value="1" name="otpby" id="chek-1" ng-model="forgotModel.otpvia">Receive OTP via SMS
+                                </label>
+                            </div>
+                            <div class="check" ng-show="forgotModel.selectedCountry.supportedChannel!=1">
+                                <label for="chek-2">
+                                    <input type="radio" class="ch" value="2" name="otpby" ng-model="forgotModel.otpvia">Receive OTP via Whatsapp
+                                </label>
+                            </div>
+                            <div class="ye" ng-hide="resendTimer>0 || otpEverClicked || !forgotModel.mobile">
+                                <div class="ye-img" style="top:-23px;cursor:pointer" ng-click="otpEverClicked=true;ctrl.requestOtpForForget()" >
+                                    <span class="login" style="font-size:11px !important">
+                                        Request OTP
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ye">
+                                <div class="ye-img">
+                                    <span style="margin: 5px;font-weight: bold;vertical-align:sub" ng-hide="resendTimer<=0">
+                                        {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                    </span>
+                                </div>
+                                <div class="ye-img" style="cursor:pointer" ng-click="ctrl.requestOtpForForget()" ng-show="resendTimer<=0 && otpEverClicked">
+                                    <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                        Resend OTP
+                                    </span>
+                                </div>
+                                <input name="captcha" maxlength="6" size="6" ng-model="forgotModel.otp" required placeholder="OTP *">
+                            </div>
+                            <label for="password">New Password</label>
+                            <div class="ye">
+                                <input type="{{cshowNPass ? 'text' : 'password'}}" placeholder="New Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.newpassword">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':cshowNPass,'fa-eye':!cshowNPass}" aria-hidden="true"
+                                   ng-click="cshowNPass=!cshowNPass"></i>
+                            </div>
+                            <label for="password">Confirm Password</label>
+                            <div class="ye">
+                                <input type="{{cshowCPass ? 'text' : 'password'}}" placeholder="Confirm Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.confirmpassword">
+                                <i class="fa " style="cursor:pointer" ng-class="{'fa-eye-slash':cshowCPass,'fa-eye':!cshowCPass}" aria-hidden="true"
+                                   ng-click="cshowCPass=!cshowCPass"></i>
+                            </div>
+                            <button type="submit" ng-disabled="forgetform.$invalid" value="verify" class="login">
+                                Reset Password
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </form>
+                        <div class="si">
+                            <span>Already have an account? </span> <a ng-click="ctrl.openModal('login-modal')">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

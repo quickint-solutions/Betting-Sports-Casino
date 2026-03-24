@@ -1,0 +1,433 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+
+
+.radar-view {
+    //background-color: #e1ebe7;
+    height: 100%;
+
+    .fa {
+        margin-left: 5px;
+    }
+
+    .no-size {
+        font-weight: normal;
+        color: transparent;
+    }
+
+    .oneclickwrap {
+        margin-top: 10px;
+
+        a {
+            width: 100%;
+        }
+
+        .selected-stake {
+            width: 128px;
+            margin-top: 16px;
+            margin-left: 11px;
+            float: left;
+            height: 31px;
+        }
+
+        .oneclick-input {
+            padding: 0px 5px;
+            margin-bottom: 2px;
+        }
+    }
+
+    .process-counter {
+        @include position(relative);
+        // clear: both;
+        // overflow: hidden;
+        height: 30px;
+
+        .counter-betprocess {
+            @include position(absolute);
+            // width: 50px !important;
+            height: 100% !important;
+            overflow: hidden;
+            z-index: 101;
+            right: 0;
+
+            .betprocess {
+                // background-color: rgba(255,255,255,0.84);
+                font-size: 12px;
+                @include txt(bold);
+                text-align: center;
+                height: $height;
+            }
+
+            .loader {
+                height: 30px;
+
+                .delay {
+                    font-size: 14px;
+                    @include position(absolute);
+                    top: 42%;
+                    -webkit-transform: translate(52%,-34%);
+                    transform: translate(-52%,-34%);
+                }
+            }
+
+            .bet-process {
+                -webkit-transform: translate(0%, 0%);
+                transform: translate(0%, 0%);
+                background-image: url(/public/images/gif/dual-ring.svg);
+                background-repeat: no-repeat;
+                background-size: 100% 100% !important;
+                vertical-align: middle;
+                text-align: center;
+                width: 30px;
+                height: 30px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+.rd-runner {
+    float: left;
+    text-align: center;
+    padding: 0px 5px;
+    border-right: 1px solid;
+    height: 100%;
+    background-color: #dde6dd;
+}
+
+.rd-runner-2 {
+    width: 50%;
+}
+
+.rd-runner-3 {
+    width: 33.3%;
+}
+
+.rd-table-div {
+    background-color: #fafafa;
+    height: 100%;
+}
+
+.rd-runnername {
+    height: 50px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.rd-table {
+    font-size: 12px;
+    border: 1px solid #DDDDDD;
+    padding: 0px 5px;
+    background-color: white;
+    table-layout: fixed;
+    margin: auto;
+
+    thead {
+        display: table;
+        width: 100%;
+        width: calc(100% - 18px);
+    }
+
+    tbody {
+        max-height: 300px;
+        overflow: auto;
+        overflow-x: hidden;
+        display: block;
+        width: 100%;
+
+        tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            height: 20px;
+        }
+    }
+
+    tr:hover td {
+        background-color: #fa8787 !important;
+        color: black;
+
+        &:active {
+            background-color: #efefef !important;
+        }
+    }
+
+    .summary-data {
+        background-color: $light-grey;
+        height: 20px;
+    }
+}
+
+.rd-th {
+    text-align: center;
+    border: 1px solid #efefef;
+}
+
+.rd-td {
+    text-align: center;
+    border-bottom: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+
+    a {
+        color: black;
+    }
+
+    &:hover {
+        .no-size {
+            color: black;
+        }
+    }
+
+    cursor: pointer;
+}
+
+.amt-td {
+    width: 70px;
+    color: black;
+}
+
+.odds-td {
+    width: 45px;
+    background-color: #2C97E6;
+    color: white;
+}
+
+.bm-special {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin-bottom: 5px;
+    background: whitesmoke;
+    position: relative;
+
+    .bm-tab {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        background: #efefef;
+        position: relative;
+
+        .tab-close {
+            position: absolute;
+            right: 10px;
+            top: 35%;
+            font-size: 15px;
+            cursor: pointer;
+
+            &:hover {
+                color: #dcdcdc;
+            }
+        }
+
+        .tab-head {
+            max-width: 250px;
+            width: 200px;
+            text-align: center;
+            padding: 10px 0px;
+            background: #efefef;
+            border-right: 1px solid #dfdfdf;
+            border-top: 2px solid #efefef;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            box-sizing: border-box;
+
+            &:first-child {
+                border-left: 1px solid #dfdfdf;
+            }
+
+            &.active, &:hover {
+                border-top: 2px solid #f6b800;
+                background: whitesmoke;
+            }
+        }
+    }
+
+    .bm-content {
+        width: 100%;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #dfdfdf;
+        border-top: none;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    .join-now-button {
+        font-weight: normal;
+        padding: 2px 12px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: linear-gradient(0deg, #fff, #cacfd3);
+        }
+    }
+
+    .stake-content {
+        padding: 15px 0px 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+       
+
+        .stake-btn {
+            width: 75px;
+        }
+
+        .stake-btn.select {
+            background: #f6d042;
+            color: black;
+            font-weight: bold;
+        }
+
+        .join-now-button {
+            line-height: 26px;
+            margin: 2px 5px;
+        }
+
+        .section-item {
+            input {
+                width: 75px;
+                margin-right: 5px;
+                border-radius: 3px;
+                border: 1px solid #cbc9c9;
+                text-align: center;
+                height: 20px;
+            }
+        }
+    }
+
+    .rd-table thead tr {
+        height: 22px;
+    }
+
+    .bottom-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .bottom-right {
+        padding: 15px 0px 5px;
+
+        .join-now-button {
+            background: linear-gradient(0deg, #ffe4e4, #ff5d5d)
+        }
+    }
+}
+
+.full-radar.radar-view {
+    .full-tab {
+        display: flex;
+        justify-content: flex-start;
+        background: #e9e9e9;
+        max-height: 50px;
+    }
+
+    .odd-tr {
+        height: 20px;
+        .amt-td{ font-weight: bold;}
+    }
+
+    .rd-runner {
+        width: 100%;
+    }
+
+    .rd-runnername {
+        font-size: 14px;
+        width: 30%;
+        background: #e2e2e2;
+        border-right: 1px solid #bfb7b7;
+        cursor: pointer;
+
+        &.active {
+            background: #dce4da;
+        }
+
+        &:hover {
+            background: #e2ebdf;
+        }
+    }
+
+    .rd-table {
+        position: relative;
+        height: 100%;
+
+        tbody {
+            max-height: 100%;
+            position: relative;
+            height: calc(100% - 53px);
+        }
+    }
+
+    .rd-table-div {
+        height: 73%;
+        position: relative;
+    }
+
+    .rd-runner {
+        box-sizing: border-box;
+    }
+
+    .oneclickwrap {
+        display: inline-flex;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 50%;
+        align-content: space-between;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .oneclick-stake-btn {
+        display: flex;
+    }
+
+    .oneclick-btns {
+        display: flex;
+
+        a {
+            margin-right: 5px;
+        }
+    }
+
+    .form-control {
+        width: 70px;
+        border: 1px solid #b8b8b8;
+        height: 25px;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .manual-odd {
+        display: flex;
+
+        label, .form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-control {
+            width: 100px;
+        }
+    }
+
+    .oneclick-betstake {
+        display: flex;
+    }
+}
+.rd-icon {
+    margin: 0px 5px;
+    cursor: pointer;
+    right: 24px !important;
+}

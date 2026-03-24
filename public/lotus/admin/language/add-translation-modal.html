@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <div class="col-sm-12" ng-if="modalOptions.newRecord">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+            <input id="key" type="text" minlength="1" maxlength="200"
+                   placeholder="{{::'translate.key.placeholder' | translate}}"
+                   required autofocus ng-model="$parent.$parent.$parent.langKey" class="form-control">
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" value="" id="chk-isui" ng-model="$parent.$parent.$parent.isUI">
+            <label for="chk-isui">{{::'translation.isui.label' | translate}}?</label>
+        </div>
+        <div ng-repeat="lang in data" class="input-group">
+            <span class="input-group-addon">{{lang.code | uppercase}}</span>
+            <textarea id="trans{{$index}}" 
+                      placeholder="{{::'translate.value.placeholder' | translate}} {{lang.name | lowercase}}"
+                      required ng-model="lang.value" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-12" ng-if="!modalOptions.newRecord">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+            <input id="key" type="text" minlength="1" maxlength="200" placeholder="{{::'translate.key.placeholder' | translate}}"
+                   required autofocus ng-model="data.key" class="form-control">
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-isActive" ng-model="data.isUI" class="check">
+            <label for="chk-isActive">{{::'translation.isui.label' | translate}}?</label>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-language"></i></span>
+            <textarea id="trans" 
+                      placeholder="{{::'translate.value.placeholder' | translate}} {{data.languageName | lowercase}}"
+                      required ng-model="data.value" class="form-control"></textarea>
+        </div>
+    </div>
+</div>
+

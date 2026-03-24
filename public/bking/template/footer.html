@@ -1,0 +1,69 @@
+﻿<footer class="footer">
+    <div class="payment-icon" ng-if="currentWebApp!='9xbetexchange'">
+        <span><img ng-src="{{webImagePath}}payment/AirtelMoney1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/AxisBank1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/FreeCharge1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/IciciBank1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/IDBI-Bank1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/JioMoney1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/KotakLife1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/Mastercard1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/OlaMoney1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/Paytm1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/Payzapp1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/Phonepe1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/UPI1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/Visa1.png" /></span>
+        <span><img ng-src="{{webImagePath}}payment/YesPay1.png" /></span>
+    </div>
+    <div class="payment-icon" ng-if="currentWebApp=='9xbetexchange'">
+        <span><img ng-src="{{imagePath}}images/icon2/crypto/meta-round.png" style="width:50px;" title="Metamask" /></span>
+        <span><img ng-src="{{imagePath}}images/icon2/crypto/matic-network.png" style="width:50px;" title="Polygon Network" /></span>
+        <span><img ng-src="{{imagePath}}images/icon2/crypto/usdt.png" style="width:50px;" title="Tether" /></span>
+    </div>
+   
+    <div class="footer-container">
+        <div class="footer-logos">
+            <!--<div class="foo-img"><a href=""><img ng-src="{{webImagePath}}gamecare.png" alt=""></a></div>
+            <div class="foo-img"><a href=""><img ng-src="{{webImagePath}}begambleaware.png" alt=""></a></div>
+            <div class="foo-img"><a href=""><img ng-src="{{webImagePath}}gamstop.png" alt=""></a></div>-->
+
+            <div class="foo-18"><img ng-src="{{webImagePath}}18.png" alt=""></div>
+            <div class="copyright copy">
+                Copyright 2020-2024 {{displayName}}. All rights reserved
+            </div>
+        </div>
+        <div class="footer-logos" ng-if="isWalletSignInEnabled">
+            {{tokenName}} Contract Address : {{tokenAddress}}&nbsp;
+            <i class="fa fa-copy" style="cursor:pointer;" ng-click="ctrl.copytext(tokenAddress)"></i>
+        </div>
+        <div class="footer-links">
+            <div class="followus" ng-if="supportDetail.facebook || supportDetail.twitter || supportDetail.instagram || supportDetail.telegram || supportDetail.linkedin">
+                <span class="copy">
+                    Follow Us
+                </span>
+                <a style="color: #4267B2" href="{{supportDetail.facebook}}" ng-if="supportDetail.facebook" target="_blank">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a style="color: #1DA1F2" href="{{supportDetail.twitter}}" ng-if="supportDetail.twitter" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a style="color: #8a3ab9" href="{{supportDetail.instagram}}" ng-if="supportDetail.instagram" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+                <a style="color: #0088cc" href="{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                    <i class="fa fa-telegram"></i>
+                </a>
+                <a style="color: #0077b5" href="{{supportDetail.linkedin}}" ng-if="supportDetail.linkedin" target="_blank">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a>
+            <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a>
+            <a ng-click="ctrl.openResponsibleGambling();">Responsible Gambling</a>
+            <a ng-click="ctrl.openTermsConditions();">Terms and Conditions</a>
+        </div>
+    </div>
+</footer>

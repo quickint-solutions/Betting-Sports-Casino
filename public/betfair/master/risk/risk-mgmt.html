@@ -1,0 +1,118 @@
+﻿<div class="row">
+    <div class="risk-management">
+        <div class="col-sm-7 col-xs-7 horserace-left">
+            <section class="tab">
+                <ul class="tabs-container">
+                    <li class="tab-container" ng-class="{'active':selectedTab==0}" ng-click="ctrl.selectedTabChanged(0)">
+                        <a class="tab-heading">
+                            <span class="tab-label">{{'t20.matchedplayer.label' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="tab-container" ng-class="{'active':selectedTab==1}" ng-click="ctrl.selectedTabChanged(1)">
+                        <a class="tab-heading">
+                            <span class="tab-label">{{'t20.exposureplayer.label' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="tab-container" ng-class="{'active':selectedTab==2}" ng-click="ctrl.selectedTabChanged(2)">
+                        <a class="tab-heading">
+                            <span class="tab-label">{{'t20.eventtypeexposure.label' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-desc permission" ng-show="selectedTab!=2">
+                    <table style="width:50%;float:left">
+                        <thead>
+                            <tr>
+                                <th>{{'user.name.label' | translate}}</th>
+                                <th>{{'exposure.label' | translate}}</th>
+                                <th>{{'sizematched.label' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="t in topMarkets | limitTo:10">
+                            <td>
+                                <span>{{$index+1}}.</span>
+                                <a>{{t.username}}</a>
+                            </td>
+                            <td class="negative">{{t.exposure | toRate}}</td>
+                            <td>{{t.sizeMatched | toRate}}</td>
+                        </tr>
+                    </table>
+                    <table style="width:50%;float:left">
+                        <thead>
+                            <tr>
+                                <th>{{'user.name.label' | translate}}</th>
+                                <th>{{'exposure.label' | translate}}</th>
+                                <th>{{'sizematched.label' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="t in topMarkets | limitTo:10:10">
+                            <td>
+                                <span>{{$index+1+10}}.</span>
+                                <a>{{t.username}}</a>
+                            </td>
+                            <td class="negative">{{t.exposure | toRate}}</td>
+                            <td>{{t.sizeMatched | toRate}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-desc permission" ng-show="selectedTab==2">
+                    <table style="width:50%;float:left">
+                        <thead>
+                            <tr>
+                                <th>{{'user.name.label' | translate}}</th>
+                                <th>{{'exposure.label' | translate}}</th>
+                                <th>{{'sizematched.label' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="t in topMarkets | limitTo:10">
+                            <td>
+                                <span>{{$index+1}}.</span>
+                                <a>{{t.name}}</a>
+                            </td>
+                            <td class="negative">{{t.pl | toRate}}</td>
+                            <td>{{t.sizeMatched | toRate}}</td>
+                        </tr>
+                    </table>
+                    <table style="width:50%;float:left">
+                        <thead>
+                            <tr>
+                                <th>{{'user.name.label' | translate}}</th>
+                                <th>{{'exposure.label' | translate}}</th>
+                                <th>{{'sizematched.label' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="t in topMarkets | limitTo:10:10">
+                            <td>
+                                <span>{{$index+1+10}}.</span>
+                                <a>{{t.name}}</a>
+                            </td>
+                            <td class="negative">{{t.pl | toRate}}</td>
+                            <td>{{t.sizeMatched | toRate}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-5 col-xs-5 horserace-right">
+            <h3 class="title">{{'horserace.label'|translate}}</h3>
+            <div class="tab-desc permission">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{'user.country.label' | translate}}</th>
+                            <th>{{'events.label' | translate}}</th>
+                            <th>{{'sizematched.label' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="t in horseMarkets ">
+                        <td>
+                            <a>{{t.market.event.competition.name}}</a>
+                        </td>
+                        <td>{{t.market.event.name}},{{t.market.name}}</td>
+                        <td>{{t.sizeMatched | toRate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

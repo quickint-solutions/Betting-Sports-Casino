@@ -1,0 +1,150 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+.filter-list {
+    margin: 15px 0;
+    @include position(relative);
+    background-color: $light-grey;
+    @include border('bottom', 1px, solid, $light-gray-blue );
+    @include padding(12px, 12px, 12px, 12px);
+
+    ul {
+        li {
+            font-size: $font-size-tab;
+
+            span {
+                color: $medium-gray-black;
+
+                .fa-circle {
+                    @include headline($light-gray-blue, 6px);
+                    vertical-align: middle;
+                    @include padding(0px, 3px, 0px, 3px);
+                }
+            }
+        }
+
+        .filter-head {
+            margin: 0 8px 3px 0;
+        }
+
+        .filter_team {
+            float: right;
+
+            a {
+                background-color: $light-white;
+                @include border-all(1px, solid, $light-medium-grey);
+                line-height: 23px;
+                @include border-radius(4px);
+                @include headline($dark-gray-black, 12px);
+                @include padding(4px, 30px, 4px, 30px);
+
+                &:hover {
+                    background-color: $white-color;
+                }
+            }
+
+            &:hover .filter-pop {
+                @include display(block);
+            }
+        }
+    }
+
+    .filter-pop {
+        width: 500px;
+        @include position(absolute, top 36px right 10px);
+        @include border-radius(4px);
+        background-color: $white-color;
+        @include padding(8px, 8px, 0px, 8px);
+        z-index: 3;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.5);
+        display: none;
+
+        ul {
+            li {
+                @include display(inline-block);
+                width: 50%;
+            }
+        }
+
+        .filter-btn {
+            @include border('top', 1px, solid, $border-color);
+            @include padding(10px, 0px, 10px, 0px);
+            margin: 5px 0 0 0;
+            @include txt(bold);
+
+            .dark-btn {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+.popup_height {
+    min-height: 190px;
+}
+
+.over-wrap {
+    font-size: $font-size-tab;
+    background-color: $white-color;
+
+    table {
+        td {
+            @include padding(10px, 0px, 10px, 10px);
+            vertical-align: middle;
+        }
+
+        .eventDetail {
+            img {
+                @include padding(0px, 3px, 0px, 3px);
+            }
+        }
+
+        .game-time {
+            width: 8%;
+        }
+
+        tr {
+            @include border('bottom', 1px, solid, $grayish);
+
+            &:hover {
+                background-color: $light-hover-color;
+            }
+        }
+    }
+}
+
+.tabbing-blue {
+    /*   min-width: 375px;
+    width: 39%;*/
+    display: inline-block;
+    margin: 0 0 10px;
+    @include border-all(1px, solid, $dark-blue);
+    @include border-radius(5px);
+    background-color: $white-color;
+
+    li {
+        //width: 33.32%;
+        @include border(right, 1px, solid, $dark-blue);
+
+        a {
+            padding: 0 20px;
+            line-height: 27px;
+            @include txt(bold);
+            @include headline($dark-blue, 13px);
+            @include display (inline-block);
+            width: $width;
+            text-align: $text-center;
+            text-transform: capitalize;
+            // &:active, &:hover{background-color:$tabbing-h3-back;color:$white-color;}
+        }
+
+        &:last-child {
+            border-right: 0px;
+        }
+    }
+
+    .active a {
+        background-color: $dark-blue;
+        color: $white-color;
+    }
+}

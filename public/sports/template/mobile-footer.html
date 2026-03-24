@@ -1,0 +1,47 @@
+﻿<div id="footer-main" ng-controller="footerCtrl as fc">
+    <div class="footer">
+        <div class="d-flex justify-content-center mb-4">
+            <div class="Scroll-top_icon">
+                <a href="javascript:void(0);" class="scrollToTop"><span>Back to Top</span></a>
+            </div>
+        </div> <div class="footer-menu">
+            <div class="footer-column">
+                <div class="footer-title">Info</div> <ul class="footer-menu-list">
+                    <li>
+                        <a ng-click="fc.showLink('privacypolicy')">Privacy Policy</a>
+                    </li>
+                    <li><a ng-click="fc.showLink('termscondition')">Terms and Conditions</a></li>
+                    <li><a ng-click="fc.showLink('responsiblegambling')">Gambling can be addictive</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">Get started</div>
+                <ul class="footer-menu-list">
+                    <li><a ng-click="fc.showLink('aboutus')">About Us</a></li>
+                    <li><a ng-click="fc.showLink('kyc')">KYC and Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title title-mobile">{{displayName}}</div>
+                <ul class="footer-menu-list">
+                    <li class="d-flex">
+                        <div class="footer-apk-download">
+                            <a ng-click="fc.downloadAPK();" class="footer-download-apk">
+                                <img ng-src="{{webImagePath}}icons/android.png" width="24px" alt="apk">
+                            </a>
+                            <span class="animate-btn">Download our mobile app</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="helpline-numbers">
+            <div class="helpline-heading"><h5>Helpline Number</h5></div>
+            <a href="{{supportDetail.whatsapp}}" target="_blank" class="support-number">
+                <i aria-hidden="true" class="fa fa-whatsapp mr-2 fa-2x"></i>
+            </a>
+        </div> <div class="d-flex justify-content-center mt-3 mb-3">
+            <img loading="lazy" ng-src="{{webImagePath}}icons/betfair.png" class="mb-3 betfair">
+        </div>
+    </div>
+</div>

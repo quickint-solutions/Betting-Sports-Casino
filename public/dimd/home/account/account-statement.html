@@ -1,0 +1,105 @@
+﻿<div class="account-statement">
+    <h1 class="title">{{headerLabel | translate}}</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+          
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.getstatement' | translate}}</a></li>
+            <li style="float:right;">
+                <a class="btn btn-secondary" ng-click="ctrl.statementModeChange(!isCurrentStatement);">
+                    View {{isCurrentStatement ? 'historical.accountstatement.label' : 'accountstatement.label' | translate}}
+                </a>
+            </li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn" ng-show="isCurrentStatement">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn" ng-show="isCurrentStatement">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn" ng-show="isCurrentStatement">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-2,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last2month.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getAccountStatement(params)"
+                 export-to-excel="ctrl.exportAccountStatement(params,1)"
+                 export-to-pdf="ctrl.exportAccountStatement(params,2)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="ktaccountstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td header-class="'size-md align-l'" class="size-md align-l" data-title="::'account.datetime.name.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td header-class="'align-l '" class="align-l"
+                            uib-tooltip="{{item.narration}}"
+                            data-title="::'account.narration.name.label' | translate">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                            <span ng-if="item.accountType==7" class="bold"> # {{item.roundId}}</span>
+                            <span ng-if="item.comment">({{item.comment}}) </span>
+                        </td>
+                        <td class="asize-lg" header-class="'size-lg'">
+                            <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                            <span title="{{item.remarks}}" ng-if="item.remarks && !item.provider">{{item.remarks}} </span>
+                            <span ng-if="item.provider">{{$parent.$parent.$parent.$parent.$parent.ctrl.getProvider(item.provider)}} </span>
+
+                        </td>
+                        <td class="size-sm boolean" header-class="'size-sm boolean'" data-title="::'pl.label' | translate">
+                            <span class="positive" ng-class="{'negative':item.balance<0}">{{item.balance | toRate}}</span>
+                        </td>
+                        <td class="size-smd boolean" header-class="'size-smd boolean'" data-title="::'common.creditlimit.label' | translate">
+                            <span class="positive" ng-show="item.accountType==13" ng-class="{'negative':item.creditTotal<0}">{{item.creditTotal | toRate}}</span>
+                            <span class="positive" ng-show="item.accountType!=13">-</span>
+                        </td>
+                        <td class="size-smd boolean" header-class="'size-smd boolean'" data-title="::'common.total.label' | translate">
+                            <span title="{{item.total | toRate }}"
+                                  ng-class="{'positive':item.total >= 0,'negative':item.total < 0}">
+                                {{item.total  | toRate}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-md"></td>
+                        <td ></td>
+                        <td class="size-lg"></td>
+                        <td class="size-sm boolean">{{ $data | total:'balance'  | toRate}}</td>
+                        <td class="size-smd boolean">{{ $data | total:'creditTotal'  | toRate}}</td>
+                        <td class="size-smd boolean"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

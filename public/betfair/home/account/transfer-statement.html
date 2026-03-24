@@ -1,0 +1,38 @@
+﻿<div class="my-wallet">
+    <h1 class="title">Transfer Statement</h1>
+    
+    <div class="table-bets">
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getTransferStatement(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="ktaccountstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td header-class="'size-md align-l'" class="size-md align-l" data-title="::'account.datetime.name.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td data-title="::'account.narration.name.label' | translate"
+                            header-class="'size-lg align-l'" class="size-lg align-l">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                        </td>
+                        <td class="align-l">
+                            <span ng-if="item.marketInfo" title="{{item.marketInfo.eventName +' - '+item.marketInfo.name}}">{{item.marketInfo.eventName +' - '+item.marketInfo.name}} </span>
+                            <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                        </td>
+
+                        <td header-class="'size-md boolean'" class="size-md boolean" ng-class="{'positive':item.balance >= 0,'negative':item.balance < 0}" data-title="::'account.total.name.label' | translate">
+                            <span title="{{item.balance | toRate }}">{{item.balance | toRate }} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>
+

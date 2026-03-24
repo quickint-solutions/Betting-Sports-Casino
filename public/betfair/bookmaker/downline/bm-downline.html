@@ -1,0 +1,106 @@
+﻿<div class="downline">
+    <header>
+        <h1 class="title bm_title">
+            {{'downline.label' | translate}}
+        </h1>
+    </header>
+    <div class="total-data">
+        <div class="row">
+            <div class="col-sm-2">
+                <span class="col-name">{{'common.totalbalance.label' | translate}}</span>
+                <kt-glc-code class="positive" ng-class="{'negative':balance.balance<0}" data-item="{{balance.balance}}"> </kt-glc-code>
+            </div>
+            <div class="col-sm-2">
+                <span class="col-name">{{'common.exposure.label' | translate}}</span>
+                <kt-glc-code class="negative" data-item="{{balance.exposure}}"></kt-glc-code>
+            </div>
+            <div class="col-sm-2">
+                <span class="col-name">{{'common.netbalance.label' | translate}}</span>
+                <kt-glc-code class="positive" ng-class="{'negative':balance.balance-balance.exposure<0}" data-item="{{balance.balance-balance.exposure}}"></kt-glc-code>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-default " ng-click="ctrl.refreshGrid()">
+                    <i class="fa fa-refresh"></i>
+                    Refresh
+                </button>
+                <button class="btn btn-secondary" ng-click="ctrl.addPlayer()"
+                        kt-has-claim claims="{Claims: ['master.member.add']}">
+                    <i class="fa fa-plus"></i>
+                    {{'common.member.add.header' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <kt-grid grid-id="kt-downline-grid"
+             load-items="ctrl.getItems(params,filters)"
+             export-to-excel="ctrl.exportDownline(params,1)"
+             export-to-pdf="ctrl.exportDownline(params,2)"
+             total="totalItems"
+             data-show-total="true"
+             has-new-rights="true"
+             cache-key="ktdownlinegrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.userId">
+                    <td data-title="::'common.account.label' | translate" data-sortable="'username'"
+                        data-header-class="'size-lg'" class="size-lg"
+                        ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypeShort(item.user.userType)">
+                        <span class="usertype-lable {{utype}}">{{utype}}</span>
+                        <span title="{{item.user.username}}">
+                            {{item.user.username}}
+                        </span>
+                    </td>
+                    <td data-title="::'common.pt.label' | translate"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <a class="credit-ref" title="{{item.user.pt}}" ng-click="$parent.$parent.$parent.ctrl.updatePT(item.userId,item.user.pt)">
+                            {{item.user.pt | number:0}} <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                    <td data-title="::'common.balance.label' | translate" data-sortable="'balance'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.balance | toRate}}">{{item.balance | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.exposure.label' | translate" data-sortable="'exposure'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.exposure | toRate}}">{{item.exposure | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.availablebalance.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span>{{(item.balance+item.exposure) | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.currentpl.label' | translate" data-sortable="'profitLoss'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.profitLoss | toRate}}">{{item.profitLoss | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.refpl.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span ng-class="{'negative':(item.balance - item.creditLimit)<0,'positive':(item.balance - item.creditLimit)>=0}">({{(item.balance - item.creditLimit) | toRate}})</span>
+                    </td>
+                    <td data-title="::'user.status.label' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <div class="status-btn">
+                            <span ng-class="{'active':item.user.status==2,'suspend':item.user.status!=2}">
+                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                {{$parent.$parent.$parent.ctrl.getUserStatus(item.user.status)}}
+                            </span>
+                        </div>
+                    </td>
+                    <td data-header-class="'boolean'" class="boolean"
+                        data-title="::'grid.button.action.header' | translate">
+                        <a class="btn btn-light" title="Change Status"
+                           kt-has-claim claims="{Claims: ['master.member.edit']}"
+                           ng-click="$parent.$parent.$parent.ctrl.changeUserStatus(item)">
+                            <i class="fa fa-gear"></i>
+                        </a>
+                        <a class="btn btn-light" title="Set Commission"
+                           ng-click="$parent.$parent.$parent.ctrl.setCommission(item.userId,item.user.username)">
+                            <i class="fa fa-percent"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

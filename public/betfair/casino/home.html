@@ -1,0 +1,33 @@
+﻿<div class="header">
+    <div class="header-top casino-header" style="font-size:12px;">
+        <div class="content-wrap">
+            <div class="row">
+                <div class="col-sm-2 casino-logo">
+                    <a ui-sref="casino" class="logo-img"></a>
+                </div>
+                <div class="col-sm-4 casino-marquee">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="col-sm-6 casino-bal">
+                    <div class="row">
+                        <div class="col-sm-12 header-balance">
+                            <span>{{currentDate | date:'MMM dd,yyyy'}}</span>
+                            <span class="time">{{currentDate | date:'hh:mm:ss a'}}</span>
+                            <div class="menu-dropdown">
+                                <a class="clock-zone">({{timezone }}<i class="fa fa-angle-down" aria-hidden="true"></i>)</a>
+                                <div class="dropdown-menulist">
+                                    <a class="align-l">System time - <small>{{utcTime}}</small></a>
+                                    <a class="align-l">India Standard time - (GMT +05:30)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="game-lobby" style="height:calc(100vh - 45px);width:100%">
+    <iframe style="height:100%;width:100%;border:none" ng-src="{{gameUrl}}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>

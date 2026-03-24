@@ -1,0 +1,180 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="filter-panel">
+        <ul class="input-list">
+            <li>
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </li>
+            <li>
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </li>
+            <li><a class="btn small-btn" ng-click="ctrl.refreshGrid();">{{'common.button.getpl' | translate}}</a></li>
+            <li>
+                <a class="btn btn-secondary" ng-click="ctrl.exportToExcel()" ng-disabled="!grossTotal">
+                    Download CSV
+                </a>
+            </li>
+        </ul>
+        <ul class="input-list history-btn">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="master-class ">
+        <div class="master-main">
+            <div class="master_wrap mbg">
+                <div class="pl_table master-rightbg">
+                    <p ng-show="!grossTotal" style="color:white;margin-bottom:15px!important;">There is no data for this date range. Please select another date range.</p>
+                    <p style="color:white;margin:15px 0px!important;font-style:italic;">
+                        <a class="link-a" ng-show="userTree.length>0" ui-sref="admin.report.downline({memberid:'',usertype:''})">
+                            {{loginUsername}}
+                        </a>
+                        <span ng-repeat="ut in userTree">
+                            <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                            <span ng-show="$index!=userTree.length-1">
+                                <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                                <a class="link-a" ui-sref="admin.report.downline({memberid:ut.id,usertype:ut.userType})">{{ut.name}}</a>
+                            </span>
+                        </span>
+                    </p>
+
+                    <kt-grid grid-id="kt-downlinereport-grid"
+                             load-items="ctrl.getPLbyDownline(params)"
+                             name-param="id"
+                             data-date-group="true"
+                             data-group-field="settleTime"
+                             show-total="true"
+                             data-items="gridItems"
+                             can-i-load="canILoad"
+                             cache-key="ktdownlinereportgrid">
+
+                        <table ng-table="tableParams" class="table table-hover clickable member_table " ng-show="$parent.$parent.grossTotal"
+                               id="kt-downlinereport-grid" template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                            <thead>
+                                <tr>
+                                    <th class="border-r"></th>
+                                    <th class="size-smxl boolean border-r text-uppercase" colspan="3">Member</th>
+                                    <th class="size-md boolean  text-uppercase">UPline</th>
+                                </tr>
+                                <tr>
+                                    <th class="border-r"></th>
+                                    <th class="size-smd align-r">Win</th>
+                                    <th class="size-smd align-r">Comm</th>
+                                    <th class="size-smd align-r border-r">P&L</th>
+                                    <th class="size-md align-r"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color:rgba(245, 245, 245, 0.05)">
+                                    <td class="border-r" style="padding-left:30px;">
+                                        <div class="align-r">Gross Total</div>
+                                    </td>
+
+
+                                    <td class="size-smd align-r positive" ng-class="{'negative':$parent.$parent.grossTotal.win<0}">
+                                        {{$parent.$parent.grossTotal.win | toRate}}
+                                    </td>
+                                    <td class="size-smd align-r positive" ng-class="{'negative':$parent.$parent.grossTotal.comm<0}">
+                                        {{$parent.$parent.grossTotal.comm | toRate}}
+                                    </td>
+                                    <td class="size-smd align-r border-r positive" ng-class="{'negative':($parent.$parent.grossTotal.win+$parent.$parent.grossTotal.comm)<0}">
+                                        {{$parent.$parent.grossTotal.netWin | toRate}}
+                                    </td>
+                                    <td class="size-md align-r  positive" ng-class="{'negative':$parent.$parent.grossTotal.netWin*-1<0}">
+                                        {{$parent.$parent.grossTotal.netWin*-1 | toRate}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                                <tr>
+                                    <td class="date" colspan="8">
+                                        <kt-date data-date-value="itemGrp.date"></kt-date>
+                                    </td>
+                                </tr>
+                                <tr class="no-tr-hover">
+                                    <td colspan="8" class="pad-0">
+                                        <table class="no-bg ">
+
+                                            <tbody ng-repeat="item in itemGrp.values track by $index">
+                                                <tr>
+                                                    <td style="padding-left:15px;">
+                                                        {{item.eventName}} - {{item.marketName}}&nbsp;{{item.roundId ? item.roundId : ''}}
+                                                    </td>
+                                                </tr>
+                                                <tr class="no-tr-hover no-bg" ng-repeat="upl in item.userPls">
+                                                    <td class="border-r" style="padding-left:30px;">
+                                                        <a class="link-a" ng-if="upl.user.userType<=4" ui-sref="admin.report.downline({memberid:upl.user.id,usertype:upl.user.userType})">
+                                                            {{upl.user.username}} ({{upl.user.userCode}})
+                                                        </a>
+                                                        <span ng-if="upl.user.userType>4">
+                                                            {{upl.user.username}} ({{upl.user.userCode}})
+                                                        </span>
+                                                        &nbsp;|&nbsp;
+                                                        <a class="link-a" target="_blank"
+                                                           ng-click="$parent.$parent.$parent.$parent.$parent.ctrl.openBetReport(item,upl.user);">
+                                                            View Bets
+                                                        </a>
+                                                    </td>
+
+
+                                                    <td class="size-smd align-r positive" ng-class="{'negative':upl.win<0}">
+                                                        {{upl.win | toRate}}
+                                                    </td>
+                                                    <td class="size-smd align-r positive" ng-class="{'negative':upl.comm<0}">
+                                                        {{upl.comm | toRate}}
+                                                    </td>
+                                                    <td class="size-smd align-r border-r positive" ng-class="{'negative':(upl.win + upl.comm)<0}">
+                                                        {{upl.netWin | toRate}}
+                                                    </td>
+                                                    <td class="size-md align-r positive " ng-class="{'negative':upl.netWin*-1<0}">
+                                                        {{upl.netWin*-1 | toRate}}
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color:rgba(245, 245, 245, 0.05)">
+                                                    <td class="border-r" style="padding-left:30px;">
+                                                        <div class="align-r">Total</div>
+                                                    </td>
+
+
+                                                    <td class="size-smd align-r positive" ng-class="{'negative':cWin<0}">
+                                                        {{cWin=(item.userPls | total :'win') | toRate}}
+                                                    </td>
+                                                    <td class="size-smd align-r positive" ng-class="{'negative':cComm<0}">
+                                                        {{cComm=(item.userPls | total :'comm') | toRate}}
+                                                    </td>
+                                                    <td class="size-smd align-r border-r positive" ng-class="{'negative':cPL<0}">
+                                                        {{cPL=(item.userPls | total :'netWin') | toRate}}
+                                                    </td>
+                                                    <td class="size-md align-r positive" ng-class="{'negative':mNetwin<0}">
+                                                        {{mNetwin=(item.userPls | total :'netWin')*-1 | toRate}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

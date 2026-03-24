@@ -1,0 +1,84 @@
+﻿<div class="sa-member">
+    <div class="master-class">
+        <div class="master-main">
+            <div class="admin-right">
+                <div class="master_wrap">
+                    <div class="member-div" style="padding:10px 20px;margin-bottom:10px;">
+                        <a class="link-a" ng-repeat="u in userTree track by $index" ng-init="usertype=ctrl.getUserTypeShort(u.userType)"
+                           ui-sref="admin.lotusmember.profile({memberid:u.id,usertype:u.userType})">
+                            <span class="usertype-lable {{usertype}}">{{usertype}}</span>
+                            {{u.name}}
+                            <span style="color:white;margin:0px 5px;" ng-hide="$last"><i class="fa fa-angle-right"></i></span>
+                        </a>
+                    </div>
+                    <div class="member-div">
+                        <ul class="nav nav-tabs member-nav">
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.profile">
+                                    {{'profile.label' | translate}}
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.activity">
+                                    Activity
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype!=5">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.dashboard">
+                                    Balance
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.betlist">
+                                    Bet List
+                                </a>
+                            </li>
+
+                            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.bettingpl">
+                                    Betting P&L
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.fdbettingpl">
+                                    FD Betting P&L
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype!=5">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.accountstatement">
+                                    Account Statement
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.clientstatement">
+                                    Account Statement
+                                </a>
+                            </li>
+                            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.bonusstatement">
+                                    Bonus Statement
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.transfer">
+                                    Transfer Statement
+                                </a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a class="sport-type-inner" ui-sref="admin.lotusmember.loginhistory">
+                                    Login History
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div>
+                            <div class="scrollwrap member-detail" ui-view="content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

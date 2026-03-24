@@ -1,0 +1,44 @@
+﻿<div class="alert-wrapper alert-class col-xs-12" ng-class="{'col-12':themeName=='dimd2'}" ng-show="ctrl.hasMessages()">
+    <div class="alert alert-success  fade in" ng-show="ctrl.hasSuccessMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:0)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="alert alert-success  fade in" ng-show="ctrl.hasConfirmMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:16)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="alert alert-info  fade in" ng-show="ctrl.hasInfoMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:1)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="alert alert-warning  fade in" ng-show="ctrl.hasWarningMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:2)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="alert alert-danger fade in" ng-show="ctrl.hasValidationMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:4)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+    <div class="alert alert-danger fade in" ng-show="ctrl.hasErrorMessages()">
+        <table>
+            <tr ng-repeat="message in filtered = (messages | responseMessage:8)">
+                <td>{{message.text}} <span ng-show="message.numberOfItems > 1">(# {{message.numberOfItems}})</span> </td>
+            </tr>
+        </table>
+    </div>
+</div>

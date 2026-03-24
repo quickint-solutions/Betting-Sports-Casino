@@ -1,0 +1,38 @@
+﻿<div class="horse-racing">
+    <img class="img" ng-src="{{bannerPath}}"  />
+    <ul class="tabbing-blue" ng-if="showTab">
+        <li ng-class="{'active':currentTab==0}"><a ng-click="ctrl.loadHighlightsBasedOnURL(0)">{{'today.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==1}"><a ng-click="ctrl.loadHighlightsBasedOnURL(1)">{{'tomorrow.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==2}"><a ng-click="ctrl.loadHighlightsBasedOnURL(2)">{{'aftertomorrow.label' | translate}}</a></li>
+    </ul>
+
+
+    <div class="race-detail" ng-repeat="race in highlights">
+        <div class="black-back" style="margin-bottom:-2px;" ng-init="isExpanded=true">
+            <a data-toggle="collapse" ng-class="{'collapsed':!isExpanded}"
+               ng-click="isExpanded=!isExpanded" aria-expanded="true">
+                {{race.name}}
+                <i class="fa faimg" aria-hidden="true" ng-class="{'fa-minus-square-o':isExpanded, 'fa-plus-square-o':!isExpanded}"></i>
+            </a>
+
+        </div>
+        <div class="collapse game-list" ng-class="{'in':isExpanded}">
+            <div class="race" ng-repeat="rd in race.events">
+                <a class="race-title">{{rd.name}}</a>
+                <ul>
+                    <li ng-repeat="m in rd.markets">
+                        <a ng-class="{'play-now':m.inPlay}"
+                           href=""
+                           ui-sref="base.home.sport.upcomingrace({nodetype:1,id:ctrl.$stateParams.eventTypeId,marketid:m.id,eventTypeId:ctrl.$stateParams.eventTypeId})">{{m.startTime | date:'HH:mm'}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-show="highlights.length<=0">
+        {{'common.noevents.display' | translate}}
+    </div>
+</div>
+<div ng-include="'sky/template/footer.html'" class="mobile-ftr">
+
+</div>

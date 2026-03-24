@@ -1,0 +1,90 @@
+﻿
+<div class="my-account">
+    <div class="content-wrap">
+        <div class="left-section">
+            <div class="sports-leftmenu">
+                <nav>
+                    <ul class="sport-type">
+                        <li>
+                            <a ng-click="ctrl.decideLogin()">
+                                <i class="icon-star-empty" style="color:#e4c41e; font-size:20px;position: relative;top: -1.5px;" aria-hidden="true"></i>
+                                <span class="top-menu">Favourites</span>
+                            </a>
+                        </li>
+                        <li class="sportmenu-li" ng-show="hasCasino">
+                            <a ng-click="ctrl.decideLogin()">
+                                <i class="i-sport left-icon icon-sport-teen-patti"></i>
+                                <span class="blink-color">Live Casino</span>
+                            </a>
+                        </li>
+                        <li class="sportmenu-li" ng-repeat="sport in sports">
+                            <a ng-click="ctrl.decideLogin()">
+                                <i class="i-sport left-icon icon-sport-{{sport.name|joinme}}"></i>
+                                <span ng-class="{'blink-color':sport.isLiveGame}">{{sport.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="center-section">
+            <div class="main-event">
+                <div class="promotion-info">
+                    <h1 class="event-heading">Promotions</h1>
+                    <div class="p-base">
+                        <div class="accordion" ng-init="selectedTab=0" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h4 class="collapsed"
+                                        data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        First Deposit Bonus
+                                        <i class="fa fa-plus float-r"></i>
+                                        <i class="fa fa-minus float-r"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <h3>300% First Deposit Bonus</h3>
+                                        <p>Get up to 300% bonus on your first deposit as a FairPlay Club member. From Deposit of RS 500-5000, Bonus will be 300% From Deposit of RS 5001- 10000, Bonus will be 200% From Deposit of RS 10001- 1000000, Bonus will be 100%.</p>
+                                        <p>
+                                            NOTE:- A 30x turnover of the bonus amount must be completed to activate the bonus.
+                                            A New User will not receive the First Deposit Bonus if the same Device (computer, laptop, mobile) is used to make multiple accounts at FairPlay Club
+                                        </p>
+                                        <p>NOTE:- Maximum Bonus you can receive for First Deposit Bonus is 50000</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="heading2">
+                                    <h4 class="collapsed"
+                                        data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                                        Second Deposit Bonus
+                                        <i class="fa fa-plus float-r"></i>
+                                        <i class="fa fa-minus float-r"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <h3>Second Deposit Bonus</h3>
+                                        <p>Second time lucky, only on FairPlay! Now get a 50% bonus on your second deposit as a FairPlay Club member. Note: Eg: If the user deposits Rs. 1000, he will receive a bonus worth Rs.500. The bonus will be split into (10 or 100) equal parts and can be activated as he completes the turnover. The required turnover for the second deposit bonus is 15x which will also be split accordingly. Eg: 500 (bonus) / 10 (parts) = 50 Turnover: 15x / 10 = 1.5x To redeem the part bonus, The user must place bets worth (1.5 x 100 =) 150</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-rules">
+                            <h3> Rules And Regulations</h3>
+                            <ul>
+                                <li>
+                                    In casino and card games, the turnover will be calculate based on P&L instead of Bet amount.
+                                </li>
+                                <li>Turnover in Sports will be considered only if P&L amount will be greater than 50% of Bet amount.</li>
+                                <li>Team {{displayName}} withholds the rights to terminate or alter the offered promotions, turnover logics and all things related without prior notice.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

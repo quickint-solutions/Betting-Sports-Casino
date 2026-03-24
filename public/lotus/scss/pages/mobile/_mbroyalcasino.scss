@@ -1,0 +1,1732 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.royalcasino {
+    .mb-royalcasino {
+        .win-top {
+            height: 75px;
+        }
+
+        .win-center img {
+            height: 55px;
+        }
+
+        .win-left, .win-right {
+            img {
+                width: 55px;
+                height: 65px;
+            }
+        }
+
+        .chip-collection, .chip-collection2 {
+            top: 50px;
+            left: 50px;
+            width: 40px;
+            height: 25px;
+            background-size: 40px 25px;
+        }
+
+        .instruments {
+            .iball {
+                margin: 0px 2px;
+            }
+
+            i {
+                font-size: 10px;
+            }
+        }
+
+        .lst-winner {
+            width: 115px;
+            height: 200px;
+
+            .combination {
+                font-size: 11px;
+            }
+
+            .combinationline {
+                font-size: 11px;
+            }
+        }
+        #viewContainer{overflow-x:auto;}
+        ::-webkit-scrollbar { 
+            display: none; 
+        }
+        .chip-class{left:8px;}
+        .chip-div{
+            left:10px;
+            bottom:30px;
+        }
+        .oddsNumbersChip{margin:0 4px;}
+        .gameName{height:22px !important;}
+        .balance {
+            height: 30px;
+            padding: 0px 10px;
+            margin-bottom: 5px;
+
+            p {
+                font-size: 11px;
+            }
+        }
+
+        .chip-text {
+            font-size: 10px;
+            line-height: 16px;
+            letter-spacing: 2px;
+            padding: 0 0 10px 0;
+        }
+
+        .bt-overlay {
+            .bt-box {
+                width: 80%;
+                height: 70%;
+                top: 10%;
+                left: 10%;
+            }
+        }
+
+        .odds1 {
+            width: 75px;
+            height: 22px;
+            margin-right: 1px;
+        }
+
+        .gamenameDiv {
+            min-width: 150px;
+            
+            &.no-bets {
+                width: 100px !important;
+               // min-width: 100px;
+              //  bottom: 1%;
+              
+            }
+
+            .runner-sl-drp {
+                padding: 6px 6px;
+                height: 26px;
+            }
+        }
+
+        .odds {
+            bottom: 0vh;
+        }
+
+        .table_numbers {
+            display: inline-block !important;
+            width: 100% !important;
+        }
+
+        .c-odds, .c-rate {
+            display: block;
+            text-align: center;
+            padding: 2.5px 5px;
+            width: 50px;
+            margin: auto;
+        }
+
+        .c-odds {
+            background-color: $theme-secondary-color;
+            color: $theme-color;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .c-rate {
+            width: 60px;
+            background-color: $theme-color;
+            color: $theme-secondary-color;
+        }
+
+        .circle1, .circle2 {
+            width: 35%;
+            height: 19.77%;
+        }
+
+        .circleNumber {
+            width: 55px;
+        }
+
+        .sides {
+            padding: 0px;
+        }
+
+        .sideA {
+            padding: 2% 2% 0 2%;
+        }
+
+        .combinationline {
+            margin: 1px 0 !important;
+        }
+
+        .combinationDiv {
+            @include padding(0px, 4px, 0px, 4px);
+        }
+
+        .open-menu {
+            top: 70px;
+            font-size: 13px;
+            @include position(absolute);
+            right: -21px;
+            width: 65px;
+            z-index: 1;
+            border: none;
+            color: #fff;
+            text-transform: capitalize;
+            background: rgba(11, 11, 11, 0.6);
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            @include padding(0px, 12px, 0px, 9px);
+            height: 25px;
+            transform: rotate(7deg);
+            -ms-transform: rotate(-90deg); /* IE 9 */
+            -moz-transform: rotate(-90deg); /* Firefox */
+            -webkit-transform: rotate(-90deg);
+            transition: all 1s ease-in-out;
+
+            &:focus, &:active {
+                border: none !important;
+                outline: none !important;
+            }
+        }
+
+        .menunav {
+            height: auto;
+            width: 0px;
+            position: absolute;
+            z-index: 1;
+            top: 50px;
+            right: 0px;
+            background-color: rgba(11, 11, 11, 0.6);
+            overflow-x: hidden;
+            z-index: 9999;
+            transition: 0.5s;
+            transition: width 1s ease-in-out;
+        }
+
+        .rp-clock {
+            width: 50px !important;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 1366px) and (orientation: landscape) {
+        .video {
+            .display {
+                width: 100% !important;
+            }
+        }
+
+        .mb-royalcasino {
+            .odds1 {
+                padding-left: 5px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1365px) and (max-width: 1366px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .time-span {
+                font-size: 13px;
+            }
+            .tslshow{width:294px;}
+            .gamenameDiv.no-bets{min-width:185px !important;}
+        }
+    }
+
+    @media only screen and (min-width: 568px) and (max-width: 1023px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .gameName {
+                height: 28px;
+            }
+
+            .rp-combination {
+                .rp-player {
+                    .rp-image {
+                        width: 16px;
+                        height: 24px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 200px;
+                @include padding(5px, 5px, 5px, 5px);
+            }
+
+            .chip-class{
+                height:55px;
+            }
+
+            #leftArrow:before , #rightArrow:before {font-size:30px;}
+
+             .oddsBallsChip {
+               @include padding(15px, 0px, 5px, 0px);
+            }
+
+            .oddsNumbersChip {
+                max-height: 31px;
+                background-size: 64px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .activeChip, .oddsNumbersChip:hover {
+                background-size: 64px;
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 1025px) and (max-device-width: 1364px) and (orientation: landscape) {
+        .mb-royalcasino {
+
+            .time-span {
+                font-size: 10px;
+            }
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 11px;
+                }
+
+                .gameName {
+                    height: 40px;
+                }
+            }
+
+           
+            .sideA {
+                width: 25%;
+            }
+
+
+
+            .table_circle {
+                width: 125px;
+            }
+
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 210px;
+            }
+
+            .chip-class{
+                width:170px;
+                height:60px;
+            }
+            #viewContainer{
+                width:123px;
+            }
+            .tslshow{width:230px;}
+
+            .oddsBallsChip {
+                display: inherit;
+               @include padding(15px, 0px, 5px, 0px);
+            }
+
+            .activeChip, .oddsNumbersChip:hover {
+                background-size: 65px;
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 30px;
+                background-size: 65px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+
+            .rp-combination {
+                .rp-player {
+                    .rp-image {
+                        width: 22px;
+                        height: 30px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 11px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 215px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 215px;
+                }
+            }
+        }
+
+        .rp-game-list {
+
+            .games {
+                .gameCard {
+                    width: 190px;
+                    height: 315px;
+
+                    .gameTitle {
+                        font-size: 23px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1023px) and (max-width: 1024px) {
+        .rp-game-list {
+            .games {
+                .gameCard {
+                    width: 190px;
+                    height: 315px;
+
+                    .gameTitle {
+                        font-size: 23px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1023px) and (max-width: 1024px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .time-span {
+                font-size: 11px;
+            }
+            #viewContainer{
+                width:125px; left:9%;
+            }
+            .gamenameDiv {
+                h1 {
+                    font-size: 12px;
+                }
+            }
+
+            
+            .gameName {
+                height: 28px;
+            }
+
+            .table_circle {
+                width: 125px;
+            }
+
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 210px;
+            }
+
+            .chip-class{
+                width:170px;
+                height:60px;
+            }
+            #viewContainer{
+                width:123px;
+            }
+            .tslshow{width:246px;}
+
+            .activeChip, .oddsNumbersChip:hover {
+                background-size: 65px;
+            }
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .rp-combination {
+                .rp-player {
+                    .rp-image {
+                        width: 22px;
+                        height: 30px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .oddsNumbersChip {
+                max-height: 33px;
+                max-width: 33px;
+                background-size: 65px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 11px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 210px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 210px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .games {
+                .gameCard {
+                    width: 190px;
+                    height: 315px;
+
+                    .gameTitle {
+                        font-size: 23px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 825px) and (max-device-width: 1022px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+            
+            .table_circle {
+                width: 103px;
+            }
+
+            .chipDiv {
+                min-height: 36px;
+                min-width: 214px;
+            }
+
+            .gamenameDiv.no-bets{min-width:147px !important;}
+            .chip-class{
+                width:165px;
+            }
+            #viewContainer{
+                width:117px;
+            }
+            .tslshow{width:243px;}
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 32px;
+                background-size: 64px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 195px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 195px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .games {
+                padding: 8% 3% 0 3% !important;
+
+                .gameCard {
+                    width: 160px;
+                    height: 280px;
+
+                    .gameTitle {
+                        font-size: 21px;
+                    }
+
+                    p {
+                        font-size: 11px;
+                    }
+
+                    .joinNowBtn {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 823px) and (max-device-width: 824px) and (orientation: landscape) {
+        .livegame {
+            .livegame-body {
+                .item_footer {
+                    font-size: 8px !important;
+                }
+            }
+        }
+
+        .mb-royalcasino {
+            .time-span {
+                font-size: 11px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .chip-class{
+                width:170px;
+                height:53px;
+            }
+            #viewContainer{
+                width:123px;
+            }
+            .tslshow{width:246px;}
+
+
+            
+            .table_circle {
+                width: 120px;
+            }
+
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 212px;
+                // @include padding(3px, 0px, 0px, 0px);
+            }
+
+            .oddsBallsChip {
+                display: inherit;
+                //@include padding(2px, 5px, 2px, 5px);
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 33px;
+                background-size: 64px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 195px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 195px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 7% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 814px) and (max-device-width: 822px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+
+            .table_circle {
+                width: 115px;
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 212px;
+            }
+
+            .gamenameDiv.no-bets{min-width:147px !important;}
+            .chip-class{
+                width:165px;
+            }
+            #viewContainer{
+                width:117px;
+            }
+            .tslshow{width:243px;}
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 32px;
+                background-size: 64px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 195px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 195px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 7% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 812px) and (max-device-width: 813px) and (orientation: landscape) {
+        .livegame {
+            .livegame-body {
+                .item_footer {
+                    font-size: 8px !important;
+                }
+            }
+        }
+
+        .mb-royalcasino {
+            .time-span {
+                font-size: 11px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .table_circle {
+                width: 100px;
+            }
+
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            
+            .chip-class{
+                width:166px;
+                height:53px;
+            }
+            #viewContainer{
+                width:120px;
+            }
+            .tslshow{width:246px;}
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 212px;
+                @include padding(3px, 0px, 0px, 0px);
+            }
+
+            .oddsBallsChip {
+                display: inherit;
+                //@include padding(2px, 5px, 2px, 5px);
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 32px;
+                background-size: 64px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 195px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 195px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 7% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 737px) and (max-device-width: 811px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .table_circle {
+                width: 100px;
+            }
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 212px;
+            }
+
+            .gamenameDiv.no-bets{min-width:147px !important;}
+            .chip-class{
+                width:165px;
+            }
+            #viewContainer{
+                width:117px;
+            }
+            .tslshow{width:243px;}
+
+
+            .oddsBallsChip {
+                display: inherit;
+                //@include padding(5px, 5px, 5px, 5px);
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 32px;
+                background-size: 64px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 192px;
+                }
+            }
+
+            .open-menu {
+                font-size: 12px;
+
+                &.opened {
+                    margin-right: 192px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 7% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 767px) and (max-width: 768px) {
+        .rp-game-list {
+            .games {
+                padding: 9% 3% 0 3% !important;
+
+                .col-sm-3 {
+                    width: 50%;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 731px) and (max-device-width: 736px) and (orientation: landscape) {
+        .livegame {
+            .livegame-body {
+                .item_footer {
+                    font-size: 8px !important;
+                }
+            }
+        }
+
+        .mb-royalcasino {
+            .time-span {
+                font-size: 11px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .instruments {
+                margin-bottom: 0px;
+            }
+
+
+            .table_circle {
+                width: 96px;
+            }
+
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .chip-class{
+                width:152px;
+                height:53px;
+            }
+            #viewContainer{
+                width:114px;
+            }
+            .tslshow{width:216px;}
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 212px;
+            }
+
+            .gamenameDiv.no-bets{min-width:135px !important;}
+
+            .oddsNumbersChip {
+                max-height: 29px;
+                max-width: 28px;
+                background-size: 62px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .activeChip, .oddsNumbersChip:hover {
+                //transform: translateY(-12px);
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 190px;
+                }
+            }
+
+            .open-menu {
+                font-size: 11px;
+
+                &.opened {
+                    margin-right: 190px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 8% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 668px) and (max-device-width: 730px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .gamenameDiv h1 {
+                font-size: 10px;
+            }
+
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .table_circle {
+                width: 100px;
+            }
+
+            .chipDiv {
+                min-height: 33px;
+                min-width: 200px;
+            }
+
+            .gamenameDiv.no-bets{min-width:150px !important;}
+            .chip-div{left:8px;}
+            .chip-class{
+                width:165px;
+            }
+            #viewContainer{
+                width:117px;
+            }
+            .tslshow{width:243px;}
+
+            .oddsBallsChip {
+                display: inherit;
+              //  @include padding(2px, 2px, 2px, 2px);
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .menunav {
+                &.opened {
+                    width: 185px;
+                }
+            }
+
+            .oddsNumbersChip {
+                max-height: 32px;
+                max-width: 32px;
+                background-size: 64px;
+            }
+
+            .open-menu {
+                font-size: 11px;
+
+                &.opened {
+                    margin-right: 185px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 8% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px !important;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+    }
+
+
+    @media only screen and (min-device-width: 640px) and (max-device-width: 667px) and (orientation: landscape) {
+        .livegame {
+            .livegame-body {
+                .item_footer {
+                    font-size: 8px !important;
+                }
+            }
+        }
+
+        .mb-royalcasino {
+            .time-span {
+                font-size: 10px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .chip-div{left:5px;}
+            .chip-class{
+                width:160px;
+            }
+            #viewContainer{
+                width:115px;
+            }
+            .tslshow{width:242px;}
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            
+            .instruments {
+                margin-bottom: 0px;
+            }
+
+            .table_circle {
+                width: 90px;
+            }
+
+
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .chipDiv {
+                min-height: 37px;
+                min-width: 207px;
+            }
+
+            .oddsBallsChip {
+                display: inherit;
+                //@include padding(2px, 5px, 0px, 5px);
+            }
+
+            .oddsNumbersChip {
+                max-height: 33px;
+                max-width: 32px;
+                background-size: 64px;
+
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 185px;
+                }
+            }
+
+            .open-menu {
+                font-size: 11px;
+
+                &.opened {
+                    margin-right: 185px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 9% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px !important;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 569px) and (max-device-width: 639px) and (orientation: landscape) {
+        .mb-royalcasino {
+            .time-span {
+                font-size: 10px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+
+            .instruments {
+                margin-bottom: 0px;
+            }
+
+            
+            .table_circle {
+                width: 70px;
+            }
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .chipDiv {
+                min-height: 33px;
+                min-width: 190px;
+            }
+            .gamenameDiv.no-bets{min-width:130px !important;}
+            .chip-div{left:5px;}
+            .chip-class{
+                width:145px;
+                left:5px;
+            }
+            #viewContainer{
+                width:106px;
+            }
+            .tslshow{width:253px;}
+
+
+            .oddsNumbersChip {
+                //max-height: 33px;
+              //  max-width: 32px;
+                margin:0 1px;
+                p {
+                    font-size: 7px;
+                }
+            }
+
+
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 185px;
+                }
+            }
+
+            .open-menu {
+                font-size: 11px;
+
+                &.opened {
+                    margin-right: 185px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 10% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px !important;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 11px;
+                    }
+                }
+
+                .gameCard {
+                    width: 210px;
+                    height: 335px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 567px) and (max-device-width: 568px) and (orientation: landscape) {
+        .livegame {
+            .livegame-body {
+                .item_footer {
+                    font-size: 8px !important;
+                }
+            }
+        }
+
+        .mb-royalcasino {
+            .time-span {
+                font-size: 10px;
+            }
+
+            .gameName {
+                min-width: initial;
+            }
+            .gamenameDiv.no-bets{min-width:130px !important;}
+            .gamenameDiv {
+                h1 {
+                    font-size: 10px;
+                }
+            }
+            .chip-div{left:5px;}
+            .chip-class{
+                width:145px;
+                height:53px;
+                left:5px;
+            }
+            #viewContainer{
+                width:106px;
+            }
+            .tslshow{width:220px;}
+
+            #leftArrow:before , #rightArrow:before {font-size:30px;}
+
+             .oddsBallsChip {
+               @include padding(15px, 0px, 5px, 0px);
+            }
+
+            .chip-second {
+                span {
+                    padding: 3px 20px;
+                }
+            }
+
+            .instruments {
+                margin-bottom: 0px;
+            }
+
+           
+            .table_circle {
+                width: 80px;
+            }
+
+
+            .rp-player {
+                margin-bottom: 5px !important;
+            }
+
+            .rp-name {
+                margin-bottom: 2px !important;
+            }
+
+            .chipDiv {
+                min-height: 33px;
+                min-width: 190px;
+            }
+
+            .oddsNumbersChip {
+                max-height: 28px;
+                max-width: 28px;
+                background-size: 55px;
+
+                p {
+                    font-size: 7px;
+                }
+            }
+
+            .activeChip, .oddsNumbersChip:hover {
+                background-size: 57px;
+            }
+
+            .combinationline {
+                @include padding(0px, 0px, 0px, 0px);
+                font-size: 10px;
+            }
+
+            .additationTable {
+                .rpl {
+                    margin-right: 5px;
+                }
+            }
+
+            .menunav {
+                &.opened {
+                    width: 180px;
+                }
+            }
+
+            .open-menu {
+                font-size: 11px;
+
+                &.opened {
+                    margin-right: 180px;
+                }
+            }
+        }
+
+        .rp-game-list {
+            .refreshImg {
+                height: 45px;
+            }
+
+            .games {
+                padding: 10% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 21px !important;
+                }
+
+                .col-sm-3 {
+                    width: 50%;
+                    float: left;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 11px;
+                    }
+                }
+
+                .gameCard {
+                    width: 210px;
+                    height: 335px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-device-width: 321px) and (max-device-width: 414px) {
+        .rp-game-list {
+            .menuDiv {
+                height: 83px;
+
+                .logo-img {
+                    height: 48px;
+                    width: 108px !important;
+                }
+
+                .balans {
+                    .b-bet {
+                        margin-bottom: 5px !important;
+                        font-size: 10px;
+                    }
+
+                    .b-exposure {
+                        font-size: 10px;
+                    }
+
+                    .refreshImg {
+                        height: 36px;
+                    }
+                }
+            }
+
+            .games {
+                padding: 12% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 20px !important;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 10px;
+                    }
+                }
+
+                .gameCard {
+                    margin-bottom: 40px;
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-device-width:320px) {
+        .rp-game-list {
+            .menuDiv {
+                height: 83px;
+
+                .refreshImg {
+                    height: 34px;
+                }
+
+                .logo-img {
+                    height: 50px;
+                    width: 108px !important;
+                }
+
+                .balans {
+                    .b-bet {
+                        margin-bottom: 5px !important;
+                        font-size: 10px;
+                    }
+
+                    .b-exposure {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            .games {
+                padding: 12% 3% 0 3% !important;
+
+                .gameTitle {
+                    font-size: 20px !important;
+                }
+
+                .joinNowBtn {
+                    font-size: 16px !important;
+                }
+
+                .game-name {
+                    p {
+                        font-size: 10px;
+                    }
+                }
+
+                .gameCard {
+                    margin-bottom: 40px;
+                }
+            }
+        }
+    }
+
+    .open-menu.opened {
+        margin-right: 220px;
+    }
+
+    .menunav.opened {
+        width: 220px;
+    }
+}

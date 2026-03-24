@@ -1,0 +1,1845 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.master-scrollwrap {
+    @include resize($float-left, $width);
+    z-index: 1;
+    position: relative;
+}
+
+.master-headermenu {
+    margin-bottom: 0px;
+}
+
+.master-class {
+    background: #111111;
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    //font-family: 'Poppins', sans-serif;
+
+    .header-marquee {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: calc(100% - 230px);
+        z-index: 2;
+
+        .marquee-text {
+            background: unset;
+            padding-bottom: 0px;
+            color: $header-account;
+        }
+    }
+
+    .header .header-top .account-wrap .accountCredit, header .header-top .account-wrap .accountCredit {
+        padding: 0 5px;
+        font-size: 11px;
+    }
+}
+
+.mini-view {
+
+    .scroll-wrap {
+        height: -webkit-calc(100% - 110px);
+        height: -moz-calc(100% - 110px);
+        height: calc(100% - 110px);
+        overflow: hidden;
+        overflow-y: auto;
+    }
+}
+
+.master-page-class {
+    float: left;
+    display: block;
+    width: calc(100% - 20px);
+    background: #202020;
+    margin: 10px;
+    padding: 10px;
+    min-height: 500px;
+}
+
+.master_wrap {
+    //background: #111111;
+    float: left;
+    width: 100%;
+
+    .link-a, .link-a:hover {
+        color: #95e52c;
+    }
+
+    ::-webkit-scrollbar {
+        width: 11px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $theme-color;
+        border-radius: 10px;
+        border: 4px solid #202020;
+    }
+
+    .balance-info {
+        .event-heading {
+            @include txt(normal);
+            @include border(bottom, 1px, solid, white);
+            color: white;
+            text-transform: capitalize;
+            font-size: 16px;
+            @include txt(bold);
+            margin: 0 0 20px 0;
+            padding-bottom: 10px !important;
+        }
+
+        .header-balance.referral {
+            font-weight: normal;
+        }
+
+        .header-balance {
+            margin-top: 2px;
+            font-size: 12px;
+            @include txt(bold);
+            @include padding(8px, 12px, 8px, 12px);
+            color: $master-info;
+            @include resize($float-left, $width);
+            background-color: $master-info-bg; //#efd189;
+            border-bottom: 1px solid #575454;
+
+            .col-sm-2 {
+                border: none;
+                width: 15%;
+                @include padding(0px, 0px, 0px, 0px);
+            }
+
+            .col-value {
+                margin-left: 10px;
+            }
+
+            .col-name, .col-value {
+                width: auto;
+                line-height: 27px;
+            }
+
+            .tracking-swich {
+                .switch {
+                    margin-left: 10px !important;
+                    border: none;
+                }
+
+                .switch-handle {
+                    width: 21px;
+                }
+            }
+
+            .col-value {
+                margin-left: 10px;
+            }
+
+            .col-name, .col-value {
+                width: auto;
+                line-height: 27px;
+            }
+
+            .tracking-swich {
+                .switch {
+                    margin-left: 10px !important;
+                    border: none;
+                }
+
+                .switch-handle {
+                    width: 21px;
+                }
+            }
+
+            .btn {
+                line-height: 1;
+            }
+        }
+
+        .list-view {
+            transition: transform 0.3s ease-in;
+            transform: scaleY(0);
+            transform-origin: top;
+
+            &.showme {
+                height: auto;
+                transform: scaleY(1);
+            }
+        }
+
+        .list-view-table {
+            @include padding(10px, 10px, 10px, 10px);
+            background-color: $master-bl-table;
+            margin-bottom: 10px;
+        }
+
+        .balninfo-table {
+            @include padding(15px, 15px, 15px, 15px);
+            background-color: $master-bl-bg;
+            @include resize($float-left, 50%);
+            min-height: 300px;
+
+            table {
+                background-color: transparent !important;
+
+
+                tr {
+                    &:hover {
+                        background-color: #dddddd;
+                    }
+
+                    td {
+                        padding: 5px 4px 5px 5px !important;
+                        text-transform: capitalize;
+
+                        p, span {
+                            line-height: 22px;
+                            @include display(inline-block);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .my-account {
+        .acc-left {
+            width: 235px;
+            float: $float-left;
+            @include padding(0, 10px, 0, 10px);
+        }
+
+        .acc-right {
+            min-width: 900px;
+            width: calc(100% - 235px);
+            float: $float-left;
+            @include padding(0, 10px, 0, 30px);
+        }
+    }
+
+    .tab-desc {
+        table {
+            td {
+                p {
+                    .name {
+                        line-height: 40px !important;
+                    }
+
+                    span {
+                        line-height: 39px !important;
+                    }
+                }
+
+                .runner_name {
+                    .patti-card {
+                        width: 22px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin_part {
+    min-height: 100%;
+    background: #111111;
+
+    &.master-page-class {
+        padding: 15px 0px;
+    }
+
+    .list-view .toggle-buttons .btn:not(.active) {
+        color: white;
+    }
+
+    .toggle-buttons .btn:not(.active):hover, .toggle-buttons .btn:not(.active):active, .toggle-buttons .btn:not(.active):focus {
+        background-color: $theme-color;
+        color: $black-color;
+        outline: none;
+    }
+
+
+
+    .list-view .list-view-table .summary-data {
+        background-color: transparent;
+    }
+
+    .my-account .center-part .title {
+        color: white;
+    }
+
+    .title {
+        color: white;
+    }
+
+    .list-view .list-view-table table.table-hover tbody tr:hover {
+        background-color: #111111;
+        color: $theme-color;
+    }
+
+    .list-view .list-view-table table.table-hover tbody tr {
+        border-bottom: 1px solid #3c3626;
+    }
+
+    .header {
+        margin-bottom: 0px;
+    }
+
+    .full-wrap {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .commentary-div {
+        .left_section {
+            width: 260px;
+            float: $float-left;
+        }
+
+        .center_section {
+            width: 77%;
+            float: $float-left;
+            margin-left: 25px;
+        }
+    }
+
+    .main-bookmaker {
+        overflow: inherit;
+    }
+
+    .position-special {
+        .left_section {
+            width: 330px;
+            float: $float-left;
+        }
+
+        .center_section {
+            width: 77%;
+            float: $float-left;
+            margin-left: 10px;
+        }
+    }
+}
+
+.master-class .agent-member .member-inner .member-title {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 6px;
+}
+
+.master-class .agent-member .member-inner label {
+    float: left;
+    width: 100%;
+}
+
+.master-class .agent-member .member-inner .input-row {
+    padding: 10px 0;
+}
+
+.master-class .agent-member .member-inner {
+    color: #fff;
+    float: left;
+    margin: 0 24px 20px 0;
+    padding: 15px 20px;
+    background-color: rgba(255,255,255,.07);
+}
+
+.master-class .agent-member .member-inner .user-input input {
+    display: inline-block;
+    width: 34px !important;
+    height: 32px !important;
+    text-align: center;
+}
+
+.master-class .agent-member .member-inner input {
+    padding: 4px 5px;
+    color: #000;
+    border: 2px solid #ddd;
+    width: 100%;
+}
+
+.master-class .agent-member .td-limit input {
+    width: 78%;
+}
+
+.master-class .agent-member .member-inner .c-value {
+    display: block;
+    line-height: 16px;
+}
+
+.master-class .agent-member .position-info .plus {
+    padding-left: 13px;
+}
+
+.plus {
+    font-weight: 700;
+    color: #fff;
+    padding-left: 12px;
+    font-size: 17px;
+}
+
+.member-inner.notes-inner {
+    width: 78%;
+
+    textarea {
+        min-height: 65px;
+        width: 100%;
+    }
+}
+
+.master-class .agent-member .add-btn {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+
+    button {
+        padding: 4px 12px;
+        text-transform: capitalize;
+        margin-left: 10px;
+    }
+
+    .cancle-popup {
+        color: #18c432;
+        background-color: transparent;
+        border: 1px dotted transparent;
+    }
+
+    .create-popup {
+        background-color: #a222ad;
+        color: #FFF;
+        border-bottom: 2px solid #66166d;
+        border-right: 2px solid #66166d;
+        border-top: none;
+        border-left: none;
+    }
+}
+
+.eventmgmt {
+    float: left;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+
+    .fa {
+        font-size: 14px;
+        margin-right: 15px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+
+
+    .erow_0 {
+        background: $event-0-bg;
+        font-size: 20px;
+        margin-top: 4px;
+        position: sticky;
+        top: 0;
+
+        &:hover {
+            background: $event-0-bg-hover;
+        }
+    }
+
+    .erow_1 {
+        background: $event-1-bg;
+        font-size: 18px;
+        padding-left: 40px;
+        margin-top: 2px;
+
+        &:hover {
+            background: $event-1-bg-hover;
+        }
+    }
+
+    .erow_2 {
+        background: $event-2-bg;
+        font-size: 16px;
+        padding-left: 100px;
+        margin-top: 1px;
+
+        &:hover {
+            background: $event-2-bg-hover;
+        }
+    }
+
+    .edate {
+        font-size: 14px;
+    }
+
+    .erow {
+        //margin-top: 0px;
+        z-index: 2;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        //margin: 4px 0px;
+        height: 42px;
+        line-height: 32px;
+        color: white;
+        transition: background 0.5s ease-in-out;
+    }
+
+    .switch {
+        border: none;
+    }
+}
+
+.master-headermenu {
+    z-index: 10 !important;
+
+    .header-top {
+        height: 95px;
+    }
+}
+
+.admin-header {
+    .header-menu {
+        .video-button {
+            a {
+                @include padding(0px, 0px, 0px, 0px);
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .master-video {
+            border-right: none !important;
+            float: none;
+
+            a {
+                @include padding(0px, 0px, 0px, 0px);
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    .header-top {
+        .logo-img {
+            width: 70%;
+        }
+    }
+}
+
+.master_header {
+    .header-top {
+        .logo-img {
+            width: $width;
+        }
+    }
+
+    .logout {
+        margin: 15px;
+
+        a {
+            color: $header-account;
+        }
+    }
+}
+
+.master-class {
+    .grid-spinner {
+        height: 35px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        position: absolute;
+        top: 18px;
+        right: 15px;
+    }
+
+    .green {
+        color: #76ce16 !important;
+    }
+
+    .dark-red {
+        color: $red-dark-color !important;
+    }
+
+
+
+    ul, ol {
+        margin-bottom: 0 !important;
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    ul li ul li {
+        display: block;
+        float: none !important;
+        padding: 0 !important;
+    }
+
+    .header {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 0px;
+    }
+
+    .event-heading {
+        letter-spacing: unset;
+        font-family: unset;
+        padding: unset;
+        font-weight: unset;
+        text-transform: unset;
+    }
+
+
+    .back-3 {
+        background: $back-3-color;
+    }
+
+    .back-2 {
+        background: $back-2-color;
+    }
+
+    .back-1 {
+        background: $back-1-color;
+    }
+
+    .back-1:active, .back-1:focus {
+        background: $back-1-hover;
+    }
+
+    .lay-1 {
+        background: $lay-1-color;
+    }
+
+    .lay-1:active, .lay-1:focus {
+        background: $lay-1-hover;
+    }
+
+    .lay-2 {
+        background: $lay-2-color;
+    }
+
+    .lay-3 {
+        background: $lay-3-color;
+    }
+
+    .odd-disabled {
+        background: $dark-grayish;
+    }
+
+    .my-profile {
+        @include padding(10px, 0, 0, 0);
+        //font-family: $font-stack;
+
+        .profile-wrap {
+            background-color: $white-color;
+            @include border(bottom, 1px, solid, $light-gray-blue);
+            margin-bottom: 20px;
+
+            .heading {
+                background-color: $light-gray-blue;
+                line-height: 25px;
+                color: #fff;
+                padding: 0 10px;
+                font-family: unset;
+                font-weight: bold;
+                text-transform: unset;
+                margin: 0px;
+            }
+
+            dl {
+                margin: 0px;
+                @include headline($medium-gray-black, 14px);
+
+                dt {
+                    @include padding(5px, 0px, 0px, 10px);
+                    @include resize (left, 125px);
+                    @include txt(normal);
+                    font-size: 14px;
+                    margin: 0px;
+                }
+
+                dd {
+                    @include position(relative);
+                    height: 29px;
+                    @include padding(5px, 0px, 5px, 10px);
+                    @include border(bottom, 1px, solid, $light-grey);
+                }
+
+                .dd-lang {
+                    height: 36px;
+                }
+
+                .favor-set {
+                    @include position(absolute, right 0);
+                }
+            }
+
+            select {
+                width: 25%;
+                height: 25px;
+            }
+
+            table {
+                color: #243b4b;
+                box-shadow: unset;
+                margin-bottom: 0px;
+
+                tr {
+                    height: 29px;
+                    @include padding(5px, 0px, 5px, 10px);
+                    @include border(bottom, 1px, solid, $light-grey);
+
+                    th, td {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+
+    .usertype-lable {
+        @include headline($white-color, 10px);
+        @include border-radius(4px);
+        @include padding(1px, 7px, 1px, 7px);
+        text-transform: uppercase;
+        @include txt(bold);
+        margin-right: 5px;
+
+        &.SA {
+            background-color: $icon-color;
+        }
+
+        &.AG, &.OP {
+            background-color: $lay-1-color;
+        }
+
+        &.SM, &.CUS {
+            background-color: $purple;
+        }
+
+        &.AD {
+            background-color: $back-1-color;
+        }
+
+        &.MA, &.RD {
+            background-color: $green-color;
+        }
+
+        &.PL {
+            background-color: $lay-1-color;
+        }
+
+        &.PLS {
+            background-color: $lay-1-color;
+        }
+
+        &.BM {
+            background-color: $icon-color;
+        }
+
+        &.SBM {
+            background-color: $theme-dark-color;
+        }
+
+        &.MGR {
+            background-color: $theme-color;
+        }
+
+        &.CP {
+            background-color: $back-1-color;
+        }
+    }
+
+    .member-div {
+        //background-color: $master-table-bg;
+        float: left;
+        width: 100%;
+        padding: 10px 0px;
+    }
+
+    .member-nav {
+        border-bottom: none !important;
+
+        &.nav-tabs a {
+            color: #fff;
+        }
+
+        &.nav-tabs li {
+            margin-bottom: 0px;
+        }
+
+        li.active > a, li:hover > a {
+            background-color: $master-table-bg !important;
+            color: #fff !important;
+            border: 1px solid transparent !important;
+        }
+    }
+
+    .member-detail {
+        margin-top: 0px !important;
+        padding: 10px 20px 20px 20px;
+        float: left;
+        width: 100%;
+        background-color: $master-table-bg;
+
+        .main-bg {
+            background-color: transparent !important;
+            padding: 0px;
+        }
+
+        .list-view {
+            //background-color: transparent !important;
+            padding-left: 0;
+            padding-right: 0;
+
+            .list-view-table {
+                table {
+                    // background-color: transparent !important;
+                    tbody tr td {
+                        line-height: 23px;
+                    }
+                }
+            }
+        }
+
+        .pl-table {
+            .list-view {
+                .currency {
+                    table {
+                        tbody tr:nth-child(odd) {
+                            background-color: transparent !important;
+                        }
+
+                        .childtr:nth-child(odd) {
+                            background-color: rgba(245, 245, 245, 0.1) !important;
+                        }
+                        /*.childtr:nth-of-type(4n) {
+                        background-color: rgba(245, 245, 245, 0.3) !important;
+                    }*/
+                    }
+                }
+            }
+        }
+
+        .left-panel {
+            float: left;
+            width: 10%;
+
+            .apl-table {
+                margin-top: 37px;
+                background-color: transparent !important;
+
+                td {
+                    text-align: center !important;
+                    line-height: 26px;
+                    color: #fff;
+                    font-size: 15px;
+                    text-transform: capitalize;
+                    padding: 5px 10px;
+                }
+            }
+        }
+
+        .right-panel {
+            float: left;
+            width: calc(90% - 10px);
+            margin-left: 10px;
+
+            table {
+                thead {
+                    tr th {
+                        color: #fff;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        color: #fff;
+
+                        td {
+                            line-height: 26px;
+                            padding: 5px 10px;
+                        }
+
+                        &:nth-child(odd) {
+                            background-color: rgba(245, 245, 245, 0.1);
+                        }
+
+                        &:hover {
+                            background: $grid-hover;
+                        }
+                    }
+                }
+            }
+        }
+
+        .date {
+            background-color: $grid-date !important;
+            line-height: 30px !important;
+        }
+
+        table {
+            background-color: transparent !important;
+
+            thead {
+                tr {
+                    background-color: transparent !important;
+
+                    th {
+                        line-height: 30px;
+                        padding: 5px 10px;
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    //line-height:35px;  padding:5px 10px;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .btn_value {
+            padding: 0px 10px;
+        }
+
+        .filter-panel {
+            float: left;
+            width: 100%;
+            border-bottom: 1px solid #fff;
+            padding: 0 0 10px 0;
+            color: #fff;
+
+            .input-group .uib-datepicker-popup {
+                div.uib-daypicker table tr {
+                    color: #000 !important;
+
+                    td {
+                        color: #000 !important;
+                    }
+                }
+            }
+        }
+
+
+
+        .bet_list {
+            p {
+                padding: 10px 0 0 0;
+                float: left;
+                width: 100%;
+            }
+
+            .bet-manager {
+                float: left;
+                width: 100%;
+                margin-top: 10px;
+
+                .tab {
+                    li a {
+                        background-color: rgba(255, 255, 255, 0.1);
+                    }
+                }
+            }
+
+            .input-date {
+                .input-group {
+                    float: left;
+                    display: inline-flex;
+
+                    label {
+                        margin: 0 10px 0 0;
+                        color: #fff;
+                        float: left;
+                        line-height: 34px;
+                    }
+
+                    .form-control {
+                        float: left;
+                        padding: 6px;
+                        height: 30px;
+                        width: 19% !important;
+                        margin: 2px 14px 0 0;
+                    }
+                    //.btn{padding:0px 12px;}
+                }
+            }
+
+            .total-pnl {
+
+                span {
+                    float: left;
+                    padding: 5px 0px;
+                }
+            }
+
+            .table-listing {
+                color: #fff;
+            }
+        }
+
+        .list-table {
+            .bet-list-table table {
+                tbody {
+                    tr td {
+                        //line-height: 55px;
+                        padding: 8px;
+                    }
+
+                    tr .bet_td {
+                        line-height: 20px;
+                    }
+                }
+            }
+        }
+
+        .transfer-table {
+            table {
+                tbody {
+                    .td-date {
+                        padding: 0 0 0 25px;
+                    }
+
+                    .amount {
+                        padding: 0 5px 0 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin-part {
+    .chart-detail {
+        float: left;
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .growth {
+        float: left;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 15px 15px;
+
+        .a-title {
+            text-transform: capitalize;
+            color: #494b41;
+            font-size: 15px;
+        }
+
+        .p-value {
+            margin-right: 5px;
+            vertical-align: sub;
+        }
+
+        .c-value {
+            font-size: 15px;
+            margin: 10px 0px 5px 0px;
+            font-weight: bold;
+            color: #595959;
+
+            .c-sub {
+                color: #a7a7a7;
+                font-size: 13px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+        }
+
+        .month-value {
+            color: #a7a7a7;
+
+            .positive {
+                color: $theme-success !important;
+            }
+
+            .negative {
+                color: $red-color !important;
+            }
+        }
+
+        .v-btn {
+            background-color: #DCDEFC;
+            border-radius: 4px;
+            padding: 5px 10px;
+
+            i {
+                color: #6671fb;
+            }
+        }
+    }
+
+    .chart-value {
+        background-color: #fff;
+        float: left;
+        width: 100%;
+    }
+}
+
+.admin-part {
+    .chart-detail {
+        float: left;
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .growth {
+        float: left;
+        width: 100%;
+        background-color: #010101;
+        border-radius: 4px;
+        padding: 15px 15px;
+
+        .a-title {
+            text-transform: capitalize;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .p-value {
+            margin-right: 5px;
+            vertical-align: sub;
+        }
+
+        .c-value {
+            font-size: 15px;
+            margin: 10px 0px 5px 0px;
+            font-weight: bold;
+            color: #e3e3e3;
+
+            .c-sub {
+                color: #a7a7a7;
+                font-size: 13px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+        }
+
+        .month-value {
+            color: #a7a7a7;
+
+            .positive {
+                color: $theme-success !important;
+            }
+
+            .negative {
+                color: $red-color !important;
+            }
+        }
+
+        .v-btn {
+            background-color: #363637;
+            border-radius: 4px;
+            padding: 5px 10px;
+
+            i {
+                color: $theme-color;
+            }
+        }
+    }
+
+    .chart-value {
+        background-color: #fff;
+        float: left;
+        width: 100%;
+    }
+
+
+    .dashboar-card {
+        min-height: 250px;
+        width: 100%;
+        background: #2a2a2b;
+        padding: 10px 20px;
+        color: whitesmoke;
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .card-body {
+            padding-top: 10px;
+
+            table {
+                border: 1px solid #060606;
+
+                thead {
+                    th {
+                        color: #f6b800;
+                        background: black;
+                        padding: 5px;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        border-bottom: 1px solid black;
+
+                        td {
+                            padding: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.master-class {
+
+    .admin_part {
+        min-height: 100%;
+        background: #111111;
+
+        &.master-page-class {
+            padding: 15px 0px;
+        }
+
+        .list-view .toggle-buttons .btn:not(.active) {
+            color: white;
+        }
+
+        .toggle-buttons .btn:not(.active):hover, .toggle-buttons .btn:not(.active):active, .toggle-buttons .btn:not(.active):focus {
+            background-color: $theme-color;
+            color: $black-color;
+            outline: none;
+        }
+
+
+
+        .list-view .list-view-table .summary-data {
+            background-color: transparent;
+        }
+
+        .my-account .center-part .title {
+            color: white;
+        }
+
+        .title {
+            color: white;
+        }
+
+        .list-view .list-view-table table.table-hover tbody tr:hover {
+            background-color: #111111;
+            color: $theme-color;
+        }
+
+        .list-view .list-view-table table.table-hover tbody tr {
+            border-bottom: 1px solid #3c3626;
+        }
+
+        .header {
+            margin-bottom: 0px;
+        }
+
+        .full-wrap {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .commentary-div {
+            .left_section {
+                width: 260px;
+                float: $float-left;
+            }
+
+            .center_section {
+                width: 77%;
+                float: $float-left;
+                margin-left: 25px;
+            }
+        }
+
+        .main-bookmaker {
+            overflow: inherit;
+        }
+
+        .position-special {
+            .left_section {
+                width: 330px;
+                float: $float-left;
+            }
+
+            .center_section {
+                width: 77%;
+                float: $float-left;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .bookmark_table {
+        td {
+            .price {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-weight: bold;
+            }
+
+            .size {
+                font-size: 9px;
+                font-weight: normal;
+            }
+        }
+
+        
+    }
+
+    .runner-part {
+        width: auto;
+        overflow: hidden;
+        margin-right: 0px !important;
+
+        .bookmark_table {
+            @include resize($float-left, $width);
+            background-color: $white-color;
+            @include padding(0px, 0px, 10px, 0px);
+
+
+            .permission {
+                height: 145px;
+
+                th {
+                    @include padding(4px, 0px, 4px, 7px);
+                }
+            }
+        }
+
+        .market-details {
+            height: 340px;
+            overflow: hidden;
+            margin-bottom: 0px;
+            @include resize($float-left, $width);
+            background-color: $white-color;
+            @include border-all(1px, solid, $dark-black-color);
+
+            .market-detail {
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+            }
+
+            .black-back {
+                .to-expand {
+                    width: auto;
+                }
+
+                .add-pin.pinned, .add-pin-square.pinned {
+                    float: $float-left;
+                }
+
+                .refresh {
+                    float: right !important;
+                    width: auto !important;
+                    padding-top: 0px !important;
+                }
+            }
+        }
+
+        .runner {
+            h3 {
+                margin-bottom: 0px;
+
+                .multiMarketPin {
+                    color: $white-color;
+                    @include padding(0, 0, 0, 35px);
+                }
+
+                .game-vs {
+                    @include padding(0, 0, 0, 15px);
+                    @include txt(bold);
+                    letter-spacing: 0.5px;
+                }
+            }
+
+            .fixed-odd-table {
+                table {
+                    tr {
+                        td {
+                            @include padding(8px, 0, 0, 0);
+                        }
+
+                        .save_btn {
+                            @include padding(4px, 0, 4px, 0);
+                        }
+
+                        .reset_btn {
+                            @include padding(3px, 0, 3px, 0);
+                        }
+                    }
+                }
+            }
+
+            .multimarket {
+                span {
+                    @include resize(left, 46px);
+                    height: 34px;
+                    margin: 15px 0px 0px 0;
+                    font-size: 13px;
+                    @include padding(9px, 4px, 4px, 4px);
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                }
+
+                input {
+                    @include display(inline-block);
+                    border-top-left-radius: 0px;
+                    border-bottom-left-radius: 0px;
+                }
+
+                .from-to {
+                    input {
+                        margin: 15px 15px 15px 0;
+
+                        &:last-child {
+                            margin-right: 0px;
+                        }
+
+                        @include resize($float-left, 97px);
+                    }
+                }
+
+                .start_bar {
+                    span {
+                        margin: 0px 0px 0px 0;
+                    }
+
+                    input {
+                        width: 78%;
+                    }
+
+                    button {
+                        float: right;
+                        @include padding(6px, 20px, 6px, 20px);
+                    }
+                }
+            }
+
+            .position_match {
+                margin-bottom: 7px;
+
+                .black-back {
+                    color: $white-color;
+                    padding-left: 8px;
+                }
+            }
+
+            .market-detail {
+                table {
+                    margin-top: 30px;
+                }
+            }
+
+            .runner-right {
+                height: 300px;
+                overflow: hidden;
+                padding: 0px 6px 0 0 !important;
+
+                &:last-child {
+                    padding: 0px 0px 0px 6px !important;
+                }
+
+                h3 {
+                    margin-top: 5px;
+                    padding-left: 10px;
+                    color: $white-color;
+                }
+
+                .bet-time {
+                    opacity: 0.7;
+                    @include headline($medium-gray-black, 11px);
+                    line-height: 20px;
+                    @include padding(0px, 0, 0px, 0);
+                    @include resize (right, 28px);
+                }
+
+                .back-btn, .lay-btn {
+                    background-color: $back-1-color;
+                    float: $float-left;
+                    @include padding(2px, 6px, 4px, 6px);
+                    text-align: $text-center;
+                    @include border-radius(4px);
+                    @include headline($dark-gray-black, 11px);
+                    margin: 0px !important;
+                }
+
+                .lay-btn {
+                    background-color: $lay-1-color;
+                    @include padding(2px, 9px, 3px, 9px);
+                }
+
+                .back-2 {
+                    @include border('bottom', 1px, solid, $back-1-color);
+                    display: table;
+                    width: $width;
+                    @include padding(4px, 8px, 4px, 8px);
+                }
+
+                .lay-2 {
+                    @include border('bottom', 1px, solid, $lay-1-color);
+                    display: table;
+                    width: $width;
+                    @include padding(4px, 8px, 4px, 8px);
+                }
+
+                .position {
+                    background-color: $white-color;
+                    @include border('bottom', 1px, solid, $grayish );
+                    @include border('left', 1px, solid, $grayish );
+                    @include border('right', 1px, solid, $grayish );
+                    @include padding(5px, 8px, 5px, 8px);
+                    font-size: $font-size-tab;
+
+                    span {
+                        @include display(inline-block);
+                        width: 48%;
+                    }
+
+                    .p_value {
+                        text-align: $text-center;
+                    }
+                }
+
+                .delete {
+                    background-image: url('/public/images/arrow-img.png');
+                    background-position: -20px -116px;
+                    text-indent: -99999px;
+                    height: 20px;
+                    @include resize (left, 16px);
+                    cursor: $cursor;
+                    @include display(block);
+                    margin: 0px;
+                    @include padding(0px, 0px, 5px, 0px);
+                }
+
+                .matched_right {
+                    .match_run {
+                        @include resize(right, 81%);
+                        margin-left: 20px;
+
+                        .match_name {
+                            width: auto;
+                        }
+
+                        .bet_price {
+                            span {
+                                width: 60px !important;
+                            }
+
+                            .bet_stake {
+                                width: 80px !important;
+                            }
+                        }
+                    }
+                }
+
+                .unmatch {
+                    .match_run {
+                        @include resize(right, 81%);
+                        margin-left: 20px;
+
+                        .match_name {
+                            width: auto;
+                        }
+
+                        .bet_price {
+                            span {
+                                width: 60px !important;
+                            }
+
+                            .bet_stake {
+                                width: 80px !important;
+                            }
+                        }
+                    }
+                }
+
+                .match_run {
+                    @include resize(right, 74%);
+                    margin-left: 5px;
+
+                    span {
+                        @include border-radius(4px);
+                        @include padding(0px, 0px, 0px, 0px);
+                        margin: 0;
+                        font-weight: 600;
+                        @include headline($light-gray, 11px);
+                        @include display(inline-block);
+                    }
+
+                    .bet_price {
+                        float: right;
+
+                        span {
+                            width: 46px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .commentary {
+            background-color: $white-color;
+            padding-bottom: 20px;
+
+            form {
+                .toggle-buttons {
+                    margin: 5px 0 0 0 !important;
+
+                    button {
+                        line-height: 0px;
+                        height: 30px;
+
+
+                        &:not(.active):focus {
+                            background-color: transparent !important;
+                            color: $black-color;
+                            box-shadow: transparent;
+                        }
+
+                        &:focus {
+                            background-color: transparent !important;
+                            color: $black-color;
+                            box-shadow: none;
+                        }
+
+                        &:hover {
+                            background-color: $dark-gray-black !important;
+                            color: $btngroup-hover;
+                        }
+
+                        &:active {
+                            color: $btngroup-hover !important;
+                            background-color: $dark-gray-black !important;
+                        }
+                    }
+                }
+
+                .comm_data {
+                    @include padding(12px, 0px,0px, 12px);
+                }
+            }
+        }
+    }
+
+    .black-back {
+        .to-expand {
+            margin-left: 10px;
+            color: $white-color;
+            @include display(block);
+            @include resize($float-left, 96%);
+        }
+    }
+
+    .multi-event_type {
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 0 10px 0 6px;
+        color: #151515;
+        padding: 1px 8px;
+    }
+
+    .full-position {
+        .list-view .toolbar ul li {
+            line-height: 32px;
+            color: $theme-color;
+        }
+
+        .filter-panel {
+            position: relative;
+            background-color: #e6e6e6;
+            border-bottom: 1px solid #7E97A7;
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        .btn.bets {
+            border-color: #000 !important;
+            font-weight: 700 !important;
+            font-size: 11px;
+            background-repeat: repeat-x !important;
+            background-color: #121212 !important;
+        }
+    }
+
+    .full_position {
+        background-color: #fff;
+        margin: 0 10px;
+    }
+
+    .scorecard .game-info {
+        float: left;
+        width: 100%;
+        background: #f2f2f2;
+        padding: 0 8px 0 0;
+    }
+
+    .scorecard .game-scores .scores-box, .scorecard .game-scores .tennis-scores-box {
+        background-color: black;
+    }
+
+    .ad-auto-bm {
+        display: inline-block;
+        padding-left: 100px;
+    }
+
+    .scorecard .game-info .match_title {
+        text-transform: capitalize;
+        font-size: 12px;
+        background-color: #c5c5c5;
+        border-bottom-right-radius: 34px;
+        float: left;
+        width: auto;
+        padding: 5px 22px 7px 3px;
+    }
+
+    .black-back {
+        background-color: $gray_black;
+        //line-height: 25px;
+        font-size: $font-size-tab;
+        padding: 5px;
+        width: $width;
+        margin: 0px;
+        color: white;
+        display: flex;
+        align-content: center;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            margin-left: 10px;
+            color: $white-color;
+
+            &:hover {
+                color: $white-color;
+            }
+        }
+
+        .faimg {
+            /* @include padding(9px, 8px, 0, 0);
+        color: $white-color;*/
+            float: right;
+        }
+
+        .add-pin-square {
+            float: $float-left;
+        }
+    }
+}
+
+.withdraw {
+    @include txt(bold);
+    @include headline($dark-blue, 13px);
+    width: 60%;
+
+    a {
+        @include border-all(1px, solid, $gray);
+        @include border-radius(4px);
+        background-image: linear-gradient(-180deg, #FEFEFE 0%, #eaeaea 100%);
+        @include padding(6px, 10px, 6px, 10px);
+        cursor: $cursor;
+        color: $dark-blue;
+
+        &.disable {
+            background: $gray;
+            color: $medium-gray;
+            cursor: not-allowed;
+
+            &:hover {
+                background-image: none;
+            }
+        }
+
+        &:hover {
+            background-image: linear-gradient(-180deg, #eaeaea 20%, #FEFEFE 100%);
+        }
+    }
+
+    ul {
+        @include display(inline-block);
+
+        li {
+            display: inline-block;
+
+            a {
+                @include border-radius(4px);
+                font-size: 13px;
+                @include position(relative);
+
+                &:after {
+                    @include position(absolute, top -2px right -60px);
+                    width: 12px;
+                    font-size: 15px;
+                    @include txt(normal);
+                    line-height: 30px;
+                    z-index: 2;
+                }
+
+                &.select-D {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color;
+                    background: $green-color;
+                    // padding-right:0px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002b';
+                        color: $green-color;
+                    }
+                }
+
+                &.select-W {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color;
+                    background: $red-color;
+                    // padding-right:4px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002d';
+                        right: -26px;
+                        color: $red-color;
+                    }
+                }
+            }
+
+            &:first-of-type a {
+                border-right-width: 0;
+                border-radius: 4px 0 0 4px;
+            }
+
+            &:last-of-type a {
+                border-radius: 0 4px 4px 0;
+            }
+        }
+    }
+
+    input {
+        text-align: right;
+        @include border-all(1px, solid, $gray);
+        @include padding(4px, 5px, 4px, 5px);
+        height: 30px;
+        width: -webkit-calc(100% - 70px - 50px - 44px) !important;
+        width: -moz-calc(100% - 70px - 50px - 44px) !important;
+        width: calc(100% - 70px - 50px - 44px) !important;
+        @include border-radius(4px);
+        margin: 0 3px 0 7px;
+        box-shadow: inset 0px 2px 0px rgba(0,0,0,0.1);
+    }
+}
+
+.modal-body form .input-group, .modal-dialog .user-form input, .modal-dialog .user-form select {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,27 @@
+﻿<div class="col-sm-12">
+    <div>
+        <ul class="tabbing-blue tab2">
+            <li ng-class="ctrl.isActive('/admin/report/downline')">
+                <a ui-sref="admin.report.downline">
+                    <i class="fa fa-line-chart"></i>
+                    {{'myreport.downline.label' | translate}}
+                </a>
+            </li>
+            <li ng-class="ctrl.isActive('/admin/report/market')">
+                <a ui-sref="admin.report.market">
+                    <i class="fa fa-area-chart"></i>
+                    {{'myreport.market.label' | translate}}
+                </a>
+            </li>
+            <li ng-class="ctrl.isActive('/admin/report/fd-game')">
+                <a ui-sref="admin.report.fdgame">
+                    <i class="fa fa-area-chart"></i>
+                    P&L Report By FD Games
+                </a>
+            </li>
+        </ul>
+        <div ui-view="myreport">
+
+        </div>
+    </div>
+</div>

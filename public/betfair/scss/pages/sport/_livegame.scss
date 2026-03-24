@@ -1,0 +1,312 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.tab-desc{.livegame{background-color:white;}}
+.livegame{
+    @include resize($float-left, $width);
+    height:$height;
+    .livegame-body{
+        @include position(relative);
+        @include padding(10px, 0px, 10px, 0px);
+        @include resize($float-left, 100%);
+        height:100%;
+        .live-info{
+            overflow:hidden; z-index:1;
+            @include padding(6px, 6px, 6px, 6px);
+            cursor:$cursor;
+            a{
+                @include display(block);
+                @include position(relative);
+                overflow: hidden;
+                border-radius: .625em;
+                text-decoration: none;
+                color: $white-color;
+                &:hover .item-img{
+                    transform: scale(1.1);
+                    transition: transform .4s;
+                }
+            }
+        }
+        .item_footer{
+            @include position(absolute);
+            right: 7px;
+            bottom: 6px;
+            left: 7px;
+            @include padding(8px, 7px, 8px, 7px);
+            font-size:11px;
+            box-shadow: inset 160px 0 80px rgba(14,31,38,.6);
+            background-color: rgba(14,31,38,.5);
+            line-height: 1;
+            color:$white-color;
+            text-transform:uppercase;
+            border-bottom-left-radius:8px; 
+            border-bottom-right-radius:8px;
+        }
+        .item-img{
+            @include display(block);
+            @include position(relative);
+            box-sizing: border-box;
+            cursor: $cursor;
+            padding-top: 52.8%;
+            width: $width;
+            height: $height;
+            overflow: hidden;
+            box-shadow: inset 1em 0 80px rgba(14,31,38,.6);
+            background-position: 50%;
+            background-size: 100% 100%;
+            text-align: left;
+            transition: transform .4s !important;
+        }
+     }
+}
+
+.livegame-winner {
+    padding: 0px 0px 0px 8px !important;
+    margin-top:5px;
+    .winer-title {
+        @include txt(bold);
+        background: $live-winnerbg;
+        vertical-align: bottom;
+        color: $white-color;
+        @include padding(4px, 3px, 4px, 5px);
+    }
+}
+
+.andar-bahar{
+    float:left; width:100%;
+        .statistic{text-transform:capitalize; background-color:$ab-header-bg; font-size:12px; line-height:32px; color:#BFD6FF; float:left; width:100%; text-align:center;}
+        .shuffle{text-transform:uppercase; font-weight:bold !important; background-color:$ab-header-bg; font-size:11px; line-height:32px;  color:#fff; float:left; width:100%; text-align:center;}
+        .header-info{text-transform:uppercase; font-weight:bold !important; background-color:$ab-header-bg; font-size:11px; line-height:32px;  color:#BFD6FF; float:left; width:100%; text-align:center;}
+    .ab-detail{
+        float:left; width:100%;
+        color:#fff;
+        margin:0 0 10px 0;
+        background-color:$ab-detail-bg;
+        span{font-weight:normal;}
+        .col-sm-4, .col-sm-8{padding:0 0px;}
+         
+        .left-detail{
+            .circle-value {
+                padding: 10px;
+                float: left;
+                width: 100%;
+
+                ul {
+                    border-collapse: collapse;
+                    text-align:left;
+                    li {
+                        padding: 0 2px;
+                        border: 1px solid $ab-border;
+                        line-height: 23px;
+                        width:23px;
+                        text-align:center;
+                    }
+                }
+
+                .r-circle {
+                    color: $ab-blue;
+                    font-size: 12px;
+                    text-transform:uppercase;
+                }
+
+                .b-circle {
+                    color: $ab-red;
+                    font-size: 12px;
+                    text-transform:uppercase;
+                }
+            }
+            .per-value{ padding:20px 5px 0 0;}
+        }
+        
+        .middle-detail{
+            border-left:1px solid $ab-header-bg;
+            .price{ color:#fff; }
+            .shuffle-detail{
+                padding:10px 5px 5px 0; float:left; width:100%;
+                table{
+                    position:relative;
+                    .ab-td{width:50%;}
+                }
+                .andar{
+                    float: left;
+                    height: 100px;
+                    width: 100%;
+                    background-color: $ab-blue;
+                    padding-left: 5px;
+                    .winner-text{float:left; color:$winner; width:100%; text-align:left; font-weight:normal;}
+                    h4{
+                        float:left; letter-spacing:1px; font-weight:bold; margin:5px 0 2px 0px; font-size:16px; text-transform:uppercase;
+                    }
+                    span{
+                        float:left; width:100%; text-align:left; letter-spacing:1px;
+                    }
+                    
+                }
+                .board{
+                    .joker-img{
+                        float: left;
+                        width: 50px;
+                        border: 1.5px solid $ab-detail-bg;
+                        padding: 4px 3px;
+                        top: 50%;
+                        left:50%;
+                        position: absolute;
+                        border-radius:4px;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                .bahar{
+                    float: right;height: 100px;width:100%;background-color: $ab-red;
+                     padding-right:5px;
+                     .winner-text{float:left; color:$winner; width:100%; text-align:right; font-weight:normal;}
+                     h4{
+                        letter-spacing:1px;float:right; font-weight:bold; margin:5px 0 2px 0px; font-size:16px; text-transform:uppercase;
+                    }
+                    span{
+                        float:left; width:100%; text-align:right; letter-spacing:1px;
+                    }
+                     
+                }
+            }
+        }
+        
+        .right-detail{
+            float:left; width:100%;
+            .ab-btn{float:left; width:100%; padding:10px 10px 5px 10px}
+            .btn-div{
+                float:left; width:50%;
+                label{float:left; text-align:left; padding-left:7px; line-height:32px; margin:0px; width:75%;}
+            }
+            .btn-value{
+                float:left;line-height:30px;min-height: 30px;
+                background-color:$ab-btn-bg;
+                border:none;
+                font-weight:normal; font-size:14px;
+                margin:0 0px 4px 5px; width:22%;
+                span{float:left; width:100%;}
+                text-align:center;
+            }
+        }        
+    }
+}
+
+.livegame-result{
+    @include resize($float-left, $width);
+    margin-top:5px;
+    .last-result{
+        span{
+            color:$white-color;
+            text-transform:uppercase;
+            background-color:#355E3B;
+            float:$float-left;
+            @include border-radius(100%);
+            @include padding(4px, 8px, 4px, 8px);
+            vertical-align:middle;
+            margin:5px 2px;
+        }
+        .result-b{color:$warning-yellow-color}
+    }
+}
+
+.last-winner {
+        @include border-all(1px, solid, $border-color);
+        background-color: $white-color;
+        height: 276px;
+
+        .p_value {
+            @include resize($float-left, $width);
+            @include border(bottom, 1px, solid, $border-color);
+            @include padding(4px, 5px, 4px, 5px);
+        }
+    }
+
+.live-rule-img{
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 69%;
+    height: 100%;
+    @include display(block);
+    opacity: 0.2;
+    z-index: 0;
+    @include position(absolute);
+    background-size: contain;
+    transform:rotate(-30deg);
+}
+
+.card-on-video {
+    position: absolute;
+    z-index: 10;
+    top: 3px;
+    padding-left: 5px;
+    display:inline-block;
+
+    .cards-inside-video {
+        padding: 0px 1px;
+       // margin: -10px 0px;
+        height: 35px;
+        //transition: transform .2s;
+        cursor: pointer;
+    }
+
+    .video-card-container{
+        display:inline-block;
+        width:max-content;
+    }
+    .rpt-div-video {
+        //height:65px;
+        display:block;
+        width:115px;
+        margin-bottom:4px;
+    }
+
+   .card-scroll{
+        overflow-x:auto;
+        white-space: nowrap;
+    }
+    .card-scroll::-webkit-scrollbar
+    {
+	    width: 1px; height:3px; margin-left:3px;
+	    //background-color: #F5F5F5; 
+    }
+     .card-scroll::-webkit-scrollbar-track
+    {
+        height:4px;
+	    background-color: #d2d2d2;
+    }
+    .card-scroll::-webkit-scrollbar-thumb
+    {
+	    background-color: #808080; height:4px;
+    }
+   
+
+    .rname-on-video {
+        display: block;
+        color: white;
+        height: 16px;
+    }
+
+    .img-on-video {
+        height: 35px;
+    }
+}
+
+.center-part{
+    .scorecard{
+        .bets-wrap{
+            .sports_book{
+                table{
+                    td{
+                        p{
+                            .name{line-height:40px; padding-left:10px;}
+                            span{line-height:40px; padding-left:20px;}
+                        }
+                        .runner_name{
+                            .patti-card{width:22px;}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

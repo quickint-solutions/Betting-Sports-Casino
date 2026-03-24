@@ -1,0 +1,422 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.master_wrap{
+    padding-left:0px; padding-right:0px;
+}
+.full-wrap{
+    .sidebar-tab {
+            background-color: $white-color;
+
+            .vertical-tab {
+                @include resize (left, $width);
+
+                .pin {
+                    background-image: url(/public/images/score-main.png);
+                    background-position: -392px -42px;
+                    background-repeat: repeat-x;
+                    text-indent: -99999px;
+                    @include resize (right, 30px);
+                    margin: 0px;
+                    height: 21px;
+
+                    &.active {
+                        background-position: -392px -21px;
+                    }
+                }
+
+                .path {
+                    background: $gray_black;
+                    height: 25px;
+                    line-height: 24px;
+                    @include position(relative);
+
+                    .path-last {
+                        a {
+                            @include txt(bold);
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    ul {
+                        text-align: left;
+                        // width: 9999px;
+                        li {
+                            @include padding(0px, 6px, 0px, 6px);
+
+                            a {
+                                @include headline ($white-color, $font-size-tab);
+                                @include padding (0px, 5px, 0px, 0px);
+                                line-height: 23px;
+                            }
+
+                            &:last-child {
+                                background-image: none !important;
+                                @include padding(0px, 0px, 0px, 6px);
+                            }
+                        }
+                    }
+                }
+
+                .inner-nav {
+                    @include resize (left, $width);
+
+                    .myaccount-nav {
+                        a {
+                            @include resize (left, $width !important);
+
+                            &.active {
+                                background-color: $support-a-color;
+                            }
+                        }
+                    }
+
+                    .left-menulist {
+                        li {
+                            @include display(block);
+
+                            &:last-child {
+                                @include border('bottom', 2px, solid, $theme-color);
+
+                                a {
+                                    @include txt(bold);
+                                }
+                            }
+
+                            &:hover {
+                                background-color: transparent !important;
+                            }
+
+                            a {
+                                color: $blue-color;
+
+                                &:hover {
+                                    background-color: transparent !important;
+                                }
+                            }
+                        }
+                    }
+
+                    .sidenav {
+                        height: $height;
+                        width: $width;
+                        z-index: 1;
+                        overflow-x: hidden;
+                        background: $white-color;
+
+                        a {
+                            @include padding (3px, 5px, 3px, 10px);
+                            text-decoration: none;
+                            @include resize (left, $width);
+                            margin-right: 10px;
+                            line-height: 18px;
+                            @include headline($dark-gray-black, $font-size-tab);
+                            @include display(block);
+                            @include txt(normal);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+
+                            &:hover {
+                                color: $dark-gray-black;
+                                background-color: $support-a-color;
+
+                                &:hover .Go {
+                                    background-position: 0% -128px;
+                                }
+
+                                &:hover .go-icon {
+                                    background-color: $black-color;
+                                    color: $white-color;
+                                }
+                            }
+                        }
+
+                        ul {
+                            li {
+                                @include display(block);
+                                @include border('bottom', 1px, solid, $support-a-color);
+                                @include resize (left, $width);
+
+                                &:hover {
+                                    background-color: $support-a-color;
+                                }
+
+                                .go-icon {
+                                    @include border-all(0.5px, solid, $gray);
+                                    @include border-radius(25%);
+                                    background-color: $light-grey;
+                                    @include padding(2.5px, 0px, 0px, 4.5px);
+                                    height: 15px;
+                                    font-size: 9px;
+                                    margin-top: 2px;
+                                    @include resize(right, 15px);
+
+                                    &:hover {
+                                        background-color: $black-color;
+                                        color: $white-color;
+                                    }
+                                }
+
+                                .Go {
+                                    background-position: 0% -104px;
+                                    background-image: url('/public/images/left-arrow.png');
+                                    background-repeat: repeat-x;
+                                    text-indent: -99999px;
+                                    @include resize (right, 30px);
+                                    margin: 0px;
+                                    height: 18px;
+                                    @include position(absolute, right 2px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+}
+
+.admin-part{
+    .my-bets {
+        .col-sm-12{padding:0px;}
+    }
+    .list-view{
+        display:block;
+        .list-view-table{
+            table{display:inline-table;}
+        }
+    }
+    .admin-bets{padding:0px}
+}
+
+.admin-menu{
+       div{}
+        #sub-header{
+          div {
+              padding:0 0px; width:6.333333%;
+                a {
+                    @include display(block);
+                    text-align: $text-center;
+                    line-height: 29px;
+                    @include border('right',1px, solid, rgba(255, 255, 255, 0.2));
+                    @include padding (0px, 10px, 0px, 10px);
+                    @include txt(bold);
+                    @include headline($menu-fr-color, $font-size-tab);
+                    //border-top: 2px solid transparent;
+                    @include border('top', 2px, solid, transparent);
+
+                    &:hover, &.active {
+                        background-color: $theme-color; //#e4e4e4;
+                        color: $dark-black-color;
+                    }
+                }
+            }
+        } 
+}
+.admin-header{
+    .account-wrap{
+        margin-top:14px !important;
+        width:75%;
+        .accountCredit{
+            text-align:right;
+        }
+        div{
+        .refresh-header{
+            font-size: 14px;
+            color: #1b2d39;
+            height: 25px;
+            text-align: center;
+            border-radius: 4px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #1b2d39;
+            background-color: #ffffff;
+            float: left;
+            width: 30px;
+            i{
+                padding-top:6px;
+            }
+            &:hover {
+                background-color: $dark-black-color;
+                i {
+                    color: $white-color;
+                }
+            }
+        }
+        .account{
+            float:left;  
+            a{
+                color: $dark-black-color !important;
+            }
+            &:hover{
+               // background-color: $dark-black-color !important;
+                .accountPopup {
+                    color: $white-color !important;
+                }
+            }
+        }
+        .account_pop {
+                        background-color: $white-color;
+                        width: 215px;
+                        @include position(absolute, right 8px);
+                        z-index: 3;
+                        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+                        @include border-radius(4px);
+
+                        span {
+                            float: $float-left !important;
+                            width: $width;
+                            @include border('bottom', 1px, solid, $grayish);
+
+                            a {
+                                @include headline( $dark-gray-black, $font-size-tab);
+                                text-align: $float-left;
+                                line-height: 30px;
+                                float: $float-left !important;
+                                width: $width;
+                                color: $dark-black-color !important;
+                                @include padding (0px, 0px, 0px, 0px);
+
+                                &:hover {
+                                    background-color: $light-hover-color;
+                                    color: $dark-black-color !important;
+                                }
+                            }
+                        }
+
+                        .logout {
+                            a {
+                                text-align: $text-center !important;
+                                margin: 5px;
+                                @include padding (0px, 0px, 0px, 0px !important);
+                                width: 95% !important;
+                                @include border-radius(4px);
+                                color: $white-color !important;
+                                font-size: 14px;
+                                @include txt(bold);
+                                background-color: $light-gray-blue;
+
+                                &:hover {
+                                    background-color: $light-gray-blue;
+                                    color: $white-color !important;
+                                }
+                            }
+                        }
+                    }
+        }   
+   }
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1366px) {
+     .admin-header, .master_header{
+        .account-wrap{
+            width:100%;
+            float:left;
+            // .accountCredit, .exposure{ font-size:12px;}
+        }
+        .master-logo{width:25%;}
+        
+    }
+     .master_header{
+        .header-top{height:100px;}
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1365px) {
+     .master_header{
+         .master-bal{width:78%; float:right}
+      }
+}
+@media only screen and (min-device-width: 769px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .admin-header, .master_header{
+        .header-top{
+            height:105px;
+             .logo-img{width:100%;}
+        }
+        .admin-account{width:100%;}
+        .accountCredit{
+                text-align:left !important;
+                font-size:12px;
+        }
+        .account-wrap{
+            width:100%;
+            float:left;
+           .exposure{ font-size:12px;}
+        }
+        .master-bal{width:78%; float:right}
+    }
+    .master_header{
+        .header-top{height:100px;}
+        .accountCredit{
+                text-align:right !important;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 767px) and (max-device-width: 768px){
+    .admin-header, .master_header{
+        .account-wrap{
+            width:100%;
+            float:left;
+           .exposure{ font-size:12px;}
+           .refresh-header{width:23px !important;}
+           .account{
+               width:85px !important;
+               .accountPopup{font-size:10px !important;}
+           }
+        }
+        
+    }
+    .master_header{
+        .header-top{height:100px;}
+        .account-wrap{
+            .accountCredit{
+               font-size:12px;
+            }
+           .exposure{font-size:12px;}
+        }
+    }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 767px) and (orientation: landscape) {
+    .admin-header, .master_header{
+        .header-top{
+             .logo-img{width:45%;}
+        }
+        .accountCredit{
+                text-align:left !important;
+                font-size:12px;
+        }
+        .account-wrap{
+            width:100%;
+            float:left;
+        }
+        .refresh-header{margin-top:5px;}
+        .account{margin-top:5px !important;}
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px)  {
+    .admin-header{
+        .account-wrap{
+            width:100%;
+            float:left;
+            .accountCredit{
+                text-align:left;
+            }
+            .refresh-header{margin-top:5px;}
+            .account{margin-top:5px !important;}
+        }
+    }
+}
+@media only screen and (max-width: 320px) {
+    .admin-header{
+        .account-wrap{
+             .accountCredit, .exposure{font-size:12px;}
+        }
+    }
+}
+

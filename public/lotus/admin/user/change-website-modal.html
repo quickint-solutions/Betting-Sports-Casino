@@ -1,0 +1,20 @@
+﻿<div class="row">
+    <div class="col-sm-12" ng-init="usertype=ctrl.getUserTypeShort($parent.user.userType)">
+        <span class="usertype-lable {{usertype}}">{{usertype}}</span>
+        {{$parent.user.username}} ({{$parent.user.userCode}})
+    </div>
+    <div class="col-sm-12 mr-top-10">
+        <input type="checkbox" id="chk-all" ng-model="$parent.user.applyAll" class="check">
+        <label for="chk-all">Change Website to all child</label>
+    </div>
+    <div class="col-sm-12 mr-top-10">
+        <div class="input-group">
+            <select class="form-control" ng-model="$parent.user.websiteId" required>
+                <option ng-repeat="w in websites" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">Website</span>
+        </div>
+    </div>
+</div>

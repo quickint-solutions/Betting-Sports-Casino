@@ -1,0 +1,604 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.my-wallet {
+    .list-view-table {
+        thead {
+            tr {
+                background-color: $table-headingbg;
+                color: $black-color;
+            }
+        }
+
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    background-color: $light-white
+                }
+            }
+        }
+    }
+
+    .checkbox input {
+        width: 15px;
+        padding: 2px;
+        line-height: unset;
+        height: auto;
+        margin-right: 2px;
+    }
+
+    tbody {
+        background-color: transparent !important;
+    }
+
+    .tab-wallet {
+        //border-left: 1px solid #c5c5c5;
+        padding-top: 10px;
+
+        .tabs-container {
+            background-color: transparent;
+
+            .tab-container {
+                background-color: #e7e7e7;
+                //  width: 9%;
+                padding: 10px 10px;
+
+                &:hover, &.active {
+                    border-top: 3px solid $tab-active-border !important;
+                    background-color: $payment-bg;
+                }
+
+                .txt {
+                    vertical-align: middle;
+                    font-size: 15px;
+                }
+
+                .tab-heading {
+                    padding: 0px 10px;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                    color: #ccc;
+
+                    .fa {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+
+        .payment {
+            float: left;
+            width: 100%;
+            // padding: 12px;
+            //background-color: $payment-bg;
+            min-height: 100px;
+
+
+            .tab-text {
+                margin: 0 0 12px 0;
+                border: 1px solid $tab-text;
+                border-radius: 4px;
+                padding: 3px 5px 4px 5px;
+                font-size: 13px;
+                height: 29px;
+                width: 100%;
+            }
+
+
+            .history-link {
+                margin-left: 35px;
+                text-decoration: underline;
+                font-size: 14px;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .white-wrap {
+        background-color: $medium-white;
+        @include padding(12px, 10px, 12px, 10px);
+        margin-bottom: 15px;
+        @include border(bottom, 2px, solid, $heading);
+
+        h3 {
+            margin: 0px 0px 10px 0 !important;
+            font-size: 15px;
+            @include txt(bold);
+        }
+
+        .head-balance {
+            @include border('right', 1px, solid, $gray);
+        }
+
+        .total-bal {
+            @include txt(bold);
+            margin-bottom: 0px;
+
+            span {
+                // @include headline($light-gray-blue, 12px);
+                @include txt(normal);
+                margin-left: 8px;
+            }
+        }
+
+        p {
+            margin-bottom: 0px
+        }
+    }
+}
+
+.my-wallet .tab-wallet {
+    position: relative;
+
+    .form-group {
+        margin-bottom: 15px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control {
+        height: 30px;
+        border: 1px solid #cacaca;
+        border-radius: 3px;
+        padding: 0px 5px;
+        background: white;
+        width: 100%;
+    }
+
+    a.tab-heading {
+        color: #68676a;
+        font-weight: bold;
+    }
+
+    .event-heading {
+        color: #ccc;
+        font-size: 17px;
+        margin: 0;
+        line-height: 26px;
+        text-transform: capitalize;
+        border-bottom: 1px solid rgba(15,35,39,.4);
+        margin-bottom: 10px;
+        padding: 10px 0 9.5px;
+    }
+
+    .payment {
+        //border: 1px solid $gray-gains;
+        display: flex;
+        border-top: none;
+        //padding: 20px;
+        border-radius: 5px;
+
+        small {
+            display: block;
+            text-align: right;
+        }
+    }
+
+    .stake-btn {
+        height: 40px;
+        font-size: 15px !important;
+        font-weight: normal;
+        color: whitesmoke;
+        text-transform: unset;
+        width: 100%;
+        box-shadow: unset;
+        border: none;
+        background: conic-gradient(from 1turn,$p-btn-bg-1,$p-btn-bg-2);
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: conic-gradient(from 1turn,$p-btn-bg-2,$p-btn-bg-1);
+            box-shadow: 0 2px 0 0 $p-btn-shadow;
+        }
+    }
+
+    button[disabled] {
+        pointer-events: none;
+        color: black;
+        background: $p-btn-shadow;
+    }
+
+    .chg-pass {
+        padding: 12px;
+        width: 30%;
+        min-width: 250px;
+        clear: unset;
+        border: 1px solid $payment-bg;
+        background: lighten($payment-bg,2%);
+        border-radius: 4px;
+    }
+
+
+
+    .payment.tether {
+        //background-color: #b4f2e0;
+        min-height: 250px;
+    }
+}
+
+
+.my-wallet .tab-wallet {
+    .with-small {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        small {
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .recent-request {
+            margin-top: 5px;
+            text-decoration: none;
+            font-weight: bold;
+
+            a {
+                text-decoration: none;
+                color: $theme-color;
+            }
+        }
+
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+    }
+
+    .w-history {
+        position: absolute;
+        background: #303030;
+        color: whitesmoke;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 150%;
+        transition: left 0.5s ease;
+        padding: 20px;
+        box-sizing: border-box;
+
+        &.open {
+            left: 0;
+        }
+
+        .event-heading {
+            color: whitesmoke;
+            border-bottom: 1px solid rgba(229, 251, 255, 0.40);
+        }
+
+        .close {
+            cursor: pointer;
+        }
+
+        .h-table {
+            height: calc(100% - 60px);
+        }
+
+        .r-row {
+            padding: 0px 5px;
+            border: 1px solid #575757;
+            margin-bottom: 5px;
+
+            &.status {
+                border-color: var(--color-1);
+                cursor: pointer;
+            }
+
+            .status-1 {
+                color: var(--color-1);
+            }
+
+            .status-2 {
+                color: var(--color-2);
+            }
+
+            .status-3, .status-4 {
+                color: var(--color-3);
+            }
+
+            &.status-1 {
+                border-color: var(--color-1);
+            }
+
+            &.status-2 {
+                border-color: var(--color-2);
+            }
+
+            &.status-3, &.status-4 {
+                border-color: var(--color-3);
+            }
+
+            --color-1: yellow;
+            --color-2: #73bb26;
+            --color-3: #fe0000;
+        }
+
+        .t-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0px;
+        }
+
+        .t-title {
+            margin-right: 2px;
+        }
+    }
+}
+
+.float-r {
+    float: right;
+}
+
+.my-wallet .tab-wallet .chg-pass {
+    position: relative;
+
+    &.depositm {
+        width: 70%;
+
+        .bank-left {
+            width: 50%;
+            float: right;
+            padding-left: 10px;
+        }
+
+        .bank-right {
+            width: 50%;
+            float: left;
+        }
+    }
+
+    .bank-detail {
+        font-size: 12px;
+        padding: 5px 0px;
+
+        label {
+            font-weight: bold;
+            //width: 130px;
+            float: left;
+            text-align: right;
+            margin-right: 5px;
+        }
+    }
+
+    .qr-parent {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        //padding: 25px 0px;
+
+        .qr-text {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background: #f6b800;
+            border-radius: 3px;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #0c811a;
+
+            img {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .copy {
+        cursor: pointer;
+    }
+
+    .bank-options {
+        display: flex;
+        overflow-y: auto;
+        float: left;
+        width: 100%;
+
+        .bank-option {
+            padding: 5px;
+
+            .option-sec {
+                background: #919c98;
+                padding: 5px;
+                border-radius: 3px;
+                position: relative;
+                //padding-bottom: 20px;
+                cursor: pointer;
+                height: 77px;
+
+                &.active {
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+                }
+
+                img {
+                    width: 100px;
+                    height: 32px;
+                }
+
+                .o-bottom-div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .last-line {
+                        color: #0c811a;
+                        font-size: 9px;
+                        padding-top: 5px;
+                        font-weight: bold;
+                    }
+
+                    .fa {
+                        font-size: 14px;
+                    }
+
+                    .fa-check-circle {
+                        color: #0c811a;
+                    }
+                }
+            }
+        }
+    }
+
+    .deposit-form {
+        padding: 10px 5px;
+
+        .d-stake-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+
+            button {
+                font-weight: bold;
+                background-color: $btn-small-bg;
+                color: $btn-small-color;
+                width: 32%;
+                padding: 5px;
+                border-radius: 3px;
+                border: 1px solid $btn-small-border;
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+.mr-top-20 {
+    margin-top: 20px;
+}
+
+.offer-section {
+    a {
+        color: orangered;
+    }
+
+    a[disabled] {
+        color: #d0d0d0;
+        cursor: not-allowed;
+    }
+
+    .fa-remove {
+        color: red;
+        cursor: pointer;
+    }
+
+    .fa-spinner, .fa-remove {
+        position: absolute;
+        top: 27%;
+        right: 10px;
+        font-size: 12px;
+    }
+
+    input[disabled] {
+        background: #d0d0d0 !important;
+    }
+}
+
+.offer-detail {
+    border: 1px solid #6dbc1f;
+    border-radius: 5px;
+    padding: 10px 5px;
+    margin-top: 10px;
+}
+
+.utr-img {
+    padding: 0px 10px 5px;
+    margin-top: 10px;
+
+    img {
+        height: 120px;
+        border: 1px dotted;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: zoom-in;
+    }
+}
+
+.coupen {
+    padding: 10px;
+    background: #383d44;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border: 1px solid #ededed;
+    margin-bottom: 10px;
+
+    .coupen-left {
+        min-width: 150px;
+        width: 150px;
+        text-align: center;
+        font-size: 18px;
+
+        .code {
+            width: 80%;
+            background: #000;
+            border-radius: 5px;
+            text-transform: uppercase;
+            padding: 10px 5px;
+        }
+    }
+
+    .coupen-center {
+        width: 60%;
+
+        p {
+            margin: 5px 0px;
+            color: #ccc;
+        }
+    }
+
+    .coupen-right {
+        min-width: 150px;
+        width: 150px;
+        float: right;
+        text-align: center;
+
+        .offer-p {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .bold {
+                font-size: 16px;
+            }
+        }
+
+        .offer-btn {
+            margin-top: 10px;
+        }
+    }
+}
+
+.mobile-bg, .mobilebody {
+    .coupen {
+        flex-direction: column;
+
+        .coupen-left {
+            width: 100%;
+            padding: 10px 0px;
+
+            .code {
+                padding: 5px;
+                margin: auto;
+            }
+        }
+
+        .coupen-center {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .coupen-right {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 10px 0px;
+            width: 100%;
+            min-width: 100%;
+        }
+    }
+}

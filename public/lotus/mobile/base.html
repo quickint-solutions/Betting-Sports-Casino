@@ -1,0 +1,267 @@
+﻿<div class="loader-table" ng-show="generalLoader.active()">
+    <div class="loader-container" ng-include="loadderTemplate"></div>
+</div>
+<div style="height:100%;" class="mobile-view " ng-init="enableSearch=false;">
+    <div class="mobile-menu menu-left" ng-class="{'active':leftMenuOpen}">
+        <ul ng-click="leftMenuOpen=false;anyMenuOpen=false;">
+            <li>
+                <a ui-sref="mobile.seven.base.mymarket"><i class="fa fa-eye" style="font-size:18px;margin-right:12px;" aria-hidden="true"></i> My Markets</a>
+            </li>
+            <li class="sportmenu-li " ng-if="hasCasino">
+                <a ui-sref="mobile.seven.base.fdlivegames" class="blink-color">
+                    <i class="i-sport icon-sport-exchangegame"></i>{{'fd.casino.label' | translate}}
+                </a>
+            </li>
+            <li class="sportmenu-li" ng-repeat="s in eventTypes">
+                <a ng-if="!s.isRace && !s.isLiveGame && !s.isBinary"
+                   ui-sref="mobile.seven.base.sports({nodetype:s.sportNodeType,id:s.id,name:s.name,eventTypeId:s.id})">
+                    <i class="i-sport left-icon icon-sport-{{s.name|joinme}}"></i>   {{s.name}}
+                </a>
+                <a ng-if="s.isRace"
+                   ui-sref="mobile.seven.base.race({id:s.id,name:s.name})">
+                    <i class="i-sport left-icon icon-sport-{{s.name|joinme}}"></i> {{s.name}}
+                </a>
+                <a ng-if="s.isLiveGame" ui-sref="mobile.seven.base.livegames({name:s.name})" class="blink-color">
+                    <i class="i-sport left-icon icon-sport-{{s.name|joinme}}"></i>{{s.name}}
+                </a>
+                <a ng-if="s.isBinary" ui-sref="mobile.seven.base.binarymarket({name:s.name,eventTypeId:s.id})" class="blink-color">
+                    <i class="i-sport left-icon icon-sport-{{s.name|joinme}}"></i>{{s.name}}
+                </a>
+            </li>
+            <li class="sportmenu-li" ng-if="hasFairTrade">
+                <a ui-sref="fairtrademobile.home">
+                    <i class="i-sport icon-sport-exchangegame"></i>Fair Trade
+                </a>
+            </li>
+            <li>
+                <div class="socials footer-icon">
+                    <div class="left-side-menu-item__label_Whatsapp sc-ion-label-md-h sc-ion-label-md-s md hydrated" ng-if="supportDetail.whatsapp">Get Instant ID on whatsapp</div>
+                    <a href="{{supportDetail.whatsapp}}" ng-if="supportDetail.whatsapp" target="_blank">
+                        <i class="fa fa-whatsapp"></i>  <div class="fa-text">Whatsapp Now</div>
+                    </a>
+                    <a href="{{supportDetail.instagram}}" ng-if="supportDetail.instagram" target="_blank">
+                        <i class="fa fa-instagram"></i>  <div class="fa-text">Follow on Instagram</div>
+                    </a>
+                    <a href="{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                        <i class="fa fa-telegram"></i>  <div class="fa-text">Follow on Telegram</div>
+                    </a>
+                    <a href="{{supportDetail.twitter}}" ng-if="supportDetail.twitter" target="_blank">
+                        <i class="fa fa-twitter"></i>  <div class="fa-text">Follow on Twitter</div>
+                    </a>
+                    <a href="{{supportDetail.facebook}}" ng-if="supportDetail.facebook" target="_blank">
+                        <i class="fa fa-facebook"></i>  <div class="fa-text">Follow on Facebook</div>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="mobile-main" ng-class="{'main-left':leftMenuOpen && anyMenuOpen, 'main-right':rightMenuOpen && anyMenuOpen}"
+         ng-click="ctrl.centerClick($event)">
+        <div class="marquee" ng-class="{'market-on':ctrl.isContain('/s/binary-market/') || ctrl.isContain('/s/market/') || ctrl.isContain('/race-market/') || ctrl.isContain('/live-games-markets/')}"
+             ng-if="!closeme && announcement && !enableSearch && !ctrl.isActiveBool('/mobile/s/fd-live-games')">
+            <marquee>{{announcement}}</marquee>
+            <a class="m-close" ng-hide="enableSearch">
+                <i class="fa fa-times" aria-hidden="true" ng-click="$parent.closeme=true;"></i>
+            </a>
+        </div>
+        <div class="header mb-header"
+             ng-hide="enableSearch"
+             ng-class="{'top_header': closeme || !announcement || ctrl.isActiveBool('/mobile/s/fd-live-games'), 'market-on':ctrl.isContain('/s/binary-market/') || ctrl.isContain('/s/market/') || ctrl.isContain('/race-market/') || ctrl.isContain('/live-games-markets/')}">
+            <div class="left-menu">
+                <div class="mb-menuicon">
+                    <a ng-click="ctrl.openMenu($event,true)" ng-if="ctrl.isActive('/mobile/s/home')">
+                        <i class="fa fa-bars fa-menu" aria-hidden="true"></i>
+                    </a>
+                    <span ng-if="!ctrl.isActive('/mobile/s/home')">
+                        <i class="fa fa-arrow-left go-back" onclick="window.history.back(); return false;"></i>
+                    </span>
+                </div>
+                <div class="mobile-logo">
+                    <div class="logo-area">
+                        <a class="logo-img" ui-sref="mobile.seven.base.home"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-menu ">
+                <!--<a ng-click="ctrl.openMenu($event,false)" style="min-width:75px;">
+                    <span class="align-c" ng-hide="currentWebApp=='gameok'">
+                        <i class="fa fa-user" ng-class="{'socket-connected':ctrl.$rootScope.socketConnected,'socket-disconnected':!ctrl.$rootScope.socketConnected}" aria-hidden="true"></i>
+                    </span>
+                    <span class="align-c">
+                        <kt-glc-code style="margin-left:-5px" data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                    </span>
+                </a>-->
+                <div class="header-btn-div" ng-click="ctrl.openMenu($event,false)">
+                    <button class="header-btn h-login bal" ng-click="ctrl.openDeposit()">
+                        <span class="align-c" ng-hide="currentWebApp=='gameok' || currentWebApp=='gameokin'">
+                            <i class="fa fa-user" ng-class="{'socket-connected':ctrl.$rootScope.socketConnected,'socket-disconnected':!ctrl.$rootScope.socketConnected}" aria-hidden="true"></i>
+                        </span>
+                        <span class="align-c">
+                            <kt-glc-code style="margin-left:-5px" data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                        </span>
+                    </button>
+                </div>
+                <div class="header-btn-div" ng-if="isB2C" style="margin-right:5px;">
+                    <button class="header-btn h-login" ng-click="ctrl.openDeposit()">
+                        Deposit
+                    </button>
+                </div>
+                <div class="search-icon" ng-if="!isB2C">
+                    <i class="icon icon-search" ng-click="$parent.enableSearch=true;"></i>
+                </div>
+            </div>
+
+        </div>
+        <div ng-show="enableSearch" class="header mb-header top_header"></div>
+        <div class="one-click header-oneclick" ng-class="{'move-top': closeme || !announcement,'market-on':ctrl.isContain('/s/binary-market/') || ctrl.isContain('/s/market/') || ctrl.isContain('/race-market/') || ctrl.isContain('/live-games-markets/') }"
+             ng-show="oneClickEnable && !enableSearch && !ctrl.isActiveBool('/mobile/s/fd-live-games')">
+            <div class="one-click-bet">
+                <label class="switch">
+                    <input class="switch-input" type="checkbox" ng-model="oneClickEnable" ng-click="ctrl.oneClickToggle();" />
+                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                    <span class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="oneclick-off float-l">One Click Bet is On - Active Stake {{activeOneClickStake}}</div>
+        </div>
+
+        <div class="section" ng-class="{'one-click-open':oneClickEnable && !enableSearch, 'move-top': closeme || !announcement || enableSearch || ctrl.isActiveBool('/mobile/s/fd-live-games')}">
+            <div ui-view="center" class="mobile-center"></div>
+        </div>
+    </div>
+    <div class="mobile-menu menu-right float-r" style="height:100%;" ng-class="{'active':rightMenuOpen}">
+        <h1 class="title align-c bold">{{user.username}}</h1>
+        <ul style="padding:0 0px 5px 8px" ng-click="rightMenuOpen=false;anyMenuOpen=false;">
+            <li>
+                <a class="bold" style="padding-top:5px; padding-bottom:5px;"><i class="icon-university menu-icon" aria-hidden="true"></i>balance information</a>
+                <p class="bal-info">
+                    available to bet : <span class="float-r bold">
+                        <kt-glc-code data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                    </span>
+                </p>
+                <p class="bal-info" ng-show="balanceInfo.creditLimit!=0">
+                    credit limits : <span class="float-r" kt-animate-on-change="balanceInfo.creditLimit">
+                        <kt-glc-code data-item="{{balanceInfo.creditLimit}}"></kt-glc-code>
+                    </span>
+                </p>
+                <p class="bal-info">
+                    Balance : <span class="float-r" kt-animate-on-change="balanceInfo.balance">
+                        <kt-glc-code data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                    </span>
+                </p>
+                <p class="bal-info" ng-show="balanceInfo.bonus!=0">
+                    Bonus : <span class="float-r" kt-animate-on-change="balanceInfo.bonus">
+                        <kt-glc-code data-item="{{balanceInfo.bonus}}"></kt-glc-code>
+                    </span>
+                </p>
+                <p class="bal-info" ng-show="balanceInfo.bonusToRedeem!=0">
+                    Bonus To Redeem : <span class="float-r" kt-animate-on-change="balanceInfo.bonusToRedeem">
+                        <kt-glc-code data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code>
+                    </span>
+                </p>
+                <p class="bal-info">
+                    net exposure : <span class="float-r" kt-animate-on-change="balanceInfo.exposure" ng-class="{'red':balanceInfo.exposure<0}">
+                        <kt-glc-code data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                    </span>
+                </p>
+            </li>
+            <li><a class="setting bold" ui-sref="mobile.seven.base.settings"><i class="icon-bullseye fa-setting" aria-hidden="true"></i>setting</a></li>
+            <li ng-show="isChatEnabled"><a class="bold blink-color" ng-click="ctrl.openChat()"><i class="menu-icon fa fa-comments-o" aria-hidden="true"></i>Chat with upline</a></li>
+            <li ng-show="hasAPK"><a class="bold blink-color" ng-click="ctrl.downloadAPK()"><i class="menu-icon fa fa-android" aria-hidden="true"></i>Download App</a></li>
+
+            <li><a class="bold" ui-sref="mobile.seven.base.profile"><i class="icon-user menu-icon" aria-hidden="true"></i>My Profile</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.openbets"><i class="icon-list menu-icon" aria-hidden="true"></i>open bets</a></li>
+            <li ng-if="isB2C"><a class="bold" ui-sref="mobile.seven.base.transferonline"><i class="fa fa-credit-card-alt menu-icon" aria-hidden="true"></i>Deposit/Withdrawal</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.timesettings"><i class="icon-time menu-icon" aria-hidden="true"></i>Time Setting</a></li>
+
+
+            <li><a class="bold" ui-sref="mobile.seven.base.accountstatement"><i class="icon-book menu-icon" aria-hidden="true"></i>a/c statement</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.bonusstatement"><i class="icon-book menu-icon" aria-hidden="true"></i>bonus statement</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.referralstatement"><i class="icon-book menu-icon" aria-hidden="true"></i>referral statement</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.transferstatement"><i class="icon-book menu-icon" aria-hidden="true"></i>transfer statement</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.profitloss"><i class="icon-money menu-icon" aria-hidden="true" style="font-size:12px;"></i>betting P&L</a></li>
+            <li ng-if="hasCasino"><a class="bold" ui-sref="mobile.seven.base.fdprofitloss"><i class="icon-money menu-icon" aria-hidden="true" style="font-size:12px;"></i>FD Game P&L</a></li>
+
+            <li><a class="bold" ui-sref="mobile.seven.base.loginhistory"><i class="icon-book menu-icon" aria-hidden="true"></i>Login History</a></li>
+            <li><a class="bold" ui-sref="mobile.seven.base.passwordchange"><i class="icon-lock menu-icon" aria-hidden="true"></i>change password</a></li>
+
+
+            <li ng-if="!isPromoSite"><a class="bold" ui-sref="mobile.seven.base.rules"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>rules & regulations</a></li>
+            <li ng-if="!isPromoSite"><a class="bold" ui-sref="mobile.seven.base.kyc"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>KYC</a></li>
+            <li ng-if="!isPromoSite"><a class="bold" ui-sref="mobile.seven.base.reponsiblegame"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Responsible Gambling</a></li>
+            <li ng-if="!isPromoSite"><a class="bold" ui-sref="mobile.seven.base.exclusionpolicy"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Exclusion Policy</a></li>
+
+            <li ng-if="isPromoSite"> <a class="bold" ng-click="ctrl.openPrivacyPolicy();"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Privacy Policy</a></li>
+            <li ng-if="isPromoSite"> <a class="bold" ng-click="ctrl.openTermsConditions();"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Terms and Conditions</a></li>
+            <li ng-if="isPromoSite"> <a class="bold" ng-click="ctrl.openResponsibleGambling();"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Responsible Gambling</a></li>
+            <li ng-if="isPromoSite"> <a class="bold" ng-click="ctrl.openCookiePolicy()"><i class="icon-rules-regs menu-icon" aria-hidden="true"></i>Cookie Policy</a></li>
+
+            <li><a class="bold" ng-click="ctrl.logout()" href="#"><i class="icon-signout menu-icon" aria-hidden="true"></i>sign out</a></li>
+
+            <li ng-if="supportDetail.facebook || supportDetail.twitter || supportDetail.instagram || supportDetail.telegram">
+                <span class="bold" style="padding-top:5px; padding-bottom:5px;">
+                    Follow Us
+                    <a style="width:unset;float:unset;margin-left:10px;display:inline-block;" href="{{supportDetail.facebook}}" ng-if="supportDetail.facebook" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.twitter}}" ng-if="supportDetail.twitter" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.instagram}}" ng-if="supportDetail.instagram" target="_blank">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                        <i class="fa fa-telegram"></i>
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.youtube}}" ng-if="supportDetail.youtube" target="_blank">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.discord}}" ng-if="supportDetail.discord" target="_blank">
+                        <img ng-src="{{imagePath}}images/icons/discord-icon.svg" style="width:19px" />
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.threads}}" ng-if="supportDetail.threads" target="_blank">
+                        <img ng-src="{{imagePath}}images/icons/threads-icon.svg" style="width:19px" />
+                    </a>
+                    <a style="width:unset;float:unset;display:inline-block;" href="{{supportDetail.tiktok}}" ng-if="supportDetail.tiktok" target="_blank">
+                        <img ng-src="{{imagePath}}images/icons/tiktok-icon.svg" style="width:19px" />
+                    </a>
+                </span>
+
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+<!--<div class="openbet-overlay" ng-click="rightMenuOpen=false;anyMenuOpen=false;leftMenuOpen=false;"
+     ng-class="{'active':anyMenuOpen || anyMenuOpen}"></div>-->
+<div class="search-panel" ng-class="{'active':enableSearch}">
+    <input class="search-box" placeholder="Search Events" ng-change="ctrl.searchEvent(searchEvent)" ng-model="searchEvent" />
+    <i class="icon-remove" ng-click="enableSearch=false;ctrl.eventSelected('',true);"></i>
+</div>
+<div class="search-result" ng-class="{'active':enableSearch}">
+    <div class="app-list">
+        <div class="app-list-item" ng-repeat="e in searchEventList">
+            <div class="event-title" ng-click="$parent.enableSearch=false;ctrl.eventSelected(e)">{{e.event.name}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="openbet-overlay" ng-class="{'active':isBetInProcess}">
+    <div class="col-xs-12 betprocess">
+        <div class="row center-div">
+            <div class="col-xs-12">
+                Your bet is being processed.<br />
+                Please wait...
+            </div>
+            <div class="col-xs-12 loader">
+                <span class="bet-process">
+                </span>
+                <!--<label ng-if="betDelay>=0">{{betDelay}}</label>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+

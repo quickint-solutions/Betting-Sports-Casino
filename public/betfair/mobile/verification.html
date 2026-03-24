@@ -1,0 +1,95 @@
+﻿<div class="mobile-view">
+    <div class="login-page login-book" ng-if="loginMode == 2">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-detail">
+                        <h4><b>One more step of verification</b></h4>
+                        <form class="form_signin" name="verifyform" ng-submit="ctrl.confirmOpt()">
+                            <p class="login-user">
+                                <span>We have sent OTP on below mobile number</span>
+                            </p>
+                            <p class="login-user">
+                                <label>Your Mobile</label>
+                                <input type="text" maxlength="15"
+                                       placeholder="" name="mobile"
+                                       tabindex="1" autocomplete="off" disabled
+                                       required value="{{$parent.model.mobile}}" class="form-control">
+                            </p>
+                            <p class="login-user">
+                                <label>OTP</label>
+                                <input type="text" name="captcha" ng-model="$parent.model.otp"
+                                       class="form-control" maxlength="6" size="6" autocomplete="off" required tabindex="2"
+                                       placeholder="Enter OTP" />
+                            </p>
+                            <p class="login-user">
+                                <button type="button" class="btn btn-success"  ng-disabled="$parent.resendTimer>0" ng-click="ctrl.requestNewOtp()">
+                                    &nbsp;Resend OTP &nbsp;<i class="fa fa-refresh" aria-hidden="true"></i>
+                                </button>
+                                <span style="margin: 5px;font-weight: bold;">{{$parent.resendTimer>0?ctrl.formatTime($parent.resendTimer):''}}</span>
+                            </p>
+                            <p>
+                                <i class="fa fa-check-square" aria-hidden="true"></i>&nbsp; I confirm that I am informed and completely agree with the rules of bets, pay-outs, rules of gambling games.
+                            </p>
+                            <p class="login-btn">
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="7"
+                                        type="submit" ng-disabled="verifyform.$invalid">
+                                    Verify &nbsp;<i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                        </form>
+                        <div class="new-betfair">
+                            <h4 class="l-title"><b>Already have an account? </b></h4>
+                            <div style="margin-left:10px">
+                                <span class="login-title">Login to fairbook and enjoy below events and services</span>
+                                <div class="login-text" style="margin-left:10px">
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/cricket.png" />cricket</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/soccer.png" />soccer</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/kabaddi.ico" />kabaddi</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/race-horse.png" />horse racing</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/greyhound.png" />greyhound racing</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/teen-patti.png" />teen patti</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/crypto.png" />crypto & indexes</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/election.png" />Election</a>
+                                    <a style="margin-top:10px"><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/oneclick.png" />one click bet</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/multi.png" />multi bet support</a>
+                                    <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/s247.png" />24x7 support</a>
+                                    <a style="margin-bottom:10px"><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/report.png" />user friendly reports</a>
+                                </div>
+                                <span class="login-title">For assistance please contact us at</span>
+                                <div class="login-text" style="margin-left:10px">
+                                    <a target="_blank" href="https://wa.me/{{supportDetail.whatsapp}}" ng-if="supportDetail.whatsapp">
+                                        <img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />{{supportDetail.whatsapp}}
+                                    </a>
+                                    <a target="_blank" href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram">
+                                        <i class="fa fa-telegram"></i> join us on telegram
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="join-btn">
+                                <button class="btn btn-lg  btn-block btn-login" ng-click="ctrl.gotoLoginMobile()">
+                                    Click to Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </button>
+                            </p>
+                        </div>
+                        <div class="bitcoin-img center">
+                            <div class="images">
+                                <a class="bitcoin"></a>
+                                <a class="egaming"></a>
+                            </div>
+                        </div>
+                        <kt-messages data-messages="messages"></kt-messages>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

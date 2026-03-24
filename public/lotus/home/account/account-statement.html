@@ -1,0 +1,111 @@
+﻿<div class="account-statement">
+    <h1 class="event-heading" ng-if="!fromMember">{{'accountstatement.label' | translate}}</h1>
+    <div class="input-detail" style="height:90px;">
+        <div class="input-group" style="width:12%">
+            <label>From</label>
+            <input type="text" class="form-control" uib-datepicker-popup="dd MMM yyyy" ng-model="search.fromdate"
+                is-open="fopened" placeholder="{{'fromdate.placeholder' | translate}}" ng-click="fopened=true"
+                close-text="Close" alt-input-formats="dd/MM/yyyy" />
+        </div>
+
+        <div class="input-group" style="width:12%">
+            <label>To</label>
+            <input type="text" class="form-control" uib-datepicker-popup="dd MMM yyyy" ng-model="search.todate"
+                is-open="topened" placeholder="{{'todate.placeholder' | translate}}" ng-click="topened=true"
+                close-text="Close" alt-input-formats="dd/MM/yyyy" />
+        </div>
+        <div class="input-group" style="width:12%">
+            <label>Account Type</label>
+            <select class="form-control" ng-model="search.accountType">
+                <option ng-repeat="b in accountTypeList" value="{{b.id}}">
+                    {{b.name}}
+                </option>
+            </select>
+        </div>
+        <a class="btn small-btn search_btn" ng-click="ctrl.refreshGrid();"><i class="fa fa-search"></i>
+            {{'common.button.search' | translate}}</a>
+        <a class="btn small-btn search_btn float-r" ng-if="gridTotalRow>0" ng-click="ctrl.exportAccountStatement();"><i
+                class="fa fa-file-excel-o"></i> Export</a>
+    </div>
+    <div>
+        <div class="table-bets" ng-if="!showBetDetail">
+            <kt-grid grid-id="kt-accountstatement-grid" load-items="ctrl.getAccountStatement(params)" show-total="false"
+                data-total="gridTotalRow" data-date-group="true" data-group-field="createdOn"
+                cache-key="ktaccountstatementgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable "
+                    template-pagination="{{ :: paginationUrl }}">
+                    <thead>
+                        <tr>
+                            <th class="size-sm align-l">Date</th>
+                            <th class="align-l size-xxl">Description</th>
+                            <th class="size-lg"></th>
+                            <th class="size-sm boolean">P&L</th>
+                            <th class="size-smd boolean">Credit Limit</th>
+                            <th class="size-smd boolean">Balance</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                        <tr>
+                            <td class="td-date">
+                                <kt-date data-date-value="itemGrp.date"></kt-date>
+                            </td>
+                        </tr>
+                        <tr class="inner-tr" ng-repeat="item in itemGrp.values track by $index">
+                            <td class="size-sm align-l " style="padding-left:20px!important;">
+                                <span>
+                                    <kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"
+                                        style="color:#909090"></kt-date>
+                                </span>
+                            </td>
+                            <td class="align-l size-xxl text-wrap">
+                                <span title="{{item.narration}}" ng-if="item.accountType!=3">{{item.narration}}</span>
+                                <span>
+                                    <a ng-click="$parent.$parent.$parent.$parent.$parent.ctrl.getBet(item)" title="{{item.narration}}"
+                                       ng-if="item.accountType==3">{{item.narration}}</a>
+                                </span>
+                                <span ng-if="item.accountType==7" class="bold"> # {{item.roundId}}</span>
+                                <span ng-if="item.comment">({{item.comment}}) </span>
+                                 <i ng-if="item.inProgress" class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i>
+                            </td>
+                            <td class="size-lg">
+                                <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                                <span title="{{item.remarks}}" ng-if="item.remarks && !item.provider">{{item.remarks}}
+                                </span>
+                                <span
+                                    ng-if="item.provider">{{$parent.$parent.$parent.$parent.$parent.ctrl.getProvider(item.provider)}}
+                                </span>
+                            </td>
+                            <td class="size-sm boolean">
+                                <span ng-class="{'negative':item.balance<0,'positive bold':item.balance>=0}">
+                                    <kt-glc-code data-special="false" data-item="{{item.balance}}"></kt-glc-code>
+                                </span>
+                            </td>
+                            <td class="size-smd boolean">
+                                <span class="positive" ng-show="item.accountType==13"
+                                    ng-class="{'negative':item.creditTotal<0}">
+                                    <kt-glc-code data-special="false" data-item="{{item.creditTotal}}"></kt-glc-code>
+                                </span>
+                                <span class="positive" ng-show="item.accountType!=13">-</span>
+                            </td>
+                            <td class="size-smd boolean">
+                                <span title="{{item.total | toRate }}"
+                                    ng-class="{'positive':item.total >= 0,'negative':item.total < 0}">
+                                    <kt-glc-code data-special="false" data-item="{{item.total}}"></kt-glc-code>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+
+
+        </div>
+        <div class="table-bets client-pl-detail">
+            <div ng-if="showBetDetail">
+                <div ng-include="betDetailTemplate" class="list-view"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿<div class="account-statement">
+    <h1 class="title">{{headerLabel | translate}}</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+            <li class="bet_name"><label>{{'common.accounttype.label' | translate}}</label></li>
+            <li>
+                <select ng-model="search.accountType">
+                    <option ng-repeat="a in accountTypeList" value="{{a.id}}">
+                        {{a.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.getstatement' | translate}}</a></li>
+            <li style="float:right;">
+                <a class="btn btn-secondary" ng-click="ctrl.statementModeChange(!isCurrentStatement);">
+                    View {{isCurrentStatement ? 'historical.casinostatement.label' : 'common.casinostatement.label' | translate}}
+                </a>
+            </li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn" ng-show="isCurrentStatement">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn" ng-show="isCurrentStatement">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn" ng-show="isCurrentStatement">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-2,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last2month.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getAccountStatement(params)"
+                 export-to-excel="ctrl.exportAccountStatement(params,1)"
+                 export-to-pdf="ctrl.exportAccountStatement(params,2)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="ktaccountstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td header-class="'size-sm align-l'" class="size-sm align-l" data-title="::'account.datetime.name.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'account.credit.name.label' | translate">
+                            <span class="positive" title="{{item.credit  }}">{{item.credit  }} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'account.debit.name.label' | translate">
+                            <span class="negative" title="{{item.debit  }}">{{item.debit }} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean"
+                            data-title="::'account.total.name.label' | translate">
+                            <span title="{{item.balance  }}" ng-class="{'positive':item.balance >= 0,'negative':item.balance < 0}">{{item.balance }} </span>
+                        </td>
+                        <td header-class="'boolean size-md'" class="boolean size-md" data-title="::'casino.game.name.label' | translate">
+                            <span>{{$parent.$parent.$parent.ctrl.getGameType(item.gameId)}}</span>
+                        </td>
+                        <td header-class="'boolean size-sm'" class="boolean size-sm" data-title="::'casino.bettype.id.label' | translate">
+                            <span>{{item.betTypeId }} </span>
+                        </td>
+                        <td header-class="'boolean size-sm'" class="boolean size-sm" data-title="::'casino.round.id.label' | translate">
+                            <span>{{item.roundId  }} </span>
+                        </td>
+                        <td header-class="'align-l '" class="align-l "
+                            uib-tooltip="{{item.narration}}"
+                            data-title="::'account.narration.name.label' | translate">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                        </td>
+
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-sm"></td>
+                        <td class="size-sm boolean">{{ $data | total:'credit'  | number:2}}</td>
+                        <td class="size-sm boolean">{{ $data | total:'debit'  | number:2}}</td>
+                        <td class="size-sm boolean"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="size-sm"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

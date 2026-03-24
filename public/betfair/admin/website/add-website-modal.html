@@ -1,0 +1,100 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+            <input id="name" type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'website.name.placeholder' | translate}}"
+                   required autofocus ng-model="data.name" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+            <input id="hosts" type="text" minlength="1" maxlength="255"
+                   placeholder="{{::'website.hosts.placeholder' | translate}}"
+                   required ng-model="data.hosts" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+            <input id="url" type="text" minlength="1" maxlength="255"
+                   placeholder="{{::'website.url.placeholder' | translate}}"
+                   required ng-model="data.url" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Captcha Mode</span>
+            <select class="form-control" ng-model="data.captchaMode">
+                <option ng-repeat="w in captchaModes" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Storage Mode</span>
+            <select class="form-control" ng-model="data.storageMode">
+                <option ng-repeat="w in storageModes" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-ssl" ng-model="data.hasTradefair">
+            <label for="chk-ssl">Has Fair Trade?</label>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-Fair" ng-model="data.hasCasino">
+            <label for="chk-Fair">Has Fair Deal Casino?</label>
+        </div>
+       
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-registration" ng-model="data.isRegisterEnabled">
+            <label for="chk-registration">{{::'website.isregisterenabled.label' | translate}}?</label>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">Referral</span>
+            <input type="text" maxlength="500"
+                   placeholder="Default referral code"
+                   ng-model="data.referralCode" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">SMS</span>
+            <input type="text" maxlength="500"
+                   placeholder="SMS Service"
+                   ng-model="data.pathServiceId" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-facebook-official"></i></span>
+            <textarea id="facebook" type="text" maxlength="2000"
+                      placeholder="{{::'website.supportdetails.placeholder' | translate}}" multiple rows="4"
+                      ng-model="data.supportDetails" class="form-control"></textarea>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <span class="span-check" style="margin-right:10px;">
+            <input type="checkbox" id="chk_filter_all" ng-model="$parent.$parent.selectAllEventTypes"
+                   ng-click="ctrl.eventTypeChanged(true)" />
+            <label for="chk_filter_all">All</label>
+        </span>
+        <span class="span-check" style="margin-right:10px;" ng-repeat="f in eventTypes">
+            <input id="chk_filter_{{$index}}" type="checkbox" ng-change="ctrl.eventTypeChanged()" ng-model="f.checked" />
+            <label for="chk_filter_{{$index}}">{{f.name}}</label>
+        </span>
+    </div>
+</div>

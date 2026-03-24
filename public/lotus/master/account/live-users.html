@@ -1,0 +1,105 @@
+﻿<div class="bets-history livebets">
+    <div class="content-wrap">
+        
+        <div class="table-bets">
+            <div class="header-name">
+                <div class="filter-input">
+                    <h1 class="event-heading">{{'liveusers.label'| translate}}</h1>
+                    <div class="filter-panel">
+                        <div class="input_text">
+                            <input type="text" minlength="1" maxlength="200"
+                                   placeholder="Please enter username"
+                                   autofocus ng-model="search.username" class="form-control">
+                        </div>
+                        <div class="input_text">
+                            <input type="text" minlength="1" maxlength="200"
+                                   placeholder="Please enter IP Address"
+                                   autofocus ng-model="search.ipAddress" class="form-control">
+                        </div>
+                        <div class="input_text">
+                            <input type="text" minlength="1" maxlength="200"
+                                   placeholder="Please enter IMEI"
+                                   autofocus ng-model="search.iMEI" class="form-control">
+                        </div>
+                        <div class="input_text">
+                            <input type="text" minlength="1" maxlength="200"
+                                   placeholder="Please enter device id"
+                                   autofocus ng-model="search.device" class="form-control">
+                        </div>
+                        <div class="btn_value">
+                            <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                {{'common.button.search' | translate}}
+                            </button>
+                        </div>
+                        <div class="btn_value">
+                            <button class="btn btn-default" ng-click="ctrl.resetCriteria()">
+                                <i class="fa fa-undo" aria-hidden="true"></i>
+                                {{'common.button.reset' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <kt-grid grid-id="kt-liveuser-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     data-show-total="true"
+                     has-new-rights="true"
+                     cache-key="ktliveusersgrid">
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by $index">
+                            <td data-title="'ID'" data-sortable="'userId'"
+                                data-header-class="'size-xs'" class="size-xs">
+                                <span title="{{item.userId}}">{{item.userId}} </span>
+                            </td>
+                            <td data-title="::'user.username.label' | translate" data-sortable="'username'"
+                                data-header-class="' align-l'" class="align-l " ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypeShort(item.user.userType)">
+                                <span class="usertype-lable {{utype}}">{{utype}}</span>
+                                <span id="to"><strong>{{item.user.username}}</strong></span>
+                                <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent"></i>
+                                <span ng-if="item.user.parent">{{item.user.parent.username}}</span>
+                                <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent"></i>
+                                <span ng-if="item.user.parent.parent">{{item.user.parent.parent.username}}</span>
+                                <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent.parent"></i>
+                                <span ng-if="item.user.parent.parent.parent">{{item.user.parent.parent.parent.username}}</span>
+                            </td>
+                            <td data-title="'IP'" data-sortable="'remoteIp'"
+                                data-header-class="'size-md boolean'" class="size-md boolean">
+                                <span title="{{item.remoteIp}}">{{item.remoteIp}} </span>
+                            </td>
+
+                            <td data-title="'Device'" data-sortable="'device'"
+                                data-header-class="'size-lg'" class="size-lg">
+                                <span title="{{item.device}}">{{item.device}} </span>
+                            </td>
+                            <td data-title="'Issue On'" data-sortable="'issuedOn'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span title="{{item.issuedOn | date:'yyyy-MM-dd HH:mm'}}">
+                                    <kt-date data-date-value="item.issuedOn" data-format="dd-MM-yy HH:mm"></kt-date>
+                                </span>
+                            </td>
+                            <td data-title="'Expire On'" data-sortable="'expiresOn'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span title="{{item.expiresOn | date:'yyyy-MM-dd HH:mm'}}">
+                                    <kt-date data-date-value="item.expiresOn" data-format="dd-MM-yy HH:mm"></kt-date>
+                                </span>
+                            </td>
+                            <td data-title="'Location'" data-sortable="'location'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span title="{{item.location}}">{{item.location}} </span>
+                            </td>
+                            <td data-title="'Provider'" data-sortable="'provider'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span title="{{item.provider}}">{{item.provider}} </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

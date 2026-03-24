@@ -1,0 +1,284 @@
+﻿<div class="content-wrap">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">{{'managemarket.label' | translate}}</h1>
+            </header>
+        </div>
+
+        <div class="col-sm-12 ">
+            <div class="form-pannel">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <ui-select ng-model="search.eventType" tabindex="1" theme="bootstrap" on-select="ctrl.getEvents()" close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="{{'market.search.eventtype.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="eventtype in eventTypeList | filter: $select.search" class="ui-select-choices">
+                                        <span ng-bind-html="eventtype.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <ui-select ng-model="search.event" theme="bootstrap" tabindex="3" ng-disabled="!search.eventType" close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="{{'market.search.event.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="event in eventList | filter: $select.search" class="ui-select-choices">
+                                        <span ng-bind-html="event.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" minlength="1" maxlength="200" tabindex="4"
+                                       placeholder="{{'market.search.name.placeholder' | translate}}"
+                                       required autofocus ng-model="search.marketName" class="form-control">
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-model="search.status" tabindex="5">
+                                    <option ng-repeat="status in marketStatusList" value="{{status.id}}">
+                                        {{status.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-model="search.source" tabindex="10">
+                                    <option ng-repeat="source in marketSourceList" value="{{source.id}}">
+                                        {{source.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="btnreset" class="btn btn-default" tabindex="12" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                                    <i class="fa fa-undo" aria-hidden="true"></i>
+                                    {{'common.button.reset' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mr-top-10">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="6"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.fromDate"
+                                           is-open="fopened"
+                                           placeholder="{{'fromdate.placeholder' | translate}}"
+                                           ng-click="fopened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default calender_btn" ng-click="fopened=true">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="7"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.toDate"
+                                           is-open="topened"
+                                           placeholder="{{'todate.placeholder' | translate}}"
+                                           ng-click="topened=true"
+                                           close-text="Close"
+                                           popup-placement="right-bottom"
+                                           alt-input-formats="dd/MM/yyyy" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default calender_btn" ng-click="topened=true">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-model="search.inplay" tabindex="8">
+                                    <option ng-repeat="inplay in inplayStatusList" value="{{inplay.id}}">
+                                        {{inplay.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" ng-model="search.bettingType" tabindex="9">
+                                    <option ng-repeat="bettype in bettingTypeList" value="{{bettype.id}}">
+                                        {{bettype.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-2">
+                                <button id="btnSearch" class="btn btn-secondary" tabindex="11" ng-click="ctrl.refreshGrid()" style="width:100%;">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    {{'common.button.search' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <kt-grid grid-id="kt-manage-market-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     data-items="gridItems"
+                     cache-key="ktmanagemarketgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable market-table"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id" ng-click="ctrl.selectedRow($index)" ng-class="{'selected-row':selectedIndex==$index}">
+                            <td data-title="::'event.name.label' | translate" >
+                                <span title="{{item.event.name}}" class="pre-line">{{item.event.name}} </span>
+                                
+                            </td>
+                            <td data-header-class="'size-xs'" class="size-xs">
+                                <span>
+                                    <i class="fa fa-copy" ng-click="$parent.$parent.$parent.ctrl.copy(item.eventType.id==$parent.$parent.$parent.liveGamesId ? item.roundId : item.id)"></i>
+                                </span>
+                            </td>
+                            <td data-title="::'market.name.label' | translate"
+                                data-sortable="'name'" data-header-class="'size-lg'" class="size-lg">
+                                <span class="pre-line" title="{{item.name}}">
+                                    <a ui-sref="admin.fullposition({marketid:item.id})" target="_blank" ng-hide="item.marketStatus==4">
+                                        {{item.name}}
+                                    </a>
+                                    <a ui-sref="admin.betreport({marketId:item.id})" target="_blank" ng-show="item.marketStatus==4">
+                                        {{item.name}}
+                                    </a>
+                                    <i class="fa fa-ticket" ng-click="$parent.$parent.$parent.ctrl.viewCards(item)"
+                                       ng-show="(item.eventType.id==$parent.$parent.$parent.liveGamesId) && item.marketStatus==4"></i>
+                                </span>
+                            </td>
+                            <td data-title="::'source.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span ng-if="item.source==1">BT</span>
+                                <span ng-if="item.source==2">M</span>
+                                <span ng-if="item.source==3">BR</span>
+                                <span ng-if="item.source==5">{{item.sourceId}}</span>
+                                <span ng-if="item.source==6">PK({{item.sourceId}})</span>
+                            </td>
+                            <td data-title="::'market.bettingtype.label' | translate"
+                                data-sortable="'bettingtype'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span>{{$parent.$parent.$parent.ctrl.getBettingType(item.bettingType)}} </span>
+                            </td>
+                            <td data-title="::'market.inplay.label' | translate"
+                                data-header-class="'size-sm boolean'" class="market-inplay size-sm boolean">
+                                <kt-radiobutton id="inplay{{$index}}"
+                                                ng-hide="item.marketStatus==4"
+                                                data-item="item"
+                                                data-param-name="inPlay"
+                                                data-optionlist="$parent.$parent.$parent.inplayStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.inPlayStatusChanged(selectedId,item)"></kt-radiobutton>
+                            </td>
+                            <td data-title="::'market.syncdata.winner.label' | translate"
+                                data-header-class="'size-sm boolean'" class="market-inplay size-sm boolean">
+                                <kt-radiobutton id="syncdata{{$index}}"
+                                                ng-hide="item.source==2 || item.marketStatus==4"
+                                                data-item="item"
+                                                data-param-name="syncData"
+                                                data-optionlist="$parent.$parent.$parent.syncStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.syncDataStatusChanged(selectedId,item)"></kt-radiobutton>
+                                <span ng-show="item.marketStatus==4 && !item.gameType">
+                                    <span ng-repeat="w in item.marketRunner | filter:{'status':2}">{{w.runner.name}} {{$last ? '':','}}</span>
+                                    <span ng-if="item.winner" title="{{item.winner}}">{{item.winner}}</span>
+                                </span>
+                                <span ng-show="item.marketStatus==4 && item.gameType">
+                                    <span>{{$parent.$parent.$parent.ctrl.getGameResult(item)}}</span>
+                                </span>
+                            </td>
+                            <td data-title="::'market.status.label' | translate"
+                                data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <kt-radiobutton id="marketstatus{{$index}}"
+                                                data-item="item"
+                                                data-param-name="marketStatus"
+                                                char-limit="2"
+                                                data-disable-by="4"
+                                                data-optionlist="$parent.$parent.$parent.marketStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.marketStatusChanged(selectedId,item)"></kt-radiobutton>
+                            </td>
+                            <td data-title="::'market.tempstatus.label' | translate"
+                                data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <kt-radiobutton id="tempstatus{{$index}}"
+                                                ng-hide="item.marketStatus==4"
+                                                data-item="item"
+                                                data-param-name="temporaryStatus"
+                                                char-limit="2"
+                                                data-optionlist="$parent.$parent.$parent.tempStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.temporaryStatusChanged(selectedId,item)"></kt-radiobutton>
+                            </td>
+                            <td data-title="::'event.opendate.label' | translate"
+                                data-sortable="'opendate'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span title="{{(item.eventType.id == $parent.$parent.$parent.liveGamesId  ?  item.startTime : item.event.openDate) | date:'dd-MM-yyyy HH:mm'}}">
+                                    {{(item.eventType.id == $parent.$parent.$parent.liveGamesId  ?  item.startTime : item.event.openDate) | date:'dd-MM-yy HH:mm'}}
+                                </span>
+                            </td>
+                            <td data-title="::'Start Time' | translate"
+                                data-sortable="'opendate'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span title="{{ item.startTime  | date:'dd-MM-yyyy HH:mm'}}">
+                                    {{item.startTime  | date:'dd-MM-yy HH:mm'}}
+                                </span>
+                            </td>
+                            <td data-title="::'Order' | translate"
+                                data-sortable="'displayorder'" data-header-class="'size-xs boolean'" class="size-xs boolean">
+                                {{item.displayOrder}}
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean size-md'" class="boolean size-md">
+                                <a id="reclose{{$index}}" class="btn btn-light" ng-show="item.marketStatus==4"
+                                   kt-has-claim claims="{Claims: ['admin.market.reclose']}"
+                                   ng-click="$parent.$parent.$parent.ctrl.runnerStatus(item)">
+                                    RC
+                                </a>
+                                <a id="reclose{{$index}}" class="btn btn-light" ng-show="item.marketStatus==4"
+                                   kt-has-claim claims="{Claims: ['admin.market.reclose']}"
+                                   ng-click="$parent.$parent.$parent.ctrl.editCloseMarket(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a id="rate{{$index}}" class="btn btn-light" ng-show="item.marketStatus!=4"
+                                   ng-click="$parent.$parent.$parent.ctrl.updateMarketRate(item)">
+                                    <i class="fa fa-percent"></i>
+                                </a>
+                                <a id="notify{{$index}}" class="btn btn-light" ng-show="item.marketStatus!=4"
+                                   ng-click="$parent.$parent.$parent.ctrl.setNotification(item)">
+                                    <i class="fa fa-wifi"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="summary-data" ng-if="$data.length>0">
+                        <tr>
+                            <td ></td>
+                            <td class="size-xs"></td>
+                            <td class="size-lg"></td>
+                            <td class="size-sm boolean"></td>
+                            <td class="size-sm boolean"></td>
+                            <td class="market-inplay size-sm boolean"></td>
+                            <td class="market-inplay size-sm boolean"></td>
+                            <td class="size-smd boolean">
+                                <kt-radiobutton data-item="$parent.$parent.$parent.all_selector"
+                                                data-param-name="marketStatus"
+                                                char-limit="2"
+                                                data-optionlist="$parent.$parent.$parent.all_marketStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.allMarketStatusChanged(selectedId)"></kt-radiobutton>
+                            </td>
+                            <td class="size-smd boolean">
+                                <kt-radiobutton data-item="$parent.$parent.$parent.all_selector"
+                                                data-param-name="temporaryStatus"
+                                                char-limit="2"
+                                                data-optionlist="$parent.$parent.$parent.all_tempStatus"
+                                                notify-on-update="$parent.$parent.$parent.ctrl.allTemporaryStatusChanged(selectedId)"></kt-radiobutton>
+                            </td>
+                            <td class="size-sm boolean"></td>
+                            <td class="size-md"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+
+    </div>
+</div>

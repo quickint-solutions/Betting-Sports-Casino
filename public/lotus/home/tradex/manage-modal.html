@@ -1,0 +1,95 @@
+﻿<div class="kt-model-detail">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="model-score">
+                <div class="col-sm-4 kt-popup-left">
+                    <p class="kt-name">{{order.SMB.Name}}</p>
+                    <div class="kt-score">
+                        <span>#{{order.ID}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4 kt-popup-left">
+                    <p class="kt-name">BID</p>
+                    <div class="kt-score">
+                        <span kt-change-color="order.SMB.Bid">{{order.SMB.Bid}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4 kt-popup-left">
+                    <p class="kt-name">ASK</p>
+                    <div class="kt-score">
+                        <span kt-change-color="order.SMB.Ask">{{order.SMB.Ask}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="kt-model-list">
+                <div class="col-sm-4">
+                    <span class="event-span">order type</span>
+                    <div class="kt-menu">
+                        <a class="kt-menu-list">Limit Order<i class="drp-fa fa fa-caret-down" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <span class="event-span">Limit Type</span>
+                    <div class="kt-menu">
+                        <a class="kt-menu-list">{{limitType.type}} <i class="drp-fa fa fa-caret-down" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-if="order.ManagedTKTID">
+                    <span class="event-span">Manage Ticket</span>
+                    <div class="kt-menu">
+                        <a class="kt-menu-list">{{order.ManagedTKTID}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="kt-quality">
+                    <label>Amount</label>
+                    <input type="text" ng-model="order.Amount">
+                    <span class="inside-input"> x {{order.SMB.SymbolFactor | number:0}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="kt-quality" ng-if="!order.ManagedTKTID">
+                    <label>price</label>
+                    <input type="text" ng-model="order.OpenPrice">
+                    <span class="inside-input" ng-if="limitType.id==1"> <i class="fa fa-angle-left"></i> {{order.SMB.Bid}}</span>
+                    <span class="inside-input" ng-if="limitType.id==2"> <i class="fa fa-angle-right"></i> {{order.SMB.Ask | spreadPrice:order.SMB.PipLocation:1}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-1"> <i class="fa fa-angle-right"></i> {{order.SMB.Ask}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-2"> <i class="fa fa-angle-left"></i> {{order.SMB.Bid | spreadPrice:order.SMB.PipLocation:-1}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="kt-quality">
+                    <label>SL</label>
+                    <input type="text" ng-model="order.SL">
+                    <span class="inside-input" ng-if="limitType.id==1 && order.OpenPrice"> <i class="fa fa-angle-left"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==2 && order.OpenPrice"> <i class="fa fa-angle-left"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-1 && order.OpenPrice"> <i class="fa fa-angle-right"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-2 && order.OpenPrice"> <i class="fa fa-angle-right"></i> {{order.OpenPrice}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="kt-quality">
+                    <label>TP</label>
+                    <input type="text" ng-model="order.TP">
+                    <span class="inside-input" ng-if="limitType.id==1 && order.OpenPrice"> <i class="fa fa-angle-right"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==2 && order.OpenPrice"> <i class="fa fa-angle-right"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-1 && order.OpenPrice"> <i class="fa fa-angle-left"></i> {{order.OpenPrice}}</span>
+                    <span class="inside-input" ng-if="limitType.id==-2 && order.OpenPrice"> <i class="fa fa-angle-left"></i> {{order.OpenPrice}}</span>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="!order.ManagedTKTID">
+                <div class="kt-quality">
+                    <label>Comment</label>
+                    <input type="text" ng-model="order.Note">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,473 @@
+﻿
+<div class="main-wrapper">
+    <div class="sportsexch-layout-main">
+        <div id="mobile-top-main-header" class="topbar-main-header-block mobile d-block d-md-none">
+            <div class="mobile-nav-menu-button-icon justify-content-between mt-1">
+                <a ui-sref="mobile.promo" class="mobile-logo router-link-exact-active router-link-active" title="logo" aria-current="page">
+                    <img ng-src="{{webImagePath}}logo.png" alt="Logo" class="promo-logo">
+                </a>
+            </div>
+            <div class="header-right d-flex justify-content-between align-items-center p-2">
+                <h4 style="font-size: 13px; letter-spacing: 0.4px; font-weight: 500;">WELCOME</h4>
+                <div class="header-register">
+                    <a ng-click="ctrl.openModal('login-modal')"
+                       ng-class="{'btn-transparent':isRegisterEnabled}"
+                       class="button button-small  button-animation">Log In</a>
+                    <a ng-show="isRegisterEnabled" ng-click="ctrl.openModal('verify-modal')" class="button button-small button-animation">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sitewrapper" class="main-container-block">
+        <div id="main-column" class="column" ui-view="mobile-center">
+
+        </div>
+    </div>
+    <div class="whatsApp-float" ng-if="supportDetail.whatsapp">
+        <a href="{{supportDetail.whatsapp}}" target="_blank" title="Get instant support over whatsapp">
+            <img class="whatsApp_img" ng-src="/public/images/{{currentWebApp}}/whatsapp.svg" alt="">
+            <div class="circleIconPanel"></div>
+        </a>
+    </div>
+</div>
+
+
+
+
+<div class="modal-overlay login-dialog" id="login-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 100%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <div class="tabbutton">
+                            <span class="dialog-title">Login</span>
+                            <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                        </div>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <a class="dialog-logo"></a>
+                        <form ng-submit="ctrl.login()" name="loginform" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="loginMessages" style="width: 100%!important;left: 0;padding:5px 0px"></kt-messages>
+                            <div class="two_input" ng-class="{'full':loginMethod==2}">
+                                <div class="first_box" ng-show="loginMethod==1">
+                                    <select class="form-control" ng-model="loginModel.selectedCountry.dialCode">
+                                        <option ng-repeat="s in countryList" value="{{s.dialCode}}">
+                                            {{s.dialCode}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="div-input">
+                                    <input class="login-input" type="text"
+                                           autofocus required ng-model="loginModel.username"
+                                           placeholder="{{loginMethod==1 ? 'Mobile' : 'Username'}}" maxlength="256">
+
+                                    <div class="dropdown drp-login-method" ng-class="{'open':openLoginMethod}" ng-click="openLoginMethod=!openLoginMethod">
+                                        <a class="btn dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown">
+                                            <span>
+                                                <i class="fa fa-mobile" ng-show="loginMethod==1"></i>
+                                                <i class="fa fa-user" ng-show="loginMethod==2"></i>
+                                            </span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-item" ng-click="loginMethod=1"><i class="fa fa-mobile"></i> Mobile</div>
+                                            <div class="dropdown-item" ng-click="loginMethod=2"><i class="fa fa-user"></i> ID</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="div-input">
+                                <input class="login-input" type="{{lp_showVPass ? 'text' : 'password'}}" ng-model="loginModel.password" required
+                                       placeholder="Password"
+                                       ng-maxlength="16" ng-minlength="6">
+                                <i class="fa fa-eye" ng-hide="lp_showVPass" ng-click="lp_showVPass=!lp_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="lp_showVPass" ng-click="lp_showVPass=!lp_showVPass"></i>
+                            </div>
+                            <div class="div-input captcha-div" ng-if="captchaMode==2">
+                                <input class="login-input" type="text"
+                                       autofocus required ng-model="loginModel.captcha" placeholder="Captcha" maxlength="10">
+                                <img class="captcha-img" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <div style="margin-bottom:5px;" class="text-right" ng-show="isRegisterEnabled">
+                                <a class="forgot-link" ng-click="ctrl.openModal('forget-modal')">Forget Password</a> ?
+                            </div>
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Log In" ng-disabled="loginform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div class="text-center">
+                                Easy bet place on multiple sports,casino with our mobile application
+                            </div>
+                            <div class="div-btn" ng-if="supportDetail.demoUsername">
+                                <input class="login-button" type="button" value="Demo Login" ng-click="ctrl.startDemoLogin()">
+                                <img class="grid-spinner p-abs" ng-show="showDemoLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div class="d-flex">
+                                <a ng-show="downloadApp"
+                                   ng-click="ctrl.downloadAPK()"
+                                   class="btn d-block w-100 btn-success download-btn mt-2" style="background-color: rgb(50, 56, 62);">
+                                    <span class="animate-btn">DOWNLOAD APK</span>
+                                    <img ng-src="{{webImagePath}}icons/android.png" width="20px" alt="App" style="filter: invert(1); margin-top: -5px; margin-left: 5px; width: 17px;">
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-center mt-2" ng-if="isRegisterEnabled">
+                                Don't have account?
+                                <a class="login-link"  ng-click="ctrl.openModal('verify-modal')">Join Now</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay login-dialog" id="demo-login-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 100%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <div class="tabbutton">
+                            <span class="dialog-title">Demo Login</span>
+                            <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                        </div>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <a class="dialog-logo"></a>
+                        <form ng-submit="ctrl.demoLogin()" name="demologinform" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="loginMessages" style="width: 100%!important;left: 0;padding:5px 0px"></kt-messages>
+
+                            <div class="div-input captcha-div">
+                                <input class="login-input" type="text"
+                                       autofocus required ng-model="demoLoginModel.captcha" placeholder="Captcha" maxlength="10">
+                                <img class="captcha-img" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Log In" ng-disabled="demologinform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showDemoLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div class="d-flex justify-content-center mt-2">
+                                Already have account?
+                                <a class="login-link" ng-if="isRegisterEnabled" ng-click="ctrl.openModal('login-modal')">Login Now</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay login-dialog" id="changepassword-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 100%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Change your password</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <a class="dialog-logo"></a>
+                        <form ng-submit="ctrl.changePassword()" name="changepwform" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="changePasswordMessages" style="width: 100%!important;left: 0;padding:5px 0px"></kt-messages>
+                            <label class="label-text">Current Password</label>
+
+                            <div class="div-input">
+                                <input class="login-input" type="{{c_c_showVPass ? 'text' : 'password'}}"
+                                       placeholder="Old Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.oldpassword">
+                                <i class="fa fa-eye" ng-hide="c_c_showVPass" ng-click="c_c_showVPass=!c_c_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="c_c_showVPass" ng-click="c_c_showVPass=!c_c_showVPass"></i>
+                            </div>
+
+                            <label class="label-text">New Password</label>
+                            <div class="div-input">
+                                <input class="login-input" type="{{c_n_showVPass ? 'text' : 'password'}}" placeholder="New Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.newpassword">
+                                <i class="fa fa-eye" ng-hide="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                            </div>
+
+                            <label class="label-text">Confirm Password</label>
+                            <div class="div-input">
+                                <input class="login-input" type="{{c_nc_showVPass ? 'text' : 'password'}}" placeholder="Confirm Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.confirmpassword">
+                                <i class="fa fa-eye" ng-hide="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                            </div>
+
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Submit" ng-disabled="changepwform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Forgot your</span>
+                                <a class="forgot-link" ng-click="ctrl.openModal('forget-modal')">password</a> ?
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay login-dialog" id="verify-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 90%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <div class="tabbutton">
+                            <span class="dialog-title">Sign Up</span>
+                            <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                        </div>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form name="verifyform" ng-submit="ctrl.confirmOpt()" class="left">
+                            <kt-messages data-messages="verifyMessages" style="width: 100%!important;padding:5px 0px"></kt-messages>
+
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="verifyModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(verifyModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input">
+                                    <input class="login-input" type="text" ng-model="verifyModel.mobile" autocomplete="m_1"
+                                           maxlength="16" minlength="5" placeholder="Mobile *" required>
+                                    <i class="fa fa-mobile" style="font-size:18px;"></i>
+                                </div>
+                            </div>
+
+                            <div ng-show="verifyModel.selectedCountry.supportedChannel!=2">
+                                <input type="radio" class="ch" value="1" name="otpby" id="chek-1" ng-model="verifyModel.otpvia">Receive OTP via SMS
+                            </div>
+                            <div ng-show="verifyModel.selectedCountry.supportedChannel!=1">
+                                <input type="radio" class="ch" value="2" name="otpby" ng-model="verifyModel.otpvia">Receive OTP via Whatsapp
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestNewOtp()" ng-show="resendTimer<=0 && verifyModel.mobile">
+                                    Send OTP
+                                </button>
+                            </div>
+
+                            <input class="login-input" type="text" ng-model="verifyModel.otp" required placeholder="Enter OTP"
+                                   ng-maxlength="6" ng-minlength="6">
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Join Now" ng-disabled="verifyform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+
+                        </form>
+                        <div class="d-flex justify-content-center mt-2">
+                            Already have account?
+                            <a class="login-link" ng-click="ctrl.openModal('login-modal')">Login</a>
+                        </div>
+                        <div class="d-flex" ng-show="supportDetail.whatsapp">
+                            <a class="btn loginButton btn d-block w-100 btn-success mt-3" href="{{supportDetail.whatsapp}}" target="_blank">
+                                <span class="new-item d-flex align-items-center justify-content-center">
+                                    <i aria-hidden="true" class="fa fa-whatsapp mr-2 fa-2x"></i>Get id easily on whatsapp!
+                                </span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-dialog modal-overlay" id="register-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 100%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Complete Registration</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form name="registerform" ng-submit="ctrl.register()" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="registerMessages" style="width: 100%!important;left: 0;padding:5px 0px"></kt-messages>
+
+                            <div class="div-input">
+                                <input class="login-input" type="text" maxlength="15" placeholder="Mobile *" name="mobile" autocomplete="off" disabled
+                                       required value="{{registerModel.mobile}}">
+                                <i class="fa fa-mobile" style="font-size:18px;"></i>
+                            </div>
+                            <input class="login-input" maxlength="100" placeholder="Username *" ng-model="registerModel.username">
+                            <div class="div-input">
+                                <input class="login-input" type="{{rp_showVPass ? 'text' : 'password'}}" ng-model="registerModel.password" required placeholder="Password *"
+                                       autocomplete="off" ng-maxlength="16" ng-minlength="6">
+                                <i class="fa fa-eye" ng-hide="rp_showVPass" ng-click="rp_showVPass=!rp_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="rp_showVPass" ng-click="rp_showVPass=!rp_showVPass"></i>
+                            </div>
+
+                            <div class="div-input">
+                                <input class="login-input" type="{{rpc_showVPass ? 'text' : 'password'}}" ng-model="registerModel.confirmpassword" required placeholder="Confirm password *"
+                                       autocomplete="off" ng-maxlength="16" ng-minlength="6">
+                                <i class="fa fa-eye" ng-hide="rpc_showVPass" ng-click="rpc_showVPass=!rpc_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="rpc_showVPass" ng-click="rpc_showVPass=!rpc_showVPass"></i>
+                            </div>
+                            <input class="login-input" maxlength="100" placeholder="Reference code " ng-model="registerModel.referralCode">
+                            <div>
+                                <a class="float-r" ng-click="ctrl.selectOfferFromModal(registerModel);">
+                                    <u>Select Offer</u>
+                                </a>
+                            </div>
+                            <div class="div-input offer-section">
+                                <input class="login-input" maxlength="100" placeholder="Bonus code (optional)"
+                                       ng-keyup="ctrl.validateOffer(registerModel)"
+                                       ng-model="registerModel.offer.bonusCode">
+                                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="registerModel.offerLoader"></i>
+                                <i class="fa fa-remove" ng-click="ctrl.removeOffer(registerModel);"
+                                   ng-show="registerModel.offer.bonusCode.length>0  && registerModel.offerLoader==false"></i>
+                            </div>
+
+                            <kt-messages style="width: 100%!important;left: 0;padding:5px 0px" data-messages="registerModel.offerMessages"></kt-messages>
+
+                            <div class="div-input captcha-div" ng-if="captchaMode==2">
+                                <input class="login-input" type="text"
+                                       autofocus required ng-model="registerModel.captcha" placeholder="Captcha" maxlength="10">
+                                <img class="captcha-img" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                            </div>
+                            <div class="small-text">
+                                <span class="bold">
+                                    <i>
+                                        <i class="fa fa-check-square-o"></i>
+                                        By continuing you will receive a one-time
+                                        verification code to your phone number by SMS.
+                                        Message and data rates may apply.
+                                    </i>
+                                </span>
+                            </div>
+
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Next" ng-disabled="registerform.$invalid || (registerModel.offer && registerModel.offer.isValid==false)">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Already have an account?</span>
+                                <a class="forgot-link" ng-click="ctrl.openModal('login-modal')">Login Here</a>
+                            </div>
+                            <div class="ready-id" ng-if="supportDetail.whatsapp">
+                                <span class="forgot-label">Get your ready-made ID </span>
+                                <a class="forgot-link" href="{{supportDetail.whatsapp}}" target="_blank"><i class="fa fa-whatsapp"></i> Whatsapp Now</a>
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay login-dialog" id="forget-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 90%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Reset Password</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <a class="dialog-logo"></a>
+                        <form name="forgetform" ng-submit="ctrl.forgotPassword()" class="left">
+                            <kt-messages data-messages="forgotMessages" style="width: 100%!important;padding:5px 0px"></kt-messages>
+
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="forgotModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(forgotModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input">
+                                    <input class="login-input" type="text" ng-model="forgotModel.mobile" autocomplete="m_1"
+                                           maxlength="16" minlength="5" placeholder="Mobile *" required>
+                                    <i class="fa fa-mobile" style="font-size:18px;"></i>
+                                </div>
+                            </div>
+
+                            <div ng-show="forgotModel.selectedCountry.supportedChannel!=2">
+                                <input type="radio" class="ch" value="1" name="forgetotpby" ng-model="forgotModel.otpvia">Receive OTP via SMS
+                            </div>
+                            <div ng-show="forgotModel.selectedCountry.supportedChannel!=1">
+                                <input type="radio" class="ch" value="2" name="forgetotpby" ng-model="forgotModel.otpvia">Receive OTP via Whatsapp
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestOtpForForget()" ng-show="resendTimer<=0 && forgotModel.mobile">
+                                    Send OTP
+                                </button>
+                            </div>
+
+                            <input class="login-input" type="text" ng-model="forgotModel.otp" required placeholder="Enter OTP"
+                                   ng-maxlength="6" ng-minlength="6">
+
+                            <div class="div-input">
+                                <input class="login-input" type="{{c_n_showVPass ? 'text' : 'password'}}" placeholder="New Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.newpassword">
+                                <i class="fa fa-eye" ng-hide="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                            </div>
+
+                            <div class="div-input">
+                                <input class="login-input" type="{{c_nc_showVPass ? 'text' : 'password'}}" placeholder="Confirm Password *"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.confirmpassword">
+                                <i class="fa fa-eye" ng-hide="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                <i class="fa fa-eye-slash" ng-show="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                            </div>
+
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Reset Password" ng-disabled="forgetform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Already have an account?</span>
+                                <a class="forgot-link" ng-click="ctrl.openModal('login-modal')">Login Here</a>
+                            </div>
+                            <div class="ready-id" ng-if="supportDetail.whatsapp">
+                                <span class="forgot-label">Get your ready-made ID </span>
+                                <a class="forgot-link" href="{{supportDetail.whatsapp}}" target="_blank"><i class="fa fa-whatsapp"></i> Whatsapp Now</a>
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="captchaholder"></div>

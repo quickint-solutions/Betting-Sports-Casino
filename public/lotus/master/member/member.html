@@ -1,0 +1,80 @@
+﻿<div class="content-wrap">
+    <div class="member-div" style="padding:10px 20px;margin-bottom:10px;">
+        <a class="link-a" ng-show="userTree.length>1" ui-sref="master.memberlist({memberid:userTree[userTree.length-2].id,userid:''})">
+            <i>Downline Listing</i>
+        </a>
+        <a class="link-a" ng-show="userTree.length<=1" ui-sref="master.memberlist">
+            <i>Downline Listing</i>
+        </a>
+        <span style="color:white;margin:0px 5px;"><i class="fa fa-angle-right"></i></span>
+        <span style="color:white">{{currentUsername}}</span>
+    </div>
+</div>
+<div class="content-wrap" ng-init="selectedTab=0">
+    <div class="member-div">
+        <ul class="nav nav-tabs member-nav">
+            <li ui-sref-active="active">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.activity">
+                    Activity
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype!=5">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.dashboard">
+                    Balance
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.betlist">
+                    Bet List
+                </a>
+            </li>
+
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.bettingpl">
+                    Betting P&L
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.fdbettingpl">
+                    FD Betting P&L
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype!=5">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.accountstatement">
+                    Account Statement
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.clientstatement">
+                    Account Statement
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5 && showB2CSummary">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.bonusstatement">
+                    Bonus Statement
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="ctrl.$stateParams.usertype==5 ">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.referralstatement">
+                    Referral Statement
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.transfer">
+                    Transfer Statement
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a class="sport-type-inner" ui-sref="master.lotusmember.loginhistory">
+                    Login History
+                </a>
+            </li>
+        </ul>
+
+        <div>
+            <div class="scrollwrap member-detail" ui-view="content">
+
+            </div>
+        </div>
+    </div>
+</div>

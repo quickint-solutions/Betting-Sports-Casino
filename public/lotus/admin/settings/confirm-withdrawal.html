@@ -1,0 +1,141 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">
+            {{'confirmwithdrawal.label'| translate}}
+        </h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" tabindex="6"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromDate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default calender_btn" ng-click="fopened=true">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" tabindex="7"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.toDate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           popup-placement="right-bottom"
+                           alt-input-formats="dd/MM/yyyy" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default calender_btn" ng-click="topened=true">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <select class="form-control" ng-model="search.status">
+                    <option ng-repeat="s in withdrawalStatusList" value="{{s.id}}">
+                        {{s.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:100%;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {{'common.button.search' | translate}}
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-default" tabindex="10" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    {{'common.button.reset' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-withdrawal-grid"
+             load-items="ctrl.getItems(params,filters)"
+             name-param="id"
+             data-items="gridItems"
+             name-value-property="id"
+             total="totalItems"
+             data-show-total="true">
+        <table ng-table="tableParams" class="table table-hover clickable master_table"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'common.account.label' | translate" data-sortable="'username'"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span>{{item.user.username}}</span>
+                    </td>
+                    <td data-title="::'common.mobileno.label' | translate" data-sortable="'mobileNo'"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span>{{item.mobileNo}}</span>
+                    </td>
+                    <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'common.amount.label' | translate">
+                        <span class="positive">{{item.amount}}</span>
+                    </td>
+                    <td data-title="::'account.datetime.name.label' | translate"
+                        data-header-class="'size-lg boolean'" class="size-lg boolean" data-sortable="'requestedOn'">
+                        <span title="{{item.requestedOn}}">{{item.requestedOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                    </td>
+                    <td data-title="::'common.remark.label' | translate"
+                        data-header-class="'size-lg boolean'" class="size-lg boolean">
+                        <input id="remark{{$index}}" ng-model="item.remarks">
+                    </td>
+                    <td data-title="::'common.isconfirm.label' | translate"
+                        header-class="'size-md boolean'" class="size-md boolean">
+                        <div class="status-btn">
+                            <span ng-class="{'active':item.status!=3,'suspend':item.status==3}">
+                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                {{$parent.$parent.$parent.ctrl.getStatus(item.status)}}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a class="btn btn-light" title="Confirm Withdrawal"
+                           ng-click="$parent.$parent.$parent.ctrl.confirmWithdrawal(item)">
+                            <i class="fa fa-check"></i> Confirm
+                        </a>
+                        <a class="btn btn-light" title="Confirm Withdrawal"
+                           ng-click="$parent.$parent.$parent.ctrl.rejectWithdrawal(item)">
+                            <i class="fa fa-trash"></i> Reject
+                        </a>
+                        <a class="btn btn-light" title="Account Summary"
+                           ui-sref="admin.member.profile({memberid:item.userId})">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="$data.length>0" class="summary-data">
+                <tr>
+                    <td class="size-md"></td>
+                    <td class="size-md"></td>
+                    <td class="size-md boolean">{{$data | total:'amount' | toRate}}</td>
+                    <td class="size-lg"></td>
+                    <td class="size-lg"></td>
+                    <td class="size-md"></td>
+                    <td ></td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

@@ -1,0 +1,128 @@
+﻿<!--  Bets history  -->
+<div class="bets-history master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="event-heading">Agent P&L Summary</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <div id="picker-market-report" class="ktdatepicker"
+                         kt-date-range-picker
+                         data-from-date="search.fromdate"
+                         data-to-date="search.todate"
+                         data-on-selection="ctrl.refreshGrid()"
+                         data-format="DD MMM YYYY ">
+                        {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn_value float-r">
+                    <button class="btn btn-secondary" ng-click="ctrl.exportToExcel()" ng-disabled="totalItems<=0">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 master_wrap">
+        <p style="color:white;margin:15px 0px!important;font-style:italic;">
+            <a class="link-a" ng-show="userTree.length>0" ui-sref="master.downlinesummary({memberid:'',usertype:''})">
+                {{loginUsername}}
+            </a>
+            <span ng-repeat="ut in userTree">
+                <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                <span ng-show="$index!=userTree.length-1">
+                    <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                    <a class="link-a" ui-sref="master.downlinesummary({memberid:ut.id,usertype:ut.userType})">{{ut.name}}</a>
+                </span>
+            </span>
+        </p>
+        <kt-grid grid-id="kt-downline-summary-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 total="totalItems"
+                 data-show-total="true" has-new-rights="true"
+                 list-new-items="listNewItems"
+                 cache-key="ktdownlinesummarygrid">
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody ng-repeat="item in $data track by $index" class="info-text">
+                    <tr>
+                        <td class="align-l betid"
+                            ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypesShort(item.user.userType)"
+                            data-title="::'user.name.label' | translate">
+                            <span style="line-height: 29px;">
+                                <span class="usertype-lable {{utype}}">{{utype}}</span>
+                                {{item.user.username}}
+                            </span>
+                            <i class="fa fa-angle-double-right mrg-left-10 fa-lg link-a"
+                               ng-class="{'fa-rotate-90':item.show}"
+                               ng-click="$parent.$parent.$parent.ctrl.getPLDetail(item)"></i>
+
+                            <a class="link-a"
+                               ng-hide="item.user.userType>4"
+                               ui-sref="master.downlinesummary({memberid:item.user.id,usertype:item.user.userType})">
+                                <i class="fa fa-users mrg-left-10  "></i>
+                            </a>
+                        </td>
+                        <td header-class="'size-lg align-r'" class="size-lg align-r" data-title="::'stake.label' | translate"
+                            data-sortable="'stake'">
+                            <span title="{{item.to}}">{{item.to | toRate}} </span>
+                        </td>
+                        <td header-class="'size-lg align-r'" class="size-lg align-r" data-title="::'pl.label' | translate"
+                            data-sortable="'downlinepl'">
+                            <span title="{{item.win}}" ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win | toRate}}</span>
+                        </td>
+                        <td header-class="'size-md align-r'" class="size-md align-r" data-title="::'commission.label' | translate"
+                            data-sortable="'commission'">
+                            <span title="{{item.comm }}" ng-class="{'positive':item.comm>=0,'negative':item.comm<0}">{{item.comm | toRate}} </span>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.show && item.eventTypes.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">{{'eventtype.label' | translate}}</th>
+                                        <th class="align-r boolean">{{'stake.label' | translate}}</th>
+                                        <th class="align-r boolean">{{'pl.label' | translate}}</th>
+                                        <th class="align-r boolean">{{'commission.label' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="e in item.eventTypes | orderBy:'stake':true">
+                                        <td class="boolean">
+                                            <span title="{{e.eventTypeName }}">{{e.eventTypeName }} </span>
+                                        </td>
+                                        <td class="align-r boolean">
+                                            <span title="{{e.stake }}">{{e.stake  | toRate}} </span>
+                                        </td>
+                                        <td class="align-r boolean">
+                                            <span title="{{e.netPl}}" ng-class="{'positive':e.netPl>=0,'negative':e.netPl<0}">{{e.netPl | toRate}}</span>
+                                        </td>
+                                        <td class="align-r boolean">
+                                            <span title="{{e.commission }}" ng-class="{'positive':e.commission>=0,'negative':e.commission<0}">{{e.commission | toRate}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td></td>
+                        <td class="size-lg align-r">{{$data | total:'to' | toRate}}</td>
+                        <td class="size-lg align-r">{{$data | total:'win' | toRate}}</td>
+                        <td class="size-md align-r">{{$data | total:'comm' | toRate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

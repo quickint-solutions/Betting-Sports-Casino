@@ -1,0 +1,38 @@
+﻿<div class="casino-list-container center-container">
+    <div>
+        <div class="report-box casino-box fancy-page" ng-init="selectedType='!0'">
+            <div class="d-none-desktop">
+                <div id="casinoListTarget" class="fancy-provider-list">
+                    <div class="fancy-provider-title">
+                        <a>
+                            <span>Live Casino</span>
+                        </a>
+                    </div>
+                    <div class="casino-tabs">
+                        <div class="casino-tabs-menu">
+                            <ul id="casino-scroll-tab" class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link" ng-class="{'active':selectedType=='!0'}" ng-click="selectedType='!0'">
+                                        <img ng-src="{{webImagePath}}casino_icons/tab-icons/35.png"> <span>All Casino</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" ng-repeat="ty in liveGameTypes">
+                                    <a class="nav-link " ng-class="{'active':selectedType==ty.type}" ng-click="$parent.selectedType=ty.type">
+                                        <img ng-src="{{webImagePath}}casino_icons/tab-icons/{{ty.type}}.png"> <span>{{ty.name}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="casino-banners-fancy all">
+                        <div class="casino-banner-item" ng-repeat="lg in liveGamesMarkets | filter:{section:1} | filter:{type:selectedType}">
+                            <a ng-click="ctrl.openLoginModal()">
+                                <div style="background-size: cover; background-position: center center; padding-top: 53.33%; background-image: url(&quot;{{webImagePath}}casino_icons/{{lg.img}}&quot;); "></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

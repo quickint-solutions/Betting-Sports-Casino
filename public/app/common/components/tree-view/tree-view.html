@@ -1,0 +1,19 @@
+﻿<div class="wrapper tree-view">
+    <div class="row" ng-if="::searchRequired=='true'">
+        <div class="col-lg-11">
+            <input type="text" name="name" 
+                    placeholder="{{'common.search.placeholder' | translate}}"
+                   ng-model="serachText" ng-model-options="{debounce: 300}"
+                   ng-change="ctrl.searchByText(serachText)" class="treeview-input" />
+        </div>
+    </div>
+
+    <div class="alert alert-info empty-msg text-center" ng-show="list.length == 0"><p>{{'common.treeview.nodata.message' | translate}}</p></div>
+    <div class="tree-scroll">
+        <ul class="table-nested">
+            <li class="table-li" ng-class="{opened: item.opened}" ng-init="level=0"
+                   ng-include="'app/common/components/tree-view/table-tree.html'"
+                   ng-repeat="item in list"></li>
+        </ul>
+    </div>
+</div>

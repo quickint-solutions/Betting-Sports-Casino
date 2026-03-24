@@ -1,0 +1,136 @@
+﻿<div class="content-wrap">
+    <div class="left-section" ui-view="left">
+
+    </div>
+    <div class="center-section">
+        <div ui-view="center">
+        </div>
+    </div>
+    <div class="right-section">
+        <div class="right-inner sticky" ng-class="{'tv-menu-show':isVideoActive,'tv-active':showVideo}">
+            <div class="account-overview">
+                <a ng-click="showBalance=!showBalance">
+                    available to bet : <kt-glc-code data-special="true"
+                                                    data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+
+                    <i class="arrow-icon" ng-class="{'icon-angle-down':showBalance,'icon-angle-up':!showBalance}" aria-hidden="true"></i>
+                </a>
+                <div class="overview-detail" ng-class="{'show':showBalance}">
+                    <span class="credit-value" ng-show="balanceInfo.creditLimit!=0">
+                        <b>credit Limit : </b>
+                        <kt-glc-code data-special="false" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code>
+                    </span>
+                    <span class="credit-value">
+                        <b>Balance : </b>
+                        <kt-glc-code data-special="false" class="positive" ng-class="{'negative':balanceInfo.balance<0,}"
+                                     data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                    </span>
+                    <span class="credit-value" ng-show="balanceInfo.bonus!=0">
+                        <b>Bonus : </b>
+                        <kt-glc-code data-special="false" class="positive" ng-class="{'negative':balanceInfo.bonus<0,}"
+                                     data-item="{{balanceInfo.bonus}}"></kt-glc-code>
+                        <a class="expand" ui-sref="base.account.bonusstatement"><i class="fa fa-calculator"></i></a>
+                    </span>
+                    <span class="credit-value" ng-show="balanceInfo.bonusToRedeem!=0">
+                        <b>Bonus To Redeem : </b>
+                        <kt-glc-code data-special="false" class="positive" ng-class="{'negative':balanceInfo.bonusToRedeem<0,}"
+                                     data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code>
+                        <a class="expand" ui-sref="base.account.bonusstatement"><i class="fa fa-calculator"></i></a>
+                    </span>
+                    <span class="credit-value">
+                        <b>Total Net Exposure : </b>
+                        <kt-glc-code data-special="false" class="positive" ng-class="{'negative':balanceInfo.exposure<0,}"
+                                     data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                    </span>
+                </div>
+            </div>
+            <div class="tv-overview" ng-show="isVideoActive">
+                <a ng-click="showVideo=!showVideo">
+                    <i class="icon-video-tv"></i>
+                    Live match status<i class="arrow-icon" ng-class="{'icon-angle-down':showVideo,'icon-angle-up':!showVideo}" aria-hidden="true"></i>
+                </a>
+                <div class="overview-detail" ng-class="{'show':showVideo}">
+                    <div ng-show="wcs_video">
+                        <kt-video-player wcs-config="wcs_video" style="height:180px" pause-me="{{ !showVideo}}" ng-if="wcs_video">
+                        </kt-video-player>
+                    </div>
+                    <div style="width:100%;height:100%" ng-show="bf_video"><iframe width="312" height="180" scrolling="no" ng-src="{{bf_video}}"></iframe></div>
+                </div>
+            </div>
+            <div class="inner-section">
+                <div class="one-click">
+                    <div class="one-click-bet" ng-init="oneclick_chkbox=$parent.oneClickEnable">
+                        <label class="switch">
+                            <input class="switch-input" type="checkbox" ng-model="oneclick_chkbox" ng-click="$parent.ctrl.oneClickEnabled();" />
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div class="oneclick-off float-l" ng-if="!$parent.oneClickEnable">1 Click Betting</div>
+                    <div class="oneclickbet-wrap" ng-if="$parent.oneClickEnable" ng-init="editOneClickStake=false">
+                        <div class="oneclick-edit" ng-show="!editOneClickStake">
+                            <div class="col-sm-3 on-btn" ng-repeat="s in stakeConfig.oneClickStake | limitTo:3">
+                                <button class="btn button select-btn" ng-class="{'one-select':s.isActive}"
+                                        ng-click="ctrl.selectOneClickStake($index,s)" kt-click>
+                                    {{s.stake}}
+                                </button>
+                            </div>
+                            <div class="col-sm-3 on-btn">
+                                <button class="button edit_btn small-btn" ng-click="editOneClickStake=true">edit</button>
+                            </div>
+                        </div>
+                        <div class="oneclick-edit" ng-show="editOneClickStake">
+                            <div class="col-sm-3 input-select on-btn" ng-repeat="s in stakeConfig.oneClickStake  | limitTo:3">
+                                <input class="input-box" ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true" />
+                            </div>
+                            <div class="col-sm-3 on-btn">
+                                <button class="button edit_btn small-btn" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bet-manager">
+                    <h4 class="bet-heading">betslip</h4>
+                    <ul class="tab">
+                        <li><a class="tabing-title " ng-class="{'active':selectedBetTab==0}" ng-click="selectedBetTab=0">Bet Slip</a></li>
+                        <li>
+                            <a class="tabing-title openbet-tab" ng-class="{'active':selectedBetTab==1}" ng-click="selectedBetTab=1">
+                                Open Bets
+                                <span class="open-link-count" ng-if="totalBetsCount>0">{{totalBetsCount}}</span>
+                            </a>
+                        </li>
+                        <li style="float:right" ng-click="showEditstake=!showEditstake">
+                            <button class="stake-btn button small-btn">Edit Stakes</button>
+                        </li>
+                    </ul>
+                    <div class="overlay-content" ng-class="{'show':showEditstake}">
+                        <div class="edit-bgoverly"></div>
+                        <div class="edit-full-content">
+                            <div class="stake-edit">
+                                <div class="col-sm-4 input-select" ng-repeat="s in $parent.stakeConfig.stake | filter:{isActive:true}">
+                                    <input type="text" class="input-box" ng-model="s.stake" kt-number-only allow-decimal="true"
+                                           positive-only="true" />
+                                </div>
+
+                                <div class="col-sm-12 input-select" style="text-align:center">
+                                    <a class="edit-cancle" ng-click="showEditstake=false">Cancel</a>
+                                    <button class="btn button small-btn" ng-click="$parent.ctrl.saveStakeConfig();showEditstake=false;">
+                                        save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ui-view="right_placebet" ng-show="selectedBetTab==0">
+                    </div>
+                    <div ui-view="right_openbet" ng-show="selectedBetTab==1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

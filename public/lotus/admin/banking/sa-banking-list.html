@@ -1,0 +1,159 @@
+﻿<div class="col-sm-12 mr-top-10">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'user.search.code.placeholder' | translate}}"
+                       autofocus ng-model="search.userCode" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'user.search.username.placeholder' | translate}}"
+                       autofocus ng-model="search.username" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <select class="form-control" ng-model="search.status">
+                    <option ng-repeat="status in userStatus" value="{{status.id}}">
+                        {{status.name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-sm-2">
+                <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:48%;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {{'common.button.search' | translate}}
+                </button>
+                <button class="btn btn-default" tabindex="10" ng-click="ctrl.resetCriteria()" style="width:48%;">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    {{'common.button.reset' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-banking-grid"
+             load-items="ctrl.getItems(params,filters)"
+             export-to-excel="ctrl.exportBanking(params,1)"
+             export-to-pdf="ctrl.exportBanking(params,2)"
+             name-param="id"
+             data-items="gridItems"
+             name-value-property="id"
+             total="totalItems"
+             data-show-total="true"
+             has-new-rights="ctrl.$stateParams.memberid"
+             new-button-label="Back to parent"
+             go-to-new-state="ctrl.goBack()">
+        <table ng-table="tableParams" class="table table-hover clickable master_table"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr class="dw" ng-repeat="item in $data track by $index"
+                    ng-click="ctrl.selectedRow($index)" ng-class="{'selected-row':selectedIndex==$index}">
+                    <td data-title="::'common.account.label' | translate" data-sortable="'username'"
+                        data-header-class="'size-xl'" class="size-xl"
+                        ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypeShort(item.userType)">
+                        <span class="usertype-lable {{utype}}">{{utype}}</span>
+                        <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.userType)">
+                            {{item.username}}
+                        </span>
+                        <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.userType)"
+                           ui-sref="admin.banking.list({memberid:item.id})">
+                            {{item.username}}&nbsp;<i class="fa fa-sitemap"></i>
+                        </a>
+                    </td>
+                    <td data-title="::'common.exposure.label' | translate" data-sortable="'exposure'"
+                        data-header-class="'size-xsm'" class="size-xsm">
+                        <span>{{item.balanceInfo.exposure | number:2}}</span>
+                    </td>
+                    <td header-class="'size-xs align-r'" class="size-xs align-r">
+                        <input type="checkbox" id="chk-{{$index}}"
+                               ng-hide="item.balanceInfo.take ==0 && item.balanceInfo.give==0"
+                               ng-model="item.isTransfer" style="display:{{item.balanceInfo.take ==0 && item.balanceInfo.give==0 ? 'none':'block'}}">
+                    </td>
+                    <td header-class="'size-smd boolean'" class="size-smd boolean" data-title="'Take'">
+                        <span class="positive">{{item.balanceInfo.take | toRate}}</span>
+                    </td>
+                    <td header-class="'size-smd boolean'" class="size-smd boolean" data-title="'Give'">
+                        <span class="negative">
+                            {{item.balanceInfo.give | toRate}}
+                        </span>
+                    </td>
+                    <td data-header-class="'size-sm'" class="size-sm align-l">
+                        <a ng-disabled="item.balanceInfo.take ==0 && item.balanceInfo.give==0"
+                           ng-click="$parent.$parent.$parent.ctrl.transferChip(item)" class="btn btn-light">
+                            Transfer
+                        </a>
+                    </td>
+                    <td data-title="::'CreditLimit' | translate"
+                        data-header-class="'size-smd'" class="size-smd">
+                        <span>
+                            {{item.balanceInfo.creditLimit| number:0}}
+                        </span>
+                    </td>
+                    <td data-title="::'GivenCredit' | translate"
+                        data-header-class="'size-smd'" class="size-smd">
+                        <span>
+                            {{item.balanceInfo.givenCredit | number:0}}
+                        </span>
+                    </td>
+                    <td data-title="::'user.status.label' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <div class="status-btn">
+                            <span ng-class="{'active':item.status==2,'suspend':item.status!=2}">
+                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                {{$parent.$parent.$parent.ctrl.getUserStatus(item.status)}}
+                            </span>
+                        </div>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="align-l">
+                        <a class="btn btn-light" title="Change Status"
+                           kt-has-claim claims="{Claims: ['master.member.edit']}"
+                           ng-click="$parent.$parent.$parent.ctrl.changeUserStatus(item)">
+                            <i class="fa fa-gear"></i>
+                        </a>
+                        <a class="btn btn-light" title="Bet Config"
+                           ng-click="$parent.$parent.$parent.ctrl.updateBetConfig(item.id,item.username)">
+                            <i class="fa fa-code"></i>
+                        </a>
+                        <a class="btn btn-light" title="Set Commission"
+                           ng-click="$parent.$parent.$parent.ctrl.setCommission(item.id,item.username)">
+                            <i class="fa fa-percent"></i>
+                        </a>
+                        <a class="btn btn-light" title="Account Summary"
+                           ui-sref="admin.lotusmember.profile({memberid:item.id,usertype:item.userType})">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn btn-success" title="Deposit/Withdrawal"
+                           ng-click="$parent.$parent.$parent.ctrl.addDW(item.id,item.username)">
+                            <i class="fa fa-bank"></i>
+                            CR
+                        </a>
+                        <a class="btn btn-secondary" title="BT"
+                           ng-click="$parent.$parent.$parent.ctrl.setBT(item.id,item.username)">
+                            <i class="fa fa-handshake-o"></i>
+                            BT
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="$data.length>0" class="summary-data">
+                <tr>
+                    <td class="size-xl"></td>
+                    <td class="size-xsm">{{$data | total:'balanceInfo.exposure':true | toRate}}</td>
+                    <td class="size-xs"></td>
+                    <td class="size-smd boolean">{{$data | total:'balanceInfo.take':true | number:2}}</td>
+                    <td class="size-smd boolean">{{$data | total:'balanceInfo.give':true | number:2}}</td>
+                    <td class="size-sm">
+                    </td>
+                    <td class="size-smd">{{$data | total:'balanceInfo.creditLimit':true | toRate}}</td>
+                    <td class="size-smd">{{$data | total:'balanceInfo.givenCredit':true | toRate}}</td>
+                    <td class="size-md"></td>
+                    <td class="size-sm"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

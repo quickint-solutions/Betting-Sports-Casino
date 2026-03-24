@@ -1,0 +1,149 @@
+﻿<header>
+    <h1 class="title">
+        {{'banking.label'| translate}}
+    </h1>
+</header>
+
+<div class="col-sm-12 mr-top-10">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'user.search.name.placeholder' | translate}}"
+                       autofocus ng-model="search.name" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'user.search.username.placeholder' | translate}}"
+                       autofocus ng-model="search.username" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <select class="form-control" ng-model="search.status">
+                    <option ng-repeat="status in userStatus" value="{{status.id}}">
+                        {{status.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:48%;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {{'common.button.search' | translate}}
+                </button>
+                <button class="btn btn-default" tabindex="10" ng-click="ctrl.resetCriteria()" style="width:48%;">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    {{'common.button.reset' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-banking-grid"
+             load-items="ctrl.getItems(params,filters)"
+             export-to-excel="ctrl.exportBanking(params,1)"
+             export-to-pdf="ctrl.exportBanking(params,2)"
+             name-param="id"
+             data-items="gridItems"
+             name-value-property="id"
+             total="totalItems"
+             data-show-total="true"
+             cache-key="ktbankinggrid">
+        <table ng-table="tableParams" class="table table-hover clickable master_table"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-class="{'dw':item.chips && item.chips>0}" ng-repeat="item in $data track by item.userId">
+                    <td data-title="::'common.account.label' | translate" data-sortable="'username'"
+                        data-header-class="'size-lg'" class="size-lg"
+                        ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypeShort(item.user.userType)">
+                        <span class="usertype-lable {{utype}}">{{utype}}</span>
+                        <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.user.userType)">
+                            {{item.user.username}}
+                        </span>
+                        <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.user.userType)"
+                           ui-sref="master.bankingofmember({memberid:item.userId})">
+                            {{item.user.username}}
+                        </a>
+                    </td>
+                    <td data-title="::'user.name.label' | translate"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.user.name}}</span>
+                    </td>
+                    <td data-title="::'common.balance.label' | translate" data-sortable="'balance'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span>{{item.balance | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.exposure.label' | translate" data-sortable="'exposure'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.exposure | toRate}}</span>
+                    </td>
+                    <td header-class="'size-xs align-r'" class="size-xs align-r">
+                        <input type="checkbox" id="chk-{{$index}}" ng-hide="item.chips == 0" ng-model="item.isTransfer" class="chk-box">
+                        <label for="chk-{{$index}}" ng-hide="item.chips == 0"></label>
+                    </td>
+                    <td header-class="'size-md boolean'" class="size-md boolean" data-title="'Take'">
+                        <span class="positive">{{item.deposit= (item.dwType == 'D' ? item.chips : 0.00 ) }}</span>
+                    </td>
+                    <td header-class="'size-md boolean'" class="size-md boolean" data-title="'Give'">
+                        <span class="negative">{{item.withdrawal=(item.dwType == 'W' ? item.chips : 0.00 ) }}</span>
+                    </td>
+                    <td data-header-class="'size-sm'" class="size-sm align-l">
+                        <a ng-disabled="item.chips == 0" ng-click="$parent.$parent.$parent.ctrl.transferChip(item)" class="btn btn-primary">
+                            Transfer
+                        </a>
+                    </td>
+                    <td data-title="::'common.creditref.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <a class="credit-ref" title="{{item.creditLimit | toRate }}">
+                            {{item.creditLimit | toRate}}
+                        </a>
+                    </td>
+                    <td data-title="::'user.status.label' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <div class="status-btn" ng-click="$parent.$parent.$parent.ctrl.changeUserStatus(item)">
+                            <span ng-class="{'active':item.user.status==2,'suspend':item.user.status!=2}">
+                                <i class="fa fa-circle" aria-hidden="true"></i>
+                                {{$parent.$parent.$parent.ctrl.getUserStatus(item.user.status)}}
+                            </span>
+                        </div>
+                    </td>
+                    <td data-title="::'common.remark.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <input id="remark{{$index}}" ng-model="item.remarks">
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a class="btn btn-light" title="Players"
+                           ng-if="$parent.$parent.$parent.ctrl.haveChild(item.user.userType)"
+                           ui-sref="master.bankingofmember({memberid:item.userId})">
+                            <i class="fa fa-group"></i>
+                        </a>
+                        <a class="btn btn-light" title="Account Statement"
+                           ui-sref="master.member.statement({memberid:item.userId})">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="$data.length>0" class="summary-data">
+                <tr>
+                    <td class="size-lg"></td>
+                    <td class="size-sm"></td>
+                    <td class="size-md">{{$data | total:'balance' | toRate}}</td>
+                    <td class="size-sm">{{$data | total:'exposure' | toRate}}</td>
+                    <td class="size-xs"></td>
+                    <td class="size-md boolean">{{$data | total:'deposit' | number:2}}</td>
+                    <td class="size-md boolean">{{$data | total:'withdrawal' | number:2}}</td>
+                    <td class="size-sm">
+                        <a ng-click="$parent.$parent.$parent.ctrl.transferAllChip()" class="btn btn-secondary">
+                            Transfer All
+                        </a>
+                    </td>
+                    <td class="size-md">{{$data | total:'creditLimit' | toRate}}</td>
+                    <td class="size-md"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

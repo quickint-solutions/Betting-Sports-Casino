@@ -1,0 +1,109 @@
+﻿<!-- profit and loss -->
+<div class="Profit-l">
+    <div class="profit-title">
+        <h1 class="event-heading" ng-if="!fromMember">{{'profitloss.label' | translate}}</h1>
+        <div class="input-detail" style="height:90px;">
+            <div class="input-group">
+                <label for="CreatedFrom">From</label>
+                <input type="text" class="form-control" id="CreatedFrom"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </div>
+
+            <div class="input-group">
+                <label for="CreatedTo">To</label>
+                <input type="text" class="form-control" id="CreatedTo"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </div>
+            <a ng-click="ctrl.getProfitLoss()" class="btn small-btn search_btn">
+                <i class="fa fa-search"></i> {{'common.button.search' | translate}}
+            </a>
+        </div>
+    </div>
+    <div ng-if="!showBetDetail">
+        <div>
+            <ul class="total-show">
+                <li class="sports-switch " ng-class="{'underline':selectedEventType!= e.eventTypeId}" ng-repeat="e in eventSummary">
+                    <span ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                        {{e.eventTypeName}}&nbsp;:&nbsp;
+                        <span style="margin-left:0px;font-weight:bold;" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">
+                            {{e.totalPl | toRate}}
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="table-bets">
+            <div class="list-view">
+                <div>
+                    <div class="list-view-table myTranscludedContent currency">
+                        <table class="table table-hover clickable ng-table" style="display: table">
+                            <thead>
+                                <tr>
+                                    <th class="align-l">Market Name</th>
+                                    <th class="size-sm">Start time</th>
+                                    <th class="size-sm">Settled Time</th>
+                                    <th class="size-sm align-r">Comm.</th>
+                                    <th class="size-sm align-r">Net Win</th>
+                                </tr>
+                            </thead>
+                            <tbody class="info-text" ng-repeat="itemGrp in gridData track by $index">
+                                <tr>
+                                    <td class="td-date">
+                                        <kt-date data-date-value="itemGrp.date"></kt-date>
+                                    </td>
+                                </tr>
+                                <tr class="inner-tr" ng-repeat="item in itemGrp.values track by $index" ng-click="ctrl.getBet(item)">
+                                    <td class="align-l " style="padding-left:20px!important;">
+                                        <span ng-if="$parent.$parent.selectedEventType != $parent.$parent.liveGamesId ">
+                                            {{item.eventName}}&nbsp;-&nbsp;{{item.marketName}}
+                                        </span>
+                                        <span ng-if="$parent.$parent.selectedEventType == $parent.$parent.liveGamesId">
+                                            <span id="to">{{item.marketName}} # {{item.roundId}}</span>
+                                            <a ng-click="ctrl.viewCards(item)"><i class="fa fa-ticket"></i></a>
+                                        </span>
+                                    </td>
+                                    <td class="size-sm ">
+                                        <span title="{{item.marketTime | date:'HH:mm:ss'}}">
+                                            <kt-date data-date-value="item.marketTime" data-format="HH:mm:ss"></kt-date>
+                                        </span>
+                                    </td>
+                                    <td class="size-sm ">
+                                        <span title="{{item.settleTime | date:'HH:mm:ss'}}">
+                                            <kt-date data-date-value="item.settleTime" data-format="HH:mm:ss"></kt-date>
+                                        </span>
+                                    </td>
+                                    <td class="size-sm align-r ">
+                                        <a style="line-height:26px;" ng-class="{'positive':item.comm>=0,'negative':item.comm<0}"
+                                           title="{{ item.comm | toRate}}">{{ item.comm | toRate}}</a>
+                                    </td>
+                                    <td class="size-sm align-r ">
+                                        <a style="line-height:26px;" ng-class="{'positive':item.win>=0,'negative':item.win<0}"
+                                           title="{{item.win | toRate}}">{{item.win | toRate}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-bets client-pl-detail">
+        <div ng-if="showBetDetail">
+            <div ng-include="betDetailTemplate" class="list-view"></div>
+        </div>
+    </div>
+</div>

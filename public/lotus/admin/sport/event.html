@@ -1,0 +1,73 @@
+﻿<div class="content-wrap">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">
+                {{'events.label' | translate}}
+                <span class="float-r">
+                    <span ncy-breadcrumb="" class="breadcrumb"></span>
+                </span>
+            </h1>
+        </header>
+        <kt-grid grid-id="kt-event-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 show-total="true"
+                 has-new-rights="true"
+                 list-new-items="listNewItems"
+                 cache-key="kteventgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id" ng-click="ctrl.selectedRow($index)" ng-class="{'selected-row':selectedIndex==$index}">
+                        <td data-title="::'event.name.label' | translate"
+                            data-sortable="'name'"
+                            data-header-class="'size-xl'" class="size-xl">
+                            <span title="{{item.name}}" ng-click="$parent.$parent.$parent.ctrl.viewMarket(item)">
+                                {{item.name}}
+                            </span>
+                        </td>
+                        <td data-title="::'event.countrycode.label' | translate"
+                            data-sortable="'countrycode'"
+                            data-header-class="'size-md'" class="size-md">
+                            <span title="{{item.countryCode}}">{{item.countryCode}} </span>
+                        </td>
+                        <td data-title="::'event.timezone.label' | translate"
+                            data-header-class="'size-md '" class="size-md ">
+                            <span title="{{item.timezone}}">{{item.timezone}} </span>
+                        </td>
+                        <td data-title="::'event.venue.label' | translate"
+                            data-sortable="'venue'" data-header-class="'size-lg '" class="size-lg ">
+                            <span title="{{item.venue}}">{{item.venue}} </span>
+                        </td>
+                        <td data-title="::'event.video.label' | translate"
+                            data-header-class="'size-md align-l'" class="size-md align-l">
+                            <i ng-show="item.videoId" class="fa fa-check"></i>
+                        </td>
+                        <td data-title="::'event.opendate.label' | translate"
+                            data-sortable="'opendate'"
+                            data-header-class="'size-md'" class="size-md">
+                            <span title="{{item.openDate}}">{{item.openDate | date:'dd-MM-yyyy hh:mm a'}} </span>
+                        </td>
+                        <td data-title="::'grid.button.action.header' | translate"
+                            data-header-class="'boolean'" class="boolean">
+                            <a id="btnEdit{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.addEditEvent(item)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a id="btnviewMarket{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.viewMarket(item)">
+                                <i class="fa fa-eye"></i>
+                                {{'markets.label' | translate}}
+                            </a>
+                            <a id="btnviewMarket{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.linkVideo(item)">
+                                <i class="fa fa-video-camera"></i>
+                                {{'linkvideo.label' | translate}}
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

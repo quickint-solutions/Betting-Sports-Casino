@@ -1,0 +1,73 @@
+﻿<div class="minline" ng-show="temporaryStatus!=2" ng-init="toPrice=price" >
+    <div class="fact-content">
+        <div class="factCol" ng-class="{'back-bg':side==1,'lay-bg':side==2}">
+            <div class="backPC">
+                <span>{{runnerName}}</span>
+            </div>
+
+        </div>
+        <div class="maxbet">
+            <div class="maxbetcol" ng-show="minBet>0">Min Bet: {{minBet | toRateOnly | shortNumber}}</div>
+            <div class="maxbetcol" ng-show="maxBet>0">Max Bet: {{maxBet | toRateOnly | shortNumber}}</div>
+            <div class="maxbetcol" ng-show="maxProfit>0">Max Mkt: {{maxProfit | toRateOnly | shortNumber}}</div>
+
+        </div>
+        <div class="add-more">
+            <div class="bet-header">Odds</div>
+            <div class="bet-header">Stake</div>
+            <div class="bet-header">{{side==1 ? 'Profit' : 'Liability'}} </div>
+        </div>
+        <div class="add-more">
+            <div class="addvalue" ng-if="!disableOdds" ng-class="{'active':$parent.valueFocus==1,'khado':$parent.bettingType==8}" ng-click="$parent.valueFocus=1">
+                <button class="minus" id="minus" ng-click="ctrl.down()">-</button>
+                <input type="text" ng-model="$parent.price" kt-number-only allow-decimal="true" positive-only="true" class="cost">
+                <button class="minus" id="plus" ng-click="ctrl.up()">+</button>
+            </div>
+            <div class="addvalue khado-to" ng-if="$parent.bettingType==8">
+                <div class="odd-v">-{{($parent.price*1)+($parent.toPrice*1)-1}}</div>
+            </div>
+            <div class="addvalue" ng-if="disableOdds">
+                <div class="odd-v">
+                    {{price}}<span ng-show="bettingType==7"> &nbsp;({{percentage}}%)</span>
+                </div>
+            </div>
+
+            <div class="addvalue" ng-hide="betId">
+                <input type="text" placeholder="{{minBet>0 ? 'Min:'+(minBet | toRate) : ''}}" ng-model="size"
+                       kt-number-only allow-decimal="true" positive-only="true"
+                       ng-change="ctrl.sizeChanged()" class="allval" />
+            </div>
+            <div class="addvalue" ng-show="betId">
+                <input ng-model="size" type="text" onfocus="blur()" disabled class="allval" />
+            </div>
+            <div class="addvalue">
+                <span class="odd-v">{{placeBetLabel | number:2}}</span>
+            </div>
+        </div>
+        <div class="addbuttons" ng-hide="betId">
+            <button class="ad-val" style="width:31%" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}" ng-click="ctrl.stakeClick(s.stake)">
+                +{{s.stake | number:0}}
+            </button>
+        </div>
+        <div class="orders">
+
+            <button class="plc-bet" kt-has-claim claims="{Claims: ['client.bet.place']}" ng-click="ctrl.submitBet()"
+                    ng-class="{'disable':price<=0 || !size || size<=0 }" kt-click ng-hide="betId">
+                <div class="sid-img"><i class="check-white"></i> </div>
+                Place bet
+            </button>
+            <button class="plc-bet" kt-has-claim claims="{Claims: ['client.bet.place']}" ng-click="ctrl.updateBet()"
+                    kt-click ng-show="betId">
+                <div class="sid-img"><i class="check-white"></i> </div>
+                Update bet
+            </button>
+
+            <button ng-click="ctrl.cancelInlineBet()">
+                <div class="sid-img">
+                    <i class="trash"></i>
+                </div>Cancel order
+            </button>
+
+        </div>
+    </div>
+</div>

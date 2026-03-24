@@ -1,0 +1,148 @@
+﻿<div class="horse-racing h-tabbing">
+    <ul class="tabbing-blue">
+        <li ng-class="{'active':currentTab==2}"><a ng-click="ctrl.loadMarkets(2)">{{'inplay.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==0}"><a ng-click="ctrl.loadMarkets(0)">{{'today.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==1}"><a ng-click="ctrl.loadMarkets(1)">{{'tomorrow.label' | translate}}</a></li>
+    </ul>
+
+    <div class="race-detail" ng-repeat="e in eventTypes" ng-if="currentTab==2">
+        <div class="market">
+            <div class="main-market">
+                <div class="market-table" >
+                    <div class="marketTitle">
+                        <div class="marketTitle-name">{{e.name}}</div>
+                        <div class="market-backlay-odd">
+                            <span>1</span>
+                            <span>x</span>
+                            <span>2</span>
+                        </div>
+                    </div>
+                    <div class="market-table-detail">
+                        <div class="market-Content no-border" ng-class="{'stop':h.temporaryStatus==3,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4}"
+                             id="tr_{{h.id}}"
+                             ng-repeat="h in e.markets">
+                            <div class="bt-country">
+                                <div style="width:100%">
+                                    <a class="team-name" ui-sref="base.home.sport.fullmarket({nodetype:2,id:h.event.competitionId,eventId:h.eventId,eventTypeId:h.eventType.id})">
+                                        {{ ctrl.$stateParams.nodetype==4 ? h.name : h.event.name}}
+                                        <span>&nbsp;/&nbsp;{{h.event.openDate | date:'MMM d yyyy hh:mm a'}}</span>
+                                    </a>
+                                    <div class="float-right highlight-icon">
+                                        <span class="green" ng-if="h.inPlay"><i class="fas fa-circle"></i></span>
+                                        <span ng-if="h.event.videoId"><i class="fas fa-tv"></i></span>
+                                        <span ng-if="h.event.hasFancy" style="width:25px;"><i class="fab fa-facebook-f"></i></span>
+                                        <span ng-if="h.event.hasFancy"><b>BM</b></span>
+                                        <!--<span  style="width:21px;"><img style="width:64%;" src="/public/images/book365/card.png" /></span>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="highlight-factor">
+                                <div class="fact" ng-init="m0 = h.marketRunner[0]">
+                                    <div class="fact-box  back" kt-animate-on-change="m0.backPrice[0].price">
+                                        <div class="fct">
+                                            <div class="price">{{m0.backPrice[0].price}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="fact-box lay" kt-animate-on-change="m0.layPrice[0].price" ng-if="h.bettingType!=6">
+                                        <div class="fct">
+                                            <div class="price"> {{m0.layPrice[0].price}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="fact-box odd-disabled" ng-if="h.bettingType==6">
+                                        <div class="fct">-</div>
+                                    </div>
+                                </div>
+
+                                <div class="fact" ng-init="m2 = h.marketRunner[2]">
+                                    <div class="fact-box odd-disabled" ng-if="!m2">
+                                        <div class="fct">-</div>
+                                    </div>
+                                    <div class="fact-box  back1" ng-if="m2" kt-animate-on-change="m2.backPrice[0].price">
+                                        <div class="fct">
+                                            <div class="price">{{ m2.backPrice[0].price }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="fact-box odd-disabled" ng-if="!m2 || h.bettingType==6">
+                                        <div class="fct">-</div>
+                                    </div>
+                                    <div class="fact-box lay1" kt-animate-on-change="m2.layPrice[0].price"
+                                         ng-if="m2 && h.bettingType!=6">
+                                        <div class="fct">
+                                            <div class="price">{{ m2.layPrice[0].price }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fact" ng-init="m1 = h.marketRunner[1]">
+                                    <div class="fact-box  back1" kt-animate-on-change="m1.backPrice[0].price">
+                                        <div class="fct">
+                                            <div class="price">{{m1.backPrice[0].price }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="fact-box lay1" kt-animate-on-change="m1.layPrice[0].price"
+                                         ng-if="h.bettingType!=6">
+                                        <div class="fct">
+                                            <div class="price">{{m1.layPrice[0].price}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="fact-box odd-disabled" ng-if="h.bettingType==6">
+                                        <div class="fct">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+    </div>
+    <div ng-if="currentTab!=2" class="popup_height">
+        <div class="filter-list">
+            <ul>
+                <li class="filter-head"><strong>{{'sportfilter.label' | translate}}</strong></li>
+                <li ng-repeat="f in filters | filter:{checked:true}">
+                    <span><i ng-if="$index != 0" class="fa fa-circle ng-scope"></i>{{f.name}}</span>
+                </li>
+                <li class="filter_team float-right">
+                    <a>Filter</a>
+                    <div class="filter-pop">
+                        <ul>
+                            <li>
+                                <p class="span-check">
+                                    <input type="checkbox" id="chk_filter_all" ng-model="$parent.selectAll" ng-click="ctrl.eventTypeChanged(true)" />
+                                    <label for="chk_filter_all">{{'all.label' | translate}}</label>
+                                </p>
+                            </li>
+                            <li ng-repeat="f in filters">
+                                <p class="span-check">
+                                    <input id="chk_filter_{{$index}}" type="checkbox" ng-click="ctrl.eventTypeChanged()" ng-model="f.checked" />
+                                    <label for="chk_filter_{{$index}}">{{f.name}}</label>
+                                </p>
+                            </li>
+
+                        </ul>
+                        <div class="filter-btn">
+                            <a class="bets" ng-click="ctrl.loadMarketsByDays()">Save</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="over-wrap" style="margin-bottom:30px">
+            <table>
+                <tr ng-repeat="m in marketDetails">
+                    <td class="game-time"><strong>{{m.event.openDate | date:'HH:mm'}}</strong></td>
+                    <td class="eventDetail">
+                        <span>{{m.event.eventType.name}}</span>
+                        <img src="/public/images/arrow.png" />
+                        <a href="" ui-sref="base.home.sport.fullmarket({nodetype:4,id:m.eventId,marketid:m.id})"><strong>{{m.event.name}}</strong></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>

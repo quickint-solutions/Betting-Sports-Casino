@@ -1,0 +1,1350 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.table-remark {
+    padding: 2px 5px 2px 2px;
+    font-size: 12px;
+    font-weight: bold;
+    color: $remark;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.main {
+    line-height: 15px;
+
+    .sidebar {
+        padding: 0 !important;
+        min-height: calc(100vh - 159px);
+        max-width: 15% !important;
+        background-color: #ccc;
+        color: $black-color;
+
+        .dropdwn-btn {
+            &:before {
+                font-family: "Font Awesome 5 Free";
+                content: "\f105";
+                display: inline-block;
+                padding-right: 3px;
+                vertical-align: middle;
+                font-weight: 900;
+                float: right;
+            }
+
+            &.active:before {
+                content: "\f107";
+            }
+        }
+
+        .sidebar-bottom {
+            .dropdown-container {
+                padding: 5px 5px 5px 10px;
+                background-color: #ccc;
+
+                li {
+                    line-height: 15px;
+
+                    a {
+                        background-color: transparent;
+                        border-bottom: none;
+                        padding: 0;
+                        color: #343a40;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .nested-menu {
+                li {
+                    display: block;
+                    color: #343a40;
+                    font-size: 16px;
+                    text-transform: capitalize;
+
+                    .fa-caret-right {
+                        margin-right: 4px;
+                        color: #343140
+                    }
+                }
+
+                span {
+                    cursor: pointer;
+                }
+
+                .last-inner-menu {
+                    li {
+                        padding-left: 36px;
+                    }
+                }
+
+                .plus {
+                    cursor: pointer;
+                    user-select: none;
+                    padding: 3px 0px 3px 0;
+                    width: 100%;
+                    display: block;
+                }
+
+                .plus::before {
+                    content: "\f0fe";
+                    color: #343a40;
+                    display: inline-block;
+                    margin-right: 4px;
+                    font-family: "Font Awesome 5 Free";
+                }
+
+                .minus::before {
+                    content: "\f146";
+                    font-family: "Font Awesome 5 Free";
+                }
+
+                .inner-nested {
+                    display: none;
+                }
+
+                .active {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .featured-box {
+        max-width: 85% !important;
+        flex: 0 0 85% !important;
+        padding: 5px !important;
+
+        .col-md-9.featured-box-detail {
+            max-width: 70% !important;
+            flex: 0 0 70% !important;
+        }
+
+        .col-md-12.featured-box-detail {
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+        }
+
+        .featured-box-detail {
+            min-height: 100vh;
+            // padding-right: 6px;
+            .game-heading {
+                background-color: $heading;
+                color: $white-color;
+                padding: 10px;
+
+                .card-header-title {
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
+
+            .h-tabbing {
+                padding-bottom: 45px;
+            }
+
+            .session-remark {
+                padding: 2px 5px 2px 2px;
+                font-size: 12px;
+                font-weight: bold;
+                color: $remark;
+                width: 100%;
+                background: #f2f2f2;
+            }
+
+            .market {
+                .price {
+                    display: block;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+                .size {
+                    margin-top: 1px;
+                    display: block;
+                    font-size: 10px;
+                }
+
+                .market-title {
+                    padding: 6px 8px;
+                    font-size: 14px;
+                    background-color: $title;
+                    color: $white-color;
+                    font-weight: bold;
+                    margin-top: 0.25rem;
+                    text-transform: capitalize;
+
+                    .market-heading-title {
+                    }
+
+                    a {
+                        color: $white-color;
+                        margin: 0 0 0 10px;
+                    }
+                }
+
+                .market-table {
+                    .marketTitle {
+                        display: flex;
+                        position: relative;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        border-bottom: 0.5px solid #fff;
+
+                        .marketTitle-name {
+                            display: flex;
+                            padding: 0.4em 0px 0.4em 0.2em;
+                            letter-spacing: 0.66px;
+                            width: 36%;
+                        }
+
+                        .text-info {
+                            font-size: 14px;
+                            color: #17a2b8;
+                            text-transform: capitalize;
+                        }
+
+                        .market-backlay-odd {
+                            display: flex;
+                            flex: 0 0 65%;
+                            justify-content: center;
+
+                            .market-bk {
+                                width: calc(16.6667%);
+                                text-align: center;
+                                color: $black-color;
+                                padding: 5px 0;
+                                //border: 1px solid #fff;
+                                border-right: 0;
+                                border-bottom: 0;
+                                border-top: 0;
+                                letter-spacing: 0;
+                            }
+                        }
+                    }
+
+                    .market-table-detail {
+                        display: flex;
+                        flex-wrap: wrap;
+                        position: relative;
+
+                        .market-Content {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            background-color: $table-back;
+                            border-bottom: 0.5px solid #fff;
+
+                            &.no-border {
+                                border: none;
+                            }
+
+                            .mt-country {
+                                //display: flex;
+                                flex-basis: 35%;
+                                font-size: 14px;
+                                padding: 5px;
+                                //border: 1px solid #fff;
+                                border-right: 0;
+                                border-top: 0;
+                                border-left: 0;
+
+                                .team-name {
+                                    display: block;
+                                    width: 100%;
+                                    overflow: hidden;
+                                    white-space: inherit;
+                                    text-overflow: ellipsis;
+                                    text-transform: capitalize;
+                                    font-weight: bold;
+                                }
+                            }
+
+                            .factor {
+                                display: flex;
+                                width: 65%;
+
+                                .mt-odd-detail {
+                                    display: flex;
+                                    width: 50%;
+                                }
+
+                                .market-box {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    width: 33.33%;
+                                    min-width: 33.33%;
+                                    max-width: 33.33%;
+                                    flex-grow: 1;
+                                    text-align: center;
+                                    cursor: pointer;
+                                    padding: 5px 0;
+                                    border-left: 1px solid #fff;
+                                    border-right: 0;
+                                    border-bottom: 0;
+                                    height: 39.8px;
+                                }
+                            }
+
+                            .market-odds {
+                            }
+                        }
+                    }
+
+                    .back-lay-odd {
+                        display: flex;
+                        flex: 0 0 50%;
+                        justify-content: flex-end;
+                    }
+
+                    .market-bk {
+                        text-align: center;
+                        padding: 5px 0;
+                        width: calc(44.6667%);
+                        border: 1px solid #fff;
+                        border-right: 0;
+                        border-bottom: 0;
+                        border-top: 0;
+                        letter-spacing: 0;
+                    }
+                }
+
+                .market-wrap {
+                    .marketTitle {
+                        .marketTitle-name {
+                            width: 60% !important;
+                        }
+
+                        .tab-backlay {
+                            flex: 0 0 46%;
+                            display: flex;
+                            justify-content: flex-start;
+                        }
+
+                        .market-bk {
+                            width: calc(29.9%);
+                            text-transform: capitalize;
+                        }
+
+                        .market-blank {
+                            width: calc(45.33%)
+                        }
+                    }
+
+                    .market-table-detail {
+                        .market-Content {
+                            div.mt-country {
+                                flex-basis: 57% !important;
+
+                                .team-name {
+                                    font-weight: normal;
+                                    text-transform: initial;
+                                }
+                            }
+
+                            .factor {
+                                width: 48.5%;
+
+                                .market-box {
+                                    width: 28.5% !important;
+                                    min-width: 28.5% !important;
+                                    max-width: 28.5% !important;
+                                }
+
+                                .mt-odd-detail {
+                                    justify-content: flex-end;
+                                    width: 100%;
+                                }
+
+                                .market-value-box {
+                                    width: 45.33%;
+                                    padding: 5px 5px 5px 0;
+                                    display: flex;
+                                    flex-direction: column;
+                                    border: 1px solid #fff;
+                                    border-right: 0;
+                                    border-bottom: 0;
+                                    justify-content: flex-end;
+                                    flex-grow: 1;
+                                    text-align: end;
+                                    font-size: 12px;
+                                    text-transform: capitalize
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .fixed-wrap {
+                    .fixed-country {
+                        flex-basis: 85%;
+                        font-size: 14px;
+                        padding: 5px;
+                        //border: 1px solid #fff;
+                        border-right: 0;
+                        border-top: 0;
+                        border-left: 0;
+                    }
+
+                    .market-odds {
+                        display: flex;
+                        width: 15%;
+
+                        .fixed-odd-box {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            width: 100%;
+                            color: $white-color;
+                            background-color: $fixedodd-bg;
+                            flex-grow: 1;
+                            text-align: center;
+                            cursor: pointer;
+                            padding: 12.2px 0;
+                            //border: 1px solid #fff;
+                            border-right: 0;
+                            border-top: 0;
+                            height: 39.2px;
+                        }
+                    }
+                }
+            }
+
+            .odd-table {
+                .marketTitle-name {
+                    width: 60% !important;
+                }
+
+                .market-table {
+                    .market-table-detail {
+                        .market-Content {
+                            .mt-country {
+                                flex-basis: 60% !important;
+                            }
+
+                            .factor {
+                                width: 48.5%;
+
+                                .mt-odd-detail {
+                                    justify-content: flex-end;
+                                    width: 100%;
+                                }
+
+                                .market-box {
+                                    width: 50%;
+                                    min-width: 50%;
+                                    max-width: 50%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bookmaker {
+                margin-top: 0.25rem;
+            }
+            /* tabbing */
+            .tab-market {
+                .tab-content {
+                    display: none;
+                }
+
+                .market-tab {
+                    .tab-backlay {
+                        display: flex;
+                        flex: 0 0 50%;
+                        justify-content: flex-start;
+                    }
+
+                    .market-table {
+                        .marketTitle {
+                            .marketTitle-name {
+                                width: 60% !important;
+                            }
+
+                            .tab-backlay {
+                                flex: 0 0 46%;
+                            }
+
+                            .market-bk {
+                                width: calc(29.9%)
+                            }
+
+                            .market-blank {
+                                width: calc(45.33%)
+                            }
+                        }
+
+                        .market-table-detail {
+                            .market-Content {
+                                div.mt-country {
+                                    flex-basis: 57% !important;
+
+                                    .team-name {
+                                        font-weight: normal;
+                                    }
+                                }
+
+                                .factor {
+                                    .market-box {
+                                        width: 28.5% !important;
+                                        min-width: 28.5% !important;
+                                        max-width: 28.5% !important;
+                                    }
+
+                                    .market-value-box {
+                                        width: 45.33%;
+                                        padding: 5px 5px 5px 0;
+                                        display: flex;
+                                        flex-direction: column;
+                                        border: 1px solid #fff;
+                                        border-right: 0;
+                                        border-bottom: 0;
+                                        justify-content: flex-end;
+                                        flex-grow: 1;
+                                        text-align: end;
+                                        font-size: 12px;
+                                        text-transform: capitalize
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .tab {
+                    overflow: hidden;
+                    margin-top: 0.45rem;
+                    box-shadow: 0 8px 8px -7px;
+                    width: 100%;
+
+                    button {
+                        padding: .5rem 1rem;
+                        float: left;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        transition: 0.3s;
+                        color: $white-color;
+                        background-color: $tab-bg;
+                        text-transform: capitalize;
+
+                        &.active {
+                            background-color: $theme-color;
+                        }
+                    }
+                }
+            }
+            /* filter*/
+            .popup_height {
+                .over-wrap {
+                    font-size: 14px;
+
+                    table {
+                        width: 100%;
+
+                        tr {
+                            border-bottom: 1px solid #ccc;
+                            background-color: #f2f2f2;
+
+                            td {
+                                vertical-align: middle;
+                                padding: 10px 0 10px 10px;
+                            }
+
+                            .game-time {
+                                width: 8%;
+                            }
+
+                            .eventDetail {
+                                a {
+                                    color: #337ab7
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .recent-results {
+                    table {
+                        th {
+                            padding: 4px 0 4px 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-container {
+
+            .product-img {
+                display: inline-block;
+                position: relative;
+                margin-bottom: 25px;
+                margin-right: 25px;
+                cursor: pointer;
+                box-shadow: 0 13px 8px -8px;
+                border-radius: 4px;
+
+                img {
+                    width: 130px;
+                    height: auto;
+                }
+
+                .new-launch {
+                    width: 125px;
+                    height: auto;
+                    display: flex;
+                    position: absolute;
+                    left: -23px;
+                    top: -40px;
+                    padding: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .pgame-title {
+                    width: 100%;
+                    color: $white-color;
+                    font-size: 11px;
+                    padding: 5px;
+                    position: absolute;
+                    bottom: -15px;
+                    left: 0;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    border-radius: 4px;
+                    background-image: linear-gradient($theme-color, $heading);
+                }
+            }
+        }
+    }
+    /* horse-racing */
+    .horse-racing {
+        .race-detail {
+            margin-top: 5px;
+            float: left;
+            width: 100%;
+
+            .black-back {
+                .to-expand {
+                    float: left;
+                    width: 100%;
+                    background-color: $heading;
+                    padding: 8px 10px;
+                    color: $white-color;
+                    display: block;
+                    cursor: pointer;
+
+                    &:before {
+                        font-family: "Font Awesome 5 Free";
+                        content: "\f146";
+                        display: inline-block;
+                        padding-right: 3px;
+                        vertical-align: middle;
+                        font-weight: 900;
+                        float: right;
+                    }
+
+                    &.collapsed:before {
+                        content: "\f0fe";
+                    }
+                }
+            }
+
+            .collapse.in {
+                display: block;
+            }
+
+            .game-list {
+                float: left;
+                width: 100%;
+                margin-top: 0px;
+            }
+
+            .race {
+                background-color: #f6f6f6;
+                padding: 10px;
+                border-bottom: 1px solid $light-gray;
+                font-size: 13px;
+
+                .race-title {
+                    font-weight: bold;
+                    margin-bottom: 8px;
+                    width: 100%;
+                    display: block;
+                }
+
+                ul {
+                    li {
+                        a {
+                            width: 40px;
+                            line-height: 19px;
+                            font-size: 12px;
+                            padding: 5px 6px;
+                            border: 1px solid transparent;
+                            border-radius: 3px;
+                            margin-right: 5px;
+
+                            &:hover {
+                                border: 1px solid;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.card-columns {
+    .card {
+        background-color: none;
+        border: none;
+    }
+}
+
+
+/* upcoming race */
+.upcoming-race {
+    .upcoming-title {
+        font-size: 20px;
+        margin: 15px 0 15px 2px;
+        font-weight: bold;
+    }
+
+    .card {
+        .accordion-header {
+            float: left;
+            width: 100%;
+            background-color: #2c3e50;
+            padding: 5px 10px;
+            color: #ffffff;
+            display: block;
+            cursor: pointer;
+
+            button {
+                display: block;
+                font-size: 15px;
+                color: $white-color;
+                padding: 0;
+                width: 100%;
+                position: relative;
+                text-align: left;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &:before {
+                    font-family: "Font Awesome 5 Free";
+                    content: "\f0fe";
+                    display: inline-block;
+                    padding-right: 3px;
+                    vertical-align: middle;
+                    font-weight: 900;
+                    float: right;
+                    position: absolute;
+                    top: 9px;
+                    right: 0;
+                }
+
+                &.collapsed:before {
+                    content: "\f146";
+                }
+
+                time {
+                    display: block;
+                    text-align: left;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .accordion-body {
+            .market-table {
+                .uprace-title {
+                    align-items: center;
+                    text-transform: capitalize;
+                    padding-left: 5px;
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 2;
+        -webkit-column-gap: 1.25rem;
+        -moz-column-gap: 1.25rem;
+        column-gap: 10px;
+    }
+}
+.scorecard {
+    @include position(relative);
+    margin-top: 2px;
+
+    .team-score {
+        .tr-data {
+            background-color: $white-color;
+            @include border('bottom',1px, solid, $border-color);
+
+            td {
+                @include padding(5px, 0px, 5px, 0px);
+                cursor: $cursor;
+                @include border('left', 1px, solid, $white-color);
+
+                a {
+                    text-align: $center;
+                    @include resize ($float-left, $width);
+                    height: 36px;
+                    @include headline( $darkgrey, $font-size-tab);
+
+                    &.onlyprice {
+                        padding-top: 10px;
+                    }
+
+                    span {
+                        @include resize ($float-left, $width);
+                        text-align: $center;
+                        @include txt(normal);
+                        @include headline($darkgrey, 11px);
+                    }
+                }
+            }
+
+            .new-info {
+                margin-left: 5px;
+                color: $purple;
+            }
+        }
+
+        .team-name {
+            a {
+                color: $black-color;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .to_info {
+        .fa-info {
+            font-size: 16px;
+            //@include border-all(1px, solid, $blue-color);
+            border-radius: 100%;
+            @include padding(1px, 7px, 1px, 7px);
+            margin-top: 5px;
+            color: $white-color;
+            cursor: $cursor;
+        }
+    }
+
+    .game-scores {
+        width:100%;
+        .scores-box, .tennis-scores-box {
+            min-height: 86px;
+            text-align: $center;
+            @include padding(5px, 10px, 5px, 10px);
+            background-color: darken($heading, 7%);
+            margin-left: 2px;
+            // @include border('right',1px, solid, $dark-blue);
+            //  @include border('bottom', 1px, solid, $dark-blue);
+            h4 {
+                @include resize($float-left, $width);
+                margin: 5px 0;
+                height: 17px;
+                font-size: 15px;
+            }
+        }
+
+        @include respond-to2(extra-small-screens) {
+            h4 {
+                font-size: 12px;
+
+                .fa-circle {
+                    font-size: 9px;
+                }
+            }
+
+            .scores-time {
+                font-size: 12px;
+            }
+
+            .scores-box {
+                width: 22%;
+                @include padding(5px, 0px, 5px, 0px);
+
+                .bold {
+                    font-size: 11px;
+                    margin: 5px 0 0px 0 !important;
+                }
+            }
+
+            .tennis-scores-box {
+                h4 {
+                    margin: 3px 0 !important;
+                }
+
+                .scores-inns {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        @include respond-to2(handhelds) {
+            h4 {
+                font-size: 12px !important;
+
+                .fa-circle {
+                    font-size: 9px;
+                }
+            }
+
+            .scores-team {
+                width: 55% !important;
+            }
+
+            .scores-time {
+                font-size: 11px !important;
+            }
+
+            .scores-box {
+                width: 24% !important;
+                @include padding(5px, 0px, 5px, 0px);
+
+                .bold, .scores-inns {
+                    font-size: 11px;
+                    margin: 5px 0 0px 0 !important;
+                }
+            }
+
+            .tennis-scores-box {
+                h4 {
+                    margin: 3px 0 !important;
+                }
+
+                .scores-inns {
+                    font-size: 10px;
+                }
+            }
+
+            .pin-btn {
+                @include padding(12px, 5px, 25px, 5px);
+                width: 32px;
+            }
+        }
+
+        .scores-box {
+            width: 18%;
+            float: $float-right;
+
+            @include respond-to2(handhelds) {
+                .scores-box {
+                    width: 22%;
+                    @include padding(5px, 5px, 5px, 5px);
+
+                    .bold, .scores-inns {
+                        font-size: 11px;
+                        margin: 5px 0 0px 0 !important;
+                    }
+                }
+            }
+        }
+
+        .tennis-scores-box {
+            width: 6.2%;
+            text-align: $center;
+        }
+
+        .scores-box .scores-inns, .tennis-scores-box .scores-inns {
+            @include txt(normal);
+            @include line-height(14px);
+            // @include headline($light-gray-blue, 10px);
+        }
+
+        .scores-team {
+            font-size: 14px;
+            width: 57.5%;
+
+            .scores-time, .tennis-scores-time {
+                @include txt(normal);
+                @include line-height(14px);
+                font-size: 13px;
+                text-transform: uppercase;
+
+                .fa-commenting {
+                    margin-right: 5px;
+                }
+            }
+
+            .tennis-scores-time {
+                text-transform: none;
+            }
+
+            h4 {
+                margin: 7px 0;
+                font-size: 16px;
+            }
+        }
+
+        .pin-btn {
+            @include resize($float-left, 30px);
+            @include padding(5px, 10px, 34px, 0px);
+        }
+
+        td {
+            float: $float-left;
+        }
+    }
+
+    .game-head.column-2 {
+        .scores-box {
+            float: $float-right;
+        }
+    }
+
+    p {
+        margin-bottom: 0px;
+    }
+
+    .soccer-score {
+        .scores-team {
+            padding-top: 5px;
+        }
+
+        .scores-time {
+            @include resize($float-left, $width);
+            @include padding(5px, 0px, 0px, 0px);
+        }
+
+        .pin-btn {
+            @include padding(5px, 10px, 10px, 10px);
+        }
+    }
+
+    .scores-time {
+        @include resize($float-left, $width);
+        @include padding(5px, 0px, 0px, 0px);
+    }
+
+    .pin-btn {
+        @include padding(5px, 10px, 10px, 10px);
+    }
+
+    .refresh {
+        @include position(absolute, top 10px right 8px );
+        @include padding(0px, 0px, 0px, 0px);
+
+        i {
+            font-size: 16px;
+            color: $white-color;
+        }
+    }
+
+    .scores-inns {
+        color: $white-color;
+        font-size: 11px;
+        font-weight: bold !important;
+    }
+
+    .yellow-light{color:yellow;}
+    .game-head {
+        margin-bottom: 10px;
+        @include padding(10px, 10px, 10px, 10px);
+        clear: $clear-both;
+        @include resize ($float-left, $width);
+        background-color: $heading;
+
+        .twoTeam {
+            color: $light-white;
+            @include resize ($float-left, $width);
+            padding-bottom: 10px;
+
+            .game-visit {
+                @include padding(6px, 6px, 0px, 0px);
+                margin-left: 4px;
+                font-size: 18px;
+            }
+
+            .game-vs {
+                font-size: $font-size-tab;
+                @include padding(3px, 0px, 0px, 5px);
+
+                .to_info {
+                    margin-right: 3px;
+                }
+            }
+        }
+    }
+
+    .game-info {
+        margin-top: -10px;
+        @include resize($float-left, $width);
+        background: $heading;
+        @include padding(0px, 8px, 5px, 0px);
+
+        span {
+            padding-top: 5px;
+            @include display(inline-block);
+            @include line-height(20px);
+            font-size: 12px;
+        }
+
+        .match_title {
+            text-transform: capitalize;
+            font-size: 12px;
+            // background-color: $silver;
+            @include padding(5px, 22px, 0px, 3px);
+            border-bottom-right-radius: 34px;
+            @include resize($float-left, auto);
+
+            span {
+                padding-top: 0px;
+                @include txt(bold);
+                line-height: normal;
+            }
+        }
+
+        .matches {
+            float: $float-right;
+            font-size: $font-size-tab;
+            @include line-height(30px);
+            padding-top: 0px;
+            display: inline;
+
+            span {
+                padding-top: 0px;
+            }
+        }
+    }
+
+
+    .left-column, .right-column {
+        .black-back {
+            a.to-expand {
+                width: auto;
+            }
+
+            .to_info {
+                float: $float-right;
+            }
+        }
+    }
+
+    .session-market {
+        margin-bottom: 15px;
+        padding: 0px !important;
+
+        .over-title {
+            margin-bottom: 0px;
+        }
+
+        .left-column {
+            .tr-data {
+                @include line-height(13px);
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        @include line-height(15px);
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+
+
+        .right-column {
+            .tr-data {
+                @include line-height(13px);
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        @include line-height(15px);
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+    }
+
+    .bets-wrap {
+        clear: $clear-both;
+        @include padding(5px, 5px, 10px, 5px);
+        overflow: hidden;
+        overflow-y: auto;
+
+        iframe {
+            width: 100%;
+            border: none;
+        }
+
+        .over-title {
+            @include border(bottom, 1px, solid, $theme-color);
+            margin-bottom: 5px;
+            @include resize($float-left, $width);
+            @include padding(0px, 8px, 0px, 0px);
+
+            .pin {
+                float: $float-left;
+                @include padding(0px, 4px, 0px, 0px);
+            }
+
+            .fancy-bet {
+                float: $float-left;
+                text-transform: capitalize;
+                // background-color:$fancybet;
+                @include padding(0px, 0px, 0px, 5px);
+                @include line-height(25px);
+                border-top-right-radius: 10px;
+                @include txt(bold);
+                letter-spacing: 0.5px;
+                font-size: 12px;
+
+                .fa-info-circle {
+                    @include padding(7px, 7px, 4px, 7px);
+                    font-size: 12px;
+                    @include line-height(15px);
+                    background-color: $black-color;
+                    vertical-align: -9%;
+                    border-top-right-radius: 10px;
+
+                    &:before {
+                        color: $white-color;
+                    }
+                }
+
+                .add-pin {
+                    margin: 3px 2px 0 0;
+                    font-size: 13px !important;
+                    @include border-all(1px,solid, $black-color);
+                    height: 18px;
+                    width: 18px;
+                    color: $black-color !important;
+
+                    &.pinned {
+                        color: $green !important;
+                        border-color: $green !important;
+                    }
+                }
+            }
+
+            .matches {
+                float: $float-right;
+                font-size: 11px;
+                @include line-height(25px);
+            }
+        }
+
+        .counts {
+            //   @include headline($base-color-light, 11px);
+            margin-left: 5px;
+        }
+    }
+
+    .tab-wrap:last-child {
+        margin-right: 0px !important;
+    }
+
+    .tab-wrap:first-child {
+        margin-left: 0px !important;
+    }
+
+    .view-more {
+        @include line-height(24px);
+        @include padding(0px, 6px, 0px, 0px);
+        font-size: $font-size-tab;
+        @include resize ($float-left, $width);
+        text-align: right;
+    }
+
+    .progress_bar {
+        @include resize($float-left, $width);
+        @include padding(20px, 0px, 8px, 0px);
+
+        .top-bar {
+            width: $width;
+            background-color: $white-color;
+            @include display(block);
+            height: 5px;
+            @include position(relative);
+
+            .bottom-bar {
+                background-color: $green;
+                @include position(absolute);
+                top: 0px;
+                @include display(block);
+                height: 5px;
+            }
+
+            .ball {
+                top: -17px !important;
+                color: $white-color;
+            }
+
+            .stop {
+                top: -17px !important;
+            }
+
+            span {
+                @include position(absolute);
+            }
+
+            .yellow-card {
+                background: $yellow; // #ffb80c;
+                width: 10px;
+                height: 15px;
+            }
+
+            .red-card {
+                background: $theme-danger;
+                width: 10px;
+                height: 15px;
+            }
+
+            .top-card {
+                top: -15px;
+            }
+
+            .bottom-card {
+                top: 5px;
+            }
+
+            .fa-stop {
+                transform: scale(0.7, 1);
+                @include border-all(1px, solid, $black-color);
+                @include line-height(12px);
+            }
+        }
+    }
+}

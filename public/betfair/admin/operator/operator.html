@@ -1,0 +1,59 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'operator.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-operator-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             cache-key="ktoperatorgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'operator.id.label' | translate"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span title="{{item.userId}}">{{item.userId}}</span>
+                    </td>
+                    <td data-title="::'operator.name.label' | translate" data-sortable="'name'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.name}}">{{item.name}} </span>
+                    </td>
+                    <td data-title="::'operator.secretkey.label' | translate" data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.secretKey | shortme:15}}">{{item.secretKey | shortme:15}}</span>
+                    </td>
+                    <td data-title="::'operator.url.label' | translate">
+                        <span title="{{item.url}}">{{item.url}}</span>
+                    </td>
+                    <td data-title="::'operator.rootcontext.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.rootContext}}">{{item.rootContext}}</span>
+                    </td>
+                    <td data-title="::'operator.authenticationmethod.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.authenticationMethod}}">{{item.authenticationMethod}}</span>
+                    </td>
+                    <td data-title="::'operator.profitlossmethod.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.profitlossMethod}}">{{item.profitlossMethod}}</span>
+                    </td>
+                    <td data-title="::'operator.accesslevel.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span>{{$parent.$parent.$parent.ctrl.getAccessLevel(item.accessLevel)}}</span>
+                    </td>
+                    <td data-title="::'operator.iscrdr.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <i ng-show="item.isCrDr" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light" title="Edit Operator"
+                           ng-click="$parent.$parent.$parent.ctrl.editOperator(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

@@ -1,0 +1,132 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="table-bets">
+            <div class="list-view">
+                <div class="list-view-table myTranscludedContent table-responsive">
+                    <table class="table table-hover clickable" ng-if="forDeposit ">
+                        <tbody>
+                            <tr ng-repeat="r in requestList">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>A/C Holder : </b>
+                                            <span>{{r.acHolder}}</span>
+                                            <span tooltip-class="client-tooltip" class="size-xs float-r"
+                                                  tooltip-placement="bottom-right"
+                                                  tooltip-trigger="click outsideClick"
+                                                  uib-tooltip-html="'{{r.comment}}'">
+                                                <a>
+                                                    <i class="fa fa-info-circle fa-lg" ng-show="r.comment"></i>
+                                                </a>
+                                            </span>
+                                            <span class="float-right" ng-if="r.imageId">
+                                                <i ng-click="ctrl.getReceiptImage(r)" class="fa fa-image">
+                                                </i>
+                                            </span>
+                                        </div>
+                                        <div class="col-12">
+                                            <b>A/C No : </b>
+                                            <span>{{r.acNo}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <b>Gateway : </b>
+                                            <span>{{ctrl.getDetailType(r.detailType)}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <b>UTR : </b>
+                                            <span>{{r.utrNo}}</span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-column align-items-start ">
+                                            <b>Amount </b>
+                                            <span>{{r.amount | toRate}}</span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-column align-items-end ">
+                                            <b>Bonus  </b>
+                                            <span>{{r.bonusAmount | toRate}}</span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-column align-items-start">
+                                            <b>Created On </b>
+                                            <span>
+                                                <kt-date data-date-value="r.createdOn" data-format="dd MMM"></kt-date>
+                                                <b>
+                                                    <kt-date data-date-value="r.createdOn" data-format="HH:mm:ss"></kt-date>
+                                                </b>
+                                            </span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-column align-items-end">
+                                            <b>Status  </b>
+                                            <span ng-class="{'red':r.status==1,'green':r.status==2}">{{ctrl.getPayInStatus(r.status)}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-hover clickable" ng-if="forWithdrawal">
+                        <tbody>
+                            <tr ng-repeat="r in requestList">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>Created On : </b>
+                                            <span>
+                                                <kt-date data-date-value="r.createdOn" data-format="dd MMM"></kt-date>
+                                                <b>
+                                                    <kt-date data-date-value="r.createdOn" data-format="HH:mm:ss"></kt-date>
+                                                </b>
+                                            </span>
+                                            <span class="float-right" ng-if="r.imageId">
+                                                <i ng-click="ctrl.getReceiptImage(r)" class="fa fa-image">
+                                                </i>
+                                            </span>
+                                            <span class="float-right" ng-if="r.status==1">
+                                                <button class="btn btn-danger" title="Cancel" ng-click="ctrl.cancelWithdrawalRequest(r.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="col-12" ng-if="r.acNo">
+                                            <b>A/C No. : </b> <span>{{r.acNo }}</span>
+                                        </div>
+                                        <div class="col-12" ng-if="r.ifscCode">
+                                            <b>IFSC : </b><span>{{r.ifscCode }}</span>
+                                        </div>
+                                        <div class="col-12" ng-if="r.bankName">
+                                            <b>Bank : </b><span>{{r.bankName }}</span>
+                                        </div>
+                                        <div class="col-12" ng-if="r.acName"><b>Name : </b><span>{{r.acName }}</span> </div>
+                                        <div class="col-12" ng-if="r.cashNote"><b>Note : </b><span>{{r.cashNote }}</span></div>
+                                        <div class="col-12" ng-if="r.phone"><b>Mobile : </b><span>{{r.phone}}</span></div>
+                                        <div class="col-12" ng-if="r.area"><b>Area : </b><span>{{r.area}}</span></div>
+                                        <div class="col-12" ng-if="r.city"><b>City : </b><span>{{r.city}}</span></div>
+
+                                        <div class="col-6 d-flex flex-column align-items-start">
+                                            <b>Amount </b>
+                                            <span>{{r.amount | toRate}}</span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-column align-items-end">
+                                            <b>Status </b>
+                                            <span>
+                                                <span ng-class="{'red':r.status<=2,'green':r.status==3}">{{ctrl.getPayOutStatus(r.status)}}</span>
+                                                <span tooltip-class="client-tooltip" class="float-right"
+                                                      tooltip-placement="top-right"
+                                                      tooltip-trigger="click outsideClick"
+                                                      uib-tooltip-html="'{{r.comment}}'">
+                                                    <a>
+                                                        <i class="fa fa-info-circle fa-lg" ng-show="r.comment"></i>
+                                                    </a>
+                                                </span>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

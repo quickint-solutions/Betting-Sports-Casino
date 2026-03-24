@@ -1,0 +1,722 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.mobile-view {
+    display: none;
+    .team-name{
+        width:100%!important;
+    }
+
+    @media screen and (max-width: $break-extra_large) {
+        @include display (block);
+
+        .team-score {
+            tr {
+                .td-popup {
+                    .score-btn {
+                        margin: 3px 7px 3px 7px;
+                    }
+
+                    .select-btn {
+                        margin: 3px 0px 3px 0px;
+                    }
+
+                    @include respond-to2(extra-small-screens) {
+                        .score-btn {
+                            margin: 3px 3px 3px 3px;
+                        }
+
+                        .select-btn {
+                            margin: 3px 0px 3px 0px;
+                        }
+                    }
+
+                    @include respond-to2(handhelds) {
+                        .score-btn {
+                            margin: 3px 3px 3px 3px;
+                        }
+
+                        .select-btn {
+                            margin: 3px 0px 3px 0px;
+                        }
+                    }
+                }
+            }
+           .tr-data{
+                td{min-width:75px;}
+            }
+           .team-name{
+               a{font-size:12px;}
+               //p, span{font-size:2vw;}
+           } 
+        }
+        
+        .market-detail {
+            .team-score {
+                .bet-all {
+                    .lay-all {
+                        background-position: $width -296px;
+
+                        @include respond-to2(extra-medium-screens) {
+                            background-position: 100% -296px;
+                        }
+
+                    }
+                }
+            }
+            .to_info{
+                .fa-info-circle{
+                    margin:8px 8px 0 5px;
+                    @include respond-to2(medium-screens){
+                        margin:8px 8px 0 5px;
+                    }
+                    @include respond-to2(extra-small-screens){
+                        margin:0px 8px 0 5px;
+                    }
+                    @include respond-to2(handhelds){
+                        margin:0px 8px 0 5px;
+                    }
+                }
+            }
+        }
+        
+        .race-detail {
+            @include resize($float-left, $width);
+
+            .black-back {
+                a.to-expand {
+                    width: 98%;
+                    color: $white-color;
+                    margin-left: 0px;
+                    padding-left: 10px;
+                     @include display(block);
+                }
+
+                .expand-img {
+                    float: right;
+                    line-height: 25px;
+                }
+            }
+
+            .team-score {
+                tr {
+                    .team-title {
+                        @include respond-to2(extra-small-screens) {
+                            line-height: 20px;
+                            @include padding(5px, 0, 5px, 0);
+
+                            .game-list-time {
+                                @include padding(0px, 0px, 0px, 25px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .sports-list {
+            background-color: $white-color;
+            @include resize($float-left, $width);
+
+            .mb_title {
+                @include txt(bold);
+                text-align: $text-center;
+                @include headline($white-color, 13px );
+                margin: 0px !important;
+                background-color: $gray_black;
+                 @include padding(7px, 0, 7px, 0);
+            }
+
+            .sports-menu {
+                background-color: $black-color;
+                @include resize($float-left, $width);
+                color: $white-color;
+
+                .icon-menu {
+                    ul {
+                        li {
+                            flex: 0 1 20%;
+                            @include border-all(1px, solid, $black-mate);
+                            border-width: 0 1px 1px 0;
+                            float:$float-left;
+
+                            a {
+                                height: 14.8vw;
+                                @include headline($white-color, 16px);
+                                @include display(block);
+                                width: 19.8vw;
+                                text-align: $text-center;
+                                line-height: 1.1;
+                                padding: 2.93333vw 1.33333vw;
+                                flex-direction: column;
+
+                                img {
+                                    @include display(block);
+                                    width: auto;
+                                    margin: 0 auto 8px;
+                                }
+
+                                @include respond-to2(extra-small-screens) {
+                                    font-size: $font-size-tab;
+                                    height: 20.8vw;
+                                    width: 24.7vw;
+                                    padding: 3.93333vw 1.33333vw 2.93333vw;
+                                }
+
+                                @include respond-to2(handhelds) {
+                                    font-size: 11px;
+                                    height: 20.8vw;
+                                    width: 24.6vw;
+                                    padding: 3.93333vw 1.33333vw 2.93333vw;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sportsmenu {
+                @include resize($float-left, $width);
+            }
+
+            .sports_list {
+                margin-bottom: 55px;
+            }
+
+            .games-name {
+                a {
+                    @include txt(bold);
+                    @include padding(6px, 7px, 6px, 7px);
+                    @include border('bottom', 1px, solid, $grayish);
+                    @include resize($float-left, $width);
+                    //font-size:4vw;
+                    background-image: url('/public/images/mobile/right-arrow.png');
+                    background-position: center right 10px;
+                    background-repeat: $back-norepeat;
+                }
+            }
+
+            .logout_btn {
+                text-align: $text-center;
+                color: $white-color;
+                font-size: 20px;
+                letter-spacing: 1px;
+                margin-top: 20px;
+                 margin-bottom:35px;
+                @include resize($float-left, $width);
+                @include padding(10px, 10px, 10px, 10px);
+                text-transform: uppercase;
+                background-image: linear-gradient(-180deg, #E93522 0%, #BE2414 100%);
+                @include respond-to2(extra-medium-screens) {
+                   // margin-bottom:35px;
+                }
+            }
+        }
+
+        .tab-desc {
+            background-color: $white-color;
+
+            .team-score {
+                margin-top: 0px;
+                tr {
+                    .team-title {
+                        @include padding(2px, 5px, 8px, 0px);
+                        @include respond-to2(extra-medium-screens) {
+                            
+                        }
+
+                        @include respond-to2(extra-small-screens) {
+                          //  font-size: $font-size-tab;
+                            padding-bottom:5px;
+                            width: calc(165% - 36px);
+                            a {
+                                @include resize($float-left, $width);
+                            }
+
+                            span {
+                                @include resize($float-left, $width);
+                                @include padding(0px, 0px, 0px, 22px !important);
+                            }
+                        }
+
+                        @include respond-to2(handhelds) {
+                            font-size: 11px;
+                            padding-bottom:5px;
+                             width: calc(165% - 36px);
+                            a {
+                                @include resize($float-left, $width);
+                                font-size: 10px;
+                                line-height:18px;
+                            }
+
+                            span {
+                                font-size:10px;
+                                @include resize($float-left, $width);
+                                @include padding(0px, 0px, 0px, 22px !important);
+                            }
+                        }
+                    }
+                    .pin{
+                        @include respond-to2(extra-small-screens) {
+                            text-align:right;
+                            padding-right:10px;
+                        }
+                        @include respond-to2(handhelds) {
+                            text-align:right;
+                            padding-right:10px;
+                        }
+                    }
+                }
+            }
+
+            .mb_title {
+                @include txt(bold);
+                text-align: $text-center;
+                @include headline($white-color, $font-size-tab );
+                margin: 0px !important;
+                background-color: $gray_black;
+                @include padding(7px, 0, 7px, 0);
+            }
+
+            .longDescription{
+                table{
+                    .sport_fulltd{
+                        span{font-size:12px;}
+                    }
+                    .description-name{width:35%; font-size:12px;}
+                    .back-1,lay-1,.back-2, .lay-2{
+                        min-width:75px;
+
+                    }
+                    .td-popup{width:$width; max-width:initial;}
+                }
+                .to_info{float:right}
+                @include respond-to2(extra-small-screens){
+                    h3{
+                        a.to-expand{width:auto}
+                     } 
+                }
+
+                @include respond-to2(handhelds){
+                    h3{
+                        a.to-expand{width:81%}
+                     } 
+                }
+                 
+            }
+        }
+
+        .main-score {
+            .team-score {
+                tr {
+                    .team-title {
+                        span {
+                            line-height: 14px;
+                        }
+                    }
+
+                    .pin {
+                        a {
+                            background-position: -380px -42px;
+
+                            &.pinned {
+                                background-position: -380px -21px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .setting-sidebar {
+            .black-back {
+                i {
+                    @include headline($white-color, 14px);
+                }
+            }
+
+            .setting-popup {
+                @include headline($dark-blue, 11px);
+                @include padding (10px, 10px, 10px, 10px);
+                text-align: $float-left;
+
+                li {
+                    width: $width;
+                    @include border('bottom', 1px, solid, $light-gray-blue);
+                    @include padding(0px, 0px, 5px, 0px);
+                    margin-bottom: 6px;
+                }
+
+                .select-btn {
+                    width: $width;
+
+                    a {
+                        @include display(inline-block);
+                        margin: 5px 22px 10px 0;
+                        @include border-all(1px, solid, $grayish);
+                        line-height: 13px;
+                        width: 45%;
+                        font-size: 11px;
+
+                        &:last-child {
+                            margin-right: 0px;
+                        }
+                    }
+
+                    .save {
+                        background-image: none;
+                    }
+
+                    .cancle {
+                        background-color: $white-color !important;
+                        color: $grayish;
+
+                        &:hover {
+                            background: none;
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                .lbl-name {
+                    @include resize ($float-left, $width);
+                }
+
+                input {
+                    @include border-radius(4px);
+                    border-width: 1px;
+                    @include padding (2px, 5px, 2px, 5px);
+                    width: 35%;
+                    margin-left: 10px;
+                }
+
+                .left-btn {
+                    @include resize (left, 80%);
+
+                    a:hover {
+                        background-image: none;
+                        box-shadow: none;
+                    }
+                }
+
+                .edit-btn {
+                    @include resize (left, 17%);
+
+                    a {
+                        @include border-all(1px, solid, $light-gray-blue !important);
+                        box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.8);
+                        color: $dark-blue !important;
+                        background: none !important;
+                        @include padding (0px, 0px, 0px, 0px);
+                        line-height: 42px !important;
+                        width: 51px !important;
+
+                        i {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+
+                .stake {
+                    @include display(inline-block);
+
+                    a {
+                        text-align: $text-center;
+                        @include resize (left, 70px);
+                        line-height: 20px;
+                        @include txt(normal);
+                        font-size: 11px;
+                        background-color: $white-color;
+                        @include border-all(1px, solid, $grayish);
+                        margin: 2px;
+                        @include border-radius(4px);
+
+                        &.select {
+                            color: $warning-yellow-color;
+                            background: $dark-brown url('/public/images/bg-send.jpg') repeat-x;
+                        }
+                    }
+                }
+
+                select {
+                    margin: 0 0 4px 15px;
+                    width: 100px;
+                    height: 23px;
+                    @include border-radius(4px);
+                }
+
+                .ok-btn {
+                    @include display(inline-block);
+
+                    .left-btn {
+                        input {
+                            background-color: $white-color;
+                            background-image: none;
+                            color: $dark-gray-black;
+                            border-width: 1px;
+                            width: 70px;
+                            margin: 2px;
+                            text-align: $text-center;
+                            @include padding(0px, 0px, 0px, 0px);
+                            line-height: 20px;
+                            @include border-radius(4px);
+
+                            &:focus {
+                                border-width: 1px;
+                                border-color: $link-color-default;
+                                box-shadow: 0 0 4px 2px rgba(114,187,239,0.8);
+                            }
+                        }
+                    }
+
+                    .ok-button {
+                        a {
+                            line-height: 43px;
+                            width:51px;
+                        }
+                    }
+                }
+            }
+
+            label {
+                font-size: $font-size-tab;
+            }
+        }
+
+        .one_click-wrap {
+            @include position(fixed);
+            bottom: 88px;
+            background-color: $blue-color;
+            width: $width;
+            @include respond-to2(wide-screens) {
+                bottom: 6.5%;
+            }
+             
+            @include respond-to2(extra-small-screens) {
+                bottom: 51px !important;
+            }
+            @include respond-to2(handhelds) {
+                bottom: 44px !important;
+            }
+            .oneclick-setting, .oneclick-betstake {
+                color: $dark-gray-black;
+                background-repeat: repeat-x;
+
+                .stake-title {
+                    margin: 0px;
+                    line-height: 16px;
+                    font-size: $font-size-tab;
+                    margin-left: 1px;
+                    @include resize($float-left, 90px);
+                    @include padding(4px, 2px, 4px, 2px);
+                    @include txt(bold);
+                    word-break:break-word;
+                }
+
+                ul.one_click-stake {
+                    height: 38px;
+                    line-height: 34px;
+                    @include resize($float-left, 100%);
+                    z-index:0;
+                    li{
+                        width:22%;
+                        a, input{
+                            width:96% !important;
+                            @include respond-to2(extra-small-screens){
+                                width:90% !important;
+                            }
+                        }
+                        @include respond-to2(extra-small-screens){
+                                width:21.8% ;
+                        }
+                        @include respond-to2(handhelds){
+                                width:21% ;
+                        }
+                    }
+                    input {padding: 1px 0 0 0px !important}
+                    a, input {
+
+                       background-color: $white-color;
+                        @include txt(normal !important);
+                        margin: 3px !important;
+                        line-height: 18px !important;
+                        width: auto;
+                        @include padding(0px, 12px, 0px, 12px);
+                        @include headline($dark-gray-black, 13px !important);
+
+                        &.select {
+                            background-position: 0 -420px;
+                            background-image: url(/public/images/bg-header.png) !important;
+                            color: $login-back;
+                        }
+
+                    }
+                }
+
+                .setting-edit {
+                    float: right;
+                    line-height: 15px;
+                     background-color:$gray-blue;
+                    text-transform: capitalize;
+                    @include border-all(1px, solid, $brown-zambezi);
+                    @include border-radius(5px);
+                    box-shadow: inset 0 1px 0 0 rgba(210,204,204,0.5);
+                    @include headline($color-text, 11px);
+                    margin: 8px 4px 0 0;
+                    @include position(absolute, right 0px);
+                    @include padding (1px, 5px, 1px, 5px);
+                }
+            }
+
+            .oneclick-betstake {
+                    height: 38px;
+                input {
+                    @include border-all(1px, solid, $blue-color);
+                    color:$dark-black-color !important;
+                    background-color: $light-grya-blue !important;
+                    @include border-radius(4px);
+                    text-align: $text-center;
+                    border-width: 1px;
+                }
+
+                .setting-save {
+                    background-color: $dark-gray-black !important;
+                    @include border-all(1px, solid, $dark-gray-black !important);
+                    @include headline($login-back, 11px );
+                    @include padding (0px, 8px, 1px, 5px);
+                    margin: 8px 4px 0 0;
+                    float: right;
+                    line-height: 14px;
+                    @include border-radius(3px);
+                    text-transform: capitalize;
+                    @include position(absolute, right 0px);
+                }
+            }
+        }
+
+        .multimarket{
+            .market-detail{
+                .black-back{
+                         @include respond-to2(extra-small-screens){
+                             @include padding(5px, 2px, 3px, 1px);
+                         }
+                         @include respond-to2(handhelds){
+                             @include padding(5px, 2px, 3px, 1px);
+                         }
+                    .market-title{
+                         @include respond-to2(extra-small-screens){
+                             @include resize($float-left, $width);
+                         }
+                          @include respond-to2(handhelds){
+                             @include resize($float-left, $width);
+                         }
+                    }
+                    .to-expand{
+                        width:auto;
+                         @include respond-to2(extra-small-screens){
+                             margin:0 0 0 6px;
+                         }
+                         @include respond-to2(handhelds){
+                              margin:0 0 0 6px;
+                         }
+                    }
+                    .add-pin{
+                        margin:6px 5px 0 0;
+                         @include respond-to2(extra-small-screens){
+                             margin:0px 5px 0 0;
+                         }
+                         @include respond-to2(handhelds){
+                              margin:0px 5px 0 0 !important;
+                        }
+                    }
+                    .refresh{@include padding(4px, 11px, 0px, 0px); width:14px}
+                     @include respond-to2(handhelds) {
+                         .to-expand{font-size:11px; margin-left:5px;}
+                         .add-pin{margin:6px 3px 0 0; font-size:13px !important;height:18px; width:18px;}
+                      }
+
+                     .multi-event_type{
+                          margin:10px 10px 0px 6px;
+                           float: $float-left;
+                           line-height: 15px;
+                         @include respond-to2(extra-small-screens){
+                             text-align: center;
+                             width: auto;
+                             @include padding(2px, 3px, 1px, 3px);
+                             margin:3px 5px 5px 10px;
+                         }
+                         @include respond-to2(handhelds){
+                             text-align: center;
+                             width: auto;
+                             font-size:11px;
+                             @include padding(2px, 3px, 1px, 3px);
+                             margin:3px 5px 5px 10px;
+                         }
+                     }
+                     .mb_time{
+                          @include respond-to2(extra-small-screens){
+                             @include padding(0px, 0px, 0px, 10px); line-height:22px;
+                          }
+                          @include respond-to2(handhelds){
+                             @include padding(0px, 0px, 0px, 10px); line-height:22px;
+                          }
+                     }
+                     .to_info{
+                         @include resize($float-left, auto);
+                     }
+
+                     .run_commentary{
+                          @include respond-to2(extra-small-screens){
+                              @include resize($float-left, auto); @include padding(0px, 0px, 0px, 10px);line-height:26px;                     
+                         }
+                         @include respond-to2(handhelds){
+                             @include resize($float-left, auto);  @include padding(0px, 0px, 0px, 10px); line-height:26px;
+                         }
+                     }
+
+                } 
+                
+                .sports_book {
+                    .sport_fulltd{line-height:26px;}
+                }
+
+            }
+        }
+
+    }
+}
+
+.other-market {
+    .black-back {
+        @include padding(5px, 2px, 5px, 0px);
+        a.to-expand {
+            width: 98%;
+            color: $white-color;
+            margin-left: 0px;
+            padding-left: 10px;
+            @include display(block);
+        }
+
+        .expand-img {
+            float: right;
+            line-height: 25px;
+        }
+    }
+}
+
+.tabbing-markert {
+    .black-back {
+        a {
+            width: 94%;
+            color: $white-color;
+            margin-left: 10px;
+        }
+
+        .fa {
+            float: right;
+            line-height: 25px;
+        }
+    }
+}

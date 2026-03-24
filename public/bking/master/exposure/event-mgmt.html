@@ -1,0 +1,106 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel exposure-filter">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="event-heading">Event Management</div>
+            </div>
+            <div class="col-sm-9">
+                <div class="float-r" style="padding:9px 0px;">
+                   
+                    <label for="active" class="option-detail-circle" ng-repeat="e in eventTypes">
+                        <input type="radio" name="evnttypes" ng-change="ctrl.getEvents();"
+                               value="{{e.id}}" ng-model="$parent.selectedEventType" />
+                        <span class="checkmark"></span>
+                        {{e.name}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="eventmgmt" ng-show="showCasinoBar">
+        <div class="eventtype-repeat">
+            <div class="col-sm-12 erow_0 erow">
+                <div class="col-sm-6">
+                    <span>Casino</span>
+                </div>
+                <div class="col-sm-6">
+                    <div class="one-click-bet master-toggle">
+                        <label class="switch">
+                            <input class="switch-input" type="checkbox" ng-model="isCasinoLock"
+                                   ng-click="ctrl.casinoStatusChanged(isCasinoLock);" />
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eventmgmt" ng-hide="showCasinoBar">
+        <div class="eventtype-repeat" ng-repeat="et in eventList">
+            <div class="col-sm-12 erow_0 erow">
+                <div class="col-sm-6">
+                    <span ng-click="et.isClose=!et.isClose">
+                        <i class="fa " ng-class="{'fa-caret-down':et.isClose,'fa-caret-up':!et.isClose}"></i>
+                    </span>
+                    <span>{{et.name}}</span>
+                </div>
+                <div class="col-sm-6">
+                    <div class="one-click-bet master-toggle">
+                        <label class="switch">
+                            <input class="switch-input" type="checkbox" ng-model="et.isLock"
+                                   ng-click="ctrl.ptStatusChanged(et);" />
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 " ng-repeat="cm in et.children" ng-hide="et.isClose">
+                <div class="row ">
+                    <div class="col-sm-12 erow_1 erow">
+                        <div class="col-sm-6">
+                            <span ng-click="cm.isClose=!cm.isClose">
+                                <i class="fa " ng-class="{'fa-caret-down':cm.isClose,'fa-caret-up':!cm.isClose}"></i>
+                            </span>
+                            <span>{{cm.name}}</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="one-click-bet master-toggle">
+                                <label class="switch">
+                                    <input class="switch-input" type="checkbox" ng-model="cm.isLock"
+                                           ng-click="ctrl.ptStatusChanged(cm,et);" />
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row " ng-repeat="ev in cm.children" ng-hide="et.isClose || cm.isClose">
+                    <div class="col-sm-12 erow_2 erow">
+                        <div class="col-sm-4">
+                            <span>{{ev.name}}</span>
+                        </div>
+                        <div class="col-sm-2 edate">
+                            <kt-date data-date-value="ev.startTime" data-format="dd/MM/yyyy hh:mm">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="one-click-bet master-toggle">
+                                <label class="switch">
+                                    <input class="switch-input" type="checkbox" ng-model="ev.isLock"
+                                           ng-click="ctrl.ptStatusChanged(ev,cm);" />
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

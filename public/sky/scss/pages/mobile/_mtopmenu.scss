@@ -1,0 +1,51 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.mb-topmenu{
+    .tab-header {
+        background-color: $mb-tab-header;
+        border-bottom:none;
+        @include padding(5px, 5px, 0, 6px);
+
+        .tabs-container {
+            background-color: transparent;
+            border-top:none;
+            .tab-container {
+                background-color: transparent;
+                border-right: none;
+                float:none; width:auto;
+                margin-right:10px;
+
+                .tab-heading {
+                    @include padding(1px, 12px, 1px, 12px);
+                }
+
+                .header-icon {
+                    color: $header-icon;
+                    padding-right: 3px;
+                }
+
+                .tab-label {
+                    color: $mb-tab-label;
+                }
+
+                &:hover, &.active {
+                    background-color: $tab-bg-color !important;
+                    border: none !important;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+
+                    .tab-label, .header-icon {
+                        color: $tab-bg-active;
+                    }
+                }
+
+                &:last-child {
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
+}
+

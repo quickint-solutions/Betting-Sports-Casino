@@ -1,0 +1,82 @@
+﻿
+<div class="row">
+    <div class="col-sm-12">
+        <table class="patti-popup">
+            <thead class="game-th">
+                <tr>
+                    <th><button class="btn btn-primary" ng-click="ctrl.removeAll();">Remove All</button></th>
+                    <th ng-repeat="s in pattiRunner track by $index">{{s.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="runner in marketRunner" class="patti-tr" ng-if="gameType != 9  && gameType != 10 && gameType != 8 && gameType != 14">
+                    <td class="patti-name">{{runner.runner.name}}</td>
+                    <td ng-repeat="s in runner.winner track by $index">
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="s"
+                                        data-param-name="status"
+                                        data-update-value="true"
+                                        data-optionlist="runnerStatusList"
+                                        notify-on-update="ctrl.runnerStatusChanged(selectedId,runner)"></kt-radiobutton>
+                    </td>
+                </tr>
+                <tr ng-repeat="mr in marketRunner" class="patti-tr" ng-if="gameType == 9">
+                    <td class="patti-name">{{mr.runner.name}}</td>
+                    <td>
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="mr"
+                                        data-param-name="selectedWinner"
+                                        data-optionlist="mr.metadata"
+                                        notify-on-update="ctrl.up7downRunnerStatusChanged(selectedId,mr)"></kt-radiobutton>
+                    </td>
+                </tr>
+                <tr ng-repeat="runner in marketRunner" class="patti-tr" ng-if="gameType == 10">
+                    <td class="patti-name" style="width:170px;" ng-if="$index<3 || runner.visible ">{{runner.runner.name}}</td>
+                    <td ng-if="$index<3">
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="runner"
+                                        data-param-name="status"
+                                        data-update-value="true"
+                                        data-optionlist="runnerStatusList"
+                                        notify-on-update="ctrl.dgRunnerStatusChanged(selectedId,runner)"></kt-radiobutton>
+                    </td>
+                    <td ng-if="$index>=3 && runner.visible">
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="runner"
+                                        data-param-name="selectedWinner"
+                                        data-optionlist="runner.metadata"
+                                        notify-on-update="ctrl.up7downRunnerStatusChanged(selectedId,runner)"></kt-radiobutton>
+                    </td>
+                </tr>
+                <tr ng-repeat="mr in marketRunner " ng-if="gameType == 8">
+                    <td>{{mr.runner.name}}</td>
+                    <td ng-if="$index<=3 || $index==8 || $index==9">
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="mr"
+                                        data-param-name="status"
+                                        data-optionlist="runnerStatusList"
+                                        notify-on-update="ctrl.card32RunnerStatusChanged(selectedId,mr,$index)"></kt-radiobutton>
+                    </td>
+                    <td ng-if="($index>=4  && $index <=7) || $index ==10">
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="mr"
+                                        data-param-name="selectedWinner"
+                                        data-optionlist="mr.metadata.card32"
+                                        notify-on-update="ctrl.card32RunnerStatusChanged(selectedId,mr,$index)"></kt-radiobutton>
+                    </td>
+                </tr>
+                <tr ng-repeat="mr in marketRunner" ng-if="gameType == 14">
+                    <td>{{mr.runner.name}}</td>
+                    <td>
+                        <kt-radiobutton id="runnerstatus{{$index}}"
+                                        data-item="mr"
+                                        data-param-name="selectedWinner"
+                                        data-optionlist="mr.metadata"
+                                        notify-on-update="ctrl.up7downRunnerStatusChanged(selectedId,mr)"></kt-radiobutton>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

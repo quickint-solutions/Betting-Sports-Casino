@@ -1,0 +1,125 @@
+﻿
+<div class="mobile-view">
+    <div class="matrix-login" ng-if="loginMode==9">
+        <div class="matrix-wrap">
+            <div class="v-img-cover">
+                <div class="header-top">
+                    <div class="v-responsive__content">
+                        <div class="container fill-height container--fluid">
+                            <div class="row">
+                                <div class="login-form">
+
+                                    <div class="login-top" style="height:150px;">
+                                        <a class="logo-img"></a>
+                                    </div>
+
+                                    <div class="login-bottom" ng-if="formMode==1">
+                                        <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                                            <p class="login-user">
+                                                <i class="fa fa-user-circle-o fa-user" aria-hidden="true"></i>
+                                                <input type="text" maxlength="200"
+                                                       placeholder="Enter User Name"
+                                                       tabindex="1"
+                                                       required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                                            </p>
+                                            <p class="login-pswd">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Enter Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="2"
+                                                       required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                                            </p>
+                                            <p class="captcha-div" ng-if="captchaMode==2">
+                                                <span class="empty-txt">&nbsp;</span>
+                                                <span class="captcha_txt">
+                                                    <span class="code">
+                                                        <span>
+                                                            <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                                            <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                                        </span>
+                                                    </span>
+                                                    <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                                           class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                                           placeholder="Enter code" />
+                                                </span>
+                                            </p>
+
+                                            <p class="login-btn">
+                                                <label>&nbsp;</label>
+                                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                        type="submit" ng-disabled="loginform.$invalid">
+                                                    Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                                </button>
+                                            </p>
+                                        </form>
+                                        <kt-messages data-messages="messages"></kt-messages>
+                                        <!--<div class="matrix-join">
+                                            <p style="color: hsla(0,0%,100%,.7);font-size: 12px;">Not a member?</p>
+                                            <a class="btn-join" href="#">
+                                                <span class="vt-join">JOIN NOW</span>
+                                            </a>
+                                        </div>-->
+                                        <div class="powerby">
+                                            <p class="power-txt">Powered by</p>
+                                            <div class="power-img">
+                                                <img ng-src="{{imagePath}}images/{{currentWebApp}}/betfair-logo.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="login-bottom  changepswd" ng-if="formMode==2">
+                                        <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                                            <p>For a security reason, please change your password.</p>
+                                            <p class="login-user">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please enter old Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="1"
+                                                       tabindex="1"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                                            </p>
+                                            <p class="login-user">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please enter new Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="2"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                                            </p>
+                                            <p class="login-user">
+                                                <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please confirm new Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="3"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                                            </p>
+
+                                            <p class="login-btn">
+                                                <!-- <label>&nbsp;</label>-->
+                                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                        type="submit" ng-disabled="changepwform.$invalid">
+                                                    Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                                </button>
+                                            </p>
+                                        </form>
+                                        <kt-messages data-messages="cp_messages"></kt-messages>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="captchaholder"></div>

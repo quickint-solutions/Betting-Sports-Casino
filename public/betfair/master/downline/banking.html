@@ -1,0 +1,174 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="event-heading">Transfer</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="label float-l">Search by Login Name</div>
+                <ui-select ng-model="search.selectedUser" class="float-l" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                           close-on-select="true">
+                    <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                       class="ui-select-choices"
+                                       refresh="$parent.ctrl.searchUser($select.search)">
+                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                        &nbsp;-&nbsp;
+                        <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" minlength="1" maxlength="50"
+                           placeholder="User/Login name"
+                           required ng-model="search.username" class="form-control">
+                    <span class="input-group-addon" style="cursor:pointer" ng-click="ctrl.refreshGrid()"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-danger" ng-click="ctrl.resetCriteria();" style="margin-left:10px;">
+                    Clear
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn_value float-r">
+                    <button class="btn btn-success" ng-click="ctrl.transferAllChip()" ng-disabled="!anySelected">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" class="transfer-svg " style="enable-background:new 0 0 20 12;"
+                             viewBox="0 0 20 12" x="0px" y="0px"><g _ngcontent-eks-c1="">
+                        <path fill="#ffffff" d="M19.7,2.9L19.7,2.9c0-0.1-0.1-0.1-0.1-0.2l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l0,0l-2.1-2.1
+              c-0.2-0.2-0.5-0.2-0.7,0s-0.2,0.5,0,0.7L18,2.6h-3.6c-1-1.3-2.6-2.1-4.3-2.1C7.1,0.5,4.6,3,4.6,6c0,0.9,0.2,1.7,0.6,2.4h-3l1.2-1.2
+              c0.2-0.2,0.2-0.5,0-0.7s-0.5-0.2-0.7,0L0.6,8.6l0,0l0,0l0,0l0,0l0,0c0,0-0.1,0.1-0.1,0.2l0,0c0,0.1,0,0.1,0,0.2l0,0l0,0
+              c0,0.1,0,0.1,0,0.2c0,0.1,0.1,0.1,0.1,0.2l2.1,2.1c0.1,0.1,0.2,0.1,0.4,0.1s0.3,0,0.4-0.1c0.2-0.2,0.2-0.5,0-0.7L2.2,9.4h3.6
+              c1,1.3,2.6,2.1,4.3,2.1c3,0,5.5-2.5,5.5-5.5c0-0.9-0.2-1.7-0.6-2.4h3l-1.2,1.2c-0.2,0.2-0.2,0.5,0,0.7s0.5,0.2,0.7,0l2.1-2.1l0,0
+              c0,0,0.1-0.1,0.1-0.2C19.7,3.1,19.7,3.1,19.7,2.9L19.7,2.9L19.7,2.9L19.7,2.9L19.7,2.9C19.7,3,19.7,3,19.7,2.9z M10.1,10.5
+              c-1.4,0-2.7-0.7-3.5-1.7c0-0.1-0.1-0.2-0.2-0.3C5.9,7.8,5.6,6.9,5.6,6c0-2.5,2-4.5,4.5-4.5s4.5,2,4.5,4.5S12.6,10.5,10.1,10.5z"></path><path fill="#ffffff" d="M11.2,5.9L9.5,5.2C9.2,5.1,9.1,4.8,9.1,4.5C9.2,4.3,9.4,4,9.7,4h1.7c0.3,0,0.5-0.2,0.5-0.5S11.7,3,11.4,3h-0.8
+              V2.7c0-0.3-0.2-0.5-0.5-0.5S9.6,2.4,9.6,2.7V3C8.9,3,8.3,3.6,8.1,4.3C8,5.1,8.4,5.8,9.1,6.1l1.8,0.7c0.3,0.1,0.4,0.4,0.3,0.7
+              c0,0.3-0.3,0.5-0.6,0.5H9C8.7,8,8.5,8.2,8.5,8.5S8.7,9,9,9h0.7v0.3c0,0.3,0.2,0.5,0.5,0.5s0.5-0.2,0.5-0.5V9l0,0
+              c0.7,0,1.5-0.6,1.6-1.3C12.3,6.9,11.9,6.1,11.2,5.9z"></path></g></svg>
+                        Bulk Transfer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing">
+        <p style="color:white;margin-bottom:15px!important;font-style:italic;">
+            <a class="link-a" ng-show="userTree.length>0" ui-sref="master.banking({memberid:'',userid:''})">Transfer</a>
+            <span ng-repeat="ut in userTree">
+                <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                <span ng-show="$index!=userTree.length-1">
+                    <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                    <a class="link-a" ui-sref="master.banking({memberid:ut.id,userid:''})">{{ut.name}}</a>
+                </span>
+            </span>
+        </p>
+        <kt-grid grid-id="kt-lotus-banking-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 name-param="id"
+                 data-items="gridItems"
+                 name-value-property="id"
+                  data-page-size="500"
+                 total="totalItems"
+                 data-show-total="false"
+                 cache-key="ktbankinggrid">
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-xs">
+                            <label class="option-detail-square check_box-square" style="position:relative;">
+                                <input type="checkbox" name="allmember" ng-model="$parent.$parent.allSelected"
+                                       ng-change="$parent.$parent.ctrl.allMemberSelectionChanged(true)">
+                                <span class="checkmark" style="top:-6px;margin-left:5px;"></span>
+                            </label>
+                        </th>
+                        <th class="size-smd boolean">Login name</th>
+                        <th class="size-smd boolean">Username</th>
+                        <th class="size-md align-r">Take</th>
+                        <th class="size-md align-r">Give</th>
+                        <th class="size-smd align-r" ng-if="$parent.$parent.currentUserType<4">Give Available</th>
+                        <th class="size-md align-r">Payment Threshold</th>
+                        <th class="size-md align-r">Credit Limit</th>
+                        <th class="size-smd align-r" ng-if="$parent.$parent.currentUserType>=4">Available Balance</th>
+                        <th class="size-md boolean">Transfer</th>
+                        <th class="size-xsm boolean">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id">
+                        <td class="size-xs">
+                            <label class="option-detail-square check_box-square" style="position:relative;">
+                                <input type="checkbox" name="allmember" ng-model="item.selected"
+                                       ng-disabled="!(item.balanceInfo.take > 0 || item.balanceInfo.give > 0)"
+                                       ng-change="$parent.$parent.$parent.ctrl.allMemberSelectionChanged()">
+                                <span class="checkmark" ng-class="{'disable':!(item.balanceInfo.take > 0 || item.balanceInfo.give > 0)}"
+                                      style="top:-12px;margin-left:5px;"></span>
+                            </label>
+                        </td>
+                        <td class="size-smd boolean">
+                            <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.userType)">
+                                {{item.username}}
+                            </span>
+                            <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.userType)"
+                               ui-sref="master.banking({memberid:item.id,userid:''})" class="link-a">
+                                {{item.username}}
+                            </a>
+                        </td>
+                        <td class="size-smd boolean">
+                            <span>{{item.name}}</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="positive" ng-show="item.balanceInfo.take>0">{{item.balanceInfo.take | toRate}}</span>
+                            <span ng-show="item.balanceInfo.take<=0">-</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="negative" ng-show="item.balanceInfo.give!=0">{{item.balanceInfo.give | toRate}}</span>
+                            <span ng-show="item.balanceInfo.give==0">-</span>
+                        </td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType<4">
+                            <span ng-class="{'negative':item.balanceInfo.giveAvailable>0}">{{item.balanceInfo.giveAvailable | toRate}}</span>
+                        </td>
+                        <td class="size-md align-r">-</td>
+                        <td class="size-md align-r">
+                            <span class="credit-ref" ng-show="item.creditRef>0">{{item.creditRef | toRate}}</span>
+                            <span class="credit-ref" ng-show="item.creditRef<=0">-</span>
+                        </td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType>=4">
+                            <span>{{item.balanceInfo.balance | toRate}}</span>
+                        </td>
+                        <td class="size-md boolean">
+                            <a ng-disabled="item.chips == 0" ng-click="$parent.$parent.$parent.ctrl.transferChip(item)"
+                               ng-class="{'disable':!(item.balanceInfo.take > 0 || item.balanceInfo.give > 0)}" class="link-a">
+                                Transfer
+                            </a>
+                        </td>
+                        <td class="size-xsm boolean">
+                            <a ui-sref="master.lotusmember({memberid:item.id,usertype:item.userType})">
+                                <i class="fa fa-eye fa-lg link-a"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-xs"></td>
+                        <td class="size-smd"></td>
+                        <td class="size-smd boolean">Total</td>
+                        <td class="size-md align-r positive">{{$data | total:'balanceInfo.take':true | toRate }}</td>
+                        <td class="size-md align-r negative">{{$data | total:'balanceInfo.give':true | toRate}}</td>
+                        <td class="size-smd align-r negative" ng-if="$parent.$parent.$parent.currentUserType<4">{{$data | total:'balanceInfo.giveAvailable':true | toRate}}</td>
+                        <td class="size-md align-r">-</td>
+                        <td class="size-md align-r ">{{$data | total:'creditRef' | toRate}}</td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType>=4">{{$data | total:'balanceInfo.balance':true | toRate}}</td>
+                        <td class="size-sm"></td>
+                        <td class="size-xsm boolean"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

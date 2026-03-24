@@ -1,0 +1,145 @@
+﻿<div class="bet_list" ng-init="totalrows=0;">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-3" style="width:unset;">
+                <div class="input-date">
+                    <div class="input-group">
+                        <div id="picker-market-report" class="ktdatepicker"
+                             kt-date-range-picker
+                             data-from-date="search.fromdate"
+                             data-to-date="search.todate"
+                             data-on-selection="ctrl.refreshGrid()"
+                             data-format="DD MMM YYYY ">
+                            {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <select ng-model="search.viewType" class="form-control">
+                    <option ng-repeat="b in viewTypeList" value="{{b.id}}">
+                        {{b.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-secondary" ng-click="ctrl.refreshGrid();">
+                    Search
+                </a>
+            </div>
+            <div class="col-sm-2" style="float:right;">
+                <p style="color:white;">Referral Balance : <b>{{referralObj.balance | toRate}}</b></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-listing list-table statement-table ac-statement" ng-show="viewType==2">
+        <kt-grid grid-id="kt-referralstatement-grid"
+                 load-items="ctrl.getReferralStatement(params)"
+                 show-total="true"
+                 data-can-i-load="canILoad"
+                 cache-key="ktreferralstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="align-l">User</th>
+                        <th class="size-smd boolean">Balance</th>
+                        <th class="size-lg">Narration</th>
+                        <th class="size-sm boolean">Is Pending?</th>
+                        <th class="size-md boolean">CreatedOn</th>
+                        <th class="size-md boolean">UnlockOn</th>
+
+                    </tr>
+                </thead>
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="bold align-l">{{item.referralUser.username}} ({{item.referralUser.mobile}})</td>
+                        <td class="size-smd boolean">{{item.balance | toRate}}</td>
+                        <td class="size-lg align-l">{{item.narration }}</td>
+
+                        <td class="size-sm boolean">
+                            <span ng-show="item.isPending">Yes</span>
+                            <span ng-show="!item.isPending">No</span>
+                        </td>
+                        <td class="size-md boolean">
+                            <kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm"></kt-date>
+                        </td>
+                        <td class="size-md boolean">
+                            <span ng-show="item.isPending">
+                                <kt-date data-date-value="item.unlockOn" data-format="dd MMM yyyy, HH:mm"></kt-date>
+                            </span>
+                            <span ng-show="!item.isPending">-</span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+
+    </div>
+    <div class="table-listing list-table statement-table ac-statemen" ng-show="viewType==1">
+        <div class="list-view">
+            <div ng-show="referralUsers.length>0">
+                <div class="list-view-table myTranscludedContent currency">
+                    <table class="table table-hover clickable member_table" style="display: table">
+                        <thead>
+                            <tr>
+                                <th class="align-l">
+                                    Username
+                                </th>
+                                <th class="size-md align-l">
+                                    Usercode
+                                </th>
+                                <th class="size-md align-l">
+                                    Mobile
+                                </th>
+                                <th class="size-md boolean ">
+                                    Betting Status
+                                </th>
+                                <th class="size-md boolean ">
+                                    Status
+                                </th>
+                                <th class="size-md boolean ">
+                                    Last Login
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="info-text" ng-repeat="item in referralUsers track by $index">
+                            <tr>
+                                <td class="align-l">
+                                    <span>{{item.username}}</span>
+                                </td>
+                                <td class="size-md align-l">
+                                    <span>{{item.userCode}}</span>
+                                </td>
+                                <td class="size-md align-l">
+                                    <span>{{item.mobile}}</span>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span>{{item.bettingLock==2 ? 'Unlock' : 'Locked'}} </span>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span ng-show="item.status==2">ACTIVE</span>
+                                    <span ng-show="item.status==3">INACTIVE</span>
+                                    <span ng-show="item.status==4">SUSPENDED</span>
+                                    <span ng-show="item.status==5">CLOSED</span>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span>{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="alert alert-info empty-msg " ng-show="referralUsers.length<=0">
+                <p>No Records Found.</p>
+            </div>
+        </div>
+    </div>
+</div>

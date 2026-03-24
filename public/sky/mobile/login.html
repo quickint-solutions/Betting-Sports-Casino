@@ -1,0 +1,1035 @@
+﻿
+<div class="mobile-view">
+    <div class="login-page" ng-if="loginMode == 0">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 login-form">
+                <div class="row">
+                    <div class="login-bottom" ng-if="formMode==1">
+                        <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                            <p class="login-user">
+                                <i class="fa fa-user-circle-o fa-user" aria-hidden="true"></i>
+                                <input id="user" type="text" maxlength="200"
+                                       placeholder="Enter User Name"
+                                       tabindex="1"
+                                       required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                            </p>
+                            <p>
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                <input id="password" type="password"
+                                       placeholder="Enter Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                            </p>
+                            <p class="captcha-div" ng-if="captchaMode==2">
+                                <span class="code">
+                                    <span id="captcha">
+                                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                        <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                    </span>
+                                </span>
+                                <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                       placeholder="Enter code" />
+                            </p>
+
+                            <p class="login-btn">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="loginform.$invalid">
+                                    Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                        </form>
+                        <kt-messages data-messages="messages"></kt-messages>
+                        <button class="btn btn-lg download-app" tabindex="5" ng-if="$parent.$parent.downloadApp"
+                                type="button" ng-click="ctrl.downloadAPK()">
+                            <i class="fa fa-android" aria-hidden="true"></i> Download App Now
+                        </button>
+                    </div>
+                    <div class="login-bottom changepswd" ng-if="formMode==2">
+                        <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                            <p>For a security reason, please change your password.</p>
+                            <p class="login-user">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                <input type="password"
+                                       placeholder="Please enter old Password"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       tabindex="1"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                <input type="password"
+                                       placeholder="Please enter new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                                <input type="password"
+                                       placeholder="Please confirm new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="3"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                            </p>
+
+                            <p class="login-btn">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="changepwform.$invalid">
+                                    Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                        </form>
+                        <kt-messages data-messages="cp_messages"></kt-messages>
+                    </div>
+
+                    <div class="betfair-img"><a class="powerby-bf"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Login Page   --->
+    <div class="new-loginpage" style="height:100%" ng-if="loginMode == 1">
+        <div class="login-wrap">
+            <div class="col-sm-6 col-xs-12 login-img-part">
+                <img class="mobile-full-img" ng-src="{{imagePath}}images/{{currentWebApp}}/bg-login.png">
+                <img class="mobile-img" ng-src="{{imagePath}}images/{{currentWebApp}}/mobile-login.png" />
+            </div>
+            <div class="col-sm-6 col-xs-12 login-form-part" ng-if="formMode==1">
+                <form name="winloginform" ng-submit="ctrl.login()">
+                    <span ng-hide="startDemoLogin">Please login to continue</span>
+                    <div class="pop-title" style="margin-bottom:25px;" ng-show="startDemoLogin">
+                        <h1>Welcome</h1>
+                        <div>Enter captcha to login with demo account</div>
+                    </div>
+
+                    <p ng-if="!startDemoLogin">
+                        <input type="text" maxlength="200"
+                               placeholder="Enter User Name"
+                               tabindex="1"
+                               required autofocus ng-model="$parent.$parent.$parent.model.username" />
+                    </p>
+                    <p ng-if="!startDemoLogin">
+                        <input type="password"
+                               placeholder="Enter Password"
+                               ng-maxlength=16
+                               ng-minlength="6"
+                               tabindex="2"
+                               ng-model="$parent.$parent.$parent.model.password" data-type="password" />
+                    </p>
+                    <p class="validation-code" ng-if="captchaMode==2">
+                        <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                               maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                               placeholder="Enter code" />
+                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                    </p>
+                    <button class="log-btn" ng-disabled="winloginform.$invalid" tabindex="4"
+                            type="submit">
+                        login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                    </button>
+                    <button class="log-btn " tabindex="4" 
+                            ng-click="$parent.$parent.$parent.startDemoLogin=true"
+                            ng-if="!startDemoLogin && supportDetail.demoUsername"
+                            type="button">
+                        login with demo
+                    </button>
+                    <div class="app-btn" ng-show="currentWebApp!='funsports'">
+                        <div><i class="fa fa-android" aria-hidden="true" ng-click="ctrl.downloadAPK()"></i><i class="fa fa-apple" aria-hidden="true"></i></div>
+                        <div><img src="/public/images/firefox-icon.png"><img src="/public/images/chrome-icon.png"></div>
+                        <div> Our website works best in the newest and last prior version of these browsers </div>
+                    </div>
+
+                </form>
+                <div class="app-btn" ng-show="currentWebApp=='funsports'" style="left:auto;margin-top:auto;">
+                    <div class="rules center">
+                        <a style="color:black;" ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a> |
+                        <a style="color:black;" ng-click="ctrl.openCookiePolicy()">Cookie Policy</a> |
+                        <a style="color:black;" ng-click="ctrl.openTermsConditions()">Terms & Conditions</a> <br />
+                        <a style="color:black;" ng-click="ctrl.openResponsibleGambling()">Gambling can be addictive, please play responsibly</a> |
+                        <a style="color:black;" ng-click="ctrl.openResponsibleGambling()">18+</a>
+                    </div>
+                </div>
+                <kt-messages data-messages="messages"></kt-messages>
+
+            </div>
+            <div class="col-sm-6 col-xs-12 login-form-part" ng-if="formMode==2">
+                <form name="wincloginform" ng-submit="ctrl.changePassword()">
+                    <span>For a security reason, please change your password.</span>
+                    <p>
+                        <input type="password"
+                               placeholder="Please enter old Password"
+                               ng-maxlength=16
+                               ng-minlength="1"
+                               tabindex="1"
+                               required ng-model="$parent.$parent.cp_model.oldpassword" data-type="password" />
+                    </p>
+                    <p>
+                        <input type="password"
+                               placeholder="Please enter new Password"
+                               ng-maxlength=16
+                               ng-minlength="6"
+                               tabindex="2"
+                               required ng-model="$parent.$parent.cp_model.newpassword" data-type="password" />
+                    </p>
+                    <p>
+                        <input type="password"
+                               placeholder="Please confirm new Password"
+                               ng-maxlength=16
+                               ng-minlength="6"
+                               tabindex="3"
+                               required ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password" />
+                    </p>
+                    <button class="log-btn" ng-disabled="wincloginform.$invalid" tabindex="4"
+                            type="submit">
+                        Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                    </button>
+                </form>
+                <kt-messages data-messages="cp_messages"></kt-messages>
+            </div>
+        </div>
+        <div class="fake-fixed-menu"></div>
+    </div>
+
+    <div class="login-page login-book" ng-if="loginMode == 2">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-details">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="login-detail">
+                            <div class="login-left">
+                                <div class="login_user" ng-if="formMode==1">
+                                    <h4 class="login-name"><b>login</b></h4>
+                                    <form class="form_signin" name="loginform" ng-submit="ctrl.login()">
+                                        <p class="login-user">
+                                            <label>User name</label>
+                                            <input type="text" maxlength="200"
+                                                   placeholder="Username"
+                                                   tabindex="1"
+                                                   required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                                        </p>
+                                        <p style="margin:0 0 10px 0 !important">
+                                            <label>Password</label>
+                                            <input type="password"
+                                                   placeholder="Password"
+                                                   ng-maxlength=16
+                                                   ng-minlength="6"
+                                                   tabindex="2"
+                                                   required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                                        </p>
+                                        <p class="forgot-pwsd bold"><a>Forgot password?</a></p>
+                                        <p class="captcha-div" ng-if="captchaMode==2">
+                                            <span class="code">
+                                                <span>
+                                                    <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                                    <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                                </span>
+                                            </span>
+                                            <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                                   class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3" />
+                                        </p>
+
+                                        <p class="login-btn">
+                                            <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                    type="submit" ng-disabled="loginform.$invalid">
+                                                Login
+                                                <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                            </button>
+                                        </p>
+
+                                    </form>
+                                </div>
+                                <kt-messages data-messages="messages"></kt-messages>
+                                <div class="login-bottom changepswd" ng-if="formMode==2">
+                                    <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                                        <p>For a security reason, please change your password.</p>
+                                        <p class="login-user">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                            <input type="password"
+                                                   placeholder="Please enter old Password"
+                                                   ng-maxlength=16
+                                                   ng-minlength="1"
+                                                   tabindex="1"
+                                                   required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                                        </p>
+                                        <p class="login-user">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                            <input type="password"
+                                                   placeholder="Please enter new Password"
+                                                   ng-maxlength=16
+                                                   ng-minlength="6"
+                                                   tabindex="2"
+                                                   required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                                        </p>
+                                        <p class="login-user">
+                                            <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                                            <input type="password"
+                                                   placeholder="Please confirm new Password"
+                                                   ng-maxlength=16
+                                                   ng-minlength="6"
+                                                   tabindex="3"
+                                                   required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                                        </p>
+                                        <p class="login-btn">
+                                            <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                    type="submit" ng-disabled="changepwform.$invalid">
+                                                Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                            </button>
+                                        </p>
+                                    </form>
+                                    <kt-messages data-messages="cp_messages"></kt-messages>
+                                </div>
+                                <div class="mlogin-join">
+                                    <div style="margin-top:10px;text-align:center;">
+                                        <a style="width:unset;" href="https://wa.me/{{supportDetail.whatsapp}}" ng-if="supportDetail.whatsapp" target="_blank">
+                                            <img style="width:30px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />
+                                        </a>
+                                        <a style="width:unset;" href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                                            <img style="width:25px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/telegram.png" />
+                                        </a>
+                                        <a style="width:unset;" href="https://www.instagram.com/{{supportDetail.instagram}}" ng-if="supportDetail.instagram" target="_blank">
+                                            <img style="width:30px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/insta.png" />
+                                        </a>
+                                    </div>
+
+                                    <div class="join-today" ng-if="isRegisterEnabled">
+                                        <button class="btn btn-lg" ng-click="ctrl.registerMobile()">Join us today</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 rules float-l">
+                <div class="center">
+                    <span>
+                        <a ng-click="ctrl.openResponsibleGambling()" style="">Gambling can be addictive, please play responsibly</a> |
+                        <a ng-click="ctrl.openResponsibleGambling()" style="color:#ffb80c;">18+</a>
+                    </span>
+                    <span class="rules-name">
+                        <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a> |
+                        <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a> |
+                        <a ng-click="ctrl.openTermsConditions()">Terms & Conditions</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="login-royal" ng-if="loginMode == 3">
+        <div class="header-top ">
+            <div class="header-form">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="login-top">
+                            <a class="logo-img"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 login-form">
+                    <div class="row">
+                        <div class="login-info" ng-if="formMode==1">
+                            <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                                <p class="login-user">
+                                    <label class="p-name">Username</label>
+                                    <input type="text" maxlength="200"
+                                           tabindex="1"
+                                           required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                                </p>
+                                <p class="pswd">
+                                    <label class="p-name">Password</label>
+                                    <input type="password"
+                                           ng-maxlength=16
+                                           ng-minlength="6"
+                                           tabindex="2"
+                                           required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                                </p>
+                                <p class="captcha-div" ng-if="captchaMode==2">
+                                    <label class="p-name">Enter code</label>
+                                    <span class="code">
+                                        <span>
+                                            <img class="captcha-img" id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                            <a class="refresh-img" ng-click="ctrl.getCaptcha(false)"></a>
+                                        </span>
+                                    </span>
+                                    <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                           class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3" />
+                                </p>
+
+                                <p class="login-btn">
+                                    <label>&nbsp;</label>
+                                    <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                            type="submit" ng-disabled="loginform.$invalid">
+                                        Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                        <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                    </button>
+                                </p>
+                            </form>
+                            <kt-messages data-messages="messages"></kt-messages>
+
+                        </div>
+                        <div class="login-bottom  changepswd" ng-if="formMode==2">
+                            <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                                <p>For a security reason, please change your password.</p>
+                                <p class="login-user">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <input type="password"
+                                           placeholder="Please enter old Password"
+                                           ng-maxlength=16
+                                           ng-minlength="1"
+                                           tabindex="1"
+                                           required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                                </p>
+                                <p class="login-user">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <input type="password"
+                                           placeholder="Please enter new Password"
+                                           ng-maxlength=16
+                                           ng-minlength="6"
+                                           tabindex="2"
+                                           required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                                </p>
+                                <p class="login-user">
+                                    <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                                    <input type="password"
+                                           placeholder="Please confirm new Password"
+                                           ng-maxlength=16
+                                           ng-minlength="6"
+                                           tabindex="3"
+                                           required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                                </p>
+
+                                <p class="login-btn">
+                                    <!-- <label>&nbsp;</label>-->
+                                    <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                            type="submit" ng-disabled="changepwform.$invalid">
+                                        Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                        <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                    </button>
+                                </p>
+                            </form>
+                            <kt-messages data-messages="cp_messages"></kt-messages>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-abexch" ng-if="loginMode==5">
+        <div class="login-abdetail">
+            <div class="scene">
+                <div class="cloud-img"></div>
+            </div>
+            <div class="login-abform fade-in-top">
+                <div class="ab-logo">
+                    <span class="animatedBackground abexch-logo"></span>
+                </div>
+                <div ng-if="formMode==1">
+                    <form name="loginform" ng-submit="ctrl.login()">
+                        <div class="abexch-form">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" placeholder="User Name"
+                                           maxlength="200"
+                                           tabindex="1"
+                                           required autofocus ng-model="$parent.$parent.model.username" />
+                                </div>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <input name="txtPassword" type="password" placeholder="Password"
+                                           ng-maxlength=16
+                                           ng-minlength="6"
+                                           tabindex="2"
+                                           required class="form-control" ng-model="$parent.$parent.model.password" data-type="password" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="captchaMode==2">
+                            <div class="captcha-div">
+                                <span class="code">
+                                    <span>
+                                        <img id="code" class="{{captchBG}}" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                    </span>
+                                </span>
+                            </div>
+                            <input class="form-control" placeholder="Enter Verifaction Code" ng-model="$parent.$parent.model.captcha"
+                                   maxlength="4" size="4" autocomplete="off" required tabindex="3" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button name="btnLogin" class="login-btn" tabindex="4" ng-disabled="loginform.$invalid">login</button>
+                            </div>
+                        </div>
+                    </form>
+                    <kt-messages data-messages="messages"></kt-messages>
+                </div>
+
+                <div class="login-bottom  changepswd" ng-if="formMode==2">
+                    <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                        <p class="note">For a security reason, please change your password.</p>
+                        <p class="login-user">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password"
+                                   placeholder="Please enter old Password"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   tabindex="1"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                        </p>
+                        <p class="login-user">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password"
+                                   placeholder="Please enter new Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                        </p>
+                        <p class="login-user">
+                            <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                            <input type="password"
+                                   placeholder="Please confirm new Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="3"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                        </p>
+
+                        <p class="login-btn">
+                            <!-- <label>&nbsp;</label>-->
+                            <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                    type="submit" ng-disabled="changepwform.$invalid">
+                                Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            </button>
+                        </p>
+                    </form>
+                    <kt-messages data-messages="cp_messages"></kt-messages>
+                </div>
+
+                <div class="row">
+                    <span class="login_img"></span>
+                    <p class="text-center"><strong>Licensed Under CuraÃ§ao eGaming</strong></p>
+                </div>
+                <div class="row">
+                    <span class="login_andriod" ng-click="ctrl.downloadAPK()"></span>
+                </div>
+                <hr />
+
+                <div class="contact-info">
+                    <div class="input-group" style="width:100%;text-align:center;font-size:13px;">
+                        <a ng-click="ctrl.openPrivacyPolicy();" style="color:black">Privacy Policy</a>
+                        &nbsp;|&nbsp;
+                        <a ng-click="ctrl.openTermsConditions()" style="color:black">Terms & Conditions</a>
+                        &nbsp;|&nbsp;
+                        <a ng-click="ctrl.openCookiePolicy()" style="color:black">Cookie Policy</a>
+                        <br />
+                        <a ng-click="ctrl.openResponsibleGambling()" style="color:black">Gambling can be addictive, please play responsibly <span class="age">18+</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="abexch-login" ng-if="loginMode==6">
+        <div class="login-wrapper">
+            <div class="logo-img"></div>
+            <div class="login-formdetail">
+                <div class="ab-logininfo" ng-if="formMode==1">
+                    <form name="loginform" ng-submit="ctrl.login()">
+                        <div class="form-group" ng-if="!startDemoLogin">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="User Name"
+                                       maxlength="200"
+                                       tabindex="1"
+                                       required autofocus ng-model="$parent.$parent.$parent.model.username" />
+
+                                <input type="password" class="form-control" placeholder="Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6" required
+                                       tabindex="2" ng-model="$parent.$parent.$parent.model.password" data-type="password" />
+                            </div>
+                        </div>
+                        <div class="pop-title" style="margin-bottom:10px;" ng-show="startDemoLogin">
+                            <h1>Welcome</h1>
+                            <div>Enter captcha to login with demo account</div>
+                        </div>
+                        <div class="form-group" ng-if="captchaMode==2">
+                            <input class="form-control validation" placeholder="Enter Verifaction Code"
+                                   ng-model="$parent.$parent.$parent.model.captcha"
+                                   maxlength="4" size="4" autocomplete="off" required tabindex="3" />
+                            <div class="captcha-div">
+                                <span class="code">
+                                    <span>
+                                        <img id="code" class="{{captchBG}}" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <button class="login-btn" tabindex="4" ng-disabled="loginform.$invalid">
+                            login
+                            <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                        </button>
+                        <button class="login-btn" type="button" ng-click="$parent.$parent.startDemoLogin=true"
+                                ng-show="!startDemoLogin && supportDetail.demoUsername">
+                            login with demo
+                        </button>
+                    </form>
+                    <kt-messages data-messages="messages"></kt-messages>
+                </div>
+                <div class="ab-changpswd" ng-if="formMode==2">
+                    <form name="changepwform" ng-submit="ctrl.changePassword()">
+                        <p class="note">For a security reason, please change your password.</p>
+                        <p class="ablogin-user">
+                            <input type="password"
+                                   placeholder="Please Enter Old Password"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   tabindex="1" ng-model="$parent.$parent.cp_model.oldpassword"
+                                   required class="form-control" data-type="password">
+                        </p>
+                        <p class="ablogin-user">
+                            <input type="password"
+                                   placeholder="Please Enter New Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2" ng-model="$parent.$parent.cp_model.newpassword"
+                                   required class="form-control" data-type="password">
+                        </p>
+                        <p class="ablogin-user">
+                            <input type="password"
+                                   placeholder="Please Confirm New Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="3" ng-model="$parent.$parent.cp_model.confirmpassword"
+                                   required class="form-control" data-type="password">
+                        </p>
+
+                        <p class="ablogin-btn">
+                            <button class="login-btn" tabindex="4" type="submit" ng-disabled="changepwform.$invalid">
+                                Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </p>
+                    </form>
+                    <kt-messages data-messages="cp_messages"></kt-messages>
+                </div>
+            </div>
+            <div class="login-support">
+                <div class="row">
+                    <div class="col-xs-10" ng-class="{'col-xs-12':!supportDetail.whatsapp}">
+                        <span class="login_andriod" ng-click="ctrl.downloadAPK()"></span>
+                    </div>
+                    <div class="col-xs-2" ng-if="supportDetail.whatsapp">
+                        <a target="_blank" style="position: absolute; right: 17vw; margin-top: 36px;"
+                           href="https://wa.me/{{supportDetail.whatsapp}}">
+                            <img style="height:36px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />
+                        </a>
+                    </div>
+                </div>
+                <div class="link-detail">
+                    <div class="row">
+                        <div class="ab-link">
+                            <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a>
+                            &nbsp;|&nbsp;
+                            <a ng-click="ctrl.openTermsConditions()">Terms & Conditions</a>
+                            &nbsp;|&nbsp;
+                            <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a>
+                            <br />
+                            <a ng-click="ctrl.openResponsibleGambling()">Gambling can be addictive<span class="age">18+</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fake-fixed-menu"></div>
+    </div>
+
+
+    <div class="login-page-lotus" ng-if="loginMode == 8">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 login-form">
+                <div class="row">
+                    <div class="login-bottom" ng-if="formMode==1">
+                        <kt-messages data-messages="messages"></kt-messages>
+                        <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                            <p class="login-user">
+                                <input id="user" type="text" maxlength="200"
+                                       placeholder="Enter User Name"
+                                       tabindex="1"
+                                       required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                            </p>
+                            <p>
+                                <input id="password" type="password"
+                                       placeholder="Enter Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                            </p>
+                            <p class="captcha-div" ng-if="captchaMode==2">
+                                <span class="code">
+                                    <span id="captcha">
+                                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                        <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                    </span>
+                                </span>
+                                <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                       placeholder="Enter code" />
+                            </p>
+
+                            <p class="login-btn" ng-class="{'gradient-border':showLoading}">
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="loginform.$invalid">
+                                    Log in
+                                </button>
+                            </p>
+                            <p class="login-btn" ng-if="supportDetail.whatsapp" style=" margin-top: 5px !important;">
+                                <a class="btn btn-lg  btn-block btn-login " target="_blank" href="https://wa.me/{{supportDetail.whatsapp}}">
+                                    <img style="width: 25px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />
+                                    Contact Us
+                                </a>
+                            </p>
+                        </form>
+
+                    </div>
+                    <div class="login-bottom changepswd" ng-if="formMode==2">
+                        <kt-messages data-messages="cp_messages"></kt-messages>
+                        <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                            <p>For a security reason, please change your password.</p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please enter old Password"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       tabindex="1"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please enter new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please confirm new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="3"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                            </p>
+
+                            <p class="login-btn">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="changepwform.$invalid">
+                                    Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="betfair-img"><a class="powerby-bf" /></div>
+                </div>
+            </div>
+        </div>
+        <div id="captchaholder"></div>
+        <div class="login-footer">
+            <footer>
+                <a ng-click="ctrl.$rootScope.showTemplate(0)">
+                    <span class="plus-18">18+</span><p>Underage gambling is an offence</p>
+                </a>
+                <a href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                    <img style="width:20px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/telegram.png" />
+                </a>
+            </footer>
+        </div>
+        <div class="col-sm-12" ng-if="isBFLabel">
+            <div class="row">
+                <div class="login-link">
+                    <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a>
+                    <a style="padding:0 22px;" class="p" ng-click="ctrl.openTermsConditions()">Terms & Conditions</a>
+                    <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a>
+                    <a class="gambling" ng-click="ctrl.openResponsibleGambling()">Gambling can be addictive, please play responsibly <span class="age">18+</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="matrix-login" ng-if="loginMode==9">
+        <div class="matrix-wrap">
+            <div class="v-img-cover">
+                <div class="header-top">
+                    <div class="v-responsive__content">
+                        <div class="container fill-height container--fluid">
+                            <div class="row">
+                                <div class="login-form">
+
+                                    <div class="login-top" style="height:150px;">
+                                        <a class="logo-img"></a>
+                                    </div>
+
+                                    <div class="login-bottom" ng-if="formMode==1">
+                                        <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                                            <p class="login-user">
+                                                <i class="fa fa-user-circle-o fa-user" aria-hidden="true"></i>
+                                                <input type="text" maxlength="200"
+                                                       placeholder="Enter User Name"
+                                                       tabindex="1"
+                                                       required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                                            </p>
+                                            <p class="login-pswd">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Enter Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="2"
+                                                       required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                                            </p>
+                                            <p class="captcha-div" ng-if="captchaMode==2">
+                                                <span class="empty-txt">&nbsp;</span>
+                                                <span class="captcha_txt">
+                                                    <span class="code">
+                                                        <span>
+                                                            <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                                            <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                                        </span>
+                                                    </span>
+                                                    <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                                           class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                                           placeholder="Enter code" />
+                                                </span>
+                                            </p>
+
+                                            <p class="login-btn">
+                                                <label>&nbsp;</label>
+                                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                        type="submit" ng-disabled="loginform.$invalid">
+                                                    Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                                </button>
+                                            </p>
+                                        </form>
+                                        <kt-messages data-messages="messages"></kt-messages>
+                                        <!--<div class="matrix-join">
+                                            <p style="color: hsla(0,0%,100%,.7);font-size: 12px;">Not a member?</p>
+                                            <a class="btn-join" href="#">
+                                                <span class="vt-join">JOIN NOW</span>
+                                            </a>
+                                        </div>-->
+                                        <div class="powerby">
+                                            <p class="power-txt">Powered by</p>
+                                            <div class="power-img">
+                                                <img ng-src="{{imagePath}}images/{{currentWebApp}}/betfair-logo.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="login-bottom  changepswd" ng-if="formMode==2">
+                                        <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                                            <p>For a security reason, please change your password.</p>
+                                            <p class="login-user">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please enter old Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="1"
+                                                       tabindex="1"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                                            </p>
+                                            <p class="login-user">
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please enter new Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="2"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                                            </p>
+                                            <p class="login-user">
+                                                <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                                                <input type="password"
+                                                       placeholder="Please confirm new Password"
+                                                       ng-maxlength=16
+                                                       ng-minlength="6"
+                                                       tabindex="3"
+                                                       required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                                            </p>
+
+                                            <p class="login-btn">
+                                                <!-- <label>&nbsp;</label>-->
+                                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                                        type="submit" ng-disabled="changepwform.$invalid">
+                                                    Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                                </button>
+                                            </p>
+                                        </form>
+                                        <kt-messages data-messages="cp_messages"></kt-messages>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-page-lotus" ng-if="loginMode == 4">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 login-form">
+                <div class="row">
+                    <div class="login-bottom" ng-if="formMode==1">
+                        <kt-messages data-messages="messages"></kt-messages>
+                        <form class="form-signin " name="loginform" ng-submit="ctrl.login()">
+                            <p class="login-user">
+                                <input id="user" type="text" maxlength="200"
+                                       placeholder="Enter User Name"
+                                       tabindex="1"
+                                       required autofocus ng-model="$parent.$parent.model.username" class="form-control">
+                            </p>
+                            <p>
+                                <input id="password" type="password"
+                                       placeholder="Enter Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.model.password" data-type="password">
+                            </p>
+                            <p class="captcha-div" ng-if="captchaMode==2">
+                                <span class="code">
+                                    <span id="captcha">
+                                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                        <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                    </span>
+                                </span>
+                                <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                       placeholder="Enter code" />
+                            </p>
+
+                            <p class="login-btn" ng-class="{'gradient-border':showLoading}">
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="loginform.$invalid">
+                                    Log in
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                            <p class="login-btn" ng-if="supportDetail.whatsapp" style=" margin-top: 5px !important;">
+                                <a class="btn btn-lg  btn-block btn-login " target="_blank" href="https://wa.me/{{supportDetail.whatsapp}}">
+                                    <img style="width: 25px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />
+                                    Contact Us
+                                </a>
+                            </p>
+                        </form>
+
+                    </div>
+                    <div class="login-bottom changepswd" ng-if="formMode==2">
+                        <kt-messages data-messages="cp_messages"></kt-messages>
+                        <form class="form-signin " name="changepwform" ng-submit="ctrl.changePassword()">
+                            <p>For a security reason, please change your password.</p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please enter old Password"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       tabindex="1"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please enter new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="2"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                            </p>
+                            <p class="login-user">
+                                <input type="password"
+                                       placeholder="Please confirm new Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="3"
+                                       required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                            </p>
+
+                            <p class="login-btn">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="changepwform.$invalid">
+                                    Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                    <div class="betfair-img"><a class="powerby-bf" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="login-footer">
+            <footer>
+                <a>
+                    <span class="plus-18">18+</span><p>Underage gambling is an offence</p>
+                </a>
+                <a href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                    <img style="width:20px;" ng-src="{{imagePath}}images/{{currentWebApp}}/icon/telegram.png" />
+                </a>
+            </footer>
+        </div>
+        <div class="fake-fixed-menu"></div>
+    </div>
+</div>
+<div id="captchaholder"></div>

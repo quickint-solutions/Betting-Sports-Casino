@@ -1,0 +1,161 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.filter-panel{
+    
+             @include position(relative);
+             @include padding(10px, 10px, 10px, 10px);
+             background-color: $light-grey;
+             @include border(bottom, 1px, solid, $light-gray-blue);
+             margin: 10px 0;
+             .input-list{
+                    li{
+                     a{ 
+                         background-color: $white-color;
+                         @include border-all(1px, solid, $grayish);
+                         @include border-radius(4px);
+                         line-height: 14px;
+                         @include padding(5px, 12px, 5px, 12px);
+                         @include headline ($dark-gray-black, 12px);
+                         margin: 10px 5px 10px 0;
+                      }
+                     .bets{ @include padding(5px, 25px, 5px, 25px); margin:9px 0 10px 0;}
+                 
+                     label{
+                        @include txt(normal);
+                        margin-right:12px;
+                     }
+                     select{
+                        margin: 0 40px 0 0px;
+                        width: 85%;
+                        height: 25px;   box-sizing:content-box;
+                     }
+                    .dark-btn{@include txt(bold); @include padding(6px, 30px, 6px, 30px);}
+                    .input-group {
+                          @include display(block); margin-right:15px;
+                         .form-control{ 
+                                  @include padding(0px, 10px, 0px, 10px);
+                                  height:27px; @include resize (none, 145px); 
+                                  @include border-radius(4px);
+                                  background-image:url('/public/images/report.png');
+                                  background-repeat:$back-norepeat;
+                                  background-position: 113px -23px;
+                         }
+                     }
+                 }
+             }
+         }
+
+.my-bets {
+    @include padding(10px, 0, 0, 0);
+
+    td {
+       // color: $dark-gray-black
+    }
+
+    p {
+        font-size: $font-size-tab;
+    }
+
+    .Profit-l {
+        font-size: $font-size-tab;
+
+        .table-bets{clear:both;} .function-wrap {
+            border-bottom: none;
+        }
+
+        .profit-title {
+            margin: 10px 0 20px 0;
+            background-color: $white-color;
+            @include padding(10px, 10px, 1px, 10px);
+            @include border(bottom, 1px, solid, $light-gray-blue);
+        }
+
+        h3 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            @include txt(bold);
+        }
+
+        .acc-info {
+            li {
+                margin-right: 15px;
+                @include padding(0px, 0px, 0px, 20px);
+                line-height: 15px;
+                background-image: url('/public/images/report.png');
+                background-repeat: $back-norepeat;
+            }
+
+            .user {
+                background-position: -12px -181px;
+            }
+
+            .time {
+                background-position: -12px -167px
+            }
+        }
+
+        .total-show {
+            @include resize($float-left, $width);
+            margin-top: 13px;
+            margin-bottom: 20px !important;
+            font-size: 14px;
+
+            li {
+                @include display(inline-block);
+                cursor: pointer;
+            }
+
+            .sports-switch {
+                margin-right: 15px;
+            }
+
+            .underline {
+                text-decoration: underline;
+            }
+        }
+    }
+    /*.list-view-table{
+            table{
+                thead{
+                    background:url("/public/images/header-img.jpg");
+                    background-repeat:repeat-x;
+                    th{
+                        span{color:$login-back !important; }
+                    }
+                }
+            }
+        }*/
+}
+
+.list-view-table{
+    table{
+        thead{
+            background:url("/public/images/header-img.jpg");
+            background-repeat:repeat-x;
+            line-height:15px;
+            th{@include padding(6px, 6px, 6px, 6px);  margin-bottom:0px;
+                span{color:$theme-color ; line-height:18px}
+            }
+        }
+        .user_label{
+                @include txt(normal); margin-bottom:0px;
+                span{
+                    font-size:11px;
+                    strong{font-size:12px;}
+                }
+            }
+    }
+}
+
+
+.cust-name{
+    max-width:145px !important;
+}
+.cust-no{
+    max-width:100px !important;
+}
+.market-name{
+    max-width:273px;
+}

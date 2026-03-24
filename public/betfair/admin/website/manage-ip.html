@@ -1,0 +1,33 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'manageip.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-manageip-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditIP()"
+             cache-key="ktmanageipgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-header-class="'size-lg'" class="size-lg"></td>
+                    <td data-title="::'ip.label' | translate"
+                        data-sortable="'name'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean size-md'" class="boolean size-md">
+                        <a id="delete{{$index}}" class="btn btn-danger"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteIP(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

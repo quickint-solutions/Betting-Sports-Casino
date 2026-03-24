@@ -1,0 +1,795 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.mobile-top {
+    .mobilewrap {
+        .tab-section {
+            //border-top: 1px solid #000;
+            .m-tab {
+                white-space: nowrap;
+                overflow-x: auto;
+                background-color: $theme-color;
+                box-shadow: inset 0px -1px 3px 0 rgba(0, 0, 0, 0.50);
+
+                &.tv-tab {
+                    button {
+                        width: 50%;
+
+                        &.active {
+                            border-top: 2px solid $heading;
+                        }
+                    }
+                }
+
+                button {
+                    color: #ffffff;
+                    font-size: 12px;
+                    display: inline-block;
+                    cursor: pointer;
+                    padding: 12px 0px;
+                    transition: 0.3s;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    border: 0;
+                    border-top: 1px solid transparent;
+                    background-color: transparent;
+
+                    &.active {
+                        border-top: 1px solid #fff;
+                    }
+
+                    &:last-child span {
+                        border-right: none;
+                    }
+
+                    span {
+                        border-right: 1px solid $white-color;
+                        padding: 0px 10px;
+                    }
+                }
+            }
+
+            .tabcontent {
+                border-top: none;
+            }
+
+            .m-mybet {
+                float: left;
+                width: 100%;
+                padding: 4px 0;
+
+                .match-bet, .unmatched {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 2px;
+                }
+
+                .bet-title {
+                    padding: 6px 8px;
+                    background-color: $title;
+                    color: #ffffff;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                }
+
+                .fact-content {
+                    float: left;
+                    width: 100%;
+                    padding-bottom: 8px;
+                }
+
+                .more-header {
+                    background-color: #ccc;
+                    border-bottom: 2px solid 2px solid #dee2e6;
+                }
+
+                .add-bet {
+                    float: left;
+                    display: inline-block;
+                    width: 100%;
+                    justify-content: space-between;
+                    font-size: 12px;
+
+                    .bet-header {
+                        text-align: left;
+                        padding: 5px 4px 4px 4px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-transform: capitalize;
+                        display: inline-block;
+                    }
+
+                    .market-name {
+                        display: block;
+                        font-size: 14px;
+                        font-weight: bold;
+                        padding: 8px 5px 0px 5px;
+                    }
+
+                    .add-input input {
+                        border: 1px solid #ccc;
+                        height: 23px;
+                        width: 75%;
+                        padding: 3px;
+                    }
+
+                    .add-value {
+                        text-align: left;
+                        padding: 4px 4px;
+                        display: inline-block;
+                        vertical-align: middle;
+
+                        .odd-add {
+                            width: 20px;
+                            min-width: 20px;
+                            position: absolute;
+                            right: 22%;
+                            top: 50%;
+                            height: 22.5px;
+                            display: grid;
+                            background-color: #efefef;
+                            justify-content: center;
+                            transform: translate(-50%, -50%);
+
+                            a {
+                                display: flex;
+                            }
+
+                            .fas {
+                                font-size: 12px;
+                                color: #273a47;
+                            }
+                        }
+
+                        .stake-input {
+                            width: 100%;
+                            border: 1px solid #ccc;
+                            height: 23px;
+
+                            &::placeholder {
+                                font-size: 9px;
+                            }
+                        }
+
+                        .fa-times {
+                            color: #f00000;
+                        }
+                    }
+
+                    .value-title {
+                        //font-weight: bold;
+                        font-size: 12px;
+                        word-wrap: break-word;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+
+        .livegames-market .card-on-video .rname-on-video {
+            height: 13px;
+        }
+
+        .game-heading {
+            background-color: $heading;
+            color: $white-color;
+            padding: 10px;
+            font-size: 14px;
+
+            .card-header-title {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+
+        .m-market {
+            .price {
+                display: block;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .size {
+                margin-top: 1px;
+                display: block;
+                font-size: 10px;
+            }
+
+            .market-title {
+                padding: 6px 8px;
+                font-size: 13px;
+                background-color: $title;
+                color: $white-color;
+                margin-top: 0.25rem;
+                text-transform: capitalize;
+                font-weight: normal;
+
+                a {
+                    color: $white-color;
+                    margin: 0 0 0 10px;
+                }
+            }
+
+            .market-table {
+                .marketTitle {
+                    display: flex;
+                    position: relative;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    border-bottom: 0.5px solid #aaa;
+
+                    .marketTitle-name {
+                        display: flex;
+                        padding: 0.4em 0px 0.4em 0.2em;
+                        //letter-spacing: 0.66px;
+                        width: 60%;
+                        text-transform: capitalize;
+                        font-size: 12px;
+                    }
+
+                    .market-backlay-odd {
+                        display: flex;
+                        flex: 0 0 40%;
+                        justify-content: center;
+
+                        .market-bk {
+                            width: calc(50%);
+                            text-align: center;
+                            color: $black-color;
+                            padding: 5px 0;
+                            //border: 1px solid #fff;
+                            border-right: 0;
+                            border-bottom: 0;
+                            border-top: 0;
+                            letter-spacing: 0;
+                        }
+                    }
+                }
+
+                .market-table-detail {
+                    display: flex;
+                    flex-wrap: wrap;
+                    position: relative;
+
+                    .market-Content {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        background-color: $table-back;
+                        border-bottom: 0.5px solid #aaa;
+
+                        &.no-border {
+                            border: none;
+                        }
+
+                        .mt-country {
+                            width: 60%;
+                            font-size: 14px;
+                            padding: 5px;
+                            border-right: 0;
+                            border-top: 0;
+                            border-left: 0;
+
+                            .team-name {
+                                display: block;
+                                width: 100%;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
+                                text-transform: capitalize;
+                                font-weight: bold;
+                            }
+                        }
+
+                        .factor {
+                            display: flex;
+                            width: 40%;
+
+                            .mt-odd-detail {
+                                display: flex;
+                                width: 100%;
+                            }
+
+                            .market-box {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                width: 50%;
+                                min-width: 50%;
+                                max-width: 50%;
+                                flex-grow: 1;
+                                text-align: center;
+                                cursor: pointer;
+                                padding: 5px 0;
+                                border-left: 1px solid #aaa;
+                                border-right: 0;
+                                border-bottom: 0;
+                                height: 39.8px;
+                            }
+                        }
+                    }
+                }
+
+                #tr_inlinebet {
+                    float: left;
+                    width: 100%;
+
+                    .minline {
+                        padding: 7px 5px;
+                        float: left;
+                        width: 100%;
+                        border-bottom: 1px solid #888;
+                        box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 3px 3px;
+
+                        .score-btn {
+                            text-align: center;
+                            background-color: #fcfcfc;
+                            border-width: 1px;
+                            border-style: solid;
+                            border-color: #999;
+                            border-radius: 4px;
+                            height: 30px;
+                            flex: 1 0 49%;
+                            margin: 0 3px 5px;
+                            color: #000;
+
+                            a {
+                                line-height: 28px;
+                                text-align: center;
+                                width: 25%;
+
+                                i {
+                                    font-size: 12px;
+                                    color: #2c3e50;
+                                }
+                            }
+
+                            input {
+                                width: 50%;
+                                height: 28px;
+                                font-size: 14px;
+                                text-align: center;
+                                border: 0;
+                                vertical-align: super;
+                                border-left: 1px solid #aaa;
+                                border-right: 1px solid #aaa;
+                                background-color: #fcfcfc;
+                            }
+                        }
+
+                        .popup-list {
+                            float: left;
+                            width: 100%;
+                            vertical-align: middle;
+                            background-color: $title;
+
+                            a {
+                                float: left;
+                                width: 16.5%;
+                                height: 29px;
+                                line-height: 28px;
+                                color: $white-color;
+                                font-size: 12px;
+                                text-align: center;
+                                border-right: 1px solid #aaa;
+
+                                &:last-child {
+                                    border-right: 0px;
+                                }
+
+                                &:focus {
+                                    color: #00bcd4 !important;
+                                }
+
+                                &:hover {
+                                    color: #00bcd4 !important;
+                                }
+                            }
+                        }
+
+                        .keypad {
+                            float: left;
+                            width: 100%;
+                            padding: 4px 4px 4px 2px;
+
+                            table {
+                                width: 100%;
+
+                                tr {
+                                    height: 35px;
+
+                                    td {
+                                        width: 14%;
+                                        text-align: center;
+                                        vertical-align: middle;
+                                        background-color: #fcfcfc;
+                                        box-shadow: 0 0 2px 0 #000;
+                                    }
+
+                                    .fa-arrow-circle-left {
+                                        color: $title;
+                                    }
+                                }
+                            }
+                        }
+
+                        .inline-btn {
+                            display: flex;
+                            float: left;
+                            width: 100%;
+                            padding: 0 3px;
+
+                            .select-btn {
+                                flex: 1 0 49%;
+                                text-align: center;
+                                border-radius: 3px;
+                                border: 1px solid #aaa;
+                                background-color: #fcfcfc;
+
+                                .btn {
+                                    font-size: 13px;
+                                    color: $heading;
+                                }
+                            }
+
+                            .place-btn {
+                                margin-left: 8px;
+                                background-color: $heading;
+
+                                .btn {
+                                    padding: 0;
+                                    line-height: normal;
+                                    color: #ffb80c;
+
+                                    span {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .back-lay-odd {
+                    display: flex;
+                    flex: 0 0 50%;
+                    justify-content: flex-end;
+                }
+
+                .market-bk {
+                    text-align: center;
+                    padding: 5px 0;
+                    width: calc(44.6667%);
+                    border: 1px solid #aaa;
+                    border-right: 0;
+                    border-bottom: 0;
+                    border-top: 0;
+                    letter-spacing: 0;
+                }
+            }
+
+            .odd-table {
+                .market-table {
+                    .market-table-detail {
+                        .market-Content {
+
+                            .factor {
+
+                                .mt-odd-detail {
+                                    justify-content: flex-end;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fixed-wrap {
+                .fixed-country {
+                    flex-basis: 85%;
+                    font-size: 14px;
+                    padding: 5px;
+                    border-right: 0;
+                    border-top: 0;
+                    border-left: 0;
+
+                    .team-name {
+                        font-weight: bold;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .market-odds {
+                    display: flex;
+                    width: 15%;
+
+                    .fixed-odd-box {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        width: 100%;
+                        color: $white-color;
+                        background-color: $fixedodd-bg;
+                        flex-grow: 1;
+                        text-align: center;
+                        cursor: pointer;
+                        padding: 12.2px 0;
+                        //border: 1px solid #fff;
+                        border-right: 0;
+                        border-top: 0;
+                        height: 39.2px;
+                    }
+                }
+            }
+
+            .shuffle-detail {
+                cursor: pointer;
+                float: left;
+                width: 100%;
+
+                table {
+                    position: relative;
+                    width: 100%;
+
+                    tr {
+                        td {
+
+                            &.dragon {
+                                width: 40%;
+                                height: 100px;
+                                background-color: #B0202F;
+                                text-align: left;
+                                padding: 5px;
+                            }
+
+                            &.tie {
+                                width: 20%;
+                                height: 100px;
+                                text-align: center;
+                                background-color: #ffb80c;
+                            }
+
+                            &.tiger {
+                                width: 40%;
+                                height: 100px;
+                                background-color: #0A6BB6;
+                                text-align: right;
+                                padding: 5px;
+                            }
+                        }
+
+                        .ud-title {
+                            color: $white-color;
+                            text-transform: uppercase;
+                            font-weight: bold;
+                        }
+
+                        .online-price {
+                            color: $white-color;
+                        }
+
+                        .andar, .bahar {
+                            position: relative;
+                            width: 50%;
+                            float: left;
+                            height: 105px;
+                            display: inline-block;
+                            padding: 8px;
+                            color: $white-color;
+                            cursor: pointer;
+                            font-size: 18px;
+                            text-transform: uppercase;
+
+                            .winner-text {
+                                text-transform: capitalize;
+                                font-size: 16px;
+                            }
+
+                            .card-img {
+                                top: 16%;
+                                position: absolute;
+
+                                img {
+                                    width: 40px;
+                                    position: fixed;
+                                }
+                            }
+                        }
+
+                        .andar {
+                            background-color: #B0202F;
+                            color: white;
+
+                            .card-img {
+                                left: 0%;
+                                transform: translate(63%,-50%);
+                            }
+                        }
+
+                        .bahar {
+                            background-color: #0A6BB6;
+                            text-align: right;
+                            color: white;
+
+                            .card-img {
+                                right: 0%;
+                                transform: translate(-75%,-50%);
+                            }
+                        }
+
+                        .board {
+                            position: absolute;
+                            top: 50%;
+                            right: 50%;
+                            -webkit-transform: translate(-50%,0);
+                            transform: translate(-50%,0);
+
+                            .joker-img {
+                                float: left;
+                                width: 50px;
+                                border: 1.5px solid #171A33;
+                                padding: 4px 3px;
+                                top: 50%;
+                                left: 50%;
+                                position: absolute;
+                                border-radius: 4px;
+                                transform: translate(-50%, -50%);
+
+                                img {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .dg-tab {
+                background-color: $heading;
+                color: $white-color;
+                font-weight: bold;
+
+                .left-runner, .right-runner {
+                    float: left;
+                    width: 50%;
+                    text-align: center;
+                }
+
+                .dragon-bg {
+                    background-color: #B0202F;
+                }
+
+                .tiger-bg {
+                    background-color: #0A6BB6;
+                }
+            }
+
+            table {
+            }
+        }
+        /* tabbing */
+        .mtab-market {
+
+
+            .market-tab {
+                .tab-backlay {
+                    display: flex;
+                    justify-content: flex-start;
+                }
+
+                .market-table {
+                    .marketTitle {
+                        .market-title {
+                            width: 60% !important;
+                            margin-top: 0px;
+                        }
+
+                        .tab-backlay {
+                            flex: 0 0 40%;
+                        }
+
+                        .market-bk {
+                            width: calc(50%);
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    .market-table-detail {
+                        .market-Content {
+                            .fa-info-circle {
+                                color: $heading;
+                                margin-right: 2px;
+                            }
+
+                            .factor {
+                                .market-box {
+                                    width: 50% !important;
+                                    min-width: 50% !important;
+                                    max-width: 50% !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fancy-tab {
+                overflow: hidden;
+                margin-top: 0.45rem;
+                width: 100%;
+                flex-wrap: wrap;
+                display: flex;
+
+                button {
+                    float: left;
+                    min-width: 20%;
+                    flex: 1 1 auto;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    text-align: center;
+                    border: 0;
+                    outline: none;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    color: $white-color;
+                    background-color: $tab-bg;
+                    text-transform: capitalize;
+                    border-right: 1px solid $white-color;
+                    border-bottom: 1px solid $white-color;
+
+                    &.active {
+                        background-color: $theme-color;
+                    }
+
+                    span {
+                        color: var(--primary-color);
+                        white-space: nowrap;
+                        text-transform: uppercase;
+                        border-radius: 0;
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.cards-inside-runner {
+    padding: 0 2px;
+    margin-top: -11px;
+    margin-bottom: -10px;
+    height: 35px;
+    transition: transform .2s;
+    cursor: pointer;
+}
+.modal-dialog {
+    .modal-body {
+        form {
+            font-size: 14px;
+
+            .winner {
+                font-size: 13px;
+                border: 1px solid;
+                padding: 1px 2px 0px;
+                border-radius: 3px;
+                float: right;
+                margin-left: 3px;
+                line-height: 15px;
+                font-weight: 700;
+                background-color: #ecffec;
+            }
+
+            .input-highlight {
+                background-color: #f2f2f2;
+                padding: 10px 0 5.5px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,319 @@
+﻿
+<div class="main-event">
+    <div class="promotion-content md item-group-md item hydrated" ng-if="currentWebApp=='lotus365gg' || currentWebApp=='gameok' || currentWebApp=='gameokin'">
+        <div class="top-baner-wrapper topBannerPadding">
+            <div class="top-banner ">
+                <div>
+                    <div>
+                        <div class="slider_banner__item">
+                            <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b1.jpg');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="slider_banner__item">
+                            <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b2.jpg');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="slider_banner__item">
+                            <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b3.jpg');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="slider_banner__item">
+                            <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b4.jpg');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="slider_banner__item">
+                            <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b5.jpg');"></div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="inplay-item-list_exchangeGames md list-md hydrated" ng-if="hasCasino">
+        <div class="inplay-item-list-exchange__header md hydrated ">
+            <div class="inplay-item-list-exchange__header-content">
+                <div class="inplay-item-list-exchange__header-logo">
+                    <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>
+                    <span>Indian Card Games</span>
+                </div>
+            </div>
+        </div>
+        <div class="exchangeGames-content">
+            <div ng-repeat="i in [0,3,6,9,12,15,18,21,24,27,30]">
+                <div class="exchangeGames-item"
+                     ng-repeat="g in liveGamesMarkets | filter:{type:1} | limitTo:3:i"
+                     ng-click="ctrl.openFDGame(g)">
+                    <div class="exchangeGames-img-body"
+                         style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="event-heading" ng-if="inPlayMarkets.length>0">
+        <i class="icon-play green" aria-hidden="true"></i> <span class="green">In Play</span>
+        <span class="event-label "></span>
+    </h1>
+
+    <div ng-if="inPlayMarkets.length>0" ng-repeat="eventtype in filters">
+        <table class="table-score " ng-if="(inPlayMarkets | filter:{eventTypeName:eventtype.name}).length>0">
+            <thead>
+                <tr>
+                    <th class="align-l th-col">
+                        <div class="header_title">
+                            <i class="green i-sport  icon-sport-{{eventtype.name | joinme}}" style="margin-right: 5px;vertical-align: text-top;" aria-hidden="true"></i>
+                            <span class="bold">
+                                {{eventtype.name}}
+                            </span>
+                        </div>
+                    </th>
+                    <th class="align-c" colspan="2" style="width:126.4px">1</th>
+                    <th class="align-c" colspan="2" style="width:126.4px">x</th>
+                    <th class="align-c" colspan="2" style="width:126.4px">2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'border-bottom':$last,'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} "
+                    id="tr_{{h.id}}" ng-repeat="h in inPlayMarkets | filter:{eventTypeName:eventtype.name}">
+                    <td class="match-title" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                        <i class="check-icon" ng-class="{'icon-star-empty':!h.pin,'icon-star':h.pin}" aria-hidden="true" ng-click="ctrl.pinMe(h);"></i>
+                        <span class="c-line" style="white-space:pre-line">
+                            <a ui-sref="base.home.sport.fullmarket({nodetype:2,id:h.event.competitionId,eventId:h.eventId,eventTypeId:h.eventType.id})">
+                                {{h.event.name}}
+                            </a>
+                            <i class="tv-icon float-r" ng-show="h.hasVideo" aria-hidden="true"></i>
+                        </span>
+                    </td>
+                    <td class="back1 align-c" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                        <div kt-click ng-click="ctrl.placeBet(h,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name,m0.backPrice[0].percentage ? m0.backPrice[0].percentage : '');">
+                            <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                        </div>
+                    </td>
+                    <td class="align-c" ng-init="m0 = h.marketRunner[0]"
+                        kt-animate-on-change="m0.layPrice[0].size"
+                        ng-class="{'lay1':h.bettingType!=6,'empty-score':h.bettingType==6}">
+                        <div ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name,m0.layPrice[0].percentage ? m0.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="h.bettingType==6">--</span>
+                    </td>
+                    <td class="align-c" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]"
+                        ng-class="{'back1':m2,'empty-score':!m2}">
+                        <div ng-if="m2" kt-click ng-click="ctrl.placeBet(h,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name,m2.backPrice[0].percentage ? m2.backPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="!m2">--</span>
+                    </td>
+                    <td class=" align-c" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                        ng-class="{'lay1':m2 && h.bettingType!=6,'empty-score':!m2 || h.bettingType==6}">
+                        <div ng-if="m2 && h.bettingType!=6"
+                             kt-click ng-click="ctrl.placeBet(h,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name,m2.layPrice[0].percentage ? m2.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="!m2 || h.bettingType==6">--</span>
+                    </td>
+                    <td class="back1 align-c" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                        <div kt-click ng-click="ctrl.placeBet(h,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name,m1.backPrice[0].percentage ? m1.backPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                        </div>
+                    </td>
+                    <td class="align-c" ng-class="{'lay1':h.bettingType!=6,'empty-score':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                        <div ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name,m1.layPrice[0].percentage ? m1.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="h.bettingType==6">--</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inplay-item-list_casino md list-md hydrated" ng-if="hasCasino">
+        <div class="inplay-item-list-exchange__header md hydrated ">
+            <div class="inplay-item-list-exchange__header-content">
+                <div class="inplay-item-list-exchange__header-logo">
+                    <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>Casino
+                </div>
+            </div>
+        </div>
+        <div class="casino-content">
+            <div class="casino-item"
+                 ng-click="ctrl.openFDGame(g)"
+                 ng-repeat="g in liveGamesMarkets | filter:{type:2}">
+                <div class="casino-img-body" style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');"></div>
+            </div>
+        </div>
+    </div>
+    <div class="inplay-item-list_popularGames md list-md hydrated" ng-if="hasCasino">
+        <div class="inplay-item-list-exchange__header md hydrated ">
+            <div class="inplay-item-list-exchange__header-content">
+                <div class="inplay-item-list-exchange__header-logo">
+                    <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>Popular Games
+                </div>
+            </div>
+        </div>
+        <div class="popularGames-content">
+            <div ng-repeat="i in [0,2,4,6,8,10]">
+                <div class="popularGames-item"
+                     ng-repeat="g in liveGamesMarkets | filter:{type:3} | limitTo:2:i"
+                     ng-click="ctrl.openFDGame(g)">
+                    <div class="popularGames-img-body" style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');">
+                        <span class="popularGames-item-name">{{g.name}}</span>
+                        <span class="popularGames-item-overlay"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="promotion-content md item-group-md item hydrated" ng-if="currentWebApp=='lotus365gg' || currentWebApp=='gameok' || currentWebApp=='gameokin'">
+
+        <div class="sport-buttons">
+            <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" id="undefined">
+                <div class="sport-button__content" style="background-color: rgb(3, 76, 111);"
+                     ng-click="ctrl.treeClick1(1,cricketId,'Cricket')">
+                    <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/cricket-bg.png" alt="">
+                    <div class="sport-button__content-text">
+                        <img ng-src="/public/images/{{currentWebApp}}/img/cricicon.svg" alt="">
+                        <span>Cricket</span>
+                    </div>
+                </div>
+            </div>
+            <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" id="undefined">
+                <div class="sport-button__content" style="background-color: rgb(3, 76, 111);"
+                     ng-click="ctrl.treeClick1(1,soccerId,'Football')">
+                    <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/football-bg.png" alt="">
+                    <div class="sport-button__content-text">
+                        <img src="/public/images/{{currentWebApp}}/img/footballicon.svg" alt="">
+                        <span>Football</span>
+                    </div>
+                </div>
+            </div>
+            <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" id="undefined">
+                <div class="sport-button__content" style="background-color: rgb(3, 76, 111);"
+                     ng-click="ctrl.treeClick1(1,tennisId,'Tennis')">
+                    <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/tennis-bg.png" alt="">
+                    <div class="sport-button__content-text">
+                        <img src="/public/images/{{currentWebApp}}/img/tennisicon.svg" alt=""><span>Tennis</span>
+                    </div>
+                </div>
+            </div>
+            <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" id="undefined">
+                <div class="sport-button__content" style="background-color: rgb(3, 76, 111);"
+                     ng-click="ctrl.treeClick1(1,horseId,'Horse Racing')">
+                    <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/horse-bg.png" alt="">
+                    <div class="sport-button__content-text">
+                        <img src="/public/images/{{currentWebApp}}/img/horseicon.svg" alt=""><span>Horse Racing</span>
+                    </div>
+                </div>
+            </div>
+            <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" id="undefined">
+                <div class="sport-button__content" style="background-color: rgb(3, 76, 111);"
+                     ng-click="ctrl.treeClick1(1,greyHoundId,'Greyhound Racing')">
+                    <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/greyhound-bg.png" alt="">
+                    <div class="sport-button__content-text">
+                        <img src="/public/images/{{currentWebApp}}/img/geryicon.svg" alt=""><span>Greyhound Racing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <h1 class="event-heading mr-top-24" ng-if="popularMarkets.length>0">
+        <span>Highlights</span>
+        <span class="event-label ">Betting start from 1 mins before opening time</span>
+    </h1>
+    <div ng-if="popularMarkets.length>0" ng-repeat="eventtype in filters">
+        <table class="table-score" ng-if="(popularMarkets | filter:{eventTypeName:eventtype.name}).length>0">
+            <thead>
+                <tr>
+                    <th class="align-l th-col">
+                        <div class="header_title">
+                            <i class="popular-color i-sport  icon-sport-{{eventtype.name | joinme}}" style="margin-right: 5px;vertical-align: text-top;" aria-hidden="true"></i>
+                            <span class="bold">
+                                {{eventtype.name}}
+                            </span>
+                        </div>
+                    </th>
+                    <th class="align-c" colspan="2" style="width:126.4px">1</th>
+                    <th class="align-c" colspan="2" style="width:126.4px">x</th>
+                    <th class="align-c" colspan="2" style="width:126.4px">2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'border-bottom':$last,'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} "
+                    id="tr_{{h.id}}" ng-repeat="h in popularMarkets | filter:{eventTypeName:eventtype.name}">
+                    <td class="match-title" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                        <i class="check-icon" ng-class="{'icon-star-empty':!h.pin,'icon-star':h.pin}" aria-hidden="true" ng-click="ctrl.pinMe(h);"></i>
+                        <span class="c-line" style="white-space:pre-line">
+                            <a ui-sref="base.home.sport.fullmarket({nodetype:2,id:h.event.competitionId,eventId:h.eventId,eventTypeId:h.event.eventType.id})">
+                                {{h.event.name}}
+                            </a>
+                        </span>
+                        <div class="match-date float-r" style="width: 50px;text-align: right;margin-bottom: -5px;margin-top: -5px;">
+                            <span>  <kt-date data-date-value="h.event.openDate" data-format="dd-MM-yyyy"></kt-date></span>
+                            <span> <kt-date data-date-value="h.event.openDate" data-format="HH:mm"></kt-date></span>
+                        </div>
+                    </td>
+                    <td class="back1 align-c" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                        <div kt-click ng-click="ctrl.placeBet(h,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name,m0.backPrice[0].percentage ? m0.backPrice[0].percentage : '');">
+                            <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                        </div>
+                    </td>
+                    <td class="align-c" ng-init="m0 = h.marketRunner[0]"
+                        kt-animate-on-change="m0.layPrice[0].size"
+                        ng-class="{'lay1':h.bettingType!=6,'empty-score':h.bettingType==6}">
+                        <div ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name,m0.layPrice[0].percentage ? m0.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="h.bettingType==6">--</span>
+                    </td>
+                    <td class="align-c" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]"
+                        ng-class="{'back1':m2,'empty-score':!m2}">
+                        <div ng-if="m2" kt-click ng-click="ctrl.placeBet(h,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name,m2.backPrice[0].percentage ? m2.backPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="!m2">--</span>
+                    </td>
+                    <td class=" align-c" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                        ng-class="{'lay1':m2 && h.bettingType!=6,'empty-score':!m2 || h.bettingType==6}">
+                        <div ng-if="m2 && h.bettingType!=6"
+                             kt-click ng-click="ctrl.placeBet(h,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name,m2.layPrice[0].percentage ? m2.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="!m2 || h.bettingType==6">--</span>
+                    </td>
+                    <td class="back1 align-c" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                        <div kt-click ng-click="ctrl.placeBet(h,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name,m1.backPrice[0].percentage ? m1.backPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                        </div>
+                    </td>
+                    <td class="align-c" ng-class="{'lay1':h.bettingType!=6,'empty-score':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                        <div ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name,m1.layPrice[0].percentage ? m1.layPrice[0].percentage : '');">
+                            <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                        </div>
+                        <span ng-if="h.bettingType==6">--</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,133 @@
+﻿<div class="game-heading">
+    <span class="card-header-title">{{fullMarket.event.raceName}}&nbsp;<small>{{fullMarket.event.name}}</small></span>
+    <span class="float-right" ng-if="!fullMarket.inPlay && fullMarket.marketStatus!=4">
+        <kt-date-diff class="indicators bold" data-market="fullMarket" data-field="startTime">
+        </kt-date-diff>
+    </span>
+</div>
+<div class="market">
+    <div class="main-market">
+        <div class="market-title">
+            <span class="market-heading-title capital-text">{{fullMarket.name}}</span>
+            <span class="float-right">
+                <span ng-show="fullMarket.maxBet">
+                    Maximum bet<span style="margin-left:5px;">{{fullMarket.maxBet | toRate}}</span>
+                </span>
+                <kt-rules data-market="fullMarket" data-open-date="{{fullMarket.openDate}}"></kt-rules>
+            </span>
+        </div>
+        <div class="market-table">
+            <div class="marketTitle">
+                <div class="marketTitle-name">
+                </div>
+                <div class="market-backlay-odd">
+                    <div class="market-bk back">Back</div>
+                    <div class="market-bk lay">Lay</div>
+                </div>
+            </div>
+            <kt-counter data-bet-in-process="fullMarket.betInProcess" data-event-type="{{fullMarket.eventType.id}}"></kt-counter>
+            <div class="market-table-detail" >
+                <div class="market-Content odd-Content" id="tr_{{fullMarket.id}}_{{r.runner.id}}" ng-repeat="r in fullMarket.marketRunner">
+                    <div class="mt-country">
+                        <span class="team-name">{{r.runner.name}}</span>
+                        <p>
+                            <span class="float-left positive" ng-if="r.status==2" ng-class="{'negative':r.pl<0 }">Winner</span>
+                            <span class="float-left positive" ng-class="{'negative':r.pl<0 }">{{r.pl}}</span>
+                            <span ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" class="float-right">
+                                {{r.pPL}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="market-odds factor" ng-class="{'stop':fullMarket.temporaryStatus==3,'ball':fullMarket.temporaryStatus==2,'suspend':fullMarket.marketStatus==3,'closed':fullMarket.marketStatus==4}">
+                        <div class="mt-odd-detail mt-odd">
+                            <div class="market-box back{{i}}" kt-animate-on-change="r.backPrice[i-1].size"
+                                 ng-repeat="i in [3,2,1]" kt-click ng-click="ctrl.placeBet(fullMarket,1,fullMarket.name,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price :'',r.runner.name);">
+                                <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                            </div>
+
+                        </div>
+                        <div class="mt-odd-detail mt-odd">
+                            <div class="market-box lay{{i}}" kt-animate-on-change="r.layPrice[$index].size"
+                                 ng-repeat="i in [1,2,3]" kt-click ng-click="ctrl.placeBet(fullMarket,2,fullMarket.name,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                                <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="upcoming-race accordion market" ng-if="otherMarkets.length>0">
+    <h3 class="upcoming-title">Upcoming Races</h3>
+    <div class="card" ng-repeat="om in otherMarkets">
+        <div class="accordion-header" ng-click="ctrl.selectedTabChanged($index)">
+            <button class="btn btn-link" ng-class="{'collapsed':selectedTab==$index}" type="button" data-toggle="collapse" data-target="#collapse{{$index}}"
+                    aria-expanded="true" aria-controls="collapse{{$index}}">
+                <span ng-click="ctrl.changeHorseMarket(om.id)">{{om.name}} ({{om.event.name}})</span>
+                <time><i class="fa fa-dot-circle-o positive" ng-if="om.inPlay" style="padding-right:5px"></i><kt-date data-date-value="om.startTime" data-format="HH:mm"></kt-date></time>
+            </button>
+        </div>
+        <div class="collapse"
+             ng-class="{'show':selectedTab==$index}">
+            <div class="accordion-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="process-div">
+                            <div class="market-table">
+                                <div class="marketTitle">
+                                    <div class="marketTitle-name uprace-title font-10">
+                                        Top 3 of {{om.marketRunner.length}} runners &nbsp;
+                                        <kt-date-diff class="indicators" ng-show="!om.inPlay" data-market="om" data-field="startTime">
+                                        </kt-date-diff>
+                                    </div>
+                                    <div class="market-backlay-odd">
+                                        <div class="market-bk back">Back</div>
+                                        <div class="market-bk lay">Lay</div>
+                                    </div>
+                                </div>
+                                <kt-counter data-bet-in-process="fullMarket.betInProcess" data-event-type="{{om.eventType.id}}"></kt-counter>
+                                <div class="market-table-detail" >
+                                    <div class="market-Content odd-Content" id="tr_{{om.id}}_{{r.runner.id}}" ng-repeat="r in om.marketRunner | limitTo:3">
+                                        <div class="mt-country">
+                                            <span class="team-name">{{r.runner.name}}</span>
+                                            <p>
+                                                <span class="float-left positive" ng-if="r.status==2" ng-class="{'negative':r.pl<0 }">Winner</span>
+                                                <span class="float-left positive" ng-class="{'negative':r.pl<0 }">{{r.pl}}</span>
+                                                <span ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" class="float-right">
+                                                    {{r.pPL}}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="market-odds factor" ng-class="{'stop':om.temporaryStatus==3,'ball':om.temporaryStatus==2,'suspend':om.marketStatus==3,'closed':om.marketStatus==4}">
+                                            <div class="mt-odd-detail mt-odd">
+                                                <div class="market-box back{{i}}" kt-animate-on-change="r.backPrice[i-1].size"
+                                                     ng-repeat="i in [3,2,1]" kt-click ng-click="ctrl.placeBet(om,1,fullMarket.name,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price :'',r.runner.name);">
+                                                    <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                                                </div>
+
+                                            </div>
+                                            <div class="mt-odd-detail mt-odd">
+                                                <div class="market-box lay{{i}}" kt-animate-on-change="r.layPrice[$index].size"
+                                                     ng-repeat="i in [1,2,3]" kt-click ng-click="ctrl.placeBet(om,2,fullMarket.name,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                                                    <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

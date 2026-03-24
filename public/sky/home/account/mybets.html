@@ -1,0 +1,38 @@
+﻿<div class="my-bets">
+    <h1 class="title">{{'mybets.label' | translate}}</h1>
+    <ul class="tabbing-blue">
+        <li ng-class="ctrl.isActive('/account/bets/currentbets')">
+            <a ui-sref="base.account.bets.current">
+                <i class="fa fa-line-chart"></i>
+                {{'currentbets.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/account/bets/betshistory')">
+            <a ui-sref="base.account.bets.history">
+                <i class="fa fa-history"></i>
+                {{'bethistory.label' | translate}}
+            </a>
+        </li>
+        <!--<li ng-class="ctrl.isActive('/account/bets/fd-betshistory')">
+            <a ui-sref="base.account.bets.fdhistory">
+                <i class="fa fa-clock-o"></i>
+                FD Bet History
+            </a>
+        </li>-->
+        <li ng-class="ctrl.isActive('/account/bets/profitloss')">
+            <a ui-sref="base.account.bets.profitloss">
+                <i class="fa fa-area-chart"></i>
+                {{'profitloss.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/account/bets/fd-profitloss')">
+            <a ui-sref="base.account.bets.fdprofitloss">
+                <i class="fa fa-line-chart"></i>
+                FD Profitloss
+            </a>
+        </li>
+    </ul>
+    <div ui-view="betsreport">
+
+    </div>
+</div><!-- my beats -->

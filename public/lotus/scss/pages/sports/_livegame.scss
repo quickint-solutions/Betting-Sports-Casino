@@ -1,0 +1,633 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.livegame {
+    @include resize($float-left, $width);
+    height: $height;
+
+    .livegame-body {
+        @include position(relative);
+        @include padding(10px, 0px, 10px, 0px);
+        @include resize($float-left, $width);
+        height: $height;
+
+        .live-info {
+            overflow: hidden;
+            z-index: 1;
+            @include padding(6px, 6px, 6px, 6px);
+            cursor: $cursor;
+
+            a {
+                @include display(block);
+                @include position(relative);
+                overflow: hidden;
+                border-radius: .625em;
+                text-decoration: none;
+                color: $white-color;
+
+                &:hover .item-img {
+                    transform: scale(1.1);
+                    transition: transform .4s;
+                }
+            }
+        }
+
+        .item_footer {
+            @include position(absolute);
+            right: 7px;
+            bottom: 6px;
+            left: 7px;
+            @include padding(8px, 7px, 8px, 7px);
+            font-size: 11px;
+            box-shadow: inset 160px 0 80px rgba(14,31,38,.6);
+            background-color: rgba(14,31,38,.5);
+            line-height: 1;
+            color: $white-color;
+            text-transform: uppercase;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .item-img {
+            @include display(block);
+            @include position(relative);
+            box-sizing: border-box;
+            cursor: $cursor;
+            padding-top: 52.8%;
+            width: $width;
+            height: $height;
+            overflow: hidden;
+            box-shadow: inset 1em 0 80px rgba(14,31,38,.6);
+            background-position: 50%;
+            background-size: 100% 100%;
+            text-align: left;
+            transition: transform .4s !important;
+        }
+    }
+}
+.poker-card{width:20px;}
+.mrg-top-45-minus{margin-top:-45px;}
+.mrg-left-5{margin-left:5px;}
+.live-rule-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: $width;
+    height: $height;
+    @include display(block);
+    opacity: 0.2;
+    z-index: 0;
+    @include position(absolute);
+    background-size: contain;
+    transform: rotate(-30deg);
+}
+.clashking-tr {
+    .first {
+        display: none;
+    }
+
+    .td-popup {
+        display: grid;
+        width: calc(100% + 75px);
+    }
+}
+.clashking-market {
+    .oddsbox {
+        font-size: 14px!important;
+    }
+}
+.andar-bahar {
+    float: left;
+    width: 100%;
+
+    .statistic {
+        text-transform: capitalize;
+        background-color: $ab-header-bg;
+        font-size: 12px;
+        line-height: 32px;
+        color: #BFD6FF;
+        float: left;
+        width: 100%;
+        text-align: center;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    .shuffle {
+        text-transform: uppercase;
+        font-weight: bold !important;
+        background-color: $ab-header-bg;
+        font-size: 11px;
+        line-height: 32px;
+        color: #fff;
+        float: left;
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-info {
+        text-transform: uppercase;
+        font-weight: bold !important;
+        background-color: $ab-header-bg;
+        font-size: 11px;
+        line-height: 32px;
+        color: #BFD6FF;
+        float: left;
+        width: 100%;
+        text-align: center;
+    }
+
+    .ab-detail {
+        float: left;
+        width: 100%;
+        color: #fff;
+        margin: 0 0 10px 0;
+        background-color: $ab-detail-bg;
+
+        .ab-btn {
+            .td-popup {
+                float: left;
+                width: 100%;
+                max-width: inherit !important;
+            }
+        }
+
+        span {
+            font-weight: normal;
+        }
+
+        .popup-list a {
+            width: 14.5%;
+            margin: 0 2px;
+        }
+
+        .col-sm-4, .col-sm-8 {
+            padding: 0 0px;
+        }
+
+        .updown-detail {
+            .ab-btn {
+                .td-popup .select-btn {
+                    width: 22.4%;
+                }
+            }
+        }
+
+        .left-detail {
+            .circle-value {
+                padding: 10px;
+                float: left;
+                width: 100%;
+                cursor: pointer;
+
+                ul {
+                    border-collapse: collapse;
+                    text-align: left;
+
+                    li {
+                        padding: 0 2px;
+                        border: 1px solid $ab-border;
+                        line-height: 23px;
+                        /*width: 23px;*/
+                        text-align: center;
+                        display: inline-block;
+                    }
+                }
+
+                .r-circle {
+                    color: $ab-blue;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                }
+
+                .b-circle {
+                    color: $ab-red;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                }
+
+                .t-circle {
+                    color: $white-color;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    padding: 0 5px;
+                }
+            }
+
+            .per-value {
+                padding: 20px 5px 0 0;
+            }
+        }
+
+        .middle-detail {
+            border-left: 1px solid $ab-header-bg;
+
+            .shuffle-detail {
+                padding: 10px 5px 5px 0;
+                float: left;
+                width: 100%;
+                cursor: pointer;
+
+                .left-runner {
+                    float: left;
+                    width: 50%;
+                    border-right: 1px solid #56777a;
+                }
+
+                .right-runner {
+                    width: 50%;
+                    float: left;
+                }
+
+                .score-btn {
+                    color: #000;
+                    width: 21%;
+
+                    span {
+                        font-size: 12px;
+                    }
+                }
+
+                .positive {
+                    color: #a2ff91;
+                }
+
+                table {
+                    position: relative;
+                    text-align: center;
+
+                    .dt-detail {
+                        width: 50%;
+                        float: left;
+                        border: 1px solid #fff;
+
+                        .header-info {
+                            text-align: center;
+                        }
+                    }
+
+                    .andar, .bahar {
+                        height: 100px;
+                        width: 50%;
+                        float: left;
+                        position: relative;
+
+                        .card-img {
+                            top: 16%;
+                            position: absolute;
+                        }
+                    }
+
+                    .andar {
+                        background-color: $ab-blue;
+                        padding-left: 5px;
+
+                        .winner-text {
+                            text-align: left;
+                        }
+
+                        .card-img {
+                            left: 61%;
+
+                            img {
+                                width: 40px;
+                                position: fixed;
+                            }
+
+                            transform: translate(-61%, -50%);
+                        }
+
+                        h4 {
+                            float: left;
+                        }
+
+                        span {
+                            text-align: left;
+                        }
+                    }
+
+                    .bahar {
+                        background-color: $ab-red;
+                        padding-right: 5px;
+
+                        .winner-text {
+                            text-align: right;
+                        }
+
+                        .card-img {
+                            right: 75%;
+                            transform: translate(-75%, -50%);
+
+                            img {
+                                width: 40px;
+                                position: fixed;
+                            }
+                        }
+
+                        h4 {
+                            float: right;
+                            font-weight: bold;
+                        }
+
+                        span {
+                            text-align: right;
+                        }
+                    }
+
+                    .board {
+                        position: absolute;
+                        top: 50%;
+                        right: 50%;
+                        transform: translate(-50%, 0%);
+                    }
+
+                    .board {
+                        .joker-img {
+                            img {
+                                width: 100%;
+                            }
+
+                            float: left;
+                            width: 50px;
+                            border: 1.5px solid $ab-detail-bg;
+                            padding: 0px 3px;
+                            top: 50%;
+                            left: 50%;
+                            position: absolute;
+                            border-radius: 4px;
+                            transform: translate(-50%, -50%);
+                            min-height: 68px;
+                        }
+                    }
+
+                    .dragon, .tiger, .tie {
+                        height: 100px;
+                        vertical-align: top;
+                    }
+
+                    .dragon, .tiger {
+                        position: relative;
+
+                        .card-img {
+                            top: 16%;
+                            position: absolute;
+
+                            img {
+                                width: 40px;
+                                position: fixed;
+                            }
+                        }
+                    }
+
+                    .dragon {
+                        width: 40%;
+                        background-color: $ab-blue;
+                        text-align: left;
+                        padding-left: 10px;
+
+                        .card-img {
+                            left: 67%;
+                            transform: translate(-67%, -50%);
+                        }
+                    }
+
+                    .tiger {
+                        width: 40%;
+                        background-color: $ab-red;
+                        text-align: right;
+                        padding-right: 5px;
+
+                        .card-img {
+                            right: 80%;
+                            transform: translate(-80%, -50%);
+                        }
+                    }
+
+                    .tie {
+                        width: 20%;
+                        text-align: center;
+                        background-color: $primary-bg-hover;
+
+                        .card-img {
+                            display: none;
+                        }
+                    }
+                }
+
+                .dragon-bg {
+                    background-color: $ab-blue;
+                }
+
+                .tiger-bg {
+                    background-color: $ab-red;
+                }
+
+                .winner-text {
+                    float: left;
+                    color: $winner;
+                    width: 100%;
+                    font-weight: normal;
+                }
+
+                h4 {
+                    letter-spacing: 1px;
+                    font-weight: bold;
+                    margin: 5px 0 2px 0px;
+                    font-size: 16px;
+                    text-transform: uppercase;
+                }
+
+                .online-price {
+                    float: left;
+                    width: 100%;
+                    text-align: left;
+                    letter-spacing: 1px;
+                }
+
+                .ppl {
+                    margin: 0;
+                    float: left;
+                    width: 100%;
+                }
+
+                .btn-div .ppl {
+                    margin: unset;
+                    float: unset;
+                    width: unset;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .right-detail {
+            .score-btn {
+                color: #000;
+                width: 22%;
+
+                span {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .price {
+            color: #fff;
+        }
+
+        .ab-btn {
+            float: left;
+            width: 100%;
+            padding: 10px 10px 5px 10px;
+        }
+
+        .btn-div {
+            //float: left;
+            width: 50%;
+            display: inline-flex;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.04);
+            }
+
+            label {
+                float: left;
+                text-align: left;
+                padding-left: 7px;
+                line-height: 32px;
+                margin: 0px;
+                width: 72%;
+                font-size: 11px;
+            }
+        }
+
+        .btn-value {
+            float: left;
+            line-height: 30px;
+            min-height: 30px;
+            background-color: $ab-btn-bg;
+            color: #fff;
+            border: none;
+            font-weight: normal;
+            font-size: 11px;
+            margin: 1px;
+            width: 27%; //25%;
+            min-width: 40px;
+            text-align: center;
+
+            span {
+                float: left;
+                width: 100%;
+            }
+
+            &.win {
+                background: rgba(202,66,44,0.65);
+            }
+        }
+    }
+}
+
+.market-card32 {
+    .table-score tbody .match-title {
+        width: 100%;
+    }
+
+    .table-score th.th-col {
+        width: 64%;
+    }
+
+    .fixed-odd tbody .match-title{width:100%!important;}
+}
+
+.card-on-video {
+
+    .video-card-container {
+        width: max-content;
+        color: white;
+    }
+
+    .rpt-div-video {
+        //height:65px;
+        display: block;
+        width: 115px;
+        margin-bottom: 4px;
+    }
+
+    .card-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .card-scroll::-webkit-scrollbar {
+        width: 1px;
+        height: 3px;
+        margin-left: 3px;
+        //background-color: #F5F5F5;
+    }
+
+    .card-scroll::-webkit-scrollbar-track {
+        height: 4px;
+        background-color: #d2d2d2;
+    }
+
+    .card-scroll::-webkit-scrollbar-thumb {
+        background-color: #808080;
+        height: 4px;
+    }
+}
+
+.margin-0 {
+    margin-right: -5px !important;
+    margin-left: -5px !important;
+}
+
+.winner-on-video {
+    position: absolute;
+    top: 50px;
+    right:0px;
+    z-index: 10;
+}
+
+.winner {
+    background-color: $active-background;
+    @include border-all(1px, solid, $active-border);
+    @include txt(bold);
+    @include padding(2px, 5px, 2px, 5px);
+    @include headline($green, 11px);
+    @include border-radius(3px);
+    box-shadow: 0 0 0 $suspend-background;
+    animation:winnerbox 2s infinite;
+     float: right;
+    margin: 0px 5px;
+}
+@-webkit-keyframes winnerbox {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(29,127,30,0.6);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(29,127,30,0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(29,127,30,0);
+  }
+}
+@keyframes winnerbox {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(29,127,30,0.8);
+    box-shadow: 0 0 0 0 rgba(29,127,30,0.8);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(29,127,30,0);
+      box-shadow: 0 0 0 10px rgba(29,127,30,0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(29,127,30,0);
+      box-shadow: 0 0 0 0 rgba(29,127,30,0);
+  }
+}
+
+.game-disable{
+    opacity:0.5;
+    pointer-events:none;
+}

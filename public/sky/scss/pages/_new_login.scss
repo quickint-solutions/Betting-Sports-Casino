@@ -1,0 +1,1189 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+
+html, body {
+    width: $width;
+    height: $height;
+    //overflow: auto;
+}
+
+.login-page {
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $theme-placeholder-color !important;
+        opacity: 0.9; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $theme-placeholder-color !important;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: $theme-placeholder-color !important;
+    }
+
+    @include resize($float-left, $width);
+    min-height: 100vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    background: $login-full-bg;
+    background-size: cover;
+
+    .wrapper {
+        @include resize($float-left, $width);
+    }
+
+    .header-top {
+        width: $width;
+        height: auto;
+        max-width: 360px;
+        margin: 0px auto;
+        display: table;
+        border-radius: 5px;
+        background-color: $login-bg;
+        -webkit-box-shadow: 3px 3px 8px 0px rgba(101,101,101,1);
+        -moz-box-shadow: 3px 3px 8px 0px rgba(101,101,101,1);
+        box-shadow: 3px 3px 8px 0px rgba(101,101,101,1);
+
+        .col-sm-6 {
+            @include padding(0px, 0px, 0px, 0px);
+        }
+
+        .login-top {
+            @include resize($float-left, $width);
+            height: 300px;
+            background-color: $login-top-bg;
+
+            .logo-img {
+                background-size: 85% 100%;
+                float: $float-left;
+                @include position(absolute, left 15px top 40px);
+                background-repeat: no-repeat;
+                width: 100% !important;
+                height: 70px;
+                transform: translate(15px, 40px);
+            }
+        }
+
+        .login-form {
+            @include resize($float-left, $width);
+            @include position(relative);
+            background-color: $login-bottom-bg;
+            height: 326px;
+
+            .alert-class {
+                position: absolute !important;
+                top: -115px;
+                left: 18px;
+                width: 90% !important;
+            }
+
+            .login-user {
+                border-bottom: 1px solid $login-border;
+            }
+
+            .form-signin {
+                float: right;
+                width: 305px;
+                @include position(absolute, top -45px left 14px);
+                background: $white-color;
+                @include border-radius(5px);
+                @include padding(10px, 10px, 10px, 10px);
+                transform: translate(14px, -45px);
+
+                input {
+                    height: 35px;
+                    width: 85%;
+                    float: right;
+                    @include padding(6px, 5px, 6px, 15px);
+                    @include border-radius(5px);
+                    border-bottom: none;
+                    border-left: none;
+                    border-right: none;
+                    border-top: none;
+                    background-color: $white-color;
+                    box-shadow: none;
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+
+                p {
+                    @include resize(left, $width);
+
+                    .fa {
+                        font-size: 20px;
+                        @include padding(8px, 10px, 8px, 10px);
+                    }
+
+                    .fa-user {
+                        border-top-left-radius: 10px;
+                        float: $float-left;
+                        color: $login-icon;
+                        background-color: $login-icon-bg;
+                    }
+
+                    .fa-lock {
+                        border-bottom-left-radius: 10px;
+                        @include padding(8px, 14px, 8px, 14px);
+                        float: $float-left;
+                        color: $login-icon;
+                        background-color: $login-icon-bg;
+                    }
+
+                    .fa-refresh {
+                        color: $login-icon;
+                        background-color: $login-icon-bg;
+                    }
+
+                    label {
+                        text-transform: capitalize;
+                        @include headline($dark-black-color, 13px);
+                    }
+                }
+
+                .login-btn {
+                    @include padding(0px, 0px, 0px, 0px);
+
+                    label {
+                        display: none;
+                    }
+
+                    .btn-login {
+                        background-color: #303030;
+                        opacity: 1 !important;
+                        letter-spacing: 1px;
+                        @include padding(6px, 14px, 6px, 14px);
+                        @include headline($login-btn, 14px);
+                        //  @include border-all(1px, solid, $login-btn);
+                        @include border-radius(30px);
+                        width: $width;
+                        text-transform: uppercase;
+                        line-height: 28px;
+
+                        &:hover {
+                            color: $login-btn;
+                        }
+
+                        .fa {
+                            float: none;
+                            @include padding(0px, 0px, 0px, 0px);
+                            @include headline($login-btn, 14px);
+                        }
+                    }
+                }
+
+                .code {
+                    float: right;
+
+                    input {
+                        float: none;
+                    }
+
+                    label {
+                        vertical-align: top;
+                    }
+                }
+
+                #captcha {
+                    vertical-align: top;
+
+                    .fa {
+                        float: none;
+                    }
+
+                    img {
+                        vertical-align: top;
+                        height: 22px;
+                        margin-left: 10px;
+                    }
+                }
+
+                .captcha-div {
+                    @include padding(15px, 0, 15px, 0);
+
+                    input {
+                        @include padding(5px, 7px, 5px, 7px);
+                        height: 32px;
+                        @include border-all(1px, solid, $login-border);
+                        @include border-radius(20px);
+                        @include resize($float-left, 50%);
+                    }
+
+                    img {
+                        vertical-align: top;
+                    }
+
+                    .fa-refresh {
+                        @include border-radius(6px);
+                        font-size: 16px;
+                        @include padding(6px, 8px, 6px, 8px);
+                    }
+                }
+            }
+
+            .betfair-img {
+                width: 68%;
+                text-align: $text-center;
+
+                .powerby-bf {
+                    width: 32%;
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
+                    @include position(absolute);
+                    bottom: 10px;
+                    height: 40px;
+                }
+            }
+
+            .changepswd {
+                .login-user {
+                    margin: 10px 0 5px 0 !important;
+                }
+
+                form {
+                    top: -50px;
+                    transform: translate(14px, -50px);
+
+                    p {
+                        .fa-lock {
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                            border-bottom-left-radius: 0;
+                        }
+
+                        .check {
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                            @include padding(8px, 12px, 8px, 12px);
+                            color: $login-icon;
+                            background-color: $login-icon-bg;
+                            float: $float-left;
+                        }
+                    }
+
+                    .login-btn {
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.download-app {
+    margin-top: 50%;
+    margin-left: 20%;
+    background-color: $login-top-bg;
+    color: $login-bottom-bg;
+}
+
+.download-app-win {
+    margin-top: 27%;
+    margin-left: -120%;
+    background-color: $theme-secondary-color;
+    color: $black-color;
+}
+/*---  New  Login Page  ---*/
+
+.new-loginpage {
+    @include position(relative);
+
+    .login-wrap {
+        width: 600px;
+        margin: 0 auto;
+        border-radius: 7px;
+        @include position(absolute);
+        left: 50%;
+        background-color: $theme-secondary-color;
+        top: 23%;
+        transform: translate(-50%, 23%);
+
+        .login-close {
+            @include position(absolute);
+            right: 5px;
+            top: 0px;
+
+            a {
+                color: $black-color;
+                font-size: 20px;
+            }
+        }
+
+        .login-img-part {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+
+        .login-form-part {
+            padding-left: 0px;
+            @include position(relative);
+
+            form {
+                width: 235px;
+                margin: 0 auto;
+                @include position(absolute);
+                left: 30px;
+                top: 120px;
+
+                span {
+                    font-size: 20px;
+                    @include padding(5px, 0px, 5px, 0px);
+                    @include display(block);
+                }
+
+                input {
+                    width: 100%;
+                    margin: 5px 0;
+                    @include border-all(1px, solid, $gray);
+                    @include border-radius(5px);
+                    @include padding(5px, 5px, 5px, 5px);
+                    height: 35px;
+                    background-color: $light-grey;
+                }
+
+                .log-btn {
+                    width: 100%;
+                    color: $login-btn;
+                    font-size: 15px;
+                    text-transform: capitalize;
+                    background-color: #000;
+                    border: 1px solid;
+                    @include border-radius(5px);
+                    margin-top: 15px;
+                    height: 35px;
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    .fa {
+                        margin-left: 5px;
+                    }
+
+                    .grid-spinner {
+                        width: auto;
+                    }
+                }
+
+                .validation-code {
+                    @include position(relative);
+
+                    img {
+                        width: auto;
+                        @include position(absolute);
+                        right: -14px;
+                        top: 9px;
+                    }
+                }
+            }
+
+            .alert-class {
+                top: 39px;
+                left: 28px;
+                width: 80% !important;
+            }
+        }
+
+        img {
+            width: 100%;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+        }
+    }
+
+    .app-btn {
+        cursor: initial;
+        position: absolute;
+        bottom: 10px;
+
+        @include display(block);
+
+        div {
+            text-align: center;
+            margin-bottom: 7px;
+        }
+
+        img {
+            width: auto;
+            margin-right: 17px;
+            cursor: pointer;
+        }
+
+        i {
+            color: $login-btn;
+            cursor: pointer;
+            font-size: 25px;
+            margin-right: 20px;
+        }
+    }
+}
+
+/*---   Fairbook Login Page  ---- */
+.login-book {
+    padding-top: 8vh;
+    padding-bottom: 1vh;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    position: relative;
+
+    .form-signin {
+        background-color: transparent !important;
+    }
+
+    .header-top {
+        background-color: transparent;
+        max-width: 850px;
+        display: block;
+
+        .login-name {
+            text-transform: capitalize;
+            font-size: 16px;
+            margin-bottom: 16px;
+
+            &:after {
+                content: " ";
+                border-bottom: 2px solid $theme-color;
+                display: block;
+                height: 6px;
+                width: 18px;
+            }
+        }
+
+        .login-top {
+            height: 60px !important;
+            background-color: $login-top-bg !important;
+            //margin-bottom: 15px;
+            .logo-img {
+                position: inherit !important;
+                top: inherit !important;
+                left: inherit !important;
+            }
+        }
+    }
+
+    .rules {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        color: #acacac;
+
+        a {
+            color: #acacac;
+            font-size: 11px;
+
+            &:hover {
+                color: $theme-color;
+            }
+            //&:first-child {color:$theme-color}
+        }
+    }
+
+    .login-details {
+        float: left;
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 40px;
+
+        .login-left {
+            border: 1.5px solid $theme-color;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            background-color: $white-color;
+            padding: 20px 30px 20px 40px;
+            min-height: 520px;
+            height: 100%
+        }
+
+        .login-right {
+            background-color: #f5f5f5;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            padding: 30px 30px 20px 30px;
+            min-height: 520px;
+            //height: 100%;
+        }
+    }
+
+    div.verify {
+        .login-user {
+            margin: 10px 0 !important;
+        }
+
+        .login-name {
+            margin-bottom: 10px;
+        }
+
+        .login-btn {
+            margin: 20px 0 35px 0 !important
+        }
+    }
+
+    div.signup {
+        form {
+            p {
+                margin: 10px 0 10px 0 !important
+            }
+
+            .captcha-div {
+                margin: 15px 0 10px 0 !important
+            }
+        }
+
+        .login-btn {
+            margin: 20px 0 10px 0 !important
+        }
+
+        .join-today {
+        }
+    }
+
+    .login-detail {
+        float: left;
+        width: 100%;
+
+        .sub-text {
+            font-size: 10px;
+            margin-top: 5px;
+            color: red;
+            display: block;
+        }
+
+        .forgot-pwsd {
+            float: right;
+            width: auto;
+            font-size: 10px;
+            margin: 0px !important;
+
+            a {
+                color: #0a9ccf;
+            }
+        }
+
+        form {
+            p {
+                margin: 20px 0 0px 0 !important;
+                float: left;
+                width: 100%;
+
+                label {
+                    float: left;
+                    width: 200px;
+                }
+
+                input {
+                    float: left;
+                    width: 100%;
+                    box-shadow: none;
+                    border: 1.5px solid #ccc;
+                    border-radius: 5px;
+                    height: 38px;
+                    font-size: 13px;
+
+                    &:focus {
+                        outline: none !important;
+                        border: 1.5px solid $theme-color;
+                    }
+                }
+            }
+
+            .remember {
+                input {
+                    width: auto !important;
+                }
+            }
+        }
+
+        .alert-class {
+            position: absolute !important;
+            top: 50px;
+        }
+
+        [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+            display: inline-block;
+        }
+
+        .join-today {
+            float: left;
+            width: 100%;
+            margin: 10px 0 10px 0;
+
+            button {
+                width: 93%;
+                font-size: 14px;
+                color: $white-color;
+                background-color: #0a9ccf;
+                border-radius: 6px;
+                box-shadow: none !important;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+        }
+
+        .login-text {
+            float: left;
+            width: 100%;
+            line-height: 18px;
+            font-size: 11px;
+
+            a {
+                float: left;
+                width: 100%;
+                text-transform: capitalize;
+                color: #333333;
+
+                img {
+                    width: 13px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .fairbook {
+            margin-bottom: 5px;
+        }
+
+        .login-title {
+            font-size: 12px;
+            float: left;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            margin: 20px 0 55px 0 !important;
+
+            .btn-login {
+                opacity: 1;
+                color: $black-color;
+                font-size: 16px;
+                font-weight: bold;
+                background-color: $theme-color;
+            }
+        }
+
+        .join-btn {
+            //margin-top: 176px;
+            margin-top: 5px;
+            float: left;
+            width: 100%;
+
+            .btn-login {
+                color: #ffffff;
+                font-weight: 600;
+                font-size: 16px;
+                background: linear-gradient(#2180C4, #185179);
+                box-shadow: 1px 2px 3px 0px #3a3939;
+            }
+        }
+
+
+
+        .captcha-div {
+            margin: 30px 0 55px 0 !important;
+            position: relative;
+
+            input {
+                width: 70%;
+                @include padding(6px, 12px, 6px, 12px);
+                height: 38px;
+                border: 1.5px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .code {
+                position: absolute;
+                right: 0px;
+                top: -4px;
+                line-height: 36px;
+
+                img {
+                    width: 58px;
+                    position: relative;
+                    left: -20px;
+                }
+            }
+
+            .fa-refresh {
+                position: absolute;
+                right: 6px;
+                top: 12.5px;
+                font-size: 18px;
+                color: #ccc;
+            }
+        }
+
+        .changepswd {
+            .fa-lock, .fa-check-square-o {
+                float: left;
+                padding: 11px 0;
+            }
+
+            input {
+                width: 92%;
+                float: right;
+            }
+
+            .login-btn {
+                margin: 40px 0 0 0 !important;
+            }
+        }
+    }
+}
+
+.l-signup {
+    height: 120vh;
+
+    .login-details .login-right {
+        min-height: 717px;
+    }
+}
+
+/*--- Login Royal Page  ---- */
+.login-royal {
+    background-image: url(/public/images/royalpatti/background.jpg);
+    background-size: cover;
+    height: auto;
+    min-height: 100%;
+    position: fixed;
+    float: left;
+    width: 100%;
+
+    .header-top {
+        height: 100%;
+        position: relative;
+    }
+
+    .header-form {
+        width: 100%;
+        max-width: 450px;
+        transform: translate(-50%, -50%);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        padding: 0px 18px;
+    }
+
+    .changepswd {
+        padding: 15px;
+
+        .note {
+            color: white;
+            margin: 5px -15px;
+            padding-bottom: 20px;
+        }
+    }
+
+    .login-top {
+        .logo-img {
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 150px;
+            margin: 0 auto 12px;
+            display: block;
+            background-size: 55%;
+            background-position: center;
+        }
+    }
+
+    .login-form {
+        background-color: $login-royalbg;
+        border: 4px solid $loginborder;
+        border-radius: 6px;
+        box-shadow: 0px 0px 10px 3px rgba(0, 121, 178, 1);
+
+        .p-name {
+            color: $white-color;
+            font-size: 13px;
+            font-weight: normal;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .login-info {
+            padding: 15px;
+        }
+
+        .form-signin {
+            width: 250px;
+            margin: 0 auto;
+
+            .login-user, .pswd, .captcha-div {
+                margin-bottom: 10px !important;
+            }
+
+            .form-control {
+                background-color: $login-royalbg;
+            }
+
+            input {
+                color: $white-color !important;
+                border: 1px solid $loginborder;
+                box-shadow: 0px 0px 10px 3px rgba(0, 121, 178, 1);
+            }
+
+            .captcha-div {
+                position: relative;
+
+                input {
+                    float: left;
+                    width: 100%;
+                    height: 34px;
+                    padding: 6px 12px;
+                    border: 1px solid $loginborder;
+                    border-radius: 6px;
+                    background-color: $login-royalbg;
+                }
+
+                .code {
+                    position: absolute;
+                    right: 0;
+                    top: 26px;
+
+                    .captcha-img {
+                        background-color: $white-color;
+                        margin-top: 2px;
+                    }
+
+                    .refresh-img {
+                        float: right;
+                        cursor: auto;
+                        width: 30px;
+                        height: 30px;
+                        background-image: url(/public/images/royalpatti/refresh.png);
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                .fa-refresh {
+                    position: absolute;
+                    right: 8px;
+                    font-size: 18px;
+                    color: $loginborder;
+                    top: 5px;
+                }
+            }
+
+            .login-btn {
+                min-width: 145px;
+                margin: 0 auto;
+
+                button {
+                    background-color: $login-royalbg;
+                    color: $white-color;
+                    border: 1px solid $loginborder;
+                    padding: 6px 12px;
+                    opacity: 1;
+                    font-size: 17px;
+                    margin: 3px 0;
+                    box-shadow: 0px 0px 10px 3px rgba(0, 121, 178, 1);
+                }
+            }
+        }
+    }
+
+    .alert-wrapper {
+        position: absolute !important;
+        top: -14px;
+        left: 62px;
+    }
+}
+
+
+/*---- Login abexch page  ------*/
+.login-abexch {
+    display: flex;
+
+    .login-abdetail {
+        width: 600px;
+        margin: 64px auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .input-group {
+            margin-bottom: 10px;
+
+            .form-control {
+                border-top-right-radius: 4px !important;
+                border-bottom-right-radius: 4px !important;
+            }
+        }
+    }
+
+    .login-abform {
+        z-index: 99999;
+        background-color: #fff;
+        padding: 30px;
+        position: relative;
+
+        .alert-class {
+            position: absolute !important;
+            top: 18%;
+            left: 95px;
+        }
+    }
+
+    .captcha-div {
+        padding: 8px 0 15px 0;
+        float: left;
+        width: 100%;
+
+        .code {
+            width: 123px;
+            margin: 0 auto;
+            display: block
+        }
+
+        #code {
+            height: 50px;
+            background-position: center;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            float: left;
+            padding: 4px 0 4px 20px;
+        }
+
+        .refresh-img {
+            float: left;
+            cursor: auto;
+            width: 30px;
+            height: 30px;
+            margin: 1px 0 0 1px;
+            background-image: url(/public/images/royalpatti/refresh.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .changepswd {
+        .note {
+            padding: 0 0 10px 0;
+        }
+
+        .form-signin {
+            .login-user {
+                margin-bottom: 10px !important;
+            }
+        }
+
+        .login-btn {
+            margin-bottom: 10px !important;
+
+            .btn-login {
+                opacity: 1;
+                background-color: #427fed;
+                border: 1px solid #427fed;
+                color: #fff !important;
+                font-size: 15px;
+                font-weight: bold;
+                padding: 8px 16px;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    hr {
+        border: 1px solid #e5e5e5
+    }
+
+
+
+    .contact-info {
+        .input-group {
+            float: left;
+            display: inline-block;
+        }
+
+        .phn-icon {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: transparent;
+            border: 0;
+            border-radius: 4px;
+        }
+
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+        }
+    }
+
+    .ab-logo {
+        margin: 0 0 20px 0;
+    }
+
+    .login-btn, .log-btn {
+        float: left;
+        width: 100%;
+        background-color: #427fed;
+        border: 1px solid #427fed;
+        text-transform: capitalize;
+        border-radius: 2px;
+        color: #fff !important;
+        font-weight: bold;
+        min-height: 38px;
+        margin-bottom: 15px;
+        font-size: 15px !important;
+        letter-spacing: 1px;
+    }
+
+    .scene {
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        right: 0;
+        height: 800px;
+    }
+
+    .fade-in-top {
+        -webkit-animation: fadeInDown 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        animation: fadeInDown 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    }
+
+    @-webkit-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(-20px);
+            transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(-20px);
+            -ms-transform: translateY(-20px);
+            transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+            transform: translateY(0);
+        }
+    }
+}
+
+
+div.login-casino {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    .game-lobby {
+        float: left;
+        background-color: white;
+        width: 100%;
+
+        .text-label {
+            padding-bottom: 10px;
+        }
+
+        .heading-text {
+            padding: 10px 0px 0 0;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .title-text {
+            padding: 10px 0px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        ol {
+            padding-left: 45px;
+
+            li {
+                line-height: 22px;
+            }
+        }
+
+        .gambling-title {
+            border-bottom: 1px dotted;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 10px 0px 0 0;
+            margin-bottom: 7px;
+        }
+
+        .section {
+            p {
+                padding-bottom: 10px;
+            }
+
+            .disc {
+                list-style-type: disc;
+                padding-left: 45px;
+                margin-bottom: 12px !important;
+
+                li {
+                    display: list-item;
+                    line-height: 22px;
+                }
+
+                ul {
+                    list-style-type: circle;
+                    padding-left: 45px;
+                }
+            }
+        }
+    }
+
+    .policy {
+        float: left;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        letter-spacing: 0.5px;
+        margin: 0;
+        padding: 9px 10px;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .casino-header {
+        .logo-img {
+            width: 100%;
+            height: 58px;
+            display: block;
+            margin: 10px 0 0 12px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .casino-logo {
+            height: 80px;
+            background: $theme-color;
+        }
+    }
+
+    .pop-info {
+        float: left;
+        width: 100%;
+        padding: 20px 25px;
+    }
+}

@@ -1,0 +1,41 @@
+﻿<div class="table-bets">
+    <div class="login-history list-view">
+        <h1 class="title" ng-if="!fromMaster">{{'loginhistory.label' | translate}}</h1>
+        <div class="form-pannel" ng-if="fromMaster">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="event-heading">
+                        {{'loginhistory.label' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-view-table ">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="align-l size-md"><span>{{'login.datetime.label' | translate}}</span></th>
+                        <th class="align-l  size-md"><span>{{'logout.datetime.label' | translate}}</span></th>
+                        <th class="size-smd"><span>{{'ipaddress.label' | translate}}</span></th>
+                        <th class="boolean"><span>{{'login.isp.label' | translate}}</span></th>
+                        <th class="size-lg boolean "><span>{{'login.citystatecountry.label' | translate}}</span></th>
+                        <th class="size-smd"><span>{{'grid.button.action.header' | translate}}</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lh in loginHistory">
+                        <td class="align-l size-md">{{lh.issuedOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="align-l  size-md">{{lh.expiresOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="align-l size-smd">{{lh.remoteIp}}</td>
+                        <td class="boolean">{{lh.provider}}</td>
+                        <td class="size-lg boolean"><span>{{lh.location}}</span></td>
+                        <td class="size-smd">
+                            <a class="btn btn-sm btn-danger">{{'raiseissue.button' | translate}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

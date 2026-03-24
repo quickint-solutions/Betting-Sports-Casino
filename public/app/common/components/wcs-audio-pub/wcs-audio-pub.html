@@ -1,0 +1,75 @@
+﻿<div class="mr-top-10">
+    <div class="col-sm-6">
+        <div ng-show="audioCommentaryStatus.id == true">
+            <label>Audio stats : <span id="audioStatus"></span></label>
+            <div></div>
+            <label>Connection : <span id="connectionStatus"></span></label>
+            <div></div>
+            <label>Publish : <span id="publishStatus"></span></label>
+        </div>
+    </div>
+    <div class="col-sm-6" >
+        <div class="form-group" style="margin: 5px auto 0 auto;">
+            <label style="text-align: left" class="col-sm-8 control-label">Audio Commentary</label>
+            <kt-radiobutton data-item="audioCommentaryStatus"
+                            data-param-name="id"
+                            notify-on-update="ctrl.audioCommentaryStatusChanged(selectedId)"
+                            data-optionlist="audioCommentaryStatusList"></kt-radiobutton>
+        </div>
+        <div class="form-group" style="margin: 5px auto 0 auto;" ng-if="audioCommentaryStatus.id == true">
+            <label style="text-align: left" class="col-sm-8 control-label">Mute</label>
+            <kt-radiobutton data-item="audioStatusSelection"
+                            data-param-name="id"
+                            notify-on-update="ctrl.audioStatusChanged(selectedId)"
+                            data-optionlist="audioStatuslst"></kt-radiobutton>
+        </div>
+    </div>
+    <div id="localVideo" class="ng-hide"></div>
+    <div class="col-sm-12" ng-show="audioCommentaryStatus.id == true">
+        <div id="connectionForm" class="form-group">
+            <input class="form-control" id="urlServer" type="text">
+        </div>
+    </div>
+    <div class="col-sm-12" ng-show="audioCommentaryStatus.id == true">
+        <div id="senderForm" class="input-group" style="margin: 5px auto 0 auto;">
+            <input class="form-control" type="text" id="publishStream" placeholder="Stream Name">
+            <div class="input-group-btn">
+                <button id="publishBtn" type="button" ng-click="ctrl.connect_Btn();" class="btn btn-default">Publish</button>
+                <button type="button" ng-click="ctrl.disconnect_Btn();" class="btn btn-default">Stop</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" ng-show="audioCommentaryStatus.id == true">
+        <div class="form-group" id="audioInputForm" style="margin: 5px auto 0 auto;">
+            <div class="input-group">
+                <select class="form-control" id="audioInput"></select>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" id="switchMicBtn">Switch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        .ui-slider {
+            height: 10px !important;
+            background: #c0c0c0;
+        }
+
+        .ui-slider-handle {
+            width: 16px !important;
+            height: 16px !important;
+            position: absolute;
+            -moz-border-radius: 70px;
+            -webkit-border-radius: 70px;
+            border-radius: 70px;
+        }
+
+        .ui-widget-header {
+            background: #c0c0c0;
+        }
+
+        .ui-slider-range-min {
+            background: black;
+        }
+    </style>
+</div>

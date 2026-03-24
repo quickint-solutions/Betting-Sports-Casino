@@ -1,0 +1,138 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 1365px) {
+    .mbg {
+        overflow: scroll;
+
+        [ui-view="main"] {
+            overflow-y: hidden;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+
+    .admin_part {
+        .admin-header {
+            //min-width: 1500px;
+
+            .admin-menu {
+                height: 32px;
+            }
+        }
+
+        .admin_full {
+            //min-width: 1500px;
+        }
+        // .main-bookmaker{float:left}
+    }
+
+    .master-class {
+        .master-scrollwrap {
+            overflow: scroll;
+            //min-width: 1594px;
+            padding-bottom: 30px;
+        }
+
+        .master_wrap {
+            overflow: scroll;
+            //min-width: 1594px;
+        }
+
+        .master_header {
+            padding-top: 15px;
+            font-size: 12px !important;
+            //min-width: 1594px;
+            @include resize($float-left, $width);
+        }
+    }
+
+    .master-main {
+        @include resize($float-left, $width);
+        overflow-x: scroll;
+        display: contents;
+        //min-width: 1594px;
+    }
+
+    .master_wrap {
+        .center-part {
+            overflow-x: scroll;
+            width: 1360px;
+
+            .mCustomScrollbar {
+                touch-action: auto;
+            }
+        }
+
+        .dwline-class {
+            .list-view {
+                .list-view-table {
+                    div[template-url="templates.pagination"] {
+                        //width: 1560px !important;
+                    }
+                }
+            }
+        }
+
+        .livebets {
+            .list-view-table {
+                .table {
+                    display: flex;
+                }
+            }
+        }
+
+        .list-view-table {
+            //background-color: #fff;
+
+            .table {
+                // display: grid;
+                max-width: inherit; // width:1360px;
+                .boolean {
+                    overflow: visible;
+                }
+            }
+
+            .downline-table, .livebet-table {
+                //  width:100%;
+                //   overflow:scroll;
+            }
+        }
+
+        .risk-management {
+            width: 1360px;
+        }
+
+        .livebets {
+            float: $float-left;
+            //   width: 1360px;
+            .filter-panel {
+                .input-list {
+                    li {
+                        width: auto;
+                        margin: 5px;
+                    }
+                }
+            }
+
+            .toolbar {
+                ul li {
+                    a {
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+        .full-position {
+            //width: 1360px;
+
+            .master_table {
+                min-width: initial !important;
+                width: 100%;
+            }
+        }
+    }
+}

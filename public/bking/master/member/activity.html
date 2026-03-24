@@ -1,0 +1,123 @@
+﻿<div class="">
+    <div class="left-panel">
+        <table class="apl-table">
+            <tbody>
+                <tr>
+                    <td class="align-c">win</td>
+                </tr>
+                <tr>
+                    <td class="align-c">comm</td>
+                </tr>
+                <tr>
+                    <td class="align-c">p&l</td>
+                </tr>
+                <tr>
+                    <td class="align-c">turnover</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr><td>&nbsp;</td></tr>
+            </tbody>
+            <tbody ng-show="dwData">
+                <tr>
+                    <td class="align-c">Deposit</td>
+                </tr>
+                <tr>
+                    <td class="align-c">Withdrawal</td>
+                </tr>
+                <tr>
+                    <td class="align-c">D-W</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr><td>&nbsp;</td></tr>
+            </tbody>
+            <tbody ng-show="casinoData">
+                <tr>
+                    <td class="align-c">Casino</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="right-panel">
+        <table>
+            <thead>
+                <tr>
+                    <th class="align-r">Today</th>
+                    <th class="align-r">3 days</th>
+                    <th class="align-r">7 days</th>
+                    <th class="align-r">30 days</th>
+                    <th class="align-r">Lifetime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="align-r positive" ng-class="{'negative':actData.win.day1<0}">{{actData.win.day1 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.win.day3<0}">{{actData.win.day3 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.win.day7<0}">{{actData.win.day7 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.win.day30<0}">{{actData.win.day30 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.win.lifetime<0}">{{actData.win.lifetime | toRate}}</td>
+                </tr>
+                <tr>
+                    <td class="align-r positive" ng-class="{'negative':actData.commission.day1<0}">{{actData.commission.day1 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.commission.day3<0}">{{actData.commission.day3 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.commission.day7<0}">{{actData.commission.day7 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.commission.day30<0}">{{actData.commission.day30 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.commission.lifetime<0}">{{actData.commission.lifetime | toRate}}</td>
+                </tr>
+                <tr>
+                    <td class="align-r positive" ng-class="{'negative':actData.pnl.day1<0}">{{actData.pnl.day1 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.pnl.day3<0}">{{actData.pnl.day3 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.pnl.day7<0}">{{actData.pnl.day7 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.pnl.day30<0}">{{actData.pnl.day30 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':actData.pnl.lifetime<0}">{{actData.pnl.lifetime | toRate}}</td>
+                </tr>
+                <tr>
+                    <td class="align-r">{{actData.to.day1 | toRate}}</td>
+                    <td class="align-r">{{actData.to.day3 | toRate}}</td>
+                    <td class="align-r">{{actData.to.day7 | toRate}}</td>
+                    <td class="align-r">{{actData.to.day30 | toRate}}</td>
+                    <td class="align-r">{{actData.to.lifetime | toRate}}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr><th colspan="5">&nbsp;</th></tr>
+            </thead>
+            <tbody ng-show="dwData">
+                <tr>
+                    <td class="align-r positive">{{dwData.totalDeposit.day1 | toRate}}</td>
+                    <td class="align-r positive">{{dwData.totalDeposit.day3 | toRate}}</td>
+                    <td class="align-r positive">{{dwData.totalDeposit.day7 | toRate}}</td>
+                    <td class="align-r positive">{{dwData.totalDeposit.day30 | toRate}}</td>
+                    <td class="align-r positive">{{dwData.totalDeposit.lifetime | toRate}}</td>
+                </tr>
+                <tr>
+                    <td class="align-r negative">{{dwData.totalWithdrawal.day1 | toRate}}</td>
+                    <td class="align-r negative">{{dwData.totalWithdrawal.day3 | toRate}}</td>
+                    <td class="align-r negative">{{dwData.totalWithdrawal.day7 | toRate}}</td>
+                    <td class="align-r negative">{{dwData.totalWithdrawal.day30 | toRate}}</td>
+                    <td class="align-r negative">{{dwData.totalWithdrawal.lifetime | toRate}}</td>
+                </tr>
+                <tr>
+                    <td class="align-r">{{(dwData.totalDeposit.day1+dwData.totalWithdrawal.day1) | toRate}}</td>
+                    <td class="align-r">{{(dwData.totalDeposit.day3+dwData.totalWithdrawal.day3) | toRate}}</td>
+                    <td class="align-r">{{(dwData.totalDeposit.day7+dwData.totalWithdrawal.day7) | toRate}}</td>
+                    <td class="align-r">{{(dwData.totalDeposit.day30+dwData.totalWithdrawal.day30) | toRate}}</td>
+                    <td class="align-r">{{(dwData.totalDeposit.lifetime+dwData.totalWithdrawal.lifetime) | toRate}}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr><th colspan="5">&nbsp;</th></tr>
+            </thead>
+            <tbody ng-show="casinoData">
+                <tr>
+                    <td class="align-r positive" ng-class="{'negative':casinoData.pnl.day1<0}">{{casinoData.pnl.day1 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':casinoData.pnl.day3<0}">{{casinoData.pnl.day3 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':casinoData.pnl.day7<0}">{{casinoData.pnl.day7 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':casinoData.pnl.day30<0}">{{casinoData.pnl.day30 | toRate}}</td>
+                    <td class="align-r positive" ng-class="{'negative':casinoData.pnl.lifetime<0}">{{casinoData.pnl.lifetime | toRate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

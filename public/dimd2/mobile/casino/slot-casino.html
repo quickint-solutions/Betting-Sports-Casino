@@ -1,0 +1,26 @@
+﻿<div class="casino-list-container center-container">
+    <div>
+        <div class="report-box casino-box fancy-page slot">
+            <div class="d-none-desktop">
+                <div class="fancy-provider-list" id="fancyListTarget">
+                    <div class="fancy-provider-title">
+                        <a>
+                            <span>Slot Games</span>
+                        </a>
+                    </div>
+                    <div class="casino-banners-fancy">
+                        <div class="casino-banner-item" ng-repeat="lg in liveGamesMarkets | filter:{section:2}">
+                            <div style="background-size: cover; background-position: center center; padding-top: 53.33%; background-image: url(&quot;{{webImagePath}}casino_icons/slots/{{lg.img}}&quot;); "></div>
+                            <div class="slot-title">
+                                <div>{{lg.name}}</div>
+                                <div class="btn" ng-click="ctrl.openFDCasino(lg)">
+                                    Play
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

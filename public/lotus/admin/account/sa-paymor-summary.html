@@ -1,0 +1,142 @@
+﻿
+<div class="content-wrap">
+    <div class="bets-history master_bet">
+        <h1 class="title">Paymor Gateway Summary</h1>
+        <div class="filter-panel ">
+            <ul class="input-list">
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li><a class="btn small-btn" ng-click="ctrl.refreshGrid();"> <i class="fa fa-search"></i> {{'common.button.search' | translate}}</a></li>
+            </ul>
+            <ul class="input-list mr-top-10">
+                <li><a ng-click="ctrl.setDates(0,'d')" class="btn small-btn">{{'history.today.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-1,'d')" class="btn small-btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-7,'d')" class="btn small-btn">{{'history.last7day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-30,'d')" class="btn small-btn">{{'history.last30day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-3,'M')" class="btn small-btn">{{'history.last3month.label' | translate}}</a></li>
+            </ul>
+        </div>
+        <div class="table-bets">
+            <kt-grid grid-id="kt-paymorsummary-grid"
+                     load-items="ctrl.getPaymorSummary(params)"
+                     show-total="true"
+                     can-i-load="canILoad"
+                     has-new-rights="true"
+                     new-button-label="Export to Excel"
+                     go-to-new-state="ctrl.exportData()"
+                     cache-key="kttpaymorsummarygrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable "
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <thead>
+                        <tr>
+                            <th class="align-l ">Agent</th>
+                            <th class="boolean size-md">Total Amount</th>
+                            <th class="boolean size-md">Total Bonus</th>
+                            <th class="boolean size-md">Total Payins</th>
+                        </tr>
+                    </thead>
+                    <tbody class="info-text" ng-repeat="item in $data track by $index">
+                        <tr>
+                            <td class="align-l">
+                                <span>{{item.username}} </span>
+                            </td>
+                            <td class="size-md boolean">
+                                <span>{{item.totalAmount | toRate}}</span>
+
+                            </td>
+                            <td class="size-md boolean">
+                                <span>{{item.totalBonus | toRate}}</span>
+                            </td>
+                            <td class="size-md boolean">
+                                <span>{{item.payincount=item.paymorPayInList.length}}</span>
+                                <a ng-show="item.paymorPayInList.length>0" ng-click="item.showPayins=!item.showPayins"><i class="fa fa-sitemap"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="expand-table" ng-if="item.showPayins && item.paymorPayInList.length>0">
+                            <td class="expand-td">
+                                <div class="expand-arrow"></div>
+                                <table class="table-bets">
+                                    <tbody>
+                                        <tr>
+                                            <th class="align-l size-sm">User</th>
+                                            <th class="boolean size-sm">Amount/Paid</th>
+                                            <th class="boolean size-sm">Bonus/Paid</th>
+                                            <th class="boolean">Comment</th>
+                                            <th class="boolean">RefNo.</th>
+                                            <th class="boolean size-sm"></th>
+                                            <th class="boolean size-smd">Created</th>
+                                            <th class="boolean size-smd">Updated</th>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr ng-repeat="b in item.paymorPayInList">
+                                            <td class="size-sm">
+                                                <span>{{b.user.username}}</span>
+                                            </td>
+
+                                            <td class="boolean size-sm">
+                                                <span>{{b.amount | toRate}}/{{b.paidAmount | toRate}}</span>
+                                            </td>
+                                            <td class="boolean size-sm">
+                                                <span>{{b.bonusAmount | toRate}}/{{b.bonusAmountOnPaid | toRate}}</span>
+                                            </td>
+                                            <td class="boolean">
+                                                <span>{{b.comment}}</span>
+                                            </td>
+                                            <td class="boolean">
+                                                <span>{{b.txnRefNo}}</span>
+                                            </td>
+                                            <td class="size-sm">
+                                                <a ng-click="$parent.$parent.$parent.$parent.$parent.ctrl.getReceiptImage(b.upiString)">
+                                                    <i class="fa fa-qrcode"></i>
+                                                </a>
+                                            </td>
+                                            <td class="boolean size-smd">
+                                                <span>{{b.createdOn |date:'dd-MMM HH:mm:ss'}}</span>
+                                            </td>
+                                            <td class="boolean size-smd">
+                                                <span>{{b.updatedOn |date:'dd-MMM HH:mm:ss'}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="$data.length>0" class="summary-data">
+                        <tr>
+                            <td class="bold">Total</td>
+                            <td class="size-md"></td>
+                            <td class="size-md boolean">{{$data | total:'totalAmount' | toRate}}</td>
+                            <td class="size-md boolean">{{$data | total:'totalBonus' | toRate}}</td>
+                            <td class="size-md boolean">{{$data | total:'payincount' | number:0}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

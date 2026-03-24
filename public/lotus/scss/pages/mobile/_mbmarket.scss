@@ -1,0 +1,327 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.openbet-overlay {
+    .betprocess {
+        //top: 33vh;
+        background-color: rgba(49,49,49,0.60);
+        color: #1e1e1e;
+        font-size: 14px;
+        @include txt(bold);
+        padding-top: 14px;
+        height: 100vh;
+        text-align: $center;
+
+        .center-div {
+            transform: translate(0,80%);
+            width: 70%;
+            margin: auto;
+            background: white;
+            padding: 25px 10px;
+            border-radius: 10px;
+        }
+    }
+
+    .loader {
+        height: 100px;
+
+        label {
+            @include position(absolute);
+            //left: 48%;
+            //top: 30%;
+            -webkit-transform: translate(-60%,200%);
+            transform: translate(-60%,200%);
+        }
+    }
+
+    .bet-process {
+        @include position(relative);
+        pointer-events: none;
+        z-index: 100;
+        display: contents;
+    }
+
+    .bet-process:before {
+        //left: 40vw;
+        //top: 3vh;
+        @include position(absolute);
+        -webkit-transform: translate(-50%, 0%);
+        transform: translate(-50%, 0%);
+        content: "";
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: contain !important;
+        width: 100px;
+        height: 125px;
+        vertical-align: middle;
+    }
+}
+.market-loader-parent {
+    margin-top: -2px;
+}
+.market-loader {
+    background-image: url(/public/images/gif/spin-black2.gif);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+}
+
+.mobile-view {
+
+    .my-multi {
+        margin-top: 7px;
+
+        .event-heading {
+            font-size: 17px;
+            margin: 0px 5px;
+
+            .event-time {
+                float: $float-right;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .scorecard {
+        .team-name {
+            width: $width;
+        }
+
+        .oddsbox {
+            padding: 5px 8px;
+        }
+
+        .t-header {
+            background-color: transparent;
+
+            tr {
+                border-bottom: none;
+
+                th.match-title {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+
+        .lay-1, .back-1, .oddsbox {
+            min-width: 66px;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 12px;
+
+            .size {
+                font-size: 10px;
+            }
+
+            .percentage {
+                font-weight: bold;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .fancy-title {
+        width: 190px;
+
+        @include respond-to2(handhelds) {
+            font-size: 14px;
+            width: 150px;
+            @include padding(0px, 15px, 5px, 15px);
+        }
+    }
+
+    .full-market-list {
+        .table-score {
+            td.match-title {
+                width: $width;
+            }
+        }
+
+        .table-score thead {
+            th {
+                font-size: 12px;
+            }
+
+            .fancy-th {
+                width: 6%;
+
+                @include respond-to2(medium-screens) {
+                }
+
+                @include respond-to2(extra-medium-screens) {
+                    width: 12%;
+                }
+
+                @include respond-to2(extra-small-screens) {
+                    width: 20%;
+                }
+
+                @include respond-to2(handhelds) {
+                    width: 23%;
+                }
+            }
+
+            .th-col {
+                width: 88%;
+
+                @include respond-to2(medium-screens) {
+                }
+
+                @include respond-to2(extra-medium-screens) {
+                    width: 76%;
+                }
+
+                @include respond-to2(extra-small-screens) {
+                    width: 60%;
+                }
+
+                @include respond-to2(handhelds) {
+                    width: 53%;
+                }
+            }
+        }
+    }
+
+    .fancy-to-win {
+        .sports_data {
+            .match-title {
+                @include line-height(35px);
+                float: none !important;
+                @include display(inline-block !important);
+            }
+        }
+    }
+
+    .other-market {
+        @include resize($float-left, $width);
+
+        .longDescription {
+            @include resize($float-left, $width);
+        }
+
+        .match-title {
+            width: $width !important;
+        }
+
+        th {
+            @include respond-to2(extra-small-screens) {
+                font-size: 12px;
+            }
+
+            @include respond-to2(handhelds) {
+                font-size: 12px;
+            }
+
+            .cashout {
+                a {
+                    vertical-align: text-bottom;
+                    border: none;
+                    padding-right: 0px;
+
+                    .fa-circle {
+                        font-size: 6px;
+                        @include padding(2px, 2px, 2px, 2px);
+                    }
+                }
+            }
+        }
+
+        .sports_data {
+            @include resize($float-left, $width);
+
+            .match-title {
+                width: 50% !important;
+                float: $float-left;
+                @include padding(0px, 0px, 0px, 7px);
+                @include line-height(35px);
+
+                @include respond-to2(extra-small-screens) {
+                    width: $width !important;
+                }
+
+                @include respond-to2(handhelds) {
+                    width: $width !important;
+                }
+            }
+
+            .td-popup {
+                float: $float-left;
+            }
+        }
+    }
+
+    .bets-wrap {
+        font-size: 14px;
+
+        .table-score {
+            .match-title {
+                width: $width;
+            }
+
+            .sports_data {
+                @include resize($float-left, $width);
+
+                .match-title {
+                    width: 50% !important;
+                    float: $float-left;
+                    @include padding(0px, 0px, 0px, 7px);
+                    @include line-height(40px);
+                    height:38px;
+
+                    @include respond-to2(extra-small-screens) {
+                        width: $width !important;
+                    }
+
+                    @include respond-to2(handhelds) {
+                        width: $width !important;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .table-score {
+        th {
+            @include padding(5px, 0px, 5px, 5px);
+        }
+
+        tr {
+            .match-title {
+                width: $width;
+            }
+
+            td {
+                .tomatch-title {
+                    @include line-height(40px);
+                    @include resize($float-left, 82%);
+                }
+
+                .tomatch-score {
+                    @include resize(right, 63px);
+                    background-color: $dark-blue;
+                    text-align: $center;
+                    height: 38px;
+                    color: $white-color;
+
+                    .price {
+                        @include line-height(28px);
+                        color: $white-color !important;
+                    }
+
+                    .size {
+                        @include line-height(4px);
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .cus-placeholder {
+     width:150px;
+     transform:translate(0px,-30px);
+    }
+}

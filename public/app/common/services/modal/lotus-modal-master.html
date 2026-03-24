@@ -1,0 +1,44 @@
+﻿<div class="popup-div {{modalOptions.modalClass}}">
+    <div class="pop_close" data-ng-click="modalOptions.close()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div class="pop-inner" style="margin-bottom:0px;">
+        <h4>
+            <i ng-if="modalOptions.icon" class="fa fa-{{modalOptions.icon}}"></i>
+            {{modalOptions.header | translate}}
+        </h4>
+        <div class="modal-body">
+            <div class="row" ng-if="modalOptions.bodyUrl">
+                <div class="col-sm-12">
+                    <kt-messages data-messages="messages"></kt-messages>
+                </div>
+            </div>
+            <p ng-if="modalOptions.body && !(modalOptions.bodyHtml || modalOptions.bodyUrl)">{{modalOptions.body | translate}}</p>
+            <div class="row" ng-if="modalOptions.bodyHtml">
+                <div class="col-sm-12">
+                    <p ng-bind-html="modalOptions.bodyHtml"></p>
+                </div>
+            </div>
+
+            <form role="form" ng-if="modalOptions.bodyUrl" name="modalOptions.modalForm" autocomplete="off">
+                <div ng-include="modalOptions.bodyUrl"></div>
+
+            </form>
+        </div>
+        <div class="pop-btn align-r">
+
+            <glc-button id="{{modalOptions.id + '-extra'}}" btn-class="save-popup" data-action="modalOptions.extraClick()"
+                        ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                        data-ng-show="modalOptions.extraButton != '' " kt-click data-label="{{modalOptions.extraButton}}">
+            </glc-button>
+            <glc-button id="{{modalOptions.id + '-ok'}}" btn-class="save-popup" data-action="modalOptions.ok()"
+                        ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                        data-ng-show="modalOptions.actionButton != ''" kt-click data-label="{{modalOptions.actionButton}}">
+            </glc-button>
+            <button id="{{modalOptions.id + '-close'}}" class="cancle-popup"
+                    data-ng-click="modalOptions.close()" data-ng-show="modalOptions.closeButton !=''">
+                {{modalOptions.closeButton | translate}}
+            </button>
+        </div>
+    </div>
+</div>

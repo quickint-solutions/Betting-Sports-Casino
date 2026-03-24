@@ -1,0 +1,241 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+.main {
+    .sidebar-right {
+        padding-left: 0 !important;
+        max-width: 30% !important;
+        flex: 0 0 30% !important;
+
+        .sidebar-inner {
+            overflow: hidden !important;
+            touch-action: auto;
+
+            .sidebar-right-inner {
+                .card {
+                    margin-bottom: 10px;
+
+                    .card-header {
+                        background-color: $heading;
+                        color: $white-color;
+                        padding: 8px .75rem 7px 1.25rem;
+                        //border-bottom: 1px solid rgba(0,0,0,.125);
+                        text-transform: capitalize;
+                    }
+                }
+
+                .more-header {
+                    background-color: #ccc;
+                    border-bottom: 2px solid #dee2e6;
+                }
+
+                .fact-content {
+                    float: left;
+                    width: 100%;
+                    padding-bottom: 8px;
+                }
+
+                .placebet-khado {
+                    width: 50% !important;
+
+                    &.toValue {
+                        vertical-align: middle;
+                        line-height: 25px;
+                    }
+                }
+
+                .add-bet {
+                    float: left;
+                    display: inline-block;
+                    width: 100%;
+                    justify-content: space-between;
+                    font-size: 12px;
+
+                    .bet-header {
+                        text-align: left;
+                        padding: 5px 4px 4px 4px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-transform: capitalize;
+                        display: inline-block;
+                    }
+
+                    .market-name {
+                        display: block;
+                        font-size: 14px;
+                        font-weight: bold;
+                        padding: 8px 5px 0px 5px;
+                    }
+
+                    .add-input input {
+                        border: 1px solid #ccc;
+                        height: 23px;
+                        width: 75%;
+                        padding: 3px;
+                    }
+
+                    .add-value {
+                        text-align: left;
+                        padding: 4px 4px;
+                        display: inline-block;
+
+                        .odd-add {
+                            width: 20px;
+                            min-width: 20px;
+                            position: absolute;
+                            right: 25px;
+                            top: 5px;
+                            height: 21.5px;
+                            display: grid;
+                            background-color: #efefef;
+                            justify-content: center;
+
+                            a {
+                                display: flex;
+                            }
+
+                            .fas {
+                                font-size: 12px;
+                                color: #273a47;
+                            }
+                        }
+
+                        .stake-input {
+                            width: 100%;
+                            border: 1px solid #ccc;
+                            height: 23px;
+
+                            &::placeholder {
+                                font-size: 9px;
+                            }
+                        }
+
+                        .fa-times {
+                            color: #f00000;
+                        }
+                    }
+
+                    .value-title {
+                        //font-weight: bold;
+                        font-size: 12px;
+                        word-wrap: break-word;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .value-button {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 5px 5px 8px 5px;
+                    justify-content: space-between;
+                    border-top: 1px solid #dee2e6;
+
+                    button {
+                        width: auto;
+                        min-width: 24%;
+                        float: left;
+                        background-color: #ccc;
+                        font-weight: normal;
+                        height: 25px;
+                        margin: 2px 3px 0 0;
+                        text-align: center;
+                        display: inline-block;
+                        padding: 0px;
+                        color: #273a47;
+                        font-size: 14px;
+                        border: 0;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
+                }
+
+                .orders {
+                    padding: 5px 7px;
+                    float: left;
+                    width: 100%;
+
+                    button {
+                        padding: .45rem .5rem;
+                        font-size: .875rem;
+                        border-radius: .2rem;
+                        color: $white-color;
+                        text-transform: capitalize;
+                        cursor: pointer;
+                    }
+
+                    .submit {
+                        background-color: $green;
+                        border: 1px solid $green;
+
+                        &:hover {
+                            background-color: #218838;
+                        }
+                    }
+
+                    .reset {
+                        background-color: #dc3545;
+                        border: 1px solid #dc3545;
+                        margin-left: 8px;
+
+                        &:hover {
+                            background-color: #c82333;
+                        }
+                    }
+                }
+
+                .open-bet {
+                    .bet-title {
+                        padding: 6px 8px;
+                        background-color: $title;
+                        color: #ffffff;
+                        font-size: 14px;
+                        text-transform: capitalize;
+                    }
+
+                    .fact-content {
+                        padding-bottom: 0px
+                    }
+
+                    .more-header {
+                        line-height: normal !important;
+                    }
+
+                    .add-bet {
+                        line-height: 25px;
+
+                        .add-value {
+                            vertical-align: middle;
+                        }
+
+                        .value-title {
+                            padding-left: 10px;
+                            vertical-align: bottom;
+
+                            p {
+                                font-size: 11px;
+                                color: #6a6a6a;
+                            }
+                        }
+                    }
+
+                    .unmatched {
+                        float: left;
+                        width: 100%;
+
+                        .value-title {
+                            .fa-times {
+                                position: relative;
+                                top: 6px;
+                                left: -3px;
+                            }
+
+                            p {
+                                margin-left: 12px
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

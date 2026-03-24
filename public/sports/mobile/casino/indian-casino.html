@@ -1,0 +1,75 @@
+﻿<div class="main-content-block">
+    <div class="home-middle-block">
+        <div class="other-page-section d-flex" logo="sportsexch" layout="sportsexch" style="overflow-x: hidden;">
+            <div class="mr-lg-3 mr-0 w-100 p-10">
+                <div class="casino-banners" style="padding-bottom: 8px;">
+                    <div class="banner mb-2">
+                        <div class="swiper-container swiper-container-horizontal" id="indian-casino">
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-wrapper">
+                                <div class=" swiper-slide">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/poker.jpg" alt="slider">
+                                    </div>
+                                </div>
+                                <div class=" swiper-slide">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/baccarat29.jpg" alt="slider">
+                                    </div>
+                                </div>
+                                <div class=" swiper-slide">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/andarbahar.jpg" alt="slider">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/matka.jpg" alt="slider">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/up7down.jpg" alt="slider">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide ">
+                                    <div class="slider-item">
+                                        <img ng-src="{{webImagePath}}casino/img/dragontiger.jpg" alt="slider">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="live-casino-games-main-block mt-2">
+                    <div class="live-casino-games-block">
+                        <div class="game-thumb-info">
+                            <h4 class="game-thumb-name d-flex" style="font-size: 20px;">Indian Casino</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="live-casino-games-main-block mt-2">
+                    <div>
+                        <div class="live-casino-games-block">
+                            <div class="live-casino-grid-block" >
+                                <div ng-repeat="lg in liveGamesMarkets | filter:{'type':'indian'}">
+                                    <div class="casino-item live-casino-game">
+                                        <img ng-src="{{webImagePath}}casino/img/{{lg.img}}" class="pos-rel v-lazy-image v-lazy-image-loaded">
+                                        <div class="overlay-bg text-center">
+                                            <h4><a ng-click="ctrl.openFDCasino(lg)" class="casino-game-play-btn">PLAY</a></h4>
+                                        </div>
+                                    </div>
+                                    <div class="game-thumb-info">
+                                        <h4 class="game-thumb-name">{{lg.name}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-include="'sports/template/footer.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

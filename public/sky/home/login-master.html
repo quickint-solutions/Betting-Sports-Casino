@@ -1,0 +1,110 @@
+﻿<div>
+    <div class="login-form-master">
+        <section class="_clearfix">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-bottom" ng-if="formMode==1">
+                <kt-messages data-messages="messages"></kt-messages>
+                <form class="apl-form apl-form-horizontal" name="loginform" ng-submit="ctrl.login()">
+                    <div class="apl-form-row ">
+                        <label class="apl-form-label" for="username">Username</label>
+                        <div class="apl-form-controls">
+                            <input type="text" maxlength="200"
+                                   tabindex="1"
+                                   required autofocus ng-model="$parent.$parent.model.username" class="inputbox">
+                        </div>
+                    </div>
+                    <div class="apl-form-row ">
+                        <label class="apl-form-label" for="username">Password</label>
+                        <div class="apl-form-controls">
+                            <input type="password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2"
+                                   required class="inputbox" ng-model="$parent.$parent.model.password" data-type="password">
+                        </div>
+                    </div>
+                    <div class="captcha-div apl-form-row" ng-if="captchaMode==2">
+                        <div class="apl-form-controls">
+                            <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                   class="captcha inputbox" maxlength="4" size="4" autocomplete="off" required tabindex="3" />
+                            <div class="code">
+                                <div>
+                                    <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                    <i class="icon-refresh refresh-btn" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="apl-form-row apl-form-controls ng-scope">
+                        <button class="apl-btn apl-btn-primary" tabindex="4" ng-disabled="loginform.$invalid"
+                                type="submit">
+                            Login
+                        </button>
+                    </div>
+                    <div class="apl-form-row browsers">
+                        <label class="apl-form-label qa-browsers-label">Best Viewed In:</label>
+                        <div class="apl-form-controls">
+                            <span class="icon firefox"></span>
+                            <span class="icon ie"></span>
+                            <span class="icon chrome"></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="login-bottom changepswd" ng-if="formMode==2">
+                <kt-messages data-messages="cp_messages"></kt-messages>
+                <form class="apl-form apl-form-horizontal" name="changepwform" ng-submit="ctrl.changePassword()">
+                    <p>For a security reason, please change your password.</p>
+
+                    <div class="apl-form-row">
+                        <label class="apl-form-label" for="username">Enter Old Password:</label>
+                        <div class="apl-form-controls">
+                            <input type="password"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   tabindex="1"
+                                   required class="inputbox" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                        </div>
+                    </div>
+                    <div class="apl-form-row">
+                        <label class="apl-form-label" for="username">Enter New Password:</label>
+                        <div class="apl-form-controls">
+                            <input type="password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2"
+                                   required class="inputbox" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                        </div>
+                    </div>
+                    <div class="apl-form-row">
+                        <label class="apl-form-label" for="username">Retype New Password:</label>
+                        <div class="apl-form-controls">
+                            <input type="password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="3"
+                                   required class="inputbox" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                        </div>
+                    </div>
+
+                    <div class="apl-form-row apl-form-controls ng-scope">
+                        <button class="apl-btn apl-btn-primary" tabindex="4"
+                                type="submit" ng-disabled="changepwform.$invalid">
+                            Change Password <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div id="captchaholder"></div>
+</div>

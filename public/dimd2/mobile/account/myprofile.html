@@ -1,0 +1,197 @@
+﻿<div class="report-title">
+    <div class="report-name">My Profile</div>
+</div>
+<div class="w-100">
+    <div class="">
+        <div class="col-12 p-0">
+            <div class="card">
+                <div class="card-header">
+                    {{'myprofile.aboutyou.label' | translate}}
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between border-bottom border-dark">
+                        <span>{{'user.name.label' | translate}}</span>
+                        <span>{{user.username}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom border-dark">
+                        <span>{{'user.mobile.label' | translate}}</span>
+                        <span>
+                            {{user.mobile}}
+                            <a ng-click="ctrl.openChangeMobile()" class="favor-set"
+                               kt-has-claim claims="{Claims: ['common.password.manage']}"
+                               ng-if="!ctrl.$stateParams.memberid">
+                                <i class="fa fa-edit" aria-hidden="true" style="margin: 0 5px;"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom border-dark">
+                        <span>{{'user.password.label' | translate}}</span>
+                        <span>
+                            **********************
+                            <a ng-click="ctrl.changePassword()" class="favor-set"
+                               kt-has-claim claims="{Claims: ['common.password.manage']}"
+                               ng-if="!ctrl.$stateParams.memberid">
+                                <i class="fa fa-edit" aria-hidden="true" style="margin: 0 5px;"></i>
+                            </a>
+                            <a ng-click="ctrl.changePassword()" class="favor-set"
+                               kt-has-claim claims="{Claims: ['common.password.member.manage']}"
+                               ng-if="ctrl.$stateParams.memberid">
+                                <i class="fa fa-edit" aria-hidden="true" style="margin: 0 5px;"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    {{'common.setting.label' | translate}}
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between border-bottom border-dark">
+                        <span>{{'user.currency.label' | translate}}</span>
+                        <span>{{user.currency.code}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom border-dark">
+                        <span>{{'user.timezone.label' | translate}}</span>
+                        <span>{{timezone}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-2 p-0">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col"> </th>
+                                    <th class="col text-center">{{'betconfig.min.label'|translate}}</th>
+                                    <th class="col text-center">{{'betconfig.max.label'|translate}}</th>
+                                    <th class="col text-center">{{'betconfig.delay.label'|translate}}</th>
+                                    <th class="col text-center">{{'betconfig.exposure.label'|translate}}</th>
+                                    <th class="col text-center">{{'betconfig.profit.label'|translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="e in eventTypes">
+                                    <th>{{e.name}}</th>
+                                    <td class=" text-center">{{e.minBet | toRate }}</td>
+                                    <td class=" text-center">{{e.maxBet  | toRate}}</td>
+                                    <td class=" text-center">{{e.betDelay}}</td>
+                                    <td class=" text-center">{{e.maxExposure  | toRate}}</td>
+                                    <td class=" text-center">{{e.maxProfit  | toRate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="change-mobile-modal" class="modal-overlay modal-open">
+    <div id="login" role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Update Mobile</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.changeNumber()" name="changenumberform">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="user-email-text">Current Number</label>
+                                <div class="input-group">
+                                    <input type="text" placeholder="Mobile *" class="form-control"
+                                           disabled
+                                           required value="{{changeMobileModel.oldMobileNo}}" ng-maxlength="6" ng-minlength="6">
+                                </div>
+                            </div>
+
+                            <label class="user-email-text">New Mobile</label>
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="changeMobileModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(changeMobileModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input input-group">
+                                    <input class="form-control" type="text"
+                                           autofocus required ng-model="changeMobileModel.newMobileNo" autocomplete="m_1"
+                                           placeholder="New Mobile Number *" maxlength="16" minlength="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <div class="d-flex flex-column">
+                                <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=2" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="1" name="forgetotpby" id="chek-3" ng-model="changeMobileModel.otpvia">
+                                    <label class="custom-control-label" for="chek-3">Receive OTP via SMS</label>
+                                </div>
+                                <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=1" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="2" name="forgetotpby" id="chek-4" ng-model="changeMobileModel.otpvia">
+                                    <label class="custom-control-label" for="chek-4">Receive OTP via Whatsapp</label>
+                                </div>
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestOtpForChange()" ng-show="resendTimer<=0 "
+                                        class="btn btn-primary btn-sm"
+                                        ng-disabled="!changeMobileModel.newMobileNo">
+                                    Send OTP
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Enter otp</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="OTP *" class="form-control"
+                                       required ng-model="changeMobileModel.otp" ng-maxlength="6" ng-minlength="4">
+                            </div>
+                        </div>
+                        <kt-messages data-messages="changeMobileMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required checked readonly class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="changenumberform.$invalid">
+                                Change
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>

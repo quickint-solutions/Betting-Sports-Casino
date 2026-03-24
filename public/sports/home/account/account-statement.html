@@ -1,0 +1,103 @@
+﻿<div class="card">
+    <div class="card-header"><h3>ACCOUNT STATEMENT</h3></div>
+    <div class="card-header" style="border-radius: 0px;">
+        <div class="filter-type-block">
+            <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                <div class="d-flex flex-row mr-2">
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.fromdate"
+                                   is-open="fopened"
+                                   placeholder="{{'fromdate.placeholder' | translate}}"
+                                   ng-click="fopened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="to-block">TO</div>
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.todate"
+                                   is-open="topened"
+                                   placeholder="{{'todate.placeholder' | translate}}"
+                                   ng-click="topened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.refreshGrid();">
+                    <i class="material-icons">search</i>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getAccountStatement(params)"
+                 export-to-excel="ctrl.exportAccountStatement(params,1)"
+                 export-to-pdf="ctrl.exportAccountStatement(params,2)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="ktaccountstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td header-class="'size-md align-l'" class="size-md align-l" data-title="::'account.datetime.name.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td header-class="'align-l '" class="align-l"
+                            uib-tooltip="{{item.narration}}"
+                            data-title="::'account.narration.name.label' | translate">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                            <span ng-if="item.accountType==7" class="bold"> # {{item.roundId}}</span>
+                            <span ng-if="item.comment">({{item.comment}}) </span>
+                        </td>
+                        <td class="asize-lg" header-class="'size-lg'">
+                            <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                            <span title="{{item.remarks}}" ng-if="item.remarks && !item.provider">{{item.remarks}} </span>
+                            <span ng-if="item.provider">{{$parent.$parent.$parent.$parent.$parent.ctrl.getProvider(item.provider)}} </span>
+
+                        </td>
+                        <td class="size-sm boolean" header-class="'size-sm boolean'" data-title="::'pl.label' | translate">
+                            <span class="" ng-class="{'text-danger':item.balance<0,'text-success':item.balance>0}">{{item.balance | toRate}}</span>
+                        </td>
+                        <td class="size-smd boolean" header-class="'size-smd boolean'" data-title="::'common.creditlimit.label' | translate">
+                            <span ng-show="item.accountType==13"
+                                  ng-class="{'text-danger':item.creditTotal<0,'text-success':item.creditTotal>0}">{{item.creditTotal | toRate}}</span>
+                            <span ng-show="item.accountType!=13">-</span>
+                        </td>
+                        <td class="size-smd boolean" header-class="'size-smd boolean'" data-title="::'common.total.label' | translate">
+                            <span title="{{item.total | toRate }}"
+                                  ng-class="{'text-success':item.total >= 0,'text-danger':item.total < 0}">
+                                {{item.total  | toRate}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-md"></td>
+                        <td></td>
+                        <td class="size-lg"></td>
+                        <td class="size-sm boolean">{{ $data | total:'balance'  | toRate}}</td>
+                        <td class="size-smd boolean">{{ $data | total:'creditTotal'  | toRate}}</td>
+                        <td class="size-smd boolean"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

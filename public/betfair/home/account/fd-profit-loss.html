@@ -1,0 +1,103 @@
+﻿<div id="content-container" class="main-content-container main-content-desktop-container__page light">
+    <div class="content main-content-container__page">
+        <div id="main" role="main">
+            <div id="mod-mydetails-v2-44018-container" class="mod yui3-widget yui3-module yui3-bfmodule-my-details-v2">
+                <div id="mod-mydetails-v2-44018" class="mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 ga yui3-bfmodule-my-details-v2-content">
+                    <div class="mydetails-wrapper">
+                        <div class="view">
+                            <div class="col-row">
+                                <div class="maw-header-text maw-header-text--main"><h1>The Fair Casino Profitloss</h1></div>
+                            </div>
+                            <div class="col-group">
+                                <div class="filter-panel">
+                                    <ul class="input-list">
+                                        <li><label>{{'profitloss.period.label' | translate}}</label></li>
+                                        <li>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       uib-datepicker-popup="dd MMM yyyy"
+                                                       ng-model="search.fromdate"
+                                                       is-open="fopened"
+                                                       placeholder="{{'fromdate.placeholder' | translate}}"
+                                                       ng-click="fopened=true"
+                                                       close-text="Close"
+                                                       alt-input-formats="dd/MM/yyyy" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       uib-datepicker-popup="dd MMM yyyy"
+                                                       ng-model="search.todate"
+                                                       is-open="topened"
+                                                       placeholder="{{'todate.placeholder' | translate}}"
+                                                       ng-click="topened=true"
+                                                       close-text="Close"
+                                                       alt-input-formats="dd/MM/yyyy" />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a ng-click="ctrl.refreshGrid()" class="btn bets">{{'common.button.getpl' | translate}}</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="input-list">
+                                        <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+                                        <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                                        <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+                                        <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+                                        <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+                                    </ul>
+                                </div>
+                                <div >
+                                    <kt-grid grid-id="kt-historybets-grid"
+                                             load-items="ctrl.getProfitLoss(params)"
+                                             name-param="id"
+                                             name-value-property="id"
+                                             show-total="true"
+                                             cache-key="kthistorybetsgrid">
+
+                                        <table ng-table="tableParams" class="table table-hover clickable"
+                                               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                                            <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                                                <tr>
+                                                    <td class="align-l size-md" header-class="'align-l size-md'"
+                                                        data-title="::'Round Id' | translate">
+                                                        <span>{{item.roundId}}</span>
+                                                    </td>
+
+                                                    <td data-title="::'Game Name' | translate" header-class="'align-l'" class="align-l"
+                                                        data-sortable="'tableName'">
+                                                        <span id="to">{{item.tableName}}</span>
+                                                    </td>
+                                                    <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'Provider' | translate">
+                                                        <span>{{$parent.$parent.$parent.ctrl.getTableProvider(item.provider)}} </span>
+                                                    </td>
+                                                    <td header-class="'size-sm align-r'" class="size-sm align-r"
+                                                        data-title="::'profitloss.label' | translate">
+                                                        <span ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win  | toRate}}</span>
+                                                    </td>
+                                                    <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'settledtime.label' | translate">
+                                                        <span>{{item.createdOn | date:'yy-MM-dd HH:mm:ss'}} </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody ng-if="$data.length>0" class="summary-data">
+                                                <tr>
+                                                    <td class="size-md"></td>
+                                                    <td></td>
+                                                    <td class="size-md align-r"></td>
+                                                    <td class="size-md align-r">{{$data | total:'win' | number:2}}</td>
+                                                    <td class="size-md"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </kt-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿<div class="scorecard" style="height: calc(100% - 0px);">
+    <div class="game-head column-2" >
+        <div class="twoTeam" >
+            <div class="game-visit bold">
+                <kt-rules data-market="fancyMarkets[0]"></kt-rules> {{fancyMarkets[0].event.name}}
+            </div>
+        </div>
+    </div>
+
+
+    <!---  fancy market   -->
+    <div class="fancy-market" ng-if="(fancyMarkets | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2]).length>0">
+        <div class="bets-wrap pd-top-0" ng-class="{'fancy-bets-wrap':!$last}" ng-repeat="m in fancyMarkets | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2] ">
+            <kt-counter data-bet-in-process="m.betInProcess" data-event-type="{{m.eventType.id}}" data-small="{{m.marketRunner.length<=1}}"></kt-counter>
+            <table class="team-score ">
+                <tbody id="tbody_{{m.id}}" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}" style="display: inline-table; width: 100%;">
+                    <tr ng-init="m.pin=ctrl.isMarketPinned(m.id)" class="tr-data" id="tr_{{m.id}}_{{r.runner.id}}" ng-class="{'td_border':$last}" ng-repeat="r in m.marketRunner">
+                        <th class="team-name" ng-if="$index==0" ng-class="{'set-middle':m.marketRunner.length>1}">
+                            <p>
+                                <span>{{m.name}}</span>
+                                <kt-rules data-market="m"></kt-rules>
+                            </p>
+                            <div class="grey-icon float-r" ng-if="$index==0" ng-click="m.showSession=!m.showSession; ctrl.openBook(m.id,m.showSession)"
+                                 ng-class="{'black-icon':m.pl}"></div>
+                        </th>
+                        <th class="team-name" ng-if="$index!=0"></th>
+                        <td colspan="6" ng-if="r.status!=1"><span>{{m.winner}}</span></td>
+                        <td class="empty-score empty-score-2" colspan="2" ng-if="r.status==1">
+                            <span class="event-time" style="float:none;" ng-if="m.betOpenTime && $index==0">Open @ {{m.betOpenTime | date:'dd MMM, H:mm'}}</span>
+                            <span class="event-time" style="float:none;" ng-if="m.betCloseTime && $index==0">Close @ {{m.betCloseTime | date:'dd MMM, H:mm'}}</span>
+                        </td>
+                        <td ng-if="r.status==1" class="lay-1 " ng-class="{'td_border':!$parent.$parent.$last}" kt-animate-on-change="r.layPrice[0].size"
+                            kt-click ng-click="ctrl.placeBet(m,2,r.runner.id,r.layPrice[0] ? r.layPrice[0].price : '',r.runner.name,r.layPrice[0] ? r.layPrice[0].percentage : '');">
+                            <kt-glc data-item="r.layPrice[0]" show-size="false"></kt-glc>
+                        </td>
+
+                        <td ng-if="r.status==1" class="back-1 " ng-class="{'td_border':!$parent.$parent.$last}" kt-animate-on-change="r.backPrice[0].size"
+                            kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name,r.backPrice[0] ? r.backPrice[0].percentage : '');">
+                            <kt-glc data-item="r.backPrice[0]" show-size="false"></kt-glc>
+                        </td>
+                        <td class="empty-score empty-score-2" colspan="2" ng-if="r.status==1">
+                            <span ng-if="$index==0"> Max Bet : {{m.maxBet | toRate}}</span>
+                            <span ng-if="$index==0"> Max Mkt : {{m.maxProfit | toRate}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="m.notification" class="market-notification">
+                        <td colspan="8">
+                            <span><i class="fa fa-microphone"></i>{{m.notification}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

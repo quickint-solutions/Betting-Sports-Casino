@@ -1,0 +1,1551 @@
+﻿<div class="my-wallet">
+    <h1 class="title">Transfer Online</h1>
+
+    <div class=" tab-wallet">
+        <div class="tab">
+            <ul class="tabs-container ">
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==7}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.paymor']}">
+                    <a class="tab-heading obd" ng-click="selectedPaymentTab=7">
+                        <i class="fa fa-bank"></i> Online Deposit
+                    </a>
+                </li>
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==5}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+                    <a class="tab-heading obd" ng-click="selectedPaymentTab=5">
+                        <i class="fa fa-bank"></i> Deposit
+                    </a>
+                </li>
+                <!--<li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==10}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.paymor']}">
+                    <a class="tab-heading obd" ng-click="selectedPaymentTab=10">
+                        <i class="fa fa-bank"></i> Online Withdrawal
+                    </a>
+                </li>-->
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==9}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+                    <a class="tab-heading obd" ng-click="selectedPaymentTab=9">
+                        <i class="fa fa-bank"></i> Withdrawal
+                    </a>
+                </li>
+                <li class="tab-container fairxpay" ng-class="{'active':selectedPaymentTab==0}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.fairex']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=0">
+                        <i class="payment-img fairxpay"></i>
+                    </a>
+                </li>
+                <li class="tab-container tether" ng-class="{'active':selectedPaymentTab==4}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.crypto']}">
+                    <a class="tab-heading" ng-click="ctrl.getCryptoTokens();selectedPaymentTab=4">
+                        <i class="payment-img tether" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="tab-container skrill" ng-class="{'active':selectedPaymentTab==2}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.skrill']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=2">
+                        <i class="payment-img skrill" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="tab-container neteller" ng-class="{'active':selectedPaymentTab==3}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.neteller']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=3">
+                        <i class="payment-img neteller" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="tab-container tether" ng-class="{'active':selectedPaymentTab==6}"
+                    kt-has-claim claims="{Claims: ['ui.client.payment.onramp']}">
+                    <a class="tab-heading" ng-click="selectedPaymentTab=6">
+                        <i class="payment-img onramp" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==5" kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">
+                    Deposit Money
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests()">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bank-detail" ng-show="selectedBankDetail.acNo">
+                            <label ng-show="selectedBankDetail.detailType==1">Account Number : </label>
+                            <label ng-show="selectedBankDetail.detailType>=2">{{ctrl.getDetailType(selectedBankDetail.detailType)}} : </label>
+                            <span>{{selectedBankDetail.acNo }}</span>
+                            <span class="copy"><i class="fa fa-copy" ng-click="ctrl.copyTxt(selectedBankDetail.acNo)"></i></span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.acHolder">
+                            <label>Account Holder : </label>
+                            <span>{{selectedBankDetail.acHolder }}</span>
+                            <span class="copy"><i class="fa fa-copy" ng-click="ctrl.copyTxt(selectedBankDetail.acHolder)"></i></span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.ifsc">
+                            <label>IFSC : </label>
+                            <span>{{selectedBankDetail.ifsc }}</span>
+                            <span class="copy"><i class="fa fa-copy" ng-click="ctrl.copyTxt(selectedBankDetail.ifsc)"></i></span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.bankName">
+                            <label>Bank Name : </label>
+                            <span>{{selectedBankDetail.bankName }}</span>
+                            <span class="copy"><i class="fa fa-copy" ng-click="ctrl.copyTxt(selectedBankDetail.bankName)"></i></span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.minDeposit">
+                            <label>Min Deposit : </label>
+                            <span>{{selectedBankDetail.minDeposit | toRate}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.maxDeposit">
+                            <label>Max Deposit : </label>
+                            <span>{{selectedBankDetail.maxDeposit | toRate}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.whatsAppNo || selectedBankDetail.telegramNo">
+                            <label>Need help?  </label>
+                            <a target="_blank" href="https://wa.me/{{selectedBankDetail.whatsAppNo}}" ng-show="selectedBankDetail.whatsAppNo"> <i class="fa fa-whatsapp green"></i></a>
+                            <a target="_blank" href="https://t.me/{{selectedBankDetail.telegramNo}}" ng-show="selectedBankDetail.telegramNo"> <i class="fa fa-telegram"></i></a>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==2">
+                            <div class="qr-parent">
+                                <div class="qr-text">
+                                    <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{'upi://pay?pa='+selectedBankDetail.acNo+'&am='+offlineDeposit.amount}}" />
+                                    <a ng-click="ctrl.openUPILink();">Click to pay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999">
+                            <label>Min. Deposit : </label>
+                            <span>{{pinWalletDepositDObj.minDeposit | toRate }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999">
+                            <label>Max. Deposit : </label>
+                            <span>{{pinWalletDepositDObj.maxDeposit | toRate }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999 && pinWalletDepositLink.qr">
+                            <label>Transaction Ref. : </label><span>{{pinWalletDepositLink.pinWalletTransactionId}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999 && pinWalletDepositLink.qr">
+                            <label>Amount To Pay : </label><span>{{pinWalletDepositLink.amount | toRate}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999 && pinWalletDepositLink.bonusCode">
+                            <label>Bonus Code : </label><span>{{pinWalletDepositLink.bonusCode }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="selectedBankDetail.detailType==999 && pinWalletDepositLink.qr">
+                            <div class="qr-parent mr-top-10">
+                                <div class="qr-text">
+                                    <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{pinWalletDepositLink.qr}}" />
+                                    <a target="_blank" href="{{pinWalletDepositLink.qr}}">Click To Pay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bank-options">
+                            <div class="bank-option" ng-repeat="b in offlineBankDetails track by $index">
+                                <div class="option-sec" ng-class="{'active':$parent.selectedBankDetail.id==b.id}" ng-click="$parent.selectedBankDetail=b">
+                                    <img src="/public/images/icon2/upi.png" ng-if="b.detailType==2" />
+                                    <img src="/public/images/icon2/imps.png" ng-if="b.detailType==1" />
+                                    <img src="/public/images/icon2/gpay.png" ng-if="b.detailType==3" />
+                                    <img src="/public/images/icon2/paytm.png" ng-if="b.detailType==4" />
+                                    <img src="/public/images/icon2/phonepe.png" ng-if="b.detailType==5" />
+                                    <img src="/public/images/icon2/mobikwik.png" ng-if="b.detailType==6" />
+                                    <img src="/public/images/icon2/amazonpay.png" ng-if="b.detailType==7" />
+                                    <img src="/public/images/icon2/pinwallet.png" ng-if="b.detailType==999" />
+                                    <div class="o-bottom-div">
+                                        <div>
+                                            <div ng-if="b.detailType!=1">{{ctrl.getDetailType(b.detailType)}}</div>
+                                            <div ng-if="b.detailType!=1" class="last-line">{{ctrl.getDetailType(b.detailType)}}</div>
+                                            <div ng-if="b.detailType==1">{{b.bankName}}</div>
+                                            <div ng-if="b.detailType==1" class="last-line">IMPS Only</div>
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-circle-o" ng-hide="$parent.selectedBankDetail.id==b.id"></i>
+                                            <i class="fa fa-check-circle" ng-show="$parent.selectedBankDetail.id==b.id"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deposit-form" ng-hide="selectedBankDetail.detailType==999">
+                            <form class="form-signin " name="payinofflineform" ng-submit="ctrl.depositOfflineNow()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Amount to deposit <span class="red">&nbsp;*</span>
+                                            </label>
+                                            <input type="text" maxlength="50"
+                                                   placeholder="Amount" required
+                                                   ng-change="ctrl.removeOffer();"
+                                                   ng-model="offlineDeposit.amount" class="form-control">
+                                            <span class="small text-right" style="margin-top:5px;">
+                                                <span ng-show="offlineDWLimits.minDeposit>0">Min. {{offlineDWLimits.minDeposit | toRate}}</span>
+                                                <span ng-show="offlineDWLimits.maxDeposit>0">|| Max. {{offlineDWLimits.maxDeposit | toRate}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:0" ng-click="ctrl.addStakes(d,offlineDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:3" ng-click="ctrl.addStakes(d,offlineDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 mr-top-20 offer-section">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Select & Apply Offer
+                                                <a class="float-r" ng-click="ctrl.selectOfferFromModal(offlineDeposit);"
+                                                   ng-disabled="!offlineDeposit.amount || offlineDeposit.amount<=0">
+                                                    <i class="fa fa-list "></i> <u>Offers</u>
+                                                </a>
+                                            </label>
+                                            <div style="position:relative;">
+                                                <input type="text" maxlength="50"
+                                                       placeholder="Apply code"
+                                                       ng-keyup="ctrl.validateOffer(offlineDeposit)"
+                                                       ng-model="offlineDeposit.offer.bonusCode"
+                                                       ng-disabled="!offlineDeposit.amount || offlineDeposit.amount<=0"
+                                                       class="form-control">
+                                                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="offerLoader"></i>
+                                                <i class="fa fa-remove" ng-click="ctrl.removeOffer();"
+                                                   ng-show="offlineDeposit.offer.bonusCode.length>0  && !offerLoader"></i>
+                                            </div>
+                                            <kt-messages data-messages="offerMessages"></kt-messages>
+                                            <div class="offer-detail" ng-if="offlineDeposit.offer.isValid">
+                                                <h4>{{offlineDeposit.offer.title}}</h4>
+                                                <div class="offer-desc" ng-bind-html="offlineDeposit.offer.description | safeHtml">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 ">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Upload and Scan UTR from Receipt
+                                            </label>
+                                            <input type="file" kt-file-select="onFileSelect($files)" id="utr-receipt"
+                                                   ng-model="offlineDeposit.payInSlip">
+                                        </div>
+                                        <div class="form-group" ng-show="offlineDeposit.payInSlip && !offlineDeposit.scannedUTR">
+                                            <uib-progressbar max="100" value="offlineDeposit.progress"
+                                                             type="info" class="progress-striped active">
+                                                <i>{{offlineDeposit.progressText}}</i>
+                                            </uib-progressbar>
+                                        </div>
+                                        <div class="form-group" ng-if="offlineDeposit.scannedUTR">
+                                            <div class="offer-detail" style="margin-top: 0px; padding: 5px;" ng-show="offlineDeposit.scannedUTR!=-1">
+                                                If <b>{{offlineDeposit.scannedUTR}}</b> UTR is correct then
+                                                <a class="green bold" ng-click="offlineDeposit.utrNo=offlineDeposit.scannedUTR">Click Here <i class="fa fa-arrow-circle-o-down"></i></a> to auto fill in below UTR field
+                                            </div>
+                                            <div class="offer-detail" style="margin-top: 0px; padding: 5px;" ng-show="offlineDeposit.scannedUTR==-1">
+                                                Unable to find UTR, please write UTR manualy.
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Enter Trasaction no. (UTR)
+                                            </label>
+                                            <input type="text" maxlength="100"
+                                                   placeholder="Unique Transaction Reference"
+                                                   ng-model="offlineDeposit.utrNo" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span class="negative">
+                                                <b>IMPORTANT</b> : After completing the Transaction Please backfill the UTR No (and Upload screenshot).
+                                                If you don't backfill it,
+                                                the deposit Transaction will not Complete. Please be sure to backfill <b>UTR (and Upload proof)</b>
+                                            </span>
+                                        </div>
+
+                                        <div class="utr-img" ng-if="offlineDeposit.payInSlip">
+                                            <img id="utr-img" ng-click="ctrl.showReceipt();" ng-src="{{offlineDeposit.payInSlip}}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <input class="" id="chk_confirm" ng-model="offlineDeposit.conditionAgree" required
+                                                       type="checkbox">
+                                                <label for="chk_confirm">I have read and agree with</label>&nbsp;<a ng-click="ctrl.$rootScope.showTemplate(11)"><u>the terms of payment and withdrawal policy</u></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="stake-btn button small-btn float-r" type="submit"
+                                                    ng-disabled="payinofflineform.$invalid  || (offlineDeposit.offer && offlineDeposit.offer.isValid==false)">
+                                                Deposit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="deposit-form" ng-show="selectedBankDetail.detailType==999">
+                            <form class="form-signin " name="payinPinWalletform" ng-submit="ctrl.initPinWalletDeposit()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Amount to deposit <span class="red">&nbsp;*</span>
+                                            </label>
+                                            <input type="number" maxlength="50"
+                                                   placeholder="Amount" required
+                                                   min="{{pinWalletDepositDObj.minDeposit | toRateOnly}}"
+                                                   max="{{pinWalletDepositDObj.maxDeposit | toRateOnly}}"
+                                                   ng-change="ctrl.removeOffer();"
+                                                   ng-model="offlineDeposit.amount" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:0" ng-click="ctrl.addStakes(d,offlineDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:3" ng-click="ctrl.addStakes(d,offlineDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 mr-top-20 offer-section">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Select & Apply Offer
+                                                <a class="float-r" ng-click="ctrl.selectOfferFromModal(offlineDeposit);"
+                                                   ng-disabled="!offlineDeposit.amount || offlineDeposit.amount<=0">
+                                                    <i class="fa fa-list "></i> <u>Offers</u>
+                                                </a>
+                                            </label>
+                                            <div style="position:relative;">
+                                                <input type="text" maxlength="50"
+                                                       placeholder="Apply code"
+                                                       ng-keyup="ctrl.validateOffer(offlineDeposit)"
+                                                       ng-model="offlineDeposit.offer.bonusCode"
+                                                       ng-disabled="!offlineDeposit.amount || offlineDeposit.amount<=0"
+                                                       class="form-control">
+                                                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="offerLoader"></i>
+                                                <i class="fa fa-remove" ng-click="ctrl.removeOffer();"
+                                                   ng-show="offlineDeposit.offer.bonusCode.length>0 && !offerLoader"></i>
+                                            </div>
+                                            <kt-messages data-messages="offerMessages"></kt-messages>
+                                            <div class="offer-detail" ng-if="offlineDeposit.offer.isValid">
+                                                <h4>{{offlineDeposit.offer.title}}</h4>
+                                                <div class="offer-desc" ng-bind-html="offlineDeposit.offer.description | safeHtml">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+
+                                        <div class="form-group">
+                                            <span class="negative">
+                                                <b>IMPORTANT</b> : After completing the Transaction Please wait for few minutes to reflect in your account,
+                                                you can check status on <b><i>View Request Status</i></b> link.
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <input class="checkbox" id="chk_confirm" ng-model="offlineDeposit.conditionAgree" required
+                                                       type="checkbox">
+                                                <label for="chk_confirm">I have read and agree with <a ng-click="ctrl.$rootScope.showTemplate(11)"><u>the terms of payment and withdrawal policy</u></a></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="stake-btn button small-btn float-r" type="submit"
+                                                    ng-disabled="payinPinWalletform.$invalid || (offlineDeposit.offer && offlineDeposit.offer.isValid==false)">
+                                                Get Deposit Link/QR
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <kt-messages data-messages="offlineDepositMessage"></kt-messages>
+            </div>
+
+
+
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==9" kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment']}">
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading with-small">
+                    Withdraw Money
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests(false)">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+                <kt-messages data-messages="offlineWithdrawalMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12" style="margin-top: -20px;">
+                        <small>
+                            <u>
+                                <span style="cursor:pointer" ng-click="show_off_w_history=true;">Select From Previous</span>
+                            </u>
+                        </small>
+                    </div>
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutofflineform" ng-submit="ctrl.withdrawOfflineNow()">
+
+                            <div class="form-group">
+                                <label class="gt-lbl">
+                                    Amount to withdraw<span class="red">&nbsp;*</span>
+                                </label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="offlineWithdrawal.amount" class="form-control">
+                                <span class="small text-right" style="margin-top:5px;">
+                                    <span ng-show="offlineDWLimits.minWithdrwal>0"> Min. {{offlineDWLimits.minWithdrwal | toRate}}</span>
+                                    <span ng-show="offlineDWLimits.maxWithdrwal>0">|| Max. {{offlineDWLimits.maxWithdrwal | toRate}}</span>
+                                </span>
+                            </div>
+                            <div class="form-group" style=" display: flex; flex-direction: row; justify-content: space-around;" ng-hide="offlineOnlyBankWithdrawal">
+                                <div>
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="1" ng-model="offlineWithdrawal.type">
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        UPI
+                                    </label>
+                                </div>
+                                <div>
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="2" ng-model="offlineWithdrawal.type">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Bank
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="offlineWithdrawal.type==1">
+                                <label class="gt-lbl">
+                                    UPI ID <span class="red">&nbsp;*</span>
+                                    <small class="float-r">(max 50 characters allowed)</small>
+                                </label>
+                                <input type="text" maxlength="50"
+                                       placeholder="UPI ID"
+                                       ng-model="offlineWithdrawal.acNo " class="form-control">
+                            </div>
+
+                            <div class="form-group" ng-show="offlineWithdrawal.type==2">
+                                <label class="gt-lbl">
+                                    Account Number <span class="red">&nbsp;*</span>
+                                    <small class="float-r">(9-18 characters allowed)</small>
+                                </label>
+                                <input type="text" minlength="9" maxlength="18"
+                                       placeholder="Account Number"
+                                       ng-model="offlineWithdrawal.acNo" class="form-control">
+                            </div>
+                            <div class="form-group" ng-show="offlineWithdrawal.type==2">
+                                <label class="gt-lbl">
+                                    IFSC<span class="red">&nbsp;*</span>
+                                    <small class="float-r">(11 characters allowed)</small>
+                                </label>
+                                <input type="text" maxlength="11"
+                                       placeholder="IFSC Code"
+                                       ng-model="offlineWithdrawal.ifscCode " class="form-control">
+                            </div>
+                            <div class="form-group" ng-show="offlineWithdrawal.type==2">
+                                <label class="gt-lbl">
+                                    Bank Name<span class="red">&nbsp;*</span>
+                                    <small class="float-r">(4-50 characters allowed)</small>
+                                </label>
+                                <input type="text" minlength="4" maxlength="50"
+                                       placeholder="Bank Name"
+                                       ng-model="offlineWithdrawal.bankName " class="form-control">
+                            </div>
+                            <div class="form-group" ng-show="offlineWithdrawal.type==2">
+                                <label class="gt-lbl">
+                                    Account Holder Name<span class="red">&nbsp;*</span>
+                                    <small class="float-r">(4-100 characters allowed)</small>
+                                </label>
+                                <input type="text" minlength="4" maxlength="100"
+                                       placeholder="Account Name"
+                                       ng-model="offlineWithdrawal.acName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="chk_w_confirm" ng-model="offlineWithdrawal.conditionAgree" required
+                                           type="checkbox">
+                                    <label for="chk_w_confirm">I have read and agree with</label>&nbsp;<a ng-click="ctrl.$rootScope.showTemplate(11)"><u>the terms of payment and withdrawal policy</u></a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutofflineform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+                <div class="w-history" ng-class="{'open':show_off_w_history}">
+                    <h1 class="event-heading with-small">
+                        Previous Withdrawal Accounts
+                        <small> <i class="fa fa-remove close" ng-click="show_off_w_history=false;"></i></small>
+                    </h1>
+                    <div class="h-table" ng-scrollbars>
+                        <div ng-repeat="w in offlineWithdrawalHistory track by $index" class="r-row status" ng-click="$parent.show_off_w_history=false;$parent.ctrl.selectExistingBank(w);">
+                            <div class="t-row" ng-show="w.acNo"> <div><span class="t-title">Account No. :</span>{{w.acNo}}</div></div>
+                            <div class="t-row" ng-show="w.ifsc"><div><span class="t-title">IFSC :</span>{{w.ifsc}}</div></div>
+                            <div class="t-row" ng-show="w.bankName"><div><span class="t-title">Bank :</span>{{w.bankName}}</div></div>
+                            <div class="t-row" ng-show="w.acHolder"><div><span class="t-title">Holder :</span>{{w.acHolder}}</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==7" kt-has-claim claims="{Claims: ['ui.client.payment.paymor']}">
+            <div class="account-statement float-l chg-pass process-div deposit" style="min-width: 250px;clear:unset;width:100%">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading with-small">
+                    Deposit Money
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests(true,false,false,true)">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+                <kt-messages data-messages="paymorDepositMessage"></kt-messages>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bank-detail" ng-show="paymorDeposit.minDeposit>0">
+                            <label>Min. Deposit : </label>
+                            <span>{{paymorDeposit.minDeposit | toRate }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="paymorDeposit.maxDeposit>0">
+                            <label>Max. Deposit : </label>
+                            <span>{{paymorDeposit.maxDeposit | toRate }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="paymorDepositLink.txnRefNo">
+                            <label>Transaction Ref. : </label><span>{{paymorDepositLink.txnRefNo}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="paymorDepositLink.amount">
+                            <label>Amount To Pay : </label><span>{{paymorDepositLink.amount | toRate}}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="paymorDepositLink.bonusCode">
+                            <label>Bonus Code : </label><span>{{paymorDepositLink.bonusCode }}</span>
+                        </div>
+                        <div class="bank-detail" ng-show="paymorDepositLink.upiString">
+                            <div class="qr-parent mr-top-10">
+                                <div class="qr-text">
+                                    <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{paymorDepositLink.qrString}}" />
+                                    <a target="_blank" href="{{paymorDepositLink.upiString}}">Click To Pay</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-detail" ng-if="paymorDeposit.offer.isValid">
+                        <h4>{{paymorDeposit.offer.title}}</h4>
+                        <div class="offer-desc" ng-bind-html="paymorDeposit.offer.description | safeHtml">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="deposit-form">
+                    <form class="form-signin" name="paymorform" ng-submit="ctrl.initPaymorDeposit()">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="gt-lbl">
+                                        Amount to deposit <span class="red">&nbsp;*</span>
+                                    </label>
+                                    <input type="number" maxlength="50"
+                                           placeholder="Amount" required
+                                           min="{{paymorDeposit.minDeposit | toRateOnly}}"
+                                           max="{{paymorDeposit.maxDeposit | toRateOnly}}"
+                                           ng-change="ctrl.removeOffer();"
+                                           ng-model="paymorDeposit.amount" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="d-stake-btns">
+                                    <button ng-repeat="d in depositStakeButtons | limitTo:3:0" ng-click="ctrl.addStakes(d,paymorDeposit)" type="button">
+                                        + {{d | number:2}}
+                                    </button>
+                                </div>
+                                <div class="d-stake-btns">
+                                    <button ng-repeat="d in depositStakeButtons | limitTo:3:3" ng-click="ctrl.addStakes(d,paymorDeposit)" type="button">
+                                        + {{d | number:2}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 mr-top-20 offer-section">
+                                <div class="form-group">
+                                    <label class="gt-lbl">
+                                        Select & Apply Offer
+                                        <a class="float-r" ng-click="ctrl.selectOfferFromModal(paymorDeposit);"
+                                           ng-disabled="!paymorDeposit.amount || paymorDeposit.amount<=0">
+                                            <i class="fa fa-list "></i> <u>Offers</u>
+                                        </a>
+                                    </label>
+                                    <div style="position:relative;">
+                                        <input type="text" maxlength="50"
+                                               placeholder="Apply code"
+                                               ng-keyup="ctrl.validateOffer(paymorDeposit)"
+                                               ng-model="paymorDeposit.offer.bonusCode"
+                                               ng-disabled="!paymorDeposit.amount || paymorDeposit.amount<=0"
+                                               class="form-control">
+                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="offerLoader"></i>
+                                        <i class="fa fa-remove" ng-click="ctrl.removeOffer();"
+                                           ng-show="paymorDeposit.offer.bonusCode.length>0 && !offerLoader"></i>
+                                    </div>
+                                    <kt-messages data-messages="offerMessages"></kt-messages>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <span class="negative">
+                                        <b>IMPORTANT</b> : After completing the Transaction Please wait for few minutes to reflect in your account,
+                                        you can check status on <b><i>View Request Status</i></b> link.
+                                    </span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <input class="checkbox" id="chk_confirm_paymor" ng-model="paymorDeposit.conditionAgree" required
+                                               type="checkbox">
+                                        <label for="chk_confirm_paymor">I have read and agree with <a ng-click="ctrl.$rootScope.showTemplate(11)"><u>the terms of payment and withdrawal policy</u></a></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="stake-btn button small-btn float-r" type="submit"
+                                            ng-disabled="paymorform.$invalid || (paymorDeposit.offer && paymorDeposit.offer.isValid==false)">
+                                        Get Deposit Link/QR
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==10" kt-has-claim claims="{Claims: ['ui.client.payment.paymor']}">
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading with-small">
+                    Withdraw Money
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests(false,false,false,true)">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+                <kt-messages data-messages="paymorWithdrawalMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12" style="margin-top: -20px;">
+                        <small>
+                            <u>
+                                <span style="cursor:pointer" ng-click="show_paymore_w_history=true;">Select From Previous</span>
+                            </u>
+                        </small>
+                    </div>
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutpaymorform" ng-submit="ctrl.withdrawPaymorNow()">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Amount to withdraw<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="number" minlength="1" maxlength="15"
+                                               placeholder="Amount"
+                                               string-to-number
+                                               kt-number-only allow-decimal="true"
+                                               required ng-model="paymorWithdrawal.amount" class="form-control">
+                                        <span class="small text-right" style="margin-top:5px;">
+                                            <span ng-show="paymorDeposit.minWithdrawal>0"> Min. {{paymorDeposit.minWithdrawal | toRate}}</span>
+                                            <span ng-show="paymorDeposit.maxWithdrawal>0">|| Max. {{paymorDeposit.maxWithdrawal | toRate}}</span>
+                                        </span>
+                                    </div>
+                                    <div class="form-group" style=" display: flex; flex-direction: row; justify-content: space-around;">
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="payoutftype" id="payourtftype1" value="IMPS" ng-model="paymorWithdrawal.transferType">
+                                            <label class="form-check-label" for="payourtftype1">
+                                                IMPS
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="radio" name="payoutftype" id="payourtftype2" value="NEFT" ng-model="paymorWithdrawal.transferType">
+                                            <label class="form-check-label" for="payourtftype2">
+                                                NEFT
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Account Number <span class="red">&nbsp;*</span>
+                                            <small class="float-r">(9-18 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="9" maxlength="18"
+                                               placeholder="Account Number" required
+                                               ng-model="paymorWithdrawal.accNo " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Account Holder Name<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(4-100 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="4" maxlength="100"
+                                               placeholder="Account Name" required
+                                               ng-model="paymorWithdrawal.name " class="form-control">
+                                    </div>
+                                    <div class="form-group offer-section">
+                                        <label class="gt-lbl">
+                                            IFSC<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(11 characters allowed)</small>
+                                        </label>
+                                        <div style="position:relative">
+                                            <input type="text" maxlength="11"
+                                                   placeholder="IFSC Code" required
+                                                   ng-blur="ctrl.validateIFSC()"
+                                                   ng-model="paymorWithdrawal.ifscCode " class="form-control">
+                                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="paymorWithdrawal.ifscLoader"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Bank Name<span class="red">&nbsp;*</span>
+                                            <small class="float-r">(4-50 characters allowed)</small>
+                                        </label>
+                                        <input type="text" minlength="4" maxlength="50"
+                                               placeholder="Bank Name"
+                                               ng-model="paymorWithdrawal.bankName" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Branch Address<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="text" maxlength="200"
+                                               placeholder="Branch Address" required
+                                               ng-model="paymorWithdrawal.branchAddress" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            City<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="text" maxlength="100"
+                                               placeholder="City" required
+                                               ng-model="paymorWithdrawal.city" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Pincode<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="text" maxlength="200"
+                                               placeholder="Pincode" required
+                                               ng-model="paymorWithdrawal.pincode" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Mobile<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="text" maxlength="20"
+                                               placeholder="Mobile" required
+                                               ng-model="paymorWithdrawal.mobileNo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Note
+                                        </label>
+                                        <input type="text" maxlength="200"
+                                               placeholder="Note/Comment"
+                                               ng-model="paymorWithdrawal.note" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <input class="checkbox" id="chk_pwconfirm" ng-model="paymorWithdrawal.conditionAgree" required
+                                                   type="checkbox">
+                                            <label for="chk_pwconfirm">I have read and agree with <a ng-click="ctrl.$rootScope.showTemplate(11)"><u>the terms of payment and withdrawal policy</u></a></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="stake-btn button small-btn float-r" type="submit"
+                                                ng-disabled="payoutpaymorform.$invalid">
+                                            Withdraw
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-history" ng-class="{'open':show_paymore_w_history}">
+                    <h1 class="event-heading with-small">
+                        Previous Withdrawal Accounts
+                        <small> <i class="fa fa-remove close" ng-click="show_paymore_w_history=false;"></i></small>
+                    </h1>
+                    <div class="h-table" ng-scrollbars>
+                        <div ng-repeat="w in offlineWithdrawalHistory track by $index" class="r-row status" ng-click="$parent.show_paymore_w_history=false;$parent.ctrl.selectExistingBankPaymor(w);">
+                            <div class="t-row" ng-show="w.acNo"> <div><span class="t-title">Account No. :</span>{{w.acNo}}</div></div>
+                            <div class="t-row" ng-show="w.ifsc"><div><span class="t-title">IFSC :</span>{{w.ifsc}}</div></div>
+                            <div class="t-row" ng-show="w.bankName"><div><span class="t-title">Bank :</span>{{w.bankName}}</div></div>
+                            <div class="t-row" ng-show="w.acHolder"><div><span class="t-title">Holder :</span>{{w.acHolder}}</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==0" kt-has-claim claims="{Claims: ['ui.client.payment.fairex']}">
+            <div style="padding: 5px 0px; font-size: 14px;" ng-if="whatsapp">
+                For any query related to deposit/withdrawal, please contact on <a target="_blank" href="https://wa.me/{{whatsapp}}"><i class="fa fa-whatsapp"></i> {{whatsapp}}</a>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="fairxpay.minDeposit">Minimum {{fairxpay.minDeposit | toRate }} deposit required.</small>
+                <small ng-if="fairxpay.maxDeposit">Maximum {{fairxpay.maxDeposit | toRate }} deposit possible.</small>
+
+                <kt-messages data-messages="depositFairxpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentfairxpayform" ng-submit="ctrl.depositFairxpayNow()">
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentfairxpayform.$invalid">
+                                    Start Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%;; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Cash</h1>
+                <kt-messages data-messages="payoutFairexpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutcashfairexform" ng-submit="ctrl.withdrawCashFairexpayNow()">
+                            <div class="form-group">
+                                <label>Name<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="50"
+                                       placeholder="Name" required
+                                       ng-model="fairxpayPayoutCash.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile<span class="red">&nbsp;*</span> </label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Mobile Number" required
+                                       ng-model="fairxpayPayoutCash.phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="fairxpayPayoutCash.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="fairxpayPayoutCash.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Area<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="200"
+                                       placeholder="Area" required
+                                       ng-model="fairxpayPayoutCash.area " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>City<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="100"
+                                       placeholder="City" required
+                                       ng-model="fairxpayPayoutCash.city" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cash Note <span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Cash Note Detail"
+                                       ng-model="fairxpayPayoutCash.cashNote " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutcashfairexform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width: 100%; clear: unset; margin-top: 10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Money</h1>
+                <small ng-if="fairxpayPayout.minWithdrwal">Minimum {{fairxpayPayout.minWithdrwal | toRateOnly | number:0}} withdrawal required.</small>
+                <small ng-if="fairxpayPayout.maxWithdrwal">Maximum {{fairxpayPayout.maxWithdrwal | toRateOnly | number:0}} withdrawal possible.</small>
+                <kt-messages data-messages="payoutFairexpayMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutfairexform" ng-submit="ctrl.withdrawFairexpayNow()">
+                            <div class="form-group">
+                                <label>Name<span class="red">&nbsp;*</span> </label>
+                                <input type="text" minlength="3" maxlength="50"
+                                       placeholder="Name" required
+                                       ng-model="fairxpayPayout.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile<span class="red">&nbsp;*</span> </label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Mobile Number" required
+                                       ng-model="fairxpayPayout.phone" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="fairxpayPayout.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw<span class="red">&nbsp;*</span> </label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{fairxpayPayout.minWithdrwal | toRateOnly}}"
+                                       max="{{fairxpayPayout.maxWithdrwal | toRateOnly}}"
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="fairxpayPayout.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">1) FILL UP UPI ID OR</label>
+                                <label>UPI ID <span class="red">&nbsp;**</span> </label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="UPI ID"
+                                       ng-model="fairxpayPayout.upiId " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block;border-bottom: 1px solid red;color: red;margin-bottom: 9px;font-size:10px;">2) FILL UP ACCOUNT DETAIL</label>
+                                <label>Account Number <span class="red">&nbsp;**</span> </label>
+                                <input type="text" minlength="9" maxlength="18"
+                                       placeholder="Account Number"
+                                       ng-model="fairxpayPayout.acNo" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>IFSC<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="11" maxlength="11"
+                                       placeholder="IFSC Code"
+                                       ng-model="fairxpayPayout.ifscCode " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Bank Name<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="4" maxlength="50"
+                                       placeholder="Bank Name"
+                                       ng-model="fairxpayPayout.bankName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Account Holder Name<span class="red">&nbsp;**</span></label>
+                                <input type="text" minlength="4" maxlength="100"
+                                       placeholder="Account Name"
+                                       ng-model="fairxpayPayout.acName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutfairexform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment skrill" ng-show="selectedPaymentTab==2" kt-has-claim claims="{Claims: ['ui.client.payment.skrill']}">
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="skrill.minDeposit">Minimum {{skrill.minDeposit | toRate }} deposit required.</small>
+                <small ng-if="skrill.maxDeposit">Maximum {{skrill.maxDeposit | toRate }} deposit possible.</small>
+
+                <kt-messages data-messages="depositSkrillMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentskrillform" ng-submit="ctrl.depositSkrillNow()">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Name"
+                                       required ng-model="skrill.firstName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" minlength="1" maxlength="50"
+                                       placeholder="Name"
+                                       required ng-model="skrill.lastName " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="skrill.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="skrill.phoneNumber" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to deposit</label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{skrill.minDeposit | toRateOnly}}"
+                                       max="{{skrill.maxDeposit | toRateOnly}}"
+                                       kt-number-only allow-decimal="true"
+                                       required ng-model="skrill.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentskrillform.$invalid">
+                                    Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment neteller" ng-show="selectedPaymentTab==3" kt-has-claim claims="{Claims: ['ui.client.payment.neteller']}">
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Deposit Money</h1>
+                <small ng-if="neteller.minDeposit">Minimum {{neteller.minDeposit | toRateOnly | number:0}} deposit required.</small>
+                <small ng-if="neteller.maxDeposit">Maximum {{neteller.maxDeposit | toRateOnly | number:0}} deposit possible.</small>
+                <kt-messages data-messages="depositNetellerMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="paymentnetellerform" ng-submit="ctrl.depositNetellerNow()">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="neteller.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="neteller.phoneNumber " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to deposit</label>
+                                <input type="number" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{neteller.minDeposit | toRateOnly}}"
+                                       max="{{neteller.maxDeposit | toRateOnly}}"
+                                       kt-number-only
+                                       required ng-model="neteller.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="paymentnetellerform.$invalid">
+                                    Deposit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;margin-top:10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading">Withdraw Money</h1>
+                <small ng-if="netellerPayout.minWithdrwal">Minimum {{netellerPayout.minWithdrwal | toRateOnly | number:0}} withdrawal required.</small>
+                <small ng-if="netellerPayout.maxWithdrwal">Maximum {{netellerPayout.maxWithdrwal | toRateOnly | number:0}} withdrawal possible.</small>
+                <kt-messages data-messages="payoutNetellerMessage"></kt-messages>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="payoutnetellerform" ng-submit="ctrl.withdrawNetellerNow()">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" minlength="6" maxlength="250"
+                                       placeholder="Email"
+                                       ng-model="netellerPayout.email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" minlength="10" maxlength="15"
+                                       placeholder="Phone Number"
+                                       ng-model="netellerPayout.phoneNumber " class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to withdraw</label>
+                                <input type="text" minlength="1" maxlength="15"
+                                       placeholder="Amount"
+                                       string-to-number
+                                       min="{{netellerPayout.minWithdrwal | toRateOnly}}"
+                                       max="{{netellerPayout.maxWithdrwal | toRateOnly}}"
+                                       kt-number-only
+                                       required ng-model="netellerPayout.amount" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <button class="stake-btn button small-btn float-r" type="submit"
+                                        ng-disabled="payoutnetellerform.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment tether" ng-show="selectedPaymentTab==4" kt-has-claim claims="{Claims: ['ui.client.payment.crypto']}">
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;">
+                <h1 class="event-heading">Deposit Crypto</h1>
+                <div class="row crypto-deposit">
+                    <div class="col-sm-12">
+                        <div class="token-title">Quick Selection</div>
+                        <div class="suggest-token">
+                            <div class="token" ng-repeat="t in depositTokenList  | limitTo:4" ng-click="ctrl.depositTokenChanged($index);">
+                                <img ng-src="{{imagePath}}images/icon2/crypto/{{t.iconName}}" class="token-icon" />
+                                <div class="token-name">{{t.key}}</div>
+                            </div>
+                        </div>
+                        <div class="token-title">Deposit Currency</div>
+                        <div class="token-selection">
+                            <div class="select-wrapper">
+                                <div class="select">
+                                    <div class="select__trigger">
+                                        <div class="token">
+                                            <div class="part1">
+                                                <img ng-src="{{imagePath}}images/icon2/crypto/{{selectedDepositToken.iconName}}" class="token-icon" />
+                                                <div class="token-name">{{selectedDepositToken.key}}</div>
+                                            </div>
+                                            <div class="arrow"></div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-options" id="deposit_dropdown">
+                                        <div class="custom-option token" ng-repeat="t in depositTokenList"
+                                             data-index="{{$index}}"
+                                             ng-class="{'selected':selectedDepositToken.key==t.key}">
+                                            <img ng-src="{{imagePath}}images/icon2/crypto/{{t.iconName}}" class="token-icon" />
+                                            <div class="token-name">{{t.key}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="select_right">
+                                <div class="balance_lbl">Price</div>
+                                <div class="balance_val">
+                                    <span ng-show="depositAddressLoading">
+                                        <img class="loader" style=" height: 17px; margin-top: -12px;margin-bottom:-3px;" ng-src="{{imagePath}}images/gif/Ellipsis.svg" />
+                                    </span>
+                                    <span ng-hide="depositAddressLoading">
+                                        {{selectedDepositToken.tokenPrice}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="token-title">
+                            Choose Network
+                            <small ng-show="selectedDepositToken.selectedChain.address">token address :&nbsp;<kt-address data-address="selectedDepositToken.selectedChain.address" data-char="4" style="display: inline-table;"></kt-address></small>
+                        </div>
+                        <div class="suggest-token">
+                            <div class="token network" ng-class="{'selected':selectedDepositToken.selectedChain.chain==v.chain}"
+                                 ng-click="ctrl.depositChainChanged(v)"
+                                 ng-repeat="v in selectedDepositToken.values">
+                                <div class="token-name">{{ctrl.getTokenChain(v.chain)}}</div>
+                            </div>
+                        </div>
+                        <div class="token-deposit">
+                            <div class="d-address">
+                                <div class="t-address">
+                                    <div class="token-title">Deposit Address</div>
+                                    <div ng-show="depositAddressLoading">
+                                        <img class="loader" ng-src="{{imagePath}}images/gif/Ellipsis.svg" />
+                                    </div>
+                                    <kt-address ng-hide="depositAddressLoading"
+                                                data-address="selectedDepositToken.selectedChain.depositAddress"
+                                                data-char="4" style="display: inline-table;"></kt-address>
+                                </div>
+                                <div class="d-btn">
+                                    <button ng-click="ctrl.copyDepositAddress()">Copy</button>
+                                </div>
+                            </div>
+                            <div class="d-qr">
+                                <div ng-show="depositAddressLoading">
+                                    <img class="loader" ng-src="{{imagePath}}images/gif/Ellipsis.svg" />
+                                </div>
+                                <img ng-hide="depositAddressLoading"
+                                     ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{selectedDepositToken.selectedChain.depositAddress}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="min-width: 100%;clear:unset;margin-top:10px;" ng-init="show_w_history=false;">
+                <h1 class="event-heading with-small">
+                    Withdraw Crypto
+                    <small><a ng-click="show_w_history=true;">View Withdrawal History</a></small>
+                </h1>
+                <form name="withdraw_crypto_form" ng-submit="ctrl.registerCryptoWithdrawal()">
+                    <div class="crypto-deposit row">
+                        <div class="col-sm-12">
+                            <div class="token-title">Withdraw Currency</div>
+                            <div class="token-selection">
+                                <div class="select-wrapper">
+                                    <div class="select">
+                                        <div class="select__trigger">
+                                            <div class="token">
+                                                <div class="part1">
+                                                    <img ng-src="{{imagePath}}images/icon2/crypto/{{selectedWithdrawalToken.iconName}}" class="token-icon" />
+                                                    <div class="token-name">{{selectedWithdrawalToken.key}}</div>
+                                                </div>
+                                                <div class="arrow"></div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-options" id="withdrawal_dropdown">
+                                            <div class="custom-option token" ng-repeat="t in withdrawalTokenList"
+                                                 data-index="{{$index}}"
+                                                 ng-class="{'selected':selectedWithdrawalToken.key==t.key}">
+                                                <img ng-src="{{imagePath}}images/icon2/crypto/{{t.iconName}}" class="token-icon" />
+                                                <div class="token-name">{{t.key}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="select_right">
+                                    <div class="balance_lbl">Balance</div>
+                                    <div class="balance_val"><kt-glc-code data-special="false" data-item="{{balanceInfo.balance}}"></kt-glc-code></div>
+                                </div>
+                            </div>
+                            <div class="token-title">
+                                Choose Network
+                                <small ng-show="selectedWithdrawalToken.selectedChain.address">token/coin address :&nbsp;<kt-address data-address="selectedWithdrawalToken.selectedChain.address" data-char="4" style="display: inline-table;"></kt-address></small>
+                            </div>
+                            <div class="suggest-token">
+                                <div class="token network" ng-class="{'selected':selectedWithdrawalToken.selectedChain.chain==v.chain}"
+                                     ng-click="ctrl.withdrawalChainChanged(v)"
+                                     ng-repeat="v in selectedWithdrawalToken.values">
+                                    <div class="token-name">{{ctrl.getTokenChain(v.chain)}}</div>
+                                </div>
+                            </div>
+                            <div class="token-title">
+                                Withdraw Address
+                                <small ng-show="selectedWithdrawalToken.tokenPrice">Available to withdraw : <b>{{balanceInfo.balance / selectedWithdrawalToken.tokenPrice}} {{selectedWithdrawalToken.key}} </b></small>
+                            </div>
+                            <div class="token-selection">
+                                <input class="token-address"
+                                       required
+                                       ng-model="selectedWithdrawalToken.selectedChain.withdrawalAddress"
+                                       placeholder="Fill in carefully according to the specific currency" />
+                            </div>
+                            <div class="token-title">Withdraw Amount<small>Min: {{selectedWithdrawalToken.selectedChain.minWithdrawal}}</small></div>
+                            <div class="token-selection">
+                                <input class="token-address"
+                                       required
+                                       type="number"
+                                       min="{{selectedWithdrawalToken.selectedChain.minWithdrawal}}"
+                                       max="{{balanceInfo.balance / selectedWithdrawalToken.tokenPrice}}"
+                                       ng-change="ctrl.withdrawalFeeCalculation()"
+                                       ng-model="selectedWithdrawalToken.selectedChain.withdrawalAmount"
+                                       placeholder="Withdraw Amount" />
+                                <div class="btn-grp">
+                                    <button type="button" ng-click="ctrl.withdrawalShort(0)">Min</button>
+                                    <button type="button" ng-click="ctrl.withdrawalShort(25)">25%</button>
+                                    <button type="button" ng-click="ctrl.withdrawalShort(50)">50%</button>
+                                    <button type="button" ng-click="ctrl.withdrawalShort(100)">Max</button>
+                                </div>
+                            </div>
+                            <div class="token-fee" ng-show="selectedWithdrawalToken.selectedChain.fee">
+                                Fee&nbsp;<span class="t-highlight"> {{selectedWithdrawalToken.selectedChain.fee}} {{selectedWithdrawalToken.key}} </span>&nbsp;(You will receive &nbsp;<b>{{selectedWithdrawalToken.selectedChain.remain}}</b> &nbsp;<span class="t-highlight">{{selectedWithdrawalToken.key}}</span>&nbsp; )
+                            </div>
+                            <div class="token-btn">
+                                <button class="stake-btn button small-btn float-r" type="submit" ng-disabled="withdraw_crypto_form.$invalid">
+                                    Withdraw
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="w-history" ng-class="{'open':show_w_history}">
+                    <h1 class="event-heading with-small">
+                        Withdraw History
+                        <small> <i class="fa fa-remove close" ng-click="show_w_history=false;"></i></small>
+                    </h1>
+                    <div class="h-table" ng-scrollbars>
+                        <div ng-repeat="w in withdrawalHistory track by $index" class="r-row status-{{w.status}}">
+                            <div class="t-row">
+                                <div><span class="t-title">Token :</span>{{w.token}}</div>
+                                <div><span class="t-title">Network :</span>{{ctrl.getTokenChain(w.chain)}}</div>
+                                <div><span class="t-title">Amount :</span>{{w.amount}}</div>
+                                <div><span class="t-title">Fee :</span>{{w.fee}}</div>
+                                <div><span class="t-title">Date :</span>{{w.createdOn  | date:'yyyy-MM-dd HH:mm'}}</div>
+                            </div>
+                            <div class="t-row">
+                                <div><span class="t-title">Address :</span><b>{{w.address}}</b></div>
+                                <div>
+                                    <span class="t-title">Status :</span>
+                                    <b class="status-{{w.status}}">{{ctrl.getWithdrawalStatus(w.status)}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment fairxpay" ng-show="selectedPaymentTab==6" kt-has-claim claims="{Claims: ['ui.client.payment.onramp']}">
+            <div class="account-statement float-l chg-pass process-div deposit" style="min-width: 250px;clear:unset;width:100%;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading with-small">
+                    Deposit
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests(true,false,true)">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bank-detail" ng-show="onRampDeposit.address">
+                            <div class="flex flex-col flex-center-cross">
+                                <span><b>Address &nbsp;</b><span ng-click="ctrl.copyTxt(onRampDeposit.address)"><i class="fa fa-copy"></i></span></span>
+                                <span>{{onRampDeposit.address}}</span>
+                                <span><b>Amount To Pay : </b>&nbsp;{{onRampDeposit.amount }}</span>
+                                <span ng-show="onRampDeposit.offer.bonusCode"><b>Bonus Code : </b>&nbsp;{{onRampDeposit.offer.bonusCode }}</span>
+                            </div>
+                            <div class="qr-parent mr-top-10">
+                                <div class="qr-text">
+                                    <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{onRampDeposit.address}}" />
+                                </div>
+                            </div>
+                            <div class="flex flex-center-main mr-top-10">
+                                <a class="btn btn-primary" href="https://onramp.money/app/?appId=637213&walletAddress={{onRampDeposit.address}}" target="_blank">Click to purchase with Fiat Currency </a>
+                            </div>
+                        </div>
+                        <div ng-show="!onRampDeposit.address" class="offer-detail">
+                            <h4>Add amount to generate QR code</h4>
+                            <div class="offer-desc">
+                                <p>• Enter deposit amount in first box</p>
+                                <p>• Select offer if any available</p>
+                                <p>• Click on DEPOSIT button to see deposit Address/QR Code </p>
+                                <p>• Scan the qr code from mobile or copy address to deposit from metamask/trust wallet</p>
+                            </div>
+                        </div>
+                        <div class="deposit-form">
+                            <form class="form-signin " name="onrampform" ng-submit="ctrl.depositByOnRamp()">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="gt-lbl">
+                                                Amount to deposit <span class="red">&nbsp;*</span>
+                                                <span style="float: right; font-weight: normal;">
+                                                    <span ng-show="onRampDeposit.minDeposit>0">Min. {{onRampDeposit.minDeposit | toRate}} || </span>
+                                                    <span ng-show="onRampDeposit.maxDeposit>0">Max. {{onRampDeposit.maxDeposit | toRate}}</span>
+                                                </span>
+                                            </label>
+                                            <input type="number"
+                                                   placeholder="Amount" required step="0.1"
+                                                   ng-change="ctrl.removeOffer();"
+                                                   min="{{onRampDeposit.minDeposit | toRateOnly}}" max="{{onRampDeposit.maxDeposit | toRateOnly}}"
+                                                   ng-model="onRampDeposit.amount" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:0" ng-click="ctrl.addStakes(d,onRampDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                        <div class="d-stake-btns">
+                                            <button ng-repeat="d in depositStakeButtons | limitTo:3:3" ng-click="ctrl.addStakes(d,onRampDeposit)" type="button">
+                                                + {{d | number:2}}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 mr-top-20">
+                                        <div class="form-group">
+                                            <button class="stake-btn button small-btn float-r" type="submit"
+                                                    ng-disabled="onrampform.$invalid">
+                                                Deposit
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <kt-messages data-messages="onRampDepositMessage"></kt-messages>
+            </div>
+            <div class="account-statement float-l chg-pass process-div" style="width:100%;clear:unset;margin-top:10px;">
+                <div class="common-betprocess" style="margin-top: -20px;margin-left: -20px;" ng-show="isPayoutLoaderActive">
+                    <div class="col-xs-12 betprocess">
+                        <div class="row">
+                            <div class="col-xs-12 loader">
+                                <div class="bet-process">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="event-heading with-small">
+                    Withdraw
+                    <small>
+                        <span class="recent-request">
+                            <a ng-click="ctrl.viewRecentPayInOutRequests(false,false,true)">View Request Status</a>
+                        </span>
+                    </small>
+                </h1>
+                <div class="row mr-top-24">
+                    <div class="col-sm-12">
+                        <form class="form-signin " name="onrampwithdrawalform" ng-submit="ctrl.withdrawalByOnRamp()">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Amount to Withdraw<span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="number" minlength="1" maxlength="15"
+                                               placeholder="Amount"
+                                               string-to-number
+                                               kt-number-only allow-decimal="true"
+                                               required ng-model="onRampWithdrawal.amount" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="gt-lbl">
+                                            Address <span class="red">&nbsp;*</span>
+                                        </label>
+                                        <input type="text" maxlength="500"
+                                               placeholder="To address" required
+                                               ng-model="onRampWithdrawal.toAddress " class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="stake-btn button small-btn float-r" type="submit"
+                                                ng-disabled="onrampwithdrawalform.$invalid">
+                                            Withdraw
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <kt-messages data-messages="onRampWithdrawalMessage"></kt-messages>
+            </div>
+        </div>
+    </div>
+
+</div>
+

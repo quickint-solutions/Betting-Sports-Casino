@@ -1,0 +1,29 @@
+﻿<div class="time-setting">
+    <h1 class="title">Time Setting</h1>
+    <div class="clock-detail">
+        <div class="time-detail">
+            <span class="s-time"><kt-date data-date-value="currentDate" data-format="MMM dd,yyyy"></kt-date></span>
+            <span class="s-date" ><kt-date data-date-value="currentDate" data-format="hh:mm:ss a"></kt-date></span>
+        </div>
+        <div class="options">
+            <span class="item-inner">
+                <label class="option-detail-circle">
+                    System time - (GMT +00:00)
+                    <input type="radio"  name="radio" ng-checked="selectedTimezone=='+00:00'" ng-click="ctrl.timezoneChanged('+00:00')">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="option-detail-circle">
+                    Your device time - (GMT {{timezone}})
+                    <input type="radio" name="radio" ng-checked="selectedTimezone==timezone"  ng-click="ctrl.timezoneChanged(timezone)">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="option-detail-circle">
+                    India Standard time - (GMT +05:30)
+                    <input type="radio" name="radio" ng-checked="selectedTimezone=='+0530'"  ng-click="ctrl.timezoneChanged('+0530')">
+                    <span class="checkmark"></span>
+                </label>
+            </span>
+            
+        </div>
+    </div>
+</div>

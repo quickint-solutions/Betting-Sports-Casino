@@ -1,0 +1,35 @@
+﻿/// <reference path="../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+.toggle-buttons {
+    .btn {
+        @include padding(2px, 8px, 2px, 8px);
+        height: 25px;
+
+        &.active {
+            background: $btngroup-back;
+            color:$toggle-btn !important;
+        }
+
+        &:not(.active) {
+
+            @include link-background-colors( transparent, mix($base-color-light, $white-color, 28%), mix($base-color-light, $white-color, 37%) );
+            @include border-all(1px, solid, $base-color-light);
+            color: $color-text;
+        }
+      
+        &.btn-default:focus, &.btn-default:hover {
+            color: $white-color;
+           
+        }
+    }
+}
+
+.form-tried-to-save {
+    .toggle-buttons.ng-invalid {
+        .btn {
+            border-color: $theme-danger;
+        }
+    }
+}

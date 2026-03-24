@@ -1,0 +1,105 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.Profit-l, .account-statement, .bet_list {
+    .progress {
+        margin-bottom: 0px;
+
+        .progress-bar {
+            color: #343534;
+            font-weight: bold;
+        }
+    }
+}
+
+.account-statement {
+    .filter-panel .input-list {
+        border: none !important;
+
+        li {
+            margin-top: 22px;
+
+            .input-group input {
+                font-size: 11px;
+            }
+        }
+
+        .li-date {
+            width: 12%;
+            margin-top: 0px;
+        }
+    }
+
+    .table-bets {
+        @include resize($float-left, $width);
+    }
+
+
+
+    .list-view-table {
+
+        table {
+            thead {
+                tr {
+                    background-color: $border-color;
+                    color: $black-color !important;
+                }
+            }
+
+            tbody {
+                tr {
+                    line-height: 17px;
+
+                    td {
+                        vertical-align: middle;
+                        border-top: none;
+                    }
+                }
+
+                .td-date {
+                    font-size: 12px !important;
+                    line-height: 17px !important;
+                }
+
+                .inner-tr {
+                    td {
+                        padding: 4px 8px !important;
+                        line-height: 0px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.chg-pass {
+    min-width: 300px;
+    background: white;
+    padding: 20px 20px;
+    width: 30%;
+
+    .alert-class {
+        position: relative !important;
+        width: 100% !important;
+        padding: 10px 0px !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    .form-control {
+        height: 27px;
+        padding: 4px 6px;
+        border: 2px solid #DDDDDD !important;
+        color: #666666;
+        transition: linear 0.2s;
+        border-radius: 3px;
+        font-size: 12px !important;
+
+        &:focus {
+            border-color: #0f2327;
+            background: #fff;
+            color: #0f2327;
+        }
+    }
+}

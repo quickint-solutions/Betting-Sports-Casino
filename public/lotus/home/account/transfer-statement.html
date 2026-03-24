@@ -1,0 +1,56 @@
+﻿
+<div class="account-statement">
+    <h1 class="event-heading">Transfer Statement</h1>
+
+    <div class="table-bets" style="margin-top:6px">
+        <kt-grid grid-id="kt-transferstatement-grid"
+                 load-items="ctrl.getTransferStatement(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="false"
+                 data-date-group="true"
+                 data-group-field="createdOn"
+                 cache-key="kttransferstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-sm align-l">Date</th>
+                        <th class="align-l size-lg">Description</th>
+                        <th class="align-l"></th>
+                        <th class="size-smd boolean">Amount</th>
+
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                    <tr>
+                        <td class="td-date">
+                            <kt-date data-date-value="itemGrp.date"></kt-date>
+                        </td>
+                    </tr>
+                    <tr class="inner-tr" ng-repeat="item in itemGrp.values track by $index">
+                        <td class="size-sm align-l" style="padding-left:20px!important;">
+                            <span>
+                                <kt-date data-date-value="item.createdOn" data-format="HH:mm:ss" style="color:#909090"></kt-date>
+                            </span>
+                        </td>
+                        <td class="size-lg align-l">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                        </td>
+                        <td class="align-l">
+                            <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                            <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                            <span ng-if="item.comment">({{item.comment}}) </span>
+                        </td>
+                        <td class="size-smd boolean">
+                            <span class="positive" ng-class="{'negative':item.balance<0}">
+                                {{item.balance  | toRate}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

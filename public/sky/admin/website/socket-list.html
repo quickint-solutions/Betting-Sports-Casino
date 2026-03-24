@@ -1,0 +1,29 @@
+﻿
+<div class="permission col-sm-12">
+    <header>
+        <h1 class="title">Socket Manager</h1>
+    </header>
+    <div class="align-right per-btn">
+        <button class="btn btn-secondary" data-ng-click="ctrl.refreshSocket()">
+            Refresh ({{filterList.length}})
+        </button>
+    </div>
+    <table class="permission-table" style="width:100%;">
+        <thead>
+            <tr style="line-height:25px;">
+                <th ng-repeat="p in props" style="text-transform:capitalize" class="center">
+                    <div>{{p.name}}</div>
+                    <div><input type="text" style="padding:0px;" class="form-control" ng-model="p.search" ng-change="ctrl.searchChanged()"/></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in filterList">
+                <td ng-repeat="pr in props" class="center">
+                    <span ng-if="pr.name!='connectedTime' && pr.name!='lastPingTime'">{{p[pr.name]}}</span>
+                    <span ng-if="pr.name=='connectedTime' || pr.name=='lastPingTime'">{{p[pr.name] | date:'dd-MM-yyyy HH:mm:ss'}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

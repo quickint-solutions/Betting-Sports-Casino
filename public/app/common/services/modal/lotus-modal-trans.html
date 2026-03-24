@@ -1,0 +1,33 @@
+﻿<div class="popup-div">
+    <div class="pop_close" data-ng-click="modalOptions.close()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div>
+        <div ng-if="modalOptions.bodyUrl">
+            <kt-messages data-messages="messages"></kt-messages>
+        </div>
+        <p ng-if="modalOptions.body && !(modalOptions.bodyHtml || modalOptions.bodyUrl)">{{modalOptions.body | translate}}</p>
+        <div ng-if="modalOptions.bodyHtml">
+            <p ng-bind-html="modalOptions.bodyHtml"></p>
+        </div>
+
+        <form role="form" ng-if="modalOptions.bodyUrl" name="modalOptions.modalForm" autocomplete="off" ng-submit="modalOptions.ok()">
+            <div ng-include="modalOptions.bodyUrl"></div>
+            <input type="submit" ng-show="1==2" />
+        </form>
+    </div>
+    <div class="pop-btn align-r">
+        <button id="{{modalOptions.id + '-close'}}" class="cancle-popup"
+                data-ng-click="modalOptions.close()" data-ng-show="modalOptions.closeButton !=''">
+            {{modalOptions.closeButton | translate}}
+        </button>
+        <glc-button id="{{modalOptions.id + '-extra'}}" btn-class="save-popup" data-action="modalOptions.extraClick()"
+                    ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                    data-ng-show="modalOptions.extraButton != '' " kt-click data-label="{{modalOptions.extraButton}}">
+        </glc-button>
+        <glc-button id="{{modalOptions.id + '-ok'}}" btn-class="save-popup" 
+                    ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl" data-action="modalOptions.ok()"
+                    data-ng-show="modalOptions.actionButton != ''" kt-click data-label="{{modalOptions.actionButton}}">
+        </glc-button>
+    </div>
+</div>

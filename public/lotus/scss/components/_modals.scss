@@ -1,0 +1,304 @@
+﻿/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+.mbg {
+    .modal.fade.in .modal-dialog {
+        transform: translate(0%,0%) !important;
+    }
+
+    .modal.fade .modal-dialog {
+        transform: translate(0%, -25%) !important;
+    }
+
+    .modal-dialog {
+        margin: 30px auto !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+}
+
+.modal-open .modal {
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+.modal.fade.in .modal-dialog {
+    transform: translate(-50%,-50%) !important;
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(-50%, -100%) !important;
+}
+
+.modal-dialog {
+    margin: 0px !important;
+    top: 50%;
+    left: 50%;
+
+
+    .modal-content {
+        background-color: transparent !important;
+    }
+
+    .checkbox input[type="checkbox"] {
+        margin-left: unset;
+    }
+
+    .md-white {
+        background-color: white !important;
+        color: black !important;
+
+        form {
+            color: black !important;
+        }
+
+        .close {
+            color: black;
+        }
+
+        &.modal-header {
+            border-radius: 0px;
+        }
+
+        &.modal-body {
+            max-height: 75vh;
+            overflow-y: scroll;
+        }
+
+        .modal-title {
+            text-align: center;
+        }
+    }
+
+    .modal-body.md-white {
+        padding: 15px !important;
+    }
+
+    .modal-header {
+        //background-color: #26183e;
+        color: $white-color;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+
+    .close {
+        float: $float-right;
+        @include txt(bold);
+        @include headline($white-color, 21px);
+        line-height: 1;
+        opacity: 1;
+    }
+    /*.modal-footer {
+        /*border-top: none;
+     
+        #-close{background-color:$dark-gray-black; color:$login-back;}
+    }*/
+    .user-form {
+        input, select {
+            margin-bottom: 10px;
+        }
+    }
+
+    .toggle-buttons {
+        .btn {
+            @include padding(4px, 8px, 4px, 8px);
+            height: 27px;
+            font-size: $font-size-tab;
+
+            &.active {
+                background: $theme-color;
+            }
+
+            &:not(.active) {
+                // @include link-background-colors( transparent, mix($base-color-light, $white-color, 28%), mix($base-color-light, $white-color, 37%) );
+                //  @include border-all(1px, solid, $base-color-light);
+                //  color: $color-text;
+                @include padding(4px, 8px, 4px, 8px);
+            }
+            /*&.btn-default:focus, &.btn-default:hover {
+            color: $white-color;
+            //background-color:$support-a-color;
+        }*/
+        }
+
+        div.btn-group {
+            .btn {
+                border-color: $black-color;
+            }
+
+            .active {
+                background-color: $theme-color;
+                color: $white-color;
+            }
+        }
+    }
+    /*.form-tried-to-save {
+    .toggle-buttons.ng-invalid {
+        .btn {
+            border-color: $theme-danger;
+        }
+    }
+}
+*/
+}
+
+.modal-body {
+    border: 0;
+    padding: 15px 0px !important;
+
+    form {
+        .withdraw {
+            width: $width;
+
+            input {
+                width: 50% !important;
+            }
+        }
+
+        color: $white-color;
+
+        .status-popup {
+            color: $black-color;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .position {
+            @include padding(6px, 0, 6px, 0px);
+            width: 55%;
+            margin: 0 auto;
+            @include txt(bold);
+
+            .p_value {
+                float: $float-right;
+            }
+        }
+    }
+}
+
+.modal-dialog.modal-xlg {
+    width: 950px;
+}
+
+.mobilebody {
+    .modal.in .modal-dialog {
+        transform: translate(0%, -50%);
+        bottom: -50%;
+
+        .pop_close {
+            right: -16px;
+            top: -50px;
+        }
+    }
+}
+.modal-dialog.modal-banner {
+    .carousel-inner, .carousel, div {
+        height: 100%;
+    }
+
+    width: 80vw;
+    max-height: 80vh;
+    height: 80vh;
+
+    .pop_close {
+        right: -50px;
+        height: 35px;
+    }
+
+    .popup-div {
+        overflow: hidden;
+        background-color: transparent;
+    }
+
+    .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+        max-height: 100%;
+        width: auto !important;
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .modal-content {
+        box-shadow: unset;
+        border: none;
+    }
+
+    .carousel-indicators li {
+        background-color: orange;
+    }
+
+    .carousel-indicators .active {
+        background-color: red;
+    }
+}
+
+.modal-dialog.modal-full {
+    width: 97%;
+}
+
+.rules-modal {
+    .start_time {
+        padding-bottom: 15px;
+    }
+
+    span {
+        @include resize(left, $width);
+        padding-bottom: 3px;
+    }
+
+    .rule_info {
+        @include resize(left, $width);
+        padding-top: 15px;
+
+        h4 {
+            margin: 0px 0px 5px 0px;
+            font-size: 15px;
+        }
+    }
+}
+
+.master-tooltip {
+    &.tooltip.in {
+        opacity: 1;
+    }
+
+    .tooltip-inner {
+        background-color: $a-link;
+        width: 300px;
+        max-width: 300px;
+        height: 100%;
+        color: black;
+        text-align: left;
+        font-size: 14px;
+    }
+}
+
+.master-tooltip.tooltip.left .tooltip-arrow {
+    border-left-color: $a-link;
+}
+
+
+.client-tooltip {
+    &.tooltip.in {
+        opacity: 1;
+    }
+
+    .tooltip-inner {
+        background-color: black;
+        width: 300px;
+        max-width: 300px;
+        height: 100%;
+        color: whitesmoke;
+        text-align: left;
+        font-size: 14px;
+    }
+}
+
+.client-tooltip.tooltip.left .tooltip-arrow {
+    border-left-color: black;
+}

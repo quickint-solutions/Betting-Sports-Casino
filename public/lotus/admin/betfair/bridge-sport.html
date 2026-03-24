@@ -1,0 +1,28 @@
+﻿<article>
+    <div class="content-wrap">
+        <div class="col-sm-6">
+            <header>
+                <h1 class="title">Bridge Sports</h1>
+            </header>
+
+            <kt-tree-view data-tree-name="botTree"
+                          data-tree-service="ctrl.treeService(servicename,parentid)"
+                          data-intial-data-service="ctrl.intialDataService()"
+                          data-search-required="false"
+                          data-btn-title="common.button.active"
+                          data-btn-class="btn btn-primary"
+                          data-action-callback="ctrl.activateMarket(item)">
+
+            </kt-tree-view>
+        </div>
+        <div class="col-sm-6 active-bot">
+            <header>
+                <h1 class="title">{{'betfair.activebots.label' | translate}}</h1>
+            </header>
+            <kt-tree-view data-tree-name="activatedBotTree"
+                          data-intial-data-service="ctrl.getActiveBotData()"
+                          data-search-required="false">
+            </kt-tree-view>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,181 @@
+﻿<div class="event my-profile my-account">
+    <h1 class="title" ng-if="!fromMember">{{'myprofile.label' | translate}}</h1>
+    <h1 class="title" ng-if="fromMember">{{'profile.label' | translate}}</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile-wrap">
+                <h3 class="heading">{{'myprofile.aboutyou.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.name.label' | translate}}</dt>
+                    <dd>{{user.username}}</dd>
+                    <dt>{{'user.mobile.label' | translate}}</dt>
+                    <dd>
+                        {{user.mobile}}
+                        <a ng-click="ctrl.openChangeMobile()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.manage']}"
+                           ng-if="!ctrl.$stateParams.memberid">
+                            Update Mobile <i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                    </dd>
+                    <dt>{{'user.email.label' | translate}}</dt>
+                    <dd>{{user.email}}</dd>
+
+                    <dt>{{'user.password.label' | translate}}</dt>
+                    <dd>
+                        ********************************
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.manage']}"
+                           ng-if="!ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.member.manage']}"
+                           ng-if="ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                    </dd>
+
+                    <dt ng-if="!fromMember">{{'languages.label' | translate}}</dt>
+                    <dd ng-if="!fromMember" class="dd-lang">
+                        <select ng-model="$parent.user.languageId" ng-change="ctrl.languageChanged()">
+                            <option ng-repeat="l in languageList" value="{{l.id}}">
+                                {{l.name}}
+                            </option>
+                        </select>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+
+            <div class="profile-wrap">
+                <h3 class="heading">{{'common.setting.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.currency.label' | translate}}</dt>
+                    <dd>GLC</dd>
+
+                    <dt>{{'user.oddsformat.label' | translate}}</dt>
+                    <dd>--</dd>
+                    <dt ng-if="!fromMember">{{'user.timezone.label' | translate}}</dt>
+                    <dd ng-if="!fromMember">{{timezone}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-sm-12" ng-if="bankingDetail">
+            <div class="profile-wrap">
+                <h3 class="heading">Upline Banking Detail</h3>
+                <table>
+                    <tr>
+                        <td style="padding:5px 10px">
+                            <div ng-bind-html="bankingDetail.bankDetails"></div>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.whatsAppNo">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.whatsAppNo}} <a target="_blank" href="https://wa.me/{{bankingDetail.whatsAppNo}}"> <i class="fa fa-whatsapp"></i></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.telegramNo">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.telegramNo}} <a target="_blank" href="https://t.me/{{bankingDetail.telegramNo}}"> <i class="fa fa-telegram"></i></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.other">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.other}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="profile-wrap" style="overflow-x:auto">
+                <h3 class="heading" style="min-width:500px">{{'common.betconfig.label' | translate}}</h3>
+                <table style="font-size:11.5px;text-align:center;min-width:500px">
+                    <tr>
+                        <th> </th>
+                        <th>{{'betconfig.min.label'|translate}}</th>
+                        <th>{{'betconfig.max.label'|translate}}</th>
+                        <th>{{'betconfig.delay.label'|translate}}</th>
+                        <th>{{'betconfig.exposure.label'|translate}}</th>
+                        <th>{{'betconfig.profit.label'|translate}}</th>
+                    </tr>
+                    <tr ng-repeat="e in eventTypes">
+                        <td style="padding-left:10px;text-align:left">{{e.name}}</td>
+                        <td>{{e.minBet | toRate }}</td>
+                        <td>{{e.maxBet | toRate }}</td>
+                        <td> {{ e.betDelay  }} </td>
+                        <td>{{e.maxExposure | toRate }}</td>
+                        <td>{{e.maxProfit | toRate }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-dialog modal-overlay " id="change-mobile-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: 90%;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Change Your Mobile Number</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form ng-submit="ctrl.changeNumber()" name="changenumberform" class="left">
+                            <kt-messages data-messages="changeMobileMessages" style="width: 100%!important;left: 0;padding:5px 0px"></kt-messages>
+
+                            <label class="label-text">Current Number</label>
+                            <div class="div-input">
+                                <input class="login-input" type="text" placeholder="Old Mobile *"
+                                       ng-maxlength=16 disabled
+                                       ng-minlength="1" ng-model="changeMobileModel.oldMobileNo">
+                                <i class="fa fa-mobile" style="font-size:18px;"></i>
+                            </div>
+
+                            <label class="label-text">New Number</label>
+
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="changeMobileModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(changeMobileModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input">
+                                    <input class="login-input" type="text" ng-model="changeMobileModel.newMobileNo" autocomplete="off"
+                                           maxlength="16" minlength="5" placeholder="New Mobile *" required>
+                                    <i class="fa fa-mobile" style="font-size:18px;"></i>
+                                </div>
+                            </div>
+                            <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=2">
+                                <input type="radio" class="ch" value="1" name="forgetotpby" ng-model="changeMobileModel.otpvia">Receive OTP via SMS
+                            </div>
+                            <div ng-show="changeMobileModel.selectedCountry.supportedChannel!=1">
+                                <input type="radio" class="ch" value="2" name="forgetotpby" ng-model="changeMobileModel.otpvia">Receive OTP via Whatsapp
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestOtpForChange()" ng-show="resendTimer<=0">
+                                    Send OTP
+                                </button>
+                            </div>
+                            <input class="login-input" type="text" ng-model="changeMobileModel.otp" required placeholder="Enter OTP"
+                                   ng-maxlength="6" ng-minlength="6">
+                            <div class="div-btn">
+                                <input class="login-button" type="submit" value="Change" ng-disabled="changenumberform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

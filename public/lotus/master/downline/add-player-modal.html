@@ -1,0 +1,80 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <span class="info">Minimum 4 character requried</span>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-address-card-o" aria-hidden="true"></i></span>
+            <input type="text" minlength="4" maxlength="100"
+                   autocomplete="off" placeholder="{{::'user.name.placeholder'|translate}}" tabindex="1"
+                   required autofocus ng-model="player.name" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">Minimum 4 character requried</span>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-address-card" aria-hidden="true"></i></span>
+            <input type="text" minlength="4" maxlength="100"
+                   autocomplete="off" placeholder="{{::'user.username.placeholder'|translate}}" tabindex="2"
+                   required ng-model="player.username" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">Minimum 6 character requried</span>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user-secret" aria-hidden="true"></i></span>
+            <input type="password" minlength="6" maxlength="25"
+                   autocomplete="new-password" placeholder="{{::'user.password.placeholder'|translate}}" tabindex="3"
+                   required ng-model="player.password" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">Minimum 6 character requried</span>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user-secret" aria-hidden="true"></i></span>
+            <input type="password" minlength="6" maxlength="25"
+                   autocomplete="new-password" placeholder="{{::'user.confirmpassword.placeholder'|translate}}" tabindex="4"
+                   required ng-model="player.confirmpassword" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-money fa20" aria-hidden="true"></i></span>
+            <input type="text" tabindex="5" kt-number-only allow-decimal="true"
+                   autocomplete="off" placeholder="{{::'creditref.new.placeholder' | translate}}"
+                   ng-model="player.creditRef" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-gamepad fa20" aria-hidden="true"></i></span>
+            <input type="text" tabindex="6" kt-number-only allow-decimal="true"
+                   autocomplete="off" placeholder="{{::'casinocreditref.new.placeholder' | translate}}"
+                   ng-model="player.casinoCreditRef" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-percent" aria-hidden="true"></i></span>
+            <input type="text" minlength="1" maxlength="20" tabindex="7" kt-number-only
+                   autocomplete="off" placeholder="{{::'user.pt.placeholder'|translate}}"
+                   ng-model="player.pT" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
+            <input type="text" minlength="1" maxlength="100" tabindex="8"
+                   autocomplete="off" placeholder="{{::'user.notes.placeholder'|translate}}"
+                   ng-model="player.notes" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6" ng-if="player.showCurrency">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-dollar" aria-hidden="true"></i></span>
+            <select class="form-control" ng-model="player.currencyId" tabindex="6">
+                <option ng-repeat="c in currencyList" value="{{c.id}}">
+                    {{c.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>

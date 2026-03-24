@@ -1,0 +1,53 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'paymentnumbers.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-setting-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditNumber()"
+             cache-key="ktnumbergrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'number.name.label' | translate"
+                        data-sortable="'name'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.name}} </span>
+                    </td>
+                    <td data-title="::'number.key.label' | translate"
+                        data-sortable="'secretkey'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.secretKey}} </span>
+                    </td>
+                    <td data-title="::'number.mobile.label' | translate"
+                        data-sortable="'mobileno'" data-header-class="'boolean size-lg'" class="boolean size-lg">
+                        <span>{{item.mobileNo}} </span>
+                    </td>
+                    <td data-title="::'number.merchantid.label' | translate"
+                        data-sortable="'merchantid'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.merchantId}} </span>
+                    </td>
+                    <td data-title="::'eventtype.isactive.label' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <i ng-show="item.isActive" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean '" class="boolean ">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditNumber(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnDelete{{$index}}" class="btn btn-danger" title="Delete Setting"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteNumber(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

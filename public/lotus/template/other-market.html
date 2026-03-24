@@ -1,0 +1,108 @@
+﻿<kt-counter data-bet-in-process="m.betInProcess" data-event-type="{{m.eventType.id}}"></kt-counter>
+
+<!--<div class="cash-value">
+    <span class="btn-title">
+        Liability:<span class="cash-price">$100.00</span>
+    </span>
+    <a class="cash-btn align-c bold" href="#">cash out $99.08<span class="cash-price">profit: -$0.72</span></a>
+</div>-->
+<div class="cash-open cash-value ng-hide">
+    <p class="check">
+        <input type="checkbox" />show cash out confirmation
+    </p>
+    <a class="cash-btn align-c bold" href="#">cash out $99.08<span class="cash-price">profit: -$0.72</span></a>
+    <a class="btn-cancle">Cancel</a>
+</div>
+<table class="table-score other-market" ng-if="m.bettingType!=6 && m.bettingType!=8 ">
+    <thead ng-if="m.bettingType!=7 && m.bettingType!=2">
+        <tr>
+            <th class="align-l th-col">
+                {{m.name}}
+                <span class="cashout ng-hide">
+                    <a href="#"><i class="fa fa-circle" aria-hidden="true"></i></a>
+                </span>
+            </th>
+            <th class="align-r">{{'market.back.label' | translate}}</th>
+            <th class="align-l">{{'market.lay.label' | translate}}</th>
+        </tr>
+    </thead>
+    <thead ng-if="m.bettingType==7 ">
+        <tr>
+            <th class="align-l th-col">
+            </th>
+            <th class="align-r">{{'market.no.label' | translate}}</th>
+            <th class="align-l">{{'market.yes.label' | translate}}</th>
+        </tr>
+    </thead>
+
+    <tbody ng-if="m.bettingType!=7 && m.bettingType!=2" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}">
+        <tr id="tr_{{m.id}}_{{r.runner.id}}" ng-repeat="r in m.marketRunner" ng-show="r.status<5">
+            <td class="match-title">
+                <span class="runner-title">{{r.runner.name}}</span>
+                <span class="ppl-full">
+                    <span ng-if="r.pl" class="ppl positive" ng-class="{'negative':r.pl<0 }">{{r.pl | toFixDigit}}</span>
+                    <span class="ppl" ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" ng-if="r.pPL">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>{{r.pPL | toFixDigit}}
+                    </span>
+                </span>
+                <span class="winner" ng-show="m.winner">{{m.winner}}</span>
+            </td>
+            <td class="back1 align-c" kt-animate-on-change="r.backPrice[0].size"
+                kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name);">
+                <kt-glc data-item="r.backPrice[0]" data-is-bm="{{m.source!=1}}" data-show-size="{{m.source==1}}"></kt-glc>
+            </td>
+            <td class="lay1 align-c" kt-animate-on-change="r.layPrice[0].size"
+                kt-click ng-click="ctrl.placeBet(m,2,r.runner.id,r.layPrice[0] ? r.layPrice[0].price : '',r.runner.name);">
+                <kt-glc data-item="r.layPrice[0]" data-is-bm="{{m.source!=1}}" data-show-size="{{m.source==1}}"></kt-glc>
+            </td>
+        </tr>
+    </tbody>
+    <tbody id="tbody_{{m.id}}" ng-if="m.bettingType==7 " ng-show="m.mr.priceLength"
+           ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}">
+
+        <tr id="tr_{{m.id}}_{{m.mr.runner.id}}_{{br}}" ng-repeat="br in m.mr.priceLength" ng-show="m.mr.status<5">
+            <td class="match-title">
+                <span class="runner-title" ng-if="$index==0">{{m.name}}</span>
+                <span class="ppl negative" ng-if="m.pl && $index==0">{{m.pl | toFixDigit}}</span>
+                <div class="grey-icon float-r " ng-if="$index==0" ng-click="m.showSession=!m.showSession;ctrl.openBook(m.id,m.showSession)" ng-class="{'black-icon':m.pl}"></div>
+            </td>
+            <td class="lay1 align-c" kt-animate-on-change="m.mr.layPrice[$index].size"
+                kt-click ng-click="ctrl.placeBet(m,2,m.mr.runner.id,m.mr.layPrice[$index] ? m.mr.layPrice[$index].price : '',m.mr.runner.name,m.mr.layPrice[$index] ? m.mr.layPrice[$index].percentage : '');">
+                <kt-glc data-item="m.mr.layPrice[$index]" data-show-size="false"></kt-glc>
+            </td>
+            <td class="back1 align-c" kt-animate-on-change="m.mr.backPrice[$index].size"
+                kt-click ng-click="ctrl.placeBet(m,1,m.mr.runner.id,m.mr.backPrice[$index] ? m.mr.backPrice[$index].price : '',m.mr.runner.name,m.mr.backPrice[$index] ? m.mr.backPrice[$Index].percentage : '');">
+                <kt-glc data-item="m.mr.backPrice[$index]" data-show-size="false"></kt-glc>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table-score popular-table" ng-if="m.bettingType==6 || m.bettingType==8">
+    <thead>
+        <tr>
+            <th class="align-l th-col">
+                {{m.name}}
+            </th>
+            <th colspan="6" class="th-col"></th>
+        </tr>
+    </thead>
+    <tbody id="tbody_{{m.id}}" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}">
+        <tr>
+            <td class="popular-td" id="td_{{m.id}}_{{$index+1}}" ng-repeat="r in m.marketRunner" ng-show="r.status<5">
+                <div class="popular-title">
+                    <span class="runner-title">{{r.runner.name}}</span>
+                    <span ng-if="r.pl" class="ppl positive" ng-class="{'negative':r.pl<0 }">{{r.pl | toFixDigit}}</span>
+                    <span class="ppl" ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" ng-if="r.pPL">
+                        <i class="fa fa-angle-double-right" aria-hidden="true"></i>{{r.pPL | toFixDigit}}
+                    </span>
+                    <span ng-if="m.bettingType==8" class="grey-icon float-r" ng-click="m.showSession=!m.showSession; ctrl.openBook(m.id,m.showSession)"
+                          ng-class="{'black-icon':m.pl}"></span>
+                </div>
+                <div kt-animate-on-change="r.backPrice[0].price" class="back1 align-c popular-score"
+                     kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name,100,($index+1)*-1);">
+                    <kt-glc data-item="r.backPrice[0]" show-size="false"></kt-glc>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

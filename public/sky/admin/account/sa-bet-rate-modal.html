@@ -1,0 +1,41 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div><label>Username :</label><span class="mrg-left-5">{{bet.user.username}}</span></div>
+        <div><label>Event :</label><span class="mrg-left-5">{{bet.market.event.name}}</span></div>
+        <div><label>Market : </label><span class="mrg-left-5">{{bet.market.name}}</span></div>
+        <div><label>Avg Price : </label><span class="mrg-left-5">{{bet.avgPrice}}</span></div>
+        <div><label>Size Matched : </label><span class="mrg-left-5">{{bet.sizeMatched | toRate}}</span></div>
+        <div>
+            <label>Side : </label>
+            <span class="mrg-left-5">
+                <input type="radio" name="rd_side" value="1" ng-model="bet.side"  /> <label class="back-text">Back</label>
+                <input type="radio" name="rd_side" value="2" ng-model="bet.side" class="mrg-left-5" /> <label class="lay-text">Lay</label>
+            </span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Password</span>
+            <input type="password"
+                   ng-model="bet.password" class="form-control">
+        </div>
+    </div>
+</div>
+
+<h4>Bet Details</h4>
+<div class="row" ng-repeat="b in bet.betDetails">
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Price</span>
+            <input type="text"
+                   ng-model="b.price" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Size</span>
+            <input type="text" ng-disabled="true"
+                   ng-model="b.size" class="form-control">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+﻿<div class="card">
+    <div class="card-header p-0" style="border-radius: 0px;">
+        <div class="filter-type-block">
+            <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                <div class="d-flex flex-row mr-2">
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.fromdate"
+                                   is-open="fopened"
+                                   placeholder="{{'fromdate.placeholder' | translate}}"
+                                   ng-click="fopened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="to-block">TO</div>
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.todate"
+                                   is-open="topened"
+                                   placeholder="{{'todate.placeholder' | translate}}"
+                                   ng-click="topened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.getProfitLoss();">
+                    <i class="material-icons">search</i>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-header p-0 mt-2" style="border-radius: 0px;">
+        <ul class="total-show text-left">
+            <li class="sports-switch " ng-class="{'underline':selectedEventType!= e.eventTypeId}" ng-repeat="e in eventSummary">
+                <span ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                    {{e.eventTypeName}}&nbsp;:&nbsp;
+                    <span style="margin-left:0px;font-weight:bold;" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">
+                        {{e.totalPl | toRate}}
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body p-0 table-responsive mt-2">
+        <div class="list-view">
+            <div ng-show="gridDataWithoutGroup.length>0">
+                <div class="list-view-table myTranscludedContent currency">
+                    <table class="table table-hover clickable ng-table" style="display: table">
+                        <thead>
+                            <tr>
+                                <th class="align-l">
+                                    {{'market.name.label' | translate}}
+                                </th>
+                                <th class="size-md boolean ">
+                                    {{'starttime.label' |  translate}}
+                                </th>
+                                <th class="size-md boolean ">
+                                    {{'settledtime.label' | translate}}
+                                </th>
+                                <th class="size-md boolean ">
+                                    {{'commission.label' | translate}}
+                                </th>
+                                <th class="size-md boolean ">
+                                    {{'pl.label' | translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="info-text" ng-repeat="item in gridDataWithoutGroup track by $index">
+                            <tr ng-click="ctrl.getBet(item,!item.show)">
+                                <td class="align-l">
+                                    <label>
+                                        <span id="to"><strong>{{item.eventName}}</strong></span>
+                                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                        <span id="to">{{item.marketName}}</span>
+                                    </label>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span>{{item.marketTime | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span>{{item.settleTime | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                </td>
+                                <td class="size-md boolean" ng-class="{'text-success':item.comm>0,'text-danger':item.comm<0}">
+                                    <span title="{{item.comm}}">{{item.comm | toRate}} </span>
+                                </td>
+                                <td class="betid size-md boolean">
+                                    <a ng-class="{'pl-avrg':!item.show,'ml-avrg':item.show,'text-success':item.win>=0,'text-danger':item.win<0,'betprogress':item.inprogress}"
+                                       title="{{item.win | toRate}}">{{item.win | toRate}}</a>
+                                </td>
+                            </tr>
+                            <tr ng-if="item.show && item.betDetailItems" class="expand-table profit-expand">
+                                <td class="profit-td" colspan="4">
+                                    <table class="table-bets">
+                                        <tbody>
+                                            <tr>
+                                                <th class="cust-no boolean">{{'betid.label'|translate}}</th>
+                                                <th class="align-l">{{'runner.name.label'|translate}}</th>
+                                                <th class="size-sm boolean">{{'odds.label'|translate}}</th>
+                                                <th class="size-sm boolean">{{'stake.label'|translate}}</th>
+                                                <th class="size-sm boolean">{{'side.label'|translate}}</th>
+                                                <th class="cust-name">{{'profitloss.label'|translate}}</th>
+                                                <th class="cust-name">{{'placed.label'|translate}}</th>
+                                            </tr>
+                                        </tbody>
+                                        <tbody>
+                                            <tr ng-repeat="b in item.betDetailItems.bets | orderBy:createdOn">
+                                                <td class="cust-no boolean">{{b.betId}}</td>
+                                                <td class="align-l">{{(b.bettingType==7 ? b.avgPrice+' ' : '')}}{{b.runnerName}}</td>
+                                                <td class="size-sm boolean">{{b.avgPrice ? b.avgPrice : b.price | number:2}}{{b.percentage && b.percentage!= 100 ? '('+b.percentage+'%)' : ''}}</td>
+                                                <td class="size-sm boolean">{{b.sizeMatched  | toRate}}</td>
+                                                <td class="size-sm boolean">
+                                                    <span ng-show="b.bettingType!=7">{{b.side==1 ? 'Back' : 'Lay'}}</span>
+                                                    <span ng-show="b.bettingType==7">{{b.side==1 ? 'Yes' : 'No'}}</span>
+                                                </td>
+                                                <td class="cust-name"><span ng-class="{'text-success':b.pl>0,'text-danger':b.pl<0}">{{b.pl  | toRate}}</span></td>
+                                                <td class="cust-name">{{b.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            </tr>
+                                            <tr class="net-total">
+                                                <td colspan="7">
+                                                    <dl>
+                                                        <dt>
+                                                            {{'backtotal.label'|translate}}
+                                                        </dt>
+                                                        <dd id="backSubTotal">{{((item.betDetailItems.bets | betSideFilter:'1') | total:'pl')  | toRate}}</dd>
+                                                        <dt>
+                                                            {{'laytotal.label'|translate}}
+                                                        </dt>
+                                                        <dd id="laySubTotal">{{((item.betDetailItems.bets | betSideFilter:'2') | total:'pl')  | toRate}}</dd>
+                                                        <dt>
+                                                            {{'marketsubtotal.label'|translate}}
+                                                        </dt>
+                                                        <dd id="marketTotal">{{(item.betDetailItems.pl.win | total:'pl')  | toRate}}</dd>
+                                                        <dt>
+                                                            {{'commission.label'|translate}}
+                                                        </dt>
+                                                        <dd id="commission">{{item.betDetailItems.pl.commission  | toRate}}</dd>
+                                                        <dt class="net_total">
+                                                            {{'netmarkettotal.label'|translate}}
+                                                        </dt>
+                                                        <dd id="netTotal" class="net_total">{{item.betDetailItems.pl.pnl | toRate}}</dd>
+                                                    </dl>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="alert alert-info empty-msg " ng-show="gridDataWithoutGroup.length<=0">
+                <p>No records found for selected filter and time period.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<form name="session_alpha_ladder" ng-submit="ctrl.saveSessionAlphaLadder()">
+    <table>
+        <tr>
+            <td ng-repeat="alr in alphaLadderRange | limitTo:10">
+                <span class="name">{{alr.name}} {{alr.single ? '+=' : '='}} </span>
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v1" />
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v2" ng-show="!alr.single" />
+            </td>
+        </tr>
+        <tr>
+            <td ng-repeat="alr in alphaLadderRange | limitTo:9:10">
+                <span class="name">{{alr.name}} {{alr.single ? '+=' : '='}} </span>
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v1" />
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v2" ng-show="!alr.single" />
+            </td>
+        </tr>
+        <tr>
+            <td ng-repeat="alr in alphaLadderRange | limitTo:7:19">
+                <span class="name">{{alr.name}} {{alr.single ? '+=' : '='}} </span>
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v1" />
+                <input type="text" autocomplete="off" kt-number-only ng-model="alr.v2" ng-show="!alr.single" />
+            </td>
+            <td>
+                <button class="btn savebtn" type="submit">
+                    Save
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>

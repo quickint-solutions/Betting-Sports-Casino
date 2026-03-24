@@ -1,0 +1,15 @@
+﻿<div class="full-popup">
+    <div class="col-sm-12 popup-left">
+        <ul>
+            <li ng-repeat="vd in videoList" ng-class="{'active':vd.active}" class="popup_li">
+                <a ng-click="vd.active=!vd.active">{{vd.eventTypeName}}</a>
+                <ul class="popup_list">
+                    <li ng-repeat="v in vd.video">
+                        <a ng-click="ctrl.setChannel(v)">{{v.eventName}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</div>

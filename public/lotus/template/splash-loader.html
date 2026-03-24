@@ -1,0 +1,46 @@
+﻿<div class="divLoader" ng-show="isLoading">
+    <img alt="logo" class="loader-img" id="logoImage" ng-src="{{logoPath}}">
+    <div class="spinner"></div>
+</div>
+<style>
+    .top-loader {
+        display: table !important;
+        z-index: 9999999999;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background: #000;
+    }
+    .divLoader {
+        display: flex;
+        margin: 0 auto;
+        vertical-align: middle;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+    }
+    .loader-img {
+        width: 50%;
+        height: auto;
+        margin-bottom: 50px;
+    }
+    .spinner {
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        background: conic-gradient(black 10%, #fff);
+        -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 2px), #000 0);
+        animation: load-spin .8s infinite linear;
+    }
+    @keyframes load-spin {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+</style>

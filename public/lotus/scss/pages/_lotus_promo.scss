@@ -1,0 +1,1171 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+.header-base {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.modal-overlay {
+    display: none;
+
+    .close-dialog-outside {
+        position: absolute;
+        top: 0px;
+        right: -45px;
+        cursor: pointer;
+        width: 28px;
+        height: 28px;
+        padding: 2px;
+        border-radius: 0 0 0 0;
+        background: url(/public/images/icon2/close-round-2.svg) 0 0 no-repeat $login-btn-bg;
+        border-radius: 15px;
+        box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    }
+
+    .div-input {
+        position: relative;
+        display: flex;
+
+        .fa {
+            position: absolute;
+            top: 9px;
+            right: 5px;
+            cursor: pointer;
+        }
+    }
+
+    .div-input .drp-login-method {
+        position: absolute;
+        right: 0;
+
+        .btn {
+            background-color: transparent;
+            color: $dialog-fr;
+            border: 1px solid $dialog-border;
+        }
+
+        .dropdown-menu {
+            min-width: 95px;
+            background-color: $dialog-bg;
+            border: 1px solid $dialog-border;
+            padding: 0px;
+
+            li {
+                padding: 5px 10px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                cursor: pointer;
+
+                &:hover {
+                    background: #b6b7b3;
+                }
+
+                &:first-child {
+                    border-bottom: 1px solid $dialog-border;
+                }
+            }
+
+            .fa-mobile {
+                font-size: 23px;
+            }
+
+            .fa {
+                right: 0;
+                margin-right: 5px;
+            }
+        }
+
+        &.open > .dropdown-menu {
+            left: unset;
+            right: 0;
+        }
+
+        .fa {
+            font-size: 18px;
+            position: relative;
+            top: 0px;
+            transition: unset;
+        }
+    }
+
+    &.disp {
+        display: block;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 101;
+        background-color: $overlay-bg;
+        display: table;
+    }
+
+    .dialog-container {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .dialog {
+            padding: 0;
+            height: auto;
+            display: inline-block;
+            vertical-align: top;
+            background-color: $dialog-bg;
+            box-shadow: 0px 0px 8px #000;
+            position: relative;
+            text-align: left;
+            //overflow: hidden;
+            color: $dialog-fr;
+            max-width: 400px;
+            border-radius: 5px;
+
+            .small-text {
+                font-size: 10px;
+            }
+        }
+
+        .dialog-header {
+            // background: $login-header;
+            //color: $login-header-font;
+            //padding: 10px;
+            //box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+
+            .tabbutton {
+                display: flex;
+                width: 100%;
+                height: 60px;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .dialog-title {
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 32px;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                height: 60px;
+
+                &:nth-child(odd) {
+                    border-top-left-radius: 5px;
+                }
+
+                &:nth-child(even) {
+                    border-top-right-radius: 5px;
+                }
+
+                &.inactive {
+                    background: $login-btn-bg;
+                    color: $login-btn-fr;
+                    box-shadow: inset -2px -4px 7px rgba(0, 0, 0, 0.25);
+                }
+            }
+
+            .close-dialog {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+                width: 28px;
+                height: 28px;
+                padding: 2px;
+                border-radius: 0 0 0 0;
+                background: url(/public/images/icon2/close-round-2.svg) 0 0 no-repeat $login-btn-bg;
+                border-radius: 15px;
+                box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        .dialog-content {
+            padding: 16px;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .left {
+        // width: 100%;
+        float: left;
+        margin-top: 5px;
+        margin-left: 7px;
+        margin-right: 12px;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+
+        .label-text {
+            width: 200px;
+            height: 13px;
+            margin-bottom: 3px;
+            display: block;
+            font-size: 11px;
+            color: #7e97a7;
+        }
+
+        .login-input {
+            height: 26px;
+            border-radius: 3px;
+            border: none;
+            border-bottom: 1px solid $dialog-border;
+            //box-shadow: inset 0 2px 0 #fff;
+            margin-bottom: 15px;
+            padding: 3px 8px 4px;
+            cursor: text;
+            cursor: text;
+            width: 96%;
+            background-attachment: scroll;
+            background-clip: initial;
+            background-color: transparent;
+            //background-image: linear-gradient(0deg,#fff,#eaf0f5);
+            background-origin: initial;
+            background-size: auto;
+            color: $dialog-fr !important;
+            -webkit-text-fill-color: #fff;
+            transition: box-shadow 0.2s ease-in-out;
+
+            &:focus, &:active {
+                outline: none;
+                background: transparent;
+                box-shadow: 0px 2px 0px -1px $dialog-border;
+            }
+
+            &:-webkit-autofill {
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: #c0c0c0;
+                opacity: 1; /* Firefox */
+            }
+
+            &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #c0c0c0;
+            }
+
+            &::-ms-input-placeholder { /* Microsoft Edge */
+                color: #c0c0c0;
+            }
+
+            &[disabled] {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .login-button {
+        color: $login-btn-fr;
+        overflow: visible;
+        background: $login-btn-bg;
+        zoom: 1;
+        border-radius: 3px 3px 3px 3px;
+        cursor: pointer;
+        border: none;
+        padding: 10px 5px;
+        margin: 5px 0 10px;
+        width: 100%;
+        font-weight: 700;
+        box-shadow: 0 2px 2px rgba(0, 0, 0,0.25);
+        text-align: center;
+
+        &:hover {
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+
+
+    *, *::before, *::after {
+        box-sizing: content-box;
+    }
+
+    .div-btn {
+        display: flex;
+        position: relative;
+        //margin-bottom: 10px;
+    }
+
+    .two_input {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        align-items: flex-start;
+
+        .first_box {
+            width: 40%;
+            margin-right: 15px;
+
+            select {
+                background: transparent;
+                background-color: $dialog-bg !important;
+                border: none;
+                border-bottom: 1px solid $dialog-border !important;
+                height: 34px;
+                border-radius: 3px;
+                box-shadow: none;
+                padding: 0;
+                font-size: 11px;
+
+                &.form-control {
+                    color: $dialog-fr !important;
+                }
+            }
+
+            .btn {
+                padding: 0px;
+                font-size: unset;
+            }
+        }
+
+        .div-input {
+            width: 60%;
+        }
+
+        &.full .div-input {
+            width: 100%;
+        }
+    }
+
+    .grid-spinner {
+        height: 28px;
+        position: absolute;
+        margin: 0px;
+        right: 0;
+        top: 7px;
+        outline: none !important;
+    }
+
+
+    input [type="radio"], input[type="checkbox"] {
+        vertical-align: sub;
+    }
+
+    .otp-timer {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            background: $login-header;
+            color: $login-header-font;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .ready-id {
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+
+        .forgot-link {
+            background: $login-header;
+            padding: 3px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            color: white;
+            font-size: 13px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+        }
+
+        .fa-whatsapp {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    }
+
+    a {
+        color: $dialog-border;
+        font-weight: bold;
+
+        &:hover {
+            color: $dialog-border;
+        }
+    }
+}
+
+.modal-overlay.disp {
+    .dialog-container .dialog {
+        animation: modalZoomIn 0.3s ease-in-out;
+        transform: scale(1);
+    }
+}
+
+@keyframes modalZoomIn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.lotus-promo, .inplay-page {
+    .center-section {
+        max-width: 763px;
+    }
+}
+
+.mobile-top .promotion-content {
+    margin: 0px;
+}
+
+.promotion-content {
+    margin-left: -10px;
+    //margin-right: -10px;
+}
+
+.hydrated {
+    visibility: inherit;
+}
+
+.top-baner-wrapper {
+    width: 100%;
+    margin-top: 14px;
+    overflow: hidden;
+    height: 150px;
+}
+
+.topBannerPadding {
+    padding-right: 10px;
+    float: left;
+    width: 100%;
+    display: flex;
+}
+
+.slider_banner__item {
+    width: 310px;
+    height: 150px;
+    padding: 0 10px;
+    display: inline-block;
+}
+
+@media (max-width: 460px) {
+    .banner-one__item, .slider_banner__item {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    .slider_banner__item {
+        padding: 0px;
+    }
+
+    .top-baner-wrapper {
+        margin-top: 0px;
+    }
+}
+
+.banner-one__item_img, .slider_banner__item_img {
+    height: 149px;
+    border-radius: 10px;
+    width: 299px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+}
+
+@media (max-width: 460px) {
+    .banner-one__item_img, .slider_banner__item_img {
+        height: 200px;
+        width: calc(100vw - 12px);
+        background-size: cover;
+    }
+
+    .sport-buttons {
+        padding-left: 0px;
+        padding-right: 1px;
+    }
+}
+
+@media (max-width: 420px) {
+    .banner-one__item_img, .slider_banner__item_img {
+        height: 180px;
+    }
+
+    .top-baner-wrapper {
+        height: 180px;
+    }
+}
+
+.list-md {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
+    padding-top: 0;
+    padding-bottom: 0;
+    float: left;
+    width: 100%;
+}
+
+.inplay-item-list-exchange__header {
+    min-height: 32px;
+    padding: 5px;
+    margin-top: 8px;
+    background: #fff !important;
+    color: black;
+    float: left;
+    width: 100%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    position: relative;
+    padding: 8px;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.inplay-item-list-exchange__header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.inplay-item-list-exchange__header-logo {
+    display: flex;
+    align-items: center;
+    font-family: "Lato",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.inplay-content__logo-icon {
+    position: relative;
+    padding-right: 5px;
+    font-weight: 400;
+    font-family: "apollo";
+    font-style: unset;
+    width: 20px;
+    height: 20px;
+    color: #337b0e;
+}
+.exchangeGames-content .slick-list {
+    margin-top: -5px;
+}
+
+.exchangeGames-content, .popularGames-content {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+.exchangeGames-content .exchangeGames-item {
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    width: 170px;
+    margin: 5px 0px;
+    margin-right: 5px;
+}
+
+.exchangeGames-img-body {
+    width: 100%;
+    height: 77px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: auto 100%;
+}
+
+@media (min-width: 1024px) {
+
+    .exchangeGames-content::-webkit-scrollbar {
+        display: none;
+    }
+
+
+
+    .exchangeGames-img-body {
+        height: 78px px;
+    }
+}
+
+.popularGames-content .slick-list {
+    margin-top: -5px;
+}
+
+.popularGames-content .popularGames-item {
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    width: 150px;
+    margin: 5px 0px;
+    margin-right: 5px;
+}
+
+.popularGames-content .popularGames-img-body {
+    width: 100%;
+    height: 125px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: auto 100%;
+    position: relative;
+}
+
+.popularGames-content .popularGames-item-name {
+    position: relative;
+    font-weight: 500;
+    font-size: 9px;
+    text-transform: capitalize;
+    color: whitesmoke;
+    top: 100px;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    background: linear-gradient(85deg, rgba(137, 137, 137, 0.33), rgba(145, 145,145, 0.42));
+    height: 25px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index: 2;
+}
+
+.popularGames-item-overlay {
+    position: absolute !important;
+    width: 100%;
+    height: 25px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: conic-gradient(from 0.3turn,$p-btn-bg-1,$p-btn-bg-2);
+    z-index: 1;
+    bottom: 0;
+}
+
+@media (min-width: 1024px) {
+    .popularGames-content .popularGames-item {
+        width: 190px; //130px;
+        height: 170px;
+    }
+
+    .popularGames-content .popularGames-img-body {
+        height: calc(100% - 40px);
+    }
+
+    .popularGames-content .popularGames-item-name, .popularGames-item-overlay {
+        position: relative;
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: capitalize;
+        color: #fff;
+        top: 130px;
+        height: 33px;
+    }
+
+    .popularGames-item-overlay {
+        height: 33px;
+    }
+}
+
+.casino-content {
+    width: 100%;
+    margin-top: 8px px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit,120px);
+    grid-row-gap: 2px;
+}
+
+@media (max-width: 1024px) {
+    .casino-content {
+        justify-content: space-between;
+        width: 100%;
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-auto-flow: column;
+        overflow-x: scroll;
+        grid-row-gap: 2px;
+        grid-column-gap: 2px;
+    }
+
+    .casino-content .casino-item {
+        width: 117px;
+        height: 70px;
+    }
+}
+
+.casino-content .casino-item {
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.casino-content .casino-img-body {
+    width: 100%;
+    height: 70px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: auto 100%;
+}
+
+@media (min-width: 500px) {
+    .casino-content {
+        grid-template-columns: repeat(auto-fit,117px);
+        grid-column-gap: 4px;
+        grid-row-gap: 4px;
+    }
+
+    .casino-content .casino-img-body {
+        height: 70px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .casino-content {
+        justify-content: space-between;
+        width: 100%;
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-auto-flow: row; //column;
+        overflow-x: auto;
+        grid-row-gap: 2px;
+        grid-column-gap: 2px;
+    }
+
+    .casino-content .casino-item {
+        width: 117px;
+        height: 70px;
+    }
+
+    .casino-content .casino-item .casino-img-body {
+        height: 70px;
+    }
+}
+
+.header-btn-div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-btn {
+    min-height: 45px;
+    margin: 10px 0px;
+    min-width: 75px;
+    line-height: 41px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border: none;
+    border-radius: 3px;
+    color: black;
+    font-weight: bold;
+
+    &:last-child {
+        margin: 10px 0px 10px 0px;
+    }
+}
+
+.h-login {
+    background: $login-btn-bg;
+    color: $login-btn-fr;
+
+    &.bal {
+        background-color: $account-overview;
+    }
+}
+
+.h-signup {
+    background: $signup-btn-bg;
+    color: $signup-btn-fr;
+    margin-left: 5px !important;
+}
+
+@keyframes showMessage {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+
+    100% {
+        opacity: 1;
+        width: 265px;
+    }
+}
+
+
+.offer-float {
+    z-index: 3;
+    width: 81px;
+    height: 81px;
+    text-align: center;
+
+    .offer_img {
+        z-index: 2;
+        position: relative;
+        width: 72%;
+    }
+}
+
+.support-float {
+    position: absolute;
+    z-index: 3;
+    width: 100px;
+    bottom: 10px;
+    left: 10px;
+}
+
+.whatsApp-float {
+    width: 81px;
+    height: 81px;
+
+    &:hover .circleIconPanel {
+        opacity: 1;
+        -webkit-animation: showMessage 1s linear;
+        animation: showMessage 1s linear;
+        width: 265px;
+        height: 50px;
+    }
+
+    .whatsApp_img {
+        z-index: 2;
+        position: relative;
+    }
+
+    .telegram_img {
+        z-index: 2;
+        position: relative;
+        width: 70px;
+        height: 70px;
+        padding-left: 14px;
+    }
+
+    .circleIconPanel {
+        // width: 265px;
+        //height: 50px;
+        border-radius: 25px;
+        z-index: 1;
+        position: absolute;
+        left: 30px;
+        bottom: 19px;
+        opacity: 0;
+        text-align: start;
+        padding: 8px 20px 7px 50px;
+        font: normal normal 600 12px/17px Poppins;
+        letter-spacing: 0;
+        color: #fff;
+        background: #2db642 0 0 no-repeat padding-box;
+        background-image: url(/public/images/icon2/wmsg.png);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: contain;
+
+        &:hover {
+            opacity: 1;
+            -webkit-animation: showMessage 1s linear;
+            animation: showMessage 1s linear;
+            width: 265px;
+            height: 50px;
+        }
+    }
+}
+
+.socials {
+    height: 50px;
+    width: 90%;
+    position: relative;
+    margin: 10px 20px 400px;
+
+    a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .fa {
+        font-size: 25px;
+    }
+
+    .fa-text {
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: inset 0 5px 13px 2px rgba(0, 0, 0, 0.20);
+    }
+
+    .left-side-menu-item__label, .left-side-menu-item__label_Whatsapp {
+        font-family: "Lato",sans-serif !important;
+        font-style: normal !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        line-height: 19px !important;
+        color: #239c71;
+    }
+
+    .left-side-menu-item__label_Whatsapp {
+        line-height: 50px !important;
+    }
+}
+
+.mobile-main {
+    .social-icon {
+        justify-content: center;
+    }
+}
+
+.footer-icon {
+    .social-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .copy {
+        font-size: 14px;
+    }
+
+    i, img {
+        transition: all 0.5s ease;
+        transform: scale(1);
+
+        &:hover {
+            transform: scale(1.3);
+        }
+    }
+
+    .fa {
+        font-size: 18px;
+    }
+
+    .fa-facebook {
+        color: #0095ff;
+
+        &:hover {
+            color: #00a8ff;
+        }
+    }
+
+    .fa-whatsapp {
+        color: #629718;
+
+        &:hover {
+            color: #2fba20;
+        }
+    }
+
+    .fa-twitter {
+        color: #00bbff;
+
+        &:hover {
+            color: #00f3ff;
+        }
+    }
+
+    .fa-instagram {
+        color: #ff7a91;
+
+        &:hover {
+            color: #fb9dae;
+        }
+    }
+
+    .fa-telegram {
+        color: #35baff;
+
+        &:hover {
+            color: #83ebff;
+        }
+    }
+}
+
+.signUpNew_whattsUp {
+    margin: 24px 0;
+
+    .signUpNew_whattsUp_title {
+        margin: 0 10%;
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        color: $dialog-fr;
+        line-height: 23px;
+    }
+
+    .signUpNew_icons {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        color: $dialog-fr;
+        margin-top: 20px;
+        font-size: 11px;
+
+        img {
+            height: 16%;
+            width: 16%;
+            margin-right: 6px;
+            margin-left: 6px;
+        }
+    }
+
+    .signUpNew_whattsUp_button {
+        display: flex;
+        width: 295px;
+        height: 54px;
+        background: $login-btn-bg;
+        border-radius: 10px;
+        margin: 27px auto 0;
+        align-items: center;
+        cursor: pointer;
+
+        .fa-whatsapp, .fa-telegram {
+            font-size: 32px;
+            position: relative;
+            margin-left: 15px;
+            color: $login-btn-fr;
+        }
+    }
+
+    .signUpNew_whattsUp_button-number {
+        font-weight: 600;
+        font-size: 16px;
+        color: $login-btn-fr;
+        margin-left: 15%;
+    }
+}
+
+.signUpNew-separator {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    //margin-top: 13px;
+    margin-bottom: 13px;
+
+    .signUpNew-separator-leftLine, .signUpNew-separator-rightLine {
+        height: 1px;
+        width: 45%;
+        -webkit-transform: rotate(.35deg);
+        transform: rotate(.35deg);
+    }
+
+    .signUpNew-separator-rightLine {
+        background: linear-gradient(45deg,transparent,$login-btn-bg);
+    }
+
+    .signUpNew-separator-or {
+        font-weight: 500;
+        font-size: 18px;
+        color: $login-btn-bg;
+        text-align: center;
+    }
+
+    .signUpNew-separator-leftLine {
+        background: linear-gradient(45deg,$login-btn-bg,transparent);
+    }
+}
+
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+
+    li {
+        margin: 0 0.25rem;
+    }
+
+    button {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        padding: 0;
+        border: none;
+        border-radius: 100%;
+        background-color: orange;
+        text-indent: -9999px;
+    }
+
+    li.slick-active button {
+        background-color: red;
+    }
+}
+
+.parent-status {
+    box-shadow: inset 0px 0px 5px 2px rgba(188, 188, 188, 0.47);
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.after-login-splash {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    //animation: color 9s infinite linear;
+    /* @keyframes color {
+        0% {
+            background: #33CCCC;
+        }
+
+        20% {
+            background: #33CC36;
+        }
+
+        40% {
+            background: #B8CC33;
+        }
+
+        60% {
+            background: #FCCA00;
+        }
+
+        80% {
+            background: #33CC36;
+        }
+
+        100% {
+            background: #33CCCC;
+        }
+    }*/
+
+    img {
+        width: 80%;
+    }
+}

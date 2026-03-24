@@ -1,0 +1,225 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.bm-maker{
+    @include resize($float-left, $width);
+    padding-top:10px;
+    .bm_title{margin-top:10px;}
+    .runner-part{
+        .position_match{margin-top:5px;}
+        .market-detail{
+            font-size:12px;
+        }
+        .runner-right{
+            height:385px;
+            .run_matched{
+                @include resize($float-left, $width);
+                .run-class{
+                    @include resize($float-left, $width); margin-bottom:2px; @include padding(5px, 0px, 5px, 0px);
+                }
+            }
+            .match_run{
+                @include resize($float-left, 87%); margin-left:5px !important;
+                .bet_price{@include resize(right, 60%); margin-left:10px;}
+                .bet-time{float:$float-right;}
+            }
+            .matched{
+                .match_run{width:$width; margin-left:5px !important}
+                .bet_price{
+                    @include resize(right, 65%); margin-left:10px;
+                    span{margin-right:5px;}
+                }
+                .bet-time{float:$float-right;}
+                .run-class{
+                    .match_run{width:93%;}
+                }
+            }
+            .matched_right{
+                .bet_price{
+                    span{float:$float-left; width:50px !important;}
+                }
+                .bet-time{float:$float-right;}
+            }
+            .bet_price{
+                span{float:$float-left; width:45px !important;}
+                .bet_stake{text-align:right;}
+            }
+        }
+    }
+
+    .feed-market{
+        .input-container .input-group{width:calc(25% - 10px); margin-right:5px;}
+    }
+    .full-bookmaker{
+       // .input-container .input-group{width:calc(25% - 10px); }
+    }
+
+    .playing-cards{
+        position:relative;
+        .clock{
+            right:5px;
+        }
+    }
+
+    .runner{
+        .market-detail{
+            height:auto;
+            .add-pin-square {
+                float: $float-left;
+                @include padding(5px, 8px, 5px, 8px);
+                margin-right:5px;
+            }
+            .black-back{ 
+                background-color:$purple;
+                color:$white-color;
+                margin-top:0px;
+                @include padding(10px, 10px, 10px, 10px);
+                @include line-height(20px);
+                font-size: 14px;
+                .refresh{@include padding(0px, 11px, 6px, 8px); margin-left:2px; color:$white-color}
+            }
+        }
+        table{
+            .reset_btn{color:$white-color;}
+        }
+        .runner-right{
+            .black-back{ 
+                @include headline($white-color, 14px); @include resize($float-left, $width); 
+                @include padding(5px, 5px, 5px, 5px); background-color:$purple;
+            }
+            .position_match{
+                @include border-all(1px, solid, $gray);
+                margin-top:10px;
+                float:$float-left;
+                .position {
+                    @include border(bottom, 1px, solid, $gray);
+                    @include padding(5px, 3px, 5px, 3px);     text-align:$center;
+                    @include resize($float-left, $width); 
+                    span{@include resize($float-left, 47%); font-size:12px;}
+                }
+            }
+        }
+    }
+    .full-bookmaker{
+        .input-group .span-check{
+            input{height:auto !important; margin-right:5px;}
+        }
+        .feed-market{@include padding(5px, 0px, 0px, 0px);}
+        .table-score{
+            font-size:12px;
+            tr{
+                .lay2, .lay3, .lay-2, .lay-3, .lay-1, .lay1, .back2, .back3, .backy-2, .back-3, .back-1, .back1 
+                {min-width:74px;}
+            }
+        }
+        .market-details{ 
+             margin-top:10px; background-color:$white-color;
+            .market-detail{ background-color:transparent; margin-bottom:0px;  padding-bottom:0px; border-bottom:none;
+                .black-back{ margin-bottom:0px;
+                    span{width:auto;}
+                }
+                .refresh{padding-top:0px;}
+            }
+            .back-btn, .lay-btn {
+                background-color: $back1;
+                float: $float-left;
+                @include padding(2px, 6px, 4px, 6px);
+                text-align: $center;
+                @include border-radius(4px);
+                @include headline($dark-gray-black, 11px);
+                margin:0 0 0 2px !important;
+            }
+             .lay-btn {
+                background-color: $lay1;
+                @include padding(2px, 9px, 3px, 9px);
+            }
+             .match_run {
+                @include resize(right, 77%);
+                margin-left: 5px;
+
+                span {
+                    @include border-radius(4px);
+                    @include padding(0px, 0px, 0px, 0px);
+                    margin: 0;
+                    font-weight: 600;
+                    @include headline($black-color, 11px);
+                    @include display(inline-block);
+                }
+
+                .bet_price {
+                    float: $float-right;
+                    width:60%;
+                    span {
+                        float:$float-left; @include padding(0px, 8px, 0px, 8px);
+                    }
+                    .bet-time{float:$float-right; font-size:11px}
+                }
+             }
+             .matched_right{
+                 .match_run{
+                     .bet_price{
+                         span{
+                             @include padding(0px, 0px, 0px, 0px); width:25% !important;
+                         }
+                     }
+                 } 
+             }
+
+             .market-bet{
+                 .match_run{
+                     .bet_price{width:70%;}
+                 }
+             }
+        }
+        .fixed-odd-container{ height:auto; @include padding(3px, 5px, 10px, 8px);}
+        .run_matched{ 
+            margin-bottom:10px; @include resize($float-left, $width);
+            .match-div{
+                @include padding(5px, 5px, 5px, 5px); font-size:12px;
+                @include resize($float-left, $width);
+                @include border(bottom, 1px, solid, $gray);
+            }
+            .bet_price span{width:52px !important}
+        }
+
+        .bm-livegame{
+            .input-container{
+                margin-bottom:10px; float:left; width:100%;
+                form{
+                    .input-group{
+                        margin-bottom:10px; padding-right:15px;
+                    }
+                }
+            }
+        }
+    }
+
+    .table-score{
+        margin-top:10px;
+        tbody{
+            background-color:transparent;
+            tr{
+                .match-title{background-color:$white-color;}
+                td,th.match-title{
+                    @include border-all(1px, solid, $border-color);
+                    border-bottom:none;
+                }
+
+            }
+        }
+    }
+
+    .left-section{
+        @include padding(0px, 10px, 0px, 15px);
+    }
+    .center-section{
+        @include padding(0px, 15px, 0px, 0px);
+    }
+
+    .my-account{
+        .left-section{width:200px;}
+        .center-section{width:65% !important;}
+    }
+}

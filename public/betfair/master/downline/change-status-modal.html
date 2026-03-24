@@ -1,0 +1,39 @@
+﻿<div class="status-popup">
+    <div class="pop-detail">
+        <div class="status_id" ng-init="usertype=ctrl.getUserTypeShort(user.userType)">
+            <span class="usertype-lable {{usertype}}">{{usertype}}</span><span>{{user.name}}</span>
+            <p ng-class="{'active-btn':user.status==2,'locked-btn':user.status==3,'suspend-btn':user.status==4}">
+                <i class="fa fa-circle" aria-hidden="true"></i>
+                {{ctrl.getUserStatus(user.status)}}
+            </p>
+        </div>
+        <div class="space-btn">
+            <ul class="status_but">
+                <li>
+                    <a class="but_active " ng-class="{'disable':user.selectedStatus==2}" ng-click="user.selectedStatus=2">
+                        <img src="/public/images/transparent.gif" />
+                        {{::'user.status.active.label' | translate}}
+                    </a>
+                </li>
+                <li>
+                    <a class="but_suspend" ng-class="{'disable':user.selectedStatus==4}" ng-click="user.selectedStatus=4">
+                        <img src="/public/images/transparent.gif" />
+                        {{::'user.status.suspend.label' | translate}}
+                    </a>
+                </li>
+                <li>
+                    <a class="but_locked" ng-class="{'disable':user.selectedStatus==3}" ng-click="user.selectedStatus=3">
+                        <img src="/public/images/transparent.gif" />
+                        {{::'user.status.locked.label' | translate}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn_box">
+            <p>
+                <label>{{::'user.password.label' | translate}}</label>
+                <input type="password" autocomplete="new-password" ng-model="$parent.$parent.password" />
+            </p>
+        </div>
+    </div>
+</div>

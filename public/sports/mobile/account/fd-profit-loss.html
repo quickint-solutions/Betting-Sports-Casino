@@ -1,0 +1,90 @@
+﻿<div class="main-account-statement-block other-page-section d-flex">
+    <div class="main-section-vh">
+        <div class="card">
+            <div class="card-header"><h3>CASINO PROFIT/LOSS</h3></div>
+            <div class="card-header" style="border-radius: 0px;">
+                <div class="filter-type-block">
+                    <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                        <div class="d-flex mr-2">
+                            <div class="calender-auto mx-datepicker ">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.fromdate"
+                                           is-open="fopened"
+                                           placeholder="{{'fromdate.placeholder' | translate}}"
+                                           ng-click="fopened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" />
+                                    <i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="to-block">TO</div>
+                            <div class="calender-auto mx-datepicker">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.todate"
+                                           is-open="topened"
+                                           placeholder="{{'todate.placeholder' | translate}}"
+                                           ng-click="topened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.refreshGrid();">
+                            <i class="material-icons">search</i>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <kt-grid grid-id="kt-historybets-grid"
+                         load-items="ctrl.getProfitLoss(params)"
+                         name-param="id"
+                         name-value-property="id"
+                         show-total="true"
+                         cache-key="kthistorybetsgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                           template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                        <tbody ng-repeat="item in $data track by $index">
+                            <tr class="no-tr-hover">
+                                <td>
+
+                                    <div class="d-flex flex-column">
+                                        <div class="col-12">
+                                            <label>Game Name : &nbsp;</label>
+                                            <span>{{item.tableName}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Round Id : &nbsp;</label>
+                                            <span>{{item.roundId}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Provider : &nbsp;</label>
+                                            <span>{{$parent.$parent.$parent.ctrl.getTableProvider(item.provider)}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>{{'settledtime.label' | translate}} : &nbsp;</label>
+                                            <span>{{item.createdOn | date:'yy-MM-dd HH:mm:ss'}}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>{{'profitloss.label' | translate}} : &nbsp;</label>
+                                            <span ng-class="{'text-success':item.win>=0,'text-danger':item.win<0}">{{item.win  | toRate}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'sports/template/footer.html'"></div>
+</div>

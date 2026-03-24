@@ -1,0 +1,79 @@
+﻿<div class="sports-leftmenu">
+    <nav>
+        <ul class="sport-type" ng-if="!ctrl.$stateParams.nodetype">
+            <li>
+                <a ui-sref="base.home.multimarket">
+                    <i class="icon-star-empty" style="color:#e4c41e; font-size:20px;position: relative;top: -1.5px;" aria-hidden="true"></i>
+                    <span class="top-menu">{{'favourites.label' | translate}}</span>
+                </a>
+            </li>
+            <li class="sportmenu-li" ng-if="hasCasino">
+                <a ui-sref="base.livegames">
+                    <i class="i-sport left-icon icon-sport-teen-patti"></i>
+                    <span class="blink-color">{{'fd.casino.label' | translate}}</span>
+                </a>
+            </li>
+            <li class="sportmenu-li" ng-if="currentWebApp=='jack247'">
+                <a ng-click="ctrl.openCasino('6256b52c645bb5c7fcb51309')">
+                    <i class="i-sport left-icon icon-aviator"></i>
+                    <span class="blink-color " style="top:5px;">Aviator</span>
+                </a>
+            </li>
+            <li class="sportmenu-li" ng-repeat="sport in sportTreeList">
+                <a ng-click="ctrl.treeClick(sport.sportNodeType,sport.id,sport.name)">
+                    <i class="i-sport left-icon icon-sport-{{sport.name|joinme}}"></i>
+                    <span ng-class="{'blink-color':sport.isLiveGame}">{{sport.name}}</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="sport-right-menu" ng-if="ctrl.$stateParams.nodetype">
+            <li>
+                <a ui-sref="base.home.multimarket"><i class="icon-star-empty" style="color:#e4c41e; font-size:16px; margin-right:5px;" aria-hidden="true"></i><span class="right-span" style="font-weight:bold">{{'favourites.label' | translate}}</span></a>
+            </li>
+            <li><a ui-sref="base.home" style="line-height:16px;"><i class="icon-home" style="margin-right: 5.7px; position:relative; top:-1px" aria-hidden="true"></i><span class="right-span">{{'sports.label' | translate}}</span></a></li>
+            <li ng-repeat="b in breadcrumb track by $index" ng-if="breadcrumb" class="sportmenu-li">
+                <a class="menu-link {{breadcrumb[0].name | joinme }}" ng-click="ctrl.breadcrumbClick(b);" ng-if="b.nodetype==1">
+                    <i class="i-sport icon-sport-{{b.name|joinme}}" aria-hidden="true"></i><span>{{b.name}}</span>
+                </a>
+                <!--<a class="prev-menu-link" ng-click="ctrl.breadcrumbClick(b);" ng-if="b.nodetype>1"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>{{b.name}}</a>-->
+
+
+            </li>
+            <li ng-if="breadcrumb" class="sportmenu-li">
+                <a class="prev-menu-link {{breadcrumb[0].name | joinme }}-link" ui-sref="base.home" ng-if="breadcrumb.length==1">
+                    <i class="i-sport icon-chevron-sign-left" style="font-size:16px" aria-hidden="true"></i><span>Previous</span>
+                </a>
+                <a class="prev-menu-link {{breadcrumb[0].name | joinme }}-link" ng-click="ctrl.breadcrumbClick(breadcrumb[breadcrumb.length-2]);"
+                   ng-if="breadcrumb.length>1">
+                    <i class="i-sport icon-chevron-sign-left" style="font-size:16px" aria-hidden="true"></i><span>Previous</span>
+                </a>
+            </li>
+            <li ng-repeat="sport in sportTreeList" ng-if="!isRacing && ctrl.$stateParams.eventTypeId != liveGamesId && ctrl.$stateParams.eventTypeId != virtualGamesId">
+                <a class="sport-type-inner sport-type-{{breadcrumb[0].name | joinme }}" ng-if="sport.sportNodeType != 4" ng-click="ctrl.treeClick(sport.sportNodeType,sport.id,sport.name)">
+                    <span class="link-name">{{sport.name}}</span><i class="fa fa-angle-right fa-right-arrow" aria-hidden="true"></i>
+                </a>
+                <a class="sport-type-inner sport-type-{{breadcrumb[0].name | joinme }}" ng-if="sport.sportNodeType == 4" ng-click="ctrl.treeClick(2,ctrl.$stateParams.id,sport.name,sport.id)">
+                    <span class="link-name">{{sport.name}}</span><i class="fa fa-angle-right fa-right-arrow" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li ng-repeat="sport in sportTreeList" ng-if="ctrl.$stateParams.eventTypeId == liveGamesId">
+                <a class="sport-type-inner sport-type-{{breadcrumb[0].name | joinme }}" ui-sref="base.home.sport.livegamesmarket({nodetype:1,id:ctrl.$stateParams.id,eventid:sport.id})">
+                    <span class="link-name">{{sport.name}}</span><i class="fa fa-angle-right fa-right-arrow" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li ng-repeat="sport in sportTreeList" ng-if="ctrl.$stateParams.eventTypeId == virtualGamesId">
+                <a class="sport-type-inner sport-type-{{breadcrumb[0].name | joinme }}" ui-sref="base.home.sport.virtualgamesmarket({nodetype:1,id:ctrl.$stateParams.id,eventid:sport.id})">
+                    <span class="link-name">{{sport.name}}</span><i class="fa fa-angle-right fa-right-arrow" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li ng-repeat="sport in sportTreeList" ng-show="isRacing">
+                <a class="sport-type-inner sport-type-{{breadcrumb[0].name | joinme }}"
+                   ng-click="ctrl.selectedHorse=$index;ctrl.treeClick(1,ctrl.$stateParams.id,'',sport.id)"
+                   ng-class="{'prev-menu-link':ctrl.selectedHorse==$index,'active':sport.id==ctrl.$state.params.marketid}">
+                    <span class="link-name"><kt-date data-date-value="sport.startTime" data-format="HH:mm"></kt-date>&nbsp;{{sport.event.raceName}}</span><i class="fa fa-angle-right fa-right-arrow" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,256 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-8 col-xs-8">
+                <div class="event-heading">B2C Activity</div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing list-table statement-table">
+        <div class="bet-manager">
+            <ul class="tab">
+                <li><a class="tabing-title align-l" ng-class="{'active':selectedTab==0}" ng-click="selectedTab=0;">Deposit Requests</a></li>
+
+                <li><a class="tabing-title align-l" ng-class="{'active':selectedTab==1}" ng-click="selectedTab=1;">Withdrawal Requests</a></li>
+              
+            </ul>
+            <div class="bet-list-table" ng-if="selectedTab==0">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group" style="float:left;margin-right:15px;">
+                            <div id="picker-market-report-d" class="ktdatepicker"
+                                 kt-date-range-picker
+                                 data-from-date="depositSearch.fromdate"
+                                 data-to-date="depositSearch.todate"
+                                 data-on-selection="ctrl.refreshData()"
+                                 data-format="DD MMM YYYY HH:mm:ss">
+                                {{depositSearch.fromdate | date:'dd MMM yyyy'}} - {{depositSearch.todate | date:'dd MMM yyyy'}}
+                                <i class="icon-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input_text">
+                            <ui-select ng-model="depositSearch.status" theme="bootstrap" tabindex="2" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="Status: All">Status: {{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="mt in fairxpayinList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="mt.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input_text ">
+                            <ui-select ng-model="depositSearch.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                                       close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="Username/Mobile">
+                                    {{$select.selected.username}} - {{$select.selected.mobile ? $select.selected.mobile : $select.selected.userCode}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                                   class="ui-select-choices"
+                                                   refresh="$parent.ctrl.searchUser($select.search)">
+                                    <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                    &nbsp;-&nbsp;
+                                    <span class="align-l" ng-show="u.mobile" ng-bind-html="u.mobile | highlight: $select.search"></span>
+                                    <span class="align-l" ng-show="u.userCode && !u.mobile" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                                    <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="float-r">
+                            <a class="btn btn-secondary" ng-click="ctrl.showDeposit();">
+                                Search Deposit
+                            </a>
+                            <a class="btn btn-danger" ng-click="ctrl.resetCriteria();">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-bets">
+                   
+                    
+                    <kt-grid grid-id="kt-deposit-grid"
+                             load-items="ctrl.getPayins(params)"
+                             name-param="id"
+                             name-value-property="id"
+                             show-total="false"
+                             cache-key="ktdepositgrid">
+
+                        <table ng-table="tableParams" class="table table-hover clickable master_table"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <tbody>
+                                <tr ng-repeat="item in $data track by item.id">
+                                    <td data-title="::'Name' | translate" data-header-class="'size-md'" class="size-md">
+                                        <a class="link-a" target="_blank" ui-sref="master.lotusmember({memberid:item.user.id,usertype:5})">
+                                            {{item.user.username}} ({{item.user.mobile}})
+                                        </a>
+                                    </td>
+
+                                    <td data-title="::'Amount' | translate" data-header-class="'size-md'" class="size-md">
+                                        {{item.amount | toRate}}
+                                    </td>
+                                    <td data-title="::'Bonus' | translate" data-header-class="'size-sm'" class="size-sm">
+                                        {{item.bonusAmount | toRate}}
+                                    </td>
+                                    <td data-title="::'UTR' | translate" data-header-class="'size-lg '" class="size-lg">
+                                        <span title="{{item.utrNo}}">{{item.utrNo }} </span>
+                                        <i ng-click="$parent.$parent.$parent.$parent.ctrl.getReceiptImage(item)"
+                                           class="fa fa-image" ng-if="item.imageId">
+                                        </i>
+                                    </td>
+                                    <td data-title="::'A/C' | translate" data-header-class="'size-lg '" class="size-lg ">
+                                        <div ng-if="item.acNo">A/C No. : {{item.acNo }} </div>
+                                        <div ng-if="item.bankName">Bank : {{item.bankName }} </div>
+                                    </td>
+                                    <td data-title="::'Status' | translate" data-header-class="'size-sm boolean'"
+                                        class="size-sm boolean"
+                                        tooltip-class="master-tooltip"
+                                        tooltip-placement="left"
+                                        tooltip-trigger="click outsideClick"
+                                        uib-tooltip-html="'{{item.comment}}'">
+                                        <span ng-class="{'red':item.status==1,'green':item.status==2}">
+                                            <b>{{$parent.$parent.$parent.ctrl.getPayInStatus(item.status) }}</b>
+                                        </span>
+                                        <a class="link-a" ng-show="item.comment"><i class="fa fa-info-circle"></i></a>
+                                    </td>
+
+                                    <td data-title="::'Created' | translate"
+                                        data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                        <span title="{{item.createdOn  | date:'dd-MMM HH:mm'}}">
+                                            <kt-date data-date-value="item.createdOn" data-format="dd-MMM HH:mm"></kt-date>
+                                        </span>
+                                    </td>
+                                    <td data-title="::'Updated' | translate"
+                                        data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                        <span title="{{item.updatedOn  | date:'dd-MMM HH:mm'}}">
+                                            <kt-date data-date-value="item.updatedOn" data-format="dd-MMM HH:mm"></kt-date>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+            
+            <div class="bet-list-table" ng-if="selectedTab==1">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group" style="float:left;margin-right:15px;">
+                            <div id="picker-market-report" class="ktdatepicker"
+                                 kt-date-range-picker
+                                 data-from-date="search.fromdate"
+                                 data-to-date="search.todate"
+                                 data-on-selection="ctrl.refreshData()"
+                                 data-format="DD MMM YYYY HH:mm:ss">
+                                {{search.fromdate | date:'dd MMM yyyy'}} - {{search.todate | date:'dd MMM yyyy'}}
+                                <i class="icon-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input_text">
+                            <ui-select ng-model="search.status" theme="bootstrap" tabindex="2" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="Status: All">Status: {{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="mt in fairxpayoutList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="mt.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input_text ">
+                            <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                                       close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="Username/Mobile">
+                                    {{$select.selected.username}} - {{$select.selected.mobile ? $select.selected.mobile : $select.selected.userCode}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                                   class="ui-select-choices"
+                                                   refresh="$parent.ctrl.searchUser($select.search)">
+                                    <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                    &nbsp;-&nbsp;
+                                    <span class="align-l" ng-show="u.mobile" ng-bind-html="u.mobile | highlight: $select.search"></span>
+                                    <span class="align-l" ng-show="u.userCode && !u.mobile" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                                    <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="float-r">
+                            <a class="btn btn-secondary" ng-click="ctrl.showWithdrawal();">
+                                Search Withdrawal
+                            </a>
+                            <a class="btn btn-danger" ng-click="ctrl.resetCriteria();">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-bets">
+                    <kt-grid grid-id="kt-withdrawal-grid"
+                             load-items="ctrl.getPayouts(params)"
+                             name-param="id"
+                             name-value-property="id"
+                             show-total="false"
+                             cache-key="ktwithdrawalgrid">
+
+                        <table ng-table="tableParams" class="table table-hover clickable master_table"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <tbody>
+                                <tr ng-repeat="item in $data track by item.id">
+                                    <td data-title="::'Name' | translate" data-header-class="'size-md'" class="size-md">
+                                        <a class="link-a" target="_blank" ui-sref="master.lotusmember({memberid:item.user.id,usertype:5})">
+                                            {{item.user.username}} ({{item.user.mobile}})
+                                        </a>
+                                    </td>
+
+                                    <td data-title="::'Amount' | translate" data-header-class="'size-md'" class="size-md">
+                                        {{item.amount | toRate}}
+                                    </td>
+                                  
+                                    <td data-title="::'A/C' | translate" data-header-class="'size-xl '" class="size-xl ">
+                                        <div ng-if="item.acNo">A/C No. : {{item.acNo }} <i class="fa fa-copy" ng-click="$parent.$parent.$parent.$parent.ctrl.copyText(item.acNo)"></i></div>
+                                        <div ng-if="item.ifscCode">IFSC : {{item.ifscCode }} <i class="fa fa-copy" ng-click="$parent.$parent.$parent.$parent.ctrl.copyText(item.ifscCode)"></i></div>
+                                        <div ng-if="item.bankName">Bank : {{item.bankName }} <i class="fa fa-copy" ng-click="$parent.$parent.$parent.$parent.ctrl.copyText(item.bankName)"></i></div>
+                                        <div ng-if="item.acName">Name : {{item.acName }} <i class="fa fa-copy" ng-click="$parent.$parent.$parent.$parent.ctrl.copyText(item.acName)"></i></div>
+                                    </td>
+                                    <td data-title="::'Status' | translate" data-header-class="'size-sm'" class="size-sm"
+                                        tooltip-class="master-tooltip"
+                                        tooltip-placement="left"
+                                        tooltip-trigger="click outsideClick"
+                                        uib-tooltip-html="'{{item.comment}}'">
+                                        <span ng-class="{'red':item.status<=2,'green':item.status==3}">
+                                            {{$parent.$parent.$parent.ctrl.getStatus(item.status) }}
+                                        </span>
+                                        <a class="link-a" ng-show="item.comment"><i class="fa fa-info-circle"></i></a>
+                                    </td>
+
+                                    <td data-title="::'Created' | translate"
+                                        data-header-class="'size-md boolean'" class="size-md boolean">
+                                        <span title="{{item.createdOn  | date:'yyyy-MM-dd HH:mm'}}">
+                                            <kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date>
+                                        </span>
+                                    </td>
+
+                                    <td class="boolean">
+                                        <span>
+                                            <i ng-click="$parent.$parent.$parent.$parent.ctrl.getReceiptImage(item)"
+                                               class="fa fa-image" ng-if="item.imageId">
+                                            </i>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

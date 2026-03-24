@@ -1,0 +1,42 @@
+﻿<div class="row">
+    <div class="col-sm-12" ng-init="usertype=ctrl.getUserTypeShort($parent.user.userType)">
+        <span class="usertype-lable {{usertype}}">{{usertype}}</span>
+        {{$parent.user.username}} ({{$parent.user.userCode}})
+    </div>
+    <div class="col-sm-12 mr-top-10">
+        <div class="input-group">
+            <input type="text" minlength="1" maxlength="15"
+                   placeholder="{{::'user.mobile.placeholder' | translate}}"
+                   ng-model="user.smsConfigs.mobileNo" class="form-control">
+            <span class="input-group-addon">Mobile</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <input type="checkbox" id="chk-event-isenabled"
+               ng-model="user.smsConfigs.isEnabled" class="check">
+        <label for="chk-event-isenabled">Is Telegram Enabled?</label>
+    </div>
+    <div class="col-sm-12 mr-top-24">
+        <input type="checkbox" id="chk-eventtype" ng-model="$parent.$parent.allEventTypeSelected"
+               ng-click="ctrl.eventTypeChanged(true)" class="check">
+        <label for="chk-eventtype"><u> Select All {{::'eventtypes.label' | translate}}</u></label>
+    </div>
+    <div class="col-sm-3" ng-repeat="e in eventTypes">
+        <input type="checkbox" id="chk-event-{{e.id}}"
+               ng-click="ctrl.eventTypeChanged()"
+               ng-model="e.selected" class="check">
+        <label for="chk-event-{{e.id}}">{{::e.name}}</label>
+    </div>
+
+    <div class="col-sm-12 mr-top-24">
+        <input type="checkbox" id="chk-bettingttype" ng-model="$parent.$parent.allBettingTypeSelected"
+               ng-click="ctrl.bettingTypeChanged(true)" class="check">
+        <label for="chk-bettingttype"><u> Select All Betting Types</u></label>
+    </div>
+    <div class="col-sm-6" ng-repeat="e in bettingTypes">
+        <input type="checkbox" id="chk-bt-{{e.id}}"
+               ng-click="ctrl.bettingTypeChanged()"
+               ng-model="e.selected" class="check">
+        <label for="chk-bt-{{e.id}}">{{::e.name}}</label>
+    </div>
+</div>

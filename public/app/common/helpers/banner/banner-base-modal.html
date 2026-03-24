@@ -1,0 +1,14 @@
+﻿<div class="popup-div">
+    <div class="pop_close" data-ng-click="modalOptions.close()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div>
+        <div ng-if="modalOptions.bodyUrl">
+            <div ng-include="modalOptions.bodyUrl"></div>
+        </div>
+        <p ng-if="modalOptions.body && !(modalOptions.bodyHtml || modalOptions.bodyUrl)">{{modalOptions.body | translate}}</p>
+        <div ng-if="modalOptions.bodyHtml">
+            <p ng-bind-html="modalOptions.bodyHtml"></p>
+        </div>
+    </div>
+</div>

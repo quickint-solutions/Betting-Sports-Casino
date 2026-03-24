@@ -1,0 +1,182 @@
+﻿<div class="row">
+    <div class="col-sm-4">
+        <label>Title *</label>
+        <input type="text" minlength="1" maxlength="100"
+               placeholder="Title"
+               required ng-model="offer.title" class="form-control">
+    </div>
+    <div class="col-sm-3">
+        <label>Offer Start DateTime *</label>
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown-event" role="button" data-toggle="dropdown" href="">
+                <input type="text" class="form-control" required
+                       placeholder="Start date and time"
+                       value="{{offer.startDate   | date:'dd-MM-yyyy hh:mm a Z'}}">
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="offer.startDate"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown-event' }"
+                                data-before-render="ctrl.beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <label>Offer End DateTime *</label>
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown-closetime" role="button" data-toggle="dropdown" href="">
+                <input type="text" class="form-control" required
+                       placeholder="End date and time"
+                       value="{{offer.endDate   | date:'dd-MM-yyyy hh:mm a Z'}}">
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                <datetimepicker data-ng-model="offer.endDate"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown-closetime' }"
+                                data-before-render="ctrl.beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-2 ">
+        <label>Display Order</label>
+        <input type="text" minlength="1" maxlength="100"
+               placeholder="Display order"
+               ng-model="offer.displayOrder" class="form-control">
+    </div>
+</div>
+
+<div class="row mr-top-20">
+    <div class="col-sm-4 ">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-iscode" ng-model="offer.isCodeRequired">
+            <label for="chk-iscode">Is Code Required?</label>
+        </div>
+    </div>
+    <div class="col-sm-4 ">
+        <label>Bonus Code</label>
+        <input type="text" minlength="1" maxlength="100"
+               placeholder="Bonus code"
+               ng-model="offer.bonusCode" class="form-control">
+    </div>
+    <div class="col-sm-4 ">
+        <label>Bonus Expire in Days *</label>
+        <input type="text" kt-number-only required
+               placeholder="Bonus expired in days"
+               ng-model="offer.bonusExpiredDay" class="form-control">
+    </div>
+</div>
+<div class="row mr-top-20">
+    <div class="col-sm-4 ">
+        <label>Required Turnover *</label>
+        <input type="text" required kt-number-only allow-decimal="true"
+               placeholder="Required turnover"
+               ng-model="offer.turnover" class="form-control">
+    </div>
+    <div class="col-sm-4 ">
+        <label>Withdrawal Turnover *</label>
+        <input type="text" required kt-number-only allow-decimal="true"
+               placeholder="Withdrawal turnover"
+               ng-model="offer.withdrawalTurnover" class="form-control">
+    </div>
+    <div class="col-sm-4 ">
+        <label>Split Bonus *</label>
+        <input type="text" required kt-number-only
+               placeholder="Split bonus"
+               ng-model="offer.splitBonus" class="form-control">
+    </div>
+</div>
+<div class="row mr-top-20">
+    <div class="col-sm-4 ">
+        <label>Offer On</label>
+        <select class="form-control" ng-model="offer.offerOn">
+            <option ng-repeat="s in offerOnList" value="{{s.id}}">
+                {{s.name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-sm-4 ">
+        <label>Max User</label>
+        <input type="text" kt-number-only
+               placeholder="Max Users"
+               ng-model="offer.offerUserLimit" class="form-control">
+    </div>
+    <div class="col-sm-4 ">
+        <label>Offer Budger</label>
+        <input type="text" kt-number-only allow-decimal="true"
+               placeholder="Offer budget"
+               ng-model="offer.offerBudget" class="form-control">
+    </div>
+</div>
+<div class="row mr-top-20">
+    <div class="col-sm-4 ">
+        <label>Offer Type</label>
+        <select class="form-control" ng-model="offer.offerType">
+            <option ng-repeat="s in offerTypeList" value="{{s.id}}">
+                {{s.name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-sm-4 ">
+        <label>{{ctrl.getOfferType(offer.offerType)}} Value</label>
+        <input type="text" minlength="1" maxlength="10"
+               placeholder="{{ctrl.getOfferType(offer.offerType)}} value"
+               required ng-model="offer.value" class="form-control">
+    </div>
+    <div class="col-sm-4 ">
+        <label>Minimum Deposit</label>
+        <input type="text" kt-number-only allow-decimal="true"
+               placeholder="Min. deposit"
+               ng-model="offer.minDeposit" class="form-control">
+    </div>
+</div>
+<div class="row mr-top-20">
+    <div class="col-sm-4 ">
+        <label>Maximum Deposit</label>
+        <input type="text" kt-number-only allow-decimal="true"
+               placeholder="Max. deposit"
+               ng-model="offer.maxDeposit" class="form-control">
+    </div>
+
+    <div class="col-sm-4 " ng-show="offer.offerType==3">
+        <label>Max Bonus Value Upto</label>
+        <input type="text" kt-number-only allow-decimal="true"
+               placeholder="Value upto"
+               ng-model="offer.valueUpTo" class="form-control">
+    </div>
+
+    <div class="col-sm-12 mr-top-10" ng-hide="offer.offerOn==3">
+        <h3>
+            Deposit Variation
+            <button class="btn btn-default float-r" type="button" ng-click="ctrl.addDV()"><i class="fa fa-plus"></i> Add</button>
+        </h3>
+    </div>
+    <div class="col-sm-12" ng-hide="offer.offerOn==3">
+        <div class="row mr-top-10" ng-repeat="d in dvList track by $index">
+            <div class="col-sm-3">
+                <input type="text" kt-number-only allow-decimal="true"
+                       placeholder="Min"
+                       ng-model="d.min" class="form-control">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" kt-number-only allow-decimal="true"
+                       placeholder="Max"
+                       ng-model="d.max" class="form-control">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" kt-number-only allow-decimal="true"
+                       placeholder="Percentage"
+                       ng-model="d.percentage" class="form-control">
+            </div>
+            <div class="col-sm-2 text-center">
+                <button class="btn btn-danger" type="button" ng-click="ctrl.removeDV($index)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 mr-top-10">
+        <label>Description</label>
+        <textarea type="text"
+                  placeholder="Description" multiple rows="6"
+                  ng-model="offer.description" class="form-control"></textarea>
+    </div>
+</div>

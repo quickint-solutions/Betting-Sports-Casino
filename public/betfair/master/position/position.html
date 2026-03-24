@@ -1,0 +1,186 @@
+﻿<div class="full-wrap position-special">
+    <div class="col-sm-3 col-xs-12 mb-left">
+        <div class="row">
+            <div class="left-part bookmark scrollwrap" ng-scrollbars>
+                <div ui-view="left">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9 col-xs-12 mb-right">
+        <div class="row">
+            <div class="center-part  runner-part">
+                <div ng-scrollbars class="scrollwrap">
+                    <div class="bookmark_table" ng-if="pinnedMarkets.length>0">
+                        <div class="tab-desc" ng-repeat="p in pinnedMarkets">
+                            <div class="black-back">
+                                <i class="fa fa-thumb-tack add-pin-square pinned"
+                                   ng-click="ctrl.reflectPinChanges(p.id,true);"></i>
+                                <a class="to-expand" data-toggle="collapse" ng-class="{'collapsed':!p.expanded}"
+                                   ng-click="ctrl.pinnedMarketTabClicked(p)" aria-expanded="true">
+                                    {{p.market.event.name}}
+                                    <span class="multi-event_type">{{p.market.name}} </span>
+                                    <span class="in-time" ng-if="p.market.inPlay"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                                    <i class="fa fa-arrow-circle-o-right"></i>
+                                    <span>{{'exposure.label' | translate}} <span class="negative"> {{p.market.pl | toRate }}</span></span>
+                                    <i class="fa faimg" aria-hidden="true" ng-class="{'fa-minus-square-o':p.expanded, 'fa-plus-square-o':!p.expanded}"></i>
+                                    <i class="fa faimg fa-external-link" ng-click="ctrl.openFullPositionView($event,p.market.id)"></i>
+                                </a>
+                            </div>
+                            <div class="collapse" ng-class="{'in':p.expanded}">
+                                <!--<div style="width:65%;float:left; border-right: 1px solid rgb(128, 128, 128);">-->
+                                <div class="col-sm-8 col-xs-8" style="border-right: 1px solid rgb(128, 128, 128);padding-bottom:15px">
+                                    <table class="team-score" ng-if="p.market.bettingType!=6">
+                                        <tbody ng-if="p.market.bettingType!=7 && p.market.bettingType!=2" ng-class="{'stop':p.market.temporaryStatus==3,'ball':p.market.temporaryStatus==2,'suspend':p.market.marketStatus==3,'closed':p.market.marketStatus==4}">
+                                            <tr class="bet-all">
+                                                <td class="refer-bet">
+                                                    <span>
+                                                        <input type="checkbox" id="chk-pt-{{p.market.id}}" ng-model="p.market.includePT" ng-click="ctrl.getUserPosition(p)">
+                                                        <label for="chk-pt-{{p.market.id}}">Show PT</label>
+                                                    </span>
+                                                </td>
+                                                <td class="refer-bet" colspan="2"></td>
+                                                <td class="back-all bold"><a><span>{{'market.back.label' | translate}}</span></a></td>
+                                                <td class="lay-all bold"><a><span>{{'market.lay.label' | translate}}</span></a></td>
+                                                <td class="refer-book" colspan="2"></td>
+                                            </tr>
+                                            <tr class="tr-data" style="display: table-row;" ng-repeat="r in p.market.marketRunner">
+                                                <th class="team-name">
+                                                    <p><a><i style="margin:5px;" class="fa fa-bar-chart" aria-hidden="true"></i></a>{{r.runner.name}}</p>
+                                                    <span ng-if="r.pl" ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">{{r.pl | toRate}}</span>
+                                                </th>
+                                                <td colspan="6" ng-if="r.status!=1"><span ng-if="r.status==2">{{'winner.label'|translate}}</span></td>
+                                                <td ng-if="r.status==1" class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                                                    ng-repeat="i in [3,2,1]">
+                                                    <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                                                </td>
+                                                <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                                                    ng-repeat="i in [1,2,3]">
+                                                    <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody ng-if="p.market.bettingType==7 || p.market.bettingType==2" ng-class="{'stop':p.market.temporaryStatus==3,'ball':p.market.temporaryStatus==2,'suspend':p.market.marketStatus==3,'closed':p.market.marketStatus==4}">
+                                            <tr class="bet-all">
+                                                <td class="refer-bet">
+                                                    <span ng-hide="p.market.marketStatus==4">
+                                                        <input type="checkbox" id="chk-pt-{{p.market.id}}" ng-model="p.market.includePT" ng-click="ctrl.getScorePosition(p.market.id,p.market.includePT)">
+                                                        <label for="chk-pt-{{p.market.id}}">Show PT</label>
+                                                    </span>
+                                                    <span class="blink" ng-show="p.market.marketStatus==4"><strong> {{'winner.label'|translate}} is : {{p.market.winner}}</strong></span>
+                                                </td>
+                                                <td class="refer-bet" colspan="2"></td>
+                                                <td class="lay-all bold"><a><span>{{'market.no.label' | translate}}</span></a></td>
+                                                <td class="back-all bold"><a><span>{{'market.yes.label' | translate}}</span></a></td>
+                                                <td class="refer-book" colspan="2"></td>
+                                            </tr>
+                                            <tr class="tr-data" style="display: table-row;" ng-repeat="r in p.market.marketRunner">
+                                                <th class="team-name">
+                                                    <p>{{r.runner.name}}</p>
+                                                    <span ng-if="r.pl" ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">{{r.pl | toRate}}</span>
+                                                </th>
+                                                <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[i-1].size"
+                                                    ng-repeat="i in [3,2,1]">
+                                                    <kt-glc data-item="r.layPrice[i-1]"></kt-glc>
+                                                </td>
+                                                <td ng-if="r.status==1" class="back-{{i}} " kt-animate-on-change="r.backPrice[$index].size"
+                                                    ng-repeat="i in [1,2,3]">
+                                                    <kt-glc data-item="r.backPrice[$index]"></kt-glc>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="sports_book" ng-if="p.market.bettingType==6">
+                                        <span>
+                                            <input type="checkbox" id="chk-pt-{{p.market.id}}" ng-model="p.market.includePT" ng-click="ctrl.getUserPosition(p)">
+                                            <label for="chk-pt-{{p.market.id}}">Show PT</label>
+                                        </span>
+                                        <table>
+                                            <tbody ng-class="{'stop':p.market.temporaryStatus==3,'ball':p.market.temporaryStatus==2,'suspend':p.market.marketStatus==3,'closed':p.market.marketStatus==4}">
+                                                <tr class="sports_data">
+                                                    <td class="sport_td" ng-repeat="r in p.market.marketRunner">
+                                                        <div class="runner_name">
+                                                            <p><span class="name ng-binding">{{r.runner.name}}</span></p>
+                                                            <span ng-if="r.pl" ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">{{r.pl | toRate}}</span>
+                                                        </div>
+                                                        <div class="r_score com-button" kt-animate-on-change="r.backPrice[0].price">
+                                                            <kt-glc ng-show="r.status!=2" data-item="r.backPrice[0]"></kt-glc>
+                                                            <a ng-show="r.status==2">{{'winner.label'|translate}}</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div ng-scrollbars ng-if="p.market.bettingType==7 || p.market.bettingType==2" class="tab-desc col-sm-4 col-xs-4 permission">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>{{'price.label' | translate}}</th>
+                                                <th>{{'pl.label' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="pu in p.positions">
+                                                <td>
+                                                    <span>{{pu.start}}</span>
+                                                    <span ng-hide="pu.start==pu.end || $last">{{' - '+pu.end}}</span>
+                                                    <span ng-show="$last">+</span>
+                                                </td>
+                                                <td>
+                                                    <span ng-class="{'positive':pu.pl>=0,'negative':pu.pl<0}">{{pu.pl | toRate}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div ng-if="p.market.bettingType!=7 && p.market.bettingType!=2" ng-scrollbars ng-scrollbars-config="{axis:'yx'}" class="tab-desc col-sm-4 col-xs-4 permission">
+                                    <div class="full-market-back" ng-if="p.backToUser.length>0">
+                                        <b>Back to :</b>
+                                        <a ng-repeat="b in p.backToUser" ng-click="ctrl.userPositionUp($index,p,b);">
+                                            {{b.username}}
+                                            <i class="fa fa-caret-right" aria-hidden="true" ng-if="$index != p.backToUser.length-1"></i>
+                                        </a>
+                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>{{'user.name.label' | translate}}</th>
+                                                <th ng-repeat="r in p.market.marketRunner">{{r.runner.name}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>AVG.</td>
+                                                <td ng-repeat="r in p.market.marketRunner">
+                                                    <span ng-repeat="a in r.avg track by $index" ng-class="{'red':a<0,'green':red>=0}">{{a}}<label class="theme-color" style="margin:0px 2px;" ng-hide="$last">|</label></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="pu in p.positions">
+                                                <td>
+                                                    <a ng-if="pu.userType!=5 && pu.userType!=8" ng-click="ctrl.userPositionDown(p,pu);"> {{pu.username}}</a>
+                                                    <span ng-if="pu.userType==5 || pu.userType==8">{{pu.username}}</span>
+                                                </td>
+                                                <td ng-repeat="r in p.market.marketRunner">
+                                                    <span ng-class="{'positive':pl>=0,'negative':pl<0}">{{pl=ctrl.getUserPL(r.runner.id,pu.marketRunners) | toRate}}</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Total</td>
+                                                <td ng-repeat="r in p.market.marketRunner">
+                                                    <span ng-class="{'positive':r.totalPL>=0,'negative':r.totalPL<0}">{{r.totalPL | toRate}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

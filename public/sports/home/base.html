@@ -1,0 +1,415 @@
+<section id="app" class="main-wrapper">
+    <div class="sportsexch-layout-main" ng-class="{'sidebar-open': ctrl.sidebarOpen}">
+
+        <!-- ===== HEADER ===== -->
+        <header class="main-header">
+            <div class="header-inner">
+                <!-- Left: Hamburger + Logo -->
+                <div class="header-left">
+                    <button class="btn-hamburger" ng-click="ctrl.toggleSidebar()">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a ui-sref="base.home" class="header-logo">
+                        <img ng-src="{{webImagePath}}logo.png" alt="Logo" />
+                    </a>
+                </div>
+
+                <!-- Right: Social + Search + Auth/User -->
+                <div class="header-right">
+                    <!-- Social icons (logged out) -->
+                    <div class="header-social" ng-if="!user">
+                        <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" class="social-icon whatsapp-icon">
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+                        <a ng-if="supportDetail.telegram" ng-href="{{supportDetail.telegram}}" target="_blank" class="social-icon telegram-icon">
+                            <i class="fa fa-telegram"></i>
+                        </a>
+                    </div>
+
+                    <!-- Search -->
+                    <button class="btn-icon btn-search-toggle" ng-click="ctrl.toggleSearch()">
+                        <i class="fa fa-search"></i>
+                    </button>
+
+                    <!-- Auth buttons (logged out) -->
+                    <div class="header-auth" ng-if="!user">
+                        <button class="btn btn-signin" ng-click="ctrl.openLoginModal()">Sign in</button>
+                        <button class="btn btn-signup" ng-click="ctrl.openSignupModal()">Sign Up</button>
+                    </div>
+
+                    <!-- User section (logged in) -->
+                    <div class="header-user" ng-if="user">
+                        <!-- D/W buttons -->
+                        <div class="header-dw" ng-if="isB2C">
+                            <a ui-sref="base.account.transferonline" class="dw-btn deposit-btn">D</a>
+                            <a ui-sref="base.account.transferonline" class="dw-btn withdrawal-btn">W</a>
+                        </div>
+
+                        <!-- Balance dropdown -->
+                        <div class="dropdown">
+                            <a href="javascript:void(0)" id="dropdownMenuBalance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="balance-dropdown">
+                                <span class="balance-amount">
+                                    <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                                </span>
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                            <ul role="menu" aria-labelledby="dropdownMenuBalance" class="dropdown-menu dropdown-menu-right wallet-dropdown-menu">
+                                <li class="wallet-dropdown-header">
+                                    <h4>Balance</h4>
+                                </li>
+                                <li class="wallet-dropdown-divider"></li>
+                                <li class="wallet-dropdown-item" ng-show="balanceInfo.creditLimit!=0">
+                                    <span>Credit Limit</span>
+                                    <span><kt-glc-code data-special="false" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                                </li>
+                                <li class="wallet-dropdown-item">
+                                    <span>Balance</span>
+                                    <span ng-class="{'text-danger': balanceInfo.balance < 0}">
+                                        <kt-glc-code data-special="false" data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                    </span>
+                                </li>
+                                <li class="wallet-dropdown-item" ng-show="balanceInfo.bonus!=0">
+                                    <span>Bonus</span>
+                                    <span><kt-glc-code data-special="false" data-item="{{balanceInfo.bonus}}"></kt-glc-code></span>
+                                </li>
+                                <li class="wallet-dropdown-item" ng-show="balanceInfo.bonusToRedeem!=0">
+                                    <span>Bonus To Redeem</span>
+                                    <span><kt-glc-code data-special="false" data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code></span>
+                                </li>
+                                <li class="wallet-dropdown-item exposure-item">
+                                    <span>Exposure</span>
+                                    <span ng-class="{'text-danger': balanceInfo.exposure < 0}">
+                                        <kt-glc-code data-special="false" data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Profile dropdown -->
+                        <div class="dropdown">
+                            <button class="btn-icon btn-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img ng-src="{{webImagePath}}icons/profile.png" alt="profile" width="25px" />
+                            </button>
+                            <ul role="menu" class="dropdown-menu dropdown-menu-right profile-dropdown-menu">
+                                <li><a ui-sref="base.account.profile"><span class="material-icons">account_circle</span> <span>My Profile</span></a></li>
+                                <li><a ui-sref="base.account.statement"><span class="material-icons">payments</span> <span>Account Statement</span></a></li>
+                                <li><a ui-sref="base.account.bets.current"><span class="material-icons">payments</span> <span>My Bets</span></a></li>
+                                <li><a ui-sref="base.account.bets.profitloss"><span class="material-icons">legend_toggle</span> <span>Profit Loss</span></a></li>
+                                <li ng-show="hasCasino"><a ui-sref="base.account.bets.fdprofitloss"><span class="material-icons">legend_toggle</span> <span>Casino Profit Loss</span></a></li>
+                                <li ng-show="isB2C"><a ui-sref="base.account.bonusstatement"><span class="material-icons">payments</span> <span>Bonus Statement</span></a></li>
+                                <li ng-show="hasReferral"><a ui-sref="base.account.referralstatement"><span class="material-icons">payments</span> <span>Referral Statement</span></a></li>
+                                <li><a ng-click="ctrl.openStakeConfigModal()"><span class="material-icons">memory</span> <span>Chips Setting</span></a></li>
+                                <li><a ng-click="ctrl.changePassword()"><span class="material-icons">published_with_changes</span> <span>Change Password</span></a></li>
+                                <li class="dropdown-divider-line"></li>
+                                <li><a ng-click="ctrl.logout()" class="logout-link"><span class="material-icons">logout</span> <span>Logout</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== SEARCH OVERLAY ===== -->
+        <div class="search-overlay" ng-show="ctrl.searchOpen">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search events..." ng-model="searchEvent" ng-change="ctrl.searchEvents(searchEvent)" autofocus />
+                <button class="btn-icon btn-close-search" ng-click="ctrl.toggleSearch()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results" ng-if="eventList.length > 0">
+                <a ng-repeat="event in eventList" ng-click="ctrl.goToEvent(event)" class="search-result-item">
+                    {{event.name}}
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== SIDEBAR OVERLAY ===== -->
+        <div class="sidebar-overlay" ng-class="{'active': ctrl.sidebarOpen}" ng-click="ctrl.toggleSidebar()"></div>
+
+        <!-- ===== LEFT SIDEBAR ===== -->
+        <div class="leftbarSec" ng-class="{'open': ctrl.sidebarOpen}">
+            <ul class="sidebar-menu">
+                <!-- Support (Accordion) -->
+                <li class="sidebar-item has-submenu" ng-if="supportDetail">
+                    <a class="sidebar-link accordion-trigger" ng-click="ctrl.toggleSubmenu('support')" ng-class="{'expanded': ctrl.activeSubmenu === 'support'}">
+                        <span class="sidebar-icon"><i class="fa fa-whatsapp"></i></span>
+                        <span class="sidebar-text">Support</span>
+                        <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'support'}"></i>
+                    </a>
+                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'support'">
+                        <li ng-if="supportDetail.whatsapp">
+                            <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
+                                <span class="sidebar-icon"><i class="fa fa-whatsapp"></i></span> <span>Whatsapp</span>
+                            </a>
+                        </li>
+                        <li ng-if="supportDetail.telegram">
+                            <a ng-href="{{supportDetail.telegram}}" target="_blank">
+                                <span class="sidebar-icon"><i class="fa fa-telegram"></i></span> <span>Telegram</span>
+                            </a>
+                        </li>
+                        <li ng-if="supportDetail.instagram">
+                            <a ng-href="{{supportDetail.instagram}}" target="_blank">
+                                <span class="sidebar-icon"><i class="fa fa-instagram"></i></span> <span>Instagram</span>
+                            </a>
+                        </li>
+                        <li ng-if="supportDetail.facebook">
+                            <a ng-href="{{supportDetail.facebook}}" target="_blank">
+                                <span class="sidebar-icon"><i class="fa fa-facebook"></i></span> <span>Facebook</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Sports (Accordion) -->
+                <li class="sidebar-item has-submenu">
+                    <a class="sidebar-link accordion-trigger" ng-click="ctrl.toggleSubmenu('sports')" ng-class="{'expanded': ctrl.activeSubmenu === 'sports'}">
+                        <span class="sidebar-icon"><i class="fa fa-futbol-o"></i></span>
+                        <span class="sidebar-text">Sports</span>
+                        <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'sports'}"></i>
+                    </a>
+                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'sports'">
+                        <li>
+                            <a ui-sref="base.home.inplay" ng-click="ctrl.closeSidebar()">
+                                <span class="sidebar-icon"><i class="fa fa-play-circle"></i></span> <span>In-play</span>
+                            </a>
+                        </li>
+                        <li ng-repeat="e in eventTypes | filter:{showInMenu:true}">
+                            <a ng-click="ctrl.menuClick(e.id, e.name); ctrl.closeSidebar();">
+                                <span class="sidebar-icon"><i class="fa fa-circle-o"></i></span> <span>{{e.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Casino Game Links -->
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ui-sref="base.indiancasino" ng-click="ctrl.closeSidebar()">
+                        <span class="sidebar-icon"><i class="fa fa-diamond"></i></span>
+                        <span class="sidebar-text">Indian Casino</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ui-sref="base.casino" ng-click="ctrl.closeSidebar()">
+                        <span class="sidebar-icon"><i class="fa fa-television"></i></span>
+                        <span class="sidebar-text">Live Casino</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ui-sref="base.slotcasino" ng-click="ctrl.closeSidebar()">
+                        <span class="sidebar-icon"><i class="fa fa-th"></i></span>
+                        <span class="sidebar-text">Slots</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('kingmaker'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-chess-king"></i></span>
+                        <span class="sidebar-text">Kingmaker</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('supernowa'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-star"></i></span>
+                        <span class="sidebar-text">Supernowa</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('aviator'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-plane"></i></span>
+                        <span class="sidebar-text">Aviator</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('evolution'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-gamepad"></i></span>
+                        <span class="sidebar-text">Evolution</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('ezugi'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-play"></i></span>
+                        <span class="sidebar-text">Ezugi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('xpg'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-cube"></i></span>
+                        <span class="sidebar-text">XPG</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('vivo'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-video-camera"></i></span>
+                        <span class="sidebar-text">Vivo</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('qtech'); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-cogs"></i></span>
+                        <span class="sidebar-text">Qtech</span>
+                    </a>
+                </li>
+
+                <!-- Promotion & Bonus -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" ng-click="ctrl.openPromotions(); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-tag"></i></span>
+                        <span class="sidebar-text">Promotion</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" ng-click="ctrl.openBonus(); ctrl.closeSidebar();">
+                        <span class="sidebar-icon"><i class="fa fa-gift"></i></span>
+                        <span class="sidebar-text">Bonus</span>
+                    </a>
+                </li>
+
+                <!-- Terms (Accordion) - mobile only -->
+                <li class="sidebar-item has-submenu d-lg-none">
+                    <a class="sidebar-link accordion-trigger" ng-click="ctrl.toggleSubmenu('terms')" ng-class="{'expanded': ctrl.activeSubmenu === 'terms'}">
+                        <span class="sidebar-icon"><i class="fa fa-file-text-o"></i></span>
+                        <span class="sidebar-text">Terms</span>
+                        <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'terms'}"></i>
+                    </a>
+                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'terms'">
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-envelope"></i></span> <span>Contact Us</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-shield"></i></span> <span>Privacy Policy</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-heart"></i></span> <span>Responsible Gaming</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-balance-scale"></i></span> <span>Fairplay</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-book"></i></span> <span>Games Rules</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-legal"></i></span> <span>Terms and Conditions</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== PERMANENT ICON SIDEBAR (Desktop) ===== -->
+        <div class="icon-sidebar d-none d-md-block">
+            <ul>
+                <li ng-if="supportDetail.whatsapp">
+                    <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" title="WhatsApp">
+                        <i class="fa fa-whatsapp" style="color:#25D366;font-size:22px;"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="base.home.inplay" title="In-Play">
+                        <img ng-src="{{webImagePath}}icons/live.png" alt="In-Play" />
+                    </a>
+                </li>
+                <li ng-repeat="e in eventTypes | filter:{showInMenu:true} | limitTo:3">
+                    <a ng-click="ctrl.menuClick(e.id, e.name)" title="{{e.name}}">
+                        <img ng-src="{{webImagePath}}icons/{{e.name|joinme}}.png" alt="{{e.name}}" />
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ui-sref="base.indiancasino" title="Indian Casino">
+                        <img ng-src="{{webImagePath}}icons/indian-casino.png" alt="Indian Casino" />
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ui-sref="base.casino" title="Live Casino">
+                        <img ng-src="{{webImagePath}}icons/live-casino.png" alt="Live Casino" />
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ui-sref="base.slotcasino" title="Slots">
+                        <i class="fa fa-th" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('kingmaker')" title="Kingmaker">
+                        <i class="fa fa-chess-king" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('supernowa')" title="Supernowa">
+                        <i class="fa fa-star" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('aviator')" title="Aviator">
+                        <i class="fa fa-plane" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('evolution')" title="Evolution">
+                        <i class="fa fa-gamepad" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('ezugi')" title="Ezugi">
+                        <i class="fa fa-play" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('xpg')" title="XPG">
+                        <i class="fa fa-cube" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('vivo')" title="Vivo">
+                        <i class="fa fa-video-camera" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoGame('qtech')" title="Qtech">
+                        <i class="fa fa-cogs" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="ctrl.openPromotions()" title="Promotion">
+                        <i class="fa fa-tag" style="font-size:20px;"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="ctrl.openBonus()" title="Bonus">
+                        <i class="fa fa-gift" style="font-size:20px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== NEWS FEED ===== -->
+        <div class="news-feed d-none d-md-block" ng-if="announcement">
+            <marquee class="marque-text">{{announcement}}</marquee>
+        </div>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div id="sitewrapper" class="main-container-block">
+            <div id="main-column" class="column" ui-view="main">
+            </div>
+        </div>
+
+        <!-- ===== BOTTOM MOBILE NAV ===== -->
+        <div class="mobile-bottom-navigation d-block d-md-none">
+            <ul>
+                <li class="item">
+                    <a ng-click="ctrl.toggleSidebar()" ng-class="{'router-link-active': ctrl.sidebarOpen}">
+                        <i class="fa fa-bars"></i> <span>Menu</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a ui-sref="base.home" ui-sref-active="router-link-active">
+                        <i class="fa fa-search"></i> <span>Explore</span>
+                    </a>
+                </li>
+                <li class="item" ng-if="hasCasino">
+                    <a ui-sref="base.indiancasino" ui-sref-active="router-link-active" class="casino-highlight">
+                        <i class="fa fa-diamond"></i> <span>Casino</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a ui-sref="base.home.inplay" ui-sref-active="router-link-active">
+                        <i class="fa fa-play-circle"></i> <span>Inplay</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
+                        <i class="fa fa-whatsapp"></i> <span>Support</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>

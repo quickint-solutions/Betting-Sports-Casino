@@ -1,0 +1,80 @@
+﻿<div class="row ">
+
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Search User</span>
+            <ui-select ng-model="item.selectedUser" tabindex="1" theme="bootstrap"
+                       close-on-select="true">
+                <ui-select-match class="ui-select-match" placeholder="Username/Mobile">
+                    {{$select.selected.username}} - {{$select.selected.mobile ? $select.selected.mobile : $select.selected.userCode}}
+                </ui-select-match>
+                <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                   class="ui-select-choices"
+                                   refresh="$parent.ctrl.searchUser($select.search)">
+                    <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                    &nbsp;-&nbsp;
+                    <span class="align-l" ng-show="u.mobile" ng-bind-html="u.mobile | highlight: $select.search"></span>
+                    <span class="align-l" ng-show="u.userCode && !u.mobile" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                    <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <div class="col-sm-4 ">
+        <div class="input-group">
+            <span class="input-group-addon">BFIC</span>
+            <input class="form-control" type="text" maxlength="20"
+                   ng-model="item.bfic"
+                   placeholder="BFIC" />
+        </div>
+    </div>
+    <div class="col-sm-4 ">
+        <div class="input-group">
+            <span class="input-group-addon">Rate</span>
+            <input class="form-control" type="text" maxlength="20"
+                   ng-model="item.rate"
+                   placeholder="Rate" />
+        </div>
+    </div>
+    <div class="col-sm-4 ">
+        <div class="input-group">
+            <span class="input-group-addon">Amount</span>
+            <input class="form-control" type="text" maxlength="20"
+                   ng-model="item.amount"
+                   placeholder="Amount" />
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Transaction Hash</span>
+            <input class="form-control" type="text" maxlength="500"
+                   ng-model="item.transactionHash"
+                   placeholder="Transaction Hash" />
+        </div>
+    </div>
+
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Token Address</span>
+            <input class="form-control" type="text" maxlength="500"
+                   ng-model="item.tokenAddress"
+                   placeholder="Token Address" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Wallet Address</span>
+            <input class="form-control" type="text" maxlength="500"
+                   ng-model="item.walletAddress"
+                   placeholder="Wallet Address" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Password</span>
+            <input class="form-control" type="password" maxlength="100" required autocomplete="new-password"
+                   ng-model="item.password"
+                   placeholder="Password" />
+        </div>
+    </div>
+</div>

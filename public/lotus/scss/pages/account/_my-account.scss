@@ -1,0 +1,436 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.table-bets, .list-view {
+    @include resize($float-left, $width);
+
+    .dropdown {
+        .btn {
+            float: $float-right;
+            width: auto;
+            background-color: $button;
+            color: $white-color;
+            border: 1px solid $button !important;
+            border-bottom: 2px solid $button-border !important;
+            border-right: 2px solid $button-border !important;
+            margin-bottom: 10px;
+
+            &:hover {
+                background-color: $button-hover;
+                color: $white-color !important;
+                box-shadow: 1.5px 1.5px 0px 0px $button-shadow !important;
+            }
+        }
+
+        .dropdown-menu {
+            right: 0px;
+            left: initial;
+            top: 35px;
+        }
+    }
+
+    table {
+        tbody {
+            border: none;
+
+            .betid a.pl-avrg, .betid a.ml-avrg {
+                background-image: none;
+            }
+
+            .betid a.pl-avrg:before {
+                //  background-image:url('/public/images/report.png');
+                //  background-repeat:$back-norepeat;
+                //  background-position:-16px -113px;
+                padding-left: 0px;
+                content: '\f196';
+                font-family: FontAwesome;
+                width: 10px;
+                height: 10px;
+                @include display(block);
+                @include position(absolute);
+                top: 6px;
+                left: 4px;
+            }
+
+            .betid a.ml-avrg:after {
+                padding-left: 0px;
+                content: '\f147';
+                font-family: FontAwesome;
+                width: 10px;
+                height: 10px;
+                @include display(block);
+                @include position(absolute);
+                top: 6px;
+                left: 4px;
+            }
+
+            .td-match {
+                max-width: 305px !important;
+            }
+
+            tr {
+
+                td {
+                    @include position(relative);
+
+                    label {
+                        margin-bottom: 0px;
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            &.info-text tr {
+                .td-date {
+                    line-height: 30px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                td {
+                    label {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.gt-lbl {
+    width: 100%;
+
+    small {
+        padding: 3px 3px 0px;
+        cursor: pointer;
+        text-align: right;
+        font-weight: normal;
+    }
+}
+
+.payment-img {
+    width: 50px;
+    display: block;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    background-size: 50px 18px;
+    height: 18px;
+    margin: auto;
+    //margin-top: 6px;
+
+    &.fairxpay {
+        background-image: url(/public/images/icons/fairxpay.png);
+    }
+
+    &.arropay {
+        background-image: url(/public/images/icons/arropay.png);
+    }
+
+    &.paytm {
+        background-image: url(/public/images/icons/paytm.png);
+    }
+
+    &.skrill {
+        background-image: url(/public/images/icons/skrill.png);
+    }
+
+    &.neteller {
+        background-image: url(/public/images/icons/neteller.png);
+        width: 65px;
+        background-size: 65px 18px;
+    }
+
+    &.tether {
+        background-image: url(/public/images/icons/tether.png);
+        width: 60px;
+        background-size: 100% 100%;
+    }
+
+    &.bank {
+        background-image: url(/public/images/icons/bank-transfer.png);
+        width: 65px;
+        background-size: 65px 22px;
+        height: 22px;
+        margin-top: 3px;
+    }
+
+    &.onramp {
+        background-image: url(/public/images/icons/bfic.png);
+        width: 100px;
+        background-size: 100%;
+        height: 28px;
+        margin: -4px 7px;
+    }
+}
+
+.my-account {
+    .center-section {
+        padding-right: 0px !important;
+        width: 85% !important;
+        padding-left: 11.5px;
+        padding-bottom: 20px;
+
+        .event-heading {
+            @include padding(10px, 0px, 9.5px, 0px);
+            margin-bottom: 2.5px;
+        }
+
+        .list-view .list-view-table {
+            .pager {
+                padding-right: 10px;
+
+                li {
+                    display: inline-block;
+                    margin: 0 2px; //width:20px;
+                    a {
+                        color: $black-color;
+                        padding: 2px 7px 0 6px;
+                        position: relative;
+                        top: 1px;
+                    }
+
+                    .pager-arrow {
+                        display: contents
+                    }
+                }
+            }
+        }
+
+        table.table {
+            thead {
+                tr {
+                    background-color: $table-headingbg;
+                    color: $black-color !important;
+                    /*th {
+                     padding-left:20px !important;
+                    }*/
+                }
+            }
+        }
+
+        .input-list {
+            @include resize($float-left, $width);
+
+            li a {
+                width: auto;
+            }
+        }
+    }
+
+    .heading {
+        font-size: 13px;
+        margin: 0px;
+        color: $white-color;
+        @include padding(6px, 10px, 6px, 10px);
+    }
+    /* Filter panel  */
+    .filter-panel {
+        @include padding(10px, 12px, 10px, 12px);
+        background-color: $light-white;
+        margin-bottom: 15px;
+        @include resize($float-left, $width);
+
+        .input-list {
+            @include resize($float-left, $width);
+            border-radius: 0px !important;
+
+            .bet_name {
+                @include resize($float-left, $width);
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+
+            li {
+                @include resize($float-left, auto);
+
+                select {
+                    height: 34px;
+                    width: 95% !important;
+                    font-size: 13px;
+                    background-color: $white-color;
+                    // @include border-radius(3px);
+                    @include padding(6px, 6px, 6px, 6px);
+                    @include border-all(1px, solid, $heading);
+                }
+
+                .input-group {
+                    margin-right: 10px;
+
+                    ul {
+                        li {
+                            width: auto;
+                        }
+                    }
+                    /*input {
+                        border-radius: 3px !important;
+                        @include border-all(1px, solid, $heading);
+
+                        &:hover {
+                            box-shadow: 1.5px 1.5px 0px 0px $heading !important;
+                        }
+                    }*/
+                }
+
+                .bet_select {
+                    @include resize($float-left, 52%);
+                }
+
+                .get_btn {
+                    @include resize(right, 12%);
+
+                    .bets {
+                        //background-color:$getbtn;
+                        @include border-radius(5px);
+                        //color:$bets-color;
+                    }
+                }
+            }
+
+            .list-statement {
+                margin-top: 15px;
+
+                li {
+                    width: auto;
+                    margin-right: 15px;
+
+                    a {
+                        @include txt(bold);
+                        text-align: $center;
+                        @include padding(5px, 12px, 5px, 12px);
+                        //@include headline($btn-font, 11px);
+                        //@include border-all(1px, solid, $medium-gray-black);
+                        @include border-radius(5px);
+                        //background-color:$list-statement-btn;
+                    }
+                }
+            }
+        }
+    }
+    /*  Login-History  */
+    .login-history {
+        table {
+            tbody {
+                tr {
+                    &:nth-child(odd) {
+                        background-color: #f9f9f9 !important
+                    }
+
+                    td {
+                        @include line-height(30px);
+                        padding: 1px 8px;
+                    }
+                }
+            }
+
+            .btn-remove {
+                @include border-radius(3px);
+                font-size: 12px;
+                padding: 5px 15px !important;
+            }
+        }
+    }
+}
+
+.admin-header .header-menu ul li {
+    .h-submenu {
+        display: none;
+        position: absolute;
+        top: 30px;
+        z-index: 3;
+        background-color: $light-purple;
+        width: 200px;
+
+        li {
+            @include border(bottom, 1px, solid, $border-color);
+            float: $float-left !important;
+            width: $width;
+
+            a {
+                @include headline( $dark-gray-black, $font-size-tab);
+                text-align: $float-left;
+                @include line-height(18px);
+                float: $float-left !important;
+                width: $width;
+                color: $white-color !important;
+                padding: 5px 10px !important;
+
+                &:hover {
+                    background-color: $purple;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        .h-submenu {
+            display: block;
+        }
+    }
+}
+
+.promotion-info {
+    .p-base {
+        background-color: #ffffff;
+        padding: 15px;
+        margin-top: 15px;
+        display: flex;
+        min-height: 500px;
+        border-radius: 5px;
+        flex-direction: column;
+
+        .p-rules {
+            padding: 5px;
+        }
+
+        ul {
+            list-style-type: disc;
+            list-style-position: inside;
+
+            li {
+                display: list-item;
+            }
+        }
+
+        .accordion {
+            width: 100%;
+            float: left;
+
+            .fa-plus {
+                display: none;
+            }
+
+            .collapsed {
+                .fa-minus {
+                    display: none;
+                }
+
+                .fa-plus {
+                    display: inline-block;
+                }
+            }
+
+            .card {
+                background-color: #fff;
+                background-clip: border-box;
+                border: 1px solid rgba(0,0,0,.125);
+                border-radius: 0.25rem;
+            }
+
+            .card-header {
+                background-color: rgba(0,0,0,.03);
+                border-bottom: 1px solid rgba(0,0,0,.125);
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+            .card-body {
+                padding: 5px 10px;
+
+                p {
+                    margin: 15px 0px;
+                }
+            }
+        }
+    }
+}

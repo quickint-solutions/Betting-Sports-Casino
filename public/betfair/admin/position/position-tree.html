@@ -1,0 +1,49 @@
+﻿<div class="sidebar-tab">
+    <div class="vertical-tab">
+        <div class="path">
+            <ul>
+                <li style="width:100%" class="path-last">
+                    <a ui-sref="admin.position">Sport</a>
+                    <a style="float:right" ng-click="ctrl.loadTreeData()"><i class="fa fa-refresh"></i></a>
+                </li>
+            </ul>
+        </div>
+        <nav class="inner-nav">
+            <div ng-scrollbars class="sidenav">
+                <ul class="left-menulist" ng-if="breadcrumb" style="float:left; width:100%;">
+                    <li ng-repeat="b in breadcrumb track by $index">
+                        <a ng-click="ctrl.breadcrumbClick(b);">
+                            {{b.name}}
+                            <span class="exposure-border" ng-if="b.date"><i class="fa fa-clock-o"></i> {{b.date}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li ng-repeat="sport in sportTreeList | orderBy : 'pl'">
+                        <a class="active" uib-tooltip="{{sport.name}}" ng-if="sport.sportNodeType != 5" 
+                           ng-click="ctrl.treeClick(sport)">
+                            {{sport.name |  shortme:35}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                            <span class="exposure-border">
+                                {{'exposure.short.label' | translate}}
+                                <span class="negative">{{sport.pl | number:0}}</span>
+                            </span>
+                            <br />
+                            <span ng-if="sport.sportNodeType == 4"><i class="fa fa-clock-o"></i> {{sport.openDate | date:'dd-MM-yyyy hh:mm a'}}</span>
+                        </a>
+
+                        <a class="active" uib-tooltip="{{sport.name}}" ng-if="sport.sportNodeType == 5"
+                           ng-click="ctrl.pinMe(sport)" ng-init="sport.pin=ctrl.isMarketPinned(sport.id)">
+                            {{sport.name |  shortme:35}}
+                            <i class="fa fa-thumb-tack add-pin" ng-class="{'pinned':sport.pin}"></i>
+                            <span class="exposure-border">
+                                <span class="negative">{{sport.pl | number:0}}</span>
+                                <i class="fa faimg fa-external-link" ng-click="ctrl.openFullPositionView($event,sport.id)"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

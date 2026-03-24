@@ -1,0 +1,1202 @@
+// =============================================================
+// FoxBetX-style Header, Sidebar & Bottom Nav
+// Sports Theme Implementation
+// =============================================================
+
+// --- Variables ---
+$header-height: 60px;
+$header-height-mobile: 52px;
+$sidebar-width: 240px;
+$sidebar-bg: #292d2e;
+$sidebar-item-bg: #323738;
+$sidebar-item-hover: #041823;
+$sidebar-item-height: 42px;
+$sidebar-item-radius: 8px;
+$sidebar-font-size: 14px;
+$sidebar-icon-size: 24px;
+$sidebar-transition: 0.3s ease;
+
+$header-gradient: linear-gradient(360deg, #242424, #161640 35%);
+$header-border-gradient: linear-gradient(90deg, transparent, #4a3f8a 50%, transparent);
+
+$footer-nav-bg: #323738;
+$footer-nav-height: 52px;
+
+$btn-signin-border: #e8e8e8;
+$btn-signup-bg: #4a3fdc;
+
+// =========================
+// HEADER
+// =========================
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: $header-gradient;
+    height: $header-height;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+    border-image: $header-border-gradient;
+    border-image-slice: 1;
+
+    .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        padding: 0 12px;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .header-logo img {
+        height: 40px;
+        max-width: 140px;
+        object-fit: contain;
+    }
+}
+
+// Hamburger button
+.btn-hamburger {
+    background: #3a4142;
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background $sidebar-transition;
+
+    &:hover {
+        background: #4a5152;
+    }
+}
+
+// Generic icon button
+.btn-icon {
+    background: #3a4142;
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background $sidebar-transition;
+
+    &:hover {
+        background: #4a5152;
+    }
+}
+
+// Social icons
+.header-social {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .social-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+        text-decoration: none;
+        transition: opacity $sidebar-transition;
+
+        &:hover {
+            opacity: 0.85;
+            color: #fff;
+        }
+
+        &.whatsapp-icon {
+            background: #25d366;
+        }
+
+        &.telegram-icon {
+            background: #0088cc;
+        }
+    }
+}
+
+// Auth buttons
+.header-auth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-header .btn-signin {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #3433c9;
+    border-radius: 7px;
+    padding: 6px 30px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out,
+                background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+    white-space: nowrap;
+    line-height: 18px;
+    height: 40px;
+    box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51);
+    user-select: none;
+
+    &:hover {
+        background: linear-gradient(90deg, #090921, #3433c9);
+        border-color: #4a49e0;
+        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
+                    0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+        color: #fff;
+    }
+}
+
+.main-header .btn-signup {
+    background: linear-gradient(90deg, #090921, #3433c9);
+    color: #fff;
+    border: 1px solid #3433c9;
+    border-radius: 7px;
+    padding: 6px 30px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out,
+                background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+    white-space: nowrap;
+    line-height: 18px;
+    height: 40px;
+    box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+    user-select: none;
+
+    &:hover {
+        background: linear-gradient(90deg, #0e0e30, #4a49e0);
+        border-color: #4a49e0;
+        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
+                    0 -2px 0 0 rgba(74, 73, 224, 0.55) inset;
+        color: #fff;
+    }
+}
+
+// User section (logged in)
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+// D/W buttons
+.header-dw {
+    display: flex;
+    gap: 4px;
+
+    .dw-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        transition: all $sidebar-transition;
+
+        &.deposit-btn {
+            background: rgba(22, 156, 89, 0.35);
+
+            &:hover {
+                background: rgba(22, 156, 89, 0.55);
+                color: #fff;
+            }
+        }
+
+        &.withdrawal-btn {
+            background: rgba(0, 143, 255, 0.35);
+
+            &:hover {
+                background: rgba(0, 143, 255, 0.55);
+                color: #fff;
+            }
+        }
+    }
+}
+
+// Balance dropdown
+.balance-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #3a4142;
+    border-radius: 7px;
+    padding: 6px 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background $sidebar-transition;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        background: #4a5152;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .fa-plus-circle {
+        font-size: 12px;
+        opacity: 0.7;
+    }
+}
+
+// Wallet dropdown
+.wallet-dropdown-menu {
+    background: $sidebar-bg;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    .wallet-dropdown-header {
+        padding: 8px 16px;
+        text-align: center;
+
+        h4 {
+            color: #fff;
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+
+    .wallet-dropdown-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin: 4px 0;
+    }
+
+    .wallet-dropdown-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 16px;
+        color: #ccc;
+        font-size: 13px;
+
+        &.exposure-item {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    }
+}
+
+// Profile dropdown
+.btn-profile {
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+        border-radius: 50%;
+    }
+}
+
+.profile-dropdown-menu {
+    background: $sidebar-bg;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 6px 0;
+    min-width: 220px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    li {
+        a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all $sidebar-transition;
+            cursor: pointer;
+
+            .material-icons {
+                font-size: 18px;
+                opacity: 0.7;
+                width: 20px;
+                text-align: center;
+            }
+
+            &:hover {
+                background: $sidebar-item-hover;
+                color: #fff;
+            }
+        }
+    }
+
+    .dropdown-divider-line {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin: 4px 0;
+    }
+
+    .logout-link {
+        color: #fc4242 !important;
+
+        &:hover {
+            color: #ff6b6b !important;
+        }
+    }
+}
+
+// =========================
+// SEARCH OVERLAY
+// =========================
+.search-overlay {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.92);
+    padding: 12px;
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        max-width: 600px;
+        margin: 0 auto;
+        gap: 8px;
+    }
+
+    .search-input {
+        flex: 1;
+        background: #3a4142;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        padding: 10px 16px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        &:focus {
+            border-color: $btn-signup-bg;
+        }
+    }
+
+    .btn-close-search {
+        flex-shrink: 0;
+    }
+
+    .search-results {
+        max-width: 600px;
+        margin: 8px auto 0;
+        max-height: 300px;
+        overflow-y: auto;
+
+        .search-result-item {
+            display: block;
+            padding: 10px 16px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+
+            &:hover {
+                background: $sidebar-item-hover;
+                color: #fff;
+            }
+        }
+    }
+}
+
+// =========================
+// SIDEBAR OVERLAY
+// =========================
+.sidebar-overlay {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $sidebar-transition;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// =========================
+// LEFT SIDEBAR
+// =========================
+.leftbarSec {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: $sidebar-width;
+    height: calc(100vh - #{$header-height});
+    background: $sidebar-bg;
+    z-index: 999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateX(-#{$sidebar-width});
+    transition: transform $sidebar-transition;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    // On desktop, hamburger sidebar opens from left edge (icon sidebar hides)
+    @media (min-width: 768px) {
+        left: 0;
+        z-index: 1001;
+    }
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+    }
+}
+
+// Sidebar menu
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    margin-bottom: 5px;
+    border-radius: $sidebar-item-radius;
+    overflow: hidden;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    height: $sidebar-item-height;
+    padding: 0 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: $sidebar-font-size;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(90deg, #090921, #3433c9);
+    border: 1px solid #3433c9;
+    border-radius: 7px;
+    box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out,
+                background-color 0.15s ease-in-out,
+                border-color 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+    gap: 10px;
+    white-space: nowrap;
+    user-select: none;
+    line-height: 18px;
+
+    &:hover {
+        background: linear-gradient(90deg, #0e0e30, #4a49e0);
+        border-color: #4a49e0;
+        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
+                    0 -2px 0 0 rgba(74, 73, 224, 0.55) inset;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    &.expanded {
+        background: linear-gradient(90deg, #0e0e30, #4a49e0);
+        border-color: #4a49e0;
+        border-radius: 7px 7px 0 0;
+    }
+}
+
+.sidebar-icon {
+    width: $sidebar-icon-size;
+    height: $sidebar-icon-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i {
+        font-size: 16px;
+    }
+}
+
+.sidebar-text {
+    flex: 1;
+}
+
+// Accordion trigger arrow
+.accordion-trigger .submenu-arrow {
+    font-size: 11px;
+    opacity: 0.6;
+    transition: transform $sidebar-transition;
+
+    &.rotated {
+        transform: rotate(180deg);
+    }
+}
+
+// Submenu
+.submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(9, 9, 33, 0.6);
+    border: 1px solid #3433c9;
+    border-top: none;
+    border-radius: 0 0 7px 7px;
+
+    li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px 8px 20px;
+        color: #ccc;
+        text-decoration: none;
+        font-size: 13px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        transition: color 0.15s ease-in-out,
+                    background-color 0.15s ease-in-out;
+        cursor: pointer;
+
+        .sidebar-icon {
+            width: 20px;
+            height: 20px;
+
+            i {
+                font-size: 14px;
+            }
+        }
+
+        &:hover {
+            background: linear-gradient(90deg, #090921, #3433c9);
+            color: #fff;
+        }
+    }
+}
+
+// =========================
+// BOTTOM MOBILE NAV
+// =========================
+.mobile-bottom-navigation {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: $footer-nav-height;
+    background: $footer-nav-bg;
+    z-index: 99999;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item {
+        flex: 1;
+
+        a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            color: #999;
+            text-decoration: none;
+            font-size: 10px;
+            padding: 4px 0;
+            transition: color $sidebar-transition;
+            cursor: pointer;
+
+            i {
+                font-size: 18px;
+            }
+
+            &:hover,
+            &.router-link-active {
+                color: #fff;
+            }
+
+            &.casino-highlight i {
+                color: $btn-signup-bg;
+            }
+        }
+    }
+}
+
+// =========================
+// RESPONSIVE
+// =========================
+
+// Desktop: hide bottom nav, no bottom padding
+@media (min-width: 768px) {
+    .mobile-bottom-navigation {
+        display: none !important;
+    }
+
+    .main-container-block {
+        padding-bottom: 0;
+    }
+}
+
+// Mobile: add bottom padding for footer nav
+@media (max-width: 767px) {
+    .main-container-block {
+        padding-bottom: $footer-nav-height + 5px;
+    }
+
+    .main-header {
+        height: $header-height-mobile;
+
+        .header-logo img {
+            height: 32px;
+            max-width: 110px;
+        }
+
+        .btn-signin {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn-signup {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .header-social .social-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+        }
+    }
+
+    .btn-hamburger,
+    .btn-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .leftbarSec {
+        top: $header-height-mobile;
+        height: calc(100vh - #{$header-height-mobile});
+    }
+
+    .sidebar-overlay {
+        top: $header-height-mobile;
+    }
+
+    .search-overlay {
+        top: $header-height-mobile;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        .header-left {
+            gap: 6px;
+        }
+
+        .header-right {
+            gap: 4px;
+        }
+
+        .header-logo img {
+            height: 28px;
+            max-width: 90px;
+        }
+
+        .btn-signin {
+            padding: 4px 8px;
+            font-size: 11px;
+            border-width: 1.5px;
+        }
+
+        .btn-signup {
+            padding: 5px 10px;
+            font-size: 11px;
+        }
+
+        .header-social .social-icon {
+            width: 26px;
+            height: 26px;
+            font-size: 13px;
+        }
+    }
+
+    .btn-hamburger,
+    .btn-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+// =========================
+// d-lg-none utility for sidebar terms section
+// =========================
+.d-lg-none {
+    @media (min-width: 992px) {
+        display: none !important;
+    }
+}
+
+// =========================
+// PERMANENT ICON SIDEBAR (Desktop)
+// =========================
+$icon-sidebar-width: 62px;
+
+.icon-sidebar {
+    position: fixed;
+    left: 0;
+    top: $header-height;
+    bottom: 0;
+    width: $icon-sidebar-width;
+    background: $sidebar-bg;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    scrollbar-width: none;
+    transition: transform $sidebar-transition;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    li {
+        width: 100%;
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: $sidebar-item-bg;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.15s ease;
+            cursor: pointer;
+
+            &:hover {
+                background: $sidebar-item-hover;
+                transform: scale(1.06);
+                color: #fff;
+            }
+
+            img {
+                width: 28px;
+                height: 28px;
+                object-fit: contain;
+                border-radius: 4px;
+            }
+
+            i {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+// When hamburger sidebar is open, hide the icon sidebar
+.sidebar-open .icon-sidebar {
+    @media (min-width: 768px) {
+        transform: translateX(-$icon-sidebar-width);
+    }
+}
+
+// Shift main content, news feed to make room for icon sidebar on desktop
+@media (min-width: 768px) {
+    .main-container-block {
+        margin-left: $icon-sidebar-width;
+        max-width: none;
+        min-width: 0;
+        width: calc(100% - #{$icon-sidebar-width});
+    }
+
+    // Remove old 56px top margin from column (was for old topbar)
+    .main-container-block .column {
+        margin-top: 0;
+        height: auto;
+    }
+
+    // Hide duplicate inner news feed (base.html already shows it)
+    .news-feed-block {
+        display: none !important;
+    }
+
+    .news-feed {
+        margin-left: $icon-sidebar-width;
+    }
+}
+
+// =========================
+// UNIFIED BUTTON STYLES (match Sign Up / Login style)
+// =========================
+// Export button on account pages
+.btn-secondary.dropdown-toggle,
+.btn-new.dropdown-toggle {
+    background: linear-gradient(90deg, #090921, #3433c9) !important;
+    border: 1px solid #3433c9 !important;
+    border-radius: 7px !important;
+    color: #fff !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 18px;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover,
+    &:focus {
+        background: linear-gradient(90deg, #090921, #4a49e0) !important;
+        border-color: #4a49e0 !important;
+        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65);
+    }
+}
+
+// Modal buttons (Chips Setting, Change Password, etc.)
+.modal-dialog {
+    .btn-primary,
+    .btn-success,
+    .btn-warning,
+    .loginButton,
+    button[type="submit"] {
+        background: linear-gradient(90deg, #090921, #3433c9) !important;
+        border: 1px solid #3433c9 !important;
+        border-radius: 7px !important;
+        color: #fff !important;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 8px 24px;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background: linear-gradient(90deg, #090921, #4a49e0) !important;
+            border-color: #4a49e0 !important;
+            box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65);
+        }
+    }
+
+    // Cancel / secondary modal buttons match Sign In style
+    .btn-secondary,
+    .btn-default,
+    .btn-outline-secondary {
+        background: transparent !important;
+        border: 2px solid #e8e8e8 !important;
+        border-radius: 7px !important;
+        color: #fff !important;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 7px 24px;
+
+        &:hover,
+        &:focus {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-color: #fff !important;
+        }
+    }
+}
+
+// Search button on account pages
+.search-btn {
+    background: linear-gradient(90deg, #090921, #3433c9) !important;
+    border: 1px solid #3433c9 !important;
+    border-radius: 7px !important;
+    color: #fff !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 18px;
+
+    &:hover,
+    &:focus {
+        background: linear-gradient(90deg, #090921, #4a49e0) !important;
+        border-color: #4a49e0 !important;
+        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65);
+    }
+}
+
+// =========================
+// DARK THEME ALERTS / EMPTY MESSAGES
+// =========================
+.alert.alert-info,
+.alert.alert-info.empty-msg,
+.alert-info {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    padding: 24px 20px !important;
+    margin: 16px auto !important;
+    max-width: 90%;
+    display: block;
+}
+
+.alert.alert-warning {
+    background: transparent !important;
+    color: rgba(255, 200, 60, 0.8) !important;
+    border: 1px solid rgba(255, 200, 60, 0.2) !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.alert.alert-danger {
+    background: transparent !important;
+    color: rgba(255, 100, 100, 0.8) !important;
+    border: 1px solid rgba(255, 100, 100, 0.2) !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.alert.alert-success {
+    background: transparent !important;
+    color: rgba(100, 255, 150, 0.8) !important;
+    border: 1px solid rgba(100, 255, 150, 0.2) !important;
+    border-radius: 8px;
+    text-align: center;
+}
+
+// =========================
+// MODAL STYLING (Chips Setting, Change Password - match Login design)
+// =========================
+.modal {
+    // Center modal vertically on screen
+    &.show,
+    &.fade,
+    &.in {
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .modal-dialog {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-width: 480px;
+        width: 90%;
+        margin: 0 !important;
+        z-index: 1051;
+    }
+
+    // Dark backdrop
+    &.show .modal-dialog,
+    &.fade .modal-dialog,
+    &.in .modal-dialog {
+        .modal-content {
+            background: #1a1d2e !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, #090921, #1a1540) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            padding: 16px 24px !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .modal-title,
+            h4,
+            h5,
+            span {
+                color: #fff !important;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                margin: 0;
+            }
+
+            .close,
+            button[aria-label="Close"] {
+                color: #fff !important;
+                opacity: 0.7;
+                text-shadow: none;
+                font-size: 22px;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .modal-body {
+            background: #1a1d2e !important;
+            padding: 24px !important;
+
+            label {
+                color: rgba(255, 255, 255, 0.7) !important;
+                font-family: 'Poppins', sans-serif;
+                font-size: 13px;
+                font-weight: 500;
+                margin-bottom: 6px;
+            }
+
+            input,
+            input[type="text"],
+            input[type="password"],
+            input[type="number"] {
+                background: rgba(255, 255, 255, 0.05) !important;
+                border: 1px solid rgba(255, 255, 255, 0.15) !important;
+                border-radius: 8px !important;
+                color: #fff !important;
+                padding: 10px 14px !important;
+                height: 44px !important;
+                font-size: 14px;
+                margin-bottom: 12px;
+                transition: border-color 0.2s ease;
+
+                &:focus {
+                    border-color: #4a3fdc !important;
+                    box-shadow: 0 0 0 2px rgba(74, 63, 220, 0.2) !important;
+                    background: rgba(255, 255, 255, 0.08) !important;
+                }
+
+                &::placeholder {
+                    color: rgba(255, 255, 255, 0.35) !important;
+                }
+            }
+        }
+
+        .modal-footer {
+            background: #1a1d2e !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+            padding: 16px 24px !important;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+    }
+}
+
+// Modal backdrop darken
+.modal-backdrop.show,
+.modal-backdrop.fade,
+.modal-backdrop.in {
+    background: rgba(0, 0, 0, 0.7) !important;
+    opacity: 1 !important;
+}
+
+// =========================
+// REMOVE DOUBLE SCROLLBARS
+// =========================
+.sportsexch-layout-main {
+    overflow: hidden;
+    height: 100vh;
+
+    .main-container-block {
+        overflow: hidden;
+    }
+
+    // Single scroll on the column content only
+    .main-container-block .column {
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+    }
+
+    // Account pages inner scroll - let column handle scroll instead
+    .other-page-section {
+        height: auto !important;
+        overflow: visible !important;
+    }
+}
+
+// Prevent body double scroll when modal is open
+body.modal-open {
+    overflow: hidden !important;
+    padding-right: 0 !important;
+}

@@ -1,0 +1,265 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <label> {{::'events.label'|translate}} : &nbsp;</label>
+            <span>{{market.eventName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+            <input type="text" minlength="1" maxlength="100" tabindex="1"
+                   placeholder="{{::'market.name.placeholder' | translate}}"
+                   required autofocus ng-model="market.name" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <select class="form-control" ng-model="market.bettingType" tabindex="2">
+                <option ng-repeat="s in bettingTypeList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">betting type</span>
+        </div>
+        <div class="row" ng-if="market.priceLadderType==3">
+            <div class="col-sm-6 ">
+                <div>
+                    <input type="text" minlength="1" maxlength="10" tabindex="4"
+                           placeholder="{{::'market.min.placeholder' | translate}}" kt-number-only allow-decimal="true"
+                           required ng-model="market.minUnitValue" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div>
+                    <input type="text" minlength="1" maxlength="10" tabindex="5"
+                           placeholder="{{::'market.max.placeholder' | translate}}" kt-number-only allow-decimal="true"
+                           required ng-model="market.maxUnitValue" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <select class="form-control" ng-model="market.priceLadderType" tabindex="3">
+                <option ng-repeat="s in ladderTypeList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">ladder type</span>
+        </div>
+        <div class="input-group" ng-if="market.priceLadderType==3">
+            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+            <input type="text" minlength="1" maxlength="10" tabindex="6"
+                   placeholder="{{::'market.interval.placeholder' | translate}}" kt-number-only allow-decimal="true"
+                   required ng-model="market.interval" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <textarea type="text" maxlength="2000" tabindex="7"
+                      placeholder="{{::'market.clarification.placeholder' | translate}}" multiple rows="3"
+                      ng-model="market.clarification" class="form-control"></textarea>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="8"
+                   kt-number-only
+                   placeholder="{{::'market.maxbet.placeholder' | translate}}"
+                   required ng-model="market.maxBet" class="form-control">
+            <span class="input-group-addon">max bet</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="9"
+                   kt-number-only
+                   placeholder="{{::'market.maxliability.placeholder' | translate}}"
+                   required ng-model="market.maxLiability" class="form-control">
+            <span class="input-group-addon">loss limit</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="10"
+                   kt-number-only
+                   placeholder="{{::'market.maxprofit.placeholder' | translate}}"
+                   required ng-model="market.maxProfit" class="form-control">
+            <span class="input-group-addon">max profit</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <select class="form-control" ng-model="market.group" tabindex="11">
+                <option ng-repeat="s in marketGroupList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">group</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <select class="form-control" ng-model="market.marketRuleId" tabindex="12">
+                <option ng-repeat="s in marketRulesList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <select class="form-control" ng-model="market.marketType" tabindex="13">
+                <option ng-repeat="s in marketTypeList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">market type</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="14"
+                   kt-number-only
+                   placeholder="{{::'market.displayorder.placeholder' | translate}}"
+                   required ng-model="market.displayOrder" class="form-control">
+            <span class="input-group-addon">display order</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <select class="form-control" ng-model="market.gameType" tabindex="15">
+                <option ng-repeat="s in gameTypeList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">game type</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="18"
+                   kt-number-only allow-decimal="true"
+                   placeholder="{{::'market.allowbetupto.placeholder' | translate}}"
+                   ng-model="market.allowBetUpTo" class="form-control">
+            <span class="input-group-addon">Allow Bet UpTo</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="18"
+                   kt-number-only allow-decimal="true"
+                   placeholder="{{::'market.allowbetdownto.placeholder' | translate}}"
+                   ng-model="market.allowBetDownTo" class="form-control">
+            <span class="input-group-addon">Allow Bet DownTo</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="20"
+                   kt-number-only allow-decimal="true"
+                   placeholder="{{::'market.limitoddsdiff.placeholder' | translate}}"
+                   ng-model="market.limitOddsDiff" class="form-control">
+            <span class="input-group-addon">Limit Odds Diff</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <input type="text" maxlength="10" tabindex="19"
+                   kt-number-only
+                   placeholder="{{::'market.betdelay.placeholder' | translate}}"
+                   ng-model="market.betDelay" class="form-control">
+            <span class="input-group-addon">Bet Delay</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-persistence" ng-model="market.persistenceEnabled">
+            <label for="chk-persistence">{{::'market.persistence.label' | translate}}</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-allowcommision" ng-model="market.allowCommission">
+            <label for="chk-allowcommision">{{::'market.allowcommission.label' | translate}}</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown-event" role="button" data-toggle="dropdown" href="">
+                <div class="input-group">
+                    <input type="text" class="form-control" required
+                           placeholder="{{::'event.betopentime.placeholder' | translate}}"
+                           value="{{market.betOpenTime  | date:'dd-MM-yyyy hh:mm a Z'}}">
+                    <span class="input-group-addon">Bet Open Time</span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="market.betOpenTime"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown-event' }"
+                                data-before-render="ctrl.beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown-closetime" role="button" data-toggle="dropdown" href="">
+                <div class="input-group">
+                    <input type="text" class="form-control" required
+                           placeholder="{{::'event.betclosetime.placeholder' | translate}}"
+                           value="{{market.betCloseTime  | date:'dd-MM-yyyy hh:mm a Z'}}">
+                    <span class="input-group-addon">Bet Close Time</span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                <datetimepicker data-ng-model="market.betCloseTime"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown-closetime' }"
+                                data-before-render="ctrl.beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div>
+            <ui-select multiple ng-model="market.selectedRunner" theme="bootstrap" close-on-select="true" tabindex="21" ng-required="true">
+                <ui-select-match class="ui-select-match"
+                                 placeholder="{{::'market.search.runner.placeholder' | translate}}">
+                    {{$item.name}}
+                </ui-select-match>
+                <ui-select-choices class="ui-select-choices" repeat="runner in runnerList "
+                                   refresh="$parent.$parent.$parent.ctrl.searchRunner($select.search)">
+                    <div ng-bind-html="runner.name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,58 @@
+﻿<div class="row mobile-view ">
+    <div class="col-sm-12 ">
+        <div class="mobilewrap">
+            <div class="Profit-l">
+                <div class="table-bets">
+                    <kt-grid grid-id="kt-withdrawalrequest-grid"
+                             load-items="ctrl.loadWithdrawalHistory(params)"
+                             name-param="id"
+                             name-value-property="id"
+                             show-total="true"
+                             cache-key="ktwithdrawalrequestgrid">
+
+                        <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                               style="display: table;"
+                               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                            <tbody class="info-text" ng-repeat="item in $data track by $index">
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <label>
+                                                    <span title="{{item.requestedOn}}">{{item.requestedOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                                </label>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label> <span id="to">{{'common.amount.label' | translate}} : </span>&nbsp; </label>
+                                                <span class="date-time">{{item.amount | toRate }} </span>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label> <span id="to">{{'common.mobileno.label' | translate}} : </span>&nbsp; </label>
+                                                <span class="date-time">{{item.mobileNo }} </span>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label> <span id="to">{{'common.remark.label' | translate}} : </span>&nbsp; </label>
+                                                <span class="date-time">{{remarks}}</span>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label> <span id="to">{{'common.isconfirm.label' | translate}} : </span> &nbsp; </label>
+                                                <span class="date-time">
+                                                    <span class="status-btn">
+                                                        <span ng-class="{'active':item.status!=3,'suspend':item.status==3}">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                            {{$parent.$parent.$parent.ctrl.getStatus(item.status)}}
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

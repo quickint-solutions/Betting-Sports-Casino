@@ -1,0 +1,95 @@
+﻿<div class="card my-bet open-bet">
+    <div class="card-header">
+        my Bet
+        <i class="fas float-right fa-sync" ng-click="ctrl.getOpenBetsAndExposure()"></i>
+    </div>
+    <div style="position:relative;">
+        <div class="match-bet" >
+            <div class="bet-title">matched</div>
+            <form name="placebet">
+                <div class="fact-content ">
+                    <div class="add-bet more-header">
+                        <div class="bet-header" style="padding-left:10px; width:39%;">matched bet</div>
+                        <div class="bet-header" style="width:20%;">odds</div>
+                        <div class="bet-header" style="width:20%;">stake</div>
+                        <div class="bet-header" style="text-align:right; width:17%;">PL</div>
+                    </div>
+                    <div ng-repeat="o in openBets" ng-if="hasMatched && (o.bets | betFilter:'sizeMatched').length>0">
+                        <div class="add-bet " ng-class="{'bet-back':b.side==1,'bet-lay':b.side==2}" style="align-items:baseline;" ng-repeat="b in ctrl.matchedBetFilter(o.bets)">
+                            <div style="border-bottom:1px solid #dee2e6;">
+                                <div class="add-value value-title" style="width:39%;">
+                                    <div style="line-height:13px;">
+                                        <span class="font-bold">
+                                            <span ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                                            <span ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">RUNS {{b.avgPrice}}</span>
+                                        </span>
+                                        <p>{{o.marketName}}</p>
+                                    </div>
+                                </div>
+                                <div class="add-value" style="width:20%; position: relative;">
+                                    <span ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.avgPrice }}</span>
+                                    <span ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{b.percentage}}</span>
+                                </div>
+                                <div class="add-value" style="width:20%;">
+                                    <span>{{b.sizeMatched  | toRate}}</span>
+                                </div>
+                                <div class="add-value" style="text-align:right; width:17%;">
+                                    <span class="col-profit" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</span>
+                                    <span class="col-profit" ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!hasMatched">
+                        <div class="add-bet text-center">  You have no matched bets</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- unmatched  -->
+        <div class="unmatched">
+            <div class="bet-title">unmatched</div>
+            <div class="fact-content ">
+                <div class="add-bet more-header">
+                    <div class="bet-header" style="padding-left:10px; width:39%;">unmatched bet</div>
+                    <div class="bet-header" style="width:20%;">odds</div>
+                    <div class="bet-header" style="width:20%;">stake</div>
+                    <div class="bet-header" style="text-align:right; width:17%;">PL</div>
+                </div>
+                <div ng-repeat="o in openBets" ng-if="hasUnmatched && (o.bets | betFilter:'sizeRemaining').length>0">
+                    <div class="add-bet " ng-class="{'bet-back':b.side==1,'bet-lay':b.side==2}" style="align-items:baseline" ng-repeat="b in o.bets | betFilter:'sizeRemaining'" ng-init="ctrl.isInEdit(b);">
+                        <div class="add-value value-title" style="width:39%;">
+                            <div style="line-height:13px">
+                                <a ng-click="ctrl.cancelBet(b)"><i class="fa fa-times"></i></a>
+                                <span class="font-bold">{{b.runnerName | shortme:22}}</span>
+                                <p>{{o.marketName | shortme:22}}</p>
+                            </div>
+                        </div>
+                        <div class="add-value add-input" style="width:24%; position: relative;">
+                            <kt-price-ladder data-min="{{o.minUnitValue}}"
+                                             data-max="{{o.maxUnitValue}}"
+                                             data-interval="{{o.interval}}"
+                                             data-ladder-type="{{o.priceLadderType}}"
+                                             data-messages="messages"
+                                             class="odd-input"
+                                             data-value="b.newPrice"
+                                             data-value-changed="ctrl.updateBet(b)">
+                            </kt-price-ladder>
+                        </div>
+                        <div class="add-value" style="width:20%;">
+                            <span>{{b.sizeRemaining | toRate}}</span>
+                        </div>
+                        <div class="add-value" style="text-align:right; width:16%;">
+                            <span class="col-profit" ng-if="o.bettingType!=7 && o.bettingType!=2 ">{{(b.newPrice-1)*b.sizeRemaining  | toRate}}</span>
+                            <span class="col-profit" ng-if="o.bettingType==7 || o.bettingType==2 ">{{b.sizeRemaining  | toRate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!hasUnmatched">
+                    <div class="add-bet text-center">  You have no unmatched bets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

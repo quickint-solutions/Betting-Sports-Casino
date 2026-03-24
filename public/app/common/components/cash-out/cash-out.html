@@ -1,0 +1,11 @@
+﻿<div class="cash-value "  ng-show="newBets.length>0 && !betProcessing && isOpen && !market.noCaseout">
+    <a class="cash-btn  align-c bold"  kt-click 
+       ng-click="ctrl.cashout()"
+       uib-popover-html="tooltipHtml" popover-trigger="mouseenter">
+        cash out with stake &nbsp;{{newBets | total:'size' | number:CurrencyFraction }}
+        <span class="cash-price">
+            Profit : {{profitLoss | number:CurrencyFraction}}
+        </span>
+    </a>
+    <a class="btn-cancle" ng-click="ctrl.hideme();">Hide Me</a>
+</div>

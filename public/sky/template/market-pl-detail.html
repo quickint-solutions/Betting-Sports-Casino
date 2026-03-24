@@ -1,0 +1,88 @@
+﻿<div class="list-view-table myTranscludedContent currency">
+    <p style="padding:10px 0px 0;">
+        <a ng-click="ctrl.goback()" class="link-a">{{goBackLabel}}</a>
+        <span style="color:#fff;"> &nbsp;>&nbsp;{{marketname}} </span>
+    </p>
+    <table ng-table="tableParams" class="table table-hover member_table clickable ng-table">
+        <thead>
+            <tr>
+                <th class="size-lg align-l">Placed</th>
+                <th class="size-lg align-l">Selection</th>
+                <th class=" align-l">Bet ID</th>
+                <th class="size-md align-l">IP Address</th>
+                <th class="size-xs boolean">Type</th>
+                <th class="size-xsm boolean">Odds</th>
+                <th class="size-sm align-r">Stake</th>
+                <th class="size-sm align-r">Profit/Loss</th>
+                <th class="size-sm boolean">Status</th>
+            </tr>
+        </thead>
+        <tbody class="info-text">
+            <tr ng-repeat="b in betDetailItems.bets | orderBy:'createdOn'">
+                <td class="size-lg align-l">
+                    <kt-date data-date-value="b.createdOn" data-format="dd/MM/yyyy"></kt-date>&nbsp;|&nbsp;
+                    <kt-date data-date-value="b.createdOn" data-format="HH:mm:ss"></kt-date>
+                </td>
+                <td class="size-lg  align-l">
+                    {{(b.bettingType==7 ? b.avgPrice+' ' : '')}}{{b.runnerName}}
+                </td>
+                <td class="align-l" title="{{b.betId}}">{{b.betId}}</td>
+                <td class="size-md align-l">{{b.remoteIp}}</td>
+                <td class="size-xs boolean">
+                    <span ng-show="b.bettingType!=7">{{b.side==1 ? 'Back' : 'Lay'}}</span>
+                    <span ng-show="b.bettingType==7">{{b.side==1 ? 'Yes' : 'No'}}</span>
+                </td>
+                <td class="size-xsm boolean">
+                    <span>{{b.bettingType==7 ? b.percentage : b.avgPrice}}</span>
+                </td>
+                <td class="size-sm align-r">
+                    <span>{{b.sizeMatched  | toRate}}</span>
+                </td>
+                <td class="size-sm align-r">
+                    <span ng-class="{'positive':b.pl>=0,'negative':b.pl<0}">{{b.pl  | toRate}}</span>
+                </td>
+                <td class="size-sm boolean">
+                    <span ng-class="{'positive':b.pl>=0,'negative':b.pl<0}">
+                        {{b.pl>0 ? 'Won' : 'Lost'}}
+                    </span>
+                </td>
+            </tr>
+            <tr class="expand-table profit-expand no-tr-hover" ng-if="betDetailItems" style="margin-top:30px;">
+                <td class="profit-td" colspan="7"></td>
+                <td colspan="2">
+                    <table class="table-bets" style="border:0">
+                        <tbody>
+                            <tr class="net-total" style="border:0">
+                                <td>
+                                    <dl>
+                                        <dt>
+                                            Back subtotal :
+                                        </dt>
+                                        <dd id="backSubTotal">{{((betDetailItems.bets | betSideFilter:'1') | total:'pl')  | toRate}}</dd>
+                                        <dt>
+                                            Lay subtotal :
+                                        </dt>
+                                        <dd id="laySubTotal">{{((betDetailItems.bets | betSideFilter:'2') | total:'pl')  | toRate}}</dd>
+                                        <dt>
+                                            Market subtotal :
+                                        </dt>
+                                        <dd id="marketTotal">{{(betDetailItems.pl.win | total:'pl')  | toRate}}</dd>
+                                        <dt>
+                                            Commission :
+                                        </dt>
+                                        <dd id="commission">{{betDetailItems.pl.commission  | toRate}}</dd>
+                                        <dt class="net_total">
+                                            Net Market Total :
+                                        </dt>
+                                        <dd id="netTotal" class="net_total">{{betDetailItems.pl.pnl | toRate}}</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

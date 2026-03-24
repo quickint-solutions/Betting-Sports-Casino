@@ -1,0 +1,409 @@
+﻿<div class="middle-section ">
+    <div class="section-div" style="margin:0 6px;">
+
+        <div class="promotion-content md item-group-md item hydrated" ng-if="currentWebApp=='lotus365gg' || currentWebApp=='primerobook' || currentWebApp=='gameok' || currentWebApp=='gameokin'">
+            <div class="top-baner-wrapper topBannerPadding">
+                <div class="top-banner ">
+                    <div>
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b1.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b2.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b3.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b4.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b5.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b6.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b7.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b8.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b9.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b10.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="currentWebApp=='primerobook'">
+                        <div>
+                            <div class="slider_banner__item">
+                                <div class="slider_banner__item_img" style="background-image: url('/public/images/{{currentWebApp}}/img/b11.jpg'); background-color: rgb(24, 24, 72);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inplay-item-list_exchangeGames md list-md hydrated" ng-if="hasCasino">
+            <div class="inplay-item-list-exchange__header md hydrated ">
+                <div class="inplay-item-list-exchange__header-content">
+                    <div class="inplay-item-list-exchange__header-logo">
+                        <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>
+                        <span>Indian Card Games</span>
+                    </div>
+                </div>
+            </div>
+            <div class="exchangeGames-content" ng-click="ctrl.decideLogin()">
+                <div ng-repeat="i in [0,3,6,9,12,15,18,21,24,27,30]">
+                    <div class="exchangeGames-item"
+                         ng-repeat="g in liveGamesMarkets | filter:{type:1} | limitTo:3:i"
+                         ng-click="ctrl.decideLogin()">
+                        <div class="exchangeGames-img-body"
+                             style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-banner planner mr-top-10" ng-if="(popularMarkets | filter:{inPlay:true}).length>0">
+            <div class="section-title inplay-title">
+                <i class="icon-play" aria-hidden="true"></i>
+                <span class="bold" style="margin-left:5px;">In Play</span>
+                <a class="float-r open-link">
+                    openbets
+                    <span class="count">0</span>
+                </a>
+            </div>
+            <div class="event-title" ng-repeat="s in sports" ng-if="(popularMarkets | filter:{inPlay:true}).length>0">
+                <div class="new-table" ng-if="(popularMarkets | filter:{eventTypeId:s.id,inPlay:true}).length>0">
+                    <div style="padding:5px 0 5px 5px; border-bottom:1px solid #f2f2f2; float:left; width:100%;">
+                        <div class="header_title">
+                            <i class="green i-sport  icon-sport-{{s.name | joinme}}" style="margin-right: 5px;vertical-align: text-top;" aria-hidden="true"></i>
+                            <span class="bold">
+                                {{s.name}}
+                            </span>
+                        </div>
+                        <div class="odds-header" style="float:right;line-height: 22px;">
+                            <div class="odds-col align-c">1</div>
+                            <div class="odds-col align-c">X</div>
+                            <div class="odds-col align-c">2</div>
+                            <div class="odds-col align-c visible-landscape">1</div>
+                            <div class="odds-col align-c visible-landscape">X</div>
+                            <div class="odds-col align-c visible-landscape">2</div>
+                        </div>
+                    </div>
+                    <div class="consolidated-events"
+                         ng-repeat="m in (popularMarkets | filter:{eventTypeId:s.id,inPlay:true})" id="tr_{{m.id}}">
+                        <div class="item-inner">
+                            <div class="market-title">
+                                <div class="date-time line-time" ng-if="m.isSoccer">
+                                    <div class="green">{{m.score.timeElapsed}}"</div>
+                                    <div style="display:grid; padding:0 5px;">
+                                        <span class="a-line">{{m.score.score.home.score}}</span>
+                                        <span class="a-line">{{m.score.score.away.score}}</span>
+                                    </div>
+                                </div>
+                                <div class="date-time line-time" ng-if="m.isTennis">
+                                    <div style="display:grid; padding:0 5px;">
+                                        <span class="g-line green">{{m.score.score.home.sets}}</span>
+                                        <span class="g-line green">{{m.score.score.away.sets}}</span>
+                                    </div>
+                                    <div style="display:grid; padding:0 5px;">
+                                        <span class="a-line">{{m.score.score.home.games}}</span>
+                                        <span class="a-line">{{m.score.score.away.games}}</span>
+                                    </div>
+                                </div>
+                                <div class="date-time line-time" ng-if="m.isCricket">
+                                    <div class="" style="display:grid; padding:0 5px;">
+                                        <span class="g-line" ng-if="m.score.overs">{{m.score.overs}} Ov</span>
+                                        <span class="g-line" ng-if="m.score.taget">Tgt {{m.score.taget}}</span>
+                                        <span class="g-line">{{m.score.runs}}</span>
+                                    </div>
+                                </div>
+                                <div class="date-time line-time" ng-if="!m.isSoccer && !m.isCricket && !m.isTennis">
+                                    <div class="green">-</div>
+                                </div>
+                                <div class="competitors" ng-click="ctrl.decideLogin()">
+                                    <span class="c-line" ng-repeat="mr in m.marketRunner | limitTo:2" ng-if="m.bettingType!=6">
+                                        {{mr.runner.name | shortme:17}}
+                                        <i class="tv-icon float-r" ng-show="m.hasVideo && $index==0" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="c-line" style="white-space:pre-line" ng-if="m.bettingType==6">
+                                        {{m.event.name}}
+                                        <i class="tv-icon float-r" ng-show="m.hasVideo && $index==0" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="markets-odd" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4} ">
+                                <div class="market__container" ng-init="m0 = m.marketRunner[0];m1 = m.marketRunner[1];m2 = m.marketRunner[2]">
+                                    <div class="bet-button">
+                                        <div class="back1 align-c bold" kt-animate-on-change="m0.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-show-size="{{m.bettingType==1}}" data-item="m0.backPrice[0]"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div ng-if="!m2" class="back1 align-c odd-disable">--</div>
+                                        <div ng-if="m2" class="back1 align-c bold" kt-animate-on-change="m2.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-show-size="{{m.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="back1 align-c bold" kt-animate-on-change="m1.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m1.backPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="lay1 align-c bold" kt-animate-on-change="m0.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m0.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div ng-if="!m2" class="lay1 align-c odd-disable">--</div>
+                                        <div ng-if="m2" class="lay1 align-c bold" kt-animate-on-change="m2.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m2.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="lay1 align-c bold" kt-animate-on-change="m1.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m1.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="inplay-item-list_casino md list-md hydrated" ng-if="hasCasino">
+            <div class="inplay-item-list-exchange__header md hydrated ">
+                <div class="inplay-item-list-exchange__header-content">
+                    <div class="inplay-item-list-exchange__header-logo">
+                        <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>Casino
+                    </div>
+                </div>
+            </div>
+            <div class="casino-content" ng-click="ctrl.decideLogin()">
+                <div class="casino-item"
+                     ng-click="ctrl.openFDGame(g)"
+                     ng-repeat="g in liveGamesMarkets | filter:{type:2}">
+                    <div class="casino-img-body" style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');"></div>
+                </div>
+            </div>
+        </div>
+        <div class="inplay-item-list_popularGames md list-md hydrated" ng-if="hasCasino">
+            <div class="inplay-item-list-exchange__header md hydrated ">
+                <div class="inplay-item-list-exchange__header-content">
+                    <div class="inplay-item-list-exchange__header-logo">
+                        <i class="inplay-content__logo-icon inplay-content__logo-icon--exchange-games icon-sport-exchange-games inplay-color-icon"></i>Popular Games
+                    </div>
+                </div>
+            </div>
+            <div class="popularGames-content" ng-click="ctrl.decideLogin()">
+                <div ng-repeat="i in [0,2,4,6,8,10]">
+                    <div class="popularGames-item"
+                         ng-repeat="g in liveGamesMarkets | filter:{type:3} | limitTo:2:i"
+                         ng-click="ctrl.openFDGame(g)">
+                        <div class="popularGames-img-body" style="background-image: url('/public/images/{{currentWebApp}}/img/{{g.img}}');">
+                            <span class="popularGames-item-name">{{g.name}}</span>
+                            <span class="popularGames-item-overlay"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="promotion-content md item-group-md item hydrated" ng-if="currentWebApp=='lotus365gg' || currentWebApp=='primerobook' || currentWebApp=='gameok' || currentWebApp=='gameokin'">
+            <div class="sport-buttons">
+                <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" ng-click="ctrl.decideLogin()">
+                    <div class="sport-button__content">
+                        <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/cricket-bg.png" alt="">
+                        <div class="sport-button__content-text">
+                            <img ng-src="/public/images/{{currentWebApp}}/img/cricicon.svg" alt="">
+                            <span>Cricket</span>
+                        </div>
+                    </div>
+                </div>
+                <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" ng-click="ctrl.decideLogin()">
+                    <div class="sport-button__content">
+                        <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/football-bg.png" alt="">
+                        <div class="sport-button__content-text">
+                            <img ng-src="/public/images/{{currentWebApp}}/img/footballicon.svg" alt="">
+                            <span>Football</span>
+                        </div>
+                    </div>
+                </div>
+                <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" ng-click="ctrl.decideLogin()">
+                    <div class="sport-button__content">
+                        <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/tennis-bg.png" alt="">
+                        <div class="sport-button__content-text">
+                            <img ng-src="/public/images/{{currentWebApp}}/img/tennisicon.svg" alt=""><span>Tennis</span>
+                        </div>
+                    </div>
+                </div>
+                <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" ng-click="ctrl.decideLogin()">
+                    <div class="sport-button__content">
+                        <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/horse-bg.png" alt="">
+                        <div class="sport-button__content-text">
+                            <img ng-src="/public/images/{{currentWebApp}}/img/horseicon.svg" alt=""><span>Horse Racing</span>
+                        </div>
+                    </div>
+                </div>
+                <div mode="md" class="sport-button md button button-solid ion-activatable ion-focusable hydrated" ng-click="ctrl.decideLogin()">
+                    <div class="sport-button__content">
+                        <img class="sport-button__background-img" ng-src="/public/images/{{currentWebApp}}/img/greyhound-bg.png" alt="">
+                        <div class="sport-button__content-text">
+                            <img ng-src="/public/images/{{currentWebApp}}/img/geryicon.svg" alt=""><span>Greyhound Racing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="section-banner  horse-banner mr-top-10">
+            <div class="banner" ng-click="ctrl.decideLogin()">
+                <div class="banner-text">horse racing</div>
+            </div>
+        </div>
+        <div class="section-banner planner" ng-if="(popularMarkets | filter:{inPlay:false}).length>0">
+            <div class="section-title">
+                <i class="icon icon-most-popular" aria-hidden="true"></i>
+                <span class="bold" style="margin-left:5px;">Upcoming Events</span>
+                <a class="float-r open-link" ui-sref="mobile.seven.base.openbets">
+                    openbets
+                    <span class="count">0</span>
+                </a>
+            </div>
+
+            <div class="event-title" ng-repeat="s in sports">
+                <div class="new-table" ng-if="(popularMarkets | filter:{eventTypeId:s.id,inPlay:fase}).length>0">
+                    <div style="padding:5px 0 5px 5px; border-bottom:1px solid #f2f2f2; float:left; width:100%;">
+                        <div class="header_title">
+                            <i class="i-sport popular-color  icon-sport-{{s.name | joinme}}" style="margin-right: 5px;vertical-align: text-top;" aria-hidden="true"></i>
+                            <span class="bold">
+                                {{s.name}}
+                            </span>
+                        </div>
+                        <div class="odds-header" style="float:right;line-height: 22px;">
+                            <div class="odds-col align-c">1</div>
+                            <div class="odds-col align-c">X</div>
+                            <div class="odds-col align-c">2</div>
+                            <div class="odds-col align-c visible-landscape">1</div>
+                            <div class="odds-col align-c visible-landscape">X</div>
+                            <div class="odds-col align-c visible-landscape">2</div>
+                        </div>
+                    </div>
+                    <div class="consolidated-events" ng-repeat="m in (popularMarkets | filter:{eventTypeId:s.id,inPlay:false})"
+                         id="tr_{{m.id}}">
+                        <div class="item-inner">
+                            <div class="market-title">
+                                <div class="date-time">
+                                    <span>{{m.event.openDate | toDays}}<br /><kt-date data-date-value="m.event.openDate" data-format="HH:mm"></kt-date></span>
+                                </div>
+                                <div class="competitors" ng-click="ctrl.decideLogin()">
+                                    <span class="c-line" ng-repeat="mr in m.marketRunner | limitTo:2">{{mr.runner.name | shortme:17}}</span>
+                                </div>
+                            </div>
+                            <div class="markets-odd" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4} ">
+                                <div class="market__container" ng-init="m0 = m.marketRunner[0];m1 = m.marketRunner[1];m2 = m.marketRunner[2]">
+                                    <div class="bet-button">
+                                        <div class="back1 align-c bold" kt-animate-on-change="m0.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m0.backPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div ng-if="!m2" class="back1 align-c odd-disable">--</div>
+                                        <div ng-if="m2" class="back1 align-c bold" kt-animate-on-change="m2.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m2.backPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="back1 align-c bold" kt-animate-on-change="m1.backPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m1.backPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="lay1 align-c bold" kt-animate-on-change="m0.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m0.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div ng-if="!m2" class="lay1 align-c odd-disable">--</div>
+                                        <div ng-if="m2" class="lay1 align-c bold" kt-animate-on-change="m2.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m2.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                    <div class="bet-button">
+                                        <div class="lay1 align-c bold" kt-animate-on-change="m1.layPrice[0].price"
+                                             kt-click>
+                                            <kt-glc data-item="m1.layPrice[0]" data-show-size="{{m.bettingType==1}}"></kt-glc>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="section-banner  greyhound-banner" ui-sref="mobile.seven.base.race({id:greyhoundId,name:'Greyhound Racing'})">
+            <div class="banner" ng-click="ctrl.decideLogin()">
+                <div class="banner-text">greyhound racing</div>
+            </div>
+        </a>
+    </div>
+</div>

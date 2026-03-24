@@ -1,0 +1,314 @@
+﻿<div class="fullwidthdetail-container" ng-class="{'loader-section-parent':!fullMarket || isRequestProcessing}">
+    <div class="loader-section" ng-show="!fullMarket || isRequestProcessing">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div>
+        <div class="casino-container">
+            <div class="detail-page-container cricket-detail" ng-if="fullMarket">
+                <div class="video-tv d-none-desktop" ng-show="wcs_video && showTV" style="height:{{iframeHeight}}px">
+                    <kt-video-player wcs-config="wcs_video" style="height:{{iframeHeight}}px" ng-if="wcs_video">
+                    </kt-video-player>
+                </div>
+                <div class="game-header d-none-desktop sport4">
+                    <span class="game-header-name">
+                        {{fullMarket.event.competitionName}} &gt; {{fullMarket.event.name}}
+                        <div>
+                            <small>{{fullMarket.event.openDate | date:'dd MMM yyyy, hh:mm a'}}</small>
+                        </div>
+                    </span>
+                    <span ng-show="wcs_video" ng-click="showTV=!showTV">
+                        <i class="fas fa-tv"></i>
+                    </span>
+                </div>
+
+                <!--main market-->
+                <div class="market-4" id="goto-0" ng-if="fullMarket.bettingType!=6 && fullMarket.bettingType!=8 && fullMarket.bettingType!=7 && fullMarket.bettingType!=2">
+                    <div class="bet-table">
+                        <div class="bet-table-header">
+                            <div class="nation-name">
+                                <span title="MATCH_ODDS" data-toggle="collapse" data-target="#market{{fullMarket.id}}" aria-expanded="true">
+                                    <a href="javascript:void(0)" title="">
+                                        <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                                    </a>
+                                    {{fullMarket.name}}
+                                </span>
+                                <span class="max-bet">
+                                    <span class="d-flex flex-column" ng-if="fullMarket.maxBet>0 || fullMarket.maxProfit>0">
+                                        <span ng-if="fullMarket.maxBet>0">
+                                            Max Bet:
+                                            <span>{{fullMarket.maxBet | toRateOnly | shortNumber}}</span>
+                                        </span>
+                                        <span ng-if="fullMarket.maxProfit>0">
+                                            Max PL:
+                                            <span>{{fullMarket.maxProfit | toRateOnly | shortNumber}}</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="market{{fullMarket.id}}" data-title="OPEN" class="bet-table-body collapse show">
+                            <div class="w-100" ng-repeat="r in fullMarket.marketRunner">
+                                <div class="bet-table-mobile-row d-none-desktop">
+                                    <div class="bet-table-mobile-team-name">
+                                        <span>
+                                            {{r.runner.name}}
+                                        </span>
+                                        <span ng-if="r.pl!=0" ng-class="{'book-red':r.pl<0 ,'book-green':r.pl>0}">{{r.pl}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="bet-table-row"
+                                     data-title="{{fullMarket.temporaryStatus==2 ?  'BALL' : (fullMarket.marketStatus==3 ? 'SUSPEND':'')}}"
+                                     ng-class="{'suspendedtext':fullMarket.temporaryStatus==3 || fullMarket.temporaryStatus==2 || fullMarket.marketStatus==3 || fullMarket.marketStatus==4}">
+
+                                    <div class="bl-box back back{{i-1}}"
+                                         kt-animate-on-change="r.backPrice[i-1].size" ng-repeat="i in [3,2,1]"
+                                         kt-click ng-click="ctrl.modalPlaceBet(fullMarket,1,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price : '',r.runner.name);">
+                                        <kt-glc data-item="r.backPrice[i-1]" data-is-bm="{{fullMarket.source!=1}}"></kt-glc>
+                                    </div>
+
+                                    <div class="bl-box lay lay{{i-1}}"
+                                         kt-animate-on-change="r.layPrice[$index].size" ng-repeat="i in [1,2,3]"
+                                         kt-click ng-click="ctrl.modalPlaceBet(fullMarket,2,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                                        <kt-glc data-item="r.layPrice[$index]" data-is-bm="{{fullMarket.source!=1}}"></kt-glc>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-message" ng-if="fullMarket.notification">
+                            {{fullMarket.notification}}
+                        </div>
+                    </div>
+                </div>
+
+                <!--bookmaker-->
+                <div class="market-4" id="goto-1" ng-if="(fancyMarkets|filter:{temporaryStatus:'!4'}|orFilter:'bettingType':[1,9]).length>0"
+                     ng-repeat="m in fancyMarkets | filter:{temporaryStatus:'!4'} |orFilter:'bettingType':[1,9] | orderBy:'displayOrder'">
+                    <div class="bet-table">
+                        <div class="bet-table-header">
+                            <div class="nation-name">
+                                <span title="MATCH_ODDS" data-toggle="collapse" data-target="#market{{m.id}}" aria-expanded="true">
+                                    <a title="">
+                                        <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                                    </a>
+                                    {{m.name}}
+                                </span>
+                                <span class="max-bet">
+                                    <span class="d-flex flex-column" ng-if="m.maxBet>0 || m.maxProfit>0">
+                                        <span ng-if="m.maxBet>0">
+                                            Max Bet:
+                                            <span>{{m.maxBet | toRateOnly | shortNumber}}</span>
+                                        </span>
+                                        <span ng-if="m.maxProfit>0">
+                                            Max PL:
+                                            <span>{{m.maxProfit | toRateOnly | shortNumber}}</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="market{{m.id}}" data-title="OPEN" class="bet-table-body collapse show">
+                            <div class="w-100" ng-repeat="r in fullMarket.marketRunner">
+                                <div class="bet-table-mobile-row d-none-desktop">
+                                    <div class="bet-table-mobile-team-name">
+                                        <span>
+                                            {{r.runner.name}}
+                                        </span>
+                                        <span ng-if="r.pl!=0" ng-class="{'book-red':r.pl<0 ,'book-green':r.pl>0}">{{r.pl}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="bet-table-row"
+                                     data-title="{{m.temporaryStatus==2 ?  'BALL' : (m.marketStatus==3 ? 'SUSPEND':'')}}"
+                                     ng-class="{'suspendedtext':m.temporaryStatus==3 || m.temporaryStatus==2 || m.marketStatus==3 || m.marketStatus==4}">
+
+                                    <div class="bl-box back back{{i-1}}"
+                                         kt-animate-on-change="r.backPrice[i-1].size" ng-repeat="i in [3,2,1]"
+                                         kt-click ng-click="ctrl.modalPlaceBet(m,1,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price : '',r.runner.name);">
+                                        <kt-glc data-item="r.backPrice[i-1]" data-is-bm="{{m.source!=1}}"></kt-glc>
+                                    </div>
+
+                                    <div class="bl-box lay lay{{i-1}}"
+                                         kt-animate-on-change="r.layPrice[$index].size" ng-repeat="i in [1,2,3]"
+                                         kt-click ng-click="ctrl.modalPlaceBet(m,2,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                                        <kt-glc data-item="r.layPrice[$index]" data-is-bm="{{m.source!=1}}"></kt-glc>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market-message" ng-if="m.notification">
+                            <marquee>{{m.notification}}</marquee>
+                        </div>
+                    </div>
+                </div>
+
+                <!--fancy session-->
+                <div class="market-6" id="goto-2" ng-if="(fancyMarkets|filter:{temporaryStatus:'!4'}|orFilter:'bettingType':[7]).length>0">
+                    <div class="bet-table">
+                        <div data-toggle="collapse" aria-expanded="true" class="bet-table-header">
+                            <div class="nation-name">
+                                <span title="Normal">
+                                    <a href="javascript:void(0)" title="">
+                                        <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                                    </a>
+                                    Fancy
+                                </span>
+                            </div>
+                        </div>
+                        <div id="marketfancy" class="bet-table-body container-fluid container-fluid-5 collapse show">
+
+                            <div class="row row5">
+                                <div class="col-12 col-md-6"
+                                     ng-repeat="m in fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7] | orderBy:'displayOrder'">
+                                    <div class="fancy-tripple">
+                                        <div class="bet-table-mobile-row d-none-desktop">
+                                            <div class="bet-table-mobile-team-name">
+                                                <span>
+                                                    {{m.name}}
+                                                    <span class="ml-1" ng-if="m.winner">Winner : {{m.winner}}</span>
+                                                </span>
+                                                <span ng-show="m.pl"
+                                                      ng-class="{'book-green':m.pl>=0,'book-red':m.pl<0}"
+                                                      ng-click="ctrl.openBook(m.id,m.showSession)">{{m.pl | toFixDigit }}</span>
+                                            </div>
+                                        </div>
+                                        <div data-title="{{m.temporaryStatus==2 ?  'BALL' : (m.marketStatus==3 ? 'SUSPEND':'')}}"
+                                             class="bet-table-row" ng-repeat="br in m.mr.priceLength" ng-show="m.mr.status<5"
+                                             ng-class="{'suspendedtext':m.temporaryStatus==3 || m.temporaryStatus==2 || m.marketStatus==3 || m.marketStatus==4}">
+
+                                            <div class="bl-box lay" kt-animate-on-change="m.mr.layPrice[$index].price"
+                                                 kt-click ng-click="ctrl.modalPlaceBet(m,2,m.mr.runner.id,m.mr.layPrice[$index] ? m.mr.layPrice[$index].price : '',m.mr.runner.name,m.mr.layPrice[$index] ? m.mr.layPrice[$index].percentage : '');">
+                                                <kt-glc data-item="m.mr.layPrice[$index]" data-show-size="false"></kt-glc>
+                                            </div>
+                                            <div class="bl-box back" kt-animate-on-change="m.mr.backPrice[$index].price"
+                                                 kt-click ng-click="ctrl.modalPlaceBet(m,1,m.mr.runner.id,m.mr.backPrice[$index] ? m.mr.backPrice[$index].price : '',m.mr.runner.name,m.mr.backPrice[$index] ? m.mr.backPrice[$index].percentage : '');">
+                                                <kt-glc data-item="m.mr.backPrice[$index]" data-show-size="false"></kt-glc>
+                                            </div>
+                                            <div class="fancy-min-max d-flex flex-column">
+                                                <span ng-show="m.maxBet>0 && $index==0">Max:{{m.maxBet | toRateOnly | shortNumber}}</span>
+                                                <span ng-show="m.maxProfit>0 && $index==0">Max PL:{{m.maxProfit | toRateOnly | shortNumber}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="market-message" ng-if="m.notification">
+                                            <marquee>{{m.notification}}</marquee>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--fancy khado-->
+                <div class="market-10" id="goto-4" ng-if="(fancyMarkets|filter:{temporaryStatus:'!4'}|orFilter:'bettingType':[8]).length>0">
+                    <div class="bet-table">
+                        <div data-toggle="collapse"  aria-expanded="true" class="bet-table-header">
+                            <div class="nation-name">
+                                <span title="Khado">
+                                    <a href="javascript:void(0)" title="">
+                                        <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                                    </a>
+                                    Khado
+                                </span>
+                            </div>
+                        </div>
+                        <div id="marketfancy{{m.id}}" class="bet-table-body container-fluid container-fluid-5 collapse show">
+                            <div class="row row5">
+                                <div class="col-12 col-md-6" ng-repeat="m in fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[8] | orderBy:'displayOrder'">
+                                    <div class="bet-table-mobile-row d-none-desktop">
+                                        <div class="bet-table-mobile-team-name">
+                                            <span>
+                                                {{m.name}}
+                                            </span>
+                                            <span ng-click="ctrl.openBook(m.id,m.showSession)"
+                                                  ng-class="{'book-green':m.pl>=0,'book-red':m.pl<0}"
+                                                  ng-show="m.pl">{{m.pl | toFixDigit }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="bet-table-row" ng-repeat="r in m.marketRunner" ng-show="r.status<5"
+                                         data-title="{{m.temporaryStatus==2 ?  'BALL' : (m.marketStatus==3 ? 'SUSPEND':'')}}"
+                                         ng-class="{'suspendedtext':m.temporaryStatus==3 || m.temporaryStatus==2 || m.marketStatus==3 || m.marketStatus==4}">
+                                        <div class="bl-box back" kt-animate-on-change="r.backPrice[0].price"
+                                             kt-click ng-click="ctrl.modalPlaceBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name);">
+                                            <kt-glc data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                                        </div>
+                                        <div class="fancy-min-max d-flex flex-column">
+                                            <span ng-show="m.maxBet>0 && $index==0">Max:{{m.maxBet | toRateOnly | shortNumber}}</span>
+                                            <span ng-show="m.maxProfit>0 && $index==0">PL:{{m.maxProfit | toRateOnly | shortNumber}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="market-message" ng-if="m.notification">
+                                        <marquee>{{m.notification}}</marquee>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--fancy fixed odds-->
+                <div class="market-10" id="goto-5"
+                     ng-repeat="m in fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[6] | orderBy:'displayOrder'">
+                    <div class="bet-table">
+                        <div data-toggle="collapse"  aria-expanded="true" class="bet-table-header">
+                            <div class="nation-name">
+                                <span title="Normal">
+                                    <a href="javascript:void(0)" title="">
+                                        <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                                    </a>
+                                    {{m.name}}
+                                </span>
+                            </div>
+                        </div>
+                        <div id="marketfancy{{m.id}}" class="bet-table-body container-fluid container-fluid-5 collapse show">
+
+                            <div class="row row5">
+                                <div class="col-12 col-md-6"
+                                     ng-repeat="r in m.marketRunner" ng-show="r.status<5">
+                                    <div class="bet-table-mobile-row d-none-desktop">
+                                        <div class="bet-table-mobile-team-name">
+                                            <span>
+                                                {{r.runner.name}}
+                                            </span>
+                                            <span ng-class="{'book-green':r.pl>=0,'book-red':r.pl<0}"
+                                                  ng-show="r.pl">{{r.pl | toFixDigit }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="bet-table-row" data-title="{{m.temporaryStatus==2 ?  'BALL' : (m.marketStatus==3 ? 'SUSPEND':'')}}"
+                                         ng-class="{'suspendedtext':m.temporaryStatus==3 || m.temporaryStatus==2 || m.marketStatus==3 || m.marketStatus==4}">
+                                        <div class="bl-box back" kt-animate-on-change="r.backPrice[0].price"
+                                             kt-click ng-click="ctrl.modalPlaceBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name);">
+                                            <kt-glc data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                                        </div>
+                                        <div class="fancy-min-max d-flex flex-column">
+                                            <span ng-show="m.maxBet>0 ">Max:{{m.maxBet | toRateOnly | shortNumber}}</span>
+                                            <span ng-show="m.maxProfit>0 ">Max PL:{{m.maxProfit | toRateOnly | shortNumber}}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12">
+                                    <div class="market-message" ng-if="m.notification">
+                                        <marquee>{{m.notification}}</marquee>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="market-show-icon d-none-desktop"
+                 ng-click="ctrl.openBetsModal();"
+                 role="button" tabindex="0" ng-show="countBets>0">
+                <span>{{countBets}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

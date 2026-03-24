@@ -1,0 +1,26 @@
+﻿<div class="my-bets">
+    <h1 class="title">{{'mybets.label' | translate}}</h1>
+    <ul class="tabbing-blue">
+        <li ng-class="ctrl.isActive('/bmaccount/bets/currentbets')">
+            <a ui-sref="book.account.bets.current">
+                <i class="fa fa-line-chart"></i>
+                {{'currentbets.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/bmaccount/bets/betshistory')">
+            <a ui-sref="book.account.bets.history">
+                <i class="fa fa-history"></i>
+                {{'bethistory.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/bmaccount/bets/profitloss')">
+            <a ui-sref="book.account.bets.profitloss">
+                <i class="fa fa-area-chart"></i>
+                {{'profitloss.label' | translate}}
+            </a>
+        </li>
+    </ul>
+    <div ui-view="betsreport">
+
+    </div>
+</div><!-- my beats -->

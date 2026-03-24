@@ -1,0 +1,465 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.slip-wrap {
+    font-size: 11px;
+    @include txt(normal);
+
+    .col-bet {
+        width: 47% !important;
+    }
+
+    .placebet-khado {
+        width: 50% !important;
+
+        &.toValue {
+            vertical-align: middle;
+            line-height: 25px;
+        }
+    }
+
+    .col-odd {
+        width: 19% !important;
+        position: relative !important;
+    }
+
+    .col-stake {
+        width: 19% !important;
+        text-align: $text-center;
+    }
+
+    .col-profit {
+        width: 15% !important;
+        text-align: right;
+        padding-right: 6px !important;
+    }
+
+    .short-amount {
+        @include padding(3px, 0px, 4px, 0px);
+        @include resize (left, 87%);
+
+        p {
+            margin: 0px !important;
+            line-height: 14px;
+            @include txt(bold);
+        }
+
+        span {
+            a {
+                //opacity: 0.5;
+                color: $dark-gray-black;
+            }
+        }
+    }
+
+    .bet-slip {
+        @include display(inline-block);
+        width: $width;
+        background-color: $white-color;
+
+        h3 {
+            margin: 0px;
+            @include resize($float-left, $width);
+
+            .to-expand {
+                margin-left: 0px;
+            }
+
+            .refresh {
+                float: $float-left;
+                padding-right: 22px;
+            }
+        }
+
+        .errorMsg {
+            background-color: $red-color;
+            @include padding(0px, 5px, 0px, 5px);
+            line-height: 24px;
+            @include headline($white-color, $font-size-tab );
+        }
+
+        .warningMsg {
+            background-color: $warning-yellow-color;
+            @include padding(0px, 5px, 0px, 5px);
+            line-height: 24px;
+            @include headline($black-color, $font-size-tab );
+        }
+
+        #confirm-bet {
+            .col-bet {
+                width: 52% !important;
+            }
+
+            .col-odd {
+                width: 16% !important;
+            }
+
+            .col-profit {
+                width: 15% !important;
+            }
+
+            .short-amount {
+                width: $width;
+
+                .betslip-name {
+                    @include resize(left, 77%)
+                }
+            }
+        }
+
+        .betslipboard {
+            .slip-head {
+                line-height: 18px;
+                @include padding(2px, 0px, 2px, 10px);
+            }
+
+            .bet-detail {
+                h4 {
+                    font-size: 11px;
+                    margin: 6px 0;
+                }
+
+                tr {
+                    td {
+                        line-height: 13px;
+                        vertical-align: middle;
+                        padding-left: 4px;
+
+                        .delete {
+                            font-size: 16px;
+                            color: $red-color;
+                            height: 25px;
+                            @include resize (left, 10px);
+                            cursor: $cursor;
+                            @include display(block);
+                            margin: 2px 10px 0 0;
+                            @include padding(3px, 0px, 5px, 0px);
+                        }
+
+                        input {
+                            @include padding(3px, 3px, 3px, 3px);
+                            border-width: 1px;
+                            line-height: 16px;
+                            @include resize (left, 75%);
+                            @include border-radius(4px);
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+
+                        .editclose {
+                            float: $float-left;
+                            margin-left: 3px;
+                            line-height: 24px;
+
+                            span {
+                                display: grid;
+                                line-height: 12px;
+                            }
+                        }
+                    }
+                }
+
+                .back-2 {
+                    @include border('bottom', 1px, solid, $back-1-color);
+                }
+
+                .lay-2 {
+                    @include border('bottom', 1px, solid, $lay-1-color);
+                }
+
+                .back-btn, .lay-btn {
+                    background-color: $back-2-color;
+                    float: $float-left;
+                    @include padding(4px, 6px, 5px, 6px);
+                    text-align: $text-center;
+                    color: $dark-gray-black;
+                    @include border-radius(4px);
+                    margin: 2px 4px 0 0 !important;
+                }
+
+                .lay-btn {
+                    background-color: $lay-2-color;
+                }
+
+                .popup-list {
+                    @include border('bottom', 1px, solid, $back-1-color);
+                    @include padding(5px, 5px, 5px, 5px);
+                    @include resize ($float-left, $width);
+
+                    .btn {
+                        @include border-radius(5px);
+                        @include border-all(1px, solid, $light-medium-grey);
+                        margin-right: 5px;
+                        height: auto;
+                        width: 15%;
+                        @include headline($dark-gray-black, 11px );
+                        @include padding(1px, 1px, 1px, 1px);
+                        background-color: $light-hover-color;
+                    }
+                }
+
+                .popup-list.lay-3 {
+                    @include border('bottom', 1px, solid, $lay-1-color);
+                }
+            }
+        }
+        /* betslipboard  */
+        .bets-btn {
+            @include border('top', 1px, solid, $base-color-light);
+            @include resize ($float-left, $width);
+            @include padding(5px, 5px, 5px, 5px);
+
+            .liab-total {
+                text-align: right;
+            }
+
+            .btn {
+                @include resize (right, 45%);
+                background-color: $light-white;
+                margin: 12px 0px 12px 0px;
+                @include border-all(1px, solid, $grayish);
+                @include txt(bold);
+                @include headline($dark-gray-black, $font-size-tab );
+                @include padding(4px, 0px, 4px, 0px);
+            }
+
+            .bets-disabled {
+                color: $support-a-color;
+                background-color: $light-medium-grey;
+            }
+        }
+    }
+
+    .open-bet {
+        .bets-btn {
+            background-color: $white-color;
+            @include padding(0px, 5px, 0px, 5px);
+        }
+
+        .refresh_btn {
+            float: right;
+            margin: 5px 6px 0 0;
+            background: $refresh-back;
+            @include padding(0px, 10px, 0px, 10px);
+            line-height: 20px;
+            @include border-radius(4px);
+            @include txt(bold);
+            color: $login-back;
+        }
+
+        select {
+            width: 97%;
+            @include padding(5px, 5px, 5px, 5px);
+            margin: 6px;
+            @include headline($black-color, $font-size-tab);
+        }
+
+        .matched {
+            -webkit-box-shadow: inset 0px 4px 0px 0px rgba(144,144,144,1);
+            -moz-box-shadow: inset 0px 4px 0px 0px rgba(144,144,144,1);
+            box-shadow: inset 0px 4px 0px 0px rgba(144,144,144,1);
+            @include txt(bold);
+            padding-left: 10px;
+
+            .editall {
+                @include resize (right, 45%);
+                background-color: $light-white;
+                margin: 12px 0px 12px 0px;
+                @include border-all(1px, solid, $grayish);
+                @include txt(bold);
+                @include headline($dark-gray-black, $font-size-tab );
+                @include padding(4px, 0px, 4px, 0px);
+            }
+
+            a {
+                float: right;
+                margin: 2px 6px 0 0;
+                background: $dark-blue;
+                @include padding(0px, 10px, 0px, 10px);
+                line-height: 20px;
+                @include border-radius(4px);
+                color: $login-back;
+            }
+        }
+
+        .short-amount {
+            @include resize ($float-left, $width);
+        }
+
+        .bet-time {
+            color: $medium-gray-black;
+            opacity: 0.7;
+            @include padding(2px, 0, 2px, 0);
+            @include resize ($float-left, $width);
+        }
+
+        h3 {
+            padding-left: 0px !important;
+
+            .refresh {
+                float: $float-left;
+                padding-right: 22px;
+            }
+        }
+
+        .span-check {
+            margin: 5px 10px 0 7px !important;
+            text-transform: capitalize;
+            @include display(inline-block);
+            font-size: 13px;
+
+            span {
+                float: right;
+                line-height: 20px;
+            }
+
+            input {
+                margin-right: 4px;
+            }
+        }
+    }
+    /* open bets */
+    .odd-add {
+        height: 19px;
+        z-index: 2;
+        font-size: 13px;
+
+        @include position(absolute, right 22px );
+
+        li {
+            list-style: none;
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+
+        .up {
+            line-height: 10px;
+            background-position: -26px -333px;
+            height: 10px;
+            width: 12px;
+        }
+
+        .down {
+            line-height: 9px;
+            background-position: -26px -306px;
+            height: 9px;
+            width: 12px;
+        }
+    }
+}
+
+.splash-blur {
+    &.base-ring {
+        height: 100% !important;
+    }
+
+    .betprocess {
+        background: white;
+        font-size: 14px;
+        @include txt(bold);
+        text-align: $text-center;
+        padding-top: 12px;
+        height: 100%;
+    }
+
+    .loader {
+        height: 25vh;
+
+        label {
+            @include position(absolute);
+            left: 52%;
+            top: 34%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        @include position(relative);
+        pointer-events: none;
+        z-index: 100;
+        display: contents;
+        min-height: 250px;
+    }
+
+    .bet-process:before {
+        left: 40%;
+        top: 11%;
+        @include position(absolute);
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        content: "";
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: 40% 80% !important;
+        width: 60%;
+        height: 66%;
+        vertical-align: middle;
+    }
+}
+
+.common-betprocess {
+    @include position(absolute);
+    width: 100% !important;
+    height: 99% !important;
+    overflow: hidden;
+    z-index: 101;
+
+    .betprocess {
+        background-color: rgba(52,50,50,0.52);
+        font-size: 12px;
+        @include txt(bold);
+        text-align: $text-center;
+        padding-top: 12px;
+        height: 100%;
+    }
+
+    .loader {
+        height: 25vh;
+
+        .delay {
+            font-size: 14px;
+            @include position(absolute);
+            top: 42%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        /*@include position(relative);
+        pointer-events: none;
+        z-index: 100;
+        display: contents;
+        min-height: 250px;*/
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: 100% 100% !important;
+        vertical-align: middle;
+        text-align: center;
+        width: 57px;
+        height: 46px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bet-process:before {
+        /*left: 40%;
+        top: 11%;*/
+        /*position: absolute;
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        content: "";
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;*/
+        // background-size: 40% 80% !important;
+        /*width: 100%;
+        height: 100%;
+        vertical-align: middle;*/
+    }
+}

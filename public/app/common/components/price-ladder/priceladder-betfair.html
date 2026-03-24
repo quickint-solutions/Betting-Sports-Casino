@@ -1,0 +1,14 @@
+﻿
+<div class="betslip-price-ladder">
+    <input class="betslip-price-ladder__input" ng-click="ctrl.focused()" kt-number-only allow-decimal="true" positive-only="true"
+           ng-disabled="disable" ng-blur="ctrl.onLeave()" ng-model="value">
+
+    <div class="betslip-price-ladder__buttons" ng-hide="disable || disableArrow">
+        <button type="button" class="betslip-price-ladder__button betslip-price-ladder__arrow-up"
+                ng-click="ctrl.up()"
+                ng-mouseup="ctrl.up()"></button>
+        <button type="button" class="betslip-price-ladder__button betslip-price-ladder__arrow-down"
+                ng-click="ctrl.down()"
+                ng-mouseup="$ctrl.down()"></button>
+    </div>
+</div>

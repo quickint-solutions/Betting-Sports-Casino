@@ -1,0 +1,632 @@
+﻿<div class="center-container">
+    <div>
+        <div class="home-container">
+            <div class="point-middle home-new">
+                <div role="region" aria-busy="false" class="carousel slide pointer-event" id="home-banner">
+                    <div role="list" class="carousel-inner">
+                        <div class="carousel-item carousal-23 active" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710679375589.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695652955019.jpg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1709619091413.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23 " style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710849675236.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710318466122.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1705578979646.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23 " style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1706111965529.jpg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1702976110867.png&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691862501.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691692740.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695653016735.jpg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701581279287.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691918109.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691934333.jpeg&quot;);">
+                        </div>
+                        <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695652973799.jpg&quot;);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="point-casino-list d-none-desktop">
+                    <div class="point-casino-list-title"><span>New Launched</span></div>
+                    <section tabindex="0" class="hooper">
+                        <div class="hooper-list">
+                            <ul class="hooper-track">
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/superover.jpg" alt="Super Over2" class="img-fluid"></a></div></li>
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ballbyball.jpg" alt="Ball by Ball" class="img-fluid"></a></div></li>
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/roulette2.jpg" alt="Roulette" class="img-fluid"></a></div></li>
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen33.jpg" alt="Instant Teenpatti 3.0" class="img-fluid"></a></div></li>
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/sicbo.jpg" alt="Sic Bo" class="img-fluid"></a></div></li>
+                                <li class="hooper-slide" style="width: 190.2px;"><div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen32.jpg" alt="Instant Teenpatti 2.0" class="img-fluid"></a></div></li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="sport-tabs menu-tabs d-none-desktop">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a ui-sref="mobile.promo" class="nav-link">
+                                Exchange
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a ui-sref="mobile.promo.casino" class="nav-link">
+                                Live Casino
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a ui-sref="mobile.promo.slotcasino" class="nav-link">
+                                Slot
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sport-tabs">
+                    <ul id="taj_home_sports_list" class="nav nav-tabs">
+                        <li class="nav-item" ng-repeat="e in sports">
+                            <a ng-click="$parent.selectedEventTypeName=e.id" ng-class="{'active':selectedEventTypeName==e.id}"
+                               class="nav-link sport{{e.sourceId}}" ng-hide="e.id==horseId || e.id==greyhoundId">
+                                <i class="d-icon icon-{{e.sourceId}}"></i>
+                                <span>{{e.name}}</span>
+                            </a>
+                            <a ng-click="$parent.selectedEventTypeName=e.id;ctrl.getRacesGroup(e.id)" ng-class="{'active':selectedEventTypeName==e.id}"
+                               class="nav-link sport{{e.sourceId}}" ng-show="e.id==horseId || e.id==greyhoundId">
+                                <i class="d-icon icon-{{e.sourceId}}"></i>
+                                <span>{{e.name}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-15"></i> <span>Basketball</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-58"></i> <span>American Football</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-18"></i> <span>Volleyball</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-22"></i> <span>Badminton</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-59"></i> <span>Snooker</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-19"></i> <span>Ice Hockey</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-11"></i> <span>E Games</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-9"></i> <span>Futsal</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-52"></i> <span>Motor Sports</span></a></li>
+                        <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-39"></i> <span>Handball</span></a></li>
+                    </ul>
+                </div>
+
+                <div ng-if="selectedEventTypeName!=horseId && selectedEventTypeName!=greyhoundId">
+                    <div class="bet-table"
+                         ng-show="(popularMarkets | filter:{eventTypeId:selectedEventTypeName}).length<=0 && !isRequestProcessing">
+                        <div class="bet-table-header nodata">
+                            No Data Found...
+                        </div>
+                    </div>
+                    <div class="bet-table" ng-class="{'loader-section-parent':isRequestProcessing}">
+                        <div class="loader-section" ng-if="isRequestProcessing">
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="bet-table-body" ng-repeat="s in sports | filter:{id:selectedEventTypeName}"
+                             ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0 && !isRequestProcessing">
+                            <div class="bet-table-box" ng-repeat="h in (popularMarkets | filter:{eventTypeId:s.id})">
+                                <div class="bet-table-row-header-mobile d-none-desktop">
+                                    <div class="game-title">
+                                        <div class="game-date inplay" ng-if="h.inPlay">
+                                            <span>Live</span>
+                                        </div>
+                                        <div class="game-date" ng-if="!h.inPlay">
+                                            <p class="day text-left">{{h.event.openDate | date:'dd MMM'}}</p>
+                                            <p class="mb-0 day text-left">{{h.event.openDate | date:'HH:mm'}}</p>
+                                        </div>
+                                        <div class="game-name d-inline-block">
+                                            <a>
+                                                <p class="team-name text-left">
+                                                    {{h.event.name}}
+                                                </p>
+                                                <p class="team-name text-left team-event" ng-if="h.event.competitionName">
+                                                    ({{h.event.competitionName}})
+                                                </p>
+                                            </a>
+                                            <div class="game-icons">
+                                                <div class="game-icon" ng-if="h.hasFancy"><span class="f-bm-icon">F</span></div>
+                                                <div class="game-icon" ng-if="h.hasFancy"><span class="f-bm-icon">BM</span></div>
+                                                <div class="game-icon" ng-if="h.hasVideo"><i class="icon-tv d-icon"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bet-table-row">
+                                    <div class="point-title" ng-init="m0 = h.marketRunner[0]"
+                                         ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                        <div class="back bl-box" kt-animate-on-change="m0.backPrice[0].price" kt-click>
+                                            <span class="d-block odds">{{m0.backPrice[0].price>0 ? m0.backPrice[0].price : '—'}}</span>
+                                        </div>
+                                        <div class="lay bl-box " kt-animate-on-change="m0.layPrice[0].price">
+                                            <span class="d-block odds">{{m0.layPrice[0].price>0 ? m0.layPrice[0].price : '—'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="point-title" ng-init="m2 = h.marketRunner[2]"
+                                         ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                        <div class="no-val bl-box" ng-if="!m2">
+                                            <span class="d-block odds">—</span>
+                                        </div>
+                                        <div class="no-val bl-box" ng-if="!m2">
+                                            <span class="d-block odds">—</span>
+                                        </div>
+                                        <div class="back bl-box" ng-if="m2" role="button" kt-animate-on-change="m2.backPrice[0].price" kt-click>
+                                            <span class="d-block odds">{{m2.backPrice[0].price>0 ? m2.backPrice[0].price : '—'}}</span>
+                                        </div>
+                                        <div class="lay bl-box" ng-if="m2" role="button" kt-animate-on-change="m2.layPrice[0].price">
+                                            <span class="d-block odds">{{m2.layPrice[0].price>0 ? m2.layPrice[0].price : '—'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="point-title" ng-init="m1 = h.marketRunner[1]"
+                                         ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                        <div class="back bl-box" role="button" kt-animate-on-change="m1.backPrice[0].price" kt-click>
+                                            <span class="d-block odds">{{m1.backPrice[0].price>0 ? m1.backPrice[0].price : '—'}}</span>
+                                        </div>
+                                        <div class="lay bl-box" role="button" kt-animate-on-change="m1.layPrice[0].price">
+                                            <span class="d-block odds">{{m1.layPrice[0].price>0 ? m1.layPrice[0].price : '—'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="selectedEventTypeName==horseId || selectedEventTypeName==greyhoundId"
+                     ng-init="selectedRaceCountry=-1">
+                    <div class="bet-table"
+                         ng-show="races.length<=0 && !isRequestProcessing">
+                        <div class="bet-table-header nodata">
+                            No Data Found...
+                        </div>
+                    </div>
+                    <div class="bet-table" ng-class="{'loader-section-parent':isRequestProcessing}">
+                        <div class="loader-section" ng-if="isRequestProcessing">
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div ng-repeat="s in sports | filter:{id:$parent.selectedEventTypeName}"
+                             ng-show="races.length>0 ">
+                            <div class="bet-table-header sport{{s.sourceId}}">
+                                <div class="game-title">
+                                    <i class="d-icon icon-{{s.sourceId}}"></i>
+                                    <span>{{s.name}}</span>
+                                </div>
+                            </div>
+                            <div class="horse-tab race{{s.sourceId}}">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item" ng-repeat="c in races" ng-init="$parent.selectedRaceCountry=races[0].name">
+                                        <a data-toggle="tab" class="nav-link"
+                                           ng-click="$parent.selectedRaceCountry=c.name"
+                                           ng-class="{'active':c.name==selectedRaceCountry}">
+                                            {{c.name}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="bet-table tab-pane fade horse-table "
+                                     ng-class="{'active show':c.name==$parent.selectedRaceCountry}"
+                                     ng-repeat="c in races">
+                                    <div class="bet-table-body">
+                                        <div class="bet-table-box" ng-repeat="event in c.events">
+                                            <div class="bet-table-row-header-mobile d-none-desktop">
+                                                <div class="game-title">
+                                                    <div class="game-name d-inline-block">
+                                                        <div class="game-icons">
+                                                            <div class="game-icon tv-icon"><i class="icon-tv d-icon"></i></div>
+                                                        </div>
+                                                        <p class="team-name text-left">
+                                                            {{event.name}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bet-table-row">
+                                                <div class="horse-time-detail">
+                                                    <a ng-repeat="m in event.markets">
+                                                        <span ng-class="{'active':m.inPlay}">{{m.startTime | date:'HH:mm'}}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none-desktop point-casino-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item w-100">
+                            <a data-toggle="tab" class="nav-link active">Our Casino</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-none-desktop tab-content d-block w-100">
+                    <div id="our-casino" class="tab-pane active">
+                        <div class="point-casino-carousal">
+                            <div class="w-100">
+                                <div dir="ltr" class="slick-slider">
+                                    <div class="slick-list">
+                                        <div class="slick-track">
+                                            <div class="slick-slide" style="width: 190px;">
+                                                <div class="login-hover" style="width:100%;display:inline-block;">
+                                                    <a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen33.jpg" alt="Instant Teenpatti 3.0" class="img-fluid"></a>
+                                                </div>
+                                            </div>
+                                            <div class="slick-slide" style="width: 190px;">
+                                                <div class="login-hover" style="width:100%;display:inline-block;">
+                                                    <a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/sicbo.jpg" alt="Sic Bo" class="img-fluid"></a>
+                                                </div>
+                                            </div>
+                                            <div class="slick-slide" style="width: 190px;">
+                                                <div class="login-hover" style="width:100%;display:inline-block;">
+                                                    <a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen32.jpg" alt="Instant Teenpatti 2.0" class="img-fluid"></a>
+                                                </div>
+                                            </div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/roulette1.jpg" alt="Roulette" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen.jpg" alt="Teenpatti 1-day" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen20.jpg" alt="20-20 Teenpatti" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen9.jpg" alt="Teenpatti Test" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen8.jpg" alt="Teenpatti Open" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/poker.jpg" alt="Poker 1-Day" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/poker20.jpg" alt="20-20 Poker" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/poker6.jpg" alt="Poker 6 Players" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/baccarat.jpg" alt="Baccarat" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/baccarat2.jpg" alt="Baccarat 2" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dt20.jpg" alt="20-20 Dragon Tiger" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dt6.jpg" alt="1 Day Dragon Tiger" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dtl20.jpg" alt="20-20 D T L" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dt202.jpg" alt="20-20 Dragon Tiger 2" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/card32.jpg" alt="32 Cards A" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/card32eu.jpg" alt="32 Cards B" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ab20.jpg" alt="Andar Bahar" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/abj.jpg" alt="Andar Bahar 2" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/lucky7.jpg" alt="Lucky 7 - A" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/lucky7eu.jpg" alt="Lucky 7 - B" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/3cardj.jpg" alt="3 Cards Judgement" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/war.jpg" alt="Casino War" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/worli.jpg" alt="Worli Matka" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/worli2.jpg" alt="Instant Worli" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/aaa.jpg" alt="Amar Akbar Anthony" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/btable.jpg" alt="Bollywood Casino" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/lottcard.jpg" alt="Lottery" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cricketv3.jpg" alt="5Five Cricket" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cmatch20.jpg" alt="Cricket Match 20-20" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cmeter.jpg" alt="Casino Meter" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen6.jpg" alt="Teenpatti - 2.0" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/queen.jpg" alt="Queen" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/race20.jpg" alt="Race20" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/lucky7eu2.jpg" alt="Lucky 7 - C" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/superover.jpg" alt="Super Over" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/trap.jpg" alt="The Trap" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/patti2.jpg" alt="2 Cards Teenpatti" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teensin.jpg" alt="29Card Baccarat" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teenmuf.jpg" alt="Muflis Teenpatti" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/race17.jpg" alt="Race To 17" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen20b.jpg" alt="20-20 Teenpatti B" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/trio.jpg" alt="Trio" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/notenum.jpg" alt="Note Number" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/kbc.jpg" alt="K.B.C" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen120.jpg" alt="1 CARD 20-20" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen1.jpg" alt="1 CARD ONE-DAY" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/roulette.jpg" alt="Roulette" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ab3.jpg" alt="ANDAR BAHAR 50 cards" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/aaa2.jpg" alt="Amar Akbar Anthony 2" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/race2.jpg" alt="Race to 2nd" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/teen3.jpg" alt="Instant Teenpatti" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dum10.jpg" alt="Dus ka Dum" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cmeter1.jpg" alt="1 Card Meter" class="img-fluid"></a></div></div>
+                                            <div class="slick-slide" style="width: 190px;"><div class="login-hover" style="width:100%;display:inline-block;"><a href="javascript:void(0);" role="button"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ballbyball.jpg" alt="Ball by Ball" class="img-fluid"></a></div></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-results d-none-desktop">
+                    <div class="top-result-title">
+                        Winner Announcement
+                    </div>
+                    <section tabindex="0" class="hooper is-vertical">
+                        <div class="hooper-list">
+                            <ul class="hooper-track">
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>sa****</b></div> <div>50,00,000</div></div> <div>
+                                            <span>
+                                                14/06/2023 06:03
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>ma****</b></div> <div>1,81,31,114</div></div> <div>
+                                            <span>
+                                                10/06/2023 08:26
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>du****</b></div> <div>7,32,247</div></div> <div>
+                                            <span>
+                                                09/06/2023 01:19
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>am****</b></div> <div>5,22,554</div></div> <div>
+                                            <span>
+                                                15/05/2023 00:06
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>mu****</b></div> <div>3,21,000</div></div> <div>
+                                            <span>
+                                                14/05/2023 18:24
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>gi****</b></div> <div>3,00,000</div></div> <div>
+                                            <span>
+                                                06/05/2023 03:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>ex****</b></div> <div>2,84,962</div></div> <div>
+                                            <span>
+                                                10/04/2023 14:59
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>em****</b></div> <div>2,47,811</div></div> <div>
+                                            <span>
+                                                12/04/2023 17:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>da****</b></div> <div>1,78,952</div></div> <div>
+                                            <span>
+                                                13/04/2023 01:37
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>pe****</b></div> <div>1,64,000</div></div> <div>
+                                            <span>
+                                                13/04/2023 05:30
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide " style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>sa****</b></div> <div>50,00,000</div></div> <div>
+                                            <span>
+                                                14/06/2023 06:03
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide " style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>ma****</b></div> <div>1,81,31,114</div></div> <div>
+                                            <span>
+                                                10/06/2023 08:26
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide " style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>du****</b></div> <div>7,32,247</div></div> <div>
+                                            <span>
+                                                09/06/2023 01:19
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide " style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>am****</b></div> <div>5,22,554</div></div> <div>
+                                            <span>
+                                                15/05/2023 00:06
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide " style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>mu****</b></div> <div>3,21,000</div></div> <div>
+                                            <span>
+                                                14/05/2023 18:24
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>gi****</b></div> <div>3,00,000</div></div> <div>
+                                            <span>
+                                                06/05/2023 03:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>ex****</b></div> <div>2,84,962</div></div> <div>
+                                            <span>
+                                                10/04/2023 14:59
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>em****</b></div> <div>2,47,811</div></div> <div>
+                                            <span>
+                                                12/04/2023 17:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>da****</b></div> <div>1,78,952</div></div> <div>
+                                            <span>
+                                                13/04/2023 01:37
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>pe****</b></div> <div>1,64,000</div></div> <div>
+                                            <span>
+                                                13/04/2023 05:30
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide is-clone" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>sa****</b></div> <div>50,00,000</div></div> <div>
+                                            <span>
+                                                14/06/2023 06:03
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide is-clone" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>ma****</b></div> <div>1,81,31,114</div></div> <div>
+                                            <span>
+                                                10/06/2023 08:26
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="hooper-slide is-clone" style="height: 54px;" aria-hidden="true">
+                                    <div class="top-result-box">
+                                        <div><div><b>du****</b></div> <div>7,32,247</div></div> <div>
+                                            <span>
+                                                09/06/2023 01:19
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>am****</b></div> <div>5,22,554</div></div> <div>
+                                            <span>
+                                                15/05/2023 00:06
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>mu****</b></div> <div>3,21,000</div></div> <div>
+                                            <span>
+                                                14/05/2023 18:24
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>gi****</b></div> <div>3,00,000</div></div> <div>
+                                            <span>
+                                                06/05/2023 03:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>ex****</b></div> <div>2,84,962</div></div> <div>
+                                            <span>
+                                                10/04/2023 14:59
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>em****</b></div> <div>2,47,811</div></div> <div>
+                                            <span>
+                                                12/04/2023 17:55
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>da****</b></div> <div>1,78,952</div></div> <div>
+                                            <span>
+                                                13/04/2023 01:37
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li aria-hidden="true" class="hooper-slide is-clone" style="height: 54px;">
+                                    <div class="top-result-box">
+                                        <div><div><b>pe****</b></div> <div>1,64,000</div></div> <div>
+                                            <span>
+                                                13/04/2023 05:30
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul><div aria-live="polite" aria-atomic="true" class="hooper-liveregion hooper-sr-only">Item 2 of 10</div>
+                        </div>
+                    </section>
+                </div>
+                <div ng-include="'dimd2/template/mobile-footer.html'" class="mobile-ftr">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

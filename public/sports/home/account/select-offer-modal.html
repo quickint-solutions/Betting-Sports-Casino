@@ -1,0 +1,62 @@
+﻿<div class="row">
+    <div class="col-sm-12" ng-hide="offerList.length>0">
+        <div class="coupen">
+            <div>Currently no active offers.</div>
+        </div>
+    </div>
+    <div class="col-sm-12" ng-show="offerList.length>0">
+        <div class="coupen" ng-repeat="ol in offerList">
+            <div class="coupen-left">
+
+                <div class="code" ng-show="ol.bonusCode">{{ol.bonusCode}}</div>
+                <div class="code" ng-show="!ol.bonusCode">No Code</div>
+            </div>
+            <div class="coupen-center">
+                <h4>{{ol.title}}</h4>
+                <div ng-bind-html="ol.description | safeHtml"></div>
+                <p>Promo code is <b>{{ol.isCodeRequired ? 'required' : 'not required'}}</b></p>
+                <p>
+                    This offer is applicable
+                    <span ng-if="ol.offerOn==1">for First time deposit</span>
+                    <span ng-if="ol.offerOn==2">on new deposit</span>
+                    <span ng-if="ol.offerOn==3">on new user signup</span>
+                    <span ng-if="ol.offerOn==4">on Second time deposit</span>
+                    <span ng-if="ol.offerOn==5">on Third time deposit</span>
+                </p>
+            </div>
+            <div class="coupen-right">
+
+                <div ng-if="ol.offerType==3" class="offer-p">
+                    <span>Offer Percentage</span>
+                    <span class="bold">
+                        {{ol.value}}%
+                    </span>
+                </div>
+                <div class="offer-btn" ng-show="forSelection==1 || forSelection==4">
+                    <button class="btn btn-success" type="button"
+                            ng-click="$parent.ctrl.selectOffer(ol)">
+                        Select
+                    </button>
+                </div>
+                <div class="offer-btn" ng-show="forSelection==3 && ol.offerOn==3">
+                    <button class="btn btn-success" type="button"
+                            ng-click="$parent.ctrl.sendSignup()">
+                        Sign Up
+                    </button>
+                </div>
+                <div class="offer-btn" ng-show="forSelection==3 && ol.offerOn!=3">
+                    <button class="btn btn-success" type="button"
+                            ng-click="$parent.ctrl.sendLogin()">
+                        Login
+                    </button>
+                </div>
+                <div class="offer-btn" ng-show="forSelection==2 ">
+                    <button class="btn btn-success" type="button"
+                            ng-click="$parent.ctrl.sendToDepositPage()">
+                        Deposit Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

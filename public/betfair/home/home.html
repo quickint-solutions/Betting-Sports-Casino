@@ -1,0 +1,189 @@
+﻿<div class="bf-row no-bottom-gutter no-side-gutter">
+    <div class="bf-col-20-24">
+        <div id="subnav" class="subnav-wrapper">
+            <ul class="subnav">
+                <li class="subnav-first">
+                    <a class="subnav-link mod-link" ui-sref="base.home">Home</a>
+                </li>
+                <li>
+                    <a class="subnav-link mod-link" ui-sref="base.home.inplay">In-Play</a>
+                </li>
+                <li><a class="subnav-link mod-link" ui-sref="base.home.mymarkets">My Markets</a></li>
+                <li ng-repeat="e in eventTypes | filter:{showInMenu:true}" ng-click="$parent.$parent.ctrl.menuClick(e.id,e.name)">
+                    <a class="subnav-link mod-link">{{e.name}}</a>
+                </li>
+                <li><a class="subnav-link mod-link" ui-sref="base.home.results">Results</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bf-col-4-24" ng-init="showSettingsPane=false">
+        <div class="settings-container">
+            <button class="settings-toggle" title="Settings" ng-class="showSettingsPane ? 'open' : ''" ng-click="showSettingsPane=!showSettingsPane">
+                <span class="settings-toggle-text">Settings</span>
+                <svg class="svg-icon-default settings-arrow" data-icon="arrow-light" data-style="settings-arrow" viewBox="0 0 100 100">
+                    <path d="M48.889,78.733L0.074,29.915l7.769-6.652l41.045,41.059l43.276-41.059l7.761,6.652L48.889,78.733z"></path>
+                </svg>
+            </button>
+            <div class="settings-panel" ng-class="::{'logged-in': bfSettings.data.isLoggedIn}" ng-show="showSettingsPane">
+                <div class="tab-navigation">
+                    <ul class="tab-list" ng-init="activePane=1">
+                        <li>
+                            <button id="tab-main" class="tab-title" ng-class="{'active': activePane==1}" ng-click="activePane=1">Main</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="pane" ng-show="activePane==1">
+                            <div class="pane-container-odds">
+                                <ul class="section-container">
+                                    <li class="section-item">
+                                        <div>
+                                            <label><strong>{{'defaultstake.label' | translate}}</strong></label>
+                                            <input class="stake-input" type="text" ng-model="$parent.stakeConfig.defaultStake">
+                                        </div>
+                                    </li>
+                                    <li class="section-item" ng-show="!editStake">
+                                        <div class="left-btn">
+                                            <a class="stake-btn" ng-class="{'select':s.isActive}"
+                                               ng-repeat="s in $parent.stakeConfig.stake | filter:{isActive:true}">
+                                                {{s.stake}}
+                                            </a>
+                                        </div>
+                                        <div class="edit-btn" kt-has-claim claims="{Claims: ['client.stake.config.manage']}">
+                                            <a ng-click="editStake=true">{{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        </div>
+                                    </li>
+                                    <li class="section-item" ng-show="editStake">
+                                        <div class="left-btn">
+                                            <input type="text"
+                                                   ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                                                   ng-repeat="s in $parent.stakeConfig.stake | filter:{isActive:true}">
+                                        </div>
+                                        <div class="edit-btn" kt-has-claim claims="{Claims: ['client.stake.config.manage']}">
+                                            <a ng-click="editStake=false;$parent.ctrl.saveStakeConfig()">
+                                                Save<i class="fa fa-save" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="section-item">
+                                        <input class="section-element " type="checkbox" id="setting-lay-odds">
+                                        <span class="section-element" for="setting-lay-odds" ng-model="ctrl.$rootScope.highlightOnOddsChange">Highlight when odds change</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scrollable-panes-height-taker" ng-init="leftMenuCollapsed=false;">
+    <div class="no-bottom-gutter scrollable-panes-wrapper">
+        <!--left part-->
+        <div ng-class="{'is-collapsed':leftMenuCollapsed}" ui-view="left" class="bf-col-xxl-3-24 bf-col-xl-3-24 bf-col-lg-3-24 bf-col-md-4-24 bf-col-sm-4-24 bf-col-4-24 nested-scrollable-pane-parent left-side-column">
+        </div>
+        <div class="page-content nested-scrollable-pane-parent">
+            <div class="bf-row no-bottom-gutter nested-scrollable-pane-parent">
+                <!--center-->
+                <div ui-view="center"  class="center-part bf-col-xxl-17-24 bf-col-xl-17-24 bf-col-lg-17-24 bf-col-md-15-24 bf-col-sm-14-24 bf-col-14-24 center-column bfMarketSettingsSpace bf-module-loading nested-scrollable-pane-parent">
+
+                </div>
+                <!--right part-->
+                <div  class="bf-col-xxl-7-24 bf-col-xl-7-24 bf-col-lg-7-24 bf-col-md-9-24 bf-col-sm-10-24 bf-col-10-24 right-side-column">
+                    <div class="bf-row no-bottom-gutter h100" ng-init="selectedBetTab=0">
+                        <div class="bf-col-24-24 h100">
+                            <div class="mod-aside h100">
+                                <div class="bf-row aside-top-row no-bottom-gutter h100">
+                                    <div class="bf-col-1-1 h100">
+                                        <div class="betslip-container h100">
+                                            <section class="mod-tabs h100">
+                                                <ul class="tabs-container ">
+                                                    <li class="tab-container POTENTIAL" ng-click="selectedBetTab=0" ng-class="{'active':selectedBetTab==0}">
+                                                        <a class="tab-heading">
+                                                            <h4 class="tab-label">Place bets</h4>
+                                                        </a>
+                                                    </li>
+                                                    <li class="tab-container POTENTIAL" ng-click="selectedBetTab=1" ng-class="{'active':selectedBetTab==1}">
+                                                        <a class="tab-heading">
+                                                            <h4 class="tab-label">Open bets</h4>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content" ng-scrollbars  ui-view="right_placebet" ng-show="selectedBetTab==0"></div>
+                                                <div class="tab-content" ng-scrollbars ui-view="right_openbet" ng-show="selectedBetTab==1">
+
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bf-row aside-bottom-row no-bottom-gutter stick-to-bottom">
+                                    <div class="bf-col-1-1">
+                                        <div class="bf-row no-bottom-gutter">
+                                            <div class="bf-col-1-1">
+                                                <div class="bf-accordion" role="tablist" aria-live="polite">
+                                                    <div class="bf-section " section-id="live-stream" heading="Live Stream">
+                                                        <div data-id="heading-live-stream" tabindex="0" class="bf-section-header" ng-class="{ 'active': videoExpanded }"
+                                                             aria-controls="section-live-stream" role="tab" ng-click="videoExpanded=!videoExpanded">
+                                                            <h3 class="bf-section-title">Live Stream</h3>
+
+                                                            <svg class="svg-icon-default bf-section-arrow"
+                                                                 data-icon="arrow-light" data-style="bf-section-arrow" viewBox="0 0 100 100">
+                                                                <path d="M48.889,78.733L0.074,29.915l7.769-6.652l41.045,41.059l43.276-41.059l7.761,6.652L48.889,78.733z"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="bf-section-content" id="section-live-stream" ng-class="{ 'active': videoExpanded }"
+                                                             aria-labelledby="tab-live-stream" role="tabpanel">
+                                                            <div class="live-stream-container bf-col-24-24">
+
+                                                                <div class="tabs-container bf-col-24-24">
+                                                                    <div ng-show="wcs_video" class="bf-col-24-24">
+                                                                        <kt-video-player wcs-config="wcs_video" pause-me="{{ !videoExpanded}}"
+                                                                                         ng-if="wcs_video"></kt-video-player>
+                                                                    </div>
+                                                                    <div class="bf-col-24-24" ng-show="bf_video">
+                                                                        <iframe scrolling="no" ng-src="{{bf_video}}"></iframe>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bf-section" ng-init="gameAccor=false">
+                                                        <div data-id="heading-x-sell-games" tabindex="0" ng-click="gameAccor=!gameAccor"
+                                                             class="bf-section-header" ng-class="{ 'active': gameAccor }"
+                                                             aria-controls="section-x-sell-games" role="tab">
+                                                            <h3 class="bf-section-title">Play Games</h3>
+                                                            <svg class="svg-icon-default bf-section-arrow" data-icon="arrow-light" data-style="bf-section-arrow"
+                                                                 viewBox="0 0 100 100">
+                                                                <path d="M48.889,78.733L0.074,29.915l7.769-6.652l41.045,41.059l43.276-41.059l7.761,6.652L48.889,78.733z"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="bf-section-content" id="section-x-sell-games"
+                                                             ng-class="{ 'active': gameAccor }" aria-labelledby="tab-x-sell-games" role="tabpanel">
+                                                            <div class="x-sell-games-container">
+                                                                <div class="x-sell-games-content">
+                                                                    <a class="x-sell-games-item">
+                                                                        <img ng-src="{{imagePath}}images/icon2/img/ezugi-24.jpg">
+                                                                    </a>
+                                                                    <a class="x-sell-games-item">
+                                                                        <img ng-src="{{imagePath}}images/icon2/img/EVP-andarnights.jpeg">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

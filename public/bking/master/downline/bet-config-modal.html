@@ -1,0 +1,81 @@
+﻿<div class="row">
+    <div class="col-sm-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="checkbox" id="chk-eventtype" ng-model="chkColumn.eventType"
+                       ng-click="ctrl.eventTypeChanged(true)" class="check">
+                <label for="chk-eventtype">{{::'eventtypes.label' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="checkbox" id="chk-min" ng-model="chkColumn.min" class="check">
+                <label for="chk-min">{{::'betconfig.min.label'|translate}}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" id="chk-max" ng-model="chkColumn.max" class="check">
+                <label for="chk-max">{{::'betconfig.max.label'|translate}}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" id="chk-delay" ng-model="chkColumn.delay" class="check">
+                <label for="chk-delay">{{::'betconfig.delay.label'|translate}}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" id="chk-exposure" ng-model="chkColumn.exposure" class="check">
+                <label for="chk-exposure">{{::'betconfig.exposure.label'|translate}}</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" id="chk-profit" ng-model="chkColumn.profit" class="check">
+                <label for="chk-profit">{{::'betconfig.profit.label'|translate}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mr-top-10" ng-repeat="e in eventTypes">
+    <div class="col-sm-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="checkbox" id="chk-event-{{e.eventTypeId}}"
+                       ng-click="ctrl.eventTypeChanged()"
+                       ng-model="e.haveChange" class="check">
+                <label for="chk-event-{{e.eventTypeId}}">{{::e.name}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="25"
+                       ng-disabled="(!$parent.chkColumn.min || !e.haveChange)"
+                       autocomplete="off" kt-number-only allow-decimal="true"
+                       ng-model="e.minBet" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="25"
+                       ng-disabled="(!$parent.chkColumn.max || !e.haveChange)"
+                       autocomplete="off" kt-number-only allow-decimal="true"
+                       ng-model="e.maxBet" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="25"
+                       ng-disabled="(!$parent.chkColumn.delay || !e.haveChange)"
+                       autocomplete="off" kt-number-only
+                       ng-model="e.betDelay" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="25"
+                       ng-disabled="(!$parent.chkColumn.exposure || !e.haveChange)"
+                       autocomplete="off" kt-number-only allow-decimal="true"
+                       ng-model="e.maxExposure" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="25"
+                       ng-disabled="(!$parent.chkColumn.profit || !e.haveChange)"
+                       autocomplete="off" kt-number-only allow-decimal="true"
+                       ng-model="e.maxProfit" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>

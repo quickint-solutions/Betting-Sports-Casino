@@ -1,0 +1,91 @@
+﻿<div class="kt-model-detail">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="model-score">
+                <div class="col-sm-6 kt-popup-left">
+                    <p class="kt-name">{{symbol.Name}}</p>
+                    <div class="kt-score">
+                        <span kt-change-color="symbol.Bid" ng-if="transactionType==-1">{{symbol.Bid}}</span>
+                        <span kt-change-color="symbol.Ask" ng-if="transactionType==1">{{symbol.Ask}}</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 kt-popup-right">
+                    <span class="kt-buy tradex-green" ng-click="transactionType=1">buy</span>
+                    <i class="fa fa-toggle-on" aria-hidden="true" ng-click="ctrl.transactionTypeChanged()" ng-class="{'tradex-green fa-rotate-180':transactionType==1,'tradex-red ':transactionType==-1}"></i>
+                    <span class="kt-buy tradex-red" ng-click="transactionType=-1">sell</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="kt-model-list">
+                <div class="col-sm-4">
+                    <span class="event-span">order type</span>
+                    <div class="kt-menu">
+                        <a class="kt-menu-list">{{model.orderType.type}} <i class="drp-fa fa fa-caret-down" aria-hidden="true"></i></a>
+                        <ul class="kt-dropdown dropdown-menu">
+                            <li ng-repeat="o in orderTypes"><a ng-click="model.orderType=o;">{{o.type}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-if="model.orderType.id==2">
+                    <span class="event-span">Limit Type</span>
+                    <div class="kt-menu">
+                        <a class="kt-menu-list">{{model.limitType.type}} <i class="drp-fa fa fa-caret-down" aria-hidden="true"></i></a>
+                        <ul class="kt-dropdown dropdown-menu">
+                            <li ng-repeat="l in limitTypes" ng-if="l.transactionType==transactionType">
+                                <a ng-click="model.limitType=l;">{{l.type}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="kt-quality">
+                    <label>Amount</label>
+                    <input type="text" ng-model="model.amount">
+                    <span class="inside-input"> x {{symbol.SymbolFactor | number:0}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-if="model.orderType.id==2">
+                <div class="kt-quality">
+                    <label>{{transactionType==1 ? 'buy' : 'sell'}} price</label>
+                    <input type="text" ng-model="model.limitPrice">
+                    <span class="inside-input" ng-if="model.limitType.id==1"> <i class="fa fa-angle-left"></i> {{symbol.Bid}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==2"> <i class="fa fa-angle-right"></i> {{symbol.Ask | spreadPrice:symbol.PipLocation:1}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-1"> <i class="fa fa-angle-right"></i> {{symbol.Ask}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-2"> <i class="fa fa-angle-left"></i> {{symbol.Bid | spreadPrice:symbol.PipLocation:-1}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-if="model.orderType.id==2">
+                <div class="kt-quality">
+                    <label>SL</label>
+                    <input type="text" ng-model="model.sl">
+                    <span class="inside-input" ng-if="model.limitType.id==1 && model.limitPrice"> <i class="fa fa-angle-left"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==2 && model.limitPrice"> <i class="fa fa-angle-left"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-1 && model.limitPrice"> <i class="fa fa-angle-right"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-2 && model.limitPrice"> <i class="fa fa-angle-right"></i> {{model.limitPrice}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-if="model.orderType.id==2">
+                <div class="kt-quality">
+                    <label>TP</label>
+                    <input type="text" ng-model="model.tp">
+                    <span class="inside-input" ng-if="model.limitType.id==1 && model.limitPrice"> <i class="fa fa-angle-right"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==2 && model.limitPrice"> <i class="fa fa-angle-right"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-1 && model.limitPrice"> <i class="fa fa-angle-left"></i> {{model.limitPrice}}</span>
+                    <span class="inside-input" ng-if="model.limitType.id==-2 && model.limitPrice"> <i class="fa fa-angle-left"></i> {{model.limitPrice}}</span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="kt-quality">
+                    <label>Comment</label>
+                    <input type="text" ng-model="model.note">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

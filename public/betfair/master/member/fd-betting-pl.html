@@ -1,0 +1,120 @@
+﻿<div class="bet_list">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="input-date">
+                    <div class="input-group">
+                        <label for="CreatedFrom">From</label>
+                        <input type="text" class="form-control" id="CreatedFrom" style="width:100px!important;"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                    <div class="input-group">
+                        <label for="CreatedTo">To</label>
+                        <input type="text" class="form-control" id="CreatedTo" style="width:100px!important;"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                    <div class="input_text">
+                        <a ng-click="ctrl.refreshGrid()" class="btn small-btn btn-secondary">
+                            <i class="fa fa-search"></i> {{'common.button.search' | translate}}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="table-listing transfer-table pl-table table-bets">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getProfitLoss(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 data-total="totalRows"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody ng-repeat="item in $data track by $index">
+                    <tr ng-click="$parent.$parent.$parent.ctrl.getBet(item,!item.show)">
+                        <td class="align-l size-md" header-class="'size-md'"
+                            data-title="::'Round Id' | translate">
+                            <span>{{item.roundId}}</span>
+                        </td>
+
+                        <td data-title="::'market.name.label' | translate" header-class="'align-l'" class="align-l"
+                            data-sortable="'tableName'">
+                            <span id="to">{{item.tableName}}</span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'size.label' | translate">
+                            <span>{{item.stake | toRate}} </span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean"
+                            data-title="::'profitloss.label' | translate">
+                            <span ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win  | toRate}}</span>
+                        </td>
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'starttime.label' | translate">
+                            <span>{{item.startTime| date:'yy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'settledtime.label' | translate">
+                            <span>{{item.settleTime | date:'yy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.show && item.betDetailItems.length>0">
+                        <td class="expand-td">
+                            <table class="table-bets">
+                                <tbody>
+                                    <tr>
+                                        <th class="boolean">Bet Id</th>
+                                        <th class="boolean">Selection</th>
+                                        <th class="boolean">{{'oddsreq.label' | translate}}</th>
+                                        <th class="boolean">{{'stake.label' | translate}}</th>
+                                        <th class="boolean">{{'profitloss.label' | translate}}</th>
+                                        <th class="align-l boolean">{{'createddate.label' | translate}}</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr ng-repeat="b in item.betDetailItems | orderBy:'createdOn'">
+                                        <td class="boolean">
+                                            <span>{{b.betId}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.runner}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span title="{{b.price }}">{{b.price }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span title="{{b.size }}">{{b.size  | toRate}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span ng-if="b.pl" title="{{b.pl | toRate }}" ng-class="{'positive':b.pl>=0,'negative':b.pl<0}">{{b.pl  | toRate}}</span>
+                                        </td>
+                                        <td class="align-l boolean">
+                                            <span title="{{b.createdOn }}">{{b.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+
+</div>

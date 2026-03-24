@@ -1,0 +1,17 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <label> {{::'event.name.label' | translate}} : &nbsp;</label>
+            <span>{{video.eventName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <select class="form-control" ng-model="video.id" tabindex="2">
+                <option ng-repeat="s in videoList" value="{{s.id}}">
+                    {{s.streamName}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>

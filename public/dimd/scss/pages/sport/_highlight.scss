@@ -1,0 +1,125 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.featured-box {
+    .highlight-tab {
+        overflow: hidden;
+
+        button {
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: #ccc;
+            color: $black-color;
+            padding: .5rem 1rem;
+            text-transform: capitalize;
+            border-right: 1px solid $heading;
+
+            &.active {
+                background-color: $heading;
+                color: $white-color;
+            }
+        }
+    }
+
+    .tabcontent {
+    //    display: none;
+        padding: 6px 6px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    .h-tabbing {
+        .market .market-table {
+            .marketTitle {
+                font-size: 13px;
+                text-transform: capitalize !important;
+                border-top: 1px solid #dfdfdf;
+                //border-bottom: 1px solid #dfdfdf;
+
+                .marketTitle-name {
+                    width: 80% !important;
+                    padding: 6px 0 6px 15px !important;
+                    letter-spacing: 0px !important;
+                }
+
+                .market-backlay-odd {
+                    padding: 6px 0;
+                    flex: 0 0 37% !important;
+                    justify-content: space-around !important;
+                }
+            }
+
+            .market-table-detail {
+                .market-Content {
+                    background-color: transparent !important;
+                    font-size: 14px;
+
+                    .bt-country {
+                        width: 63%;
+                        display: flex;
+                        align-items: center;
+                        border-top: 1px solid #dfdfdf;
+                        padding: 5px 0 4px 16px;
+                        text-transform: capitalize;
+
+                        .team-name {
+                            display: inline-block;
+                            color: #343a40;
+                            border-bottom: 1px solid transparent;
+
+                            &:hover {
+                                border-bottom: 1px solid;
+                            }
+                        }
+
+                        .highlight-icon {
+                            display: flex;
+                            width: 19%;
+                            //justify-content: space-around;
+                            .fas, .fab {
+                                font-size: 12px;
+                            }
+
+                            span {
+                                float: left;
+                                width: 33px;
+                            }
+                        }
+                    }
+
+                    .highlight-factor {
+                        display: flex;
+                        width: 37%;
+
+                        .fact {
+                            display: flex;
+                            width: calc(33.3333%);
+                            .price{font-weight:bold;}
+                        }
+
+                        .fact-box {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            flex-grow: 1;
+                            padding: 0.4em 0.5em;
+                            position: relative;
+                            text-align: center;
+                            cursor: pointer;
+                            height: 26px;
+                            min-height:26px;
+                            width: 10%;
+                            min-width:10%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,491 @@
+﻿<div class="bets-history" ng-init="totalRows=0;showFilter=false;" ng-class="{'master-page-class':!ctrl.$stateParams.memberid}">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2" ng-if="!ctrl.$stateParams.memberid">
+                <div class="event-heading">Bet List</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group" style="float:left;">
+                    <div id="picker-market-report" class="ktdatepicker"
+                         kt-date-range-picker
+                         data-from-date="search.fromdate"
+                         data-to-date="search.todate"
+                         data-on-selection="ctrl.search()"
+                         data-format="DD MMM YYYY HH:mm:ss">
+                        {{search.fromdate | date:'dd MMM yyyy HH:mm:ss'}} - {{search.todate | date:'dd MMM yyyy HH:mm:ss'}}
+                        <i class="icon-calendar"></i>
+                    </div>
+                </div>
+                <a class="filters-toggle" ng-click="showFilter=!showFilter" ng-class="{'selected':showFilter}">
+                    <i class="icon-filter" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text" ng-show="showFilter">
+                    <ui-select ng-model="search.eventType" theme="bootstrap" close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Sport: All">Sport: {{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="eventtype in eventTypeList | filter: $select.search" class="ui-select-choices">
+                            <span ng-bind-html="eventtype.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text" ng-show="showFilter">
+                    <ui-select ng-model="search.marketType" theme="bootstrap" close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Market Type: All">Market Type: {{$select.selected.displayName}}</ui-select-match>
+                        <ui-select-choices repeat="mt in marketTypeList | filter: $select.search" class="ui-select-choices">
+                            <span ng-bind-html="mt.displayName | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2" ng-class="{'col-sm-4':ctrl.$stateParams.memberid}">
+                <div class="btn_value float-r" ng-hide="currentUserType==5">
+                    <button class="btn btn-secondary" ng-click="ctrl.exportDataToExcel()" ng-disabled="totalRows<=0">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mr-top-10" ng-show="showFilter">
+            <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Event" ng-model="search.eventName" />
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text ">
+                    <ui-select ng-model="search.selectedUser" theme="bootstrap" on-select="ctrl.userSelected()"
+                               close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                           class="ui-select-choices"
+                                           refresh="$parent.ctrl.searchUser($select.search)">
+                            <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                            &nbsp;-&nbsp;
+                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                            <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text" ng-init="ranger={showodds:false,showstake:false};">
+                    <div class="ktdatepicker" ng-click="ctrl.rangeChanged(ranger,'showodds','showstake')">
+                        Odds : {{search.oddsfrom>0 || search.oddsto>0 ? 'Custom' : 'All' }}<i class="fa fa-sort-desc float-r" style="margin-top:3px;"></i>
+                    </div>
+                    <div class="dropdown_list" ng-show="ranger.showodds">
+                        <div class="number-content">
+                            From
+                            <input type="text" ng-model="search.oddsfrom" />
+                        </div>
+                        <div class="number-content">
+                            To
+                            <input type="text" ng-model="search.oddsto" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text">
+                    <div class="ktdatepicker" ng-click="ctrl.rangeChanged(ranger,'showstake','showodds')">
+                        Stake : {{search.stakefrom>0 || search.staketo>0 ? 'Custom' : 'All' }} <i class="fa fa-sort-desc float-r" style="margin-top:3px;"></i>
+                    </div>
+                    <div class="dropdown_list" ng-show="ranger.showstake">
+                        <div class="number-content">
+                            From
+                            <input type="text" ng-model="search.stakefrom" />
+                        </div>
+                        <div class="number-content">
+                            To
+                            <input type="text" ng-model="search.staketo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <div class="float-r">
+                    <a class="btn btn-secondary" ng-click="ranger={showodds:false,showstake:false};ctrl.search();">
+                        Apply
+                    </a>
+                    <a class="btn btn-danger" ng-click="ranger={showodds:false,showstake:false};ctrl.resetCriteria();" style="margin-left:10px;">
+                        Clear
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-listing list-table statement-table">
+        <p ng-show="totalRows<=0" style="color:white;margin-bottom:15px!important;">There is no data for selected filters.</p>
+        <div class="bet-manager">
+            <ul class="tab">
+                <li><a class="tabing-title  align-l" ng-class="{'active':dataForCurrent}" ng-click="dataForCurrent=true;ctrl.search()">{{'Current' | translate}}</a></li>
+                <li><a class="tabing-title align-l" ng-class="{'active':!dataForCurrent}" ng-click="dataForCurrent=false;ctrl.search()">{{'Past' | translate}}</a></li>
+            </ul>
+            <div class="bet-list-table" ng-show="dataForCurrent">
+                <div class="select-radio">
+                    <span>
+                        <input type="radio" id="matched" name="match" ng-model="betStatus" ng-change="ctrl.betSideChanged(2)" value="2">
+                        <label for="matched">Matched</label><br>
+                    </span>
+                    <span>
+                        <input type="radio" id="unmatched" name="match" ng-model="betStatus" ng-change="ctrl.betSideChanged(3)" value="3">
+                        <label for="unmatched">UnMatched</label><br>
+                    </span>
+                </div>
+                <div ng-if="betStatus ==3 && dataForCurrent" class="flexi-table">
+                    <kt-grid grid-id="kt-unmatchedbets-grid"
+                             load-items="ctrl.getUnmatchedBets(params)"
+                             data-items="$parent.gridItems"
+                             data-total="$parent.totalRows"
+                             show-total="false"
+                             cache-key="ktunmatchedbetsgrid" class="no-bg">
+
+                        <table ng-table="tableParams" class="table table-hover member_table"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <thead>
+                                <tr>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">
+                                        Member
+                                    </th>
+                                    <th class="boolean bet_td">
+                                        Placed
+                                    </th>
+                                    <th class="align-l bet_td">
+                                        Description
+                                    </th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType==5">IP Address</th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">In Play</th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">1-Click</th>
+                                    <th class="boolean">
+                                        Type
+                                    </th>
+                                    <th class="boolean">
+                                        Odds
+                                    </th>
+                                    <th class="boolean">
+                                        Stake
+                                    </th>
+                                    <th class="boolean">Liability</th>
+                                    <th class="align-r">
+                                        Potential Profit
+                                    </th>
+                                    <td ng-repeat="u in $parent.$parent.userPTtree" class="boolean bold">
+                                        {{u.short}} PT
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody class="info-text">
+                                <tr class="bet-tr" ng-repeat="item in $data track by $index">
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <div class="orderDate"> {{item.user.username}}</div>
+                                        <div class="orderDate">({{item.user.name}})</div>
+                                    </td>
+                                    <td class="boolean bet_td">
+                                        <div title="{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}" style="padding-top:10px;">
+                                            <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy"></kt-date>
+                                        </div>
+                                        <div class=""><kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date></div>
+                                    </td>
+                                    <td class="align-l bet_td">
+                                        <div>{{item.market.event.name}}</div>
+                                        <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                            <strong class="float-l">
+                                                {{item.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                            </strong>&nbsp;<div class="float-l padding-l">{{item.market.name | shortme:25}}</div>
+                                        </div>
+                                        <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                            <strong class="float-l">{{item.runnerName}}</strong>&nbsp;
+                                            <div class="float-l padding-l">{{item.market.roundId}}</div>
+                                        </div>
+                                        <div>BetId: {{item.betId}}</div>
+                                        <div>Matched: {{(item.updatedOn ? item.updatedOn : item.createdOn) | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                    </td>
+                                    <td class="boolean" ng-if=" $parent.$parent.$parent.currentUserType==5">
+                                        <span>{{item.remoteIp}}</span>
+                                    </td>
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <span>{{item.inPlay ? 'Y' : 'N'}}</span>
+                                    </td>
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <span>{{item.betFrom==3 ? 'Y' : 'N'}}</span>
+                                    </td>
+                                    <td class="size-xs boolean"  ng-class="{'back-text':item.side==1,'lay-text':item.side==2}">
+                                        <span ng-show="item.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                                        <span ng-show="item.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span>
+                                            {{item.bettingType==7 ? item.percentage : item.avgPrice}}
+                                        </span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span title="{{item.sizeRemaining | toRate }}">{{item.sizeRemaining  | toRate}} </span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span>
+                                            {{item.bettingType!=7 && item.side==2 ? (((item.avgPrice-1)*(item.sizeRemaining))*-1 | toRate) : '-'}}
+                                        </span>
+                                    </td>
+                                    <td class="align-r" ng-switch="item.bettingType">
+                                        <span ng-switch-when="7">
+                                            {{(item.sizeRemaining*item.percentage)/100 | toRate}}
+                                        </span>
+                                        <span ng-switch-when="8">
+                                            {{item.sizeRemaining | toRate}}
+                                        </span>
+                                        <span ng-switch-default>
+                                            {{ (item.side==1 ? ((item.avgPrice-1)*item.sizeRemaining) : item.sizeRemaining ) | toRate}}
+                                        </span>
+                                    </td>
+
+                                    <td ng-repeat="u in $parent.$parent.$parent.userPTtree" class="boolean bold">
+                                        <span>{{item.userPt[u.ptFieldName]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+                <div ng-if="betStatus ==2 && dataForCurrent" class="flexi-table">
+                    <kt-grid grid-id="kt-matchedbets-grid"
+                             load-items="ctrl.getMatchedBets(params)"
+                             data-items="$parent.gridItems"
+                             data-total="$parent.totalRows"
+                             show-total="false"
+                             cache-key="ktmatchedbetsgrid" class="no-bg">
+
+                        <table ng-table="tableParams" class="table table-hover member_table clickable"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <thead>
+                                <tr>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">
+                                        Member
+                                    </th>
+                                    <th class="boolean bet_td">
+                                        Placed
+                                    </th>
+                                    <th class="align-l bet_td">
+                                        Description
+                                    </th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType==5">IP Address</th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">In Play</th>
+                                    <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">1-Click</th>
+                                    <th class="boolean">
+                                        Type
+                                    </th>
+                                    <th class="boolean">
+                                        Odds
+                                    </th>
+                                    <th class="boolean">
+                                        Stake
+                                    </th>
+                                    <th class="boolean">Liability</th>
+                                    <th class="align-r">
+                                        Potential Profit
+                                    </th>
+
+                                    <td ng-repeat="u in $parent.$parent.userPTtree" class="boolean bold">
+                                        {{u.short}} PT
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody class="info-text">
+                                <tr class="bet-tr" ng-repeat="item in $data track by $index">
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <div class="orderDate"> {{item.user.username}}</div>
+                                        <div class="orderDate">({{item.user.name}})</div>
+                                    </td>
+                                    <td class="boolean bet_td">
+                                        <div title="{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}" style="padding-top:10px;">
+                                            <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy"></kt-date>
+                                        </div>
+                                        <div class=""><kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date></div>
+                                    </td>
+                                    <td class="align-l bet_td">
+                                        <div>{{item.market.event.name}}</div>
+                                        <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                            <strong class="float-l">
+                                                {{item.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                            </strong>&nbsp;<div class="float-l padding-l">{{item.market.name | shortme:20}}</div>
+                                        </div>
+                                        <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                            <strong class="float-l">{{item.runnerName}}</strong>&nbsp;
+                                            <div class="float-l padding-l">{{item.market.roundId}}</div>
+                                        </div>
+                                        <div>BetId: {{item.betId}} </div>
+                                        <div>Matched: {{(item.updatedOn ? item.updatedOn : item.createdOn) | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                    </td>
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType==5">
+                                        <span>{{item.remoteIp}}</span>
+                                    </td>
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <span>{{item.inPlay ? 'Y' : 'N'}}</span>
+                                    </td>
+                                    <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                        <span>{{item.betFrom==3 ? 'Y' : 'N'}}</span>
+                                    </td>
+                                    <td class="boolean"  ng-class="{'back-text':item.side==1,'lay-text':item.side==2}">
+                                        <span ng-show="item.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                                        <span ng-show="item.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span>
+                                            {{item.bettingType==7 ? item.percentage : item.avgPrice}}
+                                        </span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span title="{{item.sizeMatched | toRate }}">{{item.sizeMatched  | toRate}} </span>
+                                    </td>
+                                    <td class="boolean">
+                                        <span ng-show="item.bettingType!=7">
+                                            <span ng-show="item.side==1">
+                                                -
+                                            </span>
+                                            <span ng-show="item.side==2">
+                                                {{((item.avgPrice-1)*(item.sizeMatched)) | toRate}}
+                                            </span>
+                                        </span>
+                                        <span ng-show="item.bettingType==7">
+                                            <span ng-show="item.side==1">
+                                                -
+                                            </span>
+                                            <span ng-show="item.side==2">
+                                                {{(item.sizeMatched) | toRate}}
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td class="align-r" ng-switch="item.bettingType">
+                                        <span ng-switch-when="7">
+                                            {{(item.sizeMatched*item.percentage)/100 | toRate}}
+                                        </span>
+                                        <span ng-switch-when="8">
+                                            {{item.sizeMatched | toRate}}
+                                        </span>
+                                        <span ng-switch-default>
+                                            {{ (item.side==1 ? ((item.avgPrice-1)*item.sizeMatched) : item.sizeMatched ) | toRate}}
+                                        </span>
+                                    </td>
+
+                                    <td ng-repeat="u in $parent.$parent.$parent.userPTtree" class="boolean bold">
+                                        <span>{{item.userPt[u.ptFieldName]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+
+            <div class="bet-list-table flexi-table" ng-if="!dataForCurrent">
+                <kt-grid grid-id="kt-historybets-grid"
+                         load-items="ctrl.getHistoryBets(params)"
+                         data-items="$parent.gridItems"
+                         data-total="$parent.totalRows"
+                         show-total="false"
+                         cache-key="kthistorybetsgrid" class="no-bg">
+
+                    <table ng-table="tableParams" class="table table-hover member_table"
+                           template-pagination="{{ :: paginationUrl }}">
+                        <thead>
+                            <tr>
+                                <th class="boolean " ng-if="$parent.$parent.currentUserType!=5">Member</th>
+                                <th class="boolean ">Settled</th>
+                                <th class="align-l">Description</th>
+                                <th class="boolean" ng-if="$parent.$parent.currentUserType==5">IP Address</th>
+                                <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">In Play</th>
+                                <th class="boolean" ng-if="$parent.$parent.currentUserType!=5">1-Click</th>
+                                <th class="boolean">Type</th>
+                                <th class="boolean">Odds</th>
+                                <th class="boolean">Stake</th>
+                                <th class="boolean">Status</th>
+                                <th class="boolean">MEMBER Win/Loss</th>
+                                <th ng-repeat="u in $parent.$parent.userPTtree" class="boolean">
+                                    {{u.short}} Win/Loss
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="info-text">
+                            <tr class="bet-tr" id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                                <td class="boolean bet_td" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                    <div class="orderDate">
+                                        {{item.user.username}}
+                                    </div>
+                                    <div>
+                                        {{item.user.name}}
+                                    </div>
+                                </td>
+                                <td class="boolean bet_td">
+                                    <div class="orderDate" title="{{item.market.settleTime | date:'yyyy-MM-dd HH:mm:ss'}}">
+                                        <kt-date data-date-value="item.market.settleTime" data-format="dd/MM/yyyy"></kt-date>
+                                    </div>
+                                    <div class="ordertimr"><kt-date data-date-value="item.market.settleTime" data-format="HH:mm:ss"></kt-date></div>
+                                </td>
+                                <td class="align-l bet_td">
+                                    <div>{{item.market.event.name}}</div>
+                                    <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                        <strong class="float-l">
+                                            {{item.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                        </strong>&nbsp;<div class="float-l padding-l">{{item.market.name | shortme:25}}</div>
+                                    </div>
+                                    <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                        <strong class="float-l">{{item.runnerName}}</strong>&nbsp;
+                                        <div class="float-l padding-l">
+                                            {{item.market.roundId}}
+                                        </div>
+                                    </div>
+                                    <div>BetId: {{item.betId}}</div>
+                                    <div>Placed: {{(item.updatedOn ? item.updatedOn : item.createdOn) | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                </td>
+                                <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType==5">
+                                    <span>{{item.remoteIp}}</span>
+                                </td>
+                                <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                    <span>{{item.inPlay ? 'Y' : 'N'}}</span>
+                                </td>
+                                <td class="boolean" ng-if="$parent.$parent.$parent.currentUserType!=5">
+                                    <span>{{item.betFrom==3 ? 'Y' : 'N'}}</span>
+                                </td>
+                                <td class="boolean"  ng-class="{'back-text':item.side==1,'lay-text':item.side==2}">
+                                    <span ng-show="item.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                                    <span ng-show="item.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                                </td>
+                                <td class="boolean">
+                                    <span>
+                                        {{item.bettingType==7 ? item.percentage : item.avgPrice}}
+                                    </span>
+                                </td>
+                                <td class="boolean">
+                                    <span title="{{item.sizeMatched | toRate }}">{{item.sizeMatched  | toRate}} </span>
+                                </td>
+                                <td class="boolean">
+                                    <span class="negative bold" ng-show="item.isDelete">
+                                        VOID
+                                        <span ng-if="item.referenceText" title="{{item.referenceText}}"><i class="fa fa-info-circle red" style="cursor:pointer;"></i></span>
+                                    </span>
+                                    <span class="negative bold" ng-show="(item.sizeCancelled>0 || item.sizeVoided>0) && item.sizeMatched<=0 && !item.isDelete">CNL</span>
+                                    <span ng-show="item.sizeMatched>0 && !item.isDelete" class="bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                                        {{item.pl>0 ? 'WON' : 'LOST'}}
+                                    </span>
+                                </td>
+
+                                <td class="boolean bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                                    <span>{{item.pl | toRate}}</span>
+                                </td>
+
+                                <td ng-repeat="u in $parent.$parent.$parent.userPTtree" class="boolean bold positive"
+                                    ng-class="{'negative':item[u.plFieldName]<0}">
+                                    <span>{{item[u.plFieldName] | toRate}}</span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+</div>

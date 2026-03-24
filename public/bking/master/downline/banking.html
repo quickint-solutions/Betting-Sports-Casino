@@ -1,0 +1,149 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="event-heading">Transfer</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="label float-l">Search by Login Name</div>
+                <ui-select ng-model="search.selectedUser" class="float-l" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                           close-on-select="true">
+                    <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                       class="ui-select-choices"
+                                       refresh="$parent.ctrl.searchUser($select.search)">
+                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                        &nbsp;-&nbsp;
+                        <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" minlength="1" maxlength="50"
+                           placeholder="User/Login name"
+                           required ng-model="search.username" class="form-control">
+                    <span class="input-group-addon" style="cursor:pointer" ng-click="ctrl.refreshGrid()"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-danger" ng-click="ctrl.resetCriteria();" style="margin-left:10px;">
+                    Clear
+                </a>
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+        </div>
+    </div>
+    <div class="table-listing">
+        <p style="color:white;margin-bottom:15px!important;font-style:italic;">
+            <a class="link-a" ng-show="userTree.length>0" ui-sref="master.banking({memberid:'',userid:''})">Transfer</a>
+            <span ng-repeat="ut in userTree">
+                <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                <span ng-show="$index!=userTree.length-1">
+                    <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                    <a class="link-a" ui-sref="master.banking({memberid:ut.id,userid:''})">{{ut.name}}</a>
+                </span>
+            </span>
+        </p>
+        <kt-grid grid-id="kt-lotus-banking-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 name-param="id"
+                 data-items="gridItems"
+                 name-value-property="id"
+                 data-page-size="200"
+                 total="totalItems"
+                 data-show-total="false"
+                 cache-key="ktbankinggrid">
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-smd boolean">Username</th>
+                        <th class="size-smd boolean">Usercode</th>
+                        <th class="size-md align-r">Exposure</th>
+                        <th class="size-md align-r">Take</th>
+                        <th class="size-md align-r">Give</th>
+                        <th class="size-smd align-r">Balance</th>
+                        <th class="size-md align-r">Credit Limit</th>
+                        <th class="size-smd align-r" ng-if="$parent.$parent.currentUserType<4">Available Credit</th>
+                        <th class="size-md boolean">Transfer</th>
+                        <th class="size-xsm boolean">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id">
+                        <td class="size-smd boolean">
+                            <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.userType)">
+                                {{item.username}}
+                            </span>
+                            <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.userType)"
+                               ui-sref="master.banking({memberid:item.id,userid:''})" class="link-a">
+                                {{item.username}}
+                            </a>
+                        </td>
+                        <td class="size-smd boolean">
+                            <span>{{item.userCode}}</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="positive bold" ng-class="{'negative':item.balanceInfo.exposure<0}"
+                                  title="{{item.balanceInfo.exposure | toRate}}">{{item.balanceInfo.exposure | toRate}}</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="positive" ng-show="item.balanceInfo.take>0">{{item.balanceInfo.take | toRate}}</span>
+                            <span ng-show="item.balanceInfo.take<=0">-</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="negative" ng-show="item.balanceInfo.give!=0">{{item.balanceInfo.give | toRate}}</span>
+                            <span ng-show="item.balanceInfo.give==0">-</span>
+                        </td>
+                        <td class="size-smd align-r">
+                            <span>{{item.balanceInfo.balance | toRate}}</span>
+                        </td>
+                        <td class="size-md align-r">
+                            <span class="credit-ref" ng-show="item.balanceInfo.creditLimit>0">{{item.balanceInfo.creditLimit | toRate}}</span>
+                            <span class="credit-ref" ng-show="item.balanceInfo.creditLimit<=0">-</span>
+                        </td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType<4">
+                            <span title="{{item.balanceInfo.availableCredit | toRate}}" class="bold">
+                                {{item.balanceInfo.availableCredit | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <a ng-disabled="item.chips == 0" ng-click="$parent.$parent.$parent.ctrl.transferChip(item)"
+                               ng-class="{'disable':!(item.balanceInfo.take > 0 || item.balanceInfo.give > 0)}" class="link-a">
+                                Transfer
+                            </a>
+                        </td>
+                        <td class="size-xsm boolean">
+                            <a ui-sref="master.lotusmember({memberid:item.id,usertype:item.userType})">
+                                <i class="fa fa-eye fa-lg link-a"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-smd"></td>
+                        <td class="size-smd boolean">Total</td>
+                        <td class="size-md align-r negative">{{$data | total:'balanceInfo.exposure':true | toRate }}</td>
+                        <td class="size-md align-r positive">{{$data | total:'balanceInfo.take':true | toRate }}</td>
+                        <td class="size-md align-r negative">{{$data | total:'balanceInfo.give':true | toRate}}</td>
+                        <td class="size-smd align-r">{{$data | total:'balanceInfo.balance':true | toRate}}</td>
+
+                        <td class="size-md align-r ">{{$data | total:'balanceInfo.creditLimit':true | toRate}}</td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType<4">
+                            {{$data | total:'balanceInfo.availableCredit':true | toRate}}
+                        </td>
+                        <td class="size-sm"></td>
+                        <td class="size-xsm boolean"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'websites.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-website-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditWebsite()"
+             cache-key="ktwebsitegrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'website.name.label' | translate" data-sortable="'name'"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.name}}">{{item.name}} </span>
+                    </td>
+                    <td data-title="::'website.hosts.label' | translate" data-sortable="'hosts'">
+                        <span title="{{item.hosts}}">{{item.hosts}}</span>
+                    </td>
+                    <td data-title="::'website.url.label' | translate" data-sortable="'url'"
+                        data-header-class="'size-xl'" class="size-xl">
+                        <span title="{{item.url}}">{{item.url}}</span>
+                    </td>
+                    <td data-title="::'Fairdeal Casino'"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <i ng-show="item.hasCasino" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'Registration?' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <i ng-show="item.isRegisterEnabled" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'B2C?' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <i ng-show="item.isB2C" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'Referral?' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <i ng-show="item.hasReferral" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'size-lg boolean'" class="size-lg boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light" title="Edit Website"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditWebsite(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnDelete{{$index}}" class="btn btn-danger" title="Delete Website"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteWebsite(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <a id="btnpayment{{$index}}" class="btn btn-success" title="Update Payment Details"
+                           ng-click="$parent.$parent.$parent.ctrl.updatePayment(item)">
+                            <i class="fa fa-dollar"></i>
+                        </a>
+                        <a class="btn btn-info" title="Update OTP Config"
+                           ng-click="$parent.$parent.$parent.ctrl.updateOTPConfig(item)">
+                            <i class="fa fa-gears"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

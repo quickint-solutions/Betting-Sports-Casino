@@ -1,0 +1,35 @@
+﻿<tr  style="background:#ecf3f1">
+    <td style="padding-left:{{(d.userType-parentUserType+1) * 10}}px">
+        <a class="p-user"  >
+            {{d.username}}
+            <span class="icons-list">
+                <i class="fa float-r" ng-click="ctrl.open_Close_Check_Position(d,p,true);" ng-if="d.downline" ng-class="{'fa-sitemap':!d.open,'fa-sort-amount-asc fa-rotate-180':d.open}"></i>
+                <i class="icon-ladder icons fa float-r" ng-click="ctrl.openBook($event,d,p)"></i>
+            </span>
+
+        </a>
+    </td>
+    <td><span class="market-team" ng-class="{'positive':d.maxWin>=0,'negative':d.maxWin<0}">{{d.maxWin  | toRate}}</span></td>
+    <td><span class="market-team" ng-class="{'positive':d.pl>=0,'negative':d.pl<0}">{{d.pl  | toRate}}</span></td>
+</tr>
+<tr>
+    <td colspan="3" style="padding:1px;">
+        <table>
+            <tbody id="tbody_{{p.market.id}}_{{d.userId}}"></tbody>
+        </table>
+    </td>
+</tr>
+<tr ng-if="d.downline && d.open" >
+    <td colspan="3" style="padding:0px">
+        <table ng-repeat="d in d.downline track by $index" >
+            <thead>
+                <tr>
+                    <th style="padding:0px;"></th>
+                    <th style="width:200px;padding:0px;"></th>
+                    <th style="width:200px;padding:0px;"></th>
+                </tr>
+            </thead>
+            <tbody ng-include="sessionpositionChildTemplate" ></tbody>
+        </table>
+    </td>
+</tr>

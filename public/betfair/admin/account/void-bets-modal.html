@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+            <input type="text" ng-disabled="true"
+                    ng-model="request.voidAmount" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
+            <textarea  minlength="1" maxlength="200" rows="2"
+                   placeholder="{{::'voidbet.reason.placeholder' | translate}}"
+                   required ng-model="request.reason" class="form-control"></textarea>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user-secret"></i></span>
+            <input type="password" minlength="1" maxlength="20"
+                   placeholder="{{::'user.password.placeholder' | translate}}" autocomplete="new-password"
+                   required ng-model="request.password" class="form-control">
+        </div>
+    </div>
+</div>

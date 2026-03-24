@@ -1,0 +1,375 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.xgame-main {
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+
+    .gametype-1, .gametype-2 {
+        height: 320px;
+    }
+
+    .gametype-3, .gametype-5 {
+        height: 468px;
+    }
+
+    .gametype-6 {
+        .no-min-width {
+            min-width: unset !important;
+        }
+    }
+
+
+
+    .player-card.scrollable {
+        max-width: 220px;
+    }
+
+    .card-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .card-scroll::-webkit-scrollbar {
+        width: 1px;
+        height: 3px;
+        margin-left: 3px;
+        //background-color: #F5F5F5;
+    }
+
+    .card-scroll::-webkit-scrollbar-track {
+        height: 4px;
+        background-color: #d2d2d2;
+    }
+
+    .card-scroll::-webkit-scrollbar-thumb {
+        background-color: #808080;
+        height: 4px;
+    }
+
+    .xgame-header {
+        width: 100%;
+        padding: 8px 12px;
+        height: 76px;
+        background-color: $xgame-header;
+
+        .xgame-title {
+            font-size: 16px;
+            color: $white-color;
+            letter-spacing: 1px;
+            line-height: 24px;
+        }
+    }
+
+    .progress-bar {
+        height: 1px;
+    }
+
+    .xgame-bottom {
+        float: left;
+        width: 100%;
+
+        .tab {
+            .tabs-container {
+                background-color: transparent;
+
+                .tab-container {
+                    background-color: transparent;
+                    border: none !important;
+                    height: 25px;
+
+                    &.active .tab-label {
+                        opacity: 1 !important;
+
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            width: 50%;
+                            height: 2px;
+                            bottom: -2px;
+                            left: 0;
+                            border-bottom: 2px solid $white-color;
+                        }
+                    }
+
+                    .tab-heading {
+                        padding: 0px;
+                        margin-right: 16px;
+                        text-align: left;
+
+                        .tab-label {
+                            letter-spacing: 1px;
+                            font-size: 14px;
+                            opacity: .5;
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .xgame-tab {
+        background-image: url(/public/images/virtual/black-bg.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        //height: 100%;
+        float: left;
+        width: 100%;
+        padding: 15px 10px;
+
+        .game-id {
+            .gameid-title {
+                margin-right: 6px;
+                font-size: 12px;
+                display: inline-block;
+                color: $white-color;
+            }
+
+            .gameid-no {
+                opacity: .5;
+                display: inline-block;
+                color: $white-color;
+                font-size: 12px;
+            }
+        }
+
+        .progress-bar {
+            margin: 20px auto 0;
+            width: 70%;
+            float: none;
+
+            .myprogress {
+                background-color: #8c8c90;
+                width: 100%;
+                height: 2px;
+                float: left;
+            }
+
+            .run-progress {
+                background-color: #f15853;
+                height: 2px;
+                width: 0%;
+                float: left;
+                position: relative;
+                top: -2px;
+            }
+        }
+
+        .cards-layout {
+            text-align: center;
+
+            .single-runner {
+                width: 100%;
+                display: inline-block;
+
+                .card-container {
+                    float: none !important;
+                }
+            }
+
+            .card-box {
+                flex: 1;
+                display: inline-block;
+                margin-right: 16px;
+                padding-bottom: 40px;
+                z-index: 0;
+                color: #4cff00;
+                height: 168px;
+
+                .card-name {
+                    color: #f15853;
+                    font-size: 12px;
+                    padding-bottom: 8px;
+                    text-align: center;
+                }
+
+                .banker .card-name {
+                    color: #63b5f4;
+                }
+
+                .player-card {
+                    border-radius: 24px;
+                    padding: 16px;
+                    background: rgba(226,242,255,.05);
+                    min-width: 220px;
+                    text-align: initial;
+                    font-size: 11px;
+                    height: 104px;
+                    display: inline-block;
+
+                    .card-item {
+                        .cards-img {
+                            width: 52px;
+                            height: 72px;
+                            border-radius: 4px;
+                            overflow: hidden;
+
+                            img {
+                                width: 62px;
+                                height: 72px;
+                            }
+                        }
+                    }
+                }
+
+                .hit {
+                    background: rgba(178,220,175,.25);
+                }
+            }
+        }
+
+        .card-lresult {
+            color: $white-color;
+        }
+
+        .card-counter {
+            //  flex: 1 0 100%;
+            font-size: 12px;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .result-table {
+            margin: 15px 0 0 0;
+            display: inline-block;
+
+            .result-div {
+                //    width: 22px;
+                display: inline-flex;
+                flex-direction: column;
+                cursor: pointer;
+
+                &:first-child {
+                    .result-list:first-child {
+                        border-top-left-radius: 4px;
+                    }
+
+                    .result-list:last-child {
+                        border-bottom-left-radius: 4px;
+                    }
+                }
+
+                &:last-child {
+                    .result-list:first-child {
+                        border-top-right-radius: 4px;
+                    }
+
+                    .result-list:last-child {
+                        border-bottom-right-radius: 4px;
+                    }
+                }
+            }
+
+            .result-list {
+                background: #343436;
+                padding: 3px;
+                color: #8c8c90;
+                border-bottom: 1px solid #1e1e1e;
+                border-right: 1px solid #1e1e1e;
+            }
+        }
+    }
+
+    .slider-time {
+        float: left;
+        width: 100%;
+        margin-bottom: 20px;
+
+        .showSlide {
+            display: inline-block;
+            width: 50px;
+            color: #fff;
+            text-align: center;
+            padding: 8px 2px;
+            cursor: pointer;
+
+            .result {
+                padding: 3px 10px;
+                cursor: pointer;
+
+                &:hover, &.active {
+                    border: 1px solid #575353;
+                    border-radius: 5px;
+                    //padding: 3px 5px;
+                    -webkit-box-shadow: 0px 0px 6px 1px #575353;
+                    -moz-box-shadow: 0px 0px 6px 1px #575353;
+                    box-shadow: 0px 0px 6px 1px #575353;
+                }
+            }
+        }
+
+        .slider-outer {
+            width: 80%;
+            float: left;
+            overflow: hidden;
+            padding: 10px 0px;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .slider-inner {
+            white-space: nowrap;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .slidercontainer {
+            max-width: 500px;
+            position: relative;
+            margin: 0 auto;
+            //display: flex;
+        }
+
+        .left, .right {
+            float: left;
+            cursor: pointer;
+            //position: absolute;
+            //top: 15%;
+            width: auto;
+            padding: 16px;
+            //margin-top: -22px;
+            color: white;
+            font-size: 16px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .right {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        /* Fading animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+            opacity: 1;
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    }
+}

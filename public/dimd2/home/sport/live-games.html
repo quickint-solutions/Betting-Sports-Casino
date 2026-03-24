@@ -1,0 +1,16 @@
+﻿<div class="livegame">
+    <div class="livegame-body">
+        <div class="col-sm-6 live-info" ng-repeat="g in gameList">
+            <a ui-sref="base.home.sport.livegamesmarket({nodetype:1,id:ctrl.$stateParams.id,eventid:g.id})">
+                <!--<a ui-sref="rp.gamemarket({eventid:g.id})" target="_blank">-->
+                <div class="item-img" style="background-image:url({{g.imagePath}})"></div>
+            </a>
+            <span class="item_footer">
+                <span class="footer-title">{{g.name}}</span>
+                <small>
+                    <span style="float:right;text-transform:capitalize">Max Bet <b>{{g.markets[0].maxBet | toRate}}</b> &nbsp;||&nbsp; Max Liability <b>{{g.markets[0].maxLiability | toRate}}</b></span>
+                </small>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div class="mb-account">
+    <div class="my-bets">
+        <h1 class="title">{{'mybets.label' | translate}}</h1>
+        <ul class="tabbing-blue">
+            <li ng-class="ctrl.isActive('/mobile/s/bets/currentbets')">
+                <a ui-sref="mobile.seven.base.mybets.currentbets">
+                    <i class="fa fa-line-chart"></i>
+                    {{'currentbets.label' | translate}}
+                </a>
+            </li>
+            <li ng-class="ctrl.isActive('/mobile/s/bets/bethistory')">
+                <a ui-sref="mobile.seven.base.mybets.bethistory">
+                    <i class="fa fa-history"></i>
+                    {{'bethistory.label' | translate}}
+                </a>
+            </li>
+            <!--<li ng-class="ctrl.isActive('/mobile/s/bets/fd-bethistory')">
+                <a ui-sref="mobile.seven.base.mybets.fdbethistory">
+                    <i class="fa fa-clock-o"></i>
+                    FD {{'bethistory.label' | translate}}
+                </a>
+            </li>-->
+        </ul>
+        <div ui-view="betsreport">
+
+        </div>
+    </div><!-- my beats -->
+</div>

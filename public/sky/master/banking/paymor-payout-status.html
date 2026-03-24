@@ -1,0 +1,52 @@
+﻿<div class="row ">
+    <div class="col-sm-12">
+        <div class="input-group master_wrap">
+            <span>Withdrawal Request Of : &nbsp;</span>
+            <label class="bold">{{item.user.username}}</label>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6  mr-top-10">
+        <div ng-show="item.phone">Mobile : <b class="red">{{item.mobileNo }}</b></div>
+
+        <div ng-show="item.amount">Amount : <b class="green">{{item.amount | toRate}}</b></div>
+        <div>Current Status :    <b>{{ctrl.getStatus(item.oldstatus) }}</b></div>
+
+        <div ng-show="item.city">City : <b>{{item.city}}</b></div>
+        <div ng-show="item.pincode">Pincode : <b>{{item.pincode}}</b></div>
+        <div class="mr-top-10">Requested On : <kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date></div>
+
+    </div>
+    <div class="col-sm-6  mr-top-10">
+        <div ng-show="item.accNo">A/C No. : <b class="red">{{item.accNo }}</b></div>
+        <div ng-show="item.bankName">Bank : <b>{{item.bankName }}</b></div>
+        <div ng-show="item.ifscCode">IFSC : <b>{{item.ifscCode }}</b></div>
+        <div ng-show="item.name">A/C Name : <b>{{item.name }}</b></div>
+        <div ng-show="item.transferType">Type : <b>{{item.transferType }}</b></div>
+        <div ng-show="item.note">Note : <b>{{item.note }}</b></div>
+        <div class="mr-top-10">
+            <div class="input-group">
+                <select class="form-control" ng-model="item.status">
+                    <option ng-repeat="s in payoutList" value="{{s.id}}">
+                        {{s.name}}
+                    </option>
+                </select>
+                <span class="input-group-addon">Status</span>
+            </div>
+        </div>
+        <div class="mr-top-10">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="100" ng-model="item.comment"
+                       placeholder="Note" />
+                <span class="input-group-addon">Note</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,280 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="form-pannel mr-top-24">
+        <div class="row">
+            <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Table Name" ng-model="search.tableName" />
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text " style="width:250px;">
+                    <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                               close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                           class="ui-select-choices"
+                                           refresh="$parent.ctrl.searchUser($select.search)">
+                            <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                            &nbsp;-&nbsp;
+                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                            <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <div class="row mr-top-10">
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div>
+                    <a class="btn btn-secondary" ng-click="ctrl.refreshReportGrid();">{{'common.button.getpl' | translate}}</a>
+                    <a class="btn btn-default" ng-click="ctrl.exportToExcel('kt-marketreport-grid')" ng-disabled="!reportData">
+                        Download CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row mr-top-10">
+            <div class="col-sm-12">
+                <ul class="input-list history-btn">
+                    <li><a ng-click="ctrl.setDates(0,'d')" class="btn btn-danger">{{'history.today.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-1,'d')" class="btn btn-danger">{{'history.fromyesterday.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-7,'d')" class="btn btn-danger">{{'history.last7day.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-30,'d')" class="btn btn-danger">{{'history.last30day.label' | translate}}</a></li>
+                    <li class="mrg-left-10"><a ng-click="ctrl.setDates(-3,'M')" class="btn btn-danger">{{'history.last3month.label' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="master-class ">
+        <div class="master-main">
+            <div class="master_wrap mbg">
+                <div class="pl_table master-rightbg pl-market">
+                    <div class="total-pnl bold" style="color:white;padding:10px" ng-show="reportData">
+                        <kt-date data-date-value="reportDate" data-format="dd/MM/yyyy"></kt-date>
+                    </div>
+                    <div ng-show="!reportData" class="total-pnl" style="color:white;padding:10px">There is no data for selected filters.</div>
+
+                    <kt-grid grid-id="kt-marketreport-grid"
+                             load-items="ctrl.getPLbyMarket(params)"
+                             name-param="id"
+                             show-total="false"
+                             data-total="totalRows"
+                             ng-show="reportData"
+                             cache-key="ktmarketreportgrid">
+                        <table ng-table="tableParams" class="table table-hover clickable member_table " id="kt-marketreport-grid"
+                               template-pagination="{{ :: paginationUrl }}">
+                            <thead>
+                                <tr>
+                                    <th class="border-r size-lg"></th>
+                                    <th colspan="4" class="size-xxl boolean border-r text-uppercase">Member</th>
+                                    <th class="size-xl boolean border-r text-uppercase" colspan="3">Agent</th>
+                                    <th class="size-xl boolean border-r text-uppercase" colspan="3" ng-if="$parent.$parent.currentUserType<=3">MA</th>
+                                    <th class="size-xl boolean border-r text-uppercase" colspan="3" ng-if="$parent.$parent.currentUserType<=2">CUS</th>
+                                    <th class="size-xl boolean border-r text-uppercase" colspan="3" ng-if="$parent.$parent.currentUserType<=1">AD</th>
+                                    <th class="size-sm boolean text-uppercase">Upline</th>
+                                </tr>
+                                <tr>
+                                    <th class="border-r size-lg"></th>
+                                    <th class="size-sm align-r">T/O</th>
+                                    <th class="size-sm align-r">Win</th>
+                                    <th class="size-sm align-r">Comm</th>
+                                    <th class="size-sm align-r border-r">P&amp;L</th>
+                                    <th class="size-sm align-r">Win</th>
+                                    <th class="size-sm align-r">Comm</th>
+                                    <th class="size-sm align-r border-r">P&amp;L</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=3">Win</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=3">Comm</th>
+                                    <th class="size-sm align-r border-r" ng-if="$parent.$parent.currentUserType<=3">P&amp;L</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=2">Win</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=2">Comm</th>
+                                    <th class="size-sm align-r border-r" ng-if="$parent.$parent.currentUserType<=2">P&amp;L</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=1">Win</th>
+                                    <th class="size-sm align-r" ng-if="$parent.$parent.currentUserType<=1">Comm</th>
+                                    <th class="size-sm align-r border-r" ng-if="$parent.$parent.currentUserType<=1">P&amp;L</th>
+                                    <th class="size-sm align-r"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="info-text">
+                                <tr class="no-tr-hover no-bg">
+                                    <td class="border-r size-lg"><span>Grand Total</span></td>
+                                    <td class="size-sm align-r">{{$parent.$parent.reportData.member.stake | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.reportData.member.win<0}">{{$parent.$parent.reportData.member.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.reportData.member.commission<0}">{{$parent.$parent.reportData.member.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':$parent.$parent.reportData.member.pnl<0}">{{$parent.$parent.reportData.member.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.reportData.agent.win<0}">{{$parent.$parent.reportData.agent.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.reportData.agent.commission<0}">{{$parent.$parent.reportData.agent.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':$parent.$parent.reportData.agent.pnl<0}">{{$parent.$parent.reportData.agent.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.reportData.master.win<0}">{{$parent.$parent.$parent.reportData.master.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.reportData.master.commission<0}">{{$parent.$parent.$parent.reportData.master.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.reportData.master.pnl<0}">{{$parent.$parent.$parent.reportData.master.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.reportData.superMaster.win<0}">{{$parent.$parent.$parent.reportData.superMaster.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.reportData.superMaster.commission<0}">{{$parent.$parent.$parent.reportData.superMaster.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.reportData.superMaster.pnl<0}">{{$parent.$parent.$parent.reportData.superMaster.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.reportData.admin.win<0}">{{$parent.$parent.$parent.reportData.admin.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.reportData.admin.commission<0}">{{$parent.$parent.$parent.reportData.admin.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.reportData.admin.pnl<0}">{{$parent.$parent.$parent.reportData.admin.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive  " ng-class="{'negative':$parent.$parent.reportData.uplineWin<0}">{{$parent.$parent.reportData.uplineWin | toRate}}</td>
+                                </tr>
+                            </tbody>
+                            <tbody class="info-text" ng-show="$data.length>0">
+                                <tr>
+                                    <td class="date border-r size-lg">
+                                        <kt-date data-date-value="$data[0].rounds[0].settleTime" data-format="dd/MM/yyyy"></kt-date>
+                                    </td>
+                                    <td class="size-sm align-r">{{$parent.$parent.dateTotal.member.stake | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.dateTotal.member.win<0}">{{$parent.$parent.dateTotal.member.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.dateTotal.member.commission<0}">{{$parent.$parent.dateTotal.member.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':$parent.$parent.dateTotal.member.pnl<0}">{{$parent.$parent.dateTotal.member.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.dateTotal.agent.win<0}">{{$parent.$parent.dateTotal.agent.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-class="{'negative':$parent.$parent.dateTotal.agent.commission<0}">{{$parent.$parent.dateTotal.agent.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':$parent.$parent.dateTotal.agent.pnl<0}">{{$parent.$parent.dateTotal.agent.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.dateTotal.master.win<0}">{{$parent.$parent.$parent.dateTotal.master.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.dateTotal.master.commission<0}">{{$parent.$parent.$parent.dateTotal.master.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=3" ng-class="{'negative':$parent.$parent.$parent.dateTotal.master.pnl<0}">{{$parent.$parent.$parent.dateTotal.master.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.dateTotal.superMaster.win<0}">{{$parent.$parent.$parent.dateTotal.superMaster.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.dateTotal.superMaster.commission<0}">{{$parent.$parent.$parent.dateTotal.superMaster.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=2" ng-class="{'negative':$parent.$parent.$parent.dateTotal.superMaster.pnl<0}">{{$parent.$parent.$parent.dateTotal.superMaster.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.dateTotal.admin.win<0}">{{$parent.$parent.$parent.dateTotal.admin.win | toRate}}</td>
+                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.dateTotal.admin.commission<0}">{{$parent.$parent.$parent.dateTotal.admin.commission | toRate}}</td>
+                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.currentUserType<=1" ng-class="{'negative':$parent.$parent.$parent.dateTotal.admin.pnl<0}">{{$parent.$parent.$parent.dateTotal.admin.pnl | toRate}}</td>
+                                    <td class="size-sm align-r positive  " ng-class="{'negative':$parent.$parent.dateTotal.uplineWin<0}">{{$parent.$parent.dateTotal.uplineWin | toRate}}</td>
+                                </tr>
+                                <tr class="no-tr-hover">
+                                    <td colspan="18" class="pad-0">
+                                        <table class="no-bg " ng-repeat="item in $data track by $index">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding-left:15px;" ng-click="item.show=!item.show">
+                                                        <i class="fa " style="margin-right:5px;" ng-class="{'fa-chevron-circle-down':item.show,'fa-chevron-circle-right':!item.show}"></i>
+                                                        {{item.tableName}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody ng-init="item.show=false">
+                                                <tr class="no-tr-hover no-bg" ng-repeat="m in item.rounds" ng-show="item.show">
+                                                    <td class="border-r size-lg" style="padding-left:20px;">
+                                                        <span>{{m.roundId}}</span>
+                                                        &nbsp;|&nbsp;
+                                                        <a class="link-a" ng-click="$parent.$parent.$parent.$parent.ctrl.openBetReport(m,item.tableName);">
+                                                            View Bets
+                                                        </a>
+                                                    </td>
+                                                    <td class="size-sm align-r">{{m.member.stake | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':m.member.win<0}">
+                                                        {{m.member.win | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':m.member.commission<0}">{{m.member.commission | toRate}}</td>
+                                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':m.member.pnl<0}">{{m.member.pnl | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':m.agent.win<0}">{{m.agent.win | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':m.agent.commission<0}">{{m.agent.commission | toRate}}</td>
+                                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':m.agent.pnl<0}">{{m.agent.pnl | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':m.master.win<0}">{{m.master.win | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':m.master.commission<0}">{{m.master.commission | toRate}}</td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':m.master.pnl<0}">{{m.master.pnl | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':m.superMaster.win<0}">{{m.superMaster.win | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':m.superMaster.commission<0}">{{m.superMaster.commission | toRate}}</td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':m.superMaster.pnl<0}">{{m.superMaster.pnl | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':m.admin.win<0}">{{m.admin.win | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':m.admin.commission<0}">{{m.admin.commission | toRate}}</td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':m.admin.pnl<0}">{{m.admin.pnl | toRate}}</td>
+                                                    <td class="size-sm align-r positive  " ng-class="{'negative':m.uplineWin<0}">{{m.uplineWin | toRate}}</td>
+                                                </tr>
+                                                <tr style="background-color:rgba(245, 245, 245, 0.05)">
+                                                    <td class="border-r size-lg">
+                                                        <div class="align-r">Total</div>
+                                                    </td>
+                                                    <td class="size-sm align-r">{{(item.rounds | total:'member.stake':true) | toRate}}</td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':mmWin<0}">
+                                                        {{mmWin= (item.rounds | total:'member.win':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':mmComm<0}">
+                                                        {{ mmComm= (item.rounds | total:'member.commission':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':mmPnl<0}">
+                                                        {{mmPnl= (item.rounds | total:'member.pnl':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':agWin<0}">
+                                                        {{ agWin= (item.rounds | total:'agent.win':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-class="{'negative':agComm<0}">
+                                                        {{ agComm= (item.rounds | total:'agent.commission':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  border-r" ng-class="{'negative':agPnl<0}">
+                                                        {{agPnl= (item.rounds | total:'agent.pnl':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':maWin<0}">
+                                                        {{ maWin= (item.rounds | total:'master.win':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':maComm<0}">
+                                                        {{ maComm= (item.rounds | total:'master.commission':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.currentUserType<=3" ng-class="{'negative':maPnl<0}">
+                                                        {{maPnl= (item.rounds | total:'master.pnl':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':smWin<0}">
+                                                        {{ smWin= (item.rounds | total:'superMaster.win':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':smComm<0}">
+                                                        {{ smComm= (item.rounds | total:'superMaster.commission':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.currentUserType<=2" ng-class="{'negative':smPnl<0}">
+                                                        {{smPnl= (item.rounds | total:'superMaster.pnl':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':adWin<0}">
+                                                        {{ adWin= (item.rounds | total:'admin.win':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive " ng-if="$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':adComm<0}">
+                                                        {{ adComm= (item.rounds | total:'admin.commission':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  border-r" ng-if="$parent.$parent.$parent.currentUserType<=1" ng-class="{'negative':adPnl<0}">
+                                                        {{adPnl= (item.rounds | total:'admin.pnl':true) | toRate}}
+                                                    </td>
+                                                    <td class="size-sm align-r positive  " ng-class="{'negative':upPnl<0}">
+                                                        {{upPnl= (item.rounds | total:'uplineWin') | toRate}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody class="info-text" ng-if="$data.length<=0">
+                                <tr class="no-tr-hover no-bg">
+                                    <td class="date" colspan="18">
+                                        There is no data for selected filters.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </kt-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

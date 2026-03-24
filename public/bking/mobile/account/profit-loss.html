@@ -1,0 +1,193 @@
+﻿<!-- profit and loss -->
+<div class="mb-account">
+    <div class="Profit-l">
+
+        <h1 class="title">Betting Profit & Loss</h1>
+
+        <div class="filter-panel">
+            <ul class="input-list">
+                <li><label>{{'profitloss.period.label' | translate}}</label></li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <a ng-click="ctrl.getProfitLoss()" class="btn">{{'common.button.getpl' | translate}}</a>
+                </li>
+            </ul>
+            <ul class="input-list bet-days">
+                <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            </ul>
+        </div>
+
+        <div class="team-name">
+            <div class="" style="display: flex; overflow: auto hidden;">
+                <div class="gtm-member" ng-class="{'active':selectedEventType== e.eventTypeId}" ng-repeat="e in eventSummary"
+                     ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                    <span style="display:block">{{e.eventTypeName}}</span>
+                    <span class="sc-value" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">{{e.totalPl | toRate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="totalItems<=0" style="padding:5px;padding-top:0px;">There are no settled bets in the {{dateDiff}} days</div>
+
+        <div class="mb-mybets mb-pl">
+            <div class="table-bets" ng-show="totalItems>0">
+                <div class="list-view">
+                    <div ng-repeat="itemGrp in gridData track by $index">
+                        <div class="list-view-table myTranscludedContent currency">
+                            <table class="table table-hover clickable hide-header ng-table" style="display: block">
+                                <tbody class="info-text" ng-repeat="item in itemGrp.values track by $index">
+                                    <tr ng-click="ctrl.getBet(item)">
+                                        <td style="padding:0;border-top:0px;">
+                                            <div class="mybet-new">
+
+                                                <div class="my-b-field field-date">
+                                                    <div class="bet-title bold">
+                                                        <kt-date data-date-value="itemGrp.values[0].settleTime" data-momentformat="Do MMMM YYYY"></kt-date>
+
+                                                    </div>
+                                                    <div>
+                                                        <span class="float-r" ng-class="{'positive':tpl>=0,'negative':tpl<0}">
+                                                            P&L: {{tpl= ((itemGrp.values | total:'win') + (itemGrp.values | total:'comm')) | toRate}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="my-b-detail">
+                                                    <div class="my-b-field" style="padding-top:0px;">
+                                                        <strong ng-show="item.eventTypeId != liveGamesId ">
+                                                            <span id="to">{{item.marketName | shortme:20}}</span>
+                                                        </strong>
+                                                        <strong ng-show="item.eventTypeId == liveGamesId ">
+                                                            <span id="to">{{item.marketName}} # {{item.roundId}}</span>
+                                                            <a ng-click="ctrl.viewCards($event,item)">
+                                                                <i class="fa fa-ticket"></i>
+                                                            </a>
+                                                        </strong>
+                                                    </div>
+                                                    <div ng-if="item.eventTypeId != liveGamesId " class="my-b-field" style="padding:0px 5px;font-size:10px">
+                                                        <span id="to">{{item.eventName}}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="my-b-field">
+                                                    <div class="inner-field">
+                                                        <div id="to" class="my-title bold">Start Time</div>
+                                                        <div><kt-date data-date-value="item.marketTime"></kt-date></div>
+                                                    </div>
+                                                    <div class="inner-field">
+                                                        <div id="to" class="my-title bold">Comm</div>
+                                                        <div class="text-right" ng-class="{'positive':item.comm>=0,'negative':item.comm<0}" title="{{item.comm}}">{{item.comm | toRate}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="my-b-field">
+                                                    <div class="inner-field">
+                                                        <div id="to" class="my-title bold">Settle Time </div>
+                                                        <div><kt-date data-date-value="item.settleTime"></kt-date></div>
+                                                    </div>
+                                                    <div class="inner-field">
+                                                        <div id="to" class="my-title bold">Net win </div>
+                                                        <div class="text-right">
+                                                            <a ng-class="{'positive':item.win>=0,'negative':item.win<0}"
+                                                               title="{{item.win  | toRate}}">{{item.win  | toRate}}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="expand-table profit-expand" ng-if="item.show && !item.inprogress">
+                                                    <div class="mb-expand" ng-repeat="b in item.betDetailItems.bets | orderBy:'createdOn'">
+                                                        <div class="my-b-field expand-header">
+                                                            <div class="inner-field">
+                                                                <div id="to" class="my-title bold">Selection </div>
+                                                                <div ng-class="{'lay-text':b.side==2,'back-text':b.side==1}">
+                                                                    {{(b.bettingType==7 ? b.avgPrice+' ' : '')}}{{ b.runnerName}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="inner-field">
+                                                                <div class="my-title bold">P&L</div>
+                                                                <div class="text-right" ng-class="{'positive':b.pl>=0,'negative':b.pl<0}">{{b.pl | toRate}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="my-b-field">
+                                                            <div id="to" class="my-title bold">{{'betid.label'|translate}}</div>
+                                                            <div id="to">{{b.id}}</div>
+                                                        </div>
+                                                        <div class="my-b-field">
+                                                            <div id="to" class="my-title bold">{{'placed.label'|translate}}</div>
+                                                            <div id="to"><kt-date data-date-value="b.createdOn"></kt-date> </div>
+                                                        </div>
+                                                        <div class="my-b-field">
+                                                            <div id="to" class="my-title bold">{{'odds.label'|translate}}</div>
+                                                            <div id="to">{{b.avgPrice ? b.avgPrice : b.price | number:2}}{{b.percentage && b.percentage!= 100 ? '('+b.percentage+'%)' : ''}}</div>
+                                                        </div>
+                                                        <div class="my-b-field">
+                                                            <div id="to" class="my-title bold">{{'stake.label'|translate}} </div>
+                                                            <div id="to">{{b.sizeMatched | toRate}} </div>
+                                                        </div>
+                                                        <div class="my-b-field">
+                                                            <div id="to" class="my-title bold">{{'side.label'|translate}}</div>
+                                                            <div id="to" ng-show="b.bettingType!=7">{{b.side==1 ? 'Back' : 'Lay'}}</div>
+                                                            <div id="to" ng-show="b.bettingType==7">{{b.side==1 ? 'Yes' : 'No'}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="net-total">
+                                                        <div class="my-b-field">
+                                                            <div class="inner-field back-total">
+                                                                <div class="my-title">{{'backtotal.label'|translate}}</div>
+                                                                <div class="bold">{{((item.betDetailItems.bets | betSideFilter:'1') | total:'pl')  | toRate}}</div>
+                                                            </div>
+                                                            <div class="inner-field lay-total">
+                                                                <div class="my-title">{{'laytotal.label'|translate}}</div>
+                                                                <div class="bold">{{((item.betDetailItems.bets | betSideFilter:'2') | total:'pl')  | toRate}}</div>
+                                                            </div>
+                                                            <div class="inner-field">
+                                                                <div class="my-title">{{'marketsubtotal.label'|translate}}</div>
+                                                                <div class="bold">{{item.betDetailItems.pl.win  | toRate}}</div>
+                                                            </div>
+                                                            <div class="inner-field">
+                                                                <div class="my-title">{{'commission.label'|translate}}</div>
+                                                                <div class="bold">{{item.betDetailItems.pl.commission  | toRate}}&nbsp;</div>
+                                                            </div>
+                                                            <div class="inner-field">
+                                                                <div class="my-title">{{'netmarkettotal.label'|translate}}</div>
+                                                                <div class="bold">{{item.betDetailItems.pl.pnl  | toRate}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

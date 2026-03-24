@@ -1,0 +1,109 @@
+﻿<!--  Bets history  -->
+<div class="bets-history master_bet">
+    <h1 class="title" ng-if="fromMember">{{'fd.bethistory.label' | translate}}</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+            <li class="bet_name"><label>Round Id</label></li>
+            <li>
+                <div class="input-group">
+                    <input type="text" placeholder="Round Id" ng-model="search.roundId" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.gethistory' | translate}}</a></li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getHistoryBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 export-to-excel="ctrl.exportBetHistory(params,1)"
+                 self-export="true"
+                 show-total="true"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                    <tr>
+                        <td class="align-l cust-no" header-class="'cust-no'"
+                            ng-class="{'betid':item.betDetails.length>0}"
+                            data-title="::'betid.label' | translate"
+                            data-sortable="'id'">
+                            <span>{{item.betId}}</span>
+                        </td>
+                      
+                        <td header-class="'boolean'" class="boolean" data-title="::'market.name.label' | translate"
+                            data-sortable="'tableName'">
+                            <span id="to">{{item.tableName}} # <strong>{{item.roundId}}</strong></span>
+                        </td>
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'runner.name.label' | translate"
+                            data-sortable="'runner'">
+                            <span>{{item.runner}}</span>
+                        </td>
+                        <td header-class="'size-xs boolean'" class="size-xs boolean" data-title="::'side.label' | translate"
+                            data-sortable="'side'">
+                            <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">
+                                {{item.side==1 ? 'Back' : 'Lay'}}
+                            </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'price.label' | translate"
+                            data-sortable="'price'">
+                            <span title="{{item.price }}">{{item.price}}</span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'size.label' | translate">
+                            <span title="{{item.size | toRate }}">{{item.size | toRate}} </span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean"
+                            data-title="::'profitloss.label' | translate"
+                            data-sortable="'pl'">
+                            <span ng-if="item.pl" title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">{{item.pl  | toRate}}</span>
+                        </td>
+                        <td header-class="'size-smd boolean'" class="size-smd boolean" data-title="::'createddate.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn }}">{{item.createdOn | date:'yy-MM-dd HH:mm'}} </span>
+                        </td>
+                        <td data-title="::'ipaddress.label' | translate"
+                            data-header-class="'size-smd boolean'" class="size-smd boolean">
+                            <span>{{item.remoteIp }} </span>
+                            <span ng-if="item.referenceText" uib-tooltip="{{item.referenceText}}" tooltip-placement="left"><i class="fa fa-info-circle red"></i></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

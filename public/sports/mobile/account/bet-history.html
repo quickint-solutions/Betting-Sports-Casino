@@ -1,0 +1,166 @@
+﻿<div class="main-account-statement-block other-page-section d-flex">
+    <div class="main-section-vh">
+        <div class="card">
+            <div class="card-header"><h3>BET HISTORY</h3></div>
+            <div class="card-header" style="border-radius: 0px;">
+                <div class="filter-type-block">
+                    <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                        <div class="d-flex flex-row mr-2">
+                            <select ng-model="search.status">
+                                <option ng-repeat="b in betStatus" value="{{b.id}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="d-flex mr-2 mt-2">
+                            <div class="calender-auto mx-datepicker ">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.fromdate"
+                                           is-open="fopened"
+                                           placeholder="{{'fromdate.placeholder' | translate}}"
+                                           ng-click="fopened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" />
+                                    <i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="to-block">TO</div>
+                            <div class="calender-auto mx-datepicker">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.todate"
+                                           is-open="topened"
+                                           placeholder="{{'todate.placeholder' | translate}}"
+                                           ng-click="topened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.refreshGrid();">
+                            <i class="material-icons">search</i>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <kt-grid grid-id="kt-historybets-grid"
+                         load-items="ctrl.getHistoryBets(params)"
+                         export-to-excel="ctrl.exportBetHistory(params,1)"
+                         export-to-pdf="ctrl.exportBetHistory(params,2)"
+                         name-param="id"
+                         name-value-property="id"
+                         show-total="true"
+                         cache-key="kthistorybetsgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                           template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                        <tbody ng-repeat="item in $data track by $index">
+                            <tr class="no-tr-hover" ng-click="item.show=!item.show">
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="col-12">
+                                            <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                                <span id="from">{{item.market.event.eventType.name}}</span>
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                                <span id="to"><strong>{{item.market.event.name | shortme:20}}</strong></span>
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                                <span id="to">{{item.market.name}}</span>
+                                            </label>
+                                            <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                                <span id="to">{{item.market.name}} # <strong>{{item.market.roundId}}</strong></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="col-12 ">
+                                            <label>{{'runner.name.label' | translate}} :&nbsp; </label>
+                                            <span>{{item.runnerName}}</span>
+                                        </div>
+                                        <div class="col-12 ">
+                                            <label>{{'createddate.label' | translate}} :&nbsp;</label>
+                                            <span>
+                                                {{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                <span ng-if="item.referenceText" uib-tooltip="{{item.referenceText}}" tooltip-placement="left"><i class="fa fa-info-circle red"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row">
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>{{'side.label' | translate}} :&nbsp;</label>
+                                            <span ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">
+                                                {{$parent.$parent.$parent.betSides[item.side-1].name}}
+                                            </span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>{{'price.label' | translate}} :&nbsp;</label>
+                                            <span>{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row">
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>{{'sizematched.label' | translate}} :&nbsp; </label>
+                                            <span title="{{item.sizeMatched | toRate }}" ng-if="item.sizeMatched>0 ">{{item.sizeMatched  | toRate}} </span>
+                                            <span title="{{item.sizeCancelled | toRate }}" ng-if="item.sizeCancelled>0 && item.sizeMatched<=0">{{item.sizeCancelled  | toRate}} </span>
+                                            <span title="{{item.sizeVoided | toRate }}" ng-if="item.sizeVoided>0 && item.sizeMatched<=0">{{item.sizeVoided  | toRate}} </span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>{{'avgprice.label' | translate}} :&nbsp;</label>
+                                            <span title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row">
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>Bet Id :&nbsp;</label>
+                                            <span>{{item.betId}}</span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-row align-items-center">
+                                            <label>{{'profitloss.label' | translate}} :&nbsp;</label>
+                                            <span ng-class="{'text-success':item.pl>=0,'text-danger':item.pl<0}">{{item.pl | toRate }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="item.show && item.betDetails" class="expand-table">
+                                <td class="profit-td">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr ng-repeat="b in item.betDetails | orderBy:'createdOn'">
+                                                <td>
+                                                    <div class="d-flex flex-row">
+                                                        <div class="col-4 d-flex flex-column align-items-center">
+                                                            <label>{{'odds.label'|translate}}</label>
+                                                            <span>{{item.price }}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                                                        </div>
+                                                        <div class="col-4 d-flex flex-column align-items-center">
+                                                            <label>{{'stake.label'|translate}}</label>
+                                                            <span>{{item.size  | toRate }} </span>
+                                                        </div>
+                                                        <div class="col-4 d-flex flex-column align-items-center">
+                                                            <label>{{'profitloss.label'|translate}}</label>
+                                                            <span ng-class="{'text-success':item.pl>=0,'text-danger':item.pl<0}">
+                                                                {{item.pl | toRate }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'sports/template/footer.html'"></div>
+</div>

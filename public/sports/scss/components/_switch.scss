@@ -1,0 +1,64 @@
+/// <reference path="../variables/__variables.scss" />
+
+.button-toggle-wrap {
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    margin: 0;
+    top: 6px;
+    box-shadow: none;
+}
+
+.button-toggle {
+    display: inline-block;
+    background: #bbbbbb;
+    border-radius: 10px;
+    height: 18px;
+    padding: 2px;
+    width: 40px;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.22);
+}
+
+.button-toggle .handle {
+    position: absolute;
+    left: 2px;
+    right: auto;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-transition: all 0.4s cubic-bezier(0.33, 1.6, 0.66, 1);
+    transition: all 0.4s cubic-bezier(0.33, 1.6, 0.66, 1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+}
+
+.toggler {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    border: 0;
+    background: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.toggler:checked + .button-toggle {
+    background: #009D59;
+}
+
+.toggler:checked + .button-toggle.danger {
+    background: #EE3C00;
+}
+
+.toggler:checked + .button-toggle .handle {
+    left: 21px;
+}
+
+.button-toggle.focused {
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.8);
+}

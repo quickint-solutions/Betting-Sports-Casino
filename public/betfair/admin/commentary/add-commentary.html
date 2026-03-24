@@ -1,0 +1,246 @@
+﻿<div class="commentary" kt-shortcut key-pressed="ctrl.shortcut(e)">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="black-back">
+                <a data-toggle="collapse" aria-expanded="true">
+                    {{eventName}}
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <form>
+                            <kt-radiobutton data-item="score"
+                                            data-param-name="scoreSource"
+                                            notify-on-update="ctrl.scoreProviderChanged(selectedId)"
+                                            data-optionlist="scoreProviderList"></kt-radiobutton>
+                        </form>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <input type="checkbox" id="chk-inning1" ng-model="score.inning1InPlay" ng-click="score.inning2InPlay=!score.inning1InPlay">
+                            <label for="chk-inning1">Inning 1</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <input type="checkbox" id="chk-inning2" ng-model="score.inning2InPlay" ng-click="score.inning1InPlay=!score.inning1InPlay">
+                            <label for="chk-inning2">Inning 2</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <div class="checkbox">
+                            <input type="checkbox" id="chk-team1" ng-model="score.homeInBetting" ng-click="score.awayInBetting=!score.homeInBetting">
+                            <label for="chk-team1">{{score.homeTeam}}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="3"
+                                           kt-number-only tabindex="1" ng-class="{'input-highlight':score.homeInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1HomeRuns" class="form-control ">
+                                    <span class="input-group-addon ">runs</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="2"
+                                           kt-number-only tabindex="2" ng-class="{'input-highlight':score.homeInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1HomeWicket" class="form-control">
+                                    <span class="input-group-addon">wicket</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="4"
+                                           kt-number-only tabindex="3" ng-class="{'input-highlight':score.homeInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1HomeOver" class="form-control">
+                                    <span class="input-group-addon">over</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="3"
+                                           kt-number-only tabindex="7" ng-class="{'input-highlight':score.homeInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2HomeRuns" class="form-control">
+                                    <span class="input-group-addon">runs</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="2"
+                                           kt-number-only tabindex="8" ng-class="{'input-highlight':score.homeInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2HomeWicket" class="form-control">
+                                    <span class="input-group-addon">wicket</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="4"
+                                           kt-number-only tabindex="9" ng-class="{'input-highlight':score.homeInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2HomeOver" class="form-control">
+                                    <span class="input-group-addon">over</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <div class="checkbox">
+                            <input type="checkbox" id="chk-team2" ng-model="score.awayInBetting" ng-click="score.homeInBetting=!score.awayInBetting">
+                            <label for="chk-team2">{{score.awayTeam}}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="3"
+                                           kt-number-only tabindex="4" ng-class="{'input-highlight':score.awayInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1AwayRuns" class="form-control">
+                                    <span class="input-group-addon">runs</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="2"
+                                           kt-number-only tabindex="5" ng-class="{'input-highlight':score.awayInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1AwayWicket" class="form-control">
+                                    <span class="input-group-addon">wicket</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="4"
+                                           kt-number-only tabindex="6" ng-class="{'input-highlight':score.awayInBetting && score.inning1InPlay}"
+                                           ng-model="score.inning1AwayOver" class="form-control">
+                                    <span class="input-group-addon">over</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="3"
+                                           kt-number-only tabindex="10" ng-class="{'input-highlight':score.awayInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2AwayRuns" class="form-control">
+                                    <span class="input-group-addon">runs</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="2"
+                                           kt-number-only tabindex="11" ng-class="{'input-highlight':score.awayInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2AwayWicket" class="form-control">
+                                    <span class="input-group-addon">wicket</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="4"
+                                           kt-number-only tabindex="12" ng-class="{'input-highlight':score.awayInBetting && score.inning2InPlay}"
+                                           ng-model="score.inning2AwayOver" class="form-control">
+                                    <span class="input-group-addon">over</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <form name="commentaryform" ng-submit="ctrl.submitCommentary()">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <kt-radiobutton data-item="score"
+                                            data-tab-index="16"
+                                            data-param-name="ballstatus"
+                                            notify-on-update="ctrl.ballStatusChanged(selectedId)"
+                                            data-optionlist="ballStatusList"></kt-radiobutton>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">Commentary</span>
+                                <input type="text" minlength="1" maxlength="100"
+                                       tabindex="13"
+                                       ng-model="score.commentary" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary" tabindex="14" ng-disabled="commentaryform.$invalid" type="submit">Submit Commentary</button>
+                            <button class="btn btn-danger" type="button" tabindex="15" ng-click="ctrl.loadLastCommentary(true)">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="comm_data">
+                        <div class="col-sm-4">
+                            <span>Runs</span>
+                            <ul>
+                                <li ng-repeat="r in runTypes" ng-init="tindex=18">
+                                    <button class="btn btn-secondary" type="button" ng-init="tindex=tindex+$index" tabindex="{{tindex}}" ng-click="ctrl.commentaryClick(r,1)">{{r.txt}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-3">
+                            <span>Ball Type</span>
+                            <ul>
+                                <li ng-repeat="b in ballTypes" ng-init="tindex=25">
+                                    <button class="btn btn-secondary" type="button" ng-init="tindex=tindex+$index" tabindex="{{tindex}}" ng-click="ctrl.commentaryClick(b,2)">{{b.txt}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-5">
+                            <span>Wicket</span>
+                            <ul>
+                                <li ng-repeat="w in wicketTypes" ng-init="tindex=28">
+                                    <button class="btn btn-secondary" type="button" ng-init="tindex=tindex+$index" tabindex="{{tindex}}" ng-click="ctrl.commentaryClick(w,3)">{{w.txt}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="comm_data">
+                        <div class="col-sm-12">
+                            <span>Match Status</span>
+                            <ul>
+                                <li ng-repeat="o in otherTypes" ng-init="tindex=34">
+                                    <button class="btn btn-secondary" type="button" ng-init="tindex=tindex+$index" tabindex="{{tindex}}" ng-click="ctrl.commentaryClick(o,4)">{{o.txt}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mr-top-10">
+            <form name="lastoverform" ng-submit="ctrl.submitCommentary()">
+                <div class="col-sm-3" ng-repeat="lo in score.lastOver track by $index">
+                    <div class="input-group">
+                        <input type="text" minlength="1" maxlength="5"
+                               ng-model="lo.innertxt" class="form-control">
+                        <span class="input-group-addon" ng-click="ctrl.removeOverBall($index)"><i class="fa fa-remove"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-12" style="margin-top:5px;">
+                    <button class="btn btn-primary" type="submit" ng-disabled="lastoverform.$invalid">Save Over Balls</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <kt-wcs-audio-pub data-is-mute="isMute" data-audio-config-fun="ctrl.audioConfigChanged(config)" data-audio-commentary-mode="audioCommentaryMode"></kt-wcs-audio-pub>
+        </div>
+    </div>
+</div>

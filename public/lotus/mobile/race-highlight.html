@@ -1,0 +1,76 @@
+﻿
+<div class="scorecard" style="height: calc(100% - 0px);" >
+    <div class="inner-mb-menu">
+        <span class="compation">{{ctrl.$stateParams.name}}</span>
+    </div>
+    <div class="upcoming-race accordion bets-wrap" ng-if="otherMarkets.length>0">
+        <div class="card" ng-repeat="m in otherMarkets">
+            <div class="accordion-header" id="heading{{$index}}" ng-click="ctrl.selectedTabChanged($index)">
+                <button class="btn btn-link" ng-class="{'collapsed':selectedTab==$index}" type="button" data-toggle="collapse"
+                        data-target="#collapse{{$index}}" aria-expanded="true" aria-controls="collapse{{$index}}">
+                    <div class="float-l f32" style="margin-top:-5px;">
+                        <div class="flag {{m.event.countryCode | joinme}}"></div>
+                    </div>
+                    <div class="float-l" style="margin-top:-2px;">
+                        <span class="venue" ng-click="ctrl.gotoFullMarket(m.id)">{{m.event.venue}}</span>
+                        <time>
+                            <kt-date data-date-value="m.startTime" data-format="HH:mm"></kt-date>
+                        </time>
+                    </div>
+                    <div class="float-r race-time" ng-if="!m.inPlay">
+                        <i class="icon-clock"></i>
+                    </div>
+                </button>
+            </div>
+            <div id="collapse{{$index}}" class="collapse" ng-class="{'in':selectedTab==$index}" aria-labelledby="heading{{$index}}" data-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <div class="longDescription">
+                                <table class="table-score other-market">
+                                    <tbody class="t-header">
+                                        <tr>
+                                            <th class="align-l runners-num">
+                                                Top 3 of {{m.marketRunner.length}} runners <span ng-show="m.datediff">(<kt-date-diff data-market="m" data-field="startTime" data-show-icon="false"></kt-date-diff>)</span>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}">
+                                        <tr id="tr_{{m.id}}_{{r.runner.id}}" ng-repeat="r in m.marketRunner | limitTo:3" ng-show="r.status<5">
+                                            <td class="match-title">
+                                                <div class="runner_number">
+                                                    <span ng-if="r.runner.meta['CLOTH_NUMBER_ALPHA']">{{r.runner.meta['CLOTH_NUMBER_ALPHA']}}</span>
+                                                    <span ng-if="r.runner.meta['STALL_DRAW']">({{r.runner.meta['STALL_DRAW']}})</span>
+                                                </div>
+                                                <div class="runner-img" title="{{r.runner.meta['COLOURS_DESCRIPTION']}}" ng-if="r.runner.meta['COLOURS_FILENAME']">
+                                                    <img ng-src="https://content-cache.cdnbf.net/feeds_images/Horses/SilkColours/{{r.runner.meta['COLOURS_FILENAME']}}" />
+                                                </div>
+                                                <span class="runner-title truncate">{{r.runner.name}}</span>
+                                                <span style="display:block; font-weight:normal;line-height:10px; margin-bottom:2px;">{{r.runner.meta['JOCKEY_NAME']}}</span>
+                                                <span ng-if="r.pl" class="ppl positive" ng-class="{'negative':r.pl<0 }">{{r.pl | toFixDigit}}</span>
+                                                <span class="ppl" ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" ng-if="r.pPL">
+                                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>{{r.pPL | toFixDigit}}
+                                                </span>
+                                                <span class="winner" ng-if="r.status==2">{{'winner.label'|translate}}</span>
+                                            </td>
+                                            <td class="back-1 align-c" kt-animate-on-change="r.backPrice[0].size"
+                                                kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name);">
+                                                <kt-glc data-item="r.backPrice[0]"></kt-glc>
+                                            </td>
+                                            <td class="lay-1 align-c disable" kt-animate-on-change="r.layPrice[0].size"
+                                                kt-click ng-click="ctrl.placeBet(m,2,r.runner.id,r.layPrice[0] ? r.layPrice[0].price : '',r.runner.name);">
+                                                <kt-glc data-item="r.layPrice[0]"></kt-glc>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="no-data-msg" ng-if="otherMarkets.length<=0 && !isRequestProcessing">{{'common.noevents.display' | translate}}</div>

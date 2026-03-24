@@ -1,0 +1,54 @@
+﻿<!--<article>
+    <div class="row">-->
+<div class="col-sm-12">
+    <div class="language">
+        <header>
+            <h1 class="title">{{'languages.label' | translate}}</h1>
+        </header>
+        <kt-grid grid-id="kt-language-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 name-param="id"
+                 name-value-property="id"
+                 select-first-line="true"
+                 data-show-total="true"
+                 has-new-rights="true"
+                 list-new-items="listNewItems"
+                 cache-key="ktlanguagegrid">
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id" >
+                        <td data-title="::'language.code.label' | translate" data-sortable="'code'"
+                            data-header-class="'size-xl'" class="size-xl">
+                            <span title="{{item.code}}">{{item.code}} </span>
+
+                        </td>
+                        <td data-title="::'language.name.label' | translate" data-sortable="'Name'"
+                            data-header-class="'size-xl'" class="size-xl">
+                            <span title="{{item.name}}">{{item.name}}</span>
+                        </td>
+                        <td data-title="::'grid.button.action.header' | translate"
+                            data-header-class="'boolean'" class="boolean">
+
+                            <a id="btnEdit{{$index}}" class="btn btn-light" title="Edit Language"
+                               ng-click="$parent.$parent.$parent.ctrl.addEditLanguage(item)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a id="btnTranslation{{$index}}" class="btn btn-light" title="View Translation"
+                               ng-click="$parent.$parent.$parent.ctrl.viewTranslations(item)">
+                                <i class="fa fa-eye"></i>
+                                {{'translations.label' | translate}}
+                            </a>
+                            <a id="btnDelete{{$index}}" class="btn btn-danger" title="Delete Language"
+                               ng-click="$parent.$parent.$parent.ctrl.deleteLanguage(item)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>
+<!--</div>
+</article>-->

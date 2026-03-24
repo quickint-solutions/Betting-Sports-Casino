@@ -1,0 +1,39 @@
+﻿<div class="main-content-block">
+    <div class="home-middle-block">
+        <div class="d-flex">
+            <div class="middle-block home-page" ui-view="homecenter">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mobile-bottom-navigation">
+    <ul class="d-flex flex-row justify-content-around align-items-center">
+        <li class="item">
+            <a ui-sref="mobile.promo" ui-sref-active="router-link-active">
+                <span class="material-icons-round">home</span> <span>Home</span>
+            </a>
+        </li>
+        <li class="item">
+            <a ui-sref="mobile.promo.sports" ui-sref-active="router-link-active">
+                <span class="material-icons-round">scoreboard</span> <span>Sports</span>
+            </a>
+        </li>
+        <li class="item" ng-if="currentWebApp=='cbtfai'">
+            <a ng-click="$parent.ctrl.aiprediction()">
+                <span class="material-icons-round animate__animated animate__infinite  animate__delay-1s animate__slower  animate__bounceIn">rocket</span>
+                <span>AI</span>
+            </a>
+        </li>
+        <li class="item">
+            <a ui-sref="mobile.promo.inplay" ui-sref-active="router-link-active">
+                <span class="material-icons-round">watch_later</span> <span>In-play</span>
+            </a>
+        </li>
+        <li class="item" ng-if="hasCasino">
+            <a ui-sref="mobile.promo.slotcasino" class="" ui-sref-active="router-link-active">
+                <span class="material-icons-round">casino</span> <span>Slots</span>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,53 @@
+﻿<div class="sidebar-tab ">
+    <div class="vertical-tab">
+        <div class="path">
+            <ul>
+                <li class="path-last">
+                    <a ui-sref="master.position">Sport</a>
+                    <a ng-click="ctrl.loadTreeData()"><i class="fa fa-refresh"></i></a>
+                    <span style="color:white;float:right">
+                        <input type="checkbox" id="chkall-event" ng-model="showAllEvents" ng-click="ctrl.filterTreeData()">
+                        <label for="chkall-event">Show All</label>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <nav class="inner-nav">
+            <div ng-scrollbars class="sidenav">
+                <ul class="left-menulist" ng-if="breadcrumb" style="float:left; width:100%;">
+                    <li ng-repeat="b in breadcrumb track by $index">
+                        <a ng-click="ctrl.breadcrumbClick(b);">
+                            {{b.name}}
+                            <span class="exposure-border" ng-if="b.date"><i class="icon-clock"></i> {{b.date}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li ng-repeat="sport in ctrl.filterTreeData() | orderBy : 'pl'">
+                        <a class="active" uib-tooltip="{{sport.name}}" ng-if="sport.sportNodeType != 5"
+                           ng-click="ctrl.treeClick(sport)">
+                            {{sport.name |  shortme:30}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                            <span class="exposure-border">
+                                {{'exposure.short.label' | translate}}
+                                <span class="negative">{{sport.pl | toRate}}</span>
+                            </span>
+                            <br />
+                            <span ng-if="sport.sportNodeType == 4"><i class="icon-clock"></i> {{sport.openDate | date:'dd-MM-yyyy hh:mm a'}}</span>
+                        </a>
+
+                        <a class="active" uib-tooltip="{{sport.name}}" ng-if="sport.sportNodeType == 5"
+                           ng-click="ctrl.pinMe(sport)" ng-init="sport.pin=ctrl.isMarketPinned(sport.id)">
+                            {{sport.name |  shortme:30}}
+                            <i class="fa fa-thumb-tack add-pin" ng-class="{'pinned':sport.pin}"></i>
+                            <span class="exposure-border">
+                                <span class="negative">{{sport.pl | toRate}}</span>
+                                <i class="fa faimg fa-external-link" ng-click="ctrl.openFullPositionView($event,sport.eventId,sport.id)"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

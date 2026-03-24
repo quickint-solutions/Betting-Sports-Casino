@@ -1,0 +1,212 @@
+﻿<div class="master-page-class">
+    <div>
+        <div class="form-pannel">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="event-heading">{{ctrl.$rootScope.child.short}} Listing</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="label float-l">Search by Login Name</div>
+                    <ui-select ng-model="search.selectedUser" class="float-l" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                               close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                            {{$select.selected.username}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                           class="ui-select-choices"
+                                           refresh="$parent.ctrl.searchUser($select.search)">
+                            <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                            &nbsp;-&nbsp;
+                            <span class="align-l" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                            <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-sm-2">
+                    <div class="input-group">
+                        <input type="text" minlength="1" maxlength="50"
+                               placeholder="User/Login name"
+                               required ng-model="search.username" class="form-control">
+                        <span class="input-group-addon" style="cursor:pointer" ng-click="ctrl.refreshGrid()"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-danger" ng-click="ctrl.resetCriteria();" style="margin-left:10px;">
+                        Clear
+                    </a>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-default float-r " tabindex="10"
+                            kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess']}"
+                            ng-click="ctrl.addMember()">
+                        New {{newMemberShortName}}
+                    </button>
+                    <button class="btn btn-secondary float-r mr-right-5" ng-click="ctrl.exportToExcel()">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-listing">
+        <p style="color:white;margin-bottom:15px!important;font-style:italic;">
+            <span ng-show="userTree.length<=0">Downline Listing</span>
+            <a class="link-a" ng-show="userTree.length>0" ui-sref="master.memberlist({memberid:'',userid:''})">Downline Listing</a>
+            <span ng-repeat="ut in userTree">
+                <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                <span ng-show="$index!=userTree.length-1">
+                    <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                    <a class="link-a" ui-sref="master.memberlist({memberid:ut.id,userid:''})">{{ut.name}}</a>
+                </span>
+            </span>
+            <span style="float:right">
+                <span ng-repeat="p in parentStatusList" class="parent-status">
+                    <span class="usertype-lable {{p.short}}">{{p.short}}</span>
+                    <span ng-show="p.isLocked"><i class="fa fa-lock red fa-lg"></i></span>
+                    <span ng-show="p.isLocked==false"><i class="fa fa-unlock green fa-lg"></i></span>
+                </span>
+            </span>
+        </p>
+        <kt-grid grid-id="kt-lotus-downline-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 data-items="gridItems"
+                 data-show-total="false"
+                 data-page-size="200"
+                 cache-key="ktlotusdownlinegrid">
+            <table ng-table="tableParams" class="table table-hover clickable master_table downline-table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-lg">User</th>
+                        <th class="size-sm boolean" style="width:80px;">Downline</th>
+                        <th class="size-xsm boolean">Betting Status</th>
+                        <th class="size-sm boolean">Status</th>
+                        <th class="size-sm align-r">Net Exposure</th>
+                        <th class="size-sm align-r">Take</th>
+                        <th class="size-sm align-r">Give</th>
+                        <th class="size-smd align-r">Balance</th>
+                        <th class="size-smd align-r">Credit Limit</th>
+                        <th class="size-smd align-r" ng-if="$parent.$parent.currentUserType!=4">Available Credit</th>
+                        <th class="size-sm boolean" ng-if="$parent.$parent.showReferral">Referral</th>
+                        <th class="size-md boolean">Actions</th>
+
+                        <th class="size-md boolean">Last IP</th>
+                        <th class="size-md boolean">Created</th>
+                        <th class="size-md boolean">Last Login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="agent-list" ng-repeat="item in $data track by $index">
+                        <td class="size-lg">
+                            <span class="link-a" title="{{item.username}}" ng-click="$parent.$parent.$parent.ctrl.editMember(item)">
+                                {{item.username}} ({{item.mobile ? item.mobile : item.userCode}})
+                            </span>
+                        </td>
+                        <td class="size-sm boolean" style="width:80px;">
+                            <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.userType)">-</span>
+                            <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.userType)"
+                               ui-sref="master.memberlist({memberid:item.id,userid:''})">
+                                <i class="fa fa-sitemap fa-lg link-a"></i>
+                            </a>
+                        </td>
+                        <td class="size-xsm boolean" title="Lock changed by {{$parent.$parent.$parent.ctrl.getUserTypeShort(item.bettingLockChangeBy)}}">
+                            <div ng-click="$parent.$parent.$parent.$parent.ctrl.changeBettingLock(item)"
+                                 ng-if="(item.bettingLockChangeBy ==undefined|| item.bettingLockChangeBy>=$parent.$parent.$parent.loggedUserType || item.bettingLock==2)
+                                 && $parent.$parent.$parent.haveFullAccess">
+                                <span ng-show="item.bettingLock!=2"><i class="fa fa-lock red fa-lg"></i></span>
+                                <span ng-show="item.bettingLock==2"><i class="fa fa-unlock green fa-lg"></i></span>
+                            </div>
+                            <div ng-if="(item.bettingLockChangeBy<$parent.$parent.$parent.loggedUserType && item.bettingLock!=2)
+                                 || !$parent.$parent.$parent.haveFullAccess">
+                                <span ng-show="item.bettingLock!=2"><i class="fa fa-lock red disable fa-lg"></i></span>
+                                <span ng-show="item.bettingLock==2"><i class="fa fa-unlock green disable fa-lg"></i></span>
+                            </div>
+
+                        </td>
+                        <td class="size-sm boolean">
+                            <span ng-show="item.status==2">ACTIVE</span>
+                            <span ng-show="item.status==3">INACTIVE</span>
+                            <span ng-show="item.status==4">SUSPENDED</span>
+                            <span ng-show="item.status==5">CLOSED</span>
+                        </td>
+
+                        <td class="size-sm align-r">
+                            <span class="positive bold" ng-class="{'negative':item.balanceInfo.exposure<0}"
+                                  title="{{item.balanceInfo.exposure | toRate}}">{{item.balanceInfo.exposure | toRate}}</span>
+                        </td>
+                        <td class="size-sm align-r">
+                            <span class="positive bold">{{item.balanceInfo.take | toRate }}</span>
+                        </td>
+                        <td class="size-sm align-r">
+                            <span class="negative bold">{{item.balanceInfo.give | toRate }}</span>
+                        </td>
+                        <td class="size-smd align-r">
+                            <span class="bold">{{item.balanceInfo.balance | toRate }}</span>
+                        </td>
+                        <td class="size-smd align-r">
+                            <span title="{{item.balanceInfo.creditLimit | toRate}}" class="bold">
+                                {{item.balanceInfo.creditLimit | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType!=4">
+                            <span title="{{item.balanceInfo.availableCredit | toRate}}" class="bold">
+                                {{item.balanceInfo.availableCredit | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-sm boolean" ng-if="$parent.$parent.$parent.showReferral">
+                            <i class="fa fa-handshake-o  blink-color" ng-click="$parent.$parent.$parent.$parent.ctrl.openReferralSetting(item)"></i>
+                        </td>
+                        <td class="size-md boolean">
+                            <a title="Detail" ui-sref="master.lotusmember({memberid:item.id,usertype:item.userType})">
+                                <i class="fa fa-eye fa-lg link-a"></i>
+                            </a>
+                            <a title="Credit" style="margin-left:5px" ng-click="$parent.$parent.$parent.ctrl.addDW(item.id,item.username)">
+                                <i title="Credit" class="fa fa-bank fa-lg link-a"></i>
+                            </a>
+                            <a title="Bet Config" style="margin-left:5px" ng-click="$parent.$parent.$parent.ctrl.updateBetConfig(item.id,item.username)">
+                                <i title="Bet Config" class="fa fa-code fa-lg link-a"></i>
+                            </a>
+                            <a title="Set Commission" style="margin-left:5px" ng-click="$parent.$parent.$parent.ctrl.setCommission(item.id,item.username)">
+                                <i title="Set Commission" class="fa fa-percent fa-lg link-a"></i>
+                            </a>
+                            <a title="Set Betfair Config" style="margin-left:5px" ng-if="$parent.$parent.$parent.isBetfair && $parent.$parent.$parent.loggedUserType==1"
+                               ng-click="$parent.$parent.$parent.$parent.ctrl.setBT(item.id,item.username)">
+                                <span class="link-a">BT</span>
+                            </a>
+                        </td>
+
+                        <td class="size-md boolean">
+                            {{item.lastLoginIp}}
+                        </td>
+                        <td class="size-md boolean">
+                            <span> <kt-date data-date-value="item.createdOn"></kt-date></span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span><kt-date data-date-value="item.lastLogin"></kt-date></span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <th class="size-smd"></th>
+                        <th class="size-sm boolean" style="width:80px;"></th>
+                        <th class="size-xsm boolean"></th>
+                        <th class="size-sm boolean"></th>
+                        <th class="size-xsm boolean"></th>
+                        <th class="size-sm align-r negative">{{$data | total:'balanceInfo.exposure':true | toRate }}</th>
+                        <th class="size-sm align-r positive">{{$data | total:'balanceInfo.take':true | toRate }}</th>
+                        <th class="size-sm align-r negative">{{$data | total:'balanceInfo.give':true | toRate }}</th>
+                        <th class="size-smd align-r" ng-class="{'positive':bal>=0,'negative':bal<0}">{{bal=($data | total:'balanceInfo.balance':true) | toRate }}</th>
+                        <th class="size-smd align-r" ng-class="{'positive':crLimit>=0,'negative':crLimit<0}">{{crLimit=($data | total:'balanceInfo.creditLimit':true) | toRate }}</th>
+                        <th class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType!=4"
+                            ng-class="{'positive':avCredit>=0,'negative':avCredit<0}">
+                            {{avCredit=($data | total:'balanceInfo.availableCredit':true) | toRate }}
+                        </th>
+                        <th></th>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

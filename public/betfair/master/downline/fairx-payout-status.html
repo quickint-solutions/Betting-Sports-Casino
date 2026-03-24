@@ -1,0 +1,44 @@
+﻿<div class="row ">
+    <div class="col-sm-12">
+        <div class="input-group master_wrap">
+            <span>FairX Withdrawal Request Of : &nbsp;</span>
+            <label class="bold">{{item.user.username}}</label>
+        </div>
+    </div>
+
+</div>
+<div class="row mr-top-10">
+    <div class="col-sm-6">Name : <b>{{item.firstName}}</b></div>
+    <div class="col-sm-6">Mobile : <b>{{item.phone }}</b></div>
+
+    <div class="col-sm-6">Amount : <b>{{item.amount | toRate}}</b></div>
+    <div class="col-sm-6">Email : <b>{{item.email }}</b></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6  mr-top-10">
+        <div>Current Status :    <b>{{ctrl.getStatus(item.oldstatus) }}</b></div>
+        <div class="mr-top-10">Cash Note : <b>{{item.cashNote}}</b></div>
+        <div>Area : <b>{{item.area}}</b></div>
+        <div>City : <b>{{item.city}}</b></div>
+
+        <div class="mr-top-10">Upi Id : <b>{{item.upiId }}</b></div>
+        <div class="mr-top-10">Requested On : <kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date></div>
+    </div>
+    <div class="col-sm-6  mr-top-10">
+        <div>A/C No. : <b>{{item.acNo }}</b></div>
+        <div>Bank : <b>{{item.bankName }}</b></div>
+        <div>IFSC : <b>{{item.ifscCode }}</b></div>
+        <div>A/C Name : <b>{{item.acName }}</b></div>
+        <div class="mr-top-10">
+            <select class="form-control" ng-model="item.status">
+                <option ng-repeat="s in fairxpayoutList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+

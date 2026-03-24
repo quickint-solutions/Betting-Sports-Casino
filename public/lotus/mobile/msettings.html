@@ -1,0 +1,68 @@
+﻿
+
+<div class="one-click msetting">
+    <h4 class="bold mr-top-10" style="margin-bottom:0px;">Settings</h4>
+    <h4 style="margin:0px;">One Click Setting <i class="fa fa-info-circle" aria-hidden="true"></i></h4>
+    <div class="one-click-bet">
+        <span>Tap to turn on one click betting</span>
+        <label class="switch float-r">
+            <input class="switch-input" type="checkbox" ng-model="$parent.oneClickEnable" ng-click="$parent.ctrl.oneClickToggle();" />
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <span class="switch-handle"></span>
+        </label>
+    </div>
+</div>
+<div class="setting-popup" ng-init="editOneClickStake=false">
+    <ul class="stake-edit">
+        <li ng-show="!editOneClickStake" class="stake line">
+            <div class="left-btn">
+                <a ng-class="{'select':s.isActive}" ng-click="ctrl.selectOneClickStake($index,s)"
+                   ng-repeat="s in stakeConfig.oneClickStake | limitTo:3">
+                    <div style="line-height:14px;padding:11px;">
+                        <p style="line-height: 16px;">
+                            {{s.stake}}
+
+                        </p>
+                        <span style="font-size: 12px;line-height: 9px;" ng-if="s.isActive">Active Stake</span>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <li class="ok-btn line" ng-show="editOneClickStake">
+            <div class="left-btn col-odd">
+                <input type="text" ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                       ng-repeat="s in stakeConfig.oneClickStake | limitTo:3">
+            </div>
+        </li>
+        <li class="align-r">
+            <a class="btn mobile-btn btn-primary" ng-show="!editOneClickStake" ng-click="editOneClickStake=true">Edit</a>
+            <a class="btn mobile-btn btn-primary" ng-show="editOneClickStake" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">Save </a>
+        </li>
+
+    </ul>
+</div>
+<div class="setting-popup">
+    <h4 class="bold">Stake</h4>
+    <ul class="stake-edit">
+        <li ng-show="!editStake" class="stake line">
+            <div class="left-btn">
+                <a ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                    {{s.stake}}
+                </a>
+            </div>
+        </li>
+        <li class="ok-btn line" ng-show="editStake">
+            <div class="left-btn col-odd">
+                <input type="text"
+                       ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                       ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+            </div>
+        </li>
+        <li class="align-r">
+            <a class="btn mobile-btn btn-primary" ng-show="!editStake" ng-click="editStake=true">Edit</a>
+            <a class="btn mobile-btn btn-primary" ng-show="editStake" ng-click="editStake=false;ctrl.saveStakeConfig()">Save</a>
+        </li>
+
+    </ul>
+    <!--End****Setting popup-->
+</div>

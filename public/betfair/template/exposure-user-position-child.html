@@ -1,0 +1,34 @@
+﻿<tr class="position-bg">
+    <td style="text-align:left;padding-left:15px">
+        <a style="color:white;" ng-click="ctrl.open_Close_Check_Position(d,true);">
+            {{d.username}}
+            <span class="icons-list">
+                <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,exposureTreeMarket.id,exposureTreeMarket.name,d.userId)"></i>
+                <i class="fa icons" ng-if="d.downline" ng-class="{'fa-sitemap':!d.open,'fa-sort-amount-asc fa-rotate-180':d.open}"></i>
+            </span>
+            
+        </a>
+    </td>
+    <td>{{d.marketRunners | total:'stake' | toRate}}</td>
+    <td ng-repeat="r in d.marketRunners track by $index">
+        <span class="market-team"
+              ng-class="{'green-light':r.pl>=0,'negative':r.pl<0}">
+            {{r.pl  | toRate}}
+        </span>
+    </td>
+</tr>
+<tr ng-if="d.downline && d.open" >
+    <td colspan="{{d.marketRunners.length+2}}" style="padding:0px">
+        <table ng-repeat="d in d.downline track by $index" 
+               style="margin:10px 15px;width:calc(100% - 15px)">
+            <thead>
+                <tr>
+                    <th ></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px" ng-repeat="r in exposureTreeMarket.marketRunner track by $index"></th>
+                </tr>
+            </thead>
+            <tbody ng-include="userpositionChildTemplate"></tbody>
+        </table>
+    </td>
+</tr>

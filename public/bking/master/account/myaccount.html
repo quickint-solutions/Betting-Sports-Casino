@@ -1,0 +1,64 @@
+﻿<div class="master-page-class">
+    <div  ui-view="content">
+    </div>
+</div>
+<div class="full-wrap master-page-class ng-hide">
+    <div class="content-part my-account">
+        <div class="acc-left">
+            <div class="row left-part">
+                <div class="sidebar-tab">
+                    <div class="vertical-tab">
+                        <div class="path">
+                            <div class="left-drop">
+                                <a class="path-back"></a>
+                            </div>
+                            <ul>
+                                <li class="path-last">
+                                    <a> {{user.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <nav class="inner-nav">
+                            <div id="mySidenav" class="sidenav myaccount-nav">
+                                <ul>
+                                    <li>
+                                        <a ui-sref="master.account.profile"
+                                           ng-class="ctrl.isActive('/profile')">
+                                            {{'common.myprofile.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="master.account.statement"
+                                           ng-class="ctrl.isActive('/statement')">
+                                            {{'common.accountstatement.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="master.account.casinostatement"
+                                           ng-class="ctrl.isActive('/casino-statement')">
+                                            {{'common.casinostatement.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="master.account.loginhistory"
+                                           ng-class="ctrl.isActive('/loginhistory')">
+                                            {{'common.loginhistory.label' | translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="acc-right">
+            <div class="row ">
+                <div class="center-part">
+                    <div ng-scrollbars class="scrollwrap my-bets" ui-view="content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

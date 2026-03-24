@@ -1,0 +1,167 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="event-heading">Live Bets</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text">
+                    <ui-select ng-model="search.eventType" tabindex="1" theme="bootstrap" close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Sport: All">Sport: {{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="eventtype in eventTypeList | filter: $select.search" class="ui-select-choices">
+                            <span ng-bind-html="eventtype.name | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text">
+                    <ui-select ng-model="search.marketType" tabindex="2" theme="bootstrap"  close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Market Type: All">Market Type: {{$select.selected.displayName}}</ui-select-match>
+                        <ui-select-choices repeat="mt in marketTypeList | filter: $select.search" class="ui-select-choices">
+                            <span ng-bind-html="mt.displayName | highlight: $select.search"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" tabindex="3" type="text" placeholder="Event" ng-model="search.eventName" />
+            </div>
+            <div class="col-sm-2">
+                <ui-select ng-model="search.selectedUser" tabindex="4" theme="bootstrap" on-select="ctrl.userSelected()"
+                           close-on-select="true">
+                    <ui-select-match class="ui-select-match" placeholder="Member Name">
+                        {{$select.selected.username+' ('+$select.selected.userCode+')'}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                       class="ui-select-choices"
+                                       refresh="$parent.ctrl.searchUser($select.search)">
+                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                        &nbsp;-&nbsp;
+                        <span class="align-l" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.name"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-2">
+                <div class="float-r">
+                    <a class="btn btn-secondary" tabindex="7" ng-click="showstake=false;ctrl.fetchLiveBetsData();">
+                        Apply
+                    </a>
+                    <a class="btn btn-danger" tabindex="8" ng-click="showstake=false;ctrl.resetCriteria();">
+                        Clear
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row mr-top-10">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-2">
+                <div class="label float-r">Stake : {{search.stakefrom>0 || search.staketo>0 ? 'Custom' : 'All' }}</div>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" tabindex="5" placeholder="From Stakes" ng-model="search.stakefrom" />
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" tabindex="6" placeholder="To Stakes" ng-model="search.staketo" />
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-secondary float-r" tabindex="9" ng-click="ctrl.fetchLiveBetsData();">
+                    <i class="fa fa-refresh"></i>  Refresh
+                </a>
+                <span style="margin-right:10px;float:right;margin-top:10px;color:white;">{{selectedInterval}}</span>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="table-listing">
+        <kt-grid grid-id="kt-alllivebets-grid"
+                 load-items="ctrl.getAllBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="false"
+                 cache-key="ktalllivebetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable master_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id" ng-class="{'alert-tr':item.alert}">
+
+                        <td data-title="::'Member' | translate" data-header-class="'size-smd'" class="size-smd">
+                            <span>{{item.user.username}}</span>
+                        </td>
+                        <td data-title="::'Event' | translate" data-header-class="'size-md'" class="size-md">
+                            {{item.market.event.name | shortme:20}}
+                        </td>
+                        <td data-title="::'market.name.label' | translate" data-header-class="'size-lg'" class="size-lg">
+                            <span ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId">
+                                {{item.market.name | shortme:35}}
+                            </span>
+                            <span ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId">
+                                {{item.market.name | shortme:15}} # {{item.market.roundId}}
+                            </span>
+                        </td>
+                        <td data-title="::'Selection' | translate"
+                            data-header-class="'size-lg'" class="size-lg">
+                            <span ng-class="{'lay-bg':item.side==2,'back-bg':item.side==1}">&nbsp;</span>
+                            <span title="{{item.runnerName}}">
+                                {{item.market.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                            </span>
+                        </td>
+                        <td data-title="::'Odd Req.'"
+                            data-header-class="'size-xsm align-r'" class="size-xsm align-r">
+                            <span ng-if="item.market.bettingType!=7">{{item.price}} </span>
+                            <span ng-if="item.market.bettingType==7">{{item.percentage}} </span>
+                        </td>
+                        <td data-title="::'Avg. Matched'"
+                            data-header-class="'size-xsm align-r'" class="size-xsm align-r">
+                            <span ng-if="item.market.bettingType!=7">{{item.avgPrice}}</span>
+                            <span ng-if="item.market.bettingType==7">{{item.percentage}} </span>
+                        </td>
+                        <td data-title="::'Matched' | translate"
+                            data-header-class="'size-sm align-r'" class="size-sm align-r">
+                            <span title="{{item.sizeMatched | toRate}}">{{item.sizeMatched | toRate}} </span>
+                        </td>
+                        <td data-title="::'Unmatched' | translate"
+                            data-header-class="'size-sm align-r'" class="size-sm align-r">
+                            <span title="{{item.sizeRemaining| toRate}}">{{item.sizeRemaining | toRate}} </span>
+                        </td>
+                        <td data-title="::'Profit/Liability' | translate"
+                            data-header-class="'size-smd align-r'" class="size-smd align-r">
+                            <span ng-show="item.market.bettingType!=7">
+                                <span ng-show="item.side==1" class="positive">
+                                    {{((item.avgPrice-1)*(item.sizeRemaining+item.sizeMatched)) | toRate}}
+                                </span>
+                                <span ng-show="item.side==2" class="negative">
+                                    {{((item.avgPrice-1)*(item.sizeRemaining+item.sizeMatched))*-1 | toRate}}
+                                </span>
+                            </span>
+                            <span ng-show="item.market.bettingType==7">
+                                <span ng-show="item.side==1" class="positive">
+                                    {{(item.sizeMatched*item.percentage)/100 | toRate}}
+                                </span>
+                                <span ng-show="item.side==2" class="negative">
+                                    {{(item.sizeMatched)*-1 | toRate}}
+                                </span>
+                            </span>
+                        </td>
+                        <td data-title="::'IP' | translate"
+                            data-header-class="'size-md boolean'" class="size-md boolean">
+                            <span>{{item.remoteIp}}</span>
+                        </td>
+                        <td data-title="::'Last Updated' | translate"
+                            data-header-class="'size-sm align-r'" class="size-sm align-r">
+                            <span ng-show="!item.updatedOn" title="{{item.createdOn  | date:'yyyy-MM-dd HH:mm'}}">
+                                <kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date>
+                            </span>
+                            <span ng-show="item.updatedOn" title="{{item.updatedOn  | date:'yyyy-MM-dd HH:mm'}}">
+                                <kt-date data-date-value="item.updatedOn" data-format="HH:mm:ss"></kt-date>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

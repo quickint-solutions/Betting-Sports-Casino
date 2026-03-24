@@ -1,0 +1,19 @@
+﻿<div class="rules-modal">
+    <div class="row">
+        <div class="col-sm-12" >
+            <span>Max Bet : {{market.maxBet | toRate}}</span>
+
+            <span>Loss Limit : {{market.maxLiability | toRate}}</span>
+
+            <span>Max Profit : {{market.maxProfit | toRate}}</span>
+            <div class="rule_info">
+                <div>
+                    <span ng-bind-html="market.rule | safeHtml"></span>
+                </div>
+                <div>
+                    <span ng-bind-html="market.clarification | safeHtml"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

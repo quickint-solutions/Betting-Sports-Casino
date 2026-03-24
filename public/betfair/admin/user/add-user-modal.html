@@ -1,0 +1,169 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Name</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'user.name.placeholder' | translate}}"
+                   required autofocus ng-model="user.name" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Username</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'user.username.placeholder' | translate}}"
+                   required ng-model="user.username" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group" ng-if="!user.id">
+            <span class="input-group-addon">Password</span>
+            <input type="password" minlength="6" maxlength="25"
+                   placeholder="{{::'user.password.placeholder' | translate}}" autocomplete="new-password"
+                   required ng-model="user.password" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group" ng-if="!user.id">
+            <span class="input-group-addon">Confirm Pass</span>
+            <input type="password" minlength="6" maxlength="25"
+                   placeholder="{{::'user.confirmpassword.placeholder' | translate}}" autocomplete="new-password"
+                   required ng-model="user.confirmpassword" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Website</span>
+            <select class="form-control" ng-model="user.websiteId" required>
+                <option ng-repeat="w in websites" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group" ng-if="!user.id">
+            <span class="input-group-addon">Currency</span>
+            <select class="form-control" ng-model="user.currencyId" required>
+                <option ng-repeat="c in currencyList" value="{{c.id}}">
+                    {{c.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Mobile</span>
+            <input type="text" minlength="1" maxlength="20"
+                   placeholder="{{::'user.mobile.placeholder' | translate}}"
+                   ng-model="user.mobile" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Email</span>
+            <input type="email" minlength="1" maxlength="256"
+                   placeholder="{{::'user.email.placeholder' | translate}}"
+                   ng-model="user.email" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="checkbox">
+            <input type="checkbox" value="" id="chk-allowMultiLogin" ng-model="user.allowMultiLogin">
+            <label for="chk-allowMultiLogin">{{::'multilogin.label' | translate}}?</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <kt-radiobutton id="usertype"
+                        data-item="user"
+                        data-disable-now="{{user.id}}"
+                        data-param-name="userType"
+                        notify-on-update="ctrl.userTypeChanged(selectedId)"
+                        data-optionlist="userTypeList"></kt-radiobutton>
+    </div>
+</div>
+<div class="row" ng-if="(user.userType==1 || user.userType==11 || user.userType==8 || user.userType==12) && !user.id">
+    <div class="col-sm-6">
+        <span class="info">* Minimum 1 required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Min Bet</span>
+            <input type="text" minlength="1" maxlength="10"
+                   placeholder="{{::'betconfig.min.placeholder'|translate}}" kt-number-only
+                   autocomplete="off" required ng-model="user.betConfig.minBet" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">* Required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Max Bet</span>
+            <input type="text" minlength="1" maxlength="10"
+                   autocomplete="off" placeholder="{{::'betconfig.max.placeholder'|translate}}" kt-number-only
+                   required ng-model="user.betConfig.maxBet" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">* Required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Delay</span>
+            <input type="text" minlength="1" maxlength="10"
+                   autocomplete="off" placeholder="{{::'betconfig.delay.placeholder'|translate}}" kt-number-only
+                   required ng-model="user.betConfig.betDelay" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">* Required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Max Profit</span>
+            <input type="text" minlength="1" maxlength="10"
+                   autocomplete="off" placeholder="{{::'betconfig.profit.placeholder'|translate}}" kt-number-only
+                   required ng-model="user.betConfig.maxProfit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <span class="info">* Required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Max Exposure</span>
+            <input type="text" minlength="1" maxlength="10"
+                   autocomplete="off" placeholder="{{::'betconfig.exposure.placeholder'|translate}}" kt-number-only
+                   required ng-model="user.betConfig.maxExposure" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="(user.userType==1 ) && !user.id">
+    <div class="col-sm-6">
+        <span class="info">* Required</span>
+        <div class="input-group">
+            <span class="input-group-addon">Give PT</span>
+            <input type="text" minlength="1" maxlength="10"
+                   autocomplete="off" placeholder="Please enter Give PT"
+                   kt-number-only
+                   required ng-model="user.ptConfig.givePt" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="(user.userType==4 ) && user.id">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-isobd" ng-model="user.isOBD">
+            <label for="chk-isobd">Is Offline Banking Active?</label>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-Chat" ng-model="user.isChatEnabled">
+            <label for="chk-Chat">Is Chat Enabled?</label>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="input-group">
+            <span class="input-group-addon">Chat Agent Id</span>
+            <input type="text" minlength="1" maxlength="100"
+                   autocomplete="off" placeholder="Please enter agent unique id"
+                   ng-model="user.chatSiteId" class="form-control">
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,32 @@
+﻿<div class="toggle-buttons textbox form-group editing">
+    <div>
+        <div class="editable-block control-group" ng-if="::!charLimit">
+            <div class="btn-group">
+                <button ng-repeat="option in optionlist"
+                        type="button" class="btn btn-default"
+                        ng-disabled="disableNow || (disableBy && disableBy == item[paramName] && option.id!=item[paramName])"
+                        ng-class="{'active':option.id==item[paramName]}"
+                        tabindex="{{(tabIndex*1)+$index}}"
+                        ng-click="ctrl.update(item,option.id)">
+                    {{::option.name }}
+                </button>
+            </div>
+        </div>
+        <div class="editable-block control-group" ng-if="::charLimit">
+            <div class="btn-group">
+                <button ng-repeat="option in optionlist"
+                        type="button" class="btn btn-default"
+                        ng-disabled="disableNow || (disableBy && disableBy == item[paramName] && option.id!=item[paramName])"
+                        ng-class="{'active':option.id==item[paramName]}"
+                        title="{{option.name}}"
+                        tabindex="{{(tabIndex*1)+$index}}"
+                        ng-click="ctrl.update(item,option.id)">
+                    {{::option.name |limitTo:charLimit }}
+                </button>
+            </div>
+        </div>
+        <!--<div class="col-xs-12 read-only-block  control-group">
+            <p class="form-control-static">{{selectedItem.name | empty | translate}}</p>
+        </div>-->
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="event-heading">Manage Banners</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="float-r">
+                    <a class="btn btn-secondary" ng-click="ctrl.addBanner()">
+                        Add New
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing">
+        <kt-grid grid-id="kt-clarification-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 show-total="true"
+                 cache-key="ktclarificationgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by $index" style="align-items: center;">
+
+                        <td data-title="::'Banner' " class="size-xl" data-header-class="'size-xl'">
+                            <div class="utr-img" ng-if="item.imageContent">
+                                <img ng-click="$parent.$parent.$parent.$parent.ctrl.showReceipt(item);" ng-src="{{item.imageContent}}" />
+                            </div>
+                        </td>
+                        <td class="size-md boolean" data-header-class="'size-md boolean'" data-title="::'Status' ">
+                            <kt-radiobutton id="status{{$index}}"
+                                            data-item="item"
+                                            data-param-name="isActive"
+                                            data-optionlist="$parent.$parent.$parent.statusList"
+                                            notify-on-update="$parent.$parent.$parent.ctrl.statusChanged(selectedId,item)"></kt-radiobutton>
+                        </td>
+                        <td data-title="::'For Mobile?' " class="size-md boolean" data-header-class="'size-md boolean'">
+                            <span>  <i ng-show="item.isMobile" class="fa fa-check"></i></span>
+                        </td>
+
+                        <td data-title="::'grid.button.action.header' | translate"
+                            data-header-class="'boolean size-md'" class="boolean size-md">
+                            <a id="delete{{$index}}" class="btn btn-danger"
+                               ng-click="$parent.$parent.$parent.ctrl.deleteBanner(item.id)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

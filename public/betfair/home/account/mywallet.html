@@ -1,0 +1,52 @@
+﻿<div id="content-container" class="main-content-container main-content-desktop-container__page light">
+    <div class="content main-content-container__page">
+        <div id="main" role="main">
+            <div id="mod-mydetails-v2-44018-container" class="mod yui3-widget yui3-module yui3-bfmodule-my-details-v2">
+                <div id="mod-mydetails-v2-44018" class="mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 ga yui3-bfmodule-my-details-v2-content">
+                    <div class="mydetails-wrapper">
+                        <div class="view">
+                            <div class="col-row">
+                                <div class="maw-header-text maw-header-text--main"><h1>{{'mywallet.label' | translate}}</h1></div>
+                            </div>
+                            <div class="col-group">
+                                <div class="table-bets">
+                                    <kt-grid grid-id="kt-accountstatement-grid"
+                                             load-items="ctrl.getAccountStatement(params)"
+                                             name-param="id"
+                                             name-value-property="id"
+                                             show-total="true"
+                                             cache-key="ktaccountstatementgrid">
+
+                                        <table ng-table="tableParams" class="table table-hover clickable"
+                                               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                                            <tbody>
+                                                <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                                                    <td header-class="'size-md align-l'" class="size-md align-l" data-title="::'account.datetime.name.label' | translate"
+                                                        data-sortable="'createdon'">
+                                                        <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                                    </td>
+                                                    <td data-title="::'account.narration.name.label' | translate"
+                                                        header-class="'size-lg align-l'" class="size-lg align-l">
+                                                        <span title="{{item.narration}}">{{item.narration}} </span>
+                                                    </td>
+                                                    <td class="align-l">
+                                                        <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                                                        <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                                                    </td>
+
+                                                    <td header-class="'size-md boolean'" class="size-md boolean" ng-class="{'positive':item.balance >= 0,'negative':item.balance < 0}" data-title="::'account.total.name.label' | translate">
+                                                        <span title="{{item.balance | toRate }}">{{item.balance | toRate }} </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </kt-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

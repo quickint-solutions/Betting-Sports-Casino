@@ -1,0 +1,172 @@
+﻿<div class="report-form">
+    <div class="form-group from-date">
+        <label>From</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em">
+                        <path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path>
+                    </svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div class="form-group to-date">
+        <label>To</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em"><path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path></svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" ng-click="ctrl.refreshGrid();">Submit</button>
+</div>
+
+<div class="w-100">
+    <div class="report-page-count ">
+        <div class="form-group mb-0 d-flex">
+            <div class="mr-2 c-pointer" ng-class="{'border-bottom':selectedEventType!= e.eventTypeId}" ng-repeat="e in eventSummary">
+                <a ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                    {{e.eventTypeName}}&nbsp;:&nbsp;
+                    <span style="margin-left:0px;font-weight:bold;" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">
+                        {{e.totalPl | toRate}}
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="file-icons  loader-section-parent" ng-if="gridDataWithoutGroup.length>0">
+            <div class="d-flex align-items-center mr-2">{{gridDataWithoutGroup.length}} records found</div>
+        </div>
+    </div>
+    <div class="report-table  table-responsive profit-table">
+        <table class="table table-hover clickable">
+            <thead>
+                <tr>
+                    <th class="align-l">
+                        {{'market.name.label' | translate}}
+                    </th>
+                    <th class="size-md boolean ">
+                        {{'starttime.label' |  translate}}
+                    </th>
+                    <th class="size-md boolean ">
+                        {{'settledtime.label' | translate}}
+                    </th>
+                    <th class="size-md boolean ">
+                        {{'commission.label' | translate}}
+                    </th>
+                    <th class="size-md boolean ">
+                        {{'pl.label' | translate}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="info-text" ng-repeat="item in gridDataWithoutGroup track by $index">
+                <tr ng-click="ctrl.getBet(item,!item.show)">
+                    <td class="align-l text-nowrap">
+                        <label ng-show="$parent.selectedEventType != $parent.liveGamesId">
+                            <span id="to"><strong>{{item.eventName}}</strong></span>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span id="to">{{item.marketName}}</span>
+                        </label>
+                        <label ng-show="$parent.selectedEventType == $parent.liveGamesId">
+                            <span id="to">{{item.marketName}} # {{item.roundId}}</span>
+                            <a ng-click="$parent.ctrl.viewCards($event,item)"><i class="fa fa-ticket"></i></a>
+                        </label>
+                    </td>
+                    <td class="size-md boolean text-nowrap">
+                        <span>{{item.marketTime | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                    </td>
+                    <td class="size-md boolean text-nowrap">
+                        <span>{{item.settleTime | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                    </td>
+                    <td class="size-md boolean text-nowrap" ng-class="{'book-green':item.comm>0,'book-red':item.comm<0}">
+                        <span title="{{item.comm}}">{{item.comm | toRate}} </span>
+                    </td>
+                    <td class="betid size-md boolean text-nowrap">
+                        <a class="c-pointer" ng-class="{'book-green':item.win>=0,'book-red':item.win<0}"
+                           title="{{item.win | toRate}}"><u>{{item.win | toRate}}</u></a>
+                    </td>
+                </tr>
+                <tr ng-if="item.show && item.betDetailItems" class="expand-table profit-expand">
+                    <td class="expand-td" colspan="5">
+                        <table class="table-bets w-100 bg-dark">
+                            <tbody>
+                                <tr>
+                                    <th class="cust-no boolean">{{'betid.label'|translate}}</th>
+                                    <th class="align-l">{{'runner.name.label'|translate}}</th>
+                                    <th class="size-sm boolean">{{'odds.label'|translate}}</th>
+                                    <th class="size-sm boolean">{{'stake.label'|translate}}</th>
+                                    <th class="size-sm boolean">{{'side.label'|translate}}</th>
+                                    <th class="cust-name">{{'profitloss.label'|translate}}</th>
+                                    <th class="cust-name">{{'placed.label'|translate}}</th>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr ng-repeat="b in item.betDetailItems.bets | orderBy:createdOn">
+                                    <td class="cust-no boolean text-nowrap">{{b.betId}}</td>
+                                    <td class="align-l text-nowrap">{{(b.bettingType==7 ? b.avgPrice+' ' : '')}}{{b.runnerName}}</td>
+                                    <td class="size-sm boolean text-nowrap">{{b.avgPrice ? b.avgPrice : b.price | number:2}}{{b.percentage && b.percentage!= 100 ? '('+b.percentage+'%)' : ''}}</td>
+                                    <td class="size-sm boolean text-nowrap">{{b.sizeMatched  | toRate}}</td>
+                                    <td class="size-sm boolean text-nowrap">
+                                        <span ng-show="b.bettingType!=7">{{b.side==1 ? 'Back' : 'Lay'}}</span>
+                                        <span ng-show="b.bettingType==7">{{b.side==1 ? 'Yes' : 'No'}}</span>
+                                    </td>
+                                    <td class="cust-name text-nowrap"><span ng-class="{'book-green':b.pl>=0,'book-red':b.pl<0}">{{b.pl  | toRate}}</span></td>
+                                    <td class="cust-name text-nowrap">{{b.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                </tr>
+                                <tr class="net-total">
+                                    <td colspan="7">
+                                        <div class="d-flex flex-column align-items-end">
+                                            <div class="mr-5 d-flex justify-content-between border-bottom w-25 mb-2 border-dark">
+                                                {{'backtotal.label'|translate}}
+                                                <span class="text-right w-25">{{((item.betDetailItems.bets | betSideFilter:'1') | total:'pl')  | toRate}}</span>
+                                            </div>
+                                            <div class="mr-5 d-flex justify-content-between border-bottom w-25 mb-2 border-dark">
+                                                {{'laytotal.label'|translate}}
+                                                <span class="text-right w-25">{{((item.betDetailItems.bets | betSideFilter:'2') | total:'pl')  | toRate}}</span>
+                                            </div>
+                                            <div class="mr-5 d-flex justify-content-between border-bottom w-25 mb-2 border-dark">
+                                                {{'marketsubtotal.label'|translate}}
+                                                <span class="text-right w-25">{{(item.betDetailItems.pl.win | total:'pl')  | toRate}}</span>
+                                            </div>
+                                            <div class="mr-5 d-flex justify-content-between border-bottom w-25 mb-2 border-dark">
+                                                {{'commission.label'|translate}}
+                                                <span class="text-right w-25">{{item.betDetailItems.pl.commission  | toRate}}</span>
+                                            </div>
+                                            <div class="mr-5 d-flex justify-content-between border-bottom w-25 border-dark font-weight-bold">
+                                                {{'netmarkettotal.label'|translate}}
+                                                <span class="text-right w-25"
+                                                      ng-class="{'book-green':item.betDetailItems.pl.pnl>=0,'book-red':item.betDetailItems.pl.pnl<0}">
+                                                {{item.betDetailItems.pl.pnl | toRate}}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="w-100 no-record" ng-show="gridDataWithoutGroup.length<=0">
+            <div>No Records Found</div>
+        </div>
+    </div>
+</div>

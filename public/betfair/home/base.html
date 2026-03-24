@@ -1,0 +1,379 @@
+﻿<div class="container  full-width-page scrollable-columns default-min-size-page">
+    <!--header-->
+    <div class="top">
+        <div class="bf-row no-bottom-gutter">
+            <div class="bf-col-24-24">
+                <div id="ssc-header-container" class="ssc-container ssc-theme-betfair ssc-js">
+                    <div id="header">
+                        <div id="mod-header-18808-container" class="mod">
+                            <div id="mod-header-18808" class="mod-header mod-header-header">
+                                <div id="ssc-hw" class="isLoggedIn">
+                                    <div class="ssc-hc">
+                                        <table id="ssc-ht" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a class="logo-header logo-img" ui-sref="base.home" title="Home"></a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="ssc-ilol">
+                                                            <div class="ssc-bi">
+                                                                <a class="ssc-hlp ssc-helpSupport " title="Help" data-gtml="help">Help</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td id="ssc-ssec">
+                                                        <div id="mod-search-44684-container" class="mod">
+                                                            <div id="mod-search-44684" class="mod-search mod-search-search">
+                                                                <div id="ssc-search">
+                                                                    <div class="ssc-sbf">
+                                                                        <form name="search" method="GET">
+                                                                            <input type="search" autocomplete="off" placeholder="Find teams, competitions, races, and more..." name="query" class="ssc-sbi">
+                                                                            <button type="reset" class="ssc-sxi ssc-hdn"></button>
+                                                                            <button type="submit" value="Search" title="Search" class="ssc-sbb"></button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                    <td class="ssc-ilo">
+                                                        <div id="ssc-lsec">
+                                                            <div id="mod-login-13232-container" class="mod">
+                                                                <div id="mod-login-13232" class="mod-login mod-login-login">
+                                                                    <form class="ssc-lof" ng-init="menu1=false;menu2=false;">
+                                                                        <div class="ssc-ud ssc-udrl" data-tooltip="ssc-tr-2" ng-click="menu1=!menu1;menu2=false;" ng-class="{'ssc-ttc ssc-tpm':menu1}">
+                                                                            <a class="ssc-unc" tabindex="0">
+                                                                                <span class="ssc-un">My Account</span>
+                                                                                <span class="ssc-uni ssc-sprite"></span>
+                                                                            </a>
+                                                                            <span class="ssc-aru ssc-arus ssc-sprite" tabindex="0">
+                                                                            </span>
+                                                                            <div class="ssc-md " data-tooltip="ssc-ta-2" ng-class="{'ssc-hdn-js':!menu1}">
+                                                                                <div class="ssc-tlp">
+                                                                                    <div class="ssc-tlpc ssc-tlpcs">
+                                                                                        <div class="ssc-myal">
+                                                                                            <a class="ssc-myau">
+                                                                                                <div class="manatee"></div>{{user.username}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount " ui-sref="base.account.profile">
+                                                                                                <div class="manatee"></div>{{'myprofile.label' | translate}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount " ui-sref="base.account.wallet">
+                                                                                                <div class="manatee"></div> {{'mywallet.label' | translate}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount "
+                                                                                               kt-has-claim claims="{Claims: ['ui.client.payment.crypto','ui.client.payment.offlinepayment','ui.client.payment.fairex','ui.client.payment.arropay','ui.client.payment.neteller','ui.client.payment.skrill']}"
+                                                                                               ui-sref="base.account.transferonline">
+                                                                                                <div class="manatee"></div> Transfer Online
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount " ui-sref="base.account.statement">
+                                                                                                <div class="manatee"></div> {{'accountstatement.label' | translate}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount " ui-sref="base.account.bets.current"
+                                                                                               kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                                                                                <div class="manatee"></div> {{'mybets.label' | translate}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myBetfairAccount " ui-sref="base.account.history"
+                                                                                               kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                                                                                                <div class="manatee"></div> {{'loginhistory.label' | translate}}
+                                                                                            </a>
+                                                                                            <a class="ssc-myalo" data-gtml="my account - log out" ng-click="ctrl.logout();">
+                                                                                                Log Out
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <a kt-has-claim claims="{Claims: ['ui.client.payment.offlinepayment','ui.client.payment.fairex','ui.client.payment.arropay','ui.client.payment.neteller','ui.client.payment.skrill']}"
+                                                                           ui-sref="base.account.transferonline"
+                                                                           class="ssc-cta ssc-cta-primary ssc-deposit ssc-depb ">
+                                                                            <span>Deposit</span>
+                                                                        </a>
+
+                                                                        <div class="ssc-hld">&nbsp;</div>
+
+                                                                        <div class="ssc-wl ssc-wlco" ng-class="{'ssc-ttc ssc-tpm':menu2}" ng-click="menu2=!menu2;menu1=false;">
+                                                                            <div class="ssc-wlc" tabindex="0">
+                                                                                <a class="ssc-sb ssc-hdn" data-gtmdt="show" data-gtml="account balance">Show Balance</a>
+                                                                                <table class="ssc-wldw" cellpadding="0" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr rel="main-wallet">
+                                                                                            <td class="ssc-wln">
+                                                                                                Main
+                                                                                            </td>
+                                                                                            <td class="ssc-wla" rel="main">
+                                                                                                <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr rel="exchange_bonus_cash-wallet">
+                                                                                            <td class="ssc-wln">
+                                                                                                Exposure
+                                                                                            </td>
+                                                                                            <td class="ssc-wla" rel="exchange_bonus_cash">
+                                                                                                <kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <span class="ssc-aru ssc-arus ssc-sprite" tabindex="0">
+                                                                            </span><div id="ssc-balance-details" class="ssc-bd" ng-class="{'ssc-hdn-js':!menu2}" data-tooltip="ssc-ta-3">
+                                                                                <div class="ssc-tlp">
+                                                                                    <div class="ssc-tlpc ssc-tlpcs">
+                                                                                        <table class="ssc-wldd" cellpadding="0" cellspacing="0">
+                                                                                            <tbody>
+                                                                                                <tr class="ssc-wlt ssc-wll ssc-wlrmw">
+                                                                                                    <td class="ssc-wla" rel="total">
+                                                                                                        <kt-glc-code data-special="false" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code>
+                                                                                                    </td>
+                                                                                                    <td class="ssc-wlnc">
+                                                                                                        <div class="ssc-wln">Available Credit</div>
+                                                                                                    </td>
+                                                                                                    <td class="ssc-wlli">
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr class="ssc-wlrd">
+                                                                                                    <td colspan="3"></td>
+                                                                                                </tr>
+                                                                                                <tr class="ssc-wlm ssc-wlrmw">
+                                                                                                    <td class="ssc-wla" rel="main">
+                                                                                                        <kt-glc-code data-special="false" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code>
+                                                                                                    </td>
+                                                                                                    <td class="ssc-wlnc">
+                                                                                                        <div class="ssc-wln">Credit Limit</div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr class="ssc-wlm ssc-wlrmw">
+                                                                                                    <td class="ssc-wla" rel="main">
+                                                                                                        <kt-glc-code data-special="false" data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                                                                                    </td>
+                                                                                                    <td class="ssc-wlnc">
+                                                                                                        <div class="ssc-wln">Winnings</div>
+                                                                                                    </td>
+                                                                                                </tr>
+
+                                                                                                <tr class="ssc-wlrd2">
+                                                                                                    <td colspan="3">
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr class="ssc-wlas">
+                                                                                                    <td colspan="3">
+                                                                                                        See full details in
+                                                                                                        <a class="ssc-wlcp ssc-wlcPokerTrans "
+                                                                                                           ui-sref="base.account.statement" data-gtml="wallet - account summary">Account Summary</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <a class="ssc-rl ssc-hdn-nojs" tabindex="0" title="Refresh Balance" ng-click="ctrl.getBalance();" kt-click><span class="ssc-sprite">&nbsp;</span></a>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                    <td class="ssc-ilo connect-wallet" ng-show="isWalletSignInEnabled">
+                                                        <div class="after-connect" ng-show="ctrl.isConnected()">
+                                                            <div class="wallet-text">
+                                                                <span>Balance</span>
+                                                                <span class="Address">{{wallet.address | shortAddress}} &nbsp;<i class="fa fa-copy" ng-click="ctrl.copytext(wallet.address)"></i></span>
+                                                                {{wallet.balance}} {{tokenName}}
+                                                            </div>
+                                                            <div>
+                                                                <img class="wallet-icon meta" ng-src="{{imagePath}}images/icon2/metamask.png" />
+                                                            </div>
+                                                            <div class="c-right">
+                                                                <button class="tran-btn" ng-click="ctrl.openModal('wallet-transfer-modal')">
+                                                                    Transfer
+                                                                    <img class="wallet-icon" ng-src="{{imagePath}}images/icon2/transfer.png" />
+                                                                </button>
+                                                                <div class="wallet-text" ng-click="ctrl.logOutWallet()">
+                                                                    Logout
+                                                                    <img class="wallet-icon" ng-src="{{imagePath}}images/icon2/logout.svg" />
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div id="ssc-hbt">
+                                            <div id="mod-main-navigation-319505-container" class="mod">
+                                                <div id="mod-main-navigation-319505" class="mod-main-navigation mod-main-navigation-main-navigation">
+                                                    <div class="ssc-sac ">
+                                                        <a title="Safer Gambling" data-gtml="Responsible Gambling">Safer Gambling</a>
+
+                                                    </div>
+                                                    <ul id="ssc-pn" class="">
+                                                        <li ui-sref-active="ssc-actv">
+                                                            <a ui-sref="base.home" title="Exchange">
+                                                                Exchange
+                                                            </a>
+                                                        </li>
+                                                        <li ui-sref-active="ssc-actv">
+                                                            <a ui-sref="base.livegames">
+                                                                Live Casino
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div ui-view="main"></div>
+</div>
+<div class="modal-overlay login-dialog" id="wallet-transfer-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Transfer IN/OUT</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <div class="my-wallet">
+                            <div class="row">
+                                <div class="col-sm-12 tab-wallet">
+                                    <div class="common-betprocess" ng-show="isPGLoaderActive">
+                                        <div class="col-xs-12 betprocess">
+                                            <div class="row">
+                                                <div class="col-xs-12 loader">
+                                                    <div class="bet-process">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab">
+                                        <ul class="tabs-container ">
+                                            <li class="tab-container tether" ng-class="{'active':transferInOutTab==1}">
+                                                <a class="tab-heading" ng-click="transferInOutTab=1">
+                                                    Transfer IN
+                                                </a>
+                                            </li>
+                                            <li class="tab-container skrill" ng-class="{'active':transferInOutTab==2}">
+                                                <a class="tab-heading" ng-click="transferInOutTab=2">
+                                                    Transfer OUT
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="payment tether" ng-show="transferInOutTab==1">
+                                        <form name="transfer_in_form" ng-submit="ctrl.transferIN()" style="width:435px">
+                                            <div class="account-statement float-l chg-pass process-div" style="min-width: 435px; clear: unset; box-sizing: border-box;">
+                                                <div class="mr-top-24 crypto-deposit">
+                                                    <div class="token-title"><span>Wallet <i style="font-size:9px;">({{wallet.address | shortAddress}})</i> to {{displayName}}</span></div>
+                                                    <div class="token-selection">
+                                                        <input class="token-address"
+                                                               required
+                                                               type="number"
+                                                               max="{{wallet.balance}}"
+                                                               ng-model="transferINOUT.amountToWebsite"
+                                                               placeholder="Transfer Amount" />
+
+                                                        <div class="select_right">
+                                                            <div class="balance_lbl">Wallet Balance</div>
+                                                            <div class="balance_val">{{wallet.balance}} {{tokenName}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="token-btn">
+                                                        <button class="stake-btn button small-btn float-r" type="submit" ng-disabled="transfer_in_form.$invalid || transferInProgress==true">
+                                                            Transfer IN
+                                                        </button>
+                                                    </div>
+                                                    <div class="msg-list">
+                                                        <div ng-repeat="tm in transferINMessages track by $index"><i class="fa fa-level-up fa-rotate-90"></i>&nbsp;{{tm}}</div>
+                                                        <div ng-if="transferInProgress"><i class="fa fa-spinner fa-pulse fa-fw"></i></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="payment tether" ng-show="transferInOutTab==2">
+                                        <form name="transfer_out_form" ng-submit="ctrl.registerCryptoWithdrawal()" style="width:435px">
+
+                                            <div class="account-statement float-l chg-pass process-div" style="min-width: 435px; clear: unset; box-sizing: border-box;">
+                                                <div class="align-r"> <small><a ng-click="show_w_history=true;">View Withdrawal History</a></small></div>
+                                                <div class="mr-top-24 crypto-deposit">
+                                                    <div class="token-title">
+                                                        <span>{{displayName}} to Wallet <i style="font-size:9px;">({{wallet.address | shortAddress}})</i></span>
+                                                        <small>{{displayName}} Balance : {{balanceInfo.balance | toRate}} {{tokenName}}</small>
+                                                    </div>
+                                                    <div class="token-selection">
+                                                        <input class="token-address"
+                                                               required
+                                                               type="number"
+                                                               max="{{balanceInfo.balance | toRateOnly}}"
+                                                               ng-model="transferINOUT.amountToWallet"
+                                                               placeholder="Transfer Amount" />
+                                                        <div class="btn-grp">
+                                                            <button type="button" ng-click="ctrl.withdrawalShort(0)">Min</button>
+                                                            <button type="button" ng-click="ctrl.withdrawalShort(25)">25%</button>
+                                                            <button type="button" ng-click="ctrl.withdrawalShort(50)">50%</button>
+                                                            <button type="button" ng-click="ctrl.withdrawalShort(100)">Max</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="token-btn">
+                                                        <button class="stake-btn button small-btn float-r" type="submit" ng-disabled="transfer_out_form.$invalid">
+                                                            Transfer OUT
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="w-history" ng-class="{'open':show_w_history}">
+                                                    <h1 class="event-heading with-small">
+                                                        Withdraw History
+                                                        <small> <i class="fa fa-remove close" ng-click="show_w_history=false;"></i></small>
+                                                    </h1>
+                                                    <div class="h-table" ng-scrollbars>
+                                                        <div ng-repeat="w in withdrawalHistory track by $index" class="r-row status-{{w.status}}">
+                                                            <div class="t-row">
+                                                                <div><span class="t-title">Token :</span>{{w.token}}</div>
+                                                                <div><span class="t-title">Network :</span>{{ctrl.getTokenChain(w.chain)}}</div>
+                                                                <div><span class="t-title">Amount :</span>{{w.amount}}</div>
+                                                                <div><span class="t-title">Fee :</span>{{w.fee}}</div>
+                                                                <div><span class="t-title">Date :</span>{{w.createdOn  | date:'yyyy-MM-dd HH:mm'}}</div>
+                                                            </div>
+                                                            <div class="t-row">
+                                                                <div><span class="t-title">Address :</span><b>{{w.address}}</b></div>
+                                                                <div>
+                                                                    <span class="t-title">Status :</span>
+                                                                    <b class="status-{{w.status}}">{{ctrl.getWithdrawalStatus(w.status)}}</b>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

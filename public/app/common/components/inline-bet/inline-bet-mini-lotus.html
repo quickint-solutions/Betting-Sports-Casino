@@ -1,0 +1,75 @@
+﻿<div class="minline" ng-show="temporaryStatus!=2">
+    <div style="float:left; width:100%; " ng-init="toPrice=price">
+        <div class="score-left">
+            <span class="float-l" style="width:100%; font-size:10px; padding-bottom:5px">ODDS</span>
+            <span class="score-btn" ng-if="!disableOdds" ng-class="{'active':$parent.valueFocus==1,'khado':$parent.bettingType==8}" ng-click="$parent.valueFocus=1">
+                <a class="score-a" style="float:left" ng-click="ctrl.down()"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                <input type="text" ng-model="$parent.price" kt-number-only allow-decimal="true" positive-only="true" />
+                <a class="score-a" style="float:right" ng-click="ctrl.up()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            </span>
+            <span class="score-btn-khado-to" ng-if="$parent.bettingType==8">&nbsp; -  {{($parent.price*1)+($parent.toPrice*1)-1}}</span>
+            <span class="score-btn disable" ng-if="disableOdds">
+                <span ng-show="bettingType==7" class="float-l">
+                    {{percentage}}
+                </span>
+                <span>
+                    {{price}}
+                </span>
+            </span>
+
+        </div>
+        <div class="score-right">
+            <div class="float-l" style="width:96%;  font-size:10px; padding-bottom:5px">
+                <span class="float-l" style="text-transform:uppercase">Stake</span>
+                <span class="float-r" ng-if="maxProfit">
+                    Max Mkt: {{$parent.maxProfit | toRate}}
+                </span>
+            </div>
+            <span class="score-btn" ng-show="betId">
+                <!--<a class="score-a" style="float:left"><i class="fa fa-minus" aria-hidden="true"></i></a>-->
+                <input class="btn-input" ng-model="size" type="text" onfocus="blur()" disabled />
+                <!--<a class="score-a" style="float:right"><i class="fa fa-plus" aria-hidden="true"></i></a>-->
+            </span>
+            <span class="score-btn" ng-hide="betId">
+                <input class="btn-input" ng-model="size" type="text"
+                       kt-number-only allow-decimal="true" positive-only="true"
+                       ng-change="ctrl.sizeChanged()"
+                       ng-focus="hidePH=true" ng-blur="hidePH=false" />
+                <span class="cus-placeholder" ng-hide="hidePH || size>0" >
+                    <span ng-if="minBet>0">Min: {{minBet | toRate}}
+                </span>
+                    <span ng-if="maxBet>0">Max: {{maxBet | toRate}}</span>
+                </span>
+            </span>
+        </div>
+    </div>
+    <span class="popup-list" ng-hide="betId">
+        <a ng-repeat="s in stakeConfig.stake | filter:{isActive:true}" ng-click="ctrl.stakeClick(s.stake)">+{{s.stake | number:0}}</a>
+    </span>
+    <div>
+        <span class="select-btn">
+            <a class="btn cancle" ng-click="ctrl.cancelInlineBet()">Cancel</a>
+        </span>
+        <span class="select-btn place-btn" kt-has-claim claims="{Claims: ['client.bet.place']}">
+            <a class="btn save dark-btn" ng-click="ctrl.submitBet()" 
+               ng-class="{'disable':price<=0 || !size || size<=0 }" kt-click ng-hide="betId">
+                Place Bet
+                <span>{{placeBetLabel | number:2}}</span>
+            </a>
+            <a class="btn save dark-btn" ng-click="ctrl.updateBet()" kt-click ng-show="betId">
+                Update Bet
+                <span>{{placeBetLabel | number:2}}</span>
+            </a>
+        </span>
+    </div>
+    <div class="one-click" ng-show="confirmRequired">
+        <span class="oneclick-off float-l">Confirm bet before placing?</span>
+        <div class="one-click-bet">
+            <label class="switch">
+                <input class="switch-input" type="checkbox" ng-model="confirmBet" ng-click="ctrl.confirmBetOptionChanged()" />
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+            </label>
+        </div>
+    </div>
+</div>

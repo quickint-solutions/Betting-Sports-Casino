@@ -1,0 +1,20 @@
+﻿<div class="full-popup">
+    <div class="col-sm-4 popup-left">
+        <ul>
+            <li ng-repeat="vd in videoList" ng-class="{'active':vd.active}" class="popup_li">
+                <a ng-click="vd.active=!vd.active">{{vd.eventTypeName}}</a>
+                <ul class="popup_list">
+                    <li ng-repeat="v in vd.video">
+                        <a ng-class="{'background-theme-color':v.eventName==activeEvent}" ng-click="ctrl.setStream(v)">{{v.eventName}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-8 popup-right">
+        <div class="video-frame">
+            <kt-video-player wcs-config="wcs_video"   ng-if="wcs_video">
+            </kt-video-player>
+        </div>
+    </div>
+</div>

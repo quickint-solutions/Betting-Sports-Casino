@@ -1,0 +1,9 @@
+﻿<div class="audio" style="cursor:pointer;" ng-show="wcsConfig.url">
+    <div ng-mouseenter="ctrl.showMuteIcon(true)" ng-mouseleave="ctrl.showMuteIcon(false)" ng-click="ctrl.playPause(false)" kt-click ng-if="isPlaying">
+        <i class="fa " ng-class="{'fa-volume-up blink-color':!hoverActive,'fa-volume-off':hoverActive}"></i>
+    </div>
+    <div ng-click="ctrl.playPause(true)" ng-mouseenter="ctrl.showMuteIcon(true)" ng-mouseleave="ctrl.showMuteIcon(false)" kt-click ng-if="!isPlaying">
+        <i class="fa " ng-class="{'fa-volume-up':hoverActive,'fa-volume-off':!hoverActive}"></i>
+    </div>
+    <div class="display ng-hide" id="remoteVideo"></div>
+</div>

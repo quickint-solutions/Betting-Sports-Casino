@@ -1,0 +1,274 @@
+﻿/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+.spinner {
+    -webkit-animation: rotate 0.75s 0s linear infinite, pulsate 1.5s 0s linear infinite;
+    -moz-animation: rotate 0.75s 0s linear infinite, pulsate 1.5s 0s linear infinite;
+    -o-animation: rotate 0.75s 0s linear infinite, pulsate 1.5s 0s linear infinite;
+    animation: rotate 0.75s 0s linear infinite, pulsate 1.5s 0s linear infinite;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    background: transparent !important;
+    background-color: transparent;
+    @include border-all(0.35em, solid, $color-text);
+    border-bottom-color: transparent;
+    @include border-radius($width);
+    @include display(inline-block);
+    margin: 3px 0 0 0;
+    text-indent: $width;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 2em;
+    width: 2em;
+    font-size: 7px;
+
+    &.large {
+        font-size: 30px;
+    }
+
+    &.inverse {
+        border-color: $white-color;
+        border-bottom-color: transparent;
+    }
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+.big-spinner-container {
+    display: flex;
+    align-items: $text-center;
+    justify-content: $text-center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.big-spinner {
+    width: 200px;
+    height: 200px;
+    text-align: $text-center;
+    margin: 0 20px;
+    @include position(relative);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    @include display(inline-block);
+
+    & span {
+        @include display(block);
+        @include border-radius(50%);
+        @include border-all(4px, solid, $white-color);
+        @include position(absolute, left 50% top 50%);
+        
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+
+        &:first-child {
+            width: $width;
+            height: $height;
+            border-color: $theme-color;
+            border-left-color: transparent;
+            top: 0;
+            left: 0;
+            animation: effect-1-1 2s infinite linear;
+        }
+
+        &:nth-child(2) {
+            width: 75%;
+            height: 75%;
+            border-color: darken($theme-color,10%);
+            border-right-color: transparent;
+            top: 12.5%;
+            left: 12.5%;
+            -moz-animation: effect-1-2 1s infinite linear;
+            -o-animation: effect-1-2 1s infinite linear;
+            -webkit-animation: effect-1-2 1s infinite linear;
+            animation: effect-1-2 1s infinite linear;
+        }
+
+        &:last-child {
+            width: 50%;
+            height: 50%;
+            border-color: lighten($theme-color,10%);
+            border-bottom-color: transparent;
+            top: 25%;
+            left: 25%;
+            -moz-animation: effect-1-1 2s infinite linear;
+            -o-animation: effect-1-1 2s infinite linear;
+            -webkit-animation: effect-1-1 2s infinite linear;
+            animation: effect-1-1 2s infinite linear;
+        }
+    }
+}
+
+@-webkit-keyframes effect-1-1 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes effect-1-1 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes effect-1-2 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes effect-1-2 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+
+.loader-table .loader-container {
+    @include position(absolute);
+    width: $width;
+}
+
+.loading-header {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: linear-gradient(to right, transparent 2%, $loader-color2 18%, transparent 33%);
+    background-size: 1300px;
+}
+
+.loading-info {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: linear-gradient(to right, $loader-color1 2%, $loader-color2 18%, $loader-color1 33%);
+    background-size: 1300px;
+}
+
+.loader-table.ng-hide {
+    opacity: 0;
+}
+
+.loader-table.ng-hide-add {
+    transition: all linear 0.1s;
+}
+
+@keyframes placeholderAnimate {
+    0% {
+        background-position: -650px 0;
+    }
+
+    100% {
+        background-position: 650px 0;
+    }
+}
+
+.market-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(51,51,51,0.56);
+
+    .loader {
+        background: url(/public/images/gif/spin-black2.gif) no-repeat;
+        width: 50px;
+        height: 50px;
+        background-size: 100%;
+        top: 45%;
+        z-index: 101;
+        left: 45%;
+        position: absolute;
+    }
+}

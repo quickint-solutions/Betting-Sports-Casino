@@ -1,0 +1,99 @@
+﻿<div class="bet_list " ng-init="totalrows=0;">
+    <div class="filter-panel">
+        <div class="input-date">
+            <div class="input-group">
+                <div id="picker-market-report" class="ktdatepicker"
+                     kt-date-range-picker
+                     data-from-date="search.fromdate"
+                     data-to-date="search.todate"
+                     data-on-selection="ctrl.getProfitLoss()"
+                     data-format="DD MMM YYYY ">
+                    {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                    <i class="fa fa-calendar"></i>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="table-listing transfer-table pl-table">
+        <div ng-if="!showBetDetail">
+            <div>
+                <ul class="total-show-pl">
+                    <li class="sports-switch " ng-class="{'underline':selectedEventType!= e.eventTypeId}" ng-repeat="e in eventSummary">
+                        <span ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                            {{e.eventTypeName}}&nbsp;:&nbsp;
+                            <span style="margin-left:0px;font-weight:bold;" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">
+                                {{e.totalPl | toRate}}
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="list-view">
+                <div>
+                    <div class="list-view-table myTranscludedContent">
+                        <table class="table table-hover clickable member_table ng-table" style="display: table">
+                            <thead>
+                                <tr>
+                                    <th header-class="'align-l'" class="align-l" data-title="::'market.name.label' | translate">Market Name</th>
+                                    <th class="size-md boolean">Winner</th>
+                                    <th header-class="'size-md'" class="size-md" data-title="::'starttime.label' | translate">Start time</th>
+                                    <th header-class="'size-md'" class="size-md" data-title="::'settledtime.label' | translate">Settled Time</th>
+                                    <th header-class="'size-sm align-r'" class="size-sm align-r" data-title="::'commission.label' | translate">Comm.</th>
+                                    <th header-class="'size-sm align-r'" class="size-sm align-r" style="padding-right:5px!important">Net Win</th>
+                                </tr>
+                            </thead>
+                            <tbody class="info-text" ng-repeat="itemGrp in gridData track by $index">
+                                <tr>
+                                    <td class="date" style="padding-left:14px;">
+                                        <kt-date data-date-value="itemGrp.date"></kt-date>
+                                    </td>
+                                </tr>
+                                <tr class="childtr" style="background:transparent" ng-repeat="item in itemGrp.values track by $index">
+                                    <td class="align-l ">
+                                        <span ng-click="ctrl.getBet(item)" class="link-a">
+                                            {{item.eventName}}&nbsp;-&nbsp;{{item.marketName}}
+                                        </span>
+                                    </td>
+                                    <td class="size-md boolean">
+                                        <span>
+                                            {{item.winner}}
+                                        </span>
+                                    </td>
+                                    <td class="size-md ">
+                                        <span title="{{item.marketTime | date:'yyyy-MM-dd HH:mm:ss'}}">
+                                            <kt-date data-date-value="item.marketTime"></kt-date>
+                                        </span>
+                                    </td>
+                                    <td class="size-md ">
+                                        <span title="{{item.settleTime | date:'yyyy-MM-dd HH:mm:ss'}}">
+                                            <kt-date data-date-value="item.settleTime"></kt-date>
+                                        </span>
+                                    </td>
+                                    <td class="size-sm align-r ">
+                                        <a style="line-height:26px;" ng-class="{'positive':item.comm>=0,'negative':item.comm<0}"
+                                           title="{{ item.comm | toRate}}">{{ item.comm | toRate}}</a>
+                                    </td>
+                                    <td class="size-sm align-r ">
+                                        <a style="line-height:26px;" ng-class="{'positive':item.win>=0,'negative':item.win<0}"
+                                           title="{{item.win | toRate}}">{{item.win | toRate}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="table-bets client-pl-detail">
+            <div ng-if="showBetDetail">
+                <div ng-include="betDetailTemplate" class="list-view"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

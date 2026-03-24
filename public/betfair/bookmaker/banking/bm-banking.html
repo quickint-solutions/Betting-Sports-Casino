@@ -1,0 +1,84 @@
+﻿<div class="bm_banking">
+    <header>
+        <h1 class="title bm_title">
+            {{'banking.label'| translate}}
+        </h1>
+    </header>
+    <kt-grid grid-id="kt-banking-grid"
+             load-items="ctrl.getItems(params,filters)"
+             export-to-excel="ctrl.exportBanking(params,1)"
+             export-to-pdf="ctrl.exportBanking(params,2)"
+             name-param="id"
+             data-items="gridItems"
+             name-value-property="id"
+             total="totalItems"
+             data-show-total="true"
+             cache-key="ktbankinggrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-class="{'dw':item.chips && item.chips>0}" ng-repeat="item in $data track by item.userId">
+                    <td data-title="::'common.account.label' | translate" data-sortable="'username'"
+                        data-header-class="'size-lg'" class="size-lg"
+                        ng-init="utype=$parent.$parent.$parent.ctrl.getUserTypeShort(item.user.userType)">
+                        <span class="usertype-lable {{utype}}">{{utype}}</span>
+                        <span>
+                            {{item.user.username}}
+                        </span>
+                    </td>
+                    <td data-title="::'common.creditlimit.label' | translate" data-sortable="'creditLimit'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.creditLimit | number:0}}</span>
+                    </td>
+
+                    <td data-title="::'common.balance.label' | translate" data-sortable="'balance'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span>{{item.balance | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.exposure.label' | translate" data-sortable="'exposure'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.exposure | toRate}}</span>
+                    </td>
+                    <td header-class="'current-pl'" class="current-pl" data-title="::'common.currentpl.label' | translate">
+                        <div class="withdraw" ng-init="item.dwType='D'">
+                            <ul>
+                                <li><a ng-class="{'select-D':item.dwType=='D'}" ng-click="item.dwType='D'" href="">{{'banking.deposit.label' | translate}}</a></li>
+                                <li><a ng-class="{'select-W':item.dwType=='W'}" ng-click="item.dwType='W'" href="">{{'banking.withdrawal.label' | translate}}</a></li>
+                            </ul>
+                            <input id="chips_{{$index}}" type="text" kt-number-only allow-decimal="true" ng-model="item.chips">
+                            <a ng-disabled="item.dwType=='D'" ng-click="item.chips=item.balance" class="btn btn-light">
+                                {{'banking.full.label' | translate}}
+                            </a>
+                        </div>
+                    </td>
+                    <td data-title="::'common.creditref.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <a class="credit-ref" title="{{item.creditLimit | toRate}}"
+                           ng-click="$parent.$parent.$parent.ctrl.updateCreditRef(item.userId,item.creditLimit)">
+                            {{item.creditLimit | number:0}} <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                    <td data-title="::'common.refpl.label' | translate"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span ng-class="{'negative':(item.balance - item.creditLimit)<0,'positive':(item.balance - item.creditLimit)>=0}">({{(item.balance - item.creditLimit) | toRate}})</span>
+                    </td>
+                    <td data-title="::'common.remark.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <input id="remark{{$index}}" ng-model="item.remarks">
+                    </td>
+                    <td 
+                        data-header-class="'boolean'" class="boolean">
+                        <!--<a class="btn btn-light" title="Account Statement">
+                            <i class="fa fa-user"></i>
+                        </a>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+    <div class="total-pay" ng-if="totalItems>0">
+        <a class="btn btn-secondary">{{'common.clearall.label'|translate}}</a>
+        <input type="password" placeholder="password" autocomplete="new-password" ng-model="$parent.password" />
+        <a class="btn btn-primary" ng-click="ctrl.submitDW()" kt-click>{{'common.payment.label'|translate}}</a>
+    </div>
+</div>

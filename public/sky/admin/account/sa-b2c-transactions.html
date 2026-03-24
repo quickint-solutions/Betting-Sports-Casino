@@ -1,0 +1,137 @@
+﻿<div class="row" ng-if="reportType==1">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">
+                {{search.dwType=='D' ? 'Deposit' : (search.dwType=='W' ? 'Withdrawal' : 'Bonus' ) }}&nbsp;Transaction report of <u>{{search.agentName}}</u>, Date <u>{{search.fromDate | date:'dd-MM-yyyy'}}</u>
+            </h1>
+        </header>
+    </div>
+    <div class="col-sm-12">
+        <kt-grid grid-id="kt-b2csummary-grid"
+                 load-items="ctrl.getB2CSummary(params)"
+                 show-total="true"
+                 can-i-load="canILoad"
+                 has-new-rights="true"
+                 new-button-label="Refresh"
+                 go-to-new-state="ctrl.refreshGrid()"
+                 cache-key="kttb2csummarygrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="align-l size-lg">User</th>
+                        <th class="align-l">Describtion</th>
+                        <th class="size-md boolean">Amount</th>
+                        <th class="size-md boolean">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="item in $data track by $index">
+                    <tr>
+                        <td class="size-lg align-l">
+                            <span>
+                                <a target="_blank" ui-sref="admin.lotusmember.profile({memberid:item.userId,usertype:5})">
+                                    {{item.user.username}}
+                                    ({{item.user.mobile}})
+                                </a>
+                            </span>
+                        </td>
+                        <td class="align-l">
+                            <span>
+                                {{item.narration}} <span ng-show="item.remarks">({{item.remarks}})</span>
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>
+                                {{item.balance | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-md align-l">
+                            <span>
+                                <kt-date data-date-value="item.createdOn" data-format="dd-MM-yyyy HH:mm:ss"></kt-date>
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </kt-grid>
+    </div>
+</div>
+<div class="row" ng-if="reportType==2">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">{{search.dwType=='R' ? 'Redeemed' : (search.dwType=='A' ? 'Activated' : 'Expired' ) }}&nbsp;bonus report of <u>{{search.agentName}}</u>, Date <u>{{search.fromDate | date:'dd-MM-yyyy'}}</u></h1>
+        </header>
+    </div>
+    <div class="col-sm-12">
+        <kt-grid grid-id="kt-b2cbonus-grid"
+                 load-items="ctrl.getBonusTransactions(params)"
+                 show-total="true"
+                 can-i-load="canILoad"
+                 has-new-rights="true"
+                 new-button-label="Refresh"
+                 go-to-new-state="ctrl.refreshGrid()"
+                 cache-key="kttb2cbonusgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="align-l size-lg">User</th>
+                        <th class="align-l">Bonus Code</th>
+                        <th class="size-md boolean">CTO/RTO</th>
+                        <th class="size-md boolean">CWTO/RWTO</th>
+                        <th class="size-md boolean">Amount</th>
+                        <th class="size-md boolean">Created Date</th>
+                        <th class="size-md boolean">Expiring Date</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="item in $data track by $index">
+                    <tr>
+                        <td class="size-lg align-l">
+                            <span>
+                                <a target="_blank" ui-sref="admin.lotusmember.profile({memberid:item.userId,usertype:5})">
+                                    {{item.user.username}}
+                                    <span ng-show="item.user.mobile">({{item.user.mobile}})</span>
+                                </a>
+                            </span>
+                        </td>
+                        <td class="align-l">
+                            <span>
+                                {{item.bonusCode}}
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>
+                                {{item.currentTurnover | toRate}}/{{item.requiredTurnover | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>
+                                {{item.currentWithdrawalTurnover | toRate}}/{{item.requiredWithdrawalTurnover | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>
+                                {{item.bonusAmount | toRate}}
+                            </span>
+                        </td>
+                        <td class="size-md align-l">
+                            <span>
+                                <kt-date data-date-value="item.createdOn" data-format="dd-MM-yyyy HH:mm:ss"></kt-date>
+                            </span>
+                        </td>
+                        <td class="size-md align-l">
+                            <span>
+                                <kt-date data-date-value="item.expiredOn" data-format="dd-MM-yyyy HH:mm:ss"></kt-date>
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

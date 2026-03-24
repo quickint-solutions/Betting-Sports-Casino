@@ -1,0 +1,467 @@
+﻿.accordion-body {
+    height: 100%;
+}
+
+.arrow {
+    position: absolute;
+    right: 10px;
+}
+
+.additationTable {
+    .rpl {
+        margin-right: 15px;
+    }
+
+    .positive {
+        color: #baff70;
+    }
+}
+
+.rp-timer {
+    position: relative;
+
+    &.spin .image {
+        -webkit-animation: spin 10s linear infinite;
+        -moz-animation: spin 10s linear infinite;
+        animation: spin 10s linear infinite;
+    }
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+.circle1, .circle2, .circle3 {
+    -webkit-animation: opacity 3s ease-in infinite;
+    -moz-animation: opacity 3s ease-in infinite;
+    animation: opacity 3s ease-in infinite;
+}
+
+@-moz-keyframes opacity {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@-webkit-keyframes opacity {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.rp-balance {
+    background: url("/public/images/gif/coin-static.svg");
+    width: 78px;
+    height: 78px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: -15px !important;
+    cursor: pointer;
+
+    &.spin-coin {
+        background: url("/public/images/gif/coin-spin.svg");
+        background-size: 90px;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-left: -15px !important;
+    }
+}
+
+.rotate-screen {
+    background: url("/public/images/royalcasino/rotate-screen.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: black;
+    height: 100vh;
+}
+
+.runner-selection {
+    display: flex;
+    width: 100%;
+}
+
+
+
+.runner-sl-drp {
+    z-index: 5;
+    background-color: rgba(12,12,12,0.70) !important;
+    color: #ff6565 !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+
+    &:focus {
+        border-color: unset !important;
+        box-shadow: unset !important;
+        outline-offset: unset !important;
+    }
+
+    option {
+        border: none !important;
+        background-color: #000;
+
+        &:focus {
+            outline: none !important;
+        }
+    }
+}
+
+.rp-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    background-color: rgba(12,12,12,0.80);
+
+    .overlay-msg {
+        width: 100%;
+        // height:225px;
+        max-width: 450px;
+        // background-image:url(/public/images/royalpatti/background.png);
+        // background-size:cover;
+        //background-color:#000;
+        transform: translate(-50%, -50%);
+        position: fixed;
+        top: 50%;
+        color: #fff;
+        left: 50%;
+        //border:1px solid #fff;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+        position: relative;
+    }
+
+    .rp-info {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 0 15px;
+        width: 100%;
+    }
+
+    .text-message {
+        float: left;
+        width: 100%;
+        font-size: 15px;
+        line-height: 22px;
+        padding-bottom: 10px;
+    }
+
+    .rp-btn {
+        margin: 20px 0 0 0;
+        background-color: #08052f;
+        border: none;
+        border-radius: 5px;
+        width: 30%;
+        height: 40px;
+        line-height: 15px;
+        font-weight: bold;
+        font-size: 15px;
+        margin: 30px 0 5px 0;
+        border: 1px solid #0079b2;
+        box-shadow: 0px 0px 8px 1px #0079b2;
+        border-radius: 5px;
+        letter-spacing: 1px;
+    }
+}
+
+.mt-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 8888;
+    background-color: rgba(12,12,12,0.6);
+
+    .mt-box {
+        width: 75%;
+        height: 60%;
+        top: 20%;
+        left: 12.5%;
+        background-color: rgba(225,251,245,0.45);
+        position: absolute;
+        border-radius: 5px;
+    }
+
+    .left-box {
+        width: 60%;
+        background-color: white;
+        height: calc(100% - 20px);
+        overflow-y: auto;
+        margin: 10px 0px 10px 10px;
+        border-radius: 5px;
+        float: left;
+    }
+
+    .right-top {
+        float: right;
+        height: 60%;
+        width: 37%;
+        background-color: white;
+        border-radius: 5px;
+        margin: 10px 10px 10px 0px;
+    }
+
+    .right-bottom {
+        height: calc(100% - (60% + 30px));
+        background: white;
+        width: 37%;
+        float: right;
+        margin: 0px 10px 10px 0px;
+        border-radius: 5px;
+    }
+}
+
+.gamenameDiv.no-bets {
+    margin-top: 10px;
+}
+
+.no-bets {
+    position: absolute;
+    width: 150px !important;
+
+    .blink {
+        color: #ff6565;
+    }
+
+    .gameName {
+        background: rgba(11, 11, 11, 0.8);
+    }
+}
+
+.mt-td {
+    width: 40px;
+    padding: 2px !important;
+}
+
+.mt-td-div, .mt-th-div {
+    background-color: #d1d1d1;
+    padding: 5px !important;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #98bd96;
+    }
+}
+
+.mt-th-div {
+    background-color: #35aca6;
+
+    &:hover {
+        background-color: #1c6464;
+        color: white;
+    }
+}
+
+.mt-td-div-selected div {
+    background-color: #98bd96;
+}
+
+.mt-th-div-selected div {
+    background-color: #1c6464;
+    color: white;
+}
+
+.rotate-me-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bt-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 8888;
+    background-color: rgba(12,12,12,0.6);
+
+    .bt-close {
+        margin-top: -15px;
+        color: white;
+        float: right;
+        font-size: 20px;
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .bt-box {
+        width: 50%;
+        height: 40%;
+        top: 10%;
+        left: 25%;
+        background-color: rgba(70,72,72,0.80);
+        position: absolute;
+        border-radius: 5px;
+        box-shadow: 0 0 7px 1px #929292;
+        padding: 20px;
+        overflow-y: auto;
+        &.for-card{
+            height:50%;
+        }
+    }
+
+    table {
+        color: white;
+        font-family: 'Lato', sans-serif;
+
+        thead tr {
+            height: 35px;
+            text-align: left;
+            border-bottom: 1px solid white;
+            font-size: 14px;
+
+            th {
+                vertical-align: bottom;
+                padding-bottom: 5px;
+            }
+        }
+
+        tbody tr {
+            height: 20px;
+            text-align: left;
+            font-size: 13px;
+
+            td {
+                vertical-align: bottom;
+                padding-bottom: 5px;
+            }
+        }
+    }
+}
+
+.chip-collection, .chip-collection2 {
+    position: absolute;
+    background: url(/public/images/royalcasino/collect-chips.png);
+    width: 80px;
+    height: 50px;
+    background-size: 80px 50px;
+    z-index: 20;
+    top: 80px;
+    left: 100px;
+    transition: left 1.5s ease-in-out, top 1.5s ease-in-out, width 1s ease-in, height 1s ease-in,background-size 1s ease-in;
+    opacity: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.chip-collection2 {
+    opacity: 1;
+}
+
+.win-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 8888;
+    background-color: rgba(12,12,12,0.4);
+    .won-1 {
+        top: 40%;
+        position: absolute;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+    .won-2 {
+        bottom: 10%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } 
+    .won-3 {
+        top: 40%;
+        position: absolute;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    .win-content {
+        top: 20%;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        padding: 15px;
+        background-color: rgba(33,31,31,0.59);
+    }
+
+    .win-top {
+        height: 110px;
+        position: relative;
+    }
+
+    .win-bottom {
+        float: left;
+        position: relative;
+        font-size: 25px;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        color: yellow;
+    }
+
+    .win-center {
+        float: left;
+
+        img {
+            height: 120px;
+        }
+    }
+
+    .win-left, .win-right {
+        float: left;
+
+        img {
+            width: 100px;
+            height: 110px;
+        }
+    }
+}

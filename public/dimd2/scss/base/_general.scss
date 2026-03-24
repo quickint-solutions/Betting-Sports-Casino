@@ -1,0 +1,408 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+/// <reference path="../pages/sport/_color.scss" />
+
+.errorMsg {
+    background-color: $red;
+    padding: 0px, 5px, 0px, 5px;
+    line-height: 24px;
+    color: $white-color;
+    font-size: $font-size-tab;
+}
+
+.warningMsg {
+    background-color: $yellow;
+    padding: 0px, 5px, 0px, 5px;
+    line-height: 24px;
+    color: $white-color;
+    font-size: $font-size-tab;
+}
+
+.uib-datepicker-popup {
+    button {
+        width: unset !important;
+    }
+}
+
+.report-page-count {
+    .btn {
+        line-height: 19px;
+    }
+
+    .btn-cpoy, .btn {
+        i {
+            font-size: 14px;
+        }
+    }
+}
+
+.report-table {
+    .header {
+        position: relative;
+        width: auto;
+        display: table-cell;
+        height: auto;
+        top: 0;
+        background-color: transparent;
+        z-index: 1;
+    }
+
+    th, td {
+        text-align: left;
+    }
+
+    .no-record {
+        margin-top: -1rem;
+        padding: 6px;
+    }
+
+    &.profit-table {
+        .no-record {
+            margin-top: 0px;
+        }
+    }
+}
+
+table.table {
+    .boolean {
+        text-align: center;
+    }
+
+    td, th {
+        &.size-xxl {
+            width: 400px;
+        }
+
+        &.size-xxs {
+            width: 25px;
+        }
+
+        &.size-xs {
+            width: 50px;
+        }
+
+        &.size-xsm {
+            width: 75px;
+        }
+
+        &.size-sm {
+            width: 100px;
+        }
+
+        &.size-smd {
+            width: 125px;
+        }
+
+        &.size-md {
+            width: 150px;
+        }
+
+        &.size-lg {
+            width: 200px;
+        }
+
+        &.size-xl {
+            width: 300px;
+        }
+
+        &.size-smxl {
+            width: 375px;
+        }
+    }
+
+    tbody + tbody {
+        border-top: 1px solid #3c444b;
+    }
+
+    .expand-table {
+        .expand-td {
+            border-bottom: none;
+
+            table {
+                float: right;
+                border: 1px solid #3c444b;
+            }
+        }
+    }
+}
+
+.back-text {
+    color: var(--back);
+}
+
+.lay-text {
+    color: var(--lay);
+}
+
+.c-pointer {
+    cursor: pointer;
+}
+
+.bank-options {
+    display: flex;
+    overflow-y: auto;
+    margin-top: 10px;
+
+    .bank-option {
+        padding: 5px;
+
+        .option-sec {
+            background: #dad8d8;
+            padding: 5px;
+            border-radius: 3px;
+            position: relative;
+            //padding-bottom: 20px;
+            cursor: pointer;
+
+            &.active {
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+            }
+
+            img {
+                width: 100px;
+                height: 32px;
+            }
+
+            .o-bottom-div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                .last-line {
+                    color: #0c811a;
+                    font-size: 9px;
+                    padding-top: 5px;
+                    font-weight: bold;
+                }
+
+                .fa {
+                    font-size: 14px;
+                }
+
+                .fa-check-circle {
+                    color: #0c811a;
+                }
+            }
+        }
+    }
+}
+
+.dw-page {
+    overflow-x: hidden;
+
+    .card {
+        box-shadow: -1px 1px 5px 2px #0b0b0b;
+    }
+
+    .bank-detail {
+        font-size: 14px;
+        padding: 5px 0px;
+
+        label {
+            font-weight: bold;
+            width: 130px;
+            float: left;
+            text-align: right;
+            margin-right: 5px;
+        }
+    }
+
+    .qr-parent {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        //padding: 25px 0px;
+
+        .qr-text {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            background: #f6b800;
+            border-radius: 3px;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #0c811a;
+
+            img {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .copy {
+        cursor: pointer;
+    }
+
+    .d-stake-btns {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        .btn {
+            flex: 1 1 100px;
+        }
+    }
+
+    .offer-section {
+        a {
+            color: orangered;
+        }
+
+        a[disabled] {
+            color: #d0d0d0;
+            cursor: not-allowed;
+        }
+
+        .fa-remove {
+            color: red;
+            cursor: pointer;
+        }
+
+        .fa-spinner, .fa-remove, .fa-trash {
+            position: absolute;
+            top: 27%;
+            right: 10px;
+            font-size: 12px;
+        }
+
+        input[disabled] {
+            background: #d0d0d0 !important;
+        }
+    }
+
+    .offer-detail {
+        border: 1px solid #6dbc1f;
+        border-radius: 5px;
+        padding: 0px 10px 5px;
+        margin-top: 10px;
+    }
+
+    .utr-img {
+        padding: 0px 10px 5px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+
+        img {
+            height: 120px;
+            border: 1px dotted;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: zoom-in;
+            max-width: 100%;
+        }
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .form-signin, .deposit-form {
+        max-width: 100% !important;
+    }
+
+    .w-history {
+        position: absolute;
+        background: #303030;
+        color: whitesmoke;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 100%;
+        transition: left 0.5s ease;
+        padding: 20px;
+        box-sizing: border-box;
+
+        &.open {
+            left: 0;
+        }
+
+        .event-heading {
+            color: whitesmoke;
+            border-bottom: 1px solid rgba(229, 251, 255, 0.40);
+        }
+
+        .close {
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+        }
+
+        .h-table {
+            height: calc(100% - 60px);
+        }
+
+        .r-row {
+            padding: 0px 5px;
+            border: 1px solid #575757;
+            margin-bottom: 5px;
+
+            &.status {
+                border-color: var(--color-1);
+                cursor: pointer;
+            }
+
+            .status-1 {
+                color: var(--color-1);
+            }
+
+            .status-2 {
+                color: var(--color-2);
+            }
+
+            .status-3, .status-4 {
+                color: var(--color-3);
+            }
+
+            &.status-1 {
+                border-color: var(--color-1);
+            }
+
+            &.status-2 {
+                border-color: var(--color-2);
+            }
+
+            &.status-3, &.status-4 {
+                border-color: var(--color-3);
+            }
+
+            --color-1: yellow;
+            --color-2: #73bb26;
+            --color-3: #fe0000;
+        }
+
+        .t-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0px;
+        }
+
+        .t-title {
+            margin-right: 2px;
+        }
+    }
+}
+
+.bet-info {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 2px;
+    background: rgba(124, 124, 124, 0.32);
+    margin: 4px;
+    font-weight: 600;
+    font-size:11px;
+}
+.mobile-top {
+    .casino-bg {
+        margin-top:5px;
+        height: calc(100vh - 93px);
+    }
+}
+.collapse:not(.show) {
+    display: none;
+    &.in{display:unset;}
+}

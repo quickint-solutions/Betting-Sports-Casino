@@ -1,0 +1,117 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">System Logs</h1>
+    </header>
+</div>
+<div class="col-sm-12 ">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" minlength="1" maxlength="200"
+                               placeholder="Search by server name"
+                               required autofocus ng-model="search.serverName" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                            <select class="form-control" ng-model="search.logLevel" required tabindex="5">
+                                <option ng-repeat="w in logLevels" value="{{w.id}}">
+                                    {{w.name}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" tabindex="6"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.fromDate"
+                                   is-open="fopened"
+                                   placeholder="{{'fromdate.placeholder' | translate}}"
+                                   ng-click="fopened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default calender_btn" ng-click="fopened=true">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" tabindex="7"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.toDate"
+                                   is-open="topened"
+                                   placeholder="{{'todate.placeholder' | translate}}"
+                                   ng-click="topened=true"
+                                   close-text="Close"
+                                   popup-placement="right-bottom"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default calender_btn" ng-click="topened=true">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="btnSearch" class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:100%;">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            {{'common.button.search' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="btnreset" class="btn btn-default" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                            {{'common.button.reset' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-systemlog-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.clearlog' | translate}}"
+             go-to-new-state="ctrl.clearLog()"
+             cache-key="ktsystemloggrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'Server Name' | translate"
+                        data-sortable="'servername'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.serverName}} </span>
+                    </td>
+                    <td data-title="::'Level' | translate"
+                        data-sortable="'loglevel'" data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getLogLevel(item.logLevel)}}</span>
+                    </td>
+                    <td data-title="::'Short Message' | translate"
+                        data-sortable="'shortmessage'" data-header-class="'align-l'" class="align-l">
+                        <span>{{item.shortMessage | shortme:150}} </span>
+                    </td>
+                    <td data-title="::'createddate.label' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean"
+                        data-sortable="'createdon'">
+                        <span title="{{item.createdOn | date:'yyyy-MM-dd HH:mm'}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td data-title="::'ACT' | translate"
+                        data-header-class="'boolean size-xs'" class="boolean size-xs">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.viewLog(item)">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

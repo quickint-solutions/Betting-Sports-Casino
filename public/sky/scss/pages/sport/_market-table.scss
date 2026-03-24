@@ -1,0 +1,292 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.team-score {
+    width: $width;
+    //box-shadow: rgba(0, 0, 0, 0.08) 2px 5px 8px, rgba(0, 0, 0, 0.12) -2px -1px 6px;
+
+    .bet-all {
+        @include border('bottom', 1px, solid, #DDD);
+        padding: 5px;
+        line-height: 31px;
+
+        .back-all {
+            background-color: $back-1-color;
+            text-align: $text-center;
+            @include border('left', 1px, solid, $white-color);
+
+            a {
+                @include headline( $dark-gray-black, $font-market);
+            }
+        }
+
+        .refer-bet, .refer-book {
+            font-size: 11px;
+            line-height: 22px;
+            @include txt (normal);
+        }
+
+        .lay-all {
+            text-align: $text-center;
+            border-left: 1px solid $white-color !important;
+            background-color: $lay-1-color;
+
+            a {
+                @include headline($dark-gray-black, $font-market);
+            }
+        }
+    }
+
+    .message {
+        @include padding(5px, 5px, 5px, 5px);
+    }
+
+    .winner {
+        line-height: 35px;
+        text-align: $text-center;
+
+        span {
+            font-size: $font-market !important;
+            color: $dark-black-color;
+        }
+    }
+
+    .tr-data {
+        @include border('bottom',1px, solid, #DDD);
+
+        td {
+            @include padding(5px, 0px, 5px, 0px);
+            cursor: $cursor;
+            @include border('left', 1px, solid, #DDD);
+
+            a {
+                text-align: $text-center;
+                @include resize ($float-left, $width);
+                height: 36px;
+                @include headline( $dark-gray-black, $font-market);
+
+                &.onlyprice {
+                    padding-top: 10px;
+                }
+
+                span {
+                    @include resize ($float-left, $width);
+                    text-align: $text-center;
+                    @include txt(normal);
+                    @include headline($dark-gray-black, 10px);
+                }
+            }
+        }
+    }
+
+    td {
+        // width: 8.97436%;
+        //min-width:60px;
+        //@include border('left', 1px, solid, $white-color);
+        @include txt(bold);
+    }
+
+    .team-name {
+        width: 48%;
+        @include padding(3px, 5px, 3px, 5px);
+        vertical-align: middle;
+        background-color: $white-color;
+
+        p {
+            margin: 3px 0 0 0px;
+            font-size: $font-market;
+            @include resize($float-left, auto);
+        }
+
+        a {
+            font-size: $font-market;
+
+            i {
+                margin: 0 5px !important;
+            }
+        }
+
+        span {
+            font-size: $font-market;
+            @include txt(bold);
+        }
+    }
+}
+/* --- Team Score --- */
+
+.tab-desc {
+    @include display(inline-block);
+    width: $width;
+
+    .left-column {
+        float: $float-left;
+        width: -webkit-calc(50% - 2px);
+        width: -moz-calc(50% - 2px);
+        width: calc(50% - 2px);
+    }
+
+    .right-column {
+        float: right;
+        width: -webkit-calc(50% - 2px);
+        width: -moz-calc(50% - 2px);
+        width: calc(50% - 2px);
+    }
+
+    .longDescription {
+        @include position(relative);
+        background-color: $white-color;
+        margin-bottom: 10px;
+        @include display(inline-block);
+        width: $width;
+        //@include border('bottom', 1px, solid, $base-color-light);
+        .description-name {
+            p {
+                line-height: 15px;
+                float: $float-left;
+                width: auto;
+                margin-left: 5px;
+
+                a {
+                    margin-right: 5px;
+                }
+            }
+
+            span {
+                @include resize ($float-left, $width);
+                line-height: 15px;
+                margin: 0 0 0 10px;
+            }
+        }
+
+        h3 {
+            a.add-pin {
+                line-height: 20px;
+                top: 4px !important;
+                z-index: 10;
+            }
+
+            a.to-expand {
+                margin-left: 8px;
+                @include display(block);
+                color: $white-color;
+                @include padding(0px, 0px, 0px, 0px);
+                width: 90%;
+
+                .fa-minus-square-o {
+                    float: right;
+                    line-height: 27px;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        table {
+            background-color: $white-color;
+            //box-shadow: rgba(0, 0, 0, 0.08) 2px 5px 8px, rgba(0, 0, 0, 0.12) -2px -1px 6px;
+
+            tr {
+                @include border('bottom', 1px, solid, $light-grey);
+                @include position(relative);
+                @include padding(5px, 0px, 5px, 0px);
+                line-height: 25px;
+
+                &:hover {
+                    background-color: $light-hover-color;
+                }
+            }
+
+            .slip-head {
+                margin: 5px 0 !important;
+                background-color: $dark-grayish;
+
+                &:hover {
+                    background-color: $dark-grayish;
+                }
+
+                th {
+                    width: 15%;
+                    text-align: $text-center;
+                    font-size: $font-market;
+                    @include txt(normal);
+                }
+
+                .matched {
+                    width: 65%;
+                    text-align: $float-left;
+                    font-size: $font-market;
+                    @include padding(0px, 0px, 0px, 6px);
+                }
+            }
+
+            td {
+                font-size: $font-market;
+                @include txt(bold);
+                vertical-align: middle;
+                cursor: $cursor;
+                @include border('right', 1px, solid, #DDD);
+            }
+
+            .back-1 {
+                background: $back-1-color;
+                text-align: $text-center;
+                margin: 5px 0;
+                max-width: 68px;
+            }
+
+            .lay-1 {
+                background: $lay-1-color;
+                text-align: $text-center;
+                margin: 5px 0;
+                max-width: 68px;
+            }
+
+            .back-1, .lay-1, .back-2, .lay-2 {
+                line-height: 18px;
+
+                a {
+                    text-align: $text-center;
+                    @include resize ($float-left, $width);
+                    margin: 3px 0;
+                    min-height: 42px;
+                    // line-height:24px;
+                    @include headline( $dark-gray-black, $font-market);
+
+                    @include respond-to2(extra-small-screens) {
+                        line-height: 24px;
+                    }
+
+                    span {
+                        @include resize ($float-left, $width);
+                        @include txt(normal);
+                        @include headline($dark-gray-black, 10px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.risk-management {
+    .tab-desc { background-color:$white-color; 
+        table {
+            tr {
+                @include border('bottom',1px, solid, $light-grey);
+                @include border('right',1px, solid, $light-grey);
+                height: 26px;
+                th{@include padding(5px, 5px, 2px, 5px);}
+                td {
+                    vertical-align: middle;
+                    font-size: 13px;
+                    @include padding(0, 0, 0, 10px);
+                }
+            }
+        }
+    }
+    .horserace-left{@include border('right', 1px, solid, $gray);}
+    .horserace-right{
+        table{
+            th{padding:5px 0 0 10px !important;}
+        }
+    }
+}

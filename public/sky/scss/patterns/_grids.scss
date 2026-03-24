@@ -1,0 +1,233 @@
+﻿.table-fixed {
+    table-layout: fixed;
+
+    td, th {
+        min-width: 0 !important;
+    }
+    //just an icon
+    .icon-td {
+        flex: 0 0 30px !important;
+    }
+    //check icon
+    .boolean {
+        flex: 0 0 30px !important;
+    }
+    //vca with checkbox
+    .big-boolean {
+        flex: 0 0 60px !important;
+    }
+    //currency units: EUR or %
+    .unit {
+        flex: 0 0 50px !important;
+    }
+
+    .date-td {
+        flex: 0 0 90px !important;
+    }
+
+    .big-date-td {
+        flex: 0 0 150px !important;
+    }
+
+    .office-td {
+        flex: 0 0 60px !important;
+    }
+
+    .action-td {
+        flex: 0 0 80px !important;
+    }
+
+    .collar-td {
+        flex: 0 0 80px !important;
+    }
+
+    .line-td {
+        flex: 0 0 70px !important;
+    }
+
+    .approved-td {
+        flex: 0 0 140px !important;
+    }
+
+    .coefficient-td {
+        flex: 0 0 80px !important;
+    }
+
+    .number-td {
+        flex: 0 0 60px !important;
+    }
+
+    .customer-unit-number {
+        flex: 0 0 80px !important;
+    }
+
+    .invoices-type-td {
+        flex: 0 0 50px !important;
+    }
+
+    .kla-td {
+        flex: 0 0 80px !important;
+    }
+
+    .office-status-td {
+        flex: 0 0 60px !important;
+    }
+
+    .rating-td {
+        flex: 0 0 50px !important;
+    }
+
+    .document-type-td {
+        flex: 0 0 200px !important;
+    }
+
+    .quart-contracts-closed-td {
+        flex: 0 0 85px !important;
+    }
+
+    .quart-contracts-type-td {
+        flex: 0 0 85px !important;
+    }
+
+    .edit-td {
+        flex: 0 0 70px !important;
+    }
+
+    .delete-td {
+        flex: 0 0 75px !important;
+    }
+    //fix filter row
+    &.table-contacts {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(1) {
+                    flex: 0 0 30px !important;
+                }
+            }
+        }
+    }
+
+    &.table-interactions {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(1) {
+                    flex: 0 0 80px !important; //action
+                }
+
+                th:nth-child(3) {
+                    flex: 0 0 60px !important; //office
+                }
+
+                th:nth-child(4), th:nth-child(5) {
+                    flex: 0 0 90px !important; //date
+                }
+            }
+        }
+    }
+
+    &.table-wrap {
+        td, th {
+            white-space: normal !important;
+        }
+    }
+
+    &.table-commercial-profiles {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(1) {
+                    flex: 0 0 60px !important; //collar
+                }
+
+                th:nth-child(2) {
+                    min-width: 100px !important;
+                }
+
+                th:nth-child(3) {
+                    flex: 0 0 80px !important; //collar
+                }
+
+                th:nth-child(4), th:nth-child(5) {
+                    flex: 0 0 60px !important; //student/payroll
+                }
+
+                th:nth-child(6) {
+                    flex: 0 0 80px !important; //coefficient
+                }
+
+                th:nth-child(7) {
+                    flex: 0 0 70px !important; //line version
+                }
+
+                th:nth-child(8), th:nth-child(9) {
+                    @include respond-to('md') {
+                        flex: 0 0 90px !important; //dates
+                    }
+                }
+
+                th:nth-child(10) {
+                    flex: 0 0 60px !important; //bevestigd
+                }
+
+                th:nth-child(11) {
+                    flex: 0 0 140px !important;
+                }
+            }
+        }
+    }
+
+    &.table-departments {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(1) {
+                    flex: 0 0 80px !important;
+                }
+
+                th:nth-child(2) {
+                    flex: 0 0 30px !important;
+                }
+
+                th:nth-child(5) {
+                    flex: 0 0 60px !important;
+                }
+            }
+        }
+    }
+
+    &.table-jobs {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(2) {
+                    flex: 0 0 90px !important;
+                }
+            }
+        }
+    }
+
+    &.table-schedule {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(3), th:nth-child(4), th:nth-child(5) {
+                    flex: 0 0 60px !important;
+                }
+            }
+        }
+    }
+
+    &.table-manage-documents {
+        thead {
+            tr:nth-child(2) {
+                th:nth-child(1) {
+                    flex: 0 0 200px !important;
+                }
+            }
+        }
+    }
+}
+
+.grid-no-toolbar.list-view {
+    margin-top: -20px;
+}
+
+.grid-no-toolbar-cards.list-view {
+    margin-top: 0;
+}

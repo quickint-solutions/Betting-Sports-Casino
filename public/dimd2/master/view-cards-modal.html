@@ -1,0 +1,93 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <span>Result Date Time : <b>{{settleTime | date: 'dd-MM-yyyy HH:mm:ss'}}</b></span>
+    </div>
+</div>
+<div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-if="gameType==2 || gameType==5" ng-class="{'input-highlight':g.runner==winner}">
+    <div class="col-6">
+        {{g.runner}}
+    </div>
+    <div class="col-6">
+        <span class="float-l" ng-repeat="c in g.cards track by $index">
+            <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+        </span>
+        <span class="winner" ng-if="g.runner==winner">{{'winner.label'|translate}}</span>
+    </div>
+</div>
+<div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-if="gameType==1 || gameType==3 || gameType==11" ng-class="{'input-highlight':g.winners}">
+    <div class="col-2">
+        {{g.runner}}
+    </div>
+    <div class="col-5">
+        <span class="float-l" ng-repeat="c in g.cards track by $index">
+            <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+        </span>
+    </div>
+    <div class="col-5">
+        <span class="winner" style="float:left;" ng-if="g.winners">{{g.winners}}</span>
+    </div>
+</div>
+<div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-if="gameType==6 || gameType==4" ng-class="{'input-highlight':g.winners}">
+    <div class="col-2">
+        {{g.runner}}
+    </div>
+    <div ng-class="{'col-8':gameType==6,'col-5':gameType==4}">
+        <span class="float-l" ng-repeat="c in g.cards track by $index">
+            <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+        </span>
+    </div>
+    <div ng-class="{'col-2':gameType==6,'col-5':gameType==4}">
+        <span class="winner" ng-if="g.winners">{{g.winners}}</span>
+    </div>
+</div>
+<div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-if="gameType==9 || gameType==10" ng-class="{'input-highlight':g.winners}">
+    <div class="col-4">
+        {{g.runner}}
+    </div>
+    <div class="col-2">
+        <span class="float-l" ng-repeat="c in g.cards track by $index">
+            <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+        </span>
+    </div>
+    <div class="col-6">
+        <span class="winner" style="float:left;" ng-if="g.winners">{{g.winners}}</span>
+    </div>
+</div>
+<div ng-if="gameType==8">
+    <div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-class="{'input-highlight':g.runner==winner}">
+        <div class="col-5">
+            {{g.runner}}
+        </div>
+        <div class="col-7">
+            <span class="float-l" ng-repeat="c in g.cards track by $index">
+                <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+            </span>
+            <span class="winner" ng-if="g.winner">{{g.winner}}</span>
+            <span class="winner" ng-if="g.runner==winner">{{'winner.label'|translate}}</span>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-12  cards-32">
+            <span class="winner" ng-repeat="g in extraWinnerList">{{g.runner}}</span>
+        </div>
+    </div>
+</div>
+<div ng-if="gameType==14">
+    <div class="row" ng-repeat="g in gameString" style="margin-top:20px" ng-class="{'input-highlight':g.runner==winner}">
+        <div class="col-3">
+            {{g.runner}}
+        </div>
+        <div class="col-9">
+            <span class="float-l" ng-repeat="c in g.cards track by $index">
+                <img class="cards-inside-runner" ng-src="{{cardImagePath}}{{c}}.png" />
+            </span>
+            <span class="winner" ng-if="g.winner">{{g.winner}}</span>
+            <span class="winner" ng-if="g.runner==winner">Winner</span>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-12">
+            <span class="winner" ng-repeat="g in extraWinnerList">{{g.runner}}</span>
+        </div>
+    </div>
+</div>

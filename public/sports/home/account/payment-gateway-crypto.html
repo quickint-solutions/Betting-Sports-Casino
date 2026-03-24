@@ -1,0 +1,114 @@
+﻿<div class="card">
+    <div class="card-header"><h3>Crypto Deposit</h3></div>
+    <div class="card-body">
+        <div class="my-wallet">
+            <div class="row">
+                <div class="col-sm-12 tab-wallet">
+                    <div class="payment fairxpay" kt-has-claim claims="{Claims: ['ui.client.payment.crypto']}">
+                        <div class="account-statement float-l chg-pass process-div depositm" style="min-width: 100%;clear:unset;">
+                            <div class="common-betprocess" style="margin-top: -12px;margin-left: -12px;" ng-show="isLoaderActive">
+                                <div class="col-xs-12 betprocess">
+                                    <div class="row">
+                                        <div class="col-xs-12 loader">
+                                            <div class="bet-process">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1 class="event-heading with-small">
+                                Deposit By Crypto
+                                <small>
+                                    <span class="recent-request">
+                                        <a ng-click="ctrl.viewRecentPayInOutRequests(true,true)">View Request Status</a>
+                                    </span>
+                                </small>
+                            </h1>
+                            <kt-messages data-messages="cryptoDepositMessage"></kt-messages>
+                            <div class="mr-top-20">
+
+                                <div class="offer-detail" ng-if="cryptoDeposit.offer.isValid">
+                                    <h4>{{cryptoDeposit.offer.title}}</h4>
+                                    <div class="offer-desc" ng-bind-html="cryptoDeposit.offer.description | safeHtml">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mr-top-10">
+                                <div class="deposit-form">
+                                    <form class="form-signin " name="cryptoinform" ng-submit="ctrl.depositCryptoNow()">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="gt-lbl">
+                                                        Amount to deposit <span class="red">&nbsp;*</span>
+                                                        <span style="float: right; font-weight: normal;">
+                                                            <span ng-show="cryptoDeposit.minDeposit>0">Min. {{cryptoDeposit.minDeposit | toRate}} || </span>
+                                                            <span ng-show="cryptoDeposit.maxDeposit>0">Max. {{cryptoDeposit.maxDeposit | toRate}}</span>
+                                                        </span>
+                                                    </label>
+                                                    <input type="number"
+                                                           placeholder="Amount" required
+                                                           ng-change="ctrl.removeOffer();"
+                                                           min="{{cryptoDeposit.minDeposit | toRateOnly}}" max="{{cryptoDeposit.maxDeposit | toRateOnly}}"
+                                                           ng-model="cryptoDeposit.amount" >
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="d-stake-btns">
+                                                    <button ng-repeat="d in depositStakeButtons | limitTo:3:0" ng-click="ctrl.addStakes(d,cryptoDeposit)" type="button">
+                                                        + {{d | number:2}}
+                                                    </button>
+                                                </div>
+                                                <div class="d-stake-btns">
+                                                    <button ng-repeat="d in depositStakeButtons | limitTo:3:3" ng-click="ctrl.addStakes(d,cryptoDeposit)" type="button">
+                                                        + {{d | number:2}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 mr-top-20 offer-section">
+                                                <div class="form-group">
+                                                    <label class="gt-lbl">
+                                                        Select & Apply Offer
+                                                        <a class="float-r" ng-click="ctrl.selectOfferFromModal(cryptoDeposit);"
+                                                           ng-disabled="!cryptoDeposit.amount || cryptoDeposit.amount<=0">
+                                                            <i class="fa fa-list "></i> <u>Offers</u>
+                                                        </a>
+                                                    </label>
+                                                    <div style="position:relative;">
+                                                        <input type="text" maxlength="50"
+                                                               placeholder="Apply code"
+                                                               ng-keyup="ctrl.validateOffer(cryptoDeposit)"
+                                                               ng-model="cryptoDeposit.offer.bonusCode"
+                                                               ng-disabled="!cryptoDeposit.amount || cryptoDeposit.amount<=0">
+                                                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-show="offerLoader"></i>
+                                                        <i class="fa fa-remove" ng-click="ctrl.removeOffer();"
+                                                           ng-show="cryptoDeposit.offer.id && !offerLoader"></i>
+                                                    </div>
+                                                    <kt-messages data-messages="offerMessages"></kt-messages>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <button class="stake-btn button small-btn float-r" type="submit"
+                                                            ng-disabled="cryptoinform.$invalid">
+                                                        Deposit
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

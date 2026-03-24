@@ -1,0 +1,907 @@
+﻿<div id="app">
+    <div class="wrapper wolf-open-home">
+        <div id="floater" ng-show="supportDetail.whatsapp">
+            <a href="{{supportDetail.whatsapp}}" target="_blank">
+                <div class="whatsapp-floatter-icon">
+                    <div class="whatsapp-text">
+                        <span>Get an ID Instantly on Whatsapp</span>
+                        <span>Click Here Now</span>
+                    </div>
+                    <img ng-src="/public/images/{{currentWebApp}}/icons/images.png" alt="Whatsapp">
+                </div>
+            </a>
+            <a href="{{supportDetail.telegram}}" target="_blank" ng-show="supportDetail.telegram">
+                <img ng-src="/public/images/{{currentWebApp}}/icons/telegram2.png" alt="telegram">
+            </a>
+        </div>
+        <div class="header-top">
+            <ul>
+                <li>
+                    <a ui-sref="promo" ui-sref-active="router-link-active">
+                        Exchange
+                    </a>
+                </li>
+                <li><a ui-sref="promo.casino" ui-sref-active="router-link-active" role="button">Live Casino</a></li>
+                <li><a ui-sref="promo.slotcasino" ui-sref-active="router-link-active" role="button">Slot</a></li>
+            </ul>
+            <div class="download-apk" ng-if="downloadApp">
+                <a ng-click="ctrl.downloadAPK()" target="_blank">
+                    <i class="fab fa-android mr-2"></i>
+                    Download APK
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-left d-none-mobile" >
+            <div class="logo-box">
+                <div class="logo">
+                    <a ui-sref="promo" aria-current="page" class="router-link-exact-active router-link-active">
+                        <img ng-src="/public/images/{{currentWebApp}}/logo.png" alt="logo" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+            <div class="upcoming-fixure d-none-mobile">
+                <div class="menu-title">
+                    Upcoming Fixure
+                </div>
+                <div class="hooper is-vertical">
+                    <div class="hooper-list">
+                        <ul class="hooper-track">
+                            <li class="hooper-slide" ng-repeat="p in popularMarkets track by $index">
+                                <a>
+                                    <div class="fixure-box">
+                                        <div>
+                                            <i class="d-icon mr-2 icon-{{p.eventTypeSourceId}}"></i>
+                                            {{p.event.name}}
+                                        </div>
+                                        <div>{{p.event.openDate | date:'dd/MM/yyyy hh:mm:ss'}} (UTC {{p.event.openDate | date:'Z'}})</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="menu-box">
+                <h5 class="text-yellow pl-2"><u>All Sport</u></h5>
+                <div class="sports-list-content">
+                    <div class="all-menu">
+                        <div mode="out-in">
+                            <ul class="navbar-nav" ng-repeat="e in sports ">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport{{e.sourceId}}" ng-click="e.show=!e.show">
+                                        <i class="d-icon icon-{{e.sourceId}}"></i>
+                                        <span class="sport-name ifTooltip">{{e.name}}</span>
+                                        <span ng-show="e.competitions.length>0"> ({{e.competitions.length}})</span>
+                                    </a>
+                                    <ul class="dropdown-menu" ng-class="{'show':e.show}">
+                                        <li class="text-dark" ng-repeat="cmp in e.competitions">
+                                            <a class="dropdown-item dropdown-toggle" ng-click="cmp.show=!cmp.show">
+                                                <span class="ifTooltip">{{cmp.name}}</span>
+                                                <span ng-show="cmp.events.length>0"> ({{cmp.events.length}})</span>
+                                            </a>
+                                            <ul class="dropdown-menu" ng-class="{'show':cmp.show}">
+                                                <li class="text-dark" ng-repeat="evt in cmp.events">
+                                                    <a class="dropdown-item">
+                                                        <span class="ifTooltip">{{evt.name}}</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport8">
+                                        <i class="d-icon icon-8"></i> <span class="sport-name ifTooltip">Table Tennis</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport15">
+                                        <i class="d-icon icon-15"></i> <span class="sport-name ifTooltip">Basketball</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport18">
+                                        <i class="d-icon icon-18"></i> <span class="sport-name ifTooltip">Volleyball</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport59">
+                                        <i class="d-icon icon-59"></i>
+                                        <span class="sport-name ifTooltip">Snooker</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport19">
+                                        <i class="d-icon icon-19"></i> <span class="sport-name ifTooltip">Ice Hockey</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport11">
+                                        <i class="d-icon icon-11"></i>
+                                        <span class="sport-name ifTooltip">E Games</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport9">
+                                        <i class="d-icon icon-9"></i>
+                                        <span class="sport-name ifTooltip">Futsal</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport39">
+                                        <i class="d-icon icon-39"></i> <span class="sport-name ifTooltip">Handball</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport5">
+                                        <i class="d-icon icon-5"></i> <span class="sport-name ifTooltip">Golf</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport55">
+                                        <i class="d-icon icon-55"></i> <span class="sport-name ifTooltip">Rugby League</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport6">
+                                        <i class="d-icon icon-6"></i> <span class="sport-name ifTooltip">Boxing</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport7">
+                                        <i class="d-icon icon-7"></i> <span class="sport-name ifTooltip">Beach Volleyball</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport3">
+                                        <i class="d-icon icon-3"></i> <span class="sport-name ifTooltip">Mixed Martial Arts</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport16">
+                                        <i class="d-icon icon-16"></i> <span class="sport-name ifTooltip">MotoGP</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item dropdown-toggle sport17">
+                                        <i class="d-icon icon-17"></i>
+                                        <span class="sport-name ifTooltip">Chess</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport22">
+                                        <i class="d-icon icon-22"></i> <span class="sport-name ifTooltip">Badminton</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport29">
+                                        <i class="d-icon icon-29"></i> <span class="sport-name ifTooltip">Cycling</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport32">
+                                        <i class="d-icon icon-32"></i> <span class="sport-name ifTooltip">Motorbikes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport33">
+                                        <i class="d-icon icon-33"></i> <span class="sport-name ifTooltip">Athletics</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport35">
+                                        <i class="d-icon icon-35"></i> <span class="sport-name ifTooltip">Basketball 3X3</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport37">
+                                        <i class="d-icon icon-37"></i> <span class="sport-name ifTooltip">Sumo</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport38">
+                                        <i class="d-icon icon-38"></i> <span class="sport-name ifTooltip">Virtual sports</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport52">
+                                        <i class="d-icon icon-52"></i> <span class="sport-name ifTooltip">Motor Sports</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport53">
+                                        <i class="d-icon icon-53"></i> <span class="sport-name ifTooltip">Baseball</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport54">
+                                        <i class="d-icon icon-54"></i> <span class="sport-name ifTooltip">Rugby Union</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport57">
+                                        <i class="d-icon icon-57"></i> <span class="sport-name ifTooltip">Darts</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport58">
+                                        <i class="d-icon icon-58"></i> <span class="sport-name ifTooltip">American Football</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="">
+                                    <a class="dropdown-item sport64">
+                                        <i class="d-icon icon-64"></i> <span class="sport-name ifTooltip">Esports</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-container">
+            <header class="header" >
+                <div class="news-bar d-none-mobile">
+                    <marquee>{{announcement}}</marquee>
+                    <div class="news-title">
+                        <img ng-src="/public/images/{{currentWebApp}}/speaker.svg" alt="news">
+                    </div>
+                </div>
+               
+                <div class="login-box">
+                    <button class="btn btn-primary" ng-click="ctrl.openModal('verify-modal')">
+                        Register
+                    </button>
+                    <form autocomplete="off" class="d-none-mobile" ng-submit="ctrl.quicklogin()" name="quickloginform">
+                        <div class="form-group">
+                            <input type="text" placeholder="Username*" class="form-control" ng-model="quickModel.username">
+                            <label>
+                                <a ng-click="ctrl.openModal('forget-modal')">Forgot Password?</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input placeholder="Password*" type="{{showVPass ? 'text' : 'password'}}"
+                                       ng-model="quickModel.password" required
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       class="form-control">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary password-visible ">
+                                        <i aria-hidden="true" class="fa fa-eye" ng-hide="showVPass" ng-click="showVPass=!showVPass"></i>
+                                        <i aria-hidden="true" class="fa fa-eye-slash" ng-show="showVPass" ng-click="showVPass=!showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary loader-section-parent" ng-disabled="quickloginform.$invalid">
+                            Login
+                            <div class="loader-section" ng-show="showLoading">
+                                <div class="lds-ripple">
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                <div class="login-box">
+                    <button type="button" class="btn btn-primary loader-section-parent" ng-click="ctrl.startDemoLogin()">
+                        Demo
+                        <div class="loader-section" ng-show="showDemoLoading">
+                            <div class="lds-ripple">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </header>
+            <div class="center-main-content" ui-view="center">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="login-modal" class="modal-overlay modal-open">
+    <div id="login" role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Login</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.login()" name="loginform">
+                        <div class="form-group">
+                            <label class="user-email-text"> {{loginMethod==1 ? 'Mobile' : 'Username'}}</label>
+                            <div class="two_input" ng-class="{'full':loginMethod==2}">
+                                <div class="first_box" ng-show="loginMethod==1">
+                                    <select class="form-control" ng-model="loginModel.selectedCountry.dialCode">
+                                        <option ng-repeat="s in countryList" value="{{s.dialCode}}">
+                                            ({{s.dialCode}}) {{s.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="div-input input-group">
+                                    <input class="form-control" type="text"
+                                           autofocus required ng-model="loginModel.username"
+                                           placeholder="{{loginMethod==1 ? 'Mobile' : 'Username'}}" maxlength="256">
+                                    <div class="input-group-append">
+                                        <div class="dropdown drp-login-method" ng-class="{'open':openLoginMethod}" ng-click="openLoginMethod=!openLoginMethod">
+                                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" tabindex="-1" aria-expanded="false">
+                                                <span>
+                                                    <i class="fa fa-mobile" ng-show="loginMethod==1"></i>
+                                                    <i class="fa fa-user" ng-show="loginMethod==2"></i>
+                                                </span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li class="dropdown-item" ng-click="loginMethod=1"><i class="fa fa-mobile"></i> Mobile</li>
+                                                <li class="dropdown-item" ng-click="loginMethod=2"><i class="fa fa-user"></i> ID</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="user-email-text">Password</label>
+                            <div class="input-group">
+                                <input type="{{lp_showVPass ? 'text' : 'password'}}" placeholder="Enter Password" class="form-control"
+                                       required ng-model="loginModel.password">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="lp_showVPass" ng-click="lp_showVPass=!lp_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="lp_showVPass" ng-click="lp_showVPass=!lp_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <kt-messages data-messages="loginMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required ng-model="loginModel.overAge" class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="loginform.$invalid">
+                                Login
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>
+<div id="verify-modal" class="modal-overlay modal-open">
+    <div id="login" role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Register</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.confirmOpt()" name="verifyform">
+                        <div class="whatsapp-box">
+                            <div>
+                                <span>Register as New User</span> <h4>Get your instant ID from whatsapp</h4>
+                            </div>
+                            <a href="{{supportDetail.whatsapp}}" target="_blank" class="create-whatsapp-link">
+                                <div class="whatsapp-icon"><i class="fab fa-whatsapp"></i></div> <div class="click-here">click here</div>
+                            </a>
+                        </div>
+                        <div class="create-account-seperator">OR</div>
+
+                        <div class="form-group">
+                            <label class="user-email-text"> Mobile</label>
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="verifyModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(verifyModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input input-group">
+                                    <input class="form-control" type="text"
+                                           autofocus required ng-model="verifyModel.mobile"
+                                           placeholder="Mobile Number *" maxlength="16" minlength="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <div class="d-flex flex-column">
+                                <div ng-show="verifyModel.selectedCountry.supportedChannel!=2" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="1" name="otpby" id="chek-1" ng-model="verifyModel.otpvia">
+                                    <label class="custom-control-label" for="chek-1">Receive OTP via SMS</label>
+                                </div>
+                                <div ng-show="verifyModel.selectedCountry.supportedChannel!=1" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="2" name="otpby" id="chek-2" ng-model="verifyModel.otpvia">
+                                    <label class="custom-control-label" for="chek-2">Receive OTP via Whatsapp</label>
+                                </div>
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestNewOtp()" ng-show="resendTimer<=0 "
+                                        class="btn btn-primary btn-sm"
+                                        ng-disabled="!verifyModel.mobile">
+                                    Send OTP
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Enter otp</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="OTP *" class="form-control"
+                                       required ng-model="verifyModel.otp" ng-maxlength="6" ng-minlength="6">
+                            </div>
+                        </div>
+
+                        <kt-messages data-messages="verifyMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required checked readonly class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="verifyform.$invalid">
+                                Register
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>
+<div id="register-modal" class="modal-overlay modal-open">
+    <div role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Complete Registration</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.register()" name="registerform">
+                        <div class="form-group">
+                            <label class="user-email-text">Mobile Number</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="Mobile *" class="form-control"
+                                       disabled
+                                       required value="{{registerModel.mobile}}" ng-maxlength="6" ng-minlength="6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Username</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter Username *" class="form-control"
+                                       required ng-model="registerModel.username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Password</label>
+                            <div class="input-group">
+                                <input type="{{rp_showVPass ? 'text' : 'password'}}" placeholder="Enter Password *" class="form-control"
+                                       required ng-model="registerModel.password">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="rp_showVPass" ng-click="rp_showVPass=!rp_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="rp_showVPass" ng-click="rp_showVPass=!rp_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="{{rpc_showVPass ? 'text' : 'password'}}" placeholder="Enter Confirm Password *" class="form-control"
+                                       required ng-model="registerModel.confirmpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="rpc_showVPass" ng-click="rpc_showVPass=!rpc_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="rpc_showVPass" ng-click="rpc_showVPass=!rpc_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Referral code (optional)</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter Reference code" class="form-control"
+                                       ng-model="registerModel.referralCode">
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <a class="float-right" ng-click="ctrl.selectOfferFromModal(registerModel);">
+                                <u>Select Bonus</u>
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Bonus code (optional)</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter Bonus code" class="form-control" max="100"
+                                       ng-keyup="ctrl.validateOffer(registerModel)"
+                                       ng-model="registerModel.offer.bonusCode">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-spinner fa-pulse  fa-fw" ng-show="registerModel.offerLoader"></i>
+                                        <i class="fa fa-trash" ng-click="ctrl.removeOffer(registerModel);"
+                                           ng-show="registerModel.offer.bonusCode.length>0  && registerModel.offerLoader==false"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <kt-messages data-messages="registerMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required checked readonly class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="registerform.$invalid || (registerModel.offer && registerModel.offer.isValid==false)">
+                                Next
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>
+<div id="forget-modal" class="modal-overlay modal-open">
+    <div id="login" role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Reset Password</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.forgotPassword()" name="forgetform">
+                        <div class="form-group">
+                            <label class="user-email-text"> Mobile</label>
+                            <div class="two_input">
+                                <div class="first_box">
+                                    <select class="form-control" tabindex="2"
+                                            ng-model="forgotModel.selectedCountry"
+                                            ng-change="ctrl.countryChanged(forgotModel)"
+                                            ng-options="'('+attribute.dialCode+') '+attribute.name  for attribute in countryList track by attribute.code">
+                                    </select>
+                                </div>
+                                <div class="div-input input-group">
+                                    <input class="form-control" type="text"
+                                           autofocus required ng-model="verifyModel.mobile" autocomplete="m_1"
+                                           placeholder="Mobile Number *" maxlength="16" minlength="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <div class="d-flex flex-column">
+                                <div ng-show="forgotModel.selectedCountry.supportedChannel!=2" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="1" name="forgetotpby" id="chek-3" ng-model="forgotModel.otpvia">
+                                    <label class="custom-control-label" for="chek-3">Receive OTP via SMS</label>
+                                </div>
+                                <div ng-show="forgotModel.selectedCountry.supportedChannel!=1" class="custom-control custom-radio w-100">
+                                    <input type="radio" class="custom-control-input" value="2" name="forgetotpby" id="chek-4" ng-model="forgotModel.otpvia">
+                                    <label class="custom-control-label" for="chek-4">Receive OTP via Whatsapp</label>
+                                </div>
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestOtpForForget()" ng-show="resendTimer<=0 "
+                                        class="btn btn-primary btn-sm"
+                                        ng-disabled="!forgotModel.mobile">
+                                    Send OTP
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Enter otp</label>
+                            <div class="input-group">
+                                <input type="text" placeholder="OTP *" class="form-control"
+                                       required ng-model="forgotModel.otp" ng-maxlength="6" ng-minlength="4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">New Password</label>
+                            <div class="input-group">
+                                <input type="{{c_n_showVPass ? 'text' : 'password'}}" placeholder="Enter New Password *" class="form-control"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.newpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="{{c_nc_showVPass ? 'text' : 'password'}}" placeholder="Enter Confirm Password *" class="form-control"
+                                       ng-disabled="!forgotModel.otp"
+                                       required ng-model="forgotModel.confirmpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <kt-messages data-messages="forgotMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required checked readonly class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="forgetform.$invalid">
+                                Reset Password
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>
+<div id="changepassword-modal" class="modal-overlay modal-open">
+    <div role="dialog" class="modal fade show modal-login-new" ng-click="ctrl.closeAllMOdal(true,$event)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <span tabindex="0"></span>
+            <div id="login___BV_modal_content_" tabindex="-1" class="modal-content no-close">
+                <header id="login___BV_modal_header_" class="modal-header">
+                    <div aria-label="Close" class="close-login-modal">
+                        <h5>Change your password</h5>
+                        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/close.svg"
+                             ng-click="ctrl.closeAllMOdal(false,$event)">
+                    </div>
+                </header>
+                <div id="login___BV_modal_body_" class="modal-body">
+                    <form autocomplete="off" class="login-form mt-0" ng-submit="ctrl.changePassword()" name="changepwform">
+
+                        <div class="form-group">
+                            <label class="user-email-text">Current Password</label>
+                            <div class="input-group">
+                                <input type="{{c_c_showVPass ? 'text' : 'password'}}" placeholder="Old Password *" class="form-control"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.oldpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="c_c_showVPass" ng-click="c_c_showVPass=!c_c_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="c_c_showVPass" ng-click="c_c_showVPass=!c_c_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">New Password</label>
+                            <div class="input-group">
+                                <input type="{{c_n_showVPass ? 'text' : 'password'}}" placeholder="New Password *" class="form-control"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.newpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="c_n_showVPass" ng-click="c_n_showVPass=!c_n_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="user-email-text">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="{{c_nc_showVPass ? 'text' : 'password'}}" placeholder="Confirm Password *" class="form-control"
+                                       ng-maxlength=16
+                                       ng-minlength="1"
+                                       required ng-model="changePasswordModel.confirmpassword">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-eye" ng-hide="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                        <i class="fa fa-eye-slash" ng-show="c_nc_showVPass" ng-click="c_nc_showVPass=!c_nc_showVPass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <kt-messages data-messages="changePasswordMessages"></kt-messages>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox d-inline-block">
+                                <input type="checkbox" id="customCheck" name="example1" required checked readonly class="custom-control-input">
+                                <label for="customCheck" class="custom-control-label">
+                                    I am at least
+                                    <a href="javascript:void(0)" class="text-danger" role="button">18 years</a>
+                                    of age and I have read, accept and agree to the
+
+                                    <a href="" class="" target="_blank">Terms and Conditions </a>,
+                                    <a href="javascript:void(0)" class="" target="_blank">Responsible Gaming </a>,
+
+                                    <a href="javascript:void(0)" target="_blank">GamCare</a>,
+                                    <a href="javascript:void(0)" target="_blank">Gambling Therapy</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-1">
+                            <button type="submit" class="btn btn-primary btn-block" ng-disabled="changepwform.$invalid">
+                                Submit
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </button>
+                        </div>
+                        <small class="recaptchaTerms">
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" ng-click="ctrl.closeAllMOdal();"></div>
+</div>
+<div id="captchaholder"></div>

@@ -1,0 +1,42 @@
+﻿<div class="row ">
+    <div class="col-sm-12" ng-if="item.username">
+        <div class="input-group master_wrap">
+            <label>Agent Name : &nbsp;</label>
+            <span class="positive bold">{{item.username}}</span>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Set Free Credit</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="Enter free credit amount when user signup"
+                   required ng-model="item.freeCredit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-12 align-c mr-top-10">
+        <button class="btn btn-secondary" type="button" ng-click="ctrl.generateLink();">Generate/Update Referral Setting</button>
+    </div>
+    <div class="col-sm-12 " style="margin-top:20px;">
+        <div class="input-group">
+            <span class="input-group-addon">Reference Code</span>
+            <input type="text" readonly style="background-color: #c9e7ff"
+                   placeholder="Reference code will be avilable here"
+                   required ng-model="item.link" class="form-control">
+            <span class="input-group-addon"><a><i class="fa fa-copy" ng-click="ctrl.copyCode()"></i></a></span>
+        </div>
+    </div>
+    <div class="col-sm-12 " style="margin-top:10px;">
+        <div class="input-group">
+            <span class="input-group-addon">Reference Link</span>
+            <input type="text" readonly style="background-color: #c9e7ff"
+                   placeholder="Reference link will be avilable here"
+                   required ng-model="item.refeLink" class="form-control">
+            <span class="input-group-addon">
+                <a><i class="fa fa-copy " ng-click="ctrl.copyReferLink()"></i></a>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+

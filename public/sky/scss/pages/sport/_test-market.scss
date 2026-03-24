@@ -1,0 +1,143 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.marketing {
+    background: $body-color;
+    height: 90%;
+    @include position(relative);
+    clear: $clear-both;
+    width: $width;
+
+    .bets-wrap {
+        clear: $clear-both;
+        @include padding(10px, 0px, 10px, 0px);
+        height: 540px;
+
+        .counts {
+            line-height: 23px;
+            margin-left: 5px;
+            @include headline($base-color-light, 11px);
+        }
+    }
+
+    .view-more {
+        line-height: 24px;
+        @include padding(0px, 10px, 0px, 0px);
+        font-size: $font-size-tab;
+        @include border('bottom', 1px, solid, $base-color-light);
+        @include resize ($float-left, $width);
+        text-align: right;
+    }
+
+    .game-head {
+        @include position(relative);
+        background-color: $dark-black-color;
+
+        .refresh {
+            cursor: $cursor;
+            @include position(absolute, right 7px);
+        }
+
+        table {
+            width: $width;
+
+            h4 {
+                line-height: 22px;
+                margin: 6px 0;
+                @include headline($white-color, 18px);
+
+                span {
+                    font-size: $font-size-tab;
+                    @include txt(normal);
+                }
+            }
+
+            .pin-btn {
+                @include resize (left, 1px);
+                clear: $clear-both;
+            }
+
+            .scores-team {
+                width: 55.1%;
+                @include padding(0px, 10px, 0px, 0px);
+
+                .scores-time {
+                    @include txt(normal);
+                    line-height: 14px;
+                    @include headline($green-color, 10px);
+
+                    .disc {
+                        margin-left: 6px;
+                        @include padding(0px, 0px, 0px, 9px);
+                        background-position: -23px -142px;
+                        background-image: url('/public/images/report.png');
+                        background-repeat: $back-norepeat;
+                    }
+                }
+            }
+
+            .scores-box {
+                width: 17.5%;
+                @include padding(5px, 10px, 5px, 10px);
+                background-color: $table-header-color;
+                @include border('right',1px, solid, $dark-blue);
+                @include border('bottom', 1px, solid, $dark-blue);
+
+                h4 {
+                    margin: 2px 0;
+                }
+
+                .scores-inns {
+                    @include txt(normal);
+                    line-height: 14px;
+                    @include headline($light-gray-blue, 10px);
+                }
+            }
+        }
+    }
+    /*  game head   */
+    .match-odds {
+        @include border('bottom', 1px, solid, $light-gray-blue);
+        background: $white-color;
+        margin-bottom: 5px;
+        @include resize ($float-left, $width);
+        @include padding(0px, 3px, 3px, 0px);
+
+        .match-left {
+            float: $float-left;
+
+            .scores-event {
+                background: $grayish;
+                border-bottom-right-radius: 35px;
+                line-height: 29px;
+                color: $medium-gray-black;
+                @include txt(bold);
+                @include padding(0px, 15px, 2px, 10px);
+                float: $float-left;
+                margin-right: 10px;
+            }
+
+            .game-info {
+                color: $green-color;
+                line-height: 31px;
+
+                .fa {
+                    background: $green-color;
+                    @include padding(2px, 2px, 2px, 2px);
+                    color: $light-hover-color;
+                    @include border-radius(5px);
+                    margin-right: 3px;
+                }
+            }
+        }
+
+        .match-right {
+            float: right;
+            font-size: $font-size-tab;
+            line-height: 31px;
+        }
+    }
+    /*  match odds */
+}
+/*---  marketing --- */

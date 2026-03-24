@@ -1,0 +1,78 @@
+﻿<div class="minline">
+    <div class="inline-button" style="float:left; width:100%; display:flex " ng-init="toPrice=price">
+        <span class="score-btn" ng-if="!disableOdds" ng-class="{'active':$parent.valueFocus==1,'khado':$parent.bettingType==8}" ng-click="$parent.valueFocus=1">
+            <a style="float:left" ng-click="ctrl.down()"><i class="fa fa-minus" aria-hidden="true"></i></a>
+            <input type="text" onfocus="blur()" ng-model="$parent.price" kt-number-only allow-decimal="true" positive-only="true" />
+            <a style="float:right" ng-click="ctrl.up()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        
+        </span>
+        <span class="score-btn-khado-to" ng-if="$parent.bettingType==8">&nbsp; -  {{($parent.price*1)+($parent.toPrice*1)-1}}</span>
+        <span class="score-btn disable" ng-if="disableOdds">
+            <span>{{price}}</span>
+        </span>
+        <span class="score-btn"  ng-show="betId">
+            <a style="float:left" ><i class="fa fa-minus" aria-hidden="true"></i></a>
+            <input ng-model="size" type="text" onfocus="blur()" disabled />
+            <a style="float:right" ><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </span>
+        <span class="score-btn" ng-click="valueFocus=2" ng-class="{'active':valueFocus==2}" ng-hide="betId">
+            <a style="float:left" ng-click="ctrl.downSize()"><i class="fa fa-minus" aria-hidden="true"></i></a>
+            <input ng-model="size" type="text" onfocus="blur()"  kt-number-only allow-decimal="true" positive-only="true" />
+            <a style="float:right" ng-click="ctrl.upSize()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </span>
+    </div>
+    <div style="display: flex; width: 100%; justify-content: space-around; margin-bottom: 10px; ">
+        <span ng-if="minBet>0">Min Bet : {{minBet | toRate}}&nbsp;</span>
+        <span ng-if="minBet>0">Max Bet : {{maxBet | toRate}}&nbsp;</span>
+        <span ng-if="minBet>0">Max Profit : {{maxProfit | toRate}}&nbsp;</span>
+    </div>
+    <span class="popup-list" ng-hide="betId">
+        <a ng-repeat="s in stakeConfig.stake | filter:{isActive:true}" ng-click="ctrl.stakeClick(s.stake)">{{s.stake}}</a>
+    </span>
+    <div class="keypad" ng-hide="betId">
+        <table>
+            <tr class="no-tr-hover">
+                <td ng-click="ctrl.numberClick(1)"><span>1</span></td>
+                <td ng-click="ctrl.numberClick(2)"><span>2</span></td>
+                <td ng-click="ctrl.numberClick(3)"><span>3</span></td>
+                <td ng-click="ctrl.numberClick(4)"><span>4</span></td>
+                <td ng-click="ctrl.numberClick(5)"><span>5</span></td>
+                <td ng-click="ctrl.numberClick(6)"><span>6</span></td>
+                <td ng-click="ctrl.backSpace()" rowspan="2"><span><i class="fa fa-arrow-circle-left fa-2x"></i></span></td>
+            </tr>
+            <tr class="no-tr-hover">
+                <td ng-click="ctrl.numberClick(7)"><span>7</span></td>
+                <td ng-click="ctrl.numberClick(8)"><span>8</span></td>
+                <td ng-click="ctrl.numberClick(9)"><span>9</span></td>
+                <td ng-click="ctrl.numberClick(0)"><span>0</span></td>
+                <td ng-click="ctrl.numberClick('00')"><span>00</span></td>
+                <td ng-click="ctrl.numberClick('.')"><span>.</span></td>
+            </tr>
+        </table>
+    </div>
+    <div class="inline-btn">
+        <span class="select-btn">
+            <a class="btn cancle" ng-click="ctrl.cancelInlineBet()">Cancel</a>
+        </span>
+        <span class="select-btn place-btn" kt-has-claim claims="{Claims: ['client.bet.place']}">
+            <a class="btn save dark-btn" ng-click="ctrl.submitBet()" kt-click ng-hide="betId">
+                Place Bet
+                <span ng-class="{'green-light':placeBetLabel>0,'red':placeBetLabel<0}">{{placeBetLabel | number:2}}</span>
+            </a>
+            <a class="btn save dark-btn" ng-click="ctrl.updateBet()" kt-click ng-show="betId">
+                Update Bet
+                <span ng-class="{'green-light':placeBetLabel>0,'red':placeBetLabel<0}">{{placeBetLabel | number:2}}</span>
+            </a>
+        </span>
+    </div>
+    <div class="one-click" ng-show="confirmRequired">
+        <span class="oneclick-off float-l">Confirm bet before placing?</span>
+        <div class="one-click-bet">
+            <label class="switch">
+                <input class="switch-input" type="checkbox" ng-model="confirmBet" ng-click="ctrl.confirmBetOptionChanged()" />
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+            </label>
+        </div>
+    </div>
+</div>

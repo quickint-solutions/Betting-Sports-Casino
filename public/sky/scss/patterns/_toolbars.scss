@@ -1,0 +1,120 @@
+/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+.toolbar {
+    border: none;
+    @include border-radius(0px);
+    display: flex;
+    -ms-flex-flow: column wrap;
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    @include padding(0, 0, 0, 0);
+    width: $width;
+
+    @include respond-to('sm') {
+        -ms-flex-flow: row nowrap;
+        -webkit-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    }
+
+    > ul {
+        list-style: none outside none;
+        min-height: 0;
+        @include padding(0, 0, 0, 0);
+        margin: 0;
+        display: flex;
+
+        flex: {
+            grow: 1;
+            shrink: 1;
+            basis: auto;
+            flow: column nowrap;
+        }
+
+        width: $width;
+
+        @include respond-to('sm') {
+            -ms-flex-flow: row nowrap;
+            -webkit-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+        }
+
+        &.align-left {
+            > li {
+                @include respond-to('sm') {
+                    margin-right: 10px;
+
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        &.align-right {
+            justify-content: flex-end;
+
+            li {
+                @include respond-to('sm') {
+                    margin-left: 10px;
+                }
+            }
+
+            .dropdown-menu {
+                li {
+                    margin-left: 0;
+                }
+            }
+        }
+
+        > li {
+            margin: 0 0 5px;
+
+            @include respond-to('sm') {
+                margin-bottom: 0;
+            }
+
+            > .btn {
+                @include resize(right, $width);
+
+                @include respond-to('sm') {
+                    width: auto;
+                }
+
+                > span {
+                    display: inline-block !important;
+                }
+            }
+
+            &.dropdown > ul {
+                font-size: 0.9231em;
+            }
+
+            &.static {
+               // padding: 12px 0 13px;
+                @include padding(12px, 0, 13px, 0);
+                @include respond-to('sm') {
+                    @include padding(6px, 0, 7px, 0);
+                }
+            }
+        }
+    }
+
+    &:not(.pager) > li {
+        > a {
+            text-align: $text-center;
+
+            .fa {
+                margin-right: 5px;
+            }
+        }
+
+        &.disabled > a {
+            pointer-events: none;
+            cursor: default;
+        }
+    }
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+}

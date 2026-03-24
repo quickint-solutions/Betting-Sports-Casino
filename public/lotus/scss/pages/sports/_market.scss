@@ -1,0 +1,741 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.scorecard {
+    @include position(relative);
+    margin-top:2px;
+
+    .team-score {
+        .tr-data {
+            background-color: $white-color;
+            @include border('bottom',1px, solid, $border-color);
+
+            td {
+                @include padding(5px, 0px, 5px, 0px);
+                cursor: $cursor;
+                @include border('left', 1px, solid, $white-color);
+
+                a {
+                    text-align: $center;
+                    @include resize ($float-left, $width);
+                    height: 36px;
+                    @include headline( $dark-gray-black, $font-size-tab);
+
+                    &.onlyprice {
+                        padding-top: 10px;
+                    }
+
+                    span {
+                        @include resize ($float-left, $width);
+                        text-align: $center;
+                        @include txt(normal);
+                        @include headline($dark-gray-black, 11px);
+                    }
+                }
+            }
+
+            .new-info {
+                margin-left: 5px;
+                color: $purple;
+            }
+        }
+
+        .team-name {
+            a {
+                color: $black-color;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .to_info {
+        .fa-info {
+            font-size: 16px;
+            //@include border-all(1px, solid, $blue-color);
+            border-radius: 100%;
+            @include padding(1px, 7px, 1px, 7px);
+            margin-top: 5px;
+            color: $white-color;
+            cursor: $cursor;
+        }
+    }
+
+    .game-scores {
+        .scores-box, .tennis-scores-box {
+            min-height: 86px;
+            text-align: $center;
+            @include padding(5px, 10px, 5px, 10px);
+            background-color: $scorebox-bg;
+            margin-left: 2px;
+            // @include border('right',1px, solid, $dark-blue);
+            //  @include border('bottom', 1px, solid, $dark-blue);
+            h4 {
+                @include resize($float-left, $width);
+                margin: 5px 0;
+                height: 17px;
+                font-size: 15px;
+            }
+        }
+
+        @include respond-to2(extra-small-screens) {
+            h4 {
+                font-size: 12px;
+
+                .fa-circle {
+                    font-size: 9px;
+                }
+            }
+
+            .scores-time {
+                font-size: 12px;
+            }
+
+            .scores-box {
+                width: 22%;
+                @include padding(5px, 0px, 5px, 0px);
+
+                .bold {
+                    font-size: 11px;
+                    margin: 5px 0 0px 0 !important;
+                }
+            }
+
+            .tennis-scores-box {
+                h4 {
+                    margin: 3px 0 !important;
+                }
+
+                .scores-inns {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        @include respond-to2(handhelds) {
+            h4 {
+                font-size: 12px !important;
+
+                .fa-circle {
+                    font-size: 9px;
+                }
+            }
+
+            .scores-team {
+                width: 55% !important;
+            }
+
+            .scores-time {
+                font-size: 11px !important;
+            }
+
+            .scores-box {
+                width: 24% !important;
+                @include padding(5px, 0px, 5px, 0px);
+
+                .bold, .scores-inns {
+                    font-size: 11px;
+                    margin: 5px 0 0px 0 !important;
+                }
+            }
+
+            .tennis-scores-box {
+                h4 {
+                    margin: 3px 0 !important;
+                }
+
+                .scores-inns {
+                    font-size: 10px;
+                }
+            }
+
+            .pin-btn {
+                @include padding(12px, 5px, 25px, 5px);
+                width: 32px;
+            }
+        }
+    
+        .scores-box {
+            width: 18%;
+            float:$float-right;
+            @include respond-to2(handhelds) {
+                .scores-box {
+                    width: 22%;
+                    @include padding(5px, 5px, 5px, 5px);
+
+                    .bold, .scores-inns {
+                        font-size: 11px;
+                        margin: 5px 0 0px 0 !important;
+                    }
+                }
+            }
+        }
+
+        .tennis-scores-box {
+            width: 6.2%;
+            text-align: $center;
+        }
+
+        .scores-box .scores-inns, .tennis-scores-box .scores-inns {
+            @include txt(normal);
+            @include line-height(14px);
+            // @include headline($light-gray-blue, 10px);
+        }
+
+        .scores-team {
+            font-size: 14px;
+            width: 57.5%;
+
+            .scores-time, .tennis-scores-time {
+                @include txt(normal);
+                @include line-height(14px);
+                font-size: 13px;
+                text-transform: uppercase;
+
+                .fa-commenting {
+                    margin-right: 5px;
+                }
+            }
+
+            .tennis-scores-time {
+                text-transform: none;
+            }
+
+            h4 {
+                margin: 7px 0;
+                font-size: 16px;
+            }
+        }
+
+        .pin-btn {
+            @include resize($float-left, 30px);
+            @include padding(5px, 10px, 34px, 0px);
+        }
+
+        td {
+            float: $float-left;
+        }
+    }
+
+    .game-head.column-2 {
+        .scores-box {
+            float: $float-right;
+        }
+    }
+
+    p {
+        margin-bottom: 0px;
+    }
+
+    .soccer-score {
+        .scores-team {
+            padding-top: 5px;
+        }
+
+        .scores-time {
+            @include resize($float-left, $width);
+            @include padding(5px, 0px, 0px, 0px);
+        }
+
+        .pin-btn {
+            @include padding(5px, 10px, 10px, 10px);
+        }
+    }
+
+    .scores-time {
+        @include resize($float-left, $width);
+        @include padding(5px, 0px, 0px, 0px);
+    }
+
+    .pin-btn {
+        @include padding(5px, 10px, 10px, 10px);
+    }
+    
+    .refresh {
+        @include position(absolute, top 10px right 8px );
+        @include padding(0px, 0px, 0px, 0px);
+
+        i {
+            font-size: 16px;
+            color: $white-color;
+        }
+    }
+
+    .scores-inns{color:$score-inns;font-size:11px; font-weight:bold !important;}
+
+    .game-head {
+        
+        margin-bottom: 10px;
+        @include padding(10px, 10px, 10px, 10px);
+        clear: $clear-both;
+        @include resize ($float-left, $width);
+        background-color: $purple;
+
+        .twoTeam {
+            color: $white-smoke;
+            @include resize ($float-left, $width);
+            padding-bottom: 10px;
+
+            .game-visit {
+                @include padding(6px, 6px, 0px, 0px);
+                margin-left: 4px;
+                font-size: 18px;
+            }
+
+            .game-vs {
+                font-size: $font-size-tab;
+                @include padding(3px, 0px, 0px, 5px);
+
+                .to_info {
+                    margin-right: 3px;
+                }
+            }
+        }
+    }
+
+    .game-info {
+        margin-top:-10px;
+        @include resize($float-left, $width);
+        background: $medium-white;
+        @include padding(0px, 8px, 5px, 0px);
+
+        span {
+            padding-top: 5px;
+            @include display(inline-block);
+            @include line-height(20px);
+            font-size: 12px;
+        }
+
+        .match_title {
+            text-transform: capitalize;
+            font-size: 12px;
+            // background-color: $silver;
+            @include padding(5px, 22px, 0px, 3px);
+            border-bottom-right-radius: 34px;
+            @include resize($float-left, auto);
+
+            span {
+                padding-top: 0px;
+                @include txt(bold);
+                line-height: normal;
+            }
+        }
+
+        .matches {
+            float: $float-right;
+            font-size: $font-size-tab;
+            @include line-height(30px);
+            padding-top: 0px;
+            display: inline;
+
+            span {
+                padding-top: 0px;
+            }
+        }
+    }
+
+
+    .left-column, .right-column {
+        .black-back {
+            a.to-expand {
+                width: auto;
+            }
+
+            .to_info {
+                float: $float-right;
+            }
+        }
+    }
+
+    .session-market {
+        margin-bottom: 15px;
+        padding: 0px !important;
+
+        .over-title {
+            margin-bottom: 0px;
+        }
+
+        .left-column {
+            .tr-data {
+                @include line-height(13px);
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        @include line-height(15px);
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+
+
+        .right-column {
+            .tr-data {
+                @include line-height(13px);
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        @include line-height(15px);
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+    }
+
+    .bets-wrap {
+        clear: $clear-both;
+        @include padding(5px, 5px, 10px, 5px);
+        overflow: hidden;
+        overflow-y: auto;
+        iframe{
+            width:100%;
+            border:none;
+        }
+        .over-title {
+            @include border(bottom, 1px, solid, $theme-color);
+            margin-bottom: 5px;
+            @include resize($float-left, $width);
+            @include padding(0px, 8px, 0px, 0px);
+
+            .pin {
+                float: $float-left;
+                @include padding(0px, 4px, 0px, 0px);
+            }
+
+            .fancy-bet {
+                float: $float-left;
+                text-transform: capitalize;
+                // background-color:$fancybet;
+                @include padding(0px, 0px, 0px, 5px);
+                @include line-height(25px);
+                border-top-right-radius: 10px;
+                @include txt(bold);
+                letter-spacing: 0.5px;
+                font-size: 12px;
+
+                .fa-info-circle {
+                    @include padding(7px, 7px, 4px, 7px);
+                    font-size: 12px;
+                    @include line-height(15px);
+                    background-color: $black-color;
+                    vertical-align: -9%;
+                    border-top-right-radius: 10px;
+
+                    &:before {
+                        color: $white-color;
+                    }
+                }
+
+                .add-pin {
+                    margin: 3px 2px 0 0;
+                    font-size: 13px !important;
+                    @include border-all(1px,solid, $black-color);
+                    height: 18px;
+                    width: 18px;
+                    color: $black-color !important;
+
+                    &.pinned {
+                        color: $green !important;
+                        border-color: $green !important;
+                    }
+                }
+            }
+
+            .matches {
+                float: $float-right;
+                font-size: 11px;
+                @include line-height(25px);
+            }
+        }
+
+        .counts {
+            //   @include headline($base-color-light, 11px);
+            margin-left: 5px;
+        }
+
+    }
+
+    .tab-wrap:last-child {
+        margin-right: 0px !important;
+    }
+
+    .tab-wrap:first-child {
+        margin-left: 0px !important;
+    }
+
+    .view-more {
+        @include line-height(24px);
+        @include padding(0px, 6px, 0px, 0px);
+        font-size: $font-size-tab;
+        @include resize ($float-left, $width);
+        text-align: right;
+    }
+
+    .progress_bar {
+        @include resize($float-left, $width);
+        @include padding(20px, 0px, 8px, 0px);
+
+        .top-bar {
+            width: $width;
+            background-color: $white-color;
+            @include display(block);
+            height: 5px;
+            @include position(relative);
+
+            .bottom-bar {
+                background-color: $soccer-progress;
+                @include position(absolute);
+                top: 0px;
+                @include display(block);
+                height: 5px;
+            }
+
+            .ball {
+                top: -17px !important;
+                color: $white-color;
+            }
+
+            .stop {
+                top: -17px !important;
+            }
+
+            span {
+                @include position(absolute);
+            }
+
+            .yellow-card {
+                background: $yellow;  // #ffb80c;
+                width: 10px;
+                height: 15px;
+            }
+
+            .red-card {
+                background: $theme-danger;
+                width: 10px;
+                height: 15px;
+            }
+
+            .top-card {
+                top: -15px;
+            }
+
+            .bottom-card {
+                top: 5px;
+            }
+
+            .fa-stop {
+                transform: scale(0.7, 1);
+                @include border-all(1px, solid, $black-color);
+                @include line-height(12px);
+            }
+        }
+    }
+}
+/* scorecard */
+
+/*  horce racing  */
+
+.racing{
+    .racing-title{
+        line-height:26px !important; padding-top:15px !important;
+        .indicators{line-height:32px; font-size:12px;}
+    }
+    .racing-sub-title{display:block}
+    .table-score {
+       thead th{padding:0px 8px 4px 8px;}
+       tr td{padding:4px 8px;}
+       
+       .runner-title{line-height:17px}
+    }
+    .accordion{
+       .accordion-body{
+           table{
+               thead tr{background-color:#f3f4f5;}
+           }
+           .process-div{
+               table thead th{padding-top:1px;}
+           }
+       }
+    } 
+}
+.runner_number{
+    width: 25px;
+    float:left;
+    margin-right:8px;
+    text-align: center;
+    span{display:block; font-weight:normal}
+}
+.runner-img{
+    float:left;
+    margin:4px  8px 0 0;
+    img{
+        width: 29px;
+        height: 20px;
+    }
+}
+
+.expand-pn{
+    width:74%; margin:0 0 0 25%;
+   .expand-div{ 
+       @include resize(left, 48%); 
+         span{
+             @include resize(left, 33%); @include padding(5px, 10px, 5px, 10px); 
+             @include txt(bold); 
+             @include border('bottom', 1px, solid, $light-gray);
+         }
+         .expand-repeat{
+             @include resize(left, $width);
+             @include border('bottom', 1px, solid, $light-gray);
+             span{
+                 margin-left:unset;
+                 border-bottom:none;
+                 @include padding(0px, 10px, 0px, 10px);
+                 @include txt(normal);
+                 background-color:$white-color;
+                 &:last-child{border-bottom:none !important;}
+             }
+         }
+        
+    }
+    .expand-p{
+        @include border-all(1px, solid, $light-green);
+        margin-right: 25px;
+
+        .expand-title {
+            @include resize(left, $width);
+            background-color: rgba(80, 141, 14, 0.2);
+        }
+    }
+
+    .expand-n {
+        @include border-all(1px, solid, $red);
+
+        .expand-title {
+            @include resize($float-left, $width);
+            background-color: rgba(254, 0, 0, 0.2);
+        }
+    }
+}
+
+/*  Loading   */
+
+.loader-table .table-score th.th-col{width:48%!important;}
+.loader-table{
+    @include position(relative); 
+    .full-market-list{float:unset;}
+}
+.loader-table .loader-container{@include position(absolute); width:$width;}
+.loading-header{
+     animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: linear-gradient(to right, transparent 2%, $loader-color2 18%, transparent 33%);
+    background-size: 1300px;
+
+}
+.loading-info {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: linear-gradient(to right, $loader-color1 2%, $loader-color2 18%, $loader-color1 33%);
+    background-size: 1300px; 
+}
+.loader-table.ng-hide {
+  opacity: 0;
+}
+
+.loader-table.ng-hide-add{
+  transition: all linear 0.1s;
+}
+@keyframes placeholderAnimate {
+    0%{ background-position: -650px 0; }
+    100%{ background-position: 650px 0; }
+}
+
+.market-notification{
+    font-size:11px;
+    background-color:$notification-bg;
+    color:$notification;
+    height:25px;
+    line-height:20px;
+    border-bottom:3px solid $body-color !important;
+    border-top:3px solid $body-color;
+    td{padding:0px !important; border:none!important; height:auto !important;}
+    i{padding: 0 8px;}
+    marquee{width:calc(100% - 25px);vertical-align:bottom;}
+}
+.lg-clarification{
+    border:1px solid #dddada !important;
+  span{  vertical-align: middle;}
+  margin-bottom:2px;
+  clear:both;
+}
+
+/*  Bookmaker  */
+.bm-header{
+    //height:104px;
+    margin-bottom:10px;
+    .header-top{
+            .marquee{margin-top:3%; background-color:#163439; border-radius:2px; } 
+        }
+}
+.main-bookmaker{
+    .bm-maker{
+        padding-top:8px;
+        .bookmark-wrap{
+            max-width:1254px; margin:0 auto;
+            .left-section{padding-left:0px;}
+        }
+        .list-view-table{
+            table{
+                tr{
+                    .header{height:auto;}
+                }
+            }
+        }
+        .my-account{
+             .center-section{
+                width: 84% !important; float: left;
+                 table.table thead tr th{padding-left:8px !important; text-align:left}
+                 .my-bets {
+                     .filter-panel{
+                         .input-list li select{color:#000 !important}
+                     } 
+                 }
+             }
+            .left-section{
+                padding-left:0px;
+                .sports-leftmenu{
+                    ul .path-last a{line-height:20px;}
+                    .sport-right-menu li .sport-type-inner.active{color:#8c1000;}
+                } 
+            }
+        }
+    }
+}
+

@@ -1,0 +1,117 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+/*  switch toggle    */
+.switch {
+    @include position(relative);
+    @include display(block);
+    vertical-align: top;
+    width: 53px; //65px;
+    height: 23px;
+    border-radius: 18px;
+    cursor: pointer;
+    margin: 0px !important;
+    @include border-all(1px, solid, $border-color);
+    box-sizing: content-box;
+}
+
+.switch-input {
+    @include position(absolute, left 0px top 0px);
+    opacity: 0;
+    box-sizing: content-box;
+}
+
+.switch-label {
+    @include position(relative);
+    @include display(block);
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: $white-color;
+    border-radius: inherit;
+    box-sizing: content-box;
+}
+
+.switch-label:before, .switch-label:after {
+    @include position(absolute, top 50%);
+    font-weight: normal;
+    margin-top: -.5em;
+    line-height: 1.5;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+}
+
+.switch-label:before {
+    content: attr(data-off);
+    right: 8px;
+    color: #666;
+}
+
+.switch-label:after {
+    content: attr(data-on);
+    left: 8px;
+    color: $white-color;
+    opacity: 0;
+}
+
+.switch-input:checked ~ .switch-label {
+    background: $btn-inline-bg; //$green;
+}
+
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+.switch-handle {
+    @include position(absolute, left 0px top 2px);
+    width: 20px;
+    height: 19px;
+    background-color: $white-color;
+    border-radius: 100%;
+    @include border-all(1px, solid, $gray);
+}
+
+.switch-handle:before {
+    content: "";
+    @include position(absolute, left 50% top 50%);
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background-color: $white-color;
+    border-radius: 6px;
+}
+
+.switch-input:checked ~ .switch-handle {
+    left: 34px;
+    top: 2px;
+}
+
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+
+.mobile-view .msetting .one-click-bet {
+    .switch-input:checked ~ .switch-label {
+        background: #fff; //$green;
+    }
+
+    .switch-label:after {
+        color: #e21818;
+        font-weight: bold;
+    }
+
+    .switch-handle, .switch-handle:before {
+        background-color: #e21818;
+    }
+}

@@ -1,0 +1,204 @@
+﻿<div ng-scrollbars class="scroll-wrap">
+    <div class="bf-row no-bottom-gutter gutter-pad-8 ">
+        <div class="bf-col-24-24">
+            <div class="todays-racing-mod-container">
+                <div class="load-screen ng-animate-enabled">
+                    <section class="mod-todays-racing">
+                        <div class="header">
+                            <span class="header-title">
+                                {{currentTab==2 ?  ('inplay.label' | translate) : (currentTab==0 ?  ('today.label' | translate) : ('tomorrow.label' | translate)) }}
+                            </span>
+                            <div class="header-schedule-filters">
+                                <button class="schedule-filter-button " title="In-Play"
+                                        ng-class="{'active':currentTab==2}" ng-click="ctrl.loadMarkets(2)">
+                                    {{'inplay.label' | translate}}
+                                </button>
+                                <button class="schedule-filter-button" title="Today"
+                                        data-ng-class="{'active':currentTab==0}" ng-click="ctrl.loadMarkets(0)">
+                                    {{'today.label' | translate}}
+                                </button>
+                                <button class="schedule-filter-button" title="Tomorrow" ng-class="{'active':currentTab==1}"
+                                        ng-click="ctrl.loadMarkets(1)">
+                                    {{'tomorrow.label' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                        <main class="sports-highlights-coupon">
+                            <div class="load-screen ng-animate-enabled">
+                                <section class="coupon-card">
+                                    <div class="card-content">
+                                        <div ng-repeat="e in eventTypes" ng-if="currentTab==2">
+                                            <div class="coupon-table-mod">
+                                                <table class="coupon-table">
+                                                    <thead>
+                                                        <tr class="headers">
+                                                            <th>{{ e.name }}<span class="matched">Matched</span></th>
+                                                            <th class="small">1 </th>
+                                                            <th class="small" ng-if="(e.markets | filter:{eventTypeId:e.id,hasAnyDrawMarket:true}).length>0"> X </th>
+                                                            <th class="small">2 </th>
+                                                            <th class="market-rules-table-header"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="h in e.markets">
+                                                            <td>
+                                                                <a class="mod-link" ui-sref="base.home.sport.fullmarket({nodetype:2,id:h.event.competitionId,eventId:h.eventId,eventTypeId:h.eventType.id})">
+                                                                    <section class="mod-event-line">
+                                                                        <section class="bf-livescores mini">
+                                                                            <div>
+                                                                                <div class="default-template" ng-if="!h.isSoccer && !h.isCricket && !h.isTennis">
+                                                                                    <div class="bf-livescores-start-date" ng-if="!h.inPlay">
+                                                                                        <div class="start-date-wrapper">
+                                                                                            <span class="label">{{h.event.openDate | toDays}}<br /> {{h.event.openDate | date:'HH:mm'}}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="bf-livescores-start-date in-play" ng-if="h.inPlay">
+                                                                                        <div class="start-date-wrapper">
+                                                                                            <span class="label">In-Play</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="default-template tennis" ng-if="h.isTennis">
+                                                                                    <div class="bf-livescores-match-scores in-play">
+                                                                                        <div class="scores">
+                                                                                            <span data-ng-class="side" class="home">{{h.score.score.home.sets}}</span>
+                                                                                            <span data-ng-class="side" class="away">{{h.score.score.away.sets}}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="bf-livescores-extended-scores">
+                                                                                        <div class="games">
+                                                                                            <div class="cell">
+                                                                                                <div data-ng-class="side" class="home">
+                                                                                                    <span class="quarter">{{h.score.score.home.games}}</span>
+                                                                                                </div>
+                                                                                                <div data-ng-class="side" class="away">
+                                                                                                    <span class="quarter">{{h.score.score.away.games}}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="default-template" ng-if="h.isSoccer">
+                                                                                    <div class="bf-livescores-time-elapsed">
+                                                                                        <div class="cell">
+                                                                                            <div class="middle-label">{{h.score.timeElapsed}}"</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="bf-livescores-match-scores in-play">
+                                                                                        <div class="scores">
+                                                                                            <span data-ng-class="side" class="home">{{h.score.score.home.score}}</span>
+                                                                                            <span data-ng-class="side" class="away">{{h.score.score.away.score}}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div ng-if="h.isCricket" class="default-template">
+                                                                                    <div class="bf-livescores-innings in-play">
+                                                                                        <div class="current-inning">
+                                                                                            <div>
+                                                                                                <div class="home">{{h.score.runs}} <span ng-if="h.score.overs">({{h.score.overs}})</span> </div>
+                                                                                                <div class="away" ng-if="h.score.taget">Tgt {{h.score.taget}}</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </section>
+                                                                        <ul class="runners">
+                                                                            <li class="name" ng-repeat="mr in h.marketRunner | limitTo:2"> {{mr.runner.name}}</li>
+                                                                        </ul>
+
+                                                                        <ul class="matched-amount">
+                                                                            <li class="matched-amount-value">${{h.totalMatched | toRate}}</li>
+                                                                        </ul>
+                                                                        <ul class="icons">
+                                                                            <li class="icon-tv" ng-show="h.hasVideo">
+                                                                                <svg class="svg-icon-default " data-icon="on-tv" viewBox="0 0 100 100">
+                                                                                    <path d="M0 13v68.75h25V88h50v-6.25h25V13H0zm87.5 56.25h-75V25.5h75v43.75z"></path>
+                                                                                </svg>
+                                                                            </li>
+                                                                            <li class="icon-tv" ng-show="h.hasFancy">
+                                                                                <img ng-src="{{imagePath}}images/icon2/ic_fancy.png" />
+                                                                            </li>
+                                                                        </ul>
+                                                                    </section>
+                                                                </a>
+                                                            </td>
+                                                            <td class="coupon-runners" colspan="3">
+                                                                <div class="coupon-runner" ng-init="m0 = h.marketRunner[0]">
+                                                                    <button class="bf-bet-button back-button back-selection-button" kt-animate-on-change="m0.backPrice[0].size"
+                                                                            kt-click ng-click="ctrl.placeBet(h,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name,m0.backPrice[0].percentage ? m0.backPrice[0].percentage : '');">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.backPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                    <button class="bf-bet-button lay-button lay-selection-button" kt-animate-on-change="m0.layPrice[0].size"
+                                                                            kt-click ng-click="ctrl.placeBet(h,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name,m0.layPrice[0].percentage ? m0.layPrice[0].percentage : '');">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="coupon-runner" ng-init="m2 = h.marketRunner[2]" ng-if="(e.markets | filter:{eventTypeId:e.id,hasAnyDrawMarket:true}).length>0">
+                                                                    <button class="bf-bet-button back-button"
+                                                                            kt-click ng-click="ctrl.placeBet(h,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name,m2.backPrice[0].percentage ? m2.backPrice[0].percentage : '');"
+                                                                            ng-class="{'back-button-empty back-selection-button empty':!m2,'back-selection-button':m2}"
+                                                                            kt-animate-on-change="m2.backPrice[0].size">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                    <button class="bf-bet-button lay-button "
+                                                                            kt-click ng-click="ctrl.placeBet(h,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name,m2.layPrice[0].percentage ? m2.layPrice[0].percentage : '');"
+                                                                            ng-class="{'lay-button-empty lay-selection-button empty':!m2,'lay-selection-button':m2}"
+                                                                            kt-animate-on-change="m2.layPrice[0].size">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="coupon-runner" ng-init="m1 = h.marketRunner[1]" >
+                                                                    <button class="bf-bet-button back-button back-selection-button" kt-animate-on-change="m1.backPrice[0].size"
+                                                                            kt-click ng-click="ctrl.placeBet(h,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name,m1.backPrice[0].percentage ? m1.backPrice[0].percentage : '');">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                    <button class="bf-bet-button lay-button lay-selection-button" kt-animate-on-change="m1.layPrice[0].size"
+                                                                            kt-click ng-click="ctrl.placeBet(h,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name,m1.layPrice[0].percentage ? m1.layPrice[0].percentage : '');">
+                                                                        <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td class="coupon-market-rules">
+                                                                <kt-rules data-market="h"></kt-rules>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="coupon-table-loading"><td colspan="5"></td></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div ng-if="currentTab!=2" class="popup_height">
+                                            <div class="over-wrap">
+                                                <table>
+                                                    <tr ng-repeat="m in marketDetails">
+                                                        <td class="game-time"><strong>{{m.event.openDate | date:'HH:mm'}}</strong></td>
+                                                        <td class="eventDetail">
+                                                            <span>{{m.event.eventType.name}}</span>
+                                                            <img src="/public/images/arrow.png" />
+                                                            <a href="" ui-sref="base.home.sport.fullmarket({nodetype:4,id:m.eventId,marketid:m.id})"><strong>{{m.event.name}}</strong></a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </main>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bf-row no-bottom-gutter no-side-gutter  gutter-pad-8">
+        <div class="bf-col-24-24 footer-wrapper" ng-include="footerTemplate">
+
+        </div>
+    </div>
+</div>

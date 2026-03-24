@@ -1,0 +1,54 @@
+﻿<div class="row ">
+    <div class="col-sm-6 ">
+        <label>User :&nbsp;</label>
+        <label>{{item.user.username}} ({{item.user.mobile}})</label>
+    </div>
+    <div class="col-sm-6 align-r">
+        <label>Status :&nbsp;</label>
+        <label ng-class="{'red':item.status==1,'green':item.status==2}">{{ctrl.getStatus(item.status)}}</label>
+    </div>
+    <div class="col-sm-12 mr-top-10">
+        <div class="input-group">
+            <span class="input-group-addon">Amount</span>
+            <input class="form-control" type="text" value="{{item.amount | toRate}}" readonly="readonly" />
+        </div>
+    </div>
+
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Bonus Amount</span>
+            <input class="form-control" type="text" value="{{item.bonusAmount | toRate}}" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Wallet Address</span>
+            <input class="form-control" type="text" value="{{item.walletAddress}}" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Block Hash</span>
+            <input class="form-control" type="text" ng-model="item.blockHash" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Transaction Hash</span>
+            <input class="form-control" type="text" ng-model="item.transactionHash" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Transaction Date</span>
+            <input class="form-control" type="text" value="{{item.createdOn | date:'dd-MMM HH:mm:ss'}}" readonly="readonly" />
+        </div>
+    </div>
+    <div class="col-sm-12 ">
+        <div class="input-group">
+            <span class="input-group-addon">Payment Data</span>
+            <textarea class="form-control" rows="5" ng-model="item.paymentData" readonly="readonly" />
+        </div>
+    </div>
+
+</div>

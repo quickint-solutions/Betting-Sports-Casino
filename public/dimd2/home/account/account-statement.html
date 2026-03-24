@@ -1,0 +1,98 @@
+﻿<div class="report-title">
+    <div class="report-name">Account Statement</div>
+</div>
+<div class="report-form">
+    <div class="form-group from-date">
+        <label>From</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em">
+                        <path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path>
+                    </svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div class="form-group to-date">
+        <label>To</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em"><path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path></svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" ng-click="ctrl.refreshGrid();">Submit</button>
+</div>
+<div class="w-100">
+    <kt-grid grid-id="kt-accountstatement-grid"
+             load-items="ctrl.getAccountStatement(params)"
+             export-to-excel="ctrl.exportAccountStatement(params,1)"
+             export-to-pdf="ctrl.exportAccountStatement(params,2)"
+             name-param="id"
+             name-value-property="id"
+             table-parent-class="ac-statement"
+             show-total="true"
+             cache-key="ktaccountstatementgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: paginationUrl }}">
+            <tbody>
+                <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                    <td data-title="::'account.datetime.name.label' | translate">
+                        <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                    </td>
+                    <td data-title="::'account.narration.name.label' | translate">
+                        <span title="{{item.narration}}">{{item.narration}} </span>
+                    </td>
+                    <td>
+                        <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                        <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                    </td>
+                    <td data-title="::'pl.label' | translate">
+                        <span class="positive" ng-class="{'negative':item.balance<0}">{{item.balance | toRate}}</span>
+                    </td>
+                    <td data-title="::'common.creditlimit.label' | translate">
+                        <span class="positive" ng-show="item.accountType==13" ng-class="{'negative':item.creditTotal<0}">{{item.creditTotal | toRate}}</span>
+                        <span class="positive" ng-show="item.accountType!=13">-</span>
+                    </td>
+                    <td data-title="::'common.total.label' | translate">
+                        <span title="{{item.total | toRate }}"
+                              ng-class="{'positive':item.total >= 0,'negative':item.total < 0}">
+                            {{item.total  | toRate}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="$data.length>0" class="summary-data">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ $data | total:'balance'  | toRate}}</td>
+                    <td>{{ $data | total:'creditTotal'  | toRate}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>
+

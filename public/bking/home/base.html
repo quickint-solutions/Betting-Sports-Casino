@@ -1,0 +1,144 @@
+﻿<header class="header ">
+    <div class="header-container">
+        <div class="left-hd">
+            <div class="web-month-time month-time">
+                <span id="time-mobile">
+                    {{currentDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                </span>
+            </div>
+        </div>
+        <div class="logo">
+            <a ui-sref="base.home" class="logo-bg">
+            </a>
+        </div>
+        <div class="right-hd">
+            <div class="month-time balance mr-right-5"  ng-if="hasAPK">
+                <a ng-click="ctrl.downloadAPK()" style="color:white;"><i style="font-size:37px;" class="fa fa-android"></i></a>
+            </div>
+            <div class="month-time balance">
+                <span id="time-mobile">
+                    Available Credit :&nbsp;
+                    <kt-glc-code data-special="true"
+                                 data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code>
+                </span>
+                <span id="time-mobile">
+                    Net Exposure :&nbsp;
+                    <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.exposure<0,}"
+                                 data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                </span>
+            </div>
+            <div class="user-icon">
+                <div class="drop_down">
+                    <button id="myarrow" ng-click="openMenu=!openMenu" class="dropbtn" ng-class="{'active':openMenu}">
+                        <img ng-src="{{webImagePath}}user-client.png" alt="" class="icon">
+                        {{user.username}}
+
+                    </button>
+                    <div id="myDropdown" class="dropdown-content" ng-class="{'show':openMenu}">
+                        <div class="device-time">
+                            <div class="d-left">
+                                <span>Device Time</span>
+                            </div>
+                            <div class="d-right">{{currentDate | date:'dd-MM-yyyy HH:mm:ss'}}</div>
+                        </div>
+                        <div class="credit-div">
+                            <div class="c-title">
+                                <span class="c-detail">Available Credit</span>
+                                <span style="float:right">
+                                    <kt-glc-code data-special="true"
+                                                 data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code>
+                                </span>
+                            </div>
+                            <div class="c-title">
+                                <span class="c-detail">Credit Limit</span>
+                                <span style="float:right"><kt-glc-code data-special="true" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                            </div>
+                            <div class="c-title">
+                                <span class="c-detail">Winnings</span>
+                                <span style="float:right">
+                                    <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.balance<0,}"
+                                                 data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                </span>
+                            </div>
+                            <div class="c-title">
+                                <span class="c-detail">Net Exposure</span>
+                                <span style="float:right">
+                                    <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.exposure<0,}"
+                                                 data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-menu">
+                            <div class="d-main-title dt-menu">Member</div>
+                            <div class="ds-menu">
+                                <a class="sub-menu" ui-sref="base.account.transferonline" ng-if="isB2C">
+                                    <i class="fa fa-money y-icon" aria-hidden="true"></i>Deposit/Withdrawal
+                                </a>
+                                <a class="sub-menu" ui-sref="base.account.passwordchange">
+                                    <i class="fa fa-lock y-icon" aria-hidden="true"></i>
+                                    Change Password
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-menu dpdn-menu">
+                            <div class="dpdn-tab">
+                                <input type="checkbox" id="chck1" style="display:none;">
+                                <label class="tab-label dt-menu" for="chck1">Main</label>
+                                <div class="ds-menu">
+                                    <a class="sub-menu" kt-has-claim claims="{Claims: ['client.bet.view']}" ui-sref="base.account.bets.current">
+                                        <i class="fa fa-list-alt y-icon" aria-hidden="true"></i>
+                                        my bet
+                                    </a>
+                                    <a class="sub-menu" ui-sref="base.account.profitloss">
+                                        <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                                        profit and loss
+                                    </a>
+                                    <a class="sub-menu" ui-sref="base.account.fdprofitloss">
+                                        <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                                        FD profit and loss
+                                    </a>
+                                    <a class="sub-menu" ui-sref="base.account.statement">
+                                        <i class="fa fa-file-text-o y-icon" aria-hidden="true"></i>
+                                        account statement
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-menu dpdn-menu">
+                            <div class="dpdn-tab">
+                                <input type="checkbox" id="chck2" style="display:none;">
+                                <label class="tab-label dt-menu" for="chck2">Personal</label>
+                                <div class="ds-menu">
+                                    <a class="sub-menu" ui-sref="base.account.profile">
+                                        <i class="fa fa-address-book y-icon" aria-hidden="true"></i>
+                                        My Profile
+                                    </a>
+                                </div>
+                                <div class="ds-menu" kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                                    <a class="sub-menu" ui-sref="base.account.history">
+                                        <i class="fa fa-address-book y-icon" aria-hidden="true"></i>
+                                        {{'common.loginhistory.label' | translate}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="logout">
+                            <a ng-click="openMenu=false;ctrl.logout()">
+                                <i class="fa fa-sign-out" aria-hidden="true" style="margin-right:8px; font-size:17px;"></i>
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</header>
+<div class="allbettings">
+    <div class="main-content" style="width:100%" ui-view="main">
+
+    </div>
+</div>

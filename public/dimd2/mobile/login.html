@@ -1,0 +1,128 @@
+﻿<!--<div ng-if="currentWebApp=='mahadevexchange'"
+     style="background: black;bottom:0; color: white; position: absolute;z-index:999; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 10px; font-family: 'poppins'; ">
+    <div style="font-size: 22px; color: #eaff11;text-align:center;">
+        This is just demo website to showcase our exchange software
+    </div>
+    <div style="font-size: 12px;">
+        Developed and Marketed by
+        <a href="https://www.book365.com/asset/license.pdf" target="_blank">
+            <span style="font-size: 12px; color: #12e24a; text-decoration: underline;">OAM Technology (Dubai)</span>
+            <img src="https://www.book365.com/asset/license.png" style=" width: 25px;margin-bottom: -7px;">
+        </a>
+    </div>
+</div>-->
+<div class="main-login">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="login-inner">
+                <div class="logo"> <img ng-src="{{imagePath}}/images/{{currentWebApp}}/logo.png" alt="logo" style="width:100%"></div>
+                <div class="box-login" ng-if="formMode==1">
+                    <div class="title"> <h4>LOGIN <i class="fas fa-hand-point-down" aria-hidden="true"></i></h4></div>
+                    <kt-messages data-messages="messages"></kt-messages>
+                    <form name="loginform" ng-submit="ctrl.login()" class="form">
+                        <div class="form-group">
+                            <input name="User Name" placeholder="User Name" type="text" class="form-control"
+                                   tabindex="1" maxlength="200"
+                                   required autofocus ng-model="$parent.$parent.model.username">
+                        </div>
+                        <div class="form-group">
+                            <input name="User Name" placeholder="Password" type="password" class="form-control"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2" ng-model="$parent.$parent.model.password" data-type="password">
+
+                        </div>
+                        <div class="form-group">
+                            <p class="captcha-div" ng-if="captchaMode==2">
+                                <span class="code">
+                                    <span>
+                                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                        <i class="fas fa-sync" style="position:relative; " aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                    </span>
+                                </span>
+                                <input type="text" name="captcha" ng-model="$parent.$parent.model.captcha"
+                                       class="captcha form-control" maxlength="4" size="4" autocomplete="off" required tabindex="3"
+                                       placeholder="Enter code" />
+                            </p>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0px;">
+                            <button class="btn" tabindex="4" type="submit" ng-disabled="loginform.$invalid">
+                                Login
+                                <i class="fa fa-spinner fa-spin right-icon" ng-show="showLoading"></i>
+                                <i i class="fas fa-sign-in-alt right-icon" ng-hide="showLoading"></i>
+                            </button>
+                        </div>
+                        <p class="small">
+                            This site is protected by reCAPTCHA and the Google
+                            <a>Privacy Policy</a> and
+                            <a>Terms of Service</a> apply.
+                        </p>
+                        <div class="mt download-apk " ng-show="hasAPK">
+                            <a class=" btn-login" ng-click="ctrl.downloadAPK()">
+                                <span>
+                                    <i class="fab fa-android" style="margin-right:8px;"></i>
+                                    <b>Download Apk</b>
+                                </span>
+                            </a> <p class="mt-1">
+                                <!--<a href="#" class="mail-link">info@diamondexch.com</a>-->
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="box-login" ng-if="formMode==2">
+                    <div class="title"> <h4>For a security reason, please change your password. <i class="fas fa-hand-point-down" aria-hidden="true"></i></h4></div>
+                    <kt-messages data-messages="cp_messages"></kt-messages>
+                    <form name="changepwform" ng-submit="ctrl.changePassword()" class="form">
+                        <div class="form-group">
+                            <input type="password"
+                                   placeholder="Please enter old Password"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   tabindex="1"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.oldpassword" data-type="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password"
+                                   placeholder="Please enter new Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="2"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.newpassword" data-type="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password"
+                                   placeholder="Please confirm new Password"
+                                   ng-maxlength=16
+                                   ng-minlength="6"
+                                   tabindex="3"
+                                   required class="form-control" ng-model="$parent.$parent.cp_model.confirmpassword" data-type="password">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0px;">
+                            <button class="btn" tabindex="4" type="submit" ng-disabled="changepwform.$invalid">
+                                Change Password
+                                <i class="fa fa-spinner fa-spin right-icon" ng-show="showLoading"></i>
+                                <i i class="fas fa-sign-in-alt right-icon" ng-hide="showLoading"></i>
+                            </button>
+                        </div>
+                        <p class="small">
+                            This site is protected by reCAPTCHA and the Google
+                            <a>Privacy Policy</a> and
+                            <a>Terms of Service</a> apply.
+                        </p>
+                        <div class="mt download-apk" ng-show="hasAPK">
+                            <a class=" btn-login" ng-click="ctrl.downloadAPK()">
+                                <span>
+                                    <i class="fab fa-android" style="margin-right:8px;"></i>
+                                    <b>Download Apk</b>
+                                </span>
+                            </a> <p class="mt-1">
+                                <!--<a href="#" class="mail-link">info@diamondexch.com</a>-->
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="captchaholder"></div>

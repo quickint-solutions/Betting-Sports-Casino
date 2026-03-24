@@ -1,0 +1,47 @@
+﻿
+<div ng-scrollbars>
+
+    <div class="sports-list">
+        <div class="sports-menu">
+            <h3 class="mb_title ">{{'quicklinks.label' | translate}}</h3>
+            <div class="icon-menu">
+                <ul>
+                    <li><a ui-sref="mobile.base.inplay"><img src="{{imgPath}}images/mobile/clock.png" />{{'inplay.label' | translate}}</a></li>
+                    <li><a ui-sref="mobile.base.multimarket"><img src="{{imgPath}}images/mobile/pin.png" />{{'multimarket.label' | translate}}</a></li>
+                    <li ng-repeat="q in quickLinks | filter:{showInMenu:true}">
+                        <a ng-click="ctrl.treeClick(q.sportNodeType,q.id,q.name)">
+                            <img ng-if="q.iconImg" ng-src="{{imgPath}}{{q.iconImg}}" />{{q.name}}
+                        </a>
+                    </li>
+                    <li ng-if="hasCasino">
+                        <a target="_blank" ui-sref="casino.home">
+                            <img ng-src="{{imgPath}}images/mobile/casino.png" />
+                            {{'livecasino.label' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="sportsmenu sports_list">
+            <h3 class="mb_title ">{{'allsports.label' | translate}}</h3>
+
+            <div ng-repeat="sport in sportTreeList" class="games-name">
+                <a ng-if="sport.sportNodeType != 5  && !sport.markets" ng-click="ctrl.treeClick(sport.sportNodeType,sport.id,sport.name)">
+                    {{sport.name}}
+                    <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+                </a>
+                <a ng-if="sport.sportNodeType != 5 && sport.markets" ui-sref="mobile.base.livegamesmarket({eventid:sport.id})">
+                    {{sport.name}}
+                    <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+                </a>
+
+                <a ng-if="sport.sportNodeType == 5" ng-click="ctrl.treeClick(4,ctrl.$stateParams.id,sport.name,sport.id)">
+                    {{sport.name}}
+                    <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

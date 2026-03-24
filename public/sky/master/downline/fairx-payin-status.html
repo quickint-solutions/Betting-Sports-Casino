@@ -1,0 +1,37 @@
+﻿<div class="row ">
+    <div class="col-sm-12">
+        <div class="input-group master_wrap">
+            <span>FairX Deposit Request Of : &nbsp;</span>
+            <label class="bold">{{item.user.username}}</label>
+        </div>
+    </div>
+
+</div>
+<div class="row mr-top-10">
+    <div class="col-sm-6">Name : <b>{{item.firstName}}</b></div>
+    <div class="col-sm-6">Mobile : <b>{{item.phone }}</b></div>
+
+    <div class="col-sm-6">Amount : <b>{{item.amount }}</b></div>
+    <div class="col-sm-6">Email : <b>{{item.email }}</b></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6  mr-top-10">
+        <div>Current Status :    <b>{{item.oldstatus }}</b></div>
+        <div class="mr-top-10">Payment Id : &nbsp;<b>{{item.paymentId }}</b></div>
+        <div class="mr-top-10">Requested On :&nbsp;<kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date></div>
+        <div class="mr-top-10" ng-if="item.allText">Note : &nbsp;<b>{{item.allText }}</b></div>
+    </div>
+    <div class="col-sm-6  mr-top-10">
+        <div class="mr-top-10">
+            <select class="form-control" ng-model="item.status">
+                <option ng-repeat="s in fairxpayinList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+

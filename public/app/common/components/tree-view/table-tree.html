@@ -1,0 +1,29 @@
+﻿<ul ng-class="{parent: item.hasChildren}" ng-init="parentScope = $parent.$parent;">
+    <li class="cell-name status-btn" style="margin-left: {{level*30}}px">
+
+        <span ng-show="item.isLoading" class="spinner pull-left "></span>
+
+        <div ng-hide="item.isLoading" class="fa fa-plus-square" ng-class="{'fa-minus-square': item.opened || !item.hasChildren}"
+             ng-click="item.opened = !item.opened; ctrl.stateChange(item);"></div>
+
+        <span class="treetext" ng-click="item.opened = !item.opened; ctrl.stateChange(item);">
+            {{item.name}}
+            <span ng-if="item.startTime && item.hasChildren">&nbsp;[{{item.startTime | date:'dd-MM-yyyy HH:mm'}}]</span>
+            <span ng-if="item.startTime && !item.hasChildren">&nbsp;[{{item.startTime | date:'HH:mm'}}]</span>
+        </span>
+        <button ng-if="item.actionRequired && !item.active" class="{{btnClass}} visible" ng-click="ctrl.actionClicked(item)">
+            <i ng-if="::btnIcon" class="fa fa-{{btnIcon}}"></i>
+            {{ btnTitle | translate}}
+        </button>
+    </li>
+</ul>
+
+<ul id="tr_{{treeName}}_{{item.id}}" class="children">
+    <li class="child-inner" ng-hide="item.childrens.length==0" ng-show="item.hasChildren && item.opened ">
+        <ul class="child-ul">
+            <li class="child-li" ng-class="{opened: item.opened || !item.hasChildren}"
+                ng-include="'app/common/components/tree-view/table-tree.html'"
+                ng-init="level = level + 1" ng-repeat="item in item.childrens"></li>
+        </ul>
+    </li>
+</ul>

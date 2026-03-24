@@ -1,0 +1,732 @@
+// =============================================================
+// FoxBetX-style Header, Sidebar & Bottom Nav
+// Design Reference: https://xyz.1exch.app
+// =============================================================
+
+// --- Variables ---
+$header-height: 60px;
+$sidebar-width: 240px;
+$sidebar-bg: #292d2e;
+$sidebar-item-bg: #323738;
+$sidebar-item-hover: #041823;
+$sidebar-item-height: 42px;
+$sidebar-item-radius: 8px;
+$sidebar-font-size: 14px;
+$sidebar-icon-size: 24px;
+$sidebar-transition: 0.3s ease;
+
+$header-gradient: linear-gradient(360deg, #242424, #161640 35%);
+$header-border: linear-gradient(90deg, transparent, #4a3f8a 50%, transparent);
+
+$footer-bg: #323738;
+$footer-height: 52px;
+
+$font-sidebar: 'Poppins', sans-serif;
+
+$btn-signin-border: #e8e8e8;
+$btn-signup-bg: #4a3fdc;
+
+// --- Header ---
+.main-header.header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: $header-gradient;
+    height: $header-height;
+    padding: 0;
+    border-bottom: 2px solid transparent;
+    border-image: $header-border;
+    border-image-slice: 1;
+    width: 100%;
+
+    .container-fluid {
+        height: 100%;
+        padding: 0 10px;
+    }
+
+    .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-hamburger {
+        background: #3a4142;
+        border: none;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 7px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background $sidebar-transition;
+
+        &:hover {
+            background: lighten(#3a4142, 8%);
+        }
+    }
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+
+        .logo-img {
+            height: 40px;
+            max-width: 140px;
+            object-fit: contain;
+        }
+    }
+
+    // Social icons
+    .header-social {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: opacity $sidebar-transition;
+
+            &:hover {
+                opacity: 0.85;
+            }
+
+            &.whatsapp-icon {
+                background: #25d366;
+            }
+
+            &.telegram-icon {
+                background: #0088cc;
+            }
+        }
+    }
+
+    .btn-search {
+        background: #3a4142;
+        border: none;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 7px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background $sidebar-transition;
+
+        &:hover {
+            background: lighten(#3a4142, 8%);
+        }
+    }
+
+    // Auth buttons
+    .header-auth {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-signin {
+        background: transparent;
+        color: #fff;
+        border: 2px solid $btn-signin-border;
+        border-radius: 7px;
+        padding: 6px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $sidebar-transition;
+        white-space: nowrap;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .btn-signup {
+        background: $btn-signup-bg;
+        color: #fff;
+        border: none;
+        border-radius: 7px;
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $sidebar-transition;
+        white-space: nowrap;
+
+        &:hover {
+            background: lighten($btn-signup-bg, 8%);
+        }
+    }
+
+    // User section (logged in)
+    .header-user {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-balance {
+        color: #fff;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .balance-label {
+            opacity: 0.7;
+        }
+
+        .balance-amount {
+            font-weight: 600;
+            color: #25d366;
+        }
+    }
+
+    .header-dropdown {
+        position: relative;
+
+        .btn-user-menu {
+            background: #3a4142;
+            border: none;
+            color: #fff;
+            border-radius: 7px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background $sidebar-transition;
+
+            &:hover {
+                background: lighten(#3a4142, 8%);
+            }
+
+            .fa-angle-down {
+                font-size: 12px;
+                opacity: 0.7;
+            }
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: $sidebar-bg;
+            border-radius: 8px;
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            padding: 6px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 16px;
+                color: #ccc;
+                text-decoration: none;
+                font-size: 13px;
+                transition: all $sidebar-transition;
+                cursor: pointer;
+
+                i {
+                    width: 18px;
+                    text-align: center;
+                    font-size: 14px;
+                    opacity: 0.7;
+                }
+
+                &:hover {
+                    background: $sidebar-item-hover;
+                    color: #fff;
+                }
+            }
+
+            .dropdown-divider {
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                margin: 4px 0;
+            }
+
+            .logout-link {
+                color: #fc4242;
+
+                &:hover {
+                    color: #ff6b6b;
+                }
+            }
+        }
+    }
+}
+
+// --- Search Overlay ---
+.search-overlay {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 12px;
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        max-width: 600px;
+        margin: 0 auto;
+        gap: 8px;
+    }
+
+    .search-input {
+        flex: 1;
+        background: #3a4142;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        padding: 10px 16px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        font-family: $font-sidebar;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        &:focus {
+            border-color: $btn-signup-bg;
+        }
+    }
+
+    .btn-close-search {
+        background: #3a4142;
+        border: none;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+            background: lighten(#3a4142, 8%);
+        }
+    }
+
+    .search-results {
+        max-width: 600px;
+        margin: 8px auto 0;
+        max-height: 300px;
+        overflow-y: auto;
+
+        .search-result-item {
+            display: block;
+            padding: 10px 16px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+
+            &:hover {
+                background: $sidebar-item-hover;
+                color: #fff;
+            }
+        }
+    }
+}
+
+// --- Sidebar Overlay ---
+.sidebar-overlay {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $sidebar-transition;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// --- Left Sidebar ---
+.leftbarSec {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: $sidebar-width;
+    height: calc(100vh - #{$header-height});
+    background: $sidebar-bg;
+    z-index: 999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateX(-$sidebar-width);
+    transition: transform $sidebar-transition;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+    }
+
+    // Sidebar menu
+    .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-item {
+        margin-bottom: 5px;
+        border-radius: $sidebar-item-radius;
+        overflow: hidden;
+    }
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        height: $sidebar-item-height;
+        padding: 0 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: $sidebar-font-size;
+        font-family: $font-sidebar;
+        font-weight: 400;
+        background: $sidebar-item-bg;
+        border-radius: $sidebar-item-radius;
+        cursor: pointer;
+        transition: background $sidebar-transition;
+        gap: 10px;
+        white-space: nowrap;
+
+        &:hover {
+            background: $sidebar-item-hover;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        &.active {
+            background: $sidebar-item-hover;
+        }
+    }
+
+    .sidebar-icon {
+        width: $sidebar-icon-size;
+        height: $sidebar-icon-size;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        i {
+            font-size: 16px;
+        }
+
+        img {
+            width: $sidebar-icon-size;
+            height: $sidebar-icon-size;
+            object-fit: contain;
+        }
+    }
+
+    .sidebar-text {
+        flex: 1;
+    }
+
+    // Accordion trigger arrow
+    .accordion-trigger {
+        position: relative;
+
+        .submenu-arrow {
+            font-size: 11px;
+            opacity: 0.6;
+            transition: transform $sidebar-transition;
+
+            &.rotated {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    // Submenu
+    .submenu {
+        list-style: none;
+        padding: 0;
+        margin: 2px 0 0 0;
+        background: $sidebar-item-bg;
+        border-radius: 0 0 $sidebar-item-radius $sidebar-item-radius;
+
+        li {
+            a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 12px 8px 20px;
+                color: #ccc;
+                text-decoration: none;
+                font-size: 13px;
+                font-family: $font-sidebar;
+                transition: all $sidebar-transition;
+                cursor: pointer;
+
+                .sidebar-icon {
+                    width: 20px;
+                    height: 20px;
+
+                    i {
+                        font-size: 14px;
+                    }
+                }
+
+                &:hover {
+                    background: $sidebar-item-hover;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    // If accordion is open, adjust top border radius
+    .has-submenu .sidebar-link.active {
+        border-radius: $sidebar-item-radius $sidebar-item-radius 0 0;
+    }
+}
+
+// --- Announcement Bar ---
+.announcement-bar {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fdcf13;
+    font-size: 12px;
+    padding: 4px 0;
+    width: 100%;
+    z-index: 100;
+
+    marquee {
+        margin: 0;
+    }
+}
+
+// --- Main Content ---
+.main-section {
+    background: #1a1a2e;
+    min-height: 100vh;
+    font-family: $font-sidebar;
+}
+
+.home-section {
+    .main-content {
+        min-height: calc(100vh - #{$header-height});
+    }
+}
+
+// --- Bottom Mobile Navigation ---
+.footer-menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
+    background: $footer-bg;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 4px;
+
+    .footer-menu-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        color: #999;
+        text-decoration: none;
+        font-size: 10px;
+        font-family: $font-sidebar;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: all $sidebar-transition;
+        cursor: pointer;
+        flex: 1;
+
+        i {
+            font-size: 18px;
+        }
+
+        &:hover,
+        &.active {
+            color: #fff;
+        }
+
+        // Casino item gets a highlight
+        &.casino-item {
+            i {
+                color: $btn-signup-bg;
+            }
+        }
+    }
+}
+
+// --- Responsive ---
+@media (min-width: 992px) {
+    // Desktop: hide bottom nav (d-lg-none handles it)
+    // Desktop: sidebar can be always visible or toggled
+    .footer-menu {
+        display: none !important;
+    }
+
+    .home-section .main-content {
+        padding-bottom: 0;
+    }
+
+    .sidebar-overlay {
+        // Still allow overlay on desktop when sidebar opens
+    }
+}
+
+@media (max-width: 991px) {
+    // Mobile: add padding at bottom for footer nav
+    .home-section .main-content {
+        padding-bottom: $footer-height + 10px;
+    }
+
+    .main-header.header {
+        .header-logo .logo-img {
+            height: 32px;
+            max-width: 110px;
+        }
+
+        .btn-signin {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn-signup {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .header-social .social-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .main-header.header {
+        height: 52px;
+
+        .header-left {
+            gap: 6px;
+        }
+
+        .header-right {
+            gap: 4px;
+        }
+
+        .btn-hamburger,
+        .btn-search {
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+        }
+
+        .header-social .social-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+        }
+
+        .header-logo .logo-img {
+            height: 28px;
+            max-width: 90px;
+        }
+
+        .btn-signin {
+            padding: 4px 8px;
+            font-size: 11px;
+            border-width: 1.5px;
+        }
+
+        .btn-signup {
+            padding: 5px 10px;
+            font-size: 11px;
+        }
+    }
+
+    .leftbarSec {
+        top: 52px;
+        height: calc(100vh - 52px);
+    }
+
+    .sidebar-overlay {
+        top: 52px;
+    }
+
+    .search-overlay {
+        top: 52px;
+    }
+}
+
+// --- Utility overrides for Bootstrap compatibility ---
+.d-block {
+    display: block !important;
+}
+
+.d-lg-none {
+    @media (min-width: 992px) {
+        display: none !important;
+    }
+}

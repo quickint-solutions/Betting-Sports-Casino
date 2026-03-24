@@ -1,0 +1,36 @@
+﻿<div class="col-sm-4">
+    <div class="live-table">
+        <a  ui-sref="base.series.detail({id:item.series.id})" class="live-seriese">{{item.matchNumber}}, {{item.series.name}}</a>
+        <div class="score-board">
+            <div class="live_score">{{item.currentInning.runs}}/{{item.currentInning.wicket}}</div>
+            <div class="live_over">{{item.currentInning.over | number:1}} Ovrs<span>CRR: {{item.currentInning.runRate | number:2}}</span></div>
+        </div>
+        <div class="live_team">
+            <div class="first_team">
+                <div class="inning">
+                    <a href="" ui-sref="base.schedule.team({teamid:item.home.id})"><span>{{item.home.name}}</span></a>
+                    <span ng-repeat="score in item.home.innings">
+                        {{score.runs}}/{{score.wicket}} {{item.currentInning.id == score.id ? '('+ score.over  +')' : '' }}
+                    </span>
+                </div>
+            </div>
+            <div class="second_team">
+                <div class="inning">
+                    <a href="" ui-sref="base.schedule.team({teamid:item.away.id})"><span>{{item.away.name}}</span></a>
+                    <span ng-repeat="score in item.away.innings">
+                        {{score.runs}}/{{score.wicket}}
+                        {{item.currentInning.id == score.id ? '('+ score.over  +')' : '' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="score-header">
+            <ul>
+                <li><a >{{item.status}}</a></li>
+                <li><a >{{item.startTime | date:'dd/MM/yyyy (HH:mm)'}}</a></li>
+            </ul>
+            <p>{{item.ground+', '+item.venueCity+', '+item.venueCountry}}</p>
+        </div>
+        <a class="view-match" ui-sref="base.match.score({id:{{item.id}}})">View Match</a>
+    </div>
+</div>

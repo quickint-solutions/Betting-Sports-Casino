@@ -1,0 +1,166 @@
+﻿<div class="main-section">
+    <div>
+        <ul class="nav game-nav-tab">
+            <li ng-class="{'active':onlyInplay==true}" ng-click="ctrl.FilterChanged(true)">
+                <a>in-play</a>
+            </li>
+            <li ng-click="ctrl.FilterChanged(false)" ng-class="{'active':onlyInplay==false}">
+                <a>sports</a>
+            </li>
+            <li ng-show="$parent.isChatEnabled">
+                <a class="blink-color" ng-click="$parent.ctrl.openChat()">
+                    <i class="fas fa-comment-dots"></i> Chat
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-menu">
+        <div class="">
+            <div class="tab">
+                <ul style="display:flex">
+                    <li ng-repeat="event in eventTypes ">
+                        <a class="tablinks" ng-class="{'active' : (event.id==selectedEventType)}" ng-click="ctrl.tabClicked(event.id)">
+                            <span class="mb-icon"><img ng-src="{{webImagePath}}icon/{{event.name | joinme}}.png" /></span>
+                            {{event.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tabdetail" ng-if="!horseRacing && highlights.length>0 && !highlights[0].markets">
+                <div class="game-container" ng-repeat="h in highlights">
+                    <div class="container-fluid" ng-click="ctrl.openFullmarket(h)">
+                        <div class="row row-5">
+                            <div class="col-8" style="padding:5px 0">
+                                <p class="font-bold game-name">
+                                    <span ng-show="h.marketRunner.length<=3">{{h.marketRunner[0].runner.name}} vs {{h.marketRunner[1].runner.name}}</span>
+                                    <span ng-show="h.marketRunner.length>3">{{h.event.name}}</span>
+                                </p>
+                                <p class="game-value">
+                                    {{h.event.openDate | date:'MMM d yyyy hh:mm a'}}
+                                </p>
+                            </div>
+                            <div class="col-4" style="text-align:right; padding:5px 0">
+                                <div class="float-right highlight-icon">
+                                    <span class="green green" ng-show="h.inPlay"><i class="fas fa-circle"></i></span>
+                                    <span ng-show="h.event.videoId"><i class="fas fa-tv"></i></span>
+                                    <span class="game-icon" ng-show="h.event.hasFancy"><img ng-src="{{webImagePath}}ic_bm.png" /></span>
+                                    <span class="game-icon" ng-show="h.event.hasFancy"><img ng-src="{{webImagePath}}ic_fancy.png" /></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-5">
+                            <div class="game-table">
+                                <div class="col-header">
+                                    <span class="game-col">1</span>
+                                    <span class="game-col">X</span>
+                                    <span class="game-col">3</span>
+                                </div>
+                                <div class="col-data">
+                                    <div class="game-col" ng-init="m0 = h.marketRunner[0]">
+                                        <div class="data-col back" kt-animate-on-change="m0.backPrice[0].price">
+                                            <a>{{m0.backPrice[0].price}}</a>
+                                        </div>
+                                        <div class="data-col lay" kt-animate-on-change="m0.layPrice[0].price" ng-if="h.bettingType!=6">
+                                            <a> {{m0.layPrice[0].price}}</a>
+                                        </div>
+                                        <div class="data-col odd-disabled" ng-if="h.bettingType==6">
+                                            <a>-</a>
+                                        </div>
+                                    </div>
+                                    <div class="game-col" ng-init="m2 = h.marketRunner[2]">
+                                        <div class="data-col odd-disabled" ng-if="!m2">
+                                            <a>-</a>
+                                        </div>
+                                        <div class="data-col back" ng-if="m2" kt-animate-on-change="m2.backPrice[0].price">
+                                            <a>{{ m2.backPrice[0].price }}</a>
+                                        </div>
+                                        <div class="data-col odd-disabled" ng-if="!m2 || h.bettingType==6">
+                                            <a>-</a>
+                                        </div>
+                                        <div class="data-col lay" kt-animate-on-change="m2.layPrice[0].price" ng-if="m2 && h.bettingType!=6">
+                                            <a>{{ m2.layPrice[0].price }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="game-col" ng-init="m1 = h.marketRunner[1]">
+                                        <div class="data-col back" kt-animate-on-change="m1.backPrice[0].price">
+                                            <a>{{m1.backPrice[0].price }}</a>
+                                        </div>
+                                        <div class="data-col lay" kt-animate-on-change="m1.layPrice[0].price" ng-if="h.bettingType!=6">
+                                            <a>{{m1.layPrice[0].price}}</a>
+                                        </div>
+                                        <div class="data-col odd-disabled" ng-if="h.bettingType==6">
+                                            <a>-</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="horse-racing" style="margin-top:0px" ng-if="horseRacing && highlights.length>0">
+                <div class="race-detail" ng-repeat="race in highlights">
+                    <div class="black-back" style="margin-bottom:-2px;" ng-init="isExpanded=true">
+                        <a class="to-expand" data-toggle="collapse" ng-class="{'collapsed':!isExpanded}"
+                           ng-click="isExpanded=!isExpanded" aria-expanded="true">{{race.name}}</a>
+                    </div>
+                    <div class="collapse game-list" ng-class="{'in':isExpanded}" style="">
+                        <div class="race" ng-repeat="rd in race.events">
+                            <a class="race-title">{{rd.name}}</a>
+                            <ul>
+                                <li ng-repeat="m in rd.markets">
+                                    <a ng-class="{'play-now':m.inPlay}"
+                                       ui-sref="mobile.base.horsemarket({marketid:m.id,eventtype:selectedEventType})">{{m.startTime | date:'HH:mm'}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="livegame" ng-if="!horseRacing && highlights.length>0 && highlights[0].markets">
+                <div class="livegame-body">
+                    <div class="col-6 live-info" ng-repeat="g in highlights">
+                        <a ui-sref="mobile.base.livegamesmarket({eventid:g.id})">
+                            <!--<a ui-sref="rp.gamemarket({eventid:g.id})" target="_blank">-->
+                            <div class="item-img" style="background-image:url({{g.imagePath}})"></div>
+                        </a>
+                        <span class="item_footer">
+                            <span class="footer-title">{{g.name}}</span>
+                            <small>
+                                <span style="float:right;text-transform:capitalize">
+                                    Max Bet <b>{{g.markets[0].maxBet | toRateOnly | shortNumber}}</b>
+                                </span>
+                            </small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-data" ng-show="highlights && highlights.length<=0">
+                No realtime events found
+            </div>
+        </div>
+    </div>
+
+    <div class="product-container" ng-if="hasCasino">
+        <div class="row row-5">
+            <div class="col-3" ng-repeat="lg in liveGamesMarkets">
+                <a ng-click="ctrl.openFDGame(lg)">
+                    <div class="product-img">
+                        <img ng-src="{{webImagePath}}product-img/{{lg.img}}" />
+                        <span class="pgame-title">{{lg.name}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="isOBD">
+        <a ui-sref="mobile.base.transferonline({tab:5})" style="position: relative; float: left; padding-left: 15px; text-decoration: underline;">
+            <i class="fas fa-hand-point-right"></i> Show Offline Bank Detail
+        </a>
+    </div>
+</div>
+

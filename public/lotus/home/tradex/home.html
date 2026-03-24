@@ -1,0 +1,387 @@
+﻿<div class="tradex-page">
+    <div class="tradex-top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a class="tradex-logo" href="#"><img class="" src="/public/images/tradex/tradex-logo.png" /></a>
+                </div>
+                <div class="col-sm-8">
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">balance</a>
+                            <span class="sensex-value" ng-class="{'tradex-green':balance.balance>0,'tradex-red':balance.balance<0}">
+                                {{balance.balance | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">floating P/L</a>
+                            <span class="sensex-value" ng-class="{'tradex-green':balance.floatingPL>0,'tradex-red':balance.floatingPL<0}">
+                                {{balance.floatingPL  | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">credit</a>
+                            <span class="sensex-value">
+                                {{balance.credit | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">equity</a>
+                            <span class="sensex-value">
+                                {{(balance.credit + balance.balance + balance.floatingPL)  | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">used margin</a>
+                            <span class="sensex-value">
+                                {{balance.usedMargin | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">margin level</a>
+                            <span class="sensex-value">
+                                {{(((balance.credit + balance.balance + balance.floatingPL)  / balance.usedMargin)*100) | number:2}}%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 menu-info">
+                        <div class="sensex-menu">
+                            <a class="sensex-text">free margin</a>
+                            <span class="sensex-value">
+                                {{((balance.credit + balance.balance + balance.floatingPL) - balance.usedMargin) | number:2}}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-2 right-icon">
+                    <div class="icon-div">
+                        <a class="inr"><i class="fa fa-inr" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="icon-div">
+                        <a href="" data-toggle="dropdown" aria-haspopup="true" id="menuplusbutton" aria-expanded="false" class="plus"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <div class="tradex-dropdown dropdown-menu" aria-labelledby="menuplusbutton">
+                            <a class="just-a" href="#">watchlist</a>
+                            <a class="just-a" href="#">chart</a>
+                            <a class="just-a" href="#">quote panel</a>
+                            <a class="just-a" href="#">order book</a>
+                            <a class="just-a" href="#">trade book</a>
+                            <a class="just-a" href="#">position book</a>
+                            <a class="just-a" href="#">holdings</a>
+                            <a class="just-a" href="#">option chain</a>
+                            <a class="just-a" href="#">options strategy</a>
+                        </div>
+                    </div>
+                    <div class="icon-div">
+                        <a class="bell"><i class="fa fa-bell" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tradex-main">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-7 tradex-left">
+                    <div class="tradex-info">
+                        <div class="info-header">
+                            <div class="col-sm-2">
+                                <div class="menu-div">
+                                    <a href="" data-toggle="dropdown" aria-haspopup="true" id="menuplusbutton" aria-expanded="false" class="drp-title">{{ (watchList.length>0) ? watchList[selectedWatch].name : 'Watch List' }}<i class="drp-fa fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <div class="tradex-dropdown dropdown-menu" aria-labelledby="menuplusbutton">
+                                        <span class="menu-heading"><input ng-model="newWatchName" placeholder="New watch name" /> <i ng-click="ctrl.addWatchList(newWatchName);newWatchName='';" class="fa fa-plus-circle" aria-hidden="true"></i></span>
+                                        <div ng-repeat="w in watchList track by $index" class="watchlist-div" ng-class="{'editable':!w.editMode}">
+                                            <a ng-show="!w.editMode" class="watchlist-a" ng-click="ctrl.selectedWatchChanged($index)">{{w.name}}</a>
+                                            <input class="mrg-left-10 editbox" ng-show="w.editMode" ng-model="w.newName" />
+                                            <span class="menu-edit" ng-if="$index>0">
+                                                <i class="fa fa-check" aria-hidden="true" ng-click="ctrl.editWatchList($index,w.newName)" ng-show="w.editMode"></i>
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="w.newName=w.name;w.editMode=true;" ng-show="!w.editMode"></i>
+                                                <i class="fa fa-trash" aria-hidden="true" ng-show="!w.editMode" ng-click="ctrl.deleteWatchList($index)"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="search-result">
+                                    <input data-toggle="dropdown" aria-haspopup="true" id="menuplusbutton" aria-expanded="false"
+                                           type="search" placeholder="Search Script Here..." ng-model="searchSymbol" ng-change="ctrl.searchMarket()">
+                                    <i class="fa fa-close" ng-if="searchSymbol.length>0" ng-click="$parent.searchSymbol='';ctrl.searchMarket()"></i>
+                                    <div class="search-droplist tradex-dropdown dropdown-menu" aria-labelledby="menuplusbutton" ng-if="searchedMarkets.length>0">
+                                        <div ng-repeat="m in searchedMarkets track by $index" class="plus-btn-div">
+                                            <a class="plus-btn-a">
+                                                {{m.Name}}
+                                                <p>Bid: {{m.Bid}}, Ask: {{m.Ask}}</p>
+                                            </a>
+                                            <a class="add-btn btn" ng-hide="m.existing" ng-click="ctrl.addToWatch(m);">add</a>
+                                            <a class="remove-btn btn red" ng-show="m.existing" ng-click="ctrl.removeFromWatch(m)">remove</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 header-btn">
+                               
+                            </div>
+                        </div>
+                        <div class="tradex-table list-view" ng-scrollbars ng-scrollbars-config="{axis:'yx'}">
+                            <table class="list-view-table">
+                                <thead>
+                                    <tr>
+                                        <th class="size-sm">id</th>
+                                        <th class="size-md">symbol</th>
+                                        <th class="size-md align-r">bid</th>
+                                        <th class="size-md align-r">ask</th>
+                                        <th class="size-md align-r">high</th>
+                                        <th class="size-md align-r">low</th>
+                                        <th class="size-md center">lot size</th>
+                                        <th class="size-lg center">time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in watchList[selectedWatch].symbols track by $index" context-menu="symbolMenuOptions" context-menu-class="row-drpmenu">
+                                        <td class="size-sm ">
+                                            <span>{{s.ID}}</span>
+                                        </td>
+                                        <td class="size-md">
+                                            <span>{{s.Name}} </span>
+                                        </td>
+                                        <td class="size-md align-r ">
+                                            <span kt-change-color="s.Bid">{{s.Bid }}</span>
+                                        </td>
+                                        <td class="size-md align-r ">
+                                            <span kt-change-color="s.Ask">{{s.Ask }}</span>
+                                        </td>
+                                        <td class="size-md align-r ">
+                                            <span>{{s.High }}</span>
+                                        </td>
+                                        <td class="size-md align-r ">
+                                            <span>{{s.Low }}</span>
+                                        </td>
+                                        <td class="size-md center ">
+                                            <span>{{s.SymbolFactor }}</span>
+                                        </td>
+                                        <td class="size-lg align-r ">
+                                            <span>{{s.LastQuoteTime }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 tradex-right">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="tradex-info">
+                                <div class="info-header">
+                                    <div class="col-sm-4">
+                                        <div class="menu-div">
+                                            <a class="drp-title">position book</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5" style="text-align:center">
+                                        <button class="square-off" ng-click="ctrl.closeOpenPosition();">square off</button>
+                                    </div>
+                                    <div class="col-sm-3 header-btn">
+                                        <a ng-click="ctrl.getPositions();"><i class="header-fa fa fa-refresh" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="tradex-table list-view " ng-scrollbars ng-scrollbars-config="{axis:'yx'}">
+                                    <table class="list-view-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="size-md center">id</th>
+                                                <th class="size-md">symbol</th>
+                                                <th class="size-sm center">type</th>
+                                                <th class="size-sm center">amount</th>
+                                                <th class="size-md center">p/l</th>
+                                                <th class="size-md center">value</th>
+                                                <th class="size-md center">c price</th>
+                                                <th class="size-md center">o price</th>
+                                                <th class="size-md center">s/l</th>
+                                                <th class="size-md center">t/p</th>
+                                                <th class="size-sm center">comm</th>
+                                                <th class="size-sm center">interest</th>
+                                                <th class="size-md center">lot size</th>
+                                                <th class="size-lg">date/time</th>
+                                                <th class="size-md">comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="o in openPosition | orderBy:'Time' track by $index">
+                                                <td class="size-md center">
+                                                    <input type="checkbox" id="chk-position-{{$index}}" ng-model="o.selected">
+                                                    <label for="chk-position-{{$index}}">{{o.ID}}</label>
+                                                </td>
+                                                <td class="size-md ">{{o.SymbolName}}</td>
+                                                <td class="size-sm center ">{{o.BuySell == 1 ? 'Buy' : 'Sell'}}</td>
+                                                <td class="size-sm center ">{{o.Amount | number:2}}</td>
+                                                <td class="size-md center ">
+                                                    <span ng-class="{'tradex-green':o.ProfitLoss>0,'tradex-red':o.ProfitLoss<0} ">
+                                                        {{o.ProfitLoss = (((o.BuySell == 1 ? (o.CurrentPrice - o.OpenPrice) : (o.OpenPrice - o.CurrentPrice))* o.SMB.SymbolFactor * o.Amount)+o.Commission) | number:2}}
+                                                    </span>
+                                                </td>
+                                                <td class="size-md center ">{{(o.CurrentPrice * o.SMB.SymbolFactor * o.Amount) | number:2}}</td>
+                                                <td class="size-md center "><span kt-change-color="o.CurrentPrice">{{o.CurrentPrice = (o.BuySell == 1 ? o.SMB.Bid : o.SMB.Ask) | number:2}}</span></td>
+                                                <td class="size-md center ">{{o.OpenPrice }}</td>
+                                                <td class="size-md center ">{{o.SL }}</td>
+                                                <td class="size-md center ">{{o.TP }}</td>
+                                                <td class="size-sm center ">{{o.Commission}}</td>
+                                                <td class="size-sm center ">{{o.Interest}}</td>
+                                                <td class="size-md center ">{{o.SMB.SymbolFactor}}</td>
+                                                <td class="size-lg ">{{o.Time}}</td>
+                                                <td class="size-md ">{{o.Note}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                        <tfoot class="tradex-footer" ng-show="openPosition.length>0">
+                                            <tr>
+                                                <th class="size-md"></th>
+                                                <th class="size-md"></th>
+                                                <th class="size-sm center"></th>
+                                                <th class="size-sm center"></th>
+                                                <td class="size-md center" ng-class="{'tradex-green':balance.floatingPL>0,'tradex-red':balance.floatingPL<0}">
+                                                    {{balance.floatingPL = (openPosition | total:'ProfitLoss') | number:2}}
+                                                </td>
+                                                <td colspan="10"></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="table-info" ng-hide="openPosition.length>0">
+                                        <p style="font-weight:bold">You don't have open positions</p>
+                                        <p>build your portfolio, start trading now</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="tradex-info">
+                                <div class="info-header">
+                                    <div class="col-sm-4">
+                                        <div class="menu-div">
+                                            <a href="" data-toggle="dropdown" aria-haspopup="true" id="orderbookbtn" aria-expanded="false" class="drp-title">
+                                                {{ orderbookORhistory == 1 ? 'Order Book' : 'History' }}<i class="drp-fa fa fa-caret-down" aria-hidden="true"></i>
+                                            </a>
+                                            <div class="tradex-dropdown dropdown-menu" aria-labelledby="orderbookbtn">
+                                                <div class="watchlist-div editable" ng-click="ctrl.orderOrHistoryChanged(1)">
+                                                    <a class="watchlist-a">
+                                                        Order Book
+                                                    </a>
+                                                </div>
+                                                <div class="watchlist-div editable" ng-click="ctrl.orderOrHistoryChanged(2)">
+                                                    <a class="watchlist-a">
+                                                        History
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5" style="text-align:center">
+                                    </div>
+                                    <div class="col-sm-3 header-btn">
+                                        <a ng-click="ctrl.getPendingOrders()" ng-show="orderbookORhistory == 1"><i class="header-fa fa fa-refresh" aria-hidden="true"></i></a>
+                                        <a ng-click="ctrl.getHistory()" ng-show="orderbookORhistory == 2"><i class="header-fa fa fa-refresh" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="tradex-table list-view " ng-show="orderbookORhistory == 1" ng-scrollbars ng-scrollbars-config="{axis:'yx'}">
+                                    <table class="list-view-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="size-md">id</th>
+                                                <th class="size-md">symbol</th>
+                                                <th class="size-sm center">type</th>
+                                                <th class="size-sm center">amount</th>
+                                                <th class="size-sm center">c price</th>
+                                                <th class="size-sm center">o price</th>
+                                                <th class="size-sm center">s/l</th>
+                                                <th class="size-sm center">t/p</th>
+                                                <th class="size-sm center">lot size</th>
+                                                <th class="size-md">date/time</th>
+                                                <th class="size-md ">comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="o in ordersList | orderBy:'Time' track by $index" ng-if="o.ID>0" context-menu="orderMenuOptions" context-menu-class="row-drpmenu">
+                                                <td class="size-md ">{{o.ID}}</td>
+                                                <td class="size-md ">{{o.SymbolName}}</td>
+                                                <td class="size-sm center ">{{o.BuySell == 1 ? 'Buy limit' : (o.BuySell == -1 ? 'Sell limit' : (o.BuySell == 2 ? 'Buy stop' : (o.BuySell == -2 ? 'Sell stop' : '')))}}</td>
+                                                <td class="size-sm center ">{{o.Amount}}</td>
+                                                <td class="size-sm center "><span kt-change-color="o.CurrentPrice">{{o.CurrentPrice = (o.BuySell > 0 ? o.SMB.Ask : o.SMB.Bid) | number:2}}</span></td>
+                                                <td class="size-sm center ">{{o.OpenPrice}}</td>
+                                                <td class="size-sm center ">{{o.SL}}</td>
+                                                <td class="size-sm center ">{{o.TP}}</td>
+                                                <td class="size-sm center ">{{o.SMB.SymbolFactor}}</td>
+                                                <td class="size-md ">{{o.Time}}</td>
+                                                <td class="size-md ">{{o.Note}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tradex-table list-view " ng-show="orderbookORhistory == 2" ng-scrollbars ng-scrollbars-config="{axis:'yx'}">
+                                    <table class="list-view-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="size-sm center">id</th>
+                                                <th class="size-lg">date/time</th>
+                                                <th class="size-sm center">type</th>
+                                                <th class="size-sm center">amount</th>
+                                                <th class="size-lg">symbol</th>
+                                                <th class="size-sm center">Buy/Sell</th>
+                                                <th class="size-lg">open time</th>
+                                                <th class="size-sm center">open/sl</th>
+                                                <th class="size-sm center">close/tp</th>
+                                                <th class="size-sm center">comm</th>
+                                                <th class="size-sm center">interest</th>
+                                                <th class="size-md ">p/l desc</th>
+                                                <th class="size-md ">comment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="o in historyList | orderBy:'DateTime':true track by $index ">
+                                                <td class="size-sm center">{{o.Ticket}}</td>
+                                                <td class="size-lg">{{o.DateTime}}</td>
+                                                <td class="size-sm center ">{{o.TypeText}}</td>
+                                                <td class="size-sm center ">{{o.IsDPAmount ? o.DpWdAj : o.Amount | number:2}}</td>
+                                                <td class="size-lg">{{o.SymbolName}}</td>
+                                                <td class="size-sm center ">{{o.BuySell == 1 ? 'Buy' : (o.BuySell==-1 ? 'Sell' : '')}}</td>
+                                                <td class="size-lg">{{o.OpenTime}}</td>
+                                                <td class="size-sm center ">{{o.OpenSL}}</td>
+                                                <td class="size-sm center ">{{o.CloseTP}}</td>
+                                                <td class="size-sm center ">{{o.Commission}}</td>
+                                                <td class="size-sm center ">{{o.Interest}}</td>
+                                                <td class="size-md ">{{o.pl}}</td>
+                                                <td class="size-md ">{{o.Note}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

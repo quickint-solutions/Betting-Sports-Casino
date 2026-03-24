@@ -1,0 +1,55 @@
+﻿<div id="asidemanu" class="left-side-main-block">
+    <div class="left-panel-block">
+        <div class="title sports">Sports</div>
+        <div id="sports" class="accordion">
+            <div class="card" ng-repeat="sport in eventTypes " ng-show="sport.displayOrder>=0">
+                <div class="card-header">
+                    <a ng-click="ctrl.openChild(sport,null,sport.id)" data-toggle="collapse" data-target="#collapse{{sport.name|joinme}}"
+                       aria-expanded="true" aria-controls="collapsecricket" class="btn-link collapsed active">
+                        <div class="item">
+                            <img ng-src="{{webImagePath}}icons/{{sport.name|joinme}}.png" alt="cricket"> <span>{{sport.name}}</span>
+                        </div>
+                        <div class="d-flex">
+                            <div class="sport-event-count badge">{{sport.competitions.length}}</div>
+                            <i class="material-icons plus">expand_more</i>
+                        </div>
+                    </a>
+                </div>
+                <div id="collapse{{sport.name|joinme}}" aria-labelledby="{{sport.name|joinme}}" ng-class="{'show':sport.isOpen}" data-parent="#sports" class="collapse card-body">
+                    <div id="leagues" class="accordion">
+                        <div class="card-body" ng-repeat="ch1 in sport.child">
+                            <a ng-click="ctrl.openChild(ch1,sport.id,sport.id)" data-toggle="collapse" data-target="#collapse{{ch1.name|joinme}}" aria-expanded="true"
+                               aria-controls="collapseone-day-internationals" class="leagues btn-link collapsed">
+                                <div class="inner-item"><span>{{ch1.name}}</span></div>
+                                <i class="material-icons plus">expand_more</i>
+                            </a>
+                            <div id="collapse{{ch1.name|joinme}}" aria-labelledby="{{ch1.name|joinme}}" ng-class="{'show':ch1.isOpen}" data-parent="#leagues" class="collapse">
+                                <div class="card-body" ng-repeat="ch2 in ch1.child">
+                                    <a class="event-name" ng-click="ctrl.openChild(ch2,ch1.id,sport.id)">
+                                        <div class="inner-item">
+                                            <span>{{ch2.name}}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseesports" aria-expanded="true" aria-controls="collapseesports" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/esports.png" alt="cricket"> <span>Esports</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapseesports" aria-labelledby="esports" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsevolleyball" aria-expanded="true" aria-controls="collapsevolleyball" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/volleyball.png" alt="cricket"> <span>Volleyball</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsevolleyball" aria-labelledby="volleyball" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsecycling" aria-expanded="true" aria-controls="collapsecycling" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/cycling.png" alt="cricket"> <span>Cycling</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsecycling" aria-labelledby="cycling" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsesnooker" aria-expanded="true" aria-controls="collapsesnooker" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/snooker.png" alt="cricket"> <span>Snooker</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsesnooker" aria-labelledby="snooker" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsebaseball" aria-expanded="true" aria-controls="collapsebaseball" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/baseball.png" alt="cricket"> <span>Baseball</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsebaseball" aria-labelledby="baseball" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsenetball" aria-expanded="true" aria-controls="collapsenetball" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/netball.png" alt="cricket"> <span>Netball</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsenetball" aria-labelledby="netball" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseice-hockey" aria-expanded="true" aria-controls="collapseice-hockey" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/ice-hockey.png" alt="cricket"> <span>Ice Hockey</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapseice-hockey" aria-labelledby="ice-hockey" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsehandball" aria-expanded="true" aria-controls="collapsehandball" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/handball.png" alt="cricket"> <span>Handball</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsehandball" aria-labelledby="handball" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+            <div class="card"><div class="card-header"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsedarts" aria-expanded="true" aria-controls="collapsedarts" class="btn-link collapsed active"><div class="item"><img ng-src="{{webImagePath}}icons/darts.png" alt="cricket"> <span>Darts</span></div> <div class="d-flex"><!----> <i class="material-icons plus">expand_more</i></div></a></div> <div id="collapsedarts" aria-labelledby="darts" data-parent="#sports" class="collapse card-body"><div id="leagues" class="accordion"></div></div></div>
+        </div>
+    </div>
+</div>
+<div class="main-content-block">
+    <div class="home-middle-block" ui-view="homecenter">
+      
+    </div>
+</div>

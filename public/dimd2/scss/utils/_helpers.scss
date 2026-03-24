@@ -1,0 +1,60 @@
+﻿/// <reference path="../variables/__variables.scss" />
+/// <reference path="_mixins.scss" />
+
+/**
+ * Helper classes.
+ */
+
+/// Hide things visually, but leave it available to screenreaders
+
+.visuallyhidden,
+.sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    overflow: hidden;
+    @include padding(0px, 0px, 0px, 0px);
+    @include position(absolute);
+    height: 1px;
+    width: 1px;
+
+    &.focusable {
+        &:active, &:focus {
+            clip: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            height: auto;
+            width: auto;
+        }
+    }
+}
+
+
+
+/// Image replacement
+
+.ir {
+    border: 0;
+    font: 0/0 a;
+    text-shadow: none;
+    color: transparent;
+}
+
+
+
+/// Special link styles
+
+.action-link {
+    @include link-colors($color-text, $link-color-hover, $link-color-active);
+    text-decoration: none;
+}
+
+.icon-link a, a.icon-link {
+    border: none;
+}
+
+.detail-link {
+    @include txt(normal);
+    border: none;
+}

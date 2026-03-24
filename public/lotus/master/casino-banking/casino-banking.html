@@ -1,0 +1,72 @@
+﻿<div class="bets-history">
+        <div class="table-bets">
+            <div class="header-name">
+                <div class="filter-input">
+                    <h1 class="event-heading">{{'casinobanking.label'| translate}}</h1>
+                </div>
+            </div>
+
+            <kt-grid grid-id="kt-banking-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     name-param="id"
+                     data-items="gridItems"
+                     name-value-property="id"
+                     total="totalItems"
+                     data-show-total="false"
+                     cache-key="ktbankinggrid">
+                <table ng-table="tableParams" class="table table-hover clickable master_table"
+                       template-pagination="{{ :: paginationUrl }}">
+                    <tbody>
+                        <tr ng-class="{'dw':item.chips && item.chips>0}" ng-repeat="item in $data track by item.userId">
+                            <td data-title="::'Login name' "
+                                data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <span>{{item.user.username}}</span>
+                            </td>
+                            <td data-title="::'Username'" data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <span>{{item.user.name}}</span>
+                            </td>
+                            <td header-class="'size-sm align-r'" class="size-sm align-r" data-title="'Take'" ng-init="item.deposit = (item.dwType == 'D' ? item.chips : 0 )">
+                                <span class="positive" ng-show="item.deposit>0">{{item.deposit}}</span>
+                                <span ng-show="item.deposit<=0">-</span>
+                            </td>
+                            <td header-class="'size-sm align-r'" class="size-sm align-r" data-title="'Give'" ng-init="item.withdrawal=(item.dwType == 'W' ? item.chips : 0 ) ">
+                                <span class="negative" ng-show="item.withdrawal>0">{{item.withdrawal}}</span>
+                                <span ng-show="item.withdrawal<=0">-</span>
+                            </td>
+                            <td data-title="'Payment Threshold'" header-class="'size-smd align-r'" class="size-smd align-r">-</td>
+                            <td data-title="::'Credit Limit'" data-header-class="'size-smd align-r'" class="size-smd align-r">
+                                <a class="credit-ref" ng-show="item.casinoCreditLimit>0">{{item.casinoCreditLimit | toRate}}</a>
+                                <a class="credit-ref" ng-show="item.casinoCreditLimit<=0">-</a>
+                            </td>
+                            <td data-title="::'Available Balance'" data-header-class="'size-smd align-r'" class="size-smd align-r">
+                                <span>{{item.casinoBalance | toRate}}</span>
+                            </td>
+                            <td data-title="::'Transfer'" data-header-class="'size-smd align-r'" class="size-smd align-r">
+                                <span>{{(item.totalTransfer= (item.casinoBalance - (item.totalCasinoBalance + item.casinoBalance) - item.casinoCreditLimit)) | toRate}}</span>
+                            </td>
+
+                            <td data-header-class="'size-sm'" class="size-sm align-l">
+                                <a ng-disabled="item.chips == 0" ng-click="$parent.$parent.$parent.ctrl.transferChip(item)" class="btn btn-light">
+                                    Transfer
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="$data.length>0" class="summary-data">
+                        <tr>
+                            <td class="size-smd"></td>
+                            <td class="size-smd"></td>
+                            <td class="size-sm align-r">{{$data | total:'deposit' }}</td>
+                            <td class="size-sm align-r">{{$data | total:'withdrawal'}}</td>
+                            <td class="size-smd align-r">-</td>
+                            <td class="size-smd align-r">{{$data | total:'casinoCreditLimit' | toRate}}</td>
+                            <td class="size-smd align-r">{{$data | total:'casinoBalance' | toRate}}</td>
+                            <td class="size-smd align-r">{{$data | total:'totalTransfer' | toRate}}</td>
+                            <td class="size-sm"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    
+</div>

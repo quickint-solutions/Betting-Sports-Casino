@@ -1,0 +1,120 @@
+﻿<div class="horse-racing">
+    <ul class="tabbing-blue">
+        <li ng-class="{'active':currentTab==2}"><a ng-click="ctrl.loadMarkets(2)">{{'inplay.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==0}"><a ng-click="ctrl.loadMarkets(0)">{{'today.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==1}"><a ng-click="ctrl.loadMarkets(1)">{{'tomorrow.label' | translate}}</a></li>
+    </ul>
+
+    <div class="race-detail" ng-repeat="e in eventTypes" ng-if="currentTab==2">
+
+        <div class="black-back" ng-init="isExpanded=true" ng-click="isExpanded=!isExpanded">
+            <span>{{e.name}}</span>
+            <a data-toggle="collapse" aria-expanded="true">
+                <i class="fa faimg" aria-hidden="true" ng-class="{'fa-minus-square-o':isExpanded, 'fa-plus-square-o':!isExpanded}"></i>
+            </a>
+        </div>
+        <div class="collapse highlight" ng-class="{'in':isExpanded}">
+            <div class="tab-desc" ng-class="{'column-2' : !e.hasAnyDrawMarket}">
+                <table class="team-score mrg-top-0">
+                    <tbody>
+                        <tr class="bet-all">
+                            <th class="col-game"></th>
+                            <th class="col-visit">1</th>
+                            <th class="col-visit" ng-if="e.hasAnyDrawMarket">x</th>
+                            <th class="col-visit">2</th>
+                            <th></th>
+                        </tr>
+                        <tr id="tr_{{h.id}}" ng-class="{'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4}" ng-repeat="h in e.markets">
+                            <td class="team-title">
+                                <a href="" ui-sref="base.home.sport.fullmarket({nodetype:2,id:h.event.competitionId,eventId:h.eventId,eventTypeId:h.eventType.id})">
+                                    <i class="fa fa-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>{{h.event.name}}
+                                </a>
+                                <span class="play" ng-if="h.inPlay">{{'inplay.label' | translate}}</span>
+                                <span ng-if="!h.inPlay" class="game-list-time"> {{h.event.openDate | date:'yyyy-MM-dd HH:mm'}}</span>
+                            </td>
+
+                            <td ng-init="m0 = h.marketRunner[0]">
+                                <a class="back-1" kt-click ng-click="ctrl.placeBet(h,1,m0.runnerId,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runnerName);"
+                                   href="">{{m0.backPrice[0].price}}</a>
+
+                                <a class="lay-1" kt-click ng-click="ctrl.placeBet(h,2,m0.runnerId,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runnerName);"
+                                   ng-if="h.bettingType!=6">{{m0.layPrice[0].price}}</a>
+                                <span ng-if="h.bettingType==6" class="odd-disabled">--</span>
+                            </td>
+
+                            <td ng-init="m2 = h.marketRunner[2]" ng-if="e.hasAnyDrawMarket">
+                                <span ng-if="!m2" class="odd-disabled">--</span>
+                                <a class="back-1" ng-if="m2" kt-click ng-click="ctrl.placeBet(h,1,m2.runnerId,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runnerName);"
+                                   href="">{{ m2.backPrice[0].price }}</a>
+                                <span ng-if="!m2 || h.bettingType==6" class="odd-disabled">--</span>
+                                <a class="lay-1" ng-if="m2 && h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m2.runnerId,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runnerName);">{{ m2.layPrice[0].price }}</a>
+                            </td>
+
+                            <td ng-init="m1 = h.marketRunner[1]">
+                                <a class="back-1" kt-click ng-click="ctrl.placeBet(h,1,m1.runnerId,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runnerName);"
+                                   href="">{{m1.backPrice[0].price }}</a>
+                                <a class="lay-1" kt-click ng-click="ctrl.placeBet(h,2,m1.runnerId,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runnerName);"
+                                   ng-if="h.bettingType!=6">{{m1.layPrice[0].price}}</a>
+                                <span ng-if="h.bettingType==6" class="odd-disabled">--</span>
+                            </td>
+
+                            <td class="pin" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                                <i class="fa fa-thumb-tack add-pin-square" ng-class="{'pinned':h.pin,'blue-pin':!h.pin}" ng-click="ctrl.pinMe(h);"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-if="currentTab!=2" class="popup_height">
+        <div class="filter-list">
+            <ul>
+                <li class="filter-head"><strong>{{'sportfilter.label' | translate}}</strong></li>
+                <li ng-repeat="f in filters | filter:{checked:true}">
+                    <span><i ng-if="$index != 0" class="fa fa-circle ng-scope"></i>{{f.name}}</span>
+                </li>
+                <li class="filter_team">
+                    <a>Filter</a>
+                    <div class="filter-pop">
+                        <ul>
+                            <li>
+                                <p class="span-check">
+                                    <input type="checkbox" id="chk_filter_all" ng-model="$parent.selectAll" ng-click="ctrl.eventTypeChanged(true)" />
+                                    <label for="chk_filter_all">{{'all.label' | translate}}</label>
+                                </p>
+                            </li>
+                            <li ng-repeat="f in filters">
+                                <p class="span-check">
+                                    <input id="chk_filter_{{$index}}" type="checkbox" ng-click="ctrl.eventTypeChanged()" ng-model="f.checked" />
+                                    <label for="chk_filter_{{$index}}">{{f.name}}</label>
+                                </p>
+                            </li>
+
+                        </ul>
+                        <div class="filter-btn">
+                            <a class="bets" ng-click="ctrl.loadMarketsByDays()">Save</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="over-wrap" style="margin-bottom:30px">
+            <table>
+                <tr ng-repeat="m in marketDetails">
+                    <td class="game-time"><strong>{{m.event.openDate | date:'HH:mm'}}</strong></td>
+                    <td class="eventDetail">
+                        <span>{{m.event.eventType.name}}</span>
+                        <img src="/public/images/arrow.png" />
+                        <a href="" ui-sref="base.home.sport.fullmarket({nodetype:4,id:m.eventId,marketid:m.id})"><strong>{{m.event.name}}</strong></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div ng-include="'sky/template/loader-center.html'"
+         ng-show="isRequestProcessing"
+         class="loader-div"></div>
+</div>

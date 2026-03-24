@@ -1,0 +1,310 @@
+﻿/// <reference path="../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+.tab::-webkit-scrollbar {
+    display: none;
+}
+
+.tab::-webkit-scrollbar-track {
+    display: none;
+}
+
+.tab::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+.tab {
+
+    @include respond-to2(medium-screens) {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    @include respond-to2(extra-medium-screens) {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    @include respond-to2(extra-small-screens) {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    @include respond-to2(handhelds) {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    .tabs-container {
+        //font: 12px Arial,Helvetica,sans-serif;
+        font-family: $font-stack;
+        font-size: $font-size;
+        color: $theme-secondary-color;
+        list-style-type: none;
+        @include padding(0px, 0px, 0px, 0px);
+        background-color: $payment-bg;
+
+        .tab-container {
+            @include display(inline-block);
+            background-color: $tab-color;
+            text-align: $text-center;
+            cursor: $cursor;
+            vertical-align: middle;
+            height: 35px;
+            border-top: 3px solid transparent !important;
+            @include border('right', 1px, solid, $gray-gains);
+
+            &:first-child {
+                @include border('left', 1px, solid, $gray-gains);
+            }
+
+            &:hover, &.active {
+                border-top: 3px solid $tab-top-color !important;
+                background-color: $white-color;
+            }
+
+            @include respond-to2(medium-screens) {
+                font-size: 12px;
+            }
+
+            @include respond-to2(extra-medium-screens) {
+                font-size: 12px;
+                background-size: 26px !important;
+            }
+
+            @include respond-to2(extra-small-screens) {
+                font-size: $font-size-tab;
+                background-size: 16px !important;
+            }
+
+            @include respond-to2(handhelds) {
+                font-size: $font-size-tab;
+                background-size: 16px !important;
+            }
+
+            .tab-heading {
+                margin: 0;
+                @include display(block);
+                @include padding(1px, 16px, 1px, 16px);
+                @include position(relative);
+                top: 50%;
+                transform: translateY(-50%);
+
+                .tab-icon {
+                    width: 14px;
+                    height: 16px;
+                    margin: 6px 6px 0 0;
+                    background-color: transparent;
+                }
+
+                .tab-label {
+                    color: $black-color;
+                    @include txt(bold);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+
+    .tab-desc {
+        padding-top: 5px;
+        background-color: $white-color;
+    }
+}
+
+.tab-title {
+    margin: 15px 0 0 0 !important;
+    @include padding(0px, 10px, 0px, 10px);
+    line-height: 25px;
+    @include txt(bold);
+    @include resize (left, $width);
+    @include headline($white-color, $font-size-tab );
+    background-color:$gray_black;
+    &.mr-top-0{margin-top:0px!important;}
+}
+
+/*  Accordian   */
+.accordion {
+    margin:5px!important;
+    height:100%;
+    .accordion-header {
+        background-color: $white-color;
+
+        .btn-link {
+            width: $width;
+            text-align: $float-left;
+            min-height:35px;
+            @include border(bottom, 1px, solid, $border-color);
+
+            &:hover {
+                text-decoration: none;
+                box-shadow: unset;
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: unset;
+            }
+        }
+
+        span {
+            font-size: 10px;
+            @include txt(bold)
+        }
+
+        time {
+            @include resize($float-left, $width);
+            color: $black-color;
+        }
+    }
+
+    .card {
+        margin-bottom: 4px;
+        @include position(relative);
+        @include resize($float-left, $width);
+        box-shadow: 1px 1px 3px 0px blue;
+    }
+
+    .accordion-body {
+        background-color: white;
+        @include padding(5px, 0px, 5px, 0px);
+
+        .left-column {
+            padding-right: 7px;
+        }
+
+        .right-column {
+            padding-left: 7px;
+        }
+
+        .cash-value {
+            font-size: 10px;
+
+            .check {
+                @include padding(0px, 5px, 0px, 0px);
+            }
+
+            .cash-btn {
+                width: 35%;
+                @include padding(3px, 5px, 3px, 5px);
+            }
+
+            .btn-cancle {
+                margin-left: 2px;
+            }
+        }
+
+        .other-market {
+            tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before {
+                left: 50%;
+                transform: translate(-50%, 50%);
+            }
+
+            thead {
+                .th-col {
+                    width: 65%;
+                }
+
+                .cashout {
+                    a {
+                        vertical-align: text-bottom;
+                        border: none;
+                        padding-right: 0px;
+
+                        .fa-circle {
+                            font-size: 6px;
+                            @include padding(2px, 2px, 2px, 2px);
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                #tr_inlinebet {
+                    .td-popup {
+                        .select-btn {
+                            width: 21%;
+                        }
+                    }
+
+                    .popup-list {
+                        a {
+                            height: 28px;
+                            width: 48.25px;
+                        }
+                    }
+                }
+            }
+
+            .session-runs {
+                background-color: transparent;
+
+                .td-left {
+                    @include resize($float-left, 63%);
+                    border: none;
+                    height: auto;
+                }
+
+                .td-right {
+                    @include resize($float-left, 37%);
+                    @include padding(0px, 0px, 0px, 0px);
+                    height: auto;
+                }
+
+                tr {
+                    @include resize($float-left, $width);
+                }
+
+                .session-table {
+                    tr {
+                        th {
+                            @include resize($float-left, 50%);
+                            text-align: center;
+                        }
+
+                        td {
+                            @include resize($float-left, 50%);
+                            text-align: center;
+                            @include line-height(28px);
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-score {
+            margin-bottom: 8px;
+
+            thead {
+            }
+
+            tr {
+                .match-title {
+                    width: 65%;
+                }
+            }
+        }
+
+        .view-more {
+            color: $black-color;
+            margin-bottom: 5px;
+        }
+    }
+
+    .accordion-header .btn-link::before {
+        content: "\f107";
+        font-family: 'FontAwesome';
+        @include position(absolute, top 3px right 10px);
+        font-size: 20px;
+        transition: all 0.5s;
+    }
+
+    .accordion-header .btn-link.collapsed::before {
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+    }
+}

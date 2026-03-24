@@ -1,0 +1,224 @@
+﻿<div class="my-bets">
+    <h1 class="event-heading">{{'mybets.label' | translate}}</h1>
+    <div class="row" style="height:90px; margin-top:10.5px;">
+        <div class="col-sm-3">
+            <a class="btn ac-btn align-l" ng-class="{'btn-primary':dataForCurrent}" ng-click="dataForCurrent=true">Current</a>
+            <a class="btn ac-btn align-l" style="margin-right:0px" ng-class="{'btn-primary':!dataForCurrent}" ng-click="dataForCurrent=false">Past</a>
+            <a class="btn ac-btn  ac-match align-l" ng-show="dataForCurrent" ng-class="{'btn-primary':betStatus==2}" ng-click="ctrl.betSideChanged(2)">Matched</a>
+            <a class="btn ac-btn ac-match align-l" style="margin-right:0px" ng-show="dataForCurrent" ng-class="{'btn-primary':betStatus==3}" ng-click="ctrl.betSideChanged(3)">Unmatched</a>
+        </div>
+        <div class="col-sm-9">
+            <div class="input-detail">
+                <div class="input-group">
+                    <label for="CreatedFrom">From</label>
+                    <input type="text" class="form-control" id="CreatedFrom"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+
+                <div class="input-group">
+                    <label for="CreatedTo">To</label>
+                    <input type="text" class="form-control" id="CreatedTo"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+
+                <a class="btn small-btn search_btn" style="margin-left:1px;" ng-click="ctrl.search()"><i class="fa fa-search"></i> {{'common.button.search' | translate}}</a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-if="betStatus ==3 && dataForCurrent" class="table-bets mybet-table ">
+        <kt-grid grid-id="kt-unmatchedbets-grid"
+                 load-items="ctrl.getUnmatchedBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 data-total="totalUnmatched"
+                 show-total="true"
+                 cache-key="ktunmatchedbetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="size-sm boolean" header-class="'size-sm boolean'" data-title="::'Placed' | translate">
+                            <div title="{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}" style="margin-top:10px">
+                                <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy"></kt-date>
+                            </div>
+                            <div class="my-date"><kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date></div>
+                        </td>
+                        <td data-header-class="'align-l'" class="align-l"
+                            data-title="::'Description' | translate">
+                            <div class="link_a">{{item.market.event.name}}</div>
+                            <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">
+                                    {{item.market.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                </strong>&nbsp;<div class="my-date float-l padding-l">{{item.market.name}}</div>
+                            </div>
+                            <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">{{item.runnerName}}</strong>&nbsp;
+                                <div class="my-date float-l padding-l">{{item.market.name}} # {{item.market.roundId}}</div>
+                            </div>
+                            <div>BetId: {{item.id}}</div>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'side.label' | translate">
+                            <span ng-show="item.market.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                            <span ng-show="item.market.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Odds' | translate">
+                            <span>
+                                {{item.market.bettingType==7 ? item.percentage : item.avgPrice}}
+                            </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Stake' | translate">
+                            <span title="{{item.sizeRemaining | toRate }}">{{item.sizeRemaining  | toRate}} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Liability' | translate"></td>
+                        <td header-class="'size-md align-r'" class="size-md align-r" data-title="::'Potential Profit' | translate">
+                            <span ng-show="item.market.bettingType!=7">{{(item.side==1 ? ((item.avgPrice-1)*item.sizeRemaining) : item.sizeRemaining) | toRate}}</span>
+                            <span ng-show="item.market.bettingType==7">
+                                {{(item.sizeRemaining*item.percentage)/100 | toRate}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+    <div ng-if="betStatus ==2 && dataForCurrent" class="table-bets mybet-table ac-mybet">
+        <kt-grid grid-id="kt-matchedbets-grid"
+                 load-items="ctrl.getMatchedBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 data-total="totalMatched"
+                 show-total="true"
+                 cache-key="ktmatchedbetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover"
+                   template-pagination="{{ :: paginationUrl }}">
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="size-sm boolean" header-class="'size-sm boolean'" data-title="::'Placed' | translate">
+                            <div title="{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}" style="margin-top:10px">
+                                <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy"></kt-date>
+                            </div>
+                            <div class="my-date"><kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date></div>
+                        </td>
+                        <td data-header-class="'align-l'" class="align-l"
+                            data-title="::'Description' | translate">
+                            <div class="link_a">{{item.market.event.name}}</div>
+                            <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">
+                                    {{item.market.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                </strong>&nbsp;<div class="my-date float-l padding-l">{{item.market.name}}</div>
+                            </div>
+                            <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">{{item.runnerName}}</strong>&nbsp;
+                                <div class="my-date float-l padding-l"> {{item.market.name}} # {{item.market.roundId}}</div>
+                            </div>
+                            <div>BetId: {{item.id}} | Matched: {{(item.updatedOn ? item.updatedOn : item.createdOn) | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'side.label' | translate">
+                            <span ng-show="item.market.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                            <span ng-show="item.market.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Odds' | translate">
+                            <span>
+                                {{item.market.bettingType==7 ? item.percentage : item.avgPrice}}
+                            </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Stake' | translate">
+                            <span title="{{item.sizeMatched | toRate }}">{{item.sizeMatched  | toRate}} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Liability' | translate"></td>
+                        <td header-class="'size-md align-r'" class="size-md align-r" data-title="::'Potential Profit' | translate">
+                            <span ng-show="item.market.bettingType!=7">{{(item.side==1 ? ((item.avgPrice-1)*item.sizeMatched) : item.sizeMatched) | toRate}}</span>
+                            <span ng-show="item.market.bettingType==7">
+                                {{(item.sizeMatched*item.percentage)/100 | toRate}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+
+    <div class="table-bets mybet-table" ng-if="!dataForCurrent">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getHistoryBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td class="size-sm boolean" header-class="'size-sm boolean'" data-title="::'Settled' | translate">
+                            <div title="{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}}" style="margin-top:10px">
+                                <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy"></kt-date>
+                            </div>
+                            <div class="my-date"><kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date></div>
+                        </td>
+                        <td data-header-class="'align-l'" class="align-l"
+                            data-title="::'Description' | translate">
+                            <div class="link_a">{{item.market.event.name}}</div>
+                            <div ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">
+                                    {{item.market.bettingType==7 ? item.avgPrice : ''}} {{item.runnerName}}
+                                </strong><div class="my-date padding-l float-l">{{item.market.name}}</div>
+                            </div>
+                            <div ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                <strong class="float-l">{{item.runnerName}}</strong>
+                                <div class="my-date padding-l float-l">
+                                    {{item.market.name}} # {{item.market.roundId}}
+                                </div>
+                            </div>
+                            <div class="float-l">BetId: {{item.id}} | Placed: {{(item.updatedOn ? item.updatedOn : item.createdOn) | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'side.label' | translate">
+                            <span ng-show="item.market.bettingType!=7">{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                            <span ng-show="item.market.bettingType==7">{{item.side==1 ? 'Yes' : 'No'}}</span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Odds' | translate">
+                            <span>
+                                {{item.market.bettingType==7 ? item.percentage : item.avgPrice}}
+                            </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Stake' | translate">
+                            <span title="{{item.sizeMatched | toRate }}" ng-if="item.sizeMatched>0 ">{{item.sizeMatched  | toRate}} </span>
+                            <span title="{{item.sizeCancelled | toRate }}" ng-if="item.sizeCancelled>0 && item.sizeMatched<=0">{{item.sizeCancelled  | toRate}} </span>
+                            <span title="{{item.sizeVoided | toRate }}" ng-if="item.sizeVoided>0 && item.sizeMatched<=0">{{item.sizeVoided  | toRate}} </span>
+                        </td>
+                        <td header-class="'size-md boolean'" class="size-md boolean bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}"
+                            data-title="::'Profit/Loss' | translate">
+                            <span>{{item.pl | toRate}}</span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Status' | translate"
+                            ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                            <span class="negative bold" ng-show="item.isDelete">VOID
+                                <span ng-if="item.referenceText" title="{{item.referenceText}}"><i class="fa fa-info-circle red" style="cursor:pointer;"></i></span></span>
+                            <span class="negative bold" ng-show="(item.sizeCancelled>0 || item.sizeVoided>0) && item.sizeMatched<=0 && !item.isDelete">CNL</span>
+                            <span ng-show="item.sizeMatched>0 && !item.isDelete" class="bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                                {{item.pl>0 ? 'WON' : 'LOST'}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

@@ -1,0 +1,360 @@
+﻿<div class="runner content-width">
+    <div class="market-details" ng-repeat="market in feedMarkets" style="margin-bottom:10px">
+        <div class="market-detail">
+            <h3 class="black-back">
+                <i class="fa fa-thumb-tack add-pin-square pinned" ng-click="ctrl.removeMarketPin(market.id)"></i>
+                <span class="to-expand">
+                    {{market.name}}
+                    <span ui-sref="book.base.feed.sport({nodetype: 4, id: market.eventId})" class="multi-event_type">{{market.event.name}}</span>
+                </span>
+                <a class="refresh"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                <i class="fa faimg fa-external-link" ng-click="ctrl.openFullFeedView($event,market.id)"></i>
+
+            </h3>
+        </div>
+        <div class="fixed-odd-container" ng-scrollbars ng-if="market.bettingType==6 || market.bettingType==8">
+            <table ng-repeat="r in market.marketRunner" class="fixed-odd-table">
+                <tbody>
+                    <tr>
+                        <td class="runner-name" colspan="4">
+                            {{r.runner.name}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="p in r.priceList | filter:{deleted:false}">
+                        <td class="icon">
+                            <a ng-click="ctrl.removePrice(r,$index)">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <kt-price-ladder data-min="{{market.minUnitValue}}"
+                                             data-max="{{market.maxUnitValue}}"
+                                             data-interval="{{market.interval}}"
+                                             data-ladder-type="{{market.priceLadderType}}"
+                                             data-show-toast="true"
+                                             data-disable-arrow="true"
+                                             data-value="p.price">
+                            </kt-price-ladder>
+                        </td>
+                        <td>
+                            <input type="text" minlength="1" maxlength="20"
+                                   autocomplete="off" kt-number-only
+                                   placeholder="{{::'stake.label' | translate}}"
+                                   ng-model="p.size" />
+                        </td>
+                        <td class="icon">
+                            <a ng-if="$last" ng-click="ctrl.addNewPrice(r)">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a class="save_btn btn btn-primary" ng-click="ctrl.saveFeed(r,market.id)">save</a>
+                        </td>
+                        <td colspan="2">
+                            <a class="reset_btn btn btn-secondary" ng-click="ctrl.resetFeed(r)">reset</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-if="market.bettingType==7 || market.bettingType==2" style="display:inline-block">
+            <div class="col-sm-7" style="border-right:1px solid #808080;height:395px" ng-scrollbars>
+                <div class="feed-market">
+                    <div class="input-container">
+                        <div class="input-group">
+                            <span class="input-group-addon">From</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   placeholder="from price" class="form-control"
+                                   ng-model="market.from" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">To</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   placeholder="to price" class="form-control"
+                                   ng-model="market.to" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Back</span>
+                            <input type="text" minlength="1" maxlength="20"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   placeholder="back size" class="form-control"
+                                   ng-model="market.backSize" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Lay</span>
+                            <input type="text" minlength="1" maxlength="20"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   placeholder="lay size" class="form-control"
+                                   ng-model="market.laySize" />
+                        </div>
+                    </div>
+                    <div class="start-bar">
+                        <form name="session_odds_{{$index}}" ng-submit="ctrl.submitBet(market);">
+                            <div class="input-group">
+                                <span class="input-group-addon">Price</span>
+                                <input type="text" minlength="1" maxlength="12"
+                                       autocomplete="off"
+                                       placeholder="price" class="form-control start-input"
+                                       ng-model="market.priceValue" ng-change="ctrl.onChangePrice(market);" />
+
+                            </div>
+                            <button class="btn btn-primary start-btn"
+                                    ng-disabled="!market.priceValue"
+                                    type="submit">
+                                Start
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div ng-if="market.betModel">
+                    <span ng-if="market.betModel.backPrice">Back Price : {{market.betModel.backPrice}} ({{market.betModel.backPercentage}}%)</span>
+                    <span ng-if="market.betModel.layPrice">Lay Price : {{market.betModel.layPrice}} ({{market.betModel.layPercentage}}%)</span>
+                </div>
+
+                <div class="market-detail">
+                    <table class="team-score">
+                        <tbody ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                            <tr class="bet-all">
+                                <td class="refer-bet">
+                                </td>
+                                <td class="refer-bet" colspan="2"></td>
+                                <td class="lay-all bold"><a><span>{{'market.no.label' | translate}}</span></a></td>
+                                <td class="back-all bold"><a><span>{{'market.yes.label' | translate}}</span></a></td>
+                                <td class="refer-book" colspan="2"></td>
+                            </tr>
+                            <tr class="tr-data" id="tr_{{market.id}}_{{r.runner.id}}" style="display: table-row;" ng-repeat="r in market.marketRunner">
+                                <th class="team-name">
+                                    <p>{{r.runner.name}}</p>
+                                    <span ng-if="r.pl" ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">{{r.pl}}</span>
+                                </th>
+                                <td colspan="6" ng-if="r.status!=1"><span >{{market.winner}}</span></td>
+                                <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[i-1].size" ng-repeat="i in [3,2,1]">
+                                    <kt-glc data-item="r.layPrice[i-1]"></kt-glc>
+                                </td>
+                                <td ng-if="r.status==1" class="back-{{i}}" kt-animate-on-change="r.backPrice[$index].size" ng-repeat="i in [1,2,3]">
+                                    <kt-glc data-item="r.backPrice[$index]"></kt-glc>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-sm-5">
+                <div class="col-sm-5 runner-right" ng-scrollbars ng-scrollbars-update=market.updateScrollbar>
+                    <div class="run_matched position_match" ng-if="market.bets">
+                        <div class="black-back">
+                            Position
+                        </div>
+                        <div class="position" ng-repeat="p in market.position"
+                              ng-class="{'position-animation':p.start <= market.betModel.backPrice && (market.betModel.backPrice <= p.end || p.end == 0) || p.start <= market.betModel.layPrice && (market.betModel.layPrice <= p.end || p.end == 0)}">
+                            <span>{{p.start +' '+ (p.start==p.end || $last ? '' : ' - '+p.end)+' '+($last ? '+' : '') }}</span>
+                            <span class="p_value" title="{{p.pl }}" ng-class="{'positive':p.pl>=0,'negative':p.pl<0}">{{p.pl }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7 runner-right " ng-scrollbars ng-if="market.bets.length>0">
+                    <div class="run_matched ">
+                        <h3 class="black-back">
+                            {{'unmatched.label' | translate}}
+                        </h3>
+                        <div ng-class="{'back-2':bet.side==1,'lay-2':bet.side==2}" ng-repeat="bet in market.bets | betFilter:'sizeRemaining'">
+                            <a class="delete" ng-click="ctrl.cancelBet(bet.id)">delete</a>
+                            <!--  <span class="back-btn" ng-if="bet.side==1">Back</span>
+                             <span class="lay-btn" ng-if="bet.side==2">Lay</span>-->
+                            <div class="match_run">
+                                <span class="match_name">{{bet.runnerName }}</span>
+                                <div class="bet_price">
+                                    <span>{{bet.price }}</span>
+                                    <span>{{bet.sizeRemaining | toRate}}</span>
+                                    <div class="bet-time ">{{bet.createdOn | date:'HH:mm' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="run_matched  matched">
+                        <h3 class="black-back">
+                            {{'matched.label' | translate}}
+                        </h3>
+                        <div ng-class="{'back-2':bet.side==1,'lay-2':bet.side==2}" ng-repeat="bet in market.bets | betFilter:'sizeMatched'">
+                            <div class="match_run">
+                                <span>{{bet.runnerName }}</span>
+                                <div class="bet_price">
+                                    <span>{{bet.price }}</span>
+                                    <span>{{bet.sizeMatched | toRate}}</span>
+                                    <div class="bet-time ">{{bet.createdOn | date:'HH:mm' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="market.bettingType==1 || market.bettingType==9 || market.bettingType==5" style="display:inline-block">
+            <div class="col-sm-7" style="border-right:1px solid #808080;height:395px" ng-scrollbars>
+                <div class="feed-market">
+                    <div class="input-container">
+                        <div class="input-group">
+                            <span class="input-group-addon">From</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   placeholder="from price" class="form-control"
+                                   ng-model="market.from" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">To</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   placeholder="to price" class="form-control"
+                                   ng-model="market.to" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Back</span>
+                            <input type="text" minlength="1" maxlength="20"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   placeholder="back size" class="form-control"
+                                   ng-model="market.backSize" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Lay</span>
+                            <input type="text" minlength="1" maxlength="20"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   placeholder="lay size" class="form-control"
+                                   ng-model="market.laySize" />
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div class="input-group">
+                            <span class="span-check">
+                                <input type="checkbox" id="chk_consider{{market.id}}" ng-model="market.considerLevel" />
+                                <label for="chk_consider{{market.id}}">Consider %</label>
+                            </span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">1st %</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   class="form-control" value="50"
+                                   ng-model="market.level1" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">2nd %</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   class="form-control" value="30"
+                                   ng-model="market.level2" />
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">3rd %</span>
+                            <input type="text" minlength="1" maxlength="10"
+                                   autocomplete="off" kt-number-only
+                                   class="form-control" value="20"
+                                   ng-model="market.level3" />
+                        </div>
+                    </div>
+                    <div class="start-bar">
+                        <form name="match_odds_{{$index}}" ng-submit="ctrl.submitOdds(market);">
+                            <div ng-repeat="r in market.marketRunner">
+                                <div class="input-group">
+                                    <span class="input-group-addon">{{r.runner.name}}</span>
+                                    <input type="text" minlength="1" maxlength="10"
+                                           autocomplete="off"
+                                           placeholder="price" class="form-control start-input"
+                                           ng-model="r.priceValue" ng-change="ctrl.onRunnerPriceChange(r);" />
+
+                                </div>
+                            </div>
+                            <button class="btn btn-primary start-btn" type="submit">
+                                Start
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div ng-repeat="r in market.marketRunner">
+                    <div ng-if="r.betModel">
+                        {{r.runner.name}} -
+                        <span ng-if="r.betModel.backPrice">Back Price : {{r.betModel.backPrice ? (((r.betModel.backPrice-1)*1000)/10 | ktNumber:1 ) : r.betModel.backPrice}}</span>
+                        <span ng-if="r.betModel.layPrice">Lay Price : {{ r.betModel.layPrice ? (((r.betModel.layPrice-1)*1000)/10 | ktNumber:1 ) : r.betModel.layPrice}}</span>
+                    </div>
+                </div>
+                <div class="market-detail">
+                    <table class="team-score">
+                        <tbody ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                            <tr class="bet-all">
+                                <td class="refer-bet">
+                                </td>
+                                <td class="refer-bet" colspan="2"></td>
+                                <td class="back-all bold"><a><span>{{'market.back.label' | translate}}</span></a></td>
+                                <td class="lay-all bold"><a><span>{{'market.lay.label' | translate}}</span></a></td>
+                                <td class="refer-book" colspan="2"></td>
+                            </tr>
+                            <tr class="tr-data" id="tr_{{market.id}}_{{r.runner.id}}" style="display: table-row;" ng-repeat="r in market.marketRunner">
+                                <th class="team-name">
+                                    <p>{{r.runner.name}}</p>
+                                    <span ng-if="r.pl" ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">{{r.pl }}</span>
+                                </th>
+                                <td colspan="6" ng-if="r.status!=1"><span ng-if="r.status==2">{{'winner.label'|translate}}</span></td>
+                                <td ng-if="r.status==1" class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                                    ng-repeat="i in [3,2,1]">
+                                    <kt-glc data-item="r.backPrice[i-1]" data-is-bm="true"></kt-glc>
+                                </td>
+                                <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                                    ng-repeat="i in [1,2,3]">
+                                    <kt-glc data-item="r.layPrice[$index]" data-is-bm="true"></kt-glc>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="col-sm-12 runner-right " ng-scrollbars ng-if="market.bets.length>0">
+                    <div class="run_matched unmatch">
+                        <h3 class="black-back">
+                            {{'unmatched.label' | translate}}
+                        </h3>
+                        <div ng-class="{'back-2':bet.side==1,'lay-2':bet.side==2}" ng-repeat="bet in market.bets | betFilter:'sizeRemaining'">
+                            <a class="delete" ng-click="ctrl.cancelBet(bet.id)">delete</a>
+                            <div class="match_run">
+                                <span class="match_name">{{bet.runnerName }}</span>
+                                <div class="bet_price">
+                                    <span>{{bet.price }}</span>
+                                    <span class="bet_stake">{{bet.sizeRemaining | toRate}}</span>
+                                    <div class="bet-time ">{{bet.createdOn | date:'HH:mm' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="run_matched matched_right">
+                        <h3 class="black-back">
+                            {{'matched.label' | translate}}
+                        </h3>
+                        <div ng-class="{'back-2':bet.side==1,'lay-2':bet.side==2}" ng-repeat="bet in market.bets | betFilter:'sizeMatched'">
+                            <div class="match_run">
+                                <span class="match_name">{{bet.runnerName }}</span>
+                                <div class="bet_price">
+                                    <span>{{bet.price }}</span>
+                                    <span class="bet_stake">{{bet.sizeMatched | toRate}}</span>
+                                    <div class="bet-time ">{{bet.createdOn | date:'HH:mm' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

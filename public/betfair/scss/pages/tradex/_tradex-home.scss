@@ -1,0 +1,620 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.tradex-page {
+    .mCSB_dragger_bar {
+        background-color: white !important;
+    }
+
+    .tradex-top {
+        background-color: $tradex-bg;
+        @include resize($float-left, $width);
+        color: $white-color;
+        @include padding(15px, 0, 10px, 0);
+
+        .tradex-logo {
+            img {
+                width: $width;
+            }
+        }
+
+        .menu-info {
+            @include padding(0px, 5px, 0px, 5px);
+            width: 14%;
+            @include border(right, 1px, solid, $tradex-headerborder);
+
+            &:last-child {
+                border-right: none;
+            }
+
+            .sensex-menu {
+                @include resize($float-left, 100%);
+                @include position(relative);
+                @include display(inline-block);
+                text-align: $text-center;
+
+                .sensex-text {
+                    @include headline(#5b6c7c, 14px);
+                    text-transform: capitalize;
+                    letter-spacing: 1px;
+                    text-align: $text-center;
+                    width: $width;
+                }
+
+                .sensex-value {
+                    @include resize($float-left, $width);
+                    font-size: 12px;
+                    text-align: $text-center;
+                    letter-spacing: 1px;
+                    margin-top: 3px;
+
+                    span {
+                        @include resize($float-left, $width);
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+
+        .right-icon {
+            padding-left: 0px;
+
+            a {
+                @include padding(10px, 16px, 10px, 16px);
+                line-height: 40px;
+                @include border-radius(100%);
+                background-color: $tradex-icon-bg;
+            }
+
+            .plus {
+                @include padding(10px, 13px, 10px, 13px);
+            }
+
+            .bell {
+                @include padding(9px, 11px, 9px, 11px);
+            }
+
+            .fa {
+                @include headline($tradex-icon, 18px);
+            }
+
+            .plus:hover, .bell:hover, .inr:hover {
+                background-color: $tradex-icon;
+
+                .fa {
+                    color: $tradex-icon-bg;
+                }
+            }
+
+            .icon-div {
+                @include resize($float-left, auto);
+                @include position(relative);
+                margin-right: 15px;
+                @include display(inline-block);
+            }
+
+            .tradex-dropdown {
+                right: -15px;
+                left: inherit;
+                top: 45px;
+
+                a {
+                    background-color: transparent;
+                    border-radius: inherit;
+                    line-height: 20px;
+                }
+            }
+
+            .tradex-dropdown::before {
+                content: '\25b2';
+                @include display(block);
+                margin-top: -6px;
+                @include position(absolute);
+                right: 27px;
+                top: -8px;
+                color: $white-color;
+            }
+        }
+    }
+
+    .tradex-main {
+        .tradex-left {
+            @include padding(0px, 5px, 0px, 10px);
+
+            .tradex-table {
+                height: calc(103vh - 154px);
+            }
+        }
+
+        .tradex-right {
+            @include padding(0px, 10px, 0px, 5px);
+
+            .tradex-table {
+                height: 283px;
+
+                .list-view-table {
+                    min-width: 1360px;
+                }
+            }
+        }
+
+        .tradex-info {
+            margin-top: 10px;
+            color: $white-color;
+            background-color: $tradex-table-bg;
+            @include border-all(2px, solid, $tradex-border);
+            @include resize($float-left, $width);
+        }
+
+        .info-header {
+            @include resize($float-left, $width);
+            @include padding(10px, 0, 10px, 0);
+
+            button {
+                background-color: transparent;
+                text-transform: uppercase;
+                @include border-all(1px, solid, $tradex-border);
+                font-size: 13px;
+                @include padding(3px, 20px, 3px, 20px);
+            }
+
+            .square-off {
+                color: $gray;
+            }
+
+            .btns {
+                @include resize($float-left, auto);
+            }
+
+            .plus-btn {
+                @include position(relative);
+                @include display(inline-block);
+
+                .tradex-dropdown {
+                    right: -75px;
+                    background-color: $white-smoke;
+                    top: 29px;
+                    left: inherit;
+                    width: 350px;
+                }
+
+                .tradex-dropdown::before {
+                    content: '\25b2';
+                    @include display(block);
+                    margin-top: -6px;
+                    @include position(absolute);
+                    right: 76px;
+                    top: -11px;
+                    color: $white-color;
+                }
+
+                .menu-name {
+                    background-color: $light-gray;
+                    @include padding(10px, 10px, 10px, 10px);
+
+                    a {
+                        @include padding(0px, 0px, 0px, 0px);
+                        border-bottom: 1px solid $tradex-border !important;
+                        text-transform: uppercase;
+                    }
+
+                    &:hover a {
+                        color: $tradex-text !important;
+                    }
+                }
+            }
+        }
+
+        .tradex-table {
+            table {
+                //    min-width:100%;
+                width: $width;
+                flex-flow: column nowrap;
+                min-width: 100%;
+            }
+        }
+    }
+}
+
+.header-btn {
+    line-height: 28px;
+
+    .header-fa {
+        margin-left: 18px;
+        @include headline($tradex-icon, 20px);
+    }
+}
+
+// box header menu
+.menu-div {
+    @include resize($float-left, auto);
+    @include position(relative);
+    margin-right: 15px;
+    @include display(inline-block);
+    line-height: 28px;
+
+    .drp-title {
+        text-transform: uppercase;
+        color: $white-color;
+
+        .drp-fa {
+            margin-left: 8px;
+            font-size: 18px;
+        }
+
+        &:hover {
+            background-color: transparent;
+            color: none;
+        }
+    }
+
+    .tradex-dropdown {
+        left: -9px;
+        top: 24px;
+        width: 225px;
+    }
+}
+
+// search symbols
+.menu-search {
+    @include border(bottom, 1px, solid, $tradex-icon);
+    @include padding(5px, 0px, 5px, 0px);
+
+    input {
+        border: none;
+        width: 87.5%;
+        height: 30px;
+        padding-left: 10px;
+    }
+
+    .fa {
+        font-size: 13px;
+        margin: 5px 6px 5px 8px;
+        color: $black-color;
+    }
+}
+
+/*  =====  dropdown menu  =====  */
+.tradex-dropdown {
+    display: none;
+    background-color: $white-color;
+    @include position(absolute);
+    right: -15px;
+    top: 48px;
+    z-index: 1;
+    width: 200px;
+    cursor: $cursor;
+
+    .editable {
+        &:hover {
+            background-color: $tradex-menuhover-bg;
+
+            .just-a, .watchlist-a {
+                color: $tradex-menuhover !important;
+            }
+        }
+    }
+
+    .just-a {
+        @include padding(10px, 20px, 10px, 20px);
+        @include border(bottom, 1px, solid, $tradex-icon);
+        background-color: transparent;
+        border-radius: inherit;
+        line-height: 20px;
+        @include resize($float-left, $width);
+        color: $tradex-text;
+        text-transform: capitalize;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: $tradex-menuhover-bg !important;
+            color: $tradex-menuhover;
+        }
+    }
+
+    .watchlist-a {
+        @include padding(10px, 10px, 10px, 10px);
+        border-bottom: none;
+        color: $tradex-text;
+        @include resize($float-left, auto);
+        text-transform: uppercase;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .watchlist-div {
+        @include resize($float-left, $width);
+        @include border(bottom, 1px, solid, $tradex-icon);
+
+        .menu-edit {
+            float: right;
+
+            .fa {
+                padding: 0px !important;
+                width: auto !important;
+                margin: 0 5px 0 0 !important;
+                line-height: 39px;
+                @include headline(#e0e0e0, 15px);
+            }
+        }
+    }
+
+
+
+    .editbox {
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        @include border(bottom, 1px, solid, $black-color);
+        margin-top: 4px;
+    }
+}
+
+.plus-btn-a {
+    @include padding(8px, 10px, 6px, 10px);
+    color: $tradex-text;
+    border-bottom: none;
+    background-color: transparent;
+    border-radius: inherit;
+    line-height: 20px;
+    @include resize($float-left, auto);
+    text-transform: capitalize;
+
+    &:hover {
+        background-color: transparent !important;
+    }
+
+    p {
+        text-transform: uppercase;
+        margin-bottom: 0px;
+    }
+}
+
+.add-btn, .remove-btn {
+    @include resize(right, 130px);
+    border: 1px solid $tradex-text !important;
+    text-transform: uppercase;
+    padding: 4px 35px !important;
+    @include border-radius(4px);
+    margin: 10px 10px 0 0;
+}
+
+.add-btn {
+    color: $tradex-text !important;
+}
+
+.remove-btn {
+    border: 1px solid $red-color !important;
+    color: $red-color !important;
+}
+
+.plus-btn-div {
+    @include resize($float-left, $width);
+    @include border(bottom, 1px, solid, $tradex-icon);
+    font-size: 13px;
+}
+
+.menu-heading {
+    background-color: #F4F4F4;
+    text-transform: uppercase;
+    color: $tradex-text;
+    @include padding(10px, 10px, 10px, 10px);
+    @include display(block);
+
+    .fa {
+        margin-left: 5px;
+        font-size: 18px;
+    }
+}
+
+/* ======  Table formate  ======*/
+
+.tradex-table {
+    background-color: $tradex-table-bg !important;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 0;
+    @include position(relative);
+    width: $width;
+
+    table {
+        font-size: 13px;
+        text-transform: uppercase;
+
+        tr {
+            display: flex;
+        }
+
+        thead {
+            background-color: $tradex-table-th !important;
+            width: $width;
+            @include display(block);
+
+            th {
+                @include txt(normal);
+                @include padding(10px, 10px, 10px, 10px);
+                color: $gray;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                flex: 1;
+                @include display(inline-block);
+            }
+        }
+
+        tbody {
+            width: $width;
+            @include display(block);
+
+            tr {
+                cursor: $cursor;
+
+                &:hover {
+                    background-color: $tradex-hover-tr;
+                }
+
+                td {
+                    @include padding(10px, 15px, 10px, 15px);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    flex: 1;
+                    @include display(inline-block);
+                }
+            }
+
+            tr:nth-child(even) {
+                background: $tradex-table-tr;
+            }
+
+            tr:nth-child(even):hover {
+                background-color: $tradex-hover-tr;
+            }
+        }
+
+        .tradex-footer {
+            @include border(top, 2px, solid, $white-color);
+            @include display(block);
+            width: $width;
+
+            tr {
+                td {
+                    @include padding(10px, 15px, 10px, 15px);
+                }
+            }
+        }
+
+        .td-symbol {
+            overflow: hidden;
+            @include display(inline-block);
+            text-overflow: ellipsis;
+            @include padding(0px, 15px, 0px, 15px);
+            white-space: nowrap;
+
+            span {
+                line-height: 0px;
+            }
+        }
+
+        .size-xxs,
+        .size-xs,
+        .size-sm,
+        .size-md,
+        .size-lg,
+        .size-xl {
+            min-width: 0;
+            -ms-flex: 0 0 auto;
+            -webkit-flex: 0 0 auto;
+            flex: 0 0 auto;
+        }
+
+        .size-xxs {
+            width: 25px;
+        }
+
+        .size-xs {
+            width: 50px;
+        }
+
+        .size-sm {
+            width: 100px;
+        }
+
+        .size-md {
+            width: 150px;
+        }
+
+        .size-lg {
+            width: 200px;
+        }
+
+        .size-xl {
+            width: 300px;
+        }
+
+        .label {
+            font-size: $width;
+        }
+
+        .show-from-md {
+            display: none;
+
+            @include respond-to('md') {
+                @include display(block);
+            }
+        }
+    }
+
+    .table-info {
+        @include padding(10px, 10px, 10px, 10px);
+        text-align: $text-center;
+    }
+}
+
+
+/* ======  search   ====== */
+
+.search-result {
+    @include position(relative);
+    @include resize($float-left, $width);
+
+    .fa-close {
+        margin-top: -19px;
+         @include position(absolute);
+        float: right;
+        right: 0;
+        font-style: italic;
+        cursor:pointer;
+    }
+
+    input {
+        @include border(bottom, 1px, solid, $white-color);
+        width: $width;
+        color: $white-color !important;
+        height: 27px;
+        background: transparent;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+    }
+}
+
+.search-droplist {
+    background-color: #f9f9f9;
+    @include position(absolute);
+    display: none;
+    width: $width;
+    top: 28px;
+    z-index: 1;
+
+    &.show {
+        @include display(block);
+    }
+}
+
+.row-drpmenu {
+    padding: 0px !important;
+    min-width: 50px !important;
+    border: 1px solid #fff !important;
+
+    li {
+        @include resize($float-left, $width);
+
+        a {
+            padding: 8px 10px !important;
+            @include border(bottom, 1px, solid, $tradex-border);
+            color: $tradex-text !important;
+
+            &:hover {
+                background-color: #152738 !important;
+                color: $tradex-menuhover !important;
+            }
+        }
+    }
+}

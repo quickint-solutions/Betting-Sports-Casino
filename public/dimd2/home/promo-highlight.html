@@ -1,0 +1,302 @@
+﻿<div>
+    <div class="home-container">
+        <div class="point-middle home-new">
+            <div role="region" aria-busy="false" class="carousel slide" id="home-banner">
+                <div role="list" class="carousel-inner">
+                    <div class="carousel-item carousal-23 active" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710679375589.jpeg&quot;);" id="__BVID__19695">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695652955019.jpg&quot;);" id="__BVID__19696">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1709619091413.jpeg&quot;);" id="__BVID__19697">
+                    </div>
+                    <div class="carousel-item carousal-23 " style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710849675236.jpeg&quot;);" id="__BVID__19698">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1710318466122.jpeg&quot;);" id="__BVID__19699">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1705578979646.jpeg&quot;);" id="__BVID__19700">
+                    </div>
+                    <div class="carousel-item carousal-23 " style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1706111965529.jpg&quot;);" id="__BVID__19701">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1702976110867.png&quot;);" id="__BVID__19702">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691862501.jpeg&quot;);" id="__BVID__19703">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691692740.jpeg&quot;);" id="__BVID__19704">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695653016735.jpg&quot;);" id="__BVID__19705">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701581279287.jpeg&quot;);" id="__BVID__19706">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691918109.jpeg&quot;);" id="__BVID__19707">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1701691934333.jpeg&quot;);" id="__BVID__19708">
+                    </div>
+                    <div class="carousel-item carousal-23" style="background: url(&quot;{{imagePath}}images/{{currentWebApp}}/banners/1695652973799.jpg&quot;);" id="__BVID__19709">
+                    </div>
+                </div>
+                <a role="button" class="carousel-control-prev" aria-controls="__BVID__19694___BV_inner_">
+                    <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+                    <span class="sr-only">Previous slide</span>
+                </a>
+                <a role="button" class="carousel-control-next" aria-controls="__BVID__19694___BV_inner_">
+                    <span aria-hidden="true" class="carousel-control-next-icon"></span>
+                    <span class="sr-only">Next slide</span>
+                </a>
+            </div>
+            <div class="sport-tabs">
+                <a href="javascript:void(0)" class="arrow-tabs arrow-left">
+                    <img ng-src="/public/images/{{currentWebApp}}/arrow-down.svg" alt="arrow down">
+                </a>
+                <ul id="taj_home_sports_list" class="nav nav-tabs">
+                    <li class="nav-item" ng-repeat="e in sports">
+                        <a ng-click="$parent.selectedEventTypeName=e.id" ng-class="{'active':selectedEventTypeName==e.id}"
+                           class="nav-link sport{{e.sourceId}}" ng-hide="e.id==horseId || e.id==greyhoundId">
+                            <i class="d-icon icon-{{e.sourceId}}"></i>
+                            <span>{{e.name}}</span>
+                        </a>
+                        <a ng-click="$parent.selectedEventTypeName=e.id;ctrl.getRacesGroup(e.id)" ng-class="{'active':selectedEventTypeName==e.id}"
+                           class="nav-link sport{{e.sourceId}}" ng-show="e.id==horseId || e.id==greyhoundId">
+                            <i class="d-icon icon-{{e.sourceId}}"></i>
+                            <span>{{e.name}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-15"></i> <span>Basketball</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-58"></i> <span>American Football</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-18"></i> <span>Volleyball</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-22"></i> <span>Badminton</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-59"></i> <span>Snooker</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-19"></i> <span>Ice Hockey</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-11"></i> <span>E Games</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-9"></i> <span>Futsal</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-52"></i> <span>Motor Sports</span></a></li>
+                    <li class="nav-item"><a href="javascript:void(0)" id="" class="nav-link sport4"><i class="d-icon icon-39"></i> <span>Handball</span></a></li>
+                </ul>
+                <a href="javascript:void(0)" class="arrow-tabs arrow-right">
+                    <img ng-src="/public/images/{{currentWebApp}}/arrow-down.svg" alt="arrow down">
+                </a>
+            </div>
+
+            <div ng-if="selectedEventTypeName!=horseId && selectedEventTypeName!=greyhoundId">
+                <div class="bet-table"
+                     ng-show="(popularMarkets | filter:{eventTypeId:selectedEventTypeName}).length<=0 && !isRequestProcessing">
+                    <div class="bet-table-header nodata">
+                        No Data Found...
+                    </div>
+                </div>
+                <div class="bet-table" ng-repeat="s in sports | filter:{id:selectedEventTypeName}"
+                     ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0 && !isRequestProcessing">
+                    <div class="bet-table-header sport{{s.sourceId}}">
+                        <div class="game-title">
+                            <i class="d-icon icon-{{s.sourceId}}"></i>
+                            <span>{{s.name}}</span>
+                        </div>
+                        <div class="point-title">1</div>
+                        <div class="point-title">X</div>
+                        <div class="point-title">2</div>
+                    </div>
+                    <div class="bet-table-body">
+                        <div class="bet-table-box" ng-repeat="h in (popularMarkets | filter:{eventTypeId:s.id})">
+                            <div class="bet-table-row">
+                                <div class="game-title">
+                                    <div class="game-date inplay" ng-if="h.inPlay"><span>Live</span></div>
+                                    <div class="game-date" ng-if="!h.inPlay">
+                                        <p class="day text-left">{{h.event.openDate | date:'dd MMM'}}</p>
+                                        <p class="mb-0 day text-left">{{h.event.openDate | date:'HH:mm'}}</p>
+                                    </div>
+                                    <div class="game-name d-inline-block">
+                                        <a href="javascript:void(0);" role="button">
+                                            <p class="team-name text-left">
+                                                {{h.event.name}}
+                                            </p>
+                                            <p class="team-name text-left team-event" ng-if="h.event.competitionName">
+                                                ({{h.event.competitionName}})
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div class="game-icons">
+                                        <div class="game-icon" ng-if="h.hasFancy"><span class="f-bm-icon">F</span></div>
+                                        <div class="game-icon" ng-if="h.hasFancy"><span class="f-bm-icon">BM</span></div>
+                                        <div class="game-icon" ng-if="h.hasVideo"><i class="icon-tv d-icon"></i></div>
+                                    </div>
+                                </div>
+                                <div class="point-title" ng-init="m0 = h.marketRunner[0]"
+                                     ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                    <div class="back bl-box" role="button" kt-animate-on-change="m0.backPrice[0].price" kt-click>
+                                        <span class="d-block odds">{{m0.backPrice[0].price>0 ? m0.backPrice[0].price : '—'}}</span>
+                                    </div>
+                                    <div class="lay bl-box" role="button" kt-animate-on-change="m0.layPrice[0].price">
+                                        <span class="d-block odds">{{m0.layPrice[0].price>0 ? m0.layPrice[0].price : '—'}}</span>
+                                    </div>
+                                </div>
+                                <div class="point-title" ng-init="m2 = h.marketRunner[2]"
+                                     ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                    <div class="no-val bl-box" role="button" ng-if="!m2">
+                                        <span class="d-block odds">—</span>
+                                    </div>
+                                    <div class="no-val bl-box" role="button" ng-if="!m2">
+                                        <span class="d-block odds">—</span>
+                                    </div>
+                                    <div class="back bl-box" ng-if="m2" role="button" kt-animate-on-change="m2.backPrice[0].price" kt-click>
+                                        <span class="d-block odds">{{m2.backPrice[0].price>0 ? m2.backPrice[0].price : '—'}}</span>
+                                    </div>
+                                    <div class="lay bl-box" ng-if="m2" role="button" kt-animate-on-change="m2.layPrice[0].price">
+                                        <span class="d-block odds">{{m2.layPrice[0].price>0 ? m2.layPrice[0].price : '—'}}</span>
+                                    </div>
+                                </div>
+                                <div class="point-title" ng-init="m1 = h.marketRunner[1]"
+                                     ng-class="{'suspended':(h.marketStatus==3 || h.temporaryStatus==3 || h.marketStatus==4)}">
+                                    <div class="back bl-box" role="button" kt-animate-on-change="m1.backPrice[0].price" kt-click>
+                                        <span class="d-block odds">{{m1.backPrice[0].price>0 ? m1.backPrice[0].price : '—'}}</span>
+                                    </div>
+                                    <div class="lay bl-box" role="button" kt-animate-on-change="m1.layPrice[0].price">
+                                        <span class="d-block odds">{{m1.layPrice[0].price>0 ? m1.layPrice[0].price : '—'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="selectedEventTypeName==horseId || selectedEventTypeName==greyhoundId"
+                 ng-init="selectedRaceCountry=-1">
+                <div class="bet-table"
+                     ng-show="races.length<=0 && !isRequestProcessing">
+                    <div class="bet-table-header nodata">
+                        No Data Found...
+                    </div>
+                </div>
+                <div class="bet-table" ng-class="{'loader-section-parent':isRequestProcessing}">
+                    <div class="loader-section" ng-if="isRequestProcessing">
+                        <div class="lds-ripple">
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div ng-repeat="s in sports | filter:{id:$parent.selectedEventTypeName}"
+                         ng-show="races.length>0 ">
+                        <div class="bet-table-header sport{{s.sourceId}}">
+                            <div class="game-title">
+                                <i class="d-icon icon-{{s.sourceId}}"></i>
+                                <span>{{s.name}}</span>
+                            </div>
+                        </div>
+                        <div class="horse-tab race{{s.sourceId}}">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item" ng-repeat="c in races" ng-init="$parent.selectedRaceCountry=races[0].name">
+                                    <a data-toggle="tab" class="nav-link"
+                                       ng-click="$parent.selectedRaceCountry=c.name"
+                                       ng-class="{'active':c.name==selectedRaceCountry}">
+                                        {{c.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="bet-table tab-pane fade horse-table "
+                                 ng-class="{'active show':c.name==$parent.selectedRaceCountry}"
+                                 ng-repeat="c in races">
+                                <div class="bet-table-body">
+                                    <div class="bet-table-box" ng-repeat="event in c.events">
+                                        <div class="bet-table-row">
+                                            <div class="game-title d-none-mobile">
+                                                <div class="game-icons">
+                                                    <div class="game-icon tv-icon"><i class="icon-tv d-icon"></i></div>
+                                                </div>
+                                                <div class="game-name d-inline-block">
+                                                    <p class="team-name text-left">
+                                                        {{event.name}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="horse-time-detail">
+                                                <a ng-repeat="m in event.markets">
+                                                    <span ng-class="{'active':m.inPlay}">{{m.startTime | date:'HH:mm'}}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="point-casino-carousal d-none-mobile">
+                <div class="point-casino-carousal-title">
+                    Fantasy Games
+                </div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/aviator.jpg" alt="Aviator" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/334.jpg" alt="Big Hi Lo" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141413.jpg" alt="Monti" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141414.jpg" alt="X50 Wheel" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141418.jpg" alt="Dice" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141416.jpg" alt="Fishing" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141422.jpg" alt="Fighters" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141415.jpg" alt="Magic Dice" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141419.jpg" alt="Pascal" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141425.jpg" alt="Dream Wheel" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141426.jpg" alt="Catch Me" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060314.jpg" alt="Odd Ball" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060327.jpg" alt="Blast" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060328.jpg" alt="Crash" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/420015499.jpg" alt="Striker" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141429.jpg" alt="Fast Trade" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060325.jpg" alt="Crazy Worm" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/161616.jpg" alt="Non Stop blackjack" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141417.jpg" alt="Non Stop Roulette" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141427.jpg" alt="Non Stop Baccarat" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141432.jpg" alt="Turbo Baccarat" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060326.jpg" alt="Non Stop Match" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060316.jpg" alt="Turbo Blackjack" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/420015434.jpg" alt="777 Poker" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/420016246.jpg" alt="Andar Bahar" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/131315.jpg" alt="Crystal Crush" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141428.jpg" alt="Double Wheel" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/141430.jpg" alt="Drift" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/33060324.jpg" alt="Mines" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/420015275.jpg" alt="Stairs" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/151516.jpg" alt="Lucky Lotto" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/scratch.jpg" alt="Scratch" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/diam11.png" alt="Diam11" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/playerbattle.jpg" alt="Player Battle" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/dice.jpg" alt="Dice" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/goal.jpg" alt="Goal" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/snakes-and-ladders.jpg" alt="snakes and ladders" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/plinko.jpg" alt="Plinko" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/rummy.jpg" alt="Rummy" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ludoclub.jpg" alt="Ludo Classic" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/mines.jpg" alt="Mines" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/hi-lo.jpg" alt="Hi Lo" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ludo-lands.jpg" alt="Ludo Lands" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/poptheball.jpg" alt="Pop The Ball" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/mini-roulette.jpg" alt="Mini Roulette" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/hotline.jpg" alt="Hotline" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/jetx.jpg" alt="JetX" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cappadocia.jpg" alt="Cappadocia" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/spinx.jpg" alt="SpinX" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/jetx3.jpg" alt="JetX3" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/cricketx.jpg" alt="CricketX" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/vipkeno.jpg" alt="vipkeno" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/ClassicKeno.jpg" alt="ClassicKeno" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/RussianKeno.jpg" alt="RussianKeno" class="img-fluid"></a></div>
+            </div>
+            <div class="point-live-casino d-none-mobile">
+                <div class="point-casino-carousal-title">
+                    Live Casino
+                </div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/26.jpg" alt="Tembo" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/24.jpg" alt="Creedroomz" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/21.jpg" alt="Vivo Gaming" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/17.jpg" alt="Lucky Streak" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/5.jpg" alt="Evolution" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/1.jpg" alt="EZUGI" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/6.jpg" alt="CockFight" class="img-fluid"></a></div>
+                <div class="login-hover"><a href="javascript:void(0);"><img ng-src="/public/images/{{currentWebApp}}/casino_icons/999.jpg" alt="SLOT" class="img-fluid"></a></div>
+            </div>
+            <div ng-include="'dimd2/template/footer.html'" class="mobile-ftr">
+            </div>
+        </div>
+    </div>
+</div>

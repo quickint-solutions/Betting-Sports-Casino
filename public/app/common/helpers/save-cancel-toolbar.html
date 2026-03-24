@@ -1,0 +1,13 @@
+﻿<kt-toolbar ng-hide="hiddenToolbar">
+    <ul class="align-right">
+        <kt-toolbar-button data-btn-class="btn btn-secondary" id="save-cancel-delete" icon="trash-o" label="toolbar.Delete" action="ctrl.delete()" ng-show="!$parent.editMode && $parent.showDeleteButton"></kt-toolbar-button>
+        <kt-toolbar-button data-btn-class="btn btn-edit" id="save-cancel-toolbar-edit" icon="pencil" label="toolbar.Edit" action="ctrl.toggleEditMode()" ng-hide="$parent.editMode"></kt-toolbar-button>
+        <kt-toolbar-button id="save-cancel-toolbar-cancel" data-btn-class="btn btn-cancel" icon="remove" label="toolbar.Cancel" action="ctrl.reset()" ng-show="$parent.editMode"></kt-toolbar-button>
+        <li ng-show="$parent.editMode" ng-click="ctrl.post();">
+            <a class="btn btn-save" id="save-cancel-toolbar-save-action">
+                <i class="fa fa-check"></i>
+                <span>Save</span>
+            </a>
+        </li>
+    </ul>
+</kt-toolbar>

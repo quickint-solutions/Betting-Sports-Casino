@@ -1,0 +1,1 @@
+call grunt deploy_uk_maruti

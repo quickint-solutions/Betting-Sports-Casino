@@ -1,0 +1,170 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="filter-panel">
+        <ul class="input-list">
+            <li class="bet_name"><label>{{'common.betstatus.label' | translate}}</label></li>
+            <li>
+                <select ng-model="search.status">
+                    <option ng-repeat="b in betStatus" value="{{b.id}}">
+                        {{b.name}}
+                    </option>
+                </select>
+            </li>
+           
+            <li><a class="btn" ng-click="ctrl.refreshGrid();">{{'common.button.gethistory' | translate}}</a></li>
+        </ul>
+        <ul class="input-list input-date">
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+        </ul>
+        <ul class="input-list bet-days">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <div class="mb-mybets mb-bethistory">
+            <kt-grid grid-id="kt-historybets-grid"
+                     load-items="ctrl.getHistoryBets(params)"
+                     name-param="id"
+                     name-value-property="id"
+                     show-total="true"
+                     cache-key="kthistorybetsgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable master_table"
+                       style="display: block;"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                        <tr ng-click="item.show=!item.show">
+                            <td style="padding:0">
+                                <div class="mybet-new">
+                                    <div class="my-b-detail">
+                                        <div class="my-b-field ">
+                                            <strong ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                                <span id="to">{{item.market.name}} # <strong>{{item.market.roundId}}</strong></span>
+                                            </strong>
+                                            <strong ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                                <span id="to">{{item.market.name}}</span>
+                                            </strong>
+                                        </div>
+                                        <div class="my-b-field field-title">
+                                            <span>
+                                                <span id="from">{{item.market.event.eventType.name}}</span>
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                                <span id="to">{{item.market.event.name | shortme:30}}</span>
+                                            </span>
+                                        </div>
+                                        <div class="my-b-field">
+                                            <div class="my-title bold">betid</div>
+                                            <div ng-class="{'betid':item.betDetails.length>0}">
+                                                <div ng-class="{'pl-avrg':!item.show,'ml-avrg':item.show}">{{item.betId}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="expand-table" ng-if="item.show && item.betDetails.length>0">
+                                            <div class="my-b-field" ng-repeat="b in item.betDetails | orderBy:'createdOn'">
+                                                <div class="inner-field">
+                                                    <div class="my-title bold">price</div>
+                                                    <div title="{{item.price }}">{{item.price }}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</div>
+                                                </div>
+                                                <div class="inner-field">
+                                                    <div class="my-title bold">stake</div>
+                                                    <div title="{{item.size | toRate  }}">{{item.size  | toRate }}</div>
+                                                </div>
+                                                <div class="inner-field">
+                                                    <div class="my-title bold">profit/loss</div>
+                                                    <div ng-if="item.pl" title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">({{item.pl | toRate }})</div>
+                                                </div>
+                                                <div class="inner-field">
+                                                    <div class="my-title bold">created date</div>
+                                                    <div title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="my-b-field">
+                                            <div class="my-title bold">runner name</div>
+                                            <div title="{{item.runnerName}}">{{item.runnerName}}</div>
+                                        </div>
+                                        <div class="my-b-field">
+                                            <div class="inner-field">
+                                                <div class="my-title bold">side</div>
+                                                <div title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side-1].name}}</div>
+                                            </div>
+                                            <div class="inner-field">
+                                                <div class="my-title bold">price</div>
+                                                <div title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </div>
+                                            </div>
+                                            <div class="inner-field">
+                                                <div class="my-title bold">avg. price</div>
+                                                <div title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="my-b-field">
+                                            <div class="my-title bold">matched size</div>
+                                            <div>
+                                                <span title="{{item.sizeMatched | toRate }}" ng-if="item.sizeMatched>0 ">{{item.sizeMatched  | toRate}} </span>
+                                                <span title="{{item.sizeCancelled | toRate }}" ng-if="item.sizeCancelled>0 && item.sizeMatched<=0">{{item.sizeCancelled  | toRate}} </span>
+                                                <span title="{{item.sizeVoided | toRate }}" ng-if="item.sizeVoided>0 && item.sizeMatched<=0">{{item.sizeVoided  | toRate}} </span>
+                                            </div>
+                                        </div>
+                                        <div class="my-b-field">
+                                            <div class="my-title bold">profit/loss</div>
+                                            <div ng-if="item.pl" title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">({{item.pl | toRate }}) </div>
+                                        </div>
+
+                                        <div class="my-b-field">
+                                            <div class="my-title bold">create date</div>
+                                            <div>
+                                                <span title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                                                <span ng-if="item.referenceText" uib-tooltip="{{item.referenceText}}" tooltip-placement="left"><i class="fa fa-info-circle red"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                    <tbody ng-if="$data.length<=0">
+                        <tr >
+                            <td style="padding:0px;">
+                                <div class="mybet-new">
+                                    <div class="my-b-detail">
+                                        <div class="my-b-field">
+                                            No Records Found.
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

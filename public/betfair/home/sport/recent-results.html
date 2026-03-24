@@ -1,0 +1,43 @@
+﻿<div ng-scrollbars class="scroll-wrap">
+    <div class="bf-row no-bottom-gutter gutter-pad-8">
+        <div class="bf-col-24-24">
+            <div class="horse-racing">
+                <div class="popup_height">
+                    <div class="over-wrap recent-results">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>{{'settledtime.label' | translate}}</th>
+                                    <th>{{'event.name.label' | translate}}</th>
+                                    <th>{{'market.name.label' | translate}}</th>
+                                    <th>{{'winner.label' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="m in resultsList">
+                                <td>{{m.settleTime | date:'dd MMM, HH:mm'}}</td>
+                                <td class="eventDetail">
+                                    <span>{{m.event.eventType.name}}</span>
+                                    <img src="/public/images/arrow.png" />
+                                    <span><strong>{{m.event.name}}</strong></span>
+                                </td>
+                                <td>
+                                    {{m.name }}
+                                </td>
+                                <td>
+                                    <span ng-repeat="w in m.marketRunner" title="{{w.runner.name}}">{{w.runner.name}} {{$last ? '':','}}</span>
+                                    <span ng-if="m.winner" title="{{m.winner}}">{{m.winner}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bf-row no-bottom-gutter no-side-gutter  gutter-pad-8">
+        <div class="bf-col-24-24 footer-wrapper" ng-include="footerTemplate">
+
+        </div>
+    </div>
+</div>

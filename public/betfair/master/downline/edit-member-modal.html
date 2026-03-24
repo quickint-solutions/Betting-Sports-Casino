@@ -1,0 +1,203 @@
+﻿<div style="color:white;">
+    <div class="pop-inner">
+        <h4>Information</h4>
+        <div ng-if="modalData.readonly==false">
+            <div class="pop-form-row">
+                <label>Username</label>
+                <span>{{$parent.member.name}}</span>
+            </div>
+
+            <div class="pop-form-row">
+                <label>Password</label>
+                <input class="paswd" ng-class="{'error-input':member.invalidPassword}" type="password" ng-model="member.password" />
+            </div>
+            <div class="pop-form-row">
+                <label>Login Name</label>
+                <span>{{$parent.member.username}}</span>
+            </div>
+            <div class="pop-form-row">
+                <label>Repeat Password</label>
+                <input class="paswd" type="password" ng-class="{'error-input':member.invalidPassword}" ng-blur="ctrl.validate()" ng-model="member.confirmpassword" />
+            </div>
+            <div class="pop-option">
+                <p class="bold">Status</p>
+                <label for="active" class="option-detail-circle" ng-repeat="us in userStatusList">
+                    <input type="radio" name="radio" ng-model="member.status" value="{{us.id}}">
+                    <span class="checkmark"></span>
+                    {{us.name}}
+                </label>
+            </div>
+        </div>
+        <div ng-if="modalData.readonly" class="readonly">
+            <div class="col-sm-4">
+                <div class="pop-form-row">
+                    <label>Username</label>
+                    <span>{{member.name}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pop-form-row">
+                    <label>Login Name</label>
+                    <span>{{member.username}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="pop-form-row">
+                    <label>Status</label>
+                    <span ng-repeat="us in userStatusList | filter:{id:member.status}">{{us.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop-inner">
+        <h4>Credit</h4>
+        <div class="pop-form-row credit-row" ng-if="!modalData.readonly">
+            <div ng-if="loginUser.userType==1">
+                <div class="credit">
+                    <label>Credit Limit</label>
+                    <input type="number" required ng-model="member.creditRef"
+                           min="{{member[myCreditFields.minField] }}"
+                           max="{{parent[myCreditFields.maxField]}}" string-to-number
+                           kt-number-only allow-decimal="true" />
+                    <span class="c-value"><i class="fa fa-angle-right"></i>={{member[myCreditFields.minField] | number:0}}</span>
+                    <span class="c-value"><i class="fa fa-angle-left"></i>={{parent[myCreditFields.maxField] | number:0}}</span>
+                </div>
+                <div class="credit">
+                    <label>Payment Threshold</label>
+                    <input type="number" placeholder="0" ng-model="member.paymentThreshold" kt-number-only allow-decimal="true" />
+                </div>
+                <div class="credit" style="width:100%; margin-top:10px;" ng-repeat="ct in creditTree track by $index">
+                    <label>{{ct.short}} Max Credit</label>
+                    <input type="number" required kt-number-only allow-decimal="true" ng-model="member[ct.maxField]"
+                           min="{{member[ct.minField] }}" string-to-number
+                           max="{{($index==0 ? member.creditRef : member[creditTree[$index-1].maxField])  }}" />
+                    <span class="c-value"><i class="fa fa-angle-right"></i>={{member[ct.minField] | number:0}}</span>
+                    <span class="c-value"><i class="fa fa-angle-left"></i>={{($index==0 ? member.creditRef : member[creditTree[$index-1].maxField]) | number:0 }}</span>
+                </div>
+            </div>
+            <div ng-if="loginUser.userType>1">
+                <div class="credit">
+                    <label>Credit Limit</label>
+                    <input type="number" required ng-model="member.creditRef"
+                           min="{{member[myCreditFields.minField]}}"
+                           max="{{parent[myCreditFields.maxField] }}" string-to-number
+                           kt-number-only allow-decimal="true" />
+                    <span class="c-value"><i class="fa fa-angle-right"></i>={{member[myCreditFields.minField] | number:0}}</span>
+                    <span class="c-value"><i class="fa fa-angle-left"></i>={{parent[myCreditFields.maxField] | number:0}}</span>
+                </div>
+                <div class="credit">
+                    <label>Payment Threshold</label>
+                    <input type="number" placeholder="0" ng-model="member.paymentThreshold" kt-number-only allow-decimal="true" />
+                </div>
+                <div class="credit" style="width:100%; margin-top:10px;" ng-repeat="ct in creditTree track by $index">
+                    <label>{{ct.short}} Max Credit</label>
+                    <input type="number" required kt-number-only allow-decimal="true" ng-model="member[ct.maxField]"
+                           min="{{member[ct.minField]}}" string-to-number
+                           max="{{ parent[creditTree[$index].maxField]  }}" />
+                    <span class="c-value"><i class="fa fa-angle-right"></i>={{member[ct.minField] | number:0}}</span>
+                    <span class="c-value"><i class="fa fa-angle-left"></i>={{ parent[creditTree[$index].maxField]  | number:0}}</span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="modalData.readonly" class="readonly">
+            <div class="col-sm-4">
+                <div class="pop-form-row">
+                    <label>Credit Limit</label>
+                    <span>{{member.creditRef  }}</span>
+                </div>
+            </div>
+            <div class="col-sm-4" ng-repeat="ct in creditTree track by $index">
+                <div class="pop-form-row">
+                    <label>{{ct.short}} Max Credit</label>
+                    <span>{{member[ct.maxField]  }}</span>
+                </div>
+            </div>
+            <div class="col-sm-4" style="clear:both">
+                <div class="pop-form-row">
+                    <label>Payment Threshold</label>
+                    <span>{{member.paymentThreshold}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop-inner">
+        <h4>Bet Settings</h4>
+        <label class="option-detail-square check_box-square" style="position:relative;" ng-if="!modalData.readonly">
+            <input type="checkbox" name="allbetconfig" ng-model="isSameBetConfig"
+                   ng-change="ctrl.betConfigSameAll(isSameBetConfig)">
+            <span class="checkmark"></span>
+            Same for all sports
+        </label>
+        <table class="popup-table">
+            <tr>
+                <th ng-class="{'row-header':modalData.readonly}"></th>
+                <th>Min Bet</th>
+                <th>Max Bet</th>
+                <th>Max Market</th>
+            </tr>
+            <tr ng-repeat="e in member.betConfigs">
+                <td>{{e.name}}</td>
+                <td class="td-limit">
+                    <input type="text" ng-model="e.minBet" kt-number-only allow-decimal="true" ng-change="$parent.ctrl.betConfigChange('minBet')" ng-disabled="$index>0 && isSameBetConfig" ng-if="!modalData.readonly" />
+                    <span ng-if="modalData.readonly">{{e.minBet }}</span>
+                </td>
+                <td class="td-limit">
+                    <input type="text" ng-model="e.maxBet" kt-number-only allow-decimal="true" ng-change="ctrl.betConfigChange('maxBet')" ng-disabled="$index>0 && isSameBetConfig" ng-if="!modalData.readonly" />
+                    <span ng-if="modalData.readonly">{{e.maxBet}}</span>
+                </td>
+                <td class="td-limit">
+                    <input type="text" ng-model="e.maxProfit" kt-number-only allow-decimal="true" ng-change="ctrl.betConfigChange('maxProfit')" ng-disabled="$index>0 && isSameBetConfig" ng-if="!modalData.readonly" />
+                    <span ng-if="modalData.readonly">{{e.maxProfit}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pop-inner">
+        <h4>Positin Taking</h4>
+        <label class="option-detail-square check_box-square" style="position:relative;" ng-if="!modalData.readonly">
+            <input type="checkbox" name="chk_pt" ng-model="isSamePtConfig" ng-change="ctrl.ptConfigSameAll(isSamePtConfig)">
+            <span class="checkmark"></span>
+            Same for all sports
+        </label>
+        <table class="popup-table">
+            <tr>
+                <th ng-class="{'row-header':modalData.readonly}">Sport</th>
+                <th>{{parentPSname}} Position(%)</th>
+                <th style="width:25px" ng-if="!modalData.readonly && member.userType!=5"></th>
+                <th ng-if="member.userType!=5">{{myPSname}} Max Position(%)</th>
+                <th style="width:50px" ng-if="!modalData.readonly"></th>
+            </tr>
+            <tr ng-repeat="p in ptConfigList | notEmpty:'name'">
+                <td>{{p.name}}</td>
+                <td class="td-limit">
+                    <input ng-if="!modalData.readonly" type="text" placeholder="0" ng-model="p.takePt"
+                           ng-change="ctrl.ptConfigChange('takePt')"
+                           ng-blur="ctrl.validatePT(p)" kt-number-only allow-decimal="true"
+                           ng-class="{'error-input':!p.isvalid}" required
+                           ng-disabled="$index>0 && isSamePtConfig" />
+                    <span ng-if="modalData.readonly">{{p.takePt}}</span>
+                </td>
+                <td ng-if="!modalData.readonly && member.userType!=5"><span class="plus">+</span></td>
+                <td class="td-limit" ng-if="member.userType!=5">
+                    <input ng-if="!modalData.readonly" type="text" placeholder="0" ng-model="p.givePt"
+                           ng-change="ctrl.ptConfigChange('givePt')"
+                           ng-blur="ctrl.validatePT(p)" kt-number-only allow-decimal="true"
+                           ng-class="{'error-input':!p.isvalid}" required
+                           ng-disabled="$index>0 && isSamePtConfig" />
+                    <span ng-if="modalData.readonly">{{p.givePt}}</span>
+                </td>
+                <td ng-if="!modalData.readonly"><span class="limit-value"><i class="fa fa-angle-left"></i>= {{p.maxpt}}</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pop-inner">
+        <h4>Notes</h4>
+        <textarea ng-if="!modalData.readonly" maxlength="1000" ng-model="member.notes"></textarea>
+        <span ng-if="modalData.readonly">{{member.notes}}</span>
+    </div>
+
+</div>

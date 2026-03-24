@@ -1,0 +1,116 @@
+﻿<div class="content-wrap">
+    <div class="chart-detail">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="growth">
+                        <p class="a-title">
+                            Markets
+                            <a class="v-btn float-r" ng-click="ctrl.setTotalMarket();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                        </p>
+                        <h4 class="c-value">
+                            <kt-odometer data-value="{{marketBox.inplayMarkets}}"></kt-odometer>
+                            <span class="c-sub">In-Play</span>
+                        </h4>
+                        <div class="month-value">
+                            <span class="p-value positive">
+                                <i class="fa fa-database" aria-hidden="true" style="margin-right:3px;"></i>{{marketBox.totalMarkets}}
+                            </span>
+                            <span class="p-value">Total (excluding closed markets)</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="growth">
+                        <p class="a-title">
+                            Users
+                            <a class="v-btn float-r" ng-click="ctrl.setUserSummary();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                        </p>
+                        <h4 class="c-value">
+                            <kt-odometer data-value="{{userSummary.liveUser}}"></kt-odometer>
+                            <span class="c-sub">Online Users</span>
+                        </h4>
+                        <div class="month-value">
+                            <span class="p-value positive">
+                                <i class="fa fa-user" aria-hidden="true" style="margin-right:3px;"></i>{{userSummary.totalUser}}
+                            </span>
+                            <span class="p-value">Total Users</span>
+                            <a class="v-btn float-r" ui-sref="admin.liveusers" target="_blank" style="margin-top: -7px;">
+                                <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="growth">
+                        <p class="a-title">
+                            Live Bets
+                            <a class="v-btn float-r" ng-click="ctrl.setLivebetTotal();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                        </p>
+                        <h4 class="c-value">
+                            <kt-odometer data-value="{{bets.totalBets}}"></kt-odometer>
+                            <span class="c-sub">Total active bets</span>
+                        </h4>
+                        <div class="month-value">
+                            <span class="p-value negative" style="margin-left:-5px;">
+                                <kt-glc-code data-special="true" data-item="{{bets.stake}}"></kt-glc-code>
+                            </span>
+                            <span class="p-value">Total stake matched</span>
+                            <a class="v-btn float-r" ui-sref="admin.livebets" target="_blank" style="margin-top: -7px;">
+                                <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="growth">
+                        <p class="a-title">
+                            Profit/Loss
+                            <a class="v-btn float-r" ng-click="ctrl.setRecentProfitloss();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                        </p>
+                        <h4 class="c-value">
+                            <kt-odometer data-value="{{pl.today}}" class="positive" ng-class="{'negative':pl.today<0}"></kt-odometer>
+                            <span class="c-sub">Today</span>
+                        </h4>
+                        <div class="month-value">
+                            <span class="p-value positive" ng-class="{'negative':pl.yesterday<0}">
+                                {{pl.yesterday}}
+                            </span>
+                            <span class="p-value">Yesterday, </span>
+                            <span class="p-value positive" ng-class="{'negative':pl.week<0}">
+                                {{pl.week}}
+                            </span>
+                            <span class="p-value">Last 7 days</span>
+                            <a class="v-btn float-r" ui-sref="admin.report.downline" target="_blank" style="margin-top: -7px;">
+                                <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-5">
+                <div kt-chart id="livebetchart" data-options="liveBetChartOption" data-chart-id="livebetchart" ng-if="liveBetChartOption"></div>
+            </div>
+            <div class="col-sm-7">
+                <div class="chart-value">
+                    <div kt-chart id="livegamechart" data-options="livegamesChartOption" data-chart-id="livegamechart" ng-if="livegamesChartOption"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 mr-top-10">
+        <div class="row">
+            <div class="col-sm-6">
+                <div kt-chart id="plchart" data-options="plHistoryChartOption" data-chart-id="plchart" ng-if="plHistoryChartOption"></div>
+            </div>
+            <div class="col-sm-6">
+                <div kt-chart id="stakechart" data-options="stakeHistoryChartOption" data-chart-id="stakechart" ng-if="stakeHistoryChartOption"></div>
+            </div>
+        </div>
+    </div>
+</div>

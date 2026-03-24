@@ -1,0 +1,71 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">Manage Withdrawal</h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-translation-grid"
+             load-items="ctrl.getItems(params,filters)"
+             total="totalItems"
+             data-show-total="true" 
+             has-new-rights="false"
+             list-new-items="listNewItems"
+             cache-key="kttranslationgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'Token/Coin' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <span>{{item.token}}</span>
+                    </td>
+                    <td data-title="::'Network' | translate" data-sortable="'chain'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getTokenChain(item.chain)}} </span>
+                    </td>
+                    <td data-title="::'Transfer Amount' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span>{{item.amount-item.fee}}</span>
+                    </td>
+                    <td data-title="::'Fees' | translate"
+                        data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <span>{{item.fee}}</span>
+                    </td>
+                    <td data-title="::'Address' | translate"
+                        data-header-class="'size-xxl'" class="size-xxl">
+                        <span title="{{item.address}}">{{item.address}} </span>
+                    </td>
+                    <td data-title="::'Status' | translate" data-sortable="'chain'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getStatus(item.status)}} </span>
+                    </td>
+
+                    <td data-title="::'Last Accessed' | translate"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+
+
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+
+                        <a class="btn btn-primary"
+                           title="Copy Token Address"
+                           ng-click="$parent.$parent.$parent.ctrl.copyAddress(item)">
+                            <i class="fa fa-copy"></i>
+                        </a> <a id="btnDelete{{$index}}" class="btn btn-default"
+                                title="Copy Token Address"
+                                ng-click="$parent.$parent.$parent.ctrl.viewRequest(item)">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a id="btnDelete{{$index}}" class="btn btn-danger"
+                           title="Delete Token"
+                           ng-click="$parent.$parent.$parent.ctrl.removeWallet(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

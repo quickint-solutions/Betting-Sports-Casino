@@ -1,0 +1,32 @@
+﻿<div class="pop-inner">
+    <div style="border-bottom:1px solid #fff;float: left;width: 100%;">
+        <h4 style="width: 50%;float: left;">Access Rights For</h4>
+        <h5 class="text-center" style="width: 15%;float: right;margin-bottom: 5px;margin-top: 15px;">Full Access</h5>
+        <h5 class="text-center" style="width: 15%;float: right;margin-bottom: 5px;margin-top: 15px;">View Only</h5>
+        <h5 class="text-center" style="width: 15%;float: right;margin-bottom: 5px;margin-top: 15px;">No Access</h5>
+    </div>
+   <div class="col-sm-12" ng-repeat="p in permissionList" style="height:40px;">
+       <div class="row" style="padding:10px 0px;">
+           <div style="width: 50%;float: left;">{{p.name}}</div>
+           <div class="text-center" style="width: 15%;float: right;">
+               <label class="option-detail-circle pad-0" style="margin-bottom:10px">
+                   <input type="radio" name="{{p.name}}" ng-model="p.access" value="3">
+                   <span class="checkmark"></span>
+               </label>
+           </div>
+           <div class="text-center" style="width: 15%;float: right;">
+               <span ng-if="$index!=0">&nbsp;</span>
+               <label class="option-detail-circle pad-0" style="margin-bottom:10px" ng-if="$index==0">
+                   <input type="radio" name="{{p.name}}" ng-model="p.access" value="2">
+                   <span class="checkmark"></span>
+               </label>
+           </div>
+           <div class="text-center" style="width: 15%;float: right;">
+               <label class="option-detail-circle pad-0" style="margin-bottom:10px">
+                   <input type="radio" name="{{p.name}}" ng-model="p.access" value="1">
+                   <span class="checkmark"></span>
+               </label>
+           </div>
+       </div>
+   </div>
+</div>

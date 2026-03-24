@@ -1,0 +1,100 @@
+﻿<!--  Bets history  -->
+<div class="content-wrap">
+    <div class="bets-history master_bet">
+        <div class="col-sm-12">
+            <div class="btn_value float-r">
+                <button class="btn btn-secondary" ng-click="ctrl.exportBetHistoryToExcel()">
+                    Download CSV
+                </button>
+            </div>
+        </div>
+        <div class="table-bets">
+            <p style="padding:10px 0px 0;">
+                <a ng-click="ctrl.goback()">{{sharedData.backText}}</a>
+                <span style="color:#fff;"> &nbsp;>&nbsp;{{sharedData.marketTitle}} </span>
+            </p>
+            <kt-grid grid-id="kt-historybets-grid"
+                     load-items="ctrl.getHistoryBets(params)"
+                     name-param="id"
+                     name-value-property="id"
+                     show-total="true"
+                     cache-key="kthistorybetsgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <thead>
+                        <tr>
+                            <th class=" align-l">Member</th>
+                            <th class=" boolean">Placed</th>
+                            <th class=" boolean">Selection</th>
+                            <th class="align-l">Bet ID</th>
+
+                            <th class="size-xs boolean">Side</th>
+                            <th class="boolean size-xs">Odds</th>
+                            <th class="boolean size-sm">Stake</th>
+                            <th class=" boolean size-xs">Status</th>
+                            <th class=" boolean size-sm">Member Win/Loss</th>
+                            <th ng-repeat="u in $parent.$parent.userPTtree" class="boolean size-sm">
+                                {{u.short}} Win/Loss
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="info-text">
+                        <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                            <td class="align-l">
+                                <span id="from" ng-if="item.user.parent.parent.parent">{{item.user.parent.parent.parent.username}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true" ng-if="item.user.parent.parent.parent"></i>
+                                <span id="from" ng-if="item.user.parent.parent">{{item.user.parent.parent.username}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true" ng-if="item.user.parent.parent"></i>
+                                <span id="from" ng-if="item.user.parent">{{item.user.parent.username}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true" ng-if="item.user.parent"></i>
+                                <label>
+                                    <span id="to"><strong>{{item.user.username}}</strong></span>
+                                </label>
+                            </td>
+                            <td class="boolean">
+                                <span>
+                                    <kt-date data-date-value="item.createdOn" date-format="dd-MM-yy HH:mm:ss"></kt-date>
+                                </span>
+                            </td>
+                            <td class="boolean">
+                                <span>
+                                    {{item.runner}}
+                                </span>
+                            </td>
+                            <td class="align-l">
+                                <span>{{item.betId}}</span>
+                            </td>
+
+                            <td class="boolean size-xs">
+                                <span>{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                            </td>
+                            <td class="boolean size-xs">
+                                <span>{{item.price}}</span>
+                            </td>
+                            <td class=" boolean size-sm">
+                                <span>{{item.size  | toRate}} </span>
+                            </td>
+                            <td class="boolean size-xs">
+                                <span class="negative bold" ng-show="item.isDelete">
+                                    VOID
+                                    <span ng-if="item.referenceText" title="{{item.referenceText}}"><i class="fa fa-info-circle red" style="cursor:pointer;"></i></span>
+                                </span>
+                                <span ng-show="!item.isDelete" class="bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                                    {{item.pl>0 ? 'WON' : 'LOST'}}
+                                </span>
+                            </td>
+                            <td class="boolean size-sm">
+                                <span title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">{{item.pl  | toRate}}</span>
+                            </td>
+                            <td ng-repeat="u in $parent.$parent.$parent.userPTtree" class="boolean bold positive size-sm"
+                                ng-class="{'negative':item[u.plFieldName]<0}">
+                                <span>{{item[u.plFieldName] | toRate}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,446 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+//.main-section{
+// .main-section{overflow:hidden}
+.arrow-icon {
+    background-color: $white-color;
+    @include padding(0px, 4px, 0px, 4px);
+    line-height: 14px !important;
+    color: $black-color;
+    float: $float-right;
+}
+
+.marquee {
+    background-color: $marquee-bg;
+    @include padding(6px, 0px, 6px, 0px);
+    @include headline($white-color, 12px);
+
+    marquee {
+        @include line-height(11px);
+    }
+}
+
+.menu-highlight {
+    float: left;
+    width: 100%;
+    height: 30px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+
+    .nav-menu {
+        display: flex;
+        vertical-align: middle;
+        justify-content: center;
+
+        .nav_link {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+
+            &:first-child {
+                &:before {
+                    display: none
+                }
+            }
+
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: #440a57;
+            }
+
+            a {
+                padding: 0 20px;
+                line-height: 20px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #440a57;
+                font-size: 12px;
+                text-shadow: 0 1px 0 #f6e4fc;
+            }
+        }
+    }
+}
+
+.header {
+    background-size: cover;
+    @include resize($float-left, $width);
+    color: $white-color;
+    height: 91px;
+    @include padding(23px, 0px, 23px, 0px);
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+
+    .logo-area {
+        padding: 1px 0 0 23px;
+        width: 178px;
+        float: left
+    }
+
+    font-size: 12px;
+
+    .logo-img {
+        @include display(block);
+        background-size: contain;
+        width: 98.5%;
+    }
+
+    .logged-user {
+        @include line-height(35px);
+    }
+
+    .header-balance {
+        @include line-height(35px);
+        float: left;
+        padding-left: 20px;
+        margin-top: 3px;
+        width: 21%;
+
+        span {
+            float: $float-left;
+            margin-right: 8px
+        }
+
+        .time {
+            font-size: 15px;
+            @include txt(bold);
+            line-height: 32px;
+        }
+
+        .menu-dropdown {
+            .clock-zone {
+                float: $float-left;
+                color: #ffecc6;
+
+                &:hover {
+                    color: $white-color;
+                }
+            }
+
+            .icon-angle-down {
+                margin-left: 2px;
+                position: relative;
+                top: -1px;
+            }
+
+            .dropdown-menulist {
+                width: 250px;
+                left: 52px;
+
+                &:before {
+                    content: '\25b2';
+                    @include display(block);
+                    margin-top: -6px;
+                    @include position(absolute, left 114px top -15px);
+                    color: $white-color;
+                }
+            }
+        }
+    }
+
+    .setting-menu {
+        padding-left: 25px;
+    }
+
+    .search-data {
+        width: 45.6%;
+        vertical-align: super;
+        position: relative;
+        padding-left: 22px;
+
+        .icon-search {
+            position: absolute;
+            left: 30px;
+            font-size: 15px;
+            color: #999999;
+            top: 11.5px
+        }
+
+        input {
+            height: 36px;
+            padding: 8px 4px 8px 30px;
+            font-size: 12px;
+            width: 100%;
+            border-radius: 3px;
+            border: none;
+            color: #000;
+
+            &:focus {
+                outline: none;
+                border-radius: 0px;
+            }
+        }
+
+        input[type=text]:focus {
+            width: 10%;
+        }
+    }
+
+    .header-wrap {
+        float: right;
+        width: 64.2%;
+        margin-top: -1px;
+
+        .accountCredit {
+            padding-left: 23px;
+            vertical-align: bottom;
+
+            span {
+                display: block
+            }
+        }
+
+        .dropdown-menulist {
+            width: 130px;
+            left: 12px;
+            top: 26px;
+
+            &:before {
+                content: '\25b2';
+                @include display(block);
+                margin-top: -6px;
+                @include position(absolute, left 55px top -9px);
+                color: $white-color;
+            }
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        .account-a {
+            //color:#ffecc6;
+            &:hover {
+                color: #fff !important;
+            }
+        }
+    }
+
+    .menu-dropdown {
+        ul {
+            li {
+                display: block;
+            }
+        }
+    }
+
+    .icon-cog:before, .fa-sign-out:before {
+        padding-top: 2px;
+    }
+
+    .logout-btn {
+        @include line-height(17px);
+        padding-left: 18px;
+
+        .logout-a {
+            float: $float-left;
+            padding-left: 22px;
+            @include padding(0px, 0px, 0px, 0px);
+            color: #fff;
+        }
+
+        .fa {
+            margin-right: 5px
+        }
+
+        .dropdown-menulist {
+            left: -33px;
+            min-width: 145px;
+
+            &:before {
+                content: '\25b2';
+                @include display(block);
+                margin-top: -6px;
+                @include position(absolute, left 62px top -15px);
+                color: $white-color;
+            }
+        }
+
+        .logout-a {
+            &:hover {
+                color: $white-color;
+            }
+        }
+    }
+}
+.header.admin-header {
+    flex-direction: column;
+}
+footer {
+    margin-top:10px;
+    background-color: $header-bg;
+    @include resize($float-left, $width);
+    text-align: $center;
+    color: $white-color;
+    z-index: 2;
+    @include position(relative);
+    line-height: 20px;
+    @include padding(20px, 20px, 20px, 20px);
+
+    a {
+        margin: 0 13px;
+        color: $white-color;
+        font-size: 12px;
+
+        &:hover {
+            color: $white-color
+        }
+    }
+
+    .plus-18 {
+        border: 1px solid #fff;
+        border-radius: 100%;
+        padding: 7px 4px;
+        margin-right: 7px;
+    }
+}
+
+.-qa-search-results {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #DDDDDD;
+    border-top: none;
+    width: 300px;
+    z-index: 999;
+
+    li {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+        display: block !important;
+
+        .-qa-item-name {
+            margin: 0;
+            line-height: 1.8;
+            padding: 5px 10px;
+            display: block;
+            width: 100%;
+            color: #0f2327;
+
+            &:hover {
+                background-color: #DDDDDD;
+                text-decoration: none;
+                color: #24555e !important;
+            }
+        }
+    }
+}
+
+//}
+.admin-part {
+    .chart-detail {
+        float: left;
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .growth {
+        float: left;
+        width: 100%;
+        background-color: #010101;
+        border-radius: 4px;
+        padding: 15px 15px;
+
+        .a-title {
+            text-transform: capitalize;
+            color: #ffffff;
+            font-size: 15px;
+        }
+
+        .p-value {
+            margin-right: 5px;
+            vertical-align: sub;
+        }
+
+        .c-value {
+            font-size: 15px;
+            margin: 10px 0px 5px 0px;
+            font-weight: bold;
+            color: #e3e3e3;
+
+            .c-sub {
+                color: #a7a7a7;
+                font-size: 13px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+        }
+
+        .month-value {
+            color: #a7a7a7;
+
+            .positive {
+                color: $theme-success !important;
+            }
+
+            .negative {
+                color: $red !important;
+            }
+        }
+
+        .v-btn {
+            background-color: #363637;
+            border-radius: 4px;
+            padding: 5px 10px;
+
+            i {
+                color: $theme-success;
+            }
+        }
+    }
+
+    .chart-value {
+        background-color: #fff;
+        float: left;
+        width: 100%;
+    }
+
+
+    .dashboar-card {
+        min-height: 250px;
+        width: 100%;
+        background: #2a2a2b;
+        padding: 10px 20px;
+        color: whitesmoke;
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .card-body {
+            padding-top: 10px;
+
+            table {
+                border: 1px solid #060606;
+                background-color:transparent!important;
+                thead {
+                    th {
+                        color: #f6b800;
+                        background: black;
+                        padding: 5px;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        border-bottom: 1px solid black;
+
+                        td {
+                            padding: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

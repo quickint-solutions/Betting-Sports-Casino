@@ -1,0 +1,94 @@
+﻿<!--  Bets history  -->
+<div class="content-wrap ">
+    <div class="row mr-top-10">
+        <div class="col-sm-12">
+            <div class="btn_value float-r">
+                <button class="btn btn-secondary" ng-click="ctrl.exportBetHistoryToExcel()">
+                    Download CSV
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-listing list-table statement-table flexi-table" style="padding:0px;">
+                <p style="padding:10px 0px 0;">
+                    <a ng-click="ctrl.goback()" >{{sharedData.backText}}</a>
+                    <span style="color:#000;"> &nbsp;>&nbsp;{{sharedData.marketTitle}} </span>
+                </p>
+                <kt-grid grid-id="kt-historybets-grid"
+                         load-items="ctrl.getHistoryBets(params)"
+                         show-total="false"
+                         data-items="gridItems"
+                         cache-key="kthistorybetsgrid">
+
+                    <table ng-table="tableParams" class="table table-hover member_table"
+                           template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                        <thead>
+                            <tr>
+                                <th class=" align-l">Member</th>
+                                <th class=" boolean">Placed</th>
+                                <th class=" boolean">Selection</th>
+                                <th class="align-l">Bet ID</th>
+                                
+                                <th class=" boolean">Side</th>
+                                <th class="boolean">Odds</th>
+                                <th class="boolean">Stake</th>
+                                <th class=" boolean">Status</th>
+                                <th class=" boolean">Member Win/Loss</th>
+                                <th ng-repeat="u in $parent.$parent.userPTtree" class="boolean">
+                                    {{u.short}} Win/Loss
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="info-text">
+                            <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                                <td class="align-l">
+                                    <span>{{item.user.username}}</span>
+                                    <span ng-show="item.user.name">({{item.user.name}})</span>
+                                </td>
+                                <td class="boolean">
+                                    <span>
+                                        <kt-date data-date-value="item.createdOn" date-format="dd-MM-yy HH:mm:ss"></kt-date>
+                                    </span>
+                                </td>
+                                <td class="boolean">
+                                    <span>
+                                        {{item.runner}}
+                                    </span>
+                                </td>
+                                <td class="align-l">
+                                    <span>{{item.betId}}</span>
+                                </td>
+                             
+                                <td class="boolean">
+                                    <span >{{item.side==1 ? 'Back' : 'Lay'}}</span>
+                                </td>
+                                <td class="boolean">
+                                    <span>{{item.price}}</span>
+                                </td>
+                                <td class=" boolean">
+                                    <span >{{item.size  | toRate}} </span>
+                                </td>
+                                <td class="boolean">
+                                    <span class="negative bold" ng-show="item.isDelete">
+                                        VOID
+                                        <span ng-if="item.referenceText" title="{{item.referenceText}}"><i class="fa fa-info-circle red" style="cursor:pointer;"></i></span>
+                                    </span>
+                                    <span ng-show="!item.isDelete" class="bold" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">
+                                        {{item.pl>0 ? 'WON' : 'LOST'}}
+                                    </span>
+                                </td>
+                                <td class="boolean">
+                                    <span title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">{{item.pl  | toRate}}</span>
+                                </td>
+                                <td ng-repeat="u in $parent.$parent.$parent.userPTtree" class="boolean bold positive"
+                                    ng-class="{'negative':item[u.plFieldName]<0}">
+                                    <span>{{item[u.plFieldName] | toRate}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+</div>

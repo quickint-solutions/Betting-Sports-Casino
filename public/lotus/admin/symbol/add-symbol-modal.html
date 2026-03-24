@@ -1,0 +1,33 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Segment</span>
+            <select class="form-control" ng-model="symbol.segment ">
+                <option ng-repeat="type in segmentList" value="{{type.id}}">
+                    {{type.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Name</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="Symbole name"
+                   ng-model="symbol.name" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Code</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="Symbole code"
+                   ng-model="symbol.code" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Lot</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="Symbole lot size"
+                   ng-model="symbol.lotSize" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+

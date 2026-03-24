@@ -1,0 +1,465 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+//body{overflow:hidden}
+
+.float-left{
+    float:left;
+}
+
+.float-right{
+    float:right;
+}
+
+.row-5{
+    margin-left:-5px;
+    margin-right:-5px;
+}
+.capital-text{
+    text-transform:uppercase;
+}
+.row.row-5 > [class*="col-"] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+ul{
+    list-style-type:none;
+    li{
+
+        display:inline-block;
+    }
+}
+
+.odd-disabled {
+    background-color: #ebebeb;
+}
+
+.back, .back1, .back-1 {
+    background-color: #72bbef;
+}
+.back2 {
+    background-color: #92c9f0;
+}
+.back3 {
+    background-color: #b2d7f1; 
+}
+.lay, .lay1, .lay-1 {
+    background-color: #faa9ba;
+}
+.lay2 {
+    background-color: #f8bcc8;
+}
+.lay3 {
+    background-color: #f6ced6;
+}
+.bet-back {
+    background-color: #72bbef;
+}
+.bet-lay {
+    background-color: #faa9ba;
+}
+
+.green {
+    color: #28a745;
+}
+
+.red {
+    color: #bd2130;
+}
+.font-bold{font-weight:bold;}
+.font-10{font-size:10px;}
+.mr-top-24 {
+    margin-top: 24px;
+}
+.align-c{text-align:center;}
+
+
+/* filter panel  */
+
+.filter-list {
+    margin: 15px 0;
+    padding: 12px;
+    color: #dfdfdf;
+    background-color: $filter-bg;
+    border-bottom: 1px solid #7E97A7;
+    position: relative;
+
+    .filter-head {
+        margin-right: 10px;
+        color: $white-color;
+    }
+
+    .fa-circle {
+        font-size: 6px;
+        color: #7E97A7;
+        padding: 0 3px;
+        vertical-align: middle;
+    }
+
+    ul {
+        li {
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .filter_team {
+        a {
+            font-size: 12px;
+            color: $heading !important;
+            padding: 4px 30px;
+            background-color: #eee;
+            border: 1px solid #999;
+            border-radius: 4px;
+        }
+
+        .filter-pop {
+            width: 500px;
+            padding: 8px 8px 0;
+            position: absolute;
+            top: 34px;
+            right: 10px;
+            border-radius: 4px;
+            background-color: #eee;
+            z-index: 3;
+            box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.50);
+            display: none;
+
+            ul {
+                li {
+                    width: 50%;
+
+                    .span-check {
+                        color: $heading !important;
+                        margin-right: 5px;
+                        font-size: 14px;
+
+                        label {
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+
+            .filter-btn {
+                padding: 12px 0;
+                border-top: 1px solid;
+
+                .bets {
+                    background-color: $heading;
+                    color: $white-color !important;
+                    font-weight: bold;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        &:hover .filter-pop {
+            display: block;
+        }
+    }
+}
+
+
+
+/* drop-down menu  */
+
+.sidenav {
+    height: 100vh;
+    width: 100%;
+
+    .dropdwn-btn {
+        font-size: 18px;
+        background: $theme-color;
+        color: $white-color;
+        padding: 7.4px 6px;
+        margin-top: 1px;
+        text-transform: capitalize;
+    }
+
+    a {
+        padding: 4px 6px;
+    }
+
+    a, .dropdwn-btn {
+        text-decoration: none;
+        display: block;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+    .dropdown-container {
+
+        ul {
+            li {
+                display: flex;
+
+                a {
+                    color: $black-color;
+                    background-color: #bbb;
+                    border-bottom: 1px solid #9e9e9e;
+                    font-size: 14px;
+                    padding: 0.3rem 1rem;
+                    text-transform:capitalize;
+                }
+            }
+        }
+    }
+}
+
+
+
+.blink-menu {
+    animation: blink-menu 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blink-menu {
+    0% {
+        color: #ffff00;
+    }
+
+    50% {
+        color: #f00;
+    }
+
+    100% {
+        color: #ffff00;
+    }
+}
+
+a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+}
+.tabbing-blue {
+    min-width: 375px;
+    width: 39%;
+    margin: 3px 0 10px;
+    border: 1px solid $theme-color;
+    border-radius: 5px;
+    display: flex;
+
+    li {
+        &.tab2{width:50%;}
+        width: 33.33%;
+        background-color: $white-color;
+        border-right: 1px solid $theme-color;
+
+        &.active {
+            background-color: $theme-color;
+            color: $white-color;
+        }
+
+        &:first-child {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-right: none;
+        }
+
+        &.active a {
+            color: $white-color !important;
+        }
+
+        a {
+            width: 100%;
+            display: inline-block;
+            font-size: 14px;
+            text-align: center;
+            padding: 6px 5px;
+            text-transform: capitalize;
+            cursor: pointer;
+        }
+    }
+}
+
+/* check box */
+[type=checkbox]:checked + label, [type=checkbox]:not(:checked) + label {
+    position: relative;
+    padding-left: 5px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+[type=checkbox]:checked + label:before, [type=checkbox]:not(:checked) + label:before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -1px;
+    left: -14px;
+    background: #fff;
+    border: 2px solid $theme-color;
+    border-radius: 4px;
+}
+
+[type=checkbox]:checked + label:after, [type=checkbox]:not(:checked) + label:after {
+    content: '✔';
+    font-size: 12px;
+    line-height: .8;
+    position: absolute;
+    top: 3px;
+    left: -12px;
+    color: #000;
+    transition: all .2s;
+    font-weight: 700;
+}
+
+[type=checkbox]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+
+.menu-popup {
+    position: fixed;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .popup-overlay {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        animation: ngdialog-fadein 0.5s;
+    }
+
+    .popup-content {
+        position: absolute;
+        width: 1024px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-width: 80%;
+        max-height: 80%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        color: #0f2327;
+        background: #fff;
+        z-index: 2000;
+        font-size: 12px;
+
+        &.receipt {
+            width: unset;
+            max-width: 90%;
+            max-height: 90%;
+            background: transparent;
+            overflow-y: auto;
+            display: inline-table;
+            z-index: 1001;
+
+            img {
+                max-width: 90vw;
+                max-height: 90vh;
+                margin: auto;
+                text-align: center;
+                display: flex;
+            }
+        }
+    }
+
+    p {
+        margin: 13px 0 13px 35px !important;
+    }
+
+    .k-close {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        font-size: 30px;
+        color: $black-color;
+
+        .fa {
+            font-weight: normal;
+        }
+    }
+
+    .kyc-inner {
+        margin: 0 20px 60px 0;
+        padding: 20px;
+
+        .k-title {
+            color: $black-color;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 21px 0 0 0
+        }
+
+        span {
+            font-size: 15px;
+            font-weight: bold;
+            color: $black-color;
+            margin: 13px 0 13px 20px;
+            display: block;
+        }
+
+        .k-link {
+            color: #0f2327;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        ul {
+            margin-left: 55px;
+
+            li {
+                margin: 0 0 10px 10px;
+                list-style-type: disc;
+                display: list-item
+            }
+        }
+    }
+
+    .gambling-text {
+        max-height: none;
+        height: 280px;
+        max-width: 440px;
+        overflow: hidden;
+        padding: 20px;
+        width: 100%;
+
+        p {
+            margin-left: 0px !important
+        }
+
+        ul {
+            li {
+                a {
+                    color: #0f2327;
+
+                    &:hover {
+                        text-decoration: underline !important
+                    }
+                }
+            }
+        }
+
+        .actions {
+            width: 100%;
+            padding-top: 20px;
+            float: left;
+        }
+    }
+}

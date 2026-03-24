@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-sm-12 pt-listing">
+        <div style="border-top: 1px solid white;padding-bottom: 30px;margin-top: -10px;"></div>
+        <div class="bulk-pt" ng-repeat="p in ptConfigList">
+            <div class="pt-header for-modal sport-icon icon-sport-{{p.ptCodeName}}" title="{{p.ptCodeName}}">
+                <span style="margin-left:5px;">({{p.maxpt}}%)</span>
+            </div>
+            <div ng-show="member.userType!=4">
+                <div class="take-give align-l">TAKE</div>
+                <div class="take-give align-r">GIVE</div>
+            </div>
+            <div>
+                <div class="take-give " ng-class="{'only-take':member.userType==4,'align-l':member.userType!=4}">
+                    <input type="text" class="take-give-value" kt-number-only allow-decimal="true" ng-model="p.takePt"
+                           ng-blur="ctrl.validatePT(p)" ng-class="{'error-input':!p.isvalid}" />
+                </div>
+                <div class="take-give align-r" ng-show="member.userType!=4">
+                    <input type="text" class="take-give-value float-r" kt-number-only allow-decimal="true" ng-model="p.givePt"
+                           ng-blur="ctrl.validatePT(p)" ng-class="{'error-input':!p.isvalid}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

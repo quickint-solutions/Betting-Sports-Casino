@@ -1,0 +1,181 @@
+﻿
+<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">{{'users.label' | translate}}</h1>
+            </header>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-pannel">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" minlength="1" maxlength="200"
+                               placeholder="{{'user.search.code.placeholder' | translate}}"
+                               autofocus ng-model="search.userCode" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" minlength="1" maxlength="200"
+                               placeholder="{{'user.search.username.placeholder' | translate}}"
+                               autofocus ng-model="search.username" class="form-control">
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="search.usertype">
+                            <option ng-repeat="type in userTypes" value="{{type.id}}">
+                                {{type.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="search.status">
+                            <option ng-repeat="status in userStatus" value="{{status.id}}">
+                                {{status.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="search.websiteId">
+                            <option ng-repeat="type in websites" value="{{type.id}}">
+                                {{type.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:48%;">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            {{'common.button.search' | translate}}
+                        </button>
+                        <button class="btn btn-default" ng-click="ctrl.resetCriteria()" style="width:48%;">
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                            {{'common.button.reset' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <kt-grid grid-id="kt-user-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     has-new-rights="true"
+                     new-button-label="{{'common.button.addnew' | translate}}"
+                     go-to-new-state="ctrl.addEditUser()"
+                     export-to-excel="ctrl.exportUsers(params,1)"
+                     cache-key="ktusergrid">
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id">
+                            <td data-title="::'UserCode'" data-sortable="'userCode'"
+                                data-header-class="'size-smd'" class="size-smd user-name">
+                                <a title="{{item.userCode}}" ui-sref="admin.lotusmember.profile({memberid:item.id,usertype:item.userType})">
+                                    {{item.userCode}}
+                                </a>
+                            </td>
+                            <td data-title="::'user.username.label' | translate" data-sortable="'username'"
+                                data-header-class="'boolean'" class="boolean ">
+                                <label class="user_label">
+                                    <span id="to"><strong>{{item.username}}</strong></span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.parent"></i>
+                                    <span ng-if="item.parent">{{item.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.parent.parent"></i>
+                                    <span ng-if="item.parent.parent">{{item.parent.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.parent.parent.parent"></i>
+                                    <span ng-if="item.parent.parent.parent">{{item.parent.parent.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.parent.parent.parent.parent"></i>
+                                    <span ng-if="item.parent.parent.parent.parent">{{item.parent.parent.parent.parent.username}}</span>
+                                </label>
+                            </td>
+                            <td data-title="::'user.mobile.label' | translate"
+                                data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <span>{{item.mobile}}</span>
+                            </td>
+                            <td data-title="::'Betting Lock'" data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <div ng-click="$parent.$parent.$parent.ctrl.changeBettingLock(item)">
+                                    <span ng-show="item.bettingLock!=2"><i class="fa fa-lock red fa-lg"></i></span>
+                                    <span ng-show="item.bettingLock==2"><i class="fa fa-unlock green fa-lg"></i></span>
+                                </div>
+                            </td>
+                            <td data-title="::'user.usertype.label' | translate"
+                                data-header-class="'size-smd boolean'" class="size-smd boolean">
+                                <span>{{$parent.$parent.$parent.ctrl.getUserType(item.userType)}}</span>
+                            </td>
+                            <td data-title="::'user.status.label' | translate"
+                                data-header-class="'size-sm'" class="size-sm">
+                                <div class="status-btn">
+                                    <span ng-class="{'active':item.status==2,'suspend':item.status!=2}">
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                        {{$parent.$parent.$parent.ctrl.getUserStatus(item.status)}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td data-title="'Multi?'"
+                                data-header-class="'size-xs boolean'" class="size-xs boolean">
+                                <i ng-show="item.allowMultiLogin" class="fa fa-check"></i>
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean size-lg'" class="boolean size-lg">
+                                <a class="btn btn-light" title="Change Password"
+                                   ng-click="$parent.$parent.$parent.ctrl.changePassword(item.id,item.username)">
+                                    <i class="fa fa-key"></i>
+                                </a>
+                                <a class="btn btn-light" title="Set Commission"
+                                   ng-click="$parent.$parent.$parent.ctrl.setCommission(item.id,item.username)">
+                                    <i class="fa fa-percent"></i>
+                                </a>
+                                <a class="btn btn-light" title="Change Status"
+                                   kt-has-claim claims="{Claims: ['master.member.edit']}"
+                                   ng-if="item.userType!=0"
+                                   ng-click="$parent.$parent.$parent.$parent.ctrl.changeUserStatus(item)">
+                                    <i class="fa fa-gear"></i>
+                                </a>
+                                <a class="btn btn-light" title="Bet Config"
+                                   ng-click="$parent.$parent.$parent.ctrl.updateBetConfig(item.id,item.username)">
+                                    <i class="fa fa-code"></i>
+                                </a>
+                                <a class="btn btn-light" title="Operator Config"
+                                   ng-if=" item.userType==12"
+                                   ng-click="$parent.$parent.$parent.$parent.ctrl.editOperator(item)">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                                <a class="btn btn-success" title="Change Website"
+                                   kt-has-claim claims="{Claims: ['admin.member.manage']}"
+                                   ng-click="$parent.$parent.$parent.ctrl.changeWebsite(item)">
+                                    <i class="fa fa-globe"></i>
+                                </a>
+
+                            </td>
+                            <td data-header-class="'boolean size-xl '" class="boolean size-xl">
+                                <a class="btn btn-light" title="Edit User"
+                                   ng-click="$parent.$parent.$parent.ctrl.addEditUser(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-success" title="Deposit/Withdrawal"
+                                   ng-if="item.userType==1 || item.userType==7 || item.userType==8 || item.userType==11"
+                                   ng-click="$parent.$parent.$parent.$parent.ctrl.addDW(item.id,item.username)">
+                                    <i class="fa fa-bank"></i>
+                                    CR
+                                </a>
+                                <a class="btn btn-secondary" title="BT"
+                                   ng-click="$parent.$parent.$parent.ctrl.setBT(item.id,item.username)">
+                                    <i class="fa fa-handshake-o"></i>
+                                   BT
+                                </a>
+                             
+                                <a class="btn btn-light" title="Account Summary" target="_blank"
+                                   ui-sref="admin.lotusmember.profile({memberid:item.id,usertype:item.userType})">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btn btn-danger" title="SMS Config" ng-if="item.userType==5 "
+                                   kt-has-claim claims="{Claims: ['admin.smsconfig.manage']}"
+                                   ng-click="$parent.$parent.$parent.$parent.ctrl.updateSMSConfig(item)">
+                                    <i class="fa fa-envelope"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

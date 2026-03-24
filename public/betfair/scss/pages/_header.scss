@@ -1,0 +1,2610 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+.header-marquee {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 230px);
+
+    .marquee-text {
+        background: unset;
+        padding-bottom: 0px;
+        color: $header-account;
+    }
+}
+
+header, .header {
+    //width: $width;
+    //margin-bottom: 2px;
+    /*border-bottom:4px solid $theme-color;*/
+    .header-top {
+        position: relative;
+        background: $theme-color;
+        height: 68px;
+        min-height: inherit;
+        @include padding (8px, 0px, 0px, 0px);
+        color: $white-color;
+
+        .marquee-header {
+            width: 39%;
+        }
+
+        .account-nav {
+            // width: 36%;
+            padding-left: 0px !important;
+        }
+
+        .logo-img {
+            float: left;
+            //margin: auto auto auto 10px;
+            background-size: contain;
+            //padding: 25px 20px;
+            position: relative;
+            height: 50px;
+            width: 100%;
+            background-position-x: center;
+            background-position-y: center;
+            background-repeat: no-repeat;
+        }
+
+        .col-sm-4, .col-sm-8 {
+            @include padding (0px, 5px, 0px, 5px);
+        }
+
+        .account-wrap {
+            //float: right;
+            //float: $float-left;
+            @include headline($header-account, 11px);
+            text-transform: capitalize;
+
+            .glcicon {
+                width: 20px;
+                height: 20px;
+                margin-top: -2px;
+            }
+
+            .head-refresh {
+
+                a {
+                    font-size: 14px;
+                    color: $dark-black-color;
+                    height: 25px;
+                    text-align: $text-center;
+                    @include border-radius(4px);
+                    @include border-all(1px, solid, $dark-black-color);
+                    background-color: $white-color;
+                    float: left;
+                    min-width: 30px;
+                    padding: 2px 6px;
+
+                    &:hover {
+                        background-color: $myaccount-hover;
+                        color: $white-color;
+                    }
+                }
+            }
+
+            .accountCredit {
+                padding: 0px 5px;
+            }
+
+            .account {
+                //@include padding (0px, 0px, 0px, 0px);
+                margin: 0px 5px;
+                height: 25px;
+                width: 120px;
+                @include border-radius(4px);
+                @include border-all(1px, solid, $dark-black-color);
+                background-color: $white-color;
+
+                &:hover {
+                    background-color: $myaccount-hover;
+
+                    a {
+                        color: $white-color;
+                    }
+                }
+
+                a {
+                    line-height: 24px;
+                    font-size: $font-size-tab;
+
+                    i {
+                        margin: 0 5px;
+                    }
+                }
+
+                h4 {
+                    text-align: $float-left;
+                    margin: 0px;
+                    @include headline($dark-blue, $font-size-tab);
+                    @include padding (0px, 0px, 0px, 8px);
+                    @include txt(bold);
+                    line-height: 28px;
+                    width: $width;
+
+                    .gmt {
+                        font-size: 11px;
+                        @include border('left',1px, solid, $grayish );
+                        @include padding (0px, 5px, 0px, 5px);
+                        float: right;
+                    }
+                }
+
+                .account_pop {
+                    display: none;
+                }
+
+                &:hover .account_pop {
+                    display: block !important;
+                }
+            }
+
+            .account_pop {
+                padding: 0px!important;
+            }
+
+            .account, .account_pop {
+                @include padding (0px, 3px, 0px, 8px);
+                float: $float-left;
+                line-height: 20px;
+                text-transform: uppercase;
+
+                a {
+                    color: $dark-black-color;
+                }
+
+                .accountPopup {
+                    li {
+                        a {
+                            @include padding (50px, 10px, 50px, 10px);
+                            float: $float-left;
+                        }
+                    }
+                }
+
+                ul {
+                    background-color: $white-color;
+                    width: 215px;
+                    @include position(absolute, right 10px);
+                    z-index: 3;
+                    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+                    @include border-radius(4px);
+
+                    li {
+                        float: $float-left !important;
+                        width: $width;
+                        @include border('bottom', 1px, solid, $grayish);
+
+                        a {
+                            @include headline( $dark-gray-black, $font-size-tab);
+                            text-align: $float-left;
+                            line-height: 24px;
+                            float: $float-left !important;
+                            width: $width;
+                            color: $dark-black-color !important;
+                            @include padding (0px, 0px, 0px, 0px);
+
+                            &:hover {
+                                background-color: $light-hover-color;
+                                color: $dark-black-color !important;
+                            }
+                        }
+                    }
+
+                    .logout {
+                        a {
+                            text-align: $text-center !important;
+                            margin: 5px;
+                            @include padding (0px, 0px, 0px, 0px !important);
+                            width: 95% !important;
+                            @include border-radius(4px);
+                            color: $white-color !important;
+                            font-size: 14px;
+                            @include txt(bold);
+                            background-color: $logout-btn;
+
+                            &:hover {
+                                background-color: $light-gray-blue;
+                                color: $white-color !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .header-menu {
+        background-color: $theme-secondary-color; //#1e1e1e;
+        background-repeat: repeat-x;
+        height: 33px;
+        padding-top: 1px;
+        color: $menu-fr-color;
+
+        .left-menu {
+            @include padding(0px, 5px, 0px, 5px);
+        }
+
+        ul {
+            li {
+
+                a {
+                    text-transform: uppercase;
+                    @include display(block);
+                    text-align: $text-center;
+                    line-height: 29px;
+                    @include border('right',1px, solid, rgba(255, 255, 255, 0.2));
+                    @include padding (0px, 10px, 0px, 10px);
+                    @include txt(bold);
+                    @include headline($menu-fr-color, $font-size-tab);
+                    //border-top: 2px solid transparent;
+                    @include border('top', 1px, solid, transparent);
+                    transition: 0.4s;
+
+                    &:hover, &.active {
+                        background-color: $header-hover; //#e4e4e4;
+                        color: $header-font;
+                    }
+                }
+            }
+        }
+
+        .right-menu {
+            @include padding (0px, 10px, 0px, 10px);
+            text-align: right;
+
+            ul {
+                li {
+                    &.open {
+                        .setting-btn {
+                            background-color: $light-gray;
+                            color: $header-font;
+                            //background-image: url('/public/images/settings-hover.png');
+                        }
+                    }
+
+                    a {
+                        border-right: none;
+                        text-transform: capitalize;
+
+                        &.one-click {
+                            margin-top: -3px;
+                            text-transform: capitalize;
+                            @include padding (0px, 8px, 0px, 8px);
+                            color: $dark-black-color !important;
+                            background-color: $one-click;
+                            @include border('top', 3px, solid, $one-top-border !important);
+
+                            &.active {
+                                color: $white-color !important;
+                                background: $one-click-active;
+                                @include border('top', 3px, solid, $white-color !important);
+
+                                .fa-check-square {
+                                    color: $white-color;
+                                    @include border-all(1px, solid, $white-color);
+                                    @include border-radius(3px);
+                                    width: 14px;
+                                    margin-right: 2px;
+                                }
+                            }
+
+                            .fa-square {
+                                width: 14px;
+                                margin-right: 2px;
+                                @include border-all(1px, solid, $dark-black-color);
+                                @include border-radius(3px);
+                            }
+                        }
+
+                        &.setting-btn {
+                            width: 90px;
+                            text-align: $float-left;
+                            margin-left: 5px;
+
+                            i {
+                                margin-left: 5px;
+                                font-size: 13px;
+                            }
+                        }
+                    }
+
+                    .setting-popup {
+                        background-color: $light-grey !important;
+                        @include headline($dark-blue, 11px);
+                        @include padding (10px, 10px, 10px, 10px);
+                        @include position(absolute, right 10px);
+                        width: 290px;
+                        text-align: $float-left;
+                        z-index: 9999;
+                        left: initial;
+                        border-radius: 0 0 4px 4px;
+                        box-shadow: 0 4px 5px rgba(0,0,0,0.5);
+
+                        .lbl-name {
+                            @include resize (left, $width);
+                        }
+
+                        input {
+                            @include border-radius(4px);
+                            border-width: 1px;
+                            @include padding (2px, 5px, 2px, 5px);
+                            width: 35%;
+                            margin-left: 10px;
+                        }
+
+                        .left-btn {
+                            @include resize (left, 83%);
+
+                            a:hover {
+                                background-image: none;
+                                box-shadow: none;
+                            }
+                        }
+
+                        .edit-btn {
+                            @include resize ($float-left, 17%);
+
+                            a {
+                                @include border-all(1px, solid, $edit-btn !important);
+                                box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.8);
+                                color: $edit-btn !important;
+                                background: none !important;
+                                @include padding (0px, 0px, 0px, 0px);
+                                line-height: 42px !important;
+                                width: 43px !important;
+
+                                i {
+                                    margin-left: 5px;
+                                }
+                            }
+                        }
+
+                        .stake {
+                            @include display(inline-block);
+
+                            a {
+                                text-align: $text-center;
+                                @include resize (left, 70px);
+                                @include line-height(20px);
+                                @include txt(normal);
+                                @include headline($dark-black-color, 11px);
+                                background-color: $white-color;
+                                @include border-all(1px, solid, $grayish);
+                                margin: 2px;
+                                @include border-radius(4px);
+
+                                &.select {
+                                    color: $stake-color;
+                                    background: $dark-brown url('/public/images/bg-send.jpg') repeat-x;
+                                }
+                            }
+                        }
+
+                        select {
+                            margin: 0 0 4px 15px;
+                            width: 100px;
+                            height: 23px;
+                            @include border-radius(4px);
+                        }
+
+                        .select-btn {
+                            a {
+                                @include display(inline-block);
+                                margin: 2px 22px 5px 0;
+                                @include border-all(1px, solid, $grayish);
+                                @include line-height(22px);
+                                width: 45%;
+                                @include headline($dark-black-color, 11px);
+
+                                &:last-child {
+                                    margin-right: 0px;
+                                }
+                            }
+
+                            .save {
+                                background-image: none;
+                            }
+
+                            .cancle {
+                                background-color: $white-color !important;
+
+                                &:hover {
+                                    background: none;
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+
+                        .ok-btn {
+                            @include display(inline-block);
+
+                            .left-btn {
+                                input {
+                                    background-color: $white-color;
+                                    background-image: none;
+                                    color: $dark-gray-black;
+                                    border-width: 1px;
+                                    width: 70px;
+                                    margin: 2px;
+                                    text-align: $text-center;
+                                    @include padding(0px, 0px, 0px, 0px);
+                                    @include line-height(20px);
+                                    @include border-radius(4px);
+
+                                    &:focus {
+                                        border-width: 1px;
+                                        border-color: $link-color-default;
+                                        box-shadow: 0 0 4px 2px rgba(114,187,239,0.8);
+                                    }
+                                }
+                            }
+
+                            .ok-button {
+                                a {
+                                    // background-color: $black-color;
+                                    // background-image: url(/public/images/bg-send.jpg);
+                                    color: $ok-btn;
+                                    border: none;
+                                    @include line-height(43px);
+                                    background-color: $dark-gray-black;
+                                    @include txt(normal);
+
+                                    &:hover {
+                                        background-position: 0 -329px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    /* setting popup */
+                }
+
+                .line {
+                    @include border('bottom', 1px, solid, $light-gray-blue);
+                    box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+                    @include line-height(15px);
+                    padding-bottom: 3px !important;
+                    margin-bottom: 4px;
+                }
+            }
+
+            .master-ul {
+                li {
+                    @include border('right', 1px, solid, rgba(69, 32, 7, 0.2));
+                }
+
+                .time-zone {
+                    //  color: $timezone;
+                    border-top: none;
+                    padding: 5px 5px;
+                    /*span {
+                        color: #fff !important;
+                    }*/
+
+                    &:hover {
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
+                }
+
+                .logout {
+                    a {
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+/* header */
+
+.admin-header {
+    .header-menu {
+        .video-button {
+            a {
+                @include padding(0px, 0px, 0px, 0px);
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .master-video {
+            border-right: none !important;
+            float: none;
+
+            a {
+                @include padding(0px, 0px, 0px, 0px);
+                border: none;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    .header-top {
+        .logo-img {
+            width: 70%;
+        }
+    }
+}
+
+.master_header {
+    .header-top {
+        .logo-img {
+            width: $width;
+        }
+    }
+
+    .logout {
+        margin: 15px;
+
+        a {
+            color: $header-account;
+        }
+    }
+}
+
+.bookmarker_menu {
+    .logout {
+        margin: 0px;
+    }
+
+    &.header-menu .right-menu .master-ul .time-zone {
+        padding: 0px;
+    }
+}
+
+.admin_full.full-wrap {
+    //height: -webkit-calc(100% - 101px);
+    //height: -moz-calc(100% - 101px);
+    //height: calc(100% - 101px);
+    margin: 0 auto;
+    @include padding(0, 2px, 0, 2px);
+}
+
+.full-wrap {
+    @include position(relative);
+    // min-width: 1350px;
+    width: $width;
+    height: -webkit-calc(100% - 108px);
+    height: -moz-calc(100% - 108px);
+    height: calc(100% - 108px);
+    margin: 0 auto;
+    @include padding(0, 2px, 0, 2px);
+
+
+    .left-part {
+        height: calc(100vh - 107px);
+        overflow: hidden;
+        background-color: $white-color;
+        // @include position(absolute, top 0px left 0px );
+        //width: 17%;
+        // margin-left: 5px;
+        .sidebar-tab {
+            background-color: $white-color;
+
+            .vertical-tab {
+                @include resize (left, $width);
+
+                .pin {
+                    background-image: url(/public/images/score-main.png);
+                    background-position: -392px -42px;
+                    background-repeat: repeat-x;
+                    text-indent: -99999px;
+                    @include resize (right, 30px);
+                    margin: 0px;
+                    height: 21px;
+
+                    &.active {
+                        background-position: -392px -21px;
+                    }
+                }
+
+                .path {
+                    background: $gray_black;
+                    height: 25px;
+                    @include line-height(24px);
+                    @include position(relative);
+
+                    .path-last {
+                        a {
+                            @include txt(bold);
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    ul {
+                        text-align: left;
+                        // width: 9999px;
+                        li {
+                            @include padding(0px, 6px, 0px, 6px);
+
+                            a {
+                                @include headline ($white-color, $font-size-tab);
+                                @include padding (0px, 5px, 0px, 0px);
+                                @include line-height(23px);
+                            }
+
+                            &:last-child {
+                                background-image: none !important;
+                                @include padding(0px, 0px, 0px, 6px);
+                            }
+                        }
+                    }
+                }
+
+                .inner-nav {
+                    @include resize (left, $width);
+
+                    .myaccount-nav {
+                        a {
+                            @include resize (left, $width !important);
+
+                            &.active {
+                                background-color: $support-a-color;
+                                color: $sidebar-nav;
+                            }
+                        }
+                    }
+
+                    .left-menulist {
+                        li {
+                            @include display(block);
+
+                            &:last-child {
+                                @include border('bottom', 2px, solid, $theme-color);
+
+                                a {
+                                    @include txt(bold);
+                                }
+                            }
+
+                            &:hover {
+                                background-color: transparent !important;
+                            }
+
+                            a {
+                                color: $blue-color;
+
+                                &:hover {
+                                    background-color: transparent !important;
+                                    color: #000;
+                                }
+                            }
+                        }
+                    }
+
+                    .sidenav {
+                        height: $height;
+                        width: $width;
+                        z-index: 1;
+                        overflow-x: hidden;
+                        background: $white-color;
+
+                        a {
+                            @include padding (3px, 5px, 3px, 10px);
+                            text-decoration: none;
+                            @include resize (left, $width);
+                            margin-right: 10px;
+                            @include line-height(18px);
+                            @include headline($dark-gray-black, $font-size);
+                            @include display(block);
+                            @include txt(normal);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+
+                            &:hover {
+                                color: $sidebar-nav;
+                                background-color: $support-a-color;
+
+                                &:hover .Go {
+                                    background-position: 0% -128px;
+                                }
+
+                                &:hover .go-icon {
+                                    background-color: $black-color;
+                                    color: $white-color;
+                                }
+                            }
+
+                            &.active {
+                                font-weight: bold;
+                            }
+                        }
+
+                        ul {
+                            li {
+                                @include display(block);
+                                @include border('bottom', 1px, solid, $support-a-color);
+                                @include resize (left, $width);
+
+                                &:hover {
+                                    background-color: $support-a-color;
+                                }
+
+                                .go-icon {
+                                    @include border-all(0.5px, solid, $gray);
+                                    @include border-radius(25%);
+                                    background-color: $light-grey;
+                                    @include padding(2.5px, 0px, 0px, 4.5px);
+                                    height: 15px;
+                                    font-size: 9px;
+                                    margin-top: 2px;
+                                    @include resize(right, 15px);
+
+                                    &:hover {
+                                        background-color: $black-color;
+                                        color: $white-color;
+                                    }
+                                }
+
+                                .Go {
+                                    background-position: 0% -104px;
+                                    background-image: url('/public/images/left-arrow.png');
+                                    background-repeat: repeat-x;
+                                    text-indent: -99999px;
+                                    @include resize (right, 30px);
+                                    margin: 0px;
+                                    height: 18px;
+                                    @include position(absolute, right 2px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .center-part {
+        height: $height;
+        width: 100%;
+        overflow: hidden;
+        @include position(relative);
+        // margin-left: 17.36111%;
+        // margin-right: 26.04167%;
+        top: 0px;
+        @include padding(0px, 5px, 0px, 5px);
+
+        .scrollwrap {
+            height: -webkit-calc(100vh - 107px);
+            height: -moz-calc(100vh - 107px);
+            height: calc(100vh - 107px);
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        .one_click_screen {
+            @include position(relative);
+
+            .reoverlay {
+                @include display(block);
+                background-color: rgba(0,0,0,0.4);
+                position: fixed;
+                width: $width;
+                height: $height;
+                top: 0;
+                left: 0;
+                z-index: 51;
+
+                .hide {
+                    display: none;
+                }
+            }
+        }
+
+        .dialog-wrap {
+            background-color: rgba(0,0,0,0.8);
+            box-shadow: 0 0 6px 6px rgba(255,255,255,0.7);
+            @include border-radius(5px);
+            color: $white-color;
+            width: 310px;
+            @include position(absolute, left 50% top -195px);
+            transform: translate(-50%);
+            z-index: 52;
+            animation: upIn 0.8s ease;
+
+            h4 {
+                text-align: $text-center;
+                @include padding(7px, 0px, 7px, 0px);
+                font-size: 15px;
+                @include txt(bold);
+                margin: 0px;
+                @include line-height(20px);
+            }
+
+            .dialog-content {
+                @include padding(7px, 15px, 7px, 15px);
+                font-size: 13px;
+                @include border('top',1px, solid, rgba(255,255,255,0.4));
+                @include border('bottom',1px, solid, rgba(255,255,255,0.4));
+            }
+
+            .attention {
+                color: $theme-color;
+            }
+
+            .arrow-dialog {
+                @include position(absolute, left 50% bottom -12px);
+                opacity: 0.8;
+                transform: translate(-50%);
+            }
+
+            .break {
+                text-align: $text-center;
+                @include padding(12px, 0, 15px, 0);
+
+                li {
+                    a {
+                        @include padding(6px, 60px, 6px, 60px);
+                        @include border-all(1px, solid, $black-color);
+                        @include border-radius(5px);
+                    }
+                }
+            }
+        }
+
+        .one_click-wrap {
+            @include position(absolute, bottom 0px);
+            background-color: $blue-color;
+            width: $width;
+            z-index: 52;
+
+            .oneclick-setting, .oneclick-betstake {
+                color: $dark-gray-black;
+                background-color: $blue-color;
+
+                .stake-title {
+                    float: $float-left;
+                    margin: 0px;
+                    @include line-height(31px);
+                    font-size: $font-size-tab;
+                    margin-left: 10px;
+                    @include txt(bold);
+                }
+
+                ul.one_click-stake {
+                    @include border('left', 1px, solid, $dark-blue);
+                    @include border('right', 1px, solid, $dark-blue);
+                    border-bottom-left-radius: 30px;
+                    border-bottom-right-radius: 30px;
+                    background-color: $light-blue;
+                    height: 31px;
+                    text-align: $text-center;
+                    margin: 0 auto;
+                    @include resize($float-left, 414px);
+                    @include position(absolute, left 26%);
+
+                    a, input {
+                        background-color: $white-color;
+                        @include txt(normal !important);
+                        margin: 5px !important;
+                        line-height: 18px !important;
+                        width: 75px;
+                        @include padding(0px, 0px, 0px, 0px);
+                        @include headline($dark-gray-black, 11px !important);
+
+                        &.select {
+                            color: $login-back;
+                            background-color: $theme-secondary-color;
+                        }
+
+                        &:hover {
+                            background-image: none !important;
+                            box-shadow: none !important;
+                        }
+                    }
+                }
+
+                .setting-edit {
+                    background-color: $oneclick-edit;
+                    float: right;
+                    @include line-height(18px);
+                    text-transform: capitalize;
+                    @include border-all(1px, solid, $brown-zambezi);
+                    @include border-radius(5px);
+                    box-shadow: inset 0 1px 0 0 rgba(210,204,204,0.5);
+                    @include headline($color-text, 11px);
+                    margin: 5px 10px 0 0;
+                    @include padding (0px, 20px, 0px, 20px);
+                }
+            }
+
+            .oneclick-betstake {
+
+                input {
+                    @include border-all(1px, solid, $medium-blue);
+                    color: $dark-black-color !important;
+                    background-color: $light-grya-blue !important;
+                    @include border-radius(4px);
+                    text-align: $text-center;
+                    border-width: 1px;
+                }
+
+                .setting-save {
+                    background-color: $dark-gray-black !important;
+                    @include border-all(1px, solid, $dark-gray-black !important);
+                    @include headline($login-back, 11px );
+                    @include padding (0px, 24px, 0px, 24px);
+                    margin: 5px 10px 0 0;
+                    float: right;
+                    @include line-height(19px);
+                    @include border-radius(5px);
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .commentary {
+            .comm_data {
+                ul li {
+                    button:hover {
+                        color: $comm_data-color !important;
+                    }
+
+                    button:focus {
+                        background-color: $red-color !important;
+                    }
+                }
+            }
+        }
+
+        .recent-results {
+            table {
+                border-bottom: 2px solid #7E97A7;
+                margin-top: 15px;
+
+                thead {
+                    background-color: $light-gray-black;
+                    color: $white-color;
+
+                    th {
+                        @include padding(4px, 0px, 4px, 10px);
+                    }
+
+                    tr:hover {
+                        background-color: $light-gray-black;
+                    }
+                }
+
+                tr {
+                    td {
+                        @include padding(7px, 0px, 7px, 10px);
+                    }
+                }
+            }
+        }
+    }
+
+    .right-part {
+        height: calc(100vh - 107px);
+        overflow: hidden;
+        // @include position(absolute, top 0px right 0px );
+        width: 100%;
+        // margin-right: 5px;
+        background-color: $white-color;
+        transition: height 0.5s ease;
+    }
+
+    .right-part.height63 {
+        height: calc(100vh - 305px);
+    }
+
+    .right-part.height97 {
+        height: calc(100vh - 130px) !important;
+    }
+
+    .right-part.video {
+        height: 197px;
+        top: unset;
+        bottom: 0;
+        background-color: $black-color;
+        transition: height 0.3s ease-out;
+
+        .black-back {
+            cursor: $cursor;
+            margin-bottom: -5px;
+
+            .faimg {
+                padding-top: 3px;
+            }
+        }
+
+        iframe {
+            border: 0px !important;
+            margin: 0px 10px;
+        }
+    }
+
+    .right-part.video.height3 {
+        height: 3% !important;
+    }
+}
+
+.menu-list {
+    li {
+        a {
+            display: list-item;
+            color: $dark-gray-black;
+            @include padding (0px, 10px, 0px, 10px);
+        }
+
+        &:hover, .active {
+            background-color: $support-a-color;
+        }
+    }
+}
+
+.admin-part, .master_wrap {
+    /*.list-view {
+        .list-view-table {
+            table {
+                tbody tr {
+                    border-bottom: 1px solid #eee;
+                }
+            }
+        }
+    }*/
+    .livebets {
+        .filter-panel {
+            float: $float-left;
+            width: 100%;
+
+            .input-list {
+                select {
+                    width: auto;
+                }
+
+                .bets {
+                    margin: 9px 20px 10px 15px;
+                }
+            }
+        }
+
+        .table-bets {
+            float: $float-left;
+        }
+    }
+
+    .bookmark_table {
+        .full-marketlist {
+            height: auto !important;
+        }
+    }
+}
+
+.master_wrap {
+
+    .admin-down {
+        margin: 8px 0 0 0;
+        overflow: hidden;
+
+        .col-sm-2 {
+            @include padding(0px, 8px, 0, 10px);
+            width: 15.5%;
+        }
+
+        .add_btn {
+            width: 22.5%;
+
+            .btn {
+                margin-left: 5px;
+                @include padding(6px, 7px, 6px, 7px);
+            }
+        }
+    }
+}
+
+.exposure-filter {
+    // background-color: $white-color;
+    color: white;
+
+    .form-control {
+        width: 92%;
+    }
+    // background-color: transparent;
+    //color: $black-color;
+    //@include padding(5px, 10px, 5px, 10px);
+    //@include border('bottom', 2px, solid, $border-color);
+    .filter-header {
+        font-size: 14px;
+        margin-right: 15px;
+        @include txt(bold);
+    }
+
+    label {
+        margin-right: 5px;
+        font-size: 14px;
+        @include txt(normal);
+    }
+
+    input[type="radio"] {
+        margin-top: 0px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .scorecard {
+        .game-head {
+            margin-bottom: 0px;
+            @include padding(4px, 2px, 4px, 2px);
+        }
+
+        .scores-team {
+            width: 46% !important;
+        }
+    }
+}
+/*
+.accountCredit .betCredit, .accountCredit .totalExposure {
+    color: $black-color;
+}*/
+
+@media screen and (min-width: 1201px) and (max-width: 1366px) {
+    .admin-header {
+        .header-menu {
+            .col-sm-10 {
+                width: $width;
+            }
+        }
+    }
+
+    .full-popup {
+        border: none !important;
+        min-width: auto !important;
+        height: auto !important;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+
+        .popup-left {
+            width: $width !important;
+            border-right: 0px !important;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .admin-header {
+        .header-top {
+            margin-bottom: 0px;
+            overflow: visible;
+        }
+
+        .header-menu {
+            .col-sm-10 {
+                @include padding(0, 10px, 0, 10px);
+                width: $width;
+            }
+
+            ul {
+                li {
+                    a {
+                        font-size: 9px;
+                        @include padding(0, 8px, 0, 8px);
+                    }
+                }
+            }
+        }
+    }
+
+    .admin_full {
+        min-width: auto;
+
+        .list-view {
+            height: -webkit-calc(100% - 0px);
+            height: -moz-calc(100% - 0px);
+            height: calc(100% - 0px);
+
+            .list-view-table {
+                table {
+                    min-width: 1350px;
+                }
+            }
+        }
+
+        .form-pannel {
+            float: initial;
+
+            input, select, .btn {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .Profit-l {
+        .total-show {
+            .sports-switch {
+                float: right !important;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .master_table {
+        //min-width: 1350px !important;
+    }
+
+    div[template-url="templates.pagination"] {
+        //  width: 1350px !important;
+    }
+
+    .master_header {
+        .header-menu {
+            .left-mennu {
+                @include padding(0px, 6px, 0px, 6px);
+
+                ul {
+                    li {
+                        a {
+                            @include padding(0px, 6px, 0px, 6px)
+                        }
+                    }
+                }
+            }
+
+            .right-menu {
+                text-align: left;
+                @include padding(0px, 8px, 0px, 8px);
+
+                ul {
+                    li {
+                        a {
+                            padding: 0px 6px 0px 6px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .admin-down {
+        .col-sm-2 {
+            @include padding(0px, 8px, 0, 10px);
+            width: 15.5%;
+        }
+
+        span {
+            font-size: 11px;
+        }
+
+        .add_btn {
+            width: 22.5%;
+
+            .btn {
+                font-size: 10px;
+                @include padding(6px, 7px, 6px, 7px);
+            }
+        }
+    }
+
+    .my-profile {
+        .col-sm-6 {
+            @include resize($float-left, $width);
+        }
+    }
+
+    .main-bookmaker {
+        overflow: auto;
+
+        .mCustomScrollbar {
+            touch-action: auto !important;
+        }
+
+        .my-profile {
+            height: -webkit-calc(100vh - -100px);
+            height: -moz-calc(100vh - -100px);
+            height: calc(100vh - -100px);
+        }
+    }
+    /*.full-popup{
+         border:none !important;
+         min-width:auto !important;
+         height:auto !important;
+         margin-bottom:10px;
+         padding-bottom:15px;
+
+         .popup-left{width:100% !important; border-right:0px !important}
+     }*/
+
+}
+
+@media only screen and (max-width: 768px) {
+    .admin-header {
+        .header-menu {
+            height: 70px;
+
+            ul {
+                li {
+                    width: 93px;
+                }
+            }
+        }
+    }
+
+    .master_wrap {
+        overflow: auto !important;
+    }
+
+    .master_header {
+        .header-menu {
+            .left-mennu {
+                @include resize($float-left, $width);
+
+                ul {
+                    li {
+                        width: 94px;
+                    }
+                }
+            }
+
+            .right-menu {
+                @include resize($float-left, $width);
+
+                ul {
+                    float: right;
+
+                    li {
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .master_wrap {
+        overflow: auto !important;
+    }
+
+    .full-popup {
+        border: none !important;
+        min-width: auto !important;
+        height: auto !important;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+
+        .popup-left {
+            width: $width !important;
+            border-right: 0px !important;
+        }
+    }
+}
+
+@media screen and (min-width: 1023px) and (max-width: 1024px) {
+    .full-popup {
+        border: none !important;
+        min-width: auto !important;
+        height: auto !important;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+
+        .popup-left {
+            width: $width !important;
+            border-right: 0px !important;
+            height: auto !important;
+        }
+    }
+
+    .scroll-wrap {
+        overflow: auto !important;
+    }
+}
+
+@media only screen and (min-width: 812px) and (max-width: 824px) and (orientation: landscape) {
+    .admin-header {
+        .header-menu {
+            height: 70px;
+
+            ul {
+                li {
+                    width: 113px;
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-menu {
+            height: 100px;
+        }
+    }
+
+    .master_wrap {
+        overflow: auto !important;
+    }
+
+    .commentary-div {
+        .left-part {
+            width: 25%;
+        }
+
+        .center-part {
+            width: 74%;
+            margin-left: 26%;
+
+            .commentary {
+                .col-sm-4 {
+                    width: 30.333333%;
+                }
+
+                .form-signin {
+                    .toggle-buttons {
+                        .btn {
+                            @include padding(7px, 5px, 7px, 5px);
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .col-sm-9 {
+            @include resize($float-left, $width);
+        }
+
+        .marquee-text {
+            marquee {
+                width: 93% !important;
+            }
+        }
+
+        .col-sm-3 {
+            //  @include resize($float-left, $width);
+            ul {
+                float: right;
+
+                li {
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    header .header-top .account-wrap li, .header .header-top .account-wrap li {
+        font-size: 10px;
+        line-height: 14px;
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 641px) {
+    .master_header {
+        .header-menu {
+            .left-mennu {
+                ul#sub-header li {
+                    width: 122px !important;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 567px) and (max-width: 568px) and (orientation: landscape) {
+    .header.admin-header {
+        .admin-menu {
+            height: 130px !important;
+
+            .col-sm-10 {
+                ul#sub-header {
+                    li {
+                        width: 134px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .header.master_header {
+        .header-menu {
+            height: 135px !important;
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+    .admin-header {
+        .account-wrap {
+            li {
+                ul {
+                    left: auto !important;
+                }
+            }
+        }
+
+        .header-menu {
+            height: 100px !important;
+
+            ul {
+                li {
+                    width: 117px !important;
+
+                    a {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+
+        .header-top {
+            margin-bottom: 0px;
+            overflow: visible;
+
+            .logo-img {
+                width: 70%;
+            }
+        }
+    }
+
+    .mobilewrap {
+        .bets-history {
+            .filter-panel {
+                ul {
+                    span {
+                        float: $float-left;
+                        width: 88% !important;
+
+                        li {
+                            margin-bottom: 8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .master_bet {
+        .filter-panel {
+            ul {
+                span {
+                    width: 87% !important;
+
+                    li {
+                        font-size: 13px;
+                        margin-bottom: 0px;
+
+                        input {
+                            width: 121px !important;
+                            font-size: 13px;
+                            background-position: 90px -23px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .scrollwrap {
+        .mCustomScrollbar.mCS_touch_action {
+            touch-action: auto;
+        }
+    }
+
+    .master_wrap {
+        overflow: auto !important;
+    }
+
+    .master_header {
+        .header-menu.bookmarker_menu {
+            height: 70px !important;
+        }
+
+        .header-menu {
+            height: 140px !important;
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 134px !important;
+                    }
+                }
+            }
+
+            .right-menu {
+                ul {
+                    li {
+                        width: auto !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .main-bookmaker {
+        overflow: auto;
+
+        .mCustomScrollbar {
+            touch-action: auto !important;
+        }
+
+        .my-profile {
+            height: -webkit-calc(100vh - -255px) !important;
+            height: -moz-calc(100vh - -255px) !important;
+            height: calc(100vh - -255px) !important;
+        }
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .admin-header {
+        .account-wrap {
+            li {
+                ul {
+                    left: 15px;
+                    right: 0px !important;
+                }
+            }
+        }
+
+        .header-top {
+            height: auto !important;
+
+            .logo-img {
+                height: 30px;
+            }
+
+            .account-wrap {
+                margin-top: 0px;
+                @include padding(5px, 0px, 10px, 0px);
+            }
+        }
+
+        .header-menu {
+            height: 165px;
+
+            ul {
+                li {
+                    width: 128px;
+                }
+            }
+        }
+    }
+
+    .admin-part {
+        .title {
+            margin-bottom: 15px;
+        }
+
+        .list-view {
+            .toolbar {
+                ul {
+                    li {
+                        margin: 0px;
+                        line-height: 25px;
+
+                        .btn {
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        .permission {
+            .permission-table {
+                min-width: 1350px;
+            }
+        }
+
+        .livebets {
+            .filter-panel {
+                .input-list {
+                    li {
+                        @include resize($float-left, $width);
+                        margin: 5px 0;
+                    }
+
+                    select {
+                        width: 170px;
+                        margin: 0px;
+                    }
+                }
+            }
+        }
+    }
+
+    .admin_full {
+        min-width: auto;
+
+        .list-view {
+            height: -webkit-calc(100% - 0px);
+            height: -moz-calc(100% - 0px);
+            height: calc(100% - 0px);
+
+            .list-view-table {
+                table {
+                    min-width: 1350px;
+                }
+            }
+        }
+
+        .form-pannel {
+            float: initial;
+
+            input, select, .btn {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .mobilewrap {
+        .bets-history, .profit-title {
+            .list-view {
+                .list-view-table {
+                    height: -webkit-calc(100vh - 230px);
+                    height: -moz-calc(100vh - 230px);
+                    height: calc(100vh - 230px);
+                }
+            }
+
+            .filter-panel {
+                float: $float-left;
+
+                ul {
+                    @include resize(left, $width);
+
+                    .bet_name {
+                        @include resize(left, auto)
+                    }
+
+                    span {
+                        @include resize(left, 79%);
+
+                        li {
+                            margin-bottom: 8px;
+
+                            a {
+                                margin: 0px;
+                            }
+                        }
+                    }
+
+                    li {
+                        a {
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+
+            .table-bets {
+                float: $float-left;
+            }
+        }
+
+        .list-view {
+            .list-view-table {
+                table {
+                    min-width: 1350px;
+                }
+            }
+        }
+
+        .Profit-l {
+            .total-show {
+                .sports-switch {
+                    float: right !important;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .profit-title {
+            .filter-panel {
+                ul {
+                    span {
+                        li {
+                            input {
+                                width: 120px !important;
+                                background-position: 93px -23px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .acc-left, .acc-right {
+        float: $float-left;
+    }
+
+    div[template-url="templates.pagination"] {
+        width: 1350px !important;
+    }
+
+    .master_table {
+        min-width: 1350px !important;
+    }
+
+    .master_header {
+        .header-menu.bookmarker_menu {
+            height: 104px;
+        }
+
+        .header-menu {
+            height: 128px;
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 128px;
+
+                        a {
+                            @include padding(0px, 8px, 0px, 8px)
+                        }
+                    }
+                }
+            }
+
+            .right-menu {
+                ul {
+                    li {
+                        width: auto;
+                    }
+
+                    .video-button {
+                        margin-right: 5px;
+                    }
+                }
+
+                .master-ul {
+                    .logout {
+                        margin-left: 10px;
+
+                        a {
+                            padding-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .admin-down {
+        .col-sm-2 {
+            margin-bottom: 6px;
+            @include resize($float-left, 50%);
+        }
+
+        .add_btn {
+            width: $width;
+        }
+    }
+
+    .master_wrap {
+        overflow: auto !important;
+
+        .my-bets {
+            .bets-history {
+                ul {
+                    li {
+                        a {
+                            @include padding(5px, 10px, 5px, 10px);
+                            margin: 5px 5px 5px 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .bets-history {
+            ul {
+                li {
+                    .span-check {
+                        @include resize($float-left, 50%);
+                    }
+                }
+
+                .span-select {
+                    @include resize($float-left, $width);
+
+                    .span-check {
+                        width: $width;
+                    }
+                }
+            }
+        }
+
+        .risk-management {
+            .tab {
+                .tabs-container, .tab-desc {
+                    min-width: 1350px;
+                }
+            }
+        }
+
+        .left-part {
+            .sidebar-tab {
+                .inner-nav {
+                    width: 96% !important;
+                }
+            }
+        }
+
+        .master_bet {
+            .filter-panel {
+                float: $float-left;
+
+                ul {
+                    @include resize($float-left, $width);
+
+                    .bet_name {
+                        @include resize($float-left, auto)
+                    }
+
+                    span {
+                        @include resize($float-left, 79%);
+
+                        li {
+                            margin-bottom: 8px;
+
+                            a {
+                                margin: 0px;
+                            }
+                        }
+                    }
+
+                    li {
+                        a {
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+
+            .table-bets {
+                float: $float-left;
+
+                .list-view {
+                    table {
+                        min-width: 1350px;
+                    }
+                }
+            }
+        }
+
+        .livebets {
+            .filter-panel {
+                .input-list {
+                    li {
+                        @include resize($float-left, $width);
+                        margin: 5px 0;
+                    }
+
+                    select {
+                        width: 170px;
+                        margin: 0px;
+                    }
+                }
+            }
+        }
+    }
+
+    /*.scroll-wrap {
+        height: -webkit-calc(100vh - 0px);
+        height: -moz-calc(100vh - 0px);
+        height: calc(100vh - 0px);
+    }*/
+
+    .my-account {
+        .left-part {
+            @include resize($float-left, $width);
+            z-index: 9999;
+            height: auto;
+
+            .sidebar-tab {
+                .path, .inner-nav {
+                    width: $width !important;
+                }
+            }
+        }
+
+        .center-part {
+            margin-left: 0% !important;
+            @include resize($float-left, $width);
+            //padding-top: 120px;
+        }
+
+        .my-bets {
+            .mCSB_container {
+                overflow-x: scroll !important;
+            }
+        }
+
+        .my-profile {
+            .profile-wrap {
+                table {
+                    min-width: 900px;
+                    overflow: auto;
+                }
+            }
+        }
+    }
+
+    .login-history {
+        table {
+            min-width: 2600px !important;
+        }
+    }
+
+    .main-bookmaker {
+        // overflow: auto;
+        .mCustomScrollbar {
+            touch-action: auto !important;
+        }
+
+        .my-profile {
+            height: -webkit-calc(100vh - -100px);
+            height: -moz-calc(100vh - -100px);
+            height: calc(100vh - -100px);
+
+            .col-sm-6 {
+                padding-right: 5px;
+            }
+        }
+
+        .left-part {
+            .vertical-tab {
+                width: 98.8% !important;
+            }
+        }
+    }
+
+    .commentary-div {
+        .left-part {
+            @include resize($float-left, $width);
+        }
+
+        .center-part {
+            @include resize($float-left, $width);
+            padding-top: 145px;
+            margin: 0px;
+        }
+    }
+
+    .full-popup {
+        border: none !important;
+        min-width: auto !important;
+        height: auto !important;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+
+        .popup-left {
+            width: $width !important;
+            border-right: 0px !important;
+            margin-bottom: 15px;
+            height: auto !important;
+        }
+    }
+
+    .mobile-view {
+        .new-loginpage {
+            .login-wrap {
+                width: 100vw;
+                min-height: 100vh;
+                left: unset;
+                top: 0;
+                transform: unset;
+                border-radius: unset;
+
+                .login-form-part {
+                    // height:100%;
+                    //top:-5px;
+                    background-color: $warning-yellow-color;
+                }
+
+                .mobile-full-img {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 412px) {
+    .admin-header {
+        .header-menu {
+            .col-sm-10 {
+                @include padding(0, 10px, 0, 10px);
+            }
+
+            ul {
+                li {
+                    width: 127px !important;
+
+                    a {
+                        font-size: 11px;
+                        @include padding(0px, 0px, 0px, 0px);
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-menu {
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 127px !important;
+
+                        a {
+                            @include padding(0px, 7px, 0px, 7px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .admin-header {
+        .header-menu {
+            .col-sm-10 {
+                @include padding(0, 10px, 0, 10px);
+            }
+
+            ul {
+                li {
+                    width: 118px;
+
+                    a {
+                        font-size: 11px;
+                        @include padding(0px, 0px, 0px, 0px);
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-menu {
+            height: 165px;
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 115px !important;
+
+                        a {
+                            @include padding(0px, 7px, 0px, 7px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pagination {
+        li {
+            a {
+                @include padding(6px, 10px, 6px, 10px);
+            }
+        }
+    }
+
+    .mobilewrap {
+        .bets-history {
+            .filter-panel {
+                ul {
+                    span {
+                        @include resize(left, 77%);
+
+                        li {
+                            input {
+                                width: 120px !important;
+                                background-position: 91px -23px !important;
+                            }
+                        }
+                    }
+
+                    li {
+                        a {
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .master_bet {
+        .filter-panel {
+            ul {
+                span {
+                    width: 76% !important;
+
+                    li {
+                        input {
+                            width: 108px !important;
+                            background-position: 81px -23px !important;
+                            padding-left: 3px !important;
+                        }
+                    }
+                }
+
+                li {
+                    a {
+                        padding-left: 6px;
+                        padding-right: 7px;
+                    }
+                }
+            }
+        }
+    }
+
+    .scroll-wrap {
+        .total-pay {
+            input {
+                width: 40%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .admin-header {
+        .header-menu {
+            .col-sm-10 {
+                @include padding(0, 10px, 0, 10px);
+            }
+
+            ul {
+                li {
+                    width: 113px;
+
+                    a {
+                        font-size: 11px;
+                        @include padding(0px, 0px, 0px, 0px);
+                    }
+                }
+            }
+        }
+    }
+
+    .profit-title {
+        .filter-panel {
+            ul {
+                span {
+                    width: 81% !important;
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-menu {
+            height: 165px;
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 110px !important;
+
+                        a {
+                            @include padding(0px, 5px, 0px, 5px);
+                        }
+                    }
+                }
+            }
+        }
+
+        .header-top {
+            .account-wrap {
+                li {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+
+    .master_bet {
+        .filter-panel {
+            ul {
+                span {
+                    width: 75% !important;
+
+                    li {
+                        font-size: 12px;
+
+                        input {
+                            width: 96px !important;
+                            font-size: 12px;
+                            background-position: 70px -23px !important;
+                            padding-left: 3px !important;
+                        }
+                    }
+                }
+
+                li {
+                    a {
+                        padding-left: 6px;
+                        padding-right: 7px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .admin-header {
+        .header-top {
+            height: auto !important;
+
+            .logo-img {
+                height: 30px;
+            }
+
+            .account-wrap {
+                margin-top: 0px;
+                @include padding(5px, 0px, 10px, 0px);
+
+                li {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .header-menu {
+            height: 160px;
+
+            .col-sm-10 {
+                @include padding(0, 10px, 0, 10px);
+            }
+
+            ul {
+                li {
+                    width: 100px;
+
+                    a {
+                        font-size: 11px;
+                        @include padding(0px, 0px, 0px, 0px);
+                    }
+                }
+            }
+        }
+    }
+
+    .mobilewrap {
+        .bets-history {
+            .filter-panel {
+                ul {
+                    span {
+                        @include resize($float-left, 74%);
+
+                        li {
+                            font-size: 12px;
+
+                            input {
+                                width: 102px !important;
+                                background-position: 75px -23px !important;
+                                font-size: 12px;
+                                padding-left: 6px !important;
+                            }
+
+                            select {
+                                width: 75%;
+                                margin: 0 30px 0 0;
+                            }
+                        }
+                    }
+
+                    li {
+                        a {
+                            padding-left: 10px;
+                            padding-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .Profit-l {
+            .total-show {
+                li {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+
+    .master_bet {
+        .filter-panel {
+            ul {
+                span {
+                    width: 72% !important;
+
+                    li {
+                        font-size: 12px;
+
+                        input {
+                            width: 96px !important;
+                            font-size: 12px;
+                            background-position: 70px -23px !important;
+                            padding-left: 3px !important;
+                        }
+
+                        .btn {
+                            padding-left: 10px;
+                            padding-right: 10px;
+                            margin-left: 10px !important;
+                            font-size: 11px;
+                        }
+
+                        .input-group {
+                            margin-right: 0px;
+                        }
+
+                        select {
+                            width: 85%;
+                            margin: 0 20px 0 0;
+                        }
+                    }
+                }
+
+                li {
+                    a {
+                        padding-left: 6px;
+                        padding-right: 7px;
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-menu {
+            height: 227px;
+
+            .left-mennu {
+                ul {
+                    li {
+                        width: 96px !important;
+
+                        a {
+                            @include padding(0px, 5px, 0px, 5px);
+                            font-size: 9px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-top {
+            .account-wrap {
+                li {
+                    font-size: 9px;
+                }
+            }
+        }
+    }
+
+    .scroll-wrap {
+        .total-pay {
+            .btn {
+                font-size: 10px;
+            }
+        }
+    }
+}
+
+.align-c {
+    text-align: center;
+}
+
+.align-l {
+    text-align: left;
+}
+
+.odometer-theme-default {
+    font-family: $font-stack !important;
+}
+
+.cmt-over-ul {
+    display: inline-block;
+    margin-left: 10px;
+
+    .cmt-over-li {
+        .cmt-over-txt {
+            background: radial-gradient(white, #c6fac3);
+            border-radius: 50%;
+            height: 22px;
+            line-height: 21px;
+            text-align: center;
+            display: inline-block;
+            width: 22px;
+            font-size: 10px;
+            margin-right: 4px;
+            color: #479797;
+            border: 1px solid #47b664;
+            vertical-align: middle;
+
+            &.run_4, &.run_6 {
+                background: radial-gradient(#5ace77, #337c46);
+                color: white;
+            }
+
+            &.run_W {
+                background: radial-gradient(#e96b6b, #dd1e1e);
+                color: white;
+                border-color: #e24f4f;
+            }
+
+            &.run_WD, &.run_NB {
+                background: radial-gradient(#f1cc1b, #ffea83);
+                color: #0f0f0f;
+                border-color: #d5b82d;
+            }
+        }
+    }
+}
+
+.mobile-view {
+    .cmt-over-ul {
+        display: block;
+        margin-left: 0px;
+        margin-top: 5px;
+        margin-bottom: 5px !important;
+
+        .cmt-over-li {
+            .cmt-over-txt {
+                height: 18px;
+                line-height: 17px;
+                width: 18px;
+                font-size: 8px;
+            }
+        }
+    }
+}
+
+.betall {
+    cursor: pointer;
+}
+
+.master-menu li {
+    display: block;
+    float: left;
+    position: relative;
+}
+
+ul li .submenu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 0px;
+    padding-top: 4px;
+    left: 0;
+    display: none;
+    background: $theme-secondary-color;
+    z-index: 999;
+    white-space: nowrap;
+}
+
+ul li:hover > .submenu,
+ul li .submenu:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+.event-heading {
+    color: white;
+    font-size: 20px;
+}

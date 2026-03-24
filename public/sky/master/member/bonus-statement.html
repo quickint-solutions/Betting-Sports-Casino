@@ -1,0 +1,78 @@
+﻿<div class="bet_list" ng-init="totalrows=0;">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="input-date">
+                    <div class="input-group">
+                        <div id="picker-market-report" class="ktdatepicker"
+                             kt-date-range-picker
+                             data-from-date="search.fromdate"
+                             data-to-date="search.todate"
+                             data-on-selection="ctrl.refreshGrid()"
+                             data-format="DD MMM YYYY ">
+                            {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="table-listing list-table statement-table ac-statement">
+        <kt-grid  grid-id="kt-bonusstatement-grid"
+                 load-items="ctrl.getBonusStatement(params)"
+                 cache-key="ktbonusstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-smd">Code</th>
+                        <th class="size-smd boolean">Bonus Amount</th>
+                        <th class="size-xl boolean">Required Turnover to Activate</th>
+                        <th class="size-xl boolean">Required Turnover to Withdraw</th>
+                        <th class="size-md boolean">Bonus Date</th>
+                        <th class="size-md boolean">Bonus Expiry</th>
+                        <th class="size-sm boolean">Is Expired</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="size-smd bold">{{item.bonusCode}}</td>
+                        <td class="size-smd boolean">{{item.bonusAmount | toRate}}</td>
+                        <td class="size-xl boolean">
+                            <div ng-show="item.requiredTurnover>0">
+                                <uib-progressbar max="item.requiredTurnover | toRateOnly" value="item.currentTurnover | toRateOnly"
+                                                 type="info" class="progress-striped active">
+                                    <i>{{item.currentTurnover | toRateOnly}} / {{item.requiredTurnover | toRateOnly}}</i>
+                                </uib-progressbar>
+                            </div>
+                            <div ng-show="item.requiredTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-xl boolean">
+                            <div ng-show="item.requiredWithdrawalTurnover>0">
+                                <uib-progressbar max="item.requiredWithdrawalTurnover | toRateOnly" value="item.currentWithdrawalTurnover | toRateOnly"
+                                                 type="info" class="progress-striped active">
+                                    <i>{{item.currentWithdrawalTurnover | toRateOnly}} / {{item.requiredWithdrawalTurnover | toRateOnly}}</i>
+                                </uib-progressbar>
+                            </div>
+                            <div ng-show="item.requiredWithdrawalTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-md boolean">
+                            <kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm" style="color:#909090"></kt-date>
+                        </td>
+                        <td class="size-md boolean">
+                            {{item.expiredOn | toDays:1}}
+                        </td>
+                        <td class="size-sm boolean">
+                            <i class="fa fa-check" ng-show="item.isExpired"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <kt-radiobutton data-item="selectedCreditType"
+                        data-param-name="creditType"
+                        notify-on-update="ctrl.creditTypeChanged(selectedId)"
+                        data-optionlist="creditTypeList"></kt-radiobutton>
+    </div>
+    <div class="col-sm-12">
+        <div class="withdraw input-group">
+            <ul>
+                <li><a ng-class="{'select-D':request.dwType=='D'}" ng-click="request.dwType='D'" href="">{{::'banking.deposit.label' | translate}}</a></li>
+                <li><a ng-class="{'select-W':request.dwType=='W'}" ng-click="request.dwType='W'" href="">{{::'banking.withdrawal.label' | translate}}</a></li>
+            </ul>
+            <input id="chips" type="text" kt-number-only allow-decimal="2" ng-model="request.chips">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
+            <input id="remark" type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'banking.remarks.placeholder' | translate}}"
+                   required ng-model="request.remarks" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user-secret"></i></span>
+            <input type="password" minlength="1" maxlength="20"
+                   placeholder="{{::'user.password.placeholder' | translate}}" autocomplete="new-password"
+                   required ng-model="request.password" class="form-control">
+        </div>
+    </div>
+</div>

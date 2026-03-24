@@ -1,0 +1,50 @@
+﻿
+<div class="permission col-sm-12">
+    <header>
+        <h1 class="title">{{'permissions.label' | translate}}</h1>
+    </header>
+    <div class="align-right per-btn">
+        <button class="btn btn-secondary" data-ng-click="ctrl.addRole()">
+            {{'role.addnew.button.label' | translate}}
+        </button>
+        <button class="btn btn-secondary" data-ng-click="ctrl.addRole(false)">
+            {{'permission.addnew.button.label' | translate}}
+        </button>
+    </div>
+    <table class="permission-table" style="width:100%; " ng-init="selectedTh=-1">
+        <thead>
+            <tr>
+                <th>Permission Name </th>
+                <th ng-repeat="r in roles track by $index " class="align-c">
+                    <span>  {{r.name}} </span>
+                    <a href="" ng-click="ctrl.deleteRole(r.id)" class="btn btn-default"><span class="fa fa-trash"></span></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in permissions">
+                <td>
+                    <div style="display: flex; align-items: center; line-height: 20px; ">
+                        <a ng-click="ctrl.deletePermission(p.id)" class="btn btn-default"><span class="fa fa-trash"></span></a>
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <b>{{p.name}}</b>
+                            <small>({{p.key}})</small>
+                        </div>
+                    </div>
+                </td>
+                <td ng-repeat="pr in p.roles" class="align-c">
+                    <input type="checkbox" id="chk_{{$parent.$index}}_{{$index}}" ng-model="pr.isAssigned" />
+                    <label for="chk_{{$parent.$index}}_{{$index}}"></label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="align-right ">
+        <button class="btn btn-primary" data-ng-click="ctrl.saveRolePermission()">
+            {{'common.button.save' | translate}}
+        </button>
+        <button class="btn btn-secondary" data-ng-click="ctrl.getRolePermissions()">
+            {{'common.button.reset' | translate}}
+        </button>
+    </div>
+</div>

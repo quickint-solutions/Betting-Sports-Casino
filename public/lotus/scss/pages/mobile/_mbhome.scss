@@ -1,0 +1,7043 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.fa {
+    transition: all 0.5s;
+}
+.st-loader{
+    position: absolute;
+    background: rgba(212, 212, 212, 0.12);
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* align-content: center; */
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+.tv-icon {
+    @include resize($float-left, 15px);
+    @include display(block);
+    margin-right: 5px;
+    margin-top: 1px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    background-size: 15px 13px;
+    height: 13px;
+    background-image: url(/public/images/mobile/tv.png);
+}
+
+.popular-color {
+    color: #cc5f36;
+}
+
+.open-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: white;
+
+    .count {
+        display: inline-block;
+        position: relative;
+        top: -8px;
+        margin-left: -6px;
+        background: #334d1d;
+        padding: 2px 4px;
+        min-width: 20px;
+        height: 20px;
+        line-height: 16px;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 10px;
+    }
+}
+
+.open-link-count {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    margin-left: 0px;
+    background: $open-link-bg;
+    padding: 2px 4px;
+    min-width: 17px;
+    height: 17px;
+    line-height: 15px;
+    font-size: 9px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+}
+
+.mobilebody, .mobile-top {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.mobilebody {
+    div {
+        -ms-overflow-style: none !important; /* IE and Edge */
+        scrollbar-width: none !important; /* Firefox */
+    }
+}
+
+.mobile-view ::-webkit-scrollbar {
+    display: none;
+}
+
+
+.no-data-msg {
+    margin-left: 10px;
+}
+
+.mobile-top {
+    #captchaholder {
+        display: none;
+    }
+
+    .offer-float {
+        position: fixed;
+        bottom: 0px;
+        left: 0;
+        z-index: 999;
+    }
+
+    .support-float {
+        left: unset;
+        right: 0;
+
+        .whatsApp-float {
+            width: 60px;
+            height: 60px;
+
+            .telegram_img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+
+    .my-wallet .tab-wallet .chg-pass .bank-options {
+        float: unset;
+    }
+
+    .search-result {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 1;
+        height: 0;
+        position: relative;
+        top: -999px;
+
+        &.active {
+            top: 0;
+            opacity: 1;
+            height: calc(100% - 60px);
+            z-index: 999;
+            background-color: rgba(0,0,0,0.40);
+            display: block;
+        }
+
+        .app-list {
+            max-height: 60vh;
+            overflow: auto;
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            box-shadow: 5px 10px 15px #555;
+            padding: 0;
+            margin: 0;
+            display: block;
+            list-style-type: none;
+        }
+
+        .app-list-item {
+            margin: 0 0 2px;
+            padding: 0 8px;
+            color: black;
+            text-align: initial;
+            overflow: hidden;
+            width: 100%;
+            border: 0;
+            font-weight: 400;
+            line-height: normal;
+            text-decoration: none;
+            position: relative;
+            text-transform: none;
+            box-shadow: none;
+            box-sizing: border-box;
+            transition: background-color .3s cubic-bezier(.4,0,.2,1);
+            margin: 8px 0px;
+        }
+
+        .event-title {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        .app-list-item:first-child {
+            border-top: 0;
+            margin-top: 3px;
+        }
+    }
+
+    .search-panel {
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 1;
+        height: 0;
+        position: relative;
+        top: -999px;
+
+        ::placeholder {
+            color: white;
+            opacity: 1; /* Firefox */
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: white;
+        }
+
+        ::-ms-input-placeholder { /* Microsoft Edge */
+            color: white;
+        }
+
+        .search-box {
+            width: calc(100% - 36px);
+            border: 0;
+            padding: 4px 16px;
+            background: 0 0;
+            color: white;
+            font-size: 16px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .icon-remove {
+            font-size: 20px;
+            height: 36px;
+            width: 36px;
+            color: white;
+            text-align: center;
+            padding: 7px;
+        }
+
+        &.active {
+            top: 0;
+            opacity: 1;
+            height: 60px;
+            z-index: 999;
+            background-color: rgba(0,0,0,0.40);
+        }
+    }
+
+    .promo .ye > i {
+        top: 18px
+    }
+
+    .promo .ye-img {
+        top: 15px;
+    }
+}
+
+.mobile-view {
+    .my-wallet .tab-wallet .payment {
+        flex-direction: column;
+
+        .bank-left {
+            width: 100%;
+        }
+
+        .bank-right {
+            width: 100%;
+        }
+
+        &.tether .w-history {
+            .t-row {
+                flex-direction: column;
+            }
+
+            .h-table {
+                height: 93%;
+            }
+        }
+
+        .event-heading {
+            margin-bottom: 5px;
+        }
+
+        .crypto-deposit .token-title {
+            margin-top: 15px;
+        }
+    }
+
+    .search-icon {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    .menulist-detail {
+        width: 25%;
+    }
+
+    .ball, .suspend, .closed, .roundover, .gameover {
+        #tr_inlinebet, .clashking-tr {
+            width: 100%;
+            /*z-index: 999;
+            position: relative;
+            height: 100%;
+            display: block;
+            opacity: 1;
+            background: white;*/
+            z-index: 999;
+            position: relative;
+            height: 100%;
+            display: block;
+
+            .back-1, .lay-1 {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+
+    .open-bet .action-ctrl {
+        background-color: transparent;
+    }
+
+    .mobile-btn {
+        width: 50%;
+        height: 37px;
+        color: white;
+        border: none;
+    }
+
+    .single-market {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -4.9%;
+            transform: translate(-50%, 0%) !important;
+        }
+    }
+
+    tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+        left: inherit;
+        right: -4.8%;
+        width: 133px;
+        line-height: 22px;
+        transform: translate(-50%, 0%) !important;
+    }
+
+    .three-col {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            width: 198px;
+            right: -27.7% !important;
+        }
+    }
+
+    .login-page {
+        .header-top .login-form {
+            margin: 20px 0 0 0;
+
+            .login-btn .btn-login {
+                min-height: 40px;
+                line-height: 23px;
+                font-size: 13px;
+                background-color: $login-btn;
+            }
+        }
+
+        .login-footer {
+            footer {
+                background-color: transparent;
+                padding: 0px 0px 22px 0px;
+                text-transform: uppercase;
+
+                a {
+                    font-size: 1.4rem;
+                }
+
+                p {
+                    display: inline-block;
+                }
+
+                .plus-18 {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+
+    .upcoming-race {
+        .venue {
+            font-size: 16px;
+            color: black;
+            font-weight: 400;
+        }
+    }
+
+    .pop-inner {
+        background: $theme-color;
+    }
+
+
+
+    .runner-table, .other-market {
+        .runner_p {
+            width: 75% !important;
+            float: left;
+        }
+
+        .name, .ppl {
+            line-height: 25px !important;
+        }
+
+        .black-icon, .grey-icon {
+            height: 38px;
+        }
+    }
+
+    .player {
+        height: 35px;
+    }
+
+    .card-on-video {
+        .rpt-div-video {
+            width: 94px;
+            margin-bottom: 0px;
+        }
+
+        .card-scroll::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+        }
+
+        .card-scroll::-webkit-scrollbar-track {
+            height: 0px;
+        }
+
+        .card-scroll::-webkit-scrollbar-thumb {
+            height: 0px;
+        }
+    }
+
+    .eye-info {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        @include padding(14px, 15px, 14px, 15px);
+        border-radius: 100%;
+        background-color: $eye-info-bg;
+        opacity: 0.85;
+        z-index: 9999;
+        box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.63);
+
+        i {
+            font-size: 30px;
+            color: $white-color;
+        }
+    }
+
+    .bf-video {
+        iframe {
+            border: 0px;
+            width: 100vw;
+        }
+    }
+
+    .cashout {
+        .fa-circle {
+            @include padding(2px, 2px, 2px, 2px);
+            font-size: 6px;
+        }
+    }
+
+    .cash-value {
+        .cash-btn {
+            width: auto;
+        }
+    }
+
+    .poker-six, .poker-three {
+        float: left;
+        width: 100%;
+        /*.poker-table:first-child .poker-detail {
+            border-left: 1px solid #888888 !important;
+        }
+
+        .poker-table:nth-child(4) .poker-detail {
+            border-left: 1px solid #888888 !important;
+        }*/
+        .poker-table {
+            float: left;
+            width: 33.3%;
+            text-align: center;
+
+            .poker-card {
+                width: 24px;
+            }
+
+            .poker-detail {
+                // border: 1px solid #888888;
+                border-left: none;
+                width: 100%;
+                float: left;
+                background-color: $white-color;
+            }
+
+            .p-team {
+                border-bottom: 1px solid #888888;
+                border-top: 1px solid #888888;
+                padding: 5px 0px;
+            }
+
+            span {
+                float: left;
+                padding: 3px 0px;
+                width: 100%;
+            }
+
+            .poker-value {
+                vertical-align: middle;
+                font-size: 12px;
+                padding: 0px;
+
+                a {
+                    color: #fff;
+                    background-color: #2180c4;
+                    float: left;
+                    width: 100%;
+                    padding: 3px 0px;
+                    min-height: 51px;
+
+                    .size {
+                        font-size: 11px;
+                        font-weight: normal;
+                        color: #fff700;
+                        display: block;
+                        padding: 0px;
+                    }
+                }
+            }
+        }
+
+        table {
+            .minline {
+                .select-btn, .score-btn {
+                    width: 49%;
+                }
+
+                .keypad {
+                    float: left;
+                    width: 99%;
+                    padding-left: 4px;
+
+                    table tbody {
+                        display: contents;
+                    }
+                }
+            }
+        }
+    }
+
+    .andar-bahar {
+        .ab-btn {
+            .back1, .back-1, .back2, .back3, .back-2, .back-3 {
+                float: left;
+                width: 99%;
+            }
+        }
+
+        .minline .keypad {
+            tbody {
+                width: 100%;
+            }
+
+            td {
+                line-height: 24px;
+
+                span {
+                    color: #000;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .ab-detail {
+
+            .middle-detail {
+                .score-btn {
+                    color: #000;
+                    font-size: 12px;
+                }
+
+                .shuffle-detail {
+                    table {
+                        .andar {
+                            position: relative;
+
+                            .card-img {
+                                left: 59%;
+                                transform: translate(-59%, -50%);
+                            }
+                        }
+
+                        .bahar {
+                            position: relative;
+
+                            .card-img {
+                                right: 75%;
+                                transform: translate(-75%, -50%);
+                            }
+                        }
+
+                        .board {
+                            position: absolute;
+                            top: 50%;
+                            right: 50%;
+                            //float:left;
+                            transform: translate(-50%, 0%);
+
+                            .joker-img {
+                                // transform:translate(-50%, 30%);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .btn-value {
+                line-height: 28px;
+            }
+        }
+    }
+
+    .market-tab {
+        background-color: $score-tab !important;
+        margin-top: 0px;
+        padding: 10px 10px 0 10px !important;
+        display: block;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        bottom: 0;
+        z-index: 130;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+
+
+        .tab4 {
+            //@include resize($float-left, 25%);
+            text-align: $center;
+            color: $score-tab-color;
+            height: 30px;
+            font-size: 11px;
+            padding-top: 3px;
+            border-bottom: 3px solid transparent;
+            text-transform: uppercase;
+            display: table-cell;
+
+            &.active {
+                border-bottom: 3px solid $market-border !important;
+                color: white;
+            }
+        }
+    }
+
+    .mb-cashout {
+        background-color: #601c78;
+        padding-bottom: 5px;
+
+        .cashout {
+            a {
+                color: $white-color;
+                border: none;
+                font-size: 14px;
+            }
+        }
+    }
+
+    h1.title {
+        margin: 15px 0px 20px 13px;
+    }
+
+    .hide-header {
+        thead {
+            display: none !important;
+        }
+    }
+
+    .mb-close {
+        @include headline($purple, 20px);
+    }
+
+    .menu-left {
+        ul {
+            padding-top: 14px;
+        }
+
+        background-color: $white-color;
+        width: 260px;
+        left: 0px;
+        top: 0px;
+        bottom: 0px;
+        position: absolute;
+        display: block;
+        @include padding(0px, 13px, 0px, 13px);
+        transform: translateX(-260px);
+        transition: transform 280ms cubic-bezier(0, 0, 0.2, 1) 0s;
+
+        &.active {
+            transform: translateX(0px);
+        }
+
+        .fa-star {
+            @include headline($yellow, 18px);
+            margin-right: 10px;
+        }
+
+        .fa-magic {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .sportmenu-li {
+            .i-sport {
+                margin: 3px 15px 0 0;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .menu-left, .menu-right {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1;
+    }
+
+    .menu-right {
+        background-color: $white-color;
+        @include padding(0px, 10px, 0px, 10px);
+        width: 260px;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(260px);
+        transition: transform 280ms cubic-bezier(0, 0, 0.2, 1) 0s;
+
+        &.active {
+            transform: translateX(0px);
+        }
+
+
+        ul li a {
+            font-size: 14px;
+            padding-top: 8px;
+            padding-right: 8px;
+            padding-bottom: 8px;
+            padding-left: 0px;
+        }
+
+        .title {
+            margin: 0px;
+            @include padding(20px, 0px, 40px, 0px);
+            letter-spacing: 0.5px;
+            @include border(bottom,1px, solid, $border-color);
+            height: 45px;
+            text-transform: lowercase;
+        }
+
+        .bal-info {
+            text-transform: capitalize;
+            @include padding(15px, 0px, 0px, 0px);
+
+            &:last-child {
+                padding-bottom: 20px;
+            }
+        }
+
+        .setting {
+            color: #2c4f58;
+            @include border(bottom, 1px, solid, #2c4f58);
+            @include border(top, 1px, solid, #2c4f58);
+        }
+
+        .menu-icon {
+            margin-right: 14px;
+            font-size: 15px;
+            position: relative;
+            top: -1px;
+        }
+
+        .fa-setting {
+            margin-right: 12px;
+        }
+    }
+
+    .main-left {
+        transform: translateX(260px);
+        transition: transform 280ms cubic-bezier(0, 0, 0.2, 1) 0s;
+    }
+
+    .main-right {
+        transform: translateX(-260px);
+        transition: transform 280ms cubic-bezier(0, 0, 0.2, 1) 0s;
+    }
+
+
+    .mobile-menu ul {
+        @include resize($float-left, $width);
+
+        li {
+            @include border(top, 1px, solid, $border-color);
+
+            a {
+                text-transform: capitalize;
+                @include headline($black-color, 16px);
+                @include display(block);
+                @include padding(11px, 10px, 11px, 0px);
+                font-weight: bold;
+
+                &:hover {
+                    background-color: $light-gray;
+                }
+            }
+
+            .popup_list {
+                display: none;
+            }
+        }
+    }
+
+
+    .mobile-main {
+        @include resize($float-left, $width);
+        height: 100%;
+        overflow: auto;
+        display: block;
+        position: absolute;
+
+        .scroll-content {
+            background-color: $white-color;
+            padding: 15px;
+
+            &.static {
+                background: transparent;
+            }
+
+            .kyc-page {
+                background-color: $white-color;
+                padding: 8px 16px;
+            }
+
+            p {
+                margin: 1em 0 !important;
+                font-size: 1.4rem;
+            }
+
+            h1 {
+                font-size: 2.6rem;
+                margin-top: 0px;
+            }
+
+            .k-title {
+                line-height: 1.2;
+                color: $black-color;
+                font-size: 20px;
+                font-weight: bold;
+                margin: 1.8rem 0 1rem 0;
+            }
+
+            ul {
+                margin-left: 35px;
+
+                li {
+                    margin: 0 0 10px 10px;
+                    line-height: 1.2;
+                    list-style-type: disc;
+                    display: list-item;
+                }
+
+                ol li {
+                    list-style-type: lower-roman;
+                }
+            }
+
+            .k-link {
+                color: #327eff;
+                text-decoration: underline;
+            }
+
+            .sub-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .rules-regs {
+                .example {
+                    display: block;
+                    font-style: italic;
+                    color: #666;
+                    margin: 13px 0;
+                }
+
+                h4 {
+                    font-size: 16px;
+                }
+
+                h5 {
+                    font-size: 14px;
+                    margin-left: 7px;
+                }
+
+                h6 {
+                    font-size: 12px;
+                    margin-left: 14px;
+                }
+
+                h1, h2, h3, h4, h5, h6 {
+                    margin-top: 1.6rem;
+                    margin-bottom: 1rem;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .upcoming-race {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -4.8%;
+            }
+        }
+
+        .accordion {
+            .price {
+                font-weight: bold;
+            }
+
+            .accordion-body {
+                .other-market {
+                    tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                        left: inherit;
+                    }
+                }
+
+                .match-title {
+                    font-weight: normal;
+                }
+
+                .runner_number {
+                    font-size: 11px;
+                    width: 20px;
+                }
+
+                .runner-title {
+                    display: inline-block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    line-height: 15px;
+                    vertical-align: middle;
+                }
+            }
+
+            .accordion-header {
+                .btn-link {
+                    &::before {
+                        height: 24px;
+                        line-height: 24px;
+                        padding: 0 4px;
+                        background-color: #f9f9f9;
+                        top: 13px;
+                    }
+
+                    time {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .new-table {
+            #tr_inlinebet {
+                float: left;
+                width: 100%;
+
+                .td-popup {
+                    float: left;
+                }
+            }
+
+            .header_title {
+                float: left;
+
+                span {
+                    font-size: 16px;
+                }
+            }
+
+            .odds-col {
+                width: 50px;
+                float: left;
+                margin-left: 2px;
+                font-size: 10px;
+            }
+
+            .market-title {
+                width: 50%;
+                float: left;
+
+                .date-time {
+                    font-size: 10px;
+                    display: flex;
+                    flex: 0 0 60px;
+                    height: 37px;
+                    align-items: center;
+                    float: left;
+                    justify-content: center;
+                    width: 65px;
+                    flex-direction: column;
+
+                    span {
+                        color: #cc5f36;
+                        text-align: center;
+                        white-space: normal;
+                        font-size: 9px;
+                    }
+                }
+            }
+
+            .competitors {
+                position: relative;
+                -webkit-box-flex: 1;
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto;
+                overflow: hidden;
+                padding: 0;
+                display: flex;
+                height: 43px;
+                //float:left;
+                border-left: 1px solid #f2f2f2;
+                justify-content: center;
+                -webkit-box-orient: vertical;
+                flex-direction: column;
+
+                .c-line {
+                    padding: 0px 5px 0 12px;
+                    font-size: 11px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-transform: capitalize;
+                    text-overflow: ellipsis;
+                    font-weight: 700;
+                }
+            }
+
+            .consolidated-events {
+                float: left;
+                width: 100%;
+
+                .item-inner {
+                    border-bottom: 1px solid #f2f2f2;
+                    height: 44px;
+                    float: left;
+                    width: 100%;
+                }
+            }
+
+            .market__container {
+                //float: right;
+                min-width: 319px;
+            }
+
+            .markets-odd {
+                width: 50%;
+                float: left;
+                overflow-y: hidden;
+
+                &::-webkit-scrollbar {
+                    background: transparent;
+                    height: 0px;
+                }
+
+                .bet-button {
+                    width: 51px;
+                    height: 41px;
+                    margin: 1px 0 0 1px;
+                    float: left;
+                }
+
+                .bet-button > div {
+                    height: 100%;
+                }
+
+                .back:hover, .back1:hover, .back2:hover, .back3:hover {
+                    background-color: $white-color;
+                    border: 1px solid $back1;
+                    box-shadow: none !important;
+                }
+
+                .lay:hover, .lay1:hover, .lay2:hover, .lay3:hover {
+                    background-color: $white-color;
+                    border: 1px solid $lay1;
+                    box-shadow: none !important;
+                }
+
+                .back1.odd-disable, .lay1.odd-disable {
+                    padding-top: 9px;
+                    font-size: 14px;
+                    font-weight: normal;
+                }
+
+                a.price {
+                    color: unset;
+                }
+
+                .back1, .lay1 {
+                    padding: 6px 0;
+                    min-width: inherit;
+                    margin-left: 1px;
+                    font-size: 12px;
+                }
+
+                .size {
+                    font-size: 9px;
+                    display: block;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .section-banner {
+            float: left;
+            width: 100%;
+            border-radius: 2px;
+
+            .banner {
+                display: block;
+                height: 72px;
+                position: relative;
+                border-radius: 2px;
+                background-size: auto 100% !important;
+                margin: 0 0 10px 0;
+
+                .banner-txt {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    padding: 8px 16px 8px 180px;
+                }
+            }
+        }
+
+        .casino-banner {
+            .play-txt {
+                height: 20px;
+                margin-bottom: 4px;
+            }
+
+            .casino-txt {
+                height: 28px;
+            }
+
+            .banner {
+                background: url(/public/images/cover-image/casino-banner.png) no-repeat #004f63;
+            }
+        }
+
+        .deposit-banner {
+            background: url(/public/images/cover-image/deposit-banner.jpg) center no-repeat;
+            background-size: cover;
+            margin-bottom: 10px;
+        }
+
+        .horse-banner .banner {
+            background: url(/public/images/cover-image/horse-banner.jpg) center no-repeat #022e44;
+
+            .banner-text {
+                width: 180px;
+                color: #fff;
+                text-shadow: 0 1px 0 #420957;
+                margin: 0 auto;
+                top: 11px;
+            }
+        }
+
+        .greyhound-banner .banner {
+            background: url(/public/images/cover-image/greyhound-banner.jpg) center no-repeat #eec78b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .banner-text {
+                position: relative;
+                left: 13%;
+                width: 200px;
+                color: #000;
+                text-shadow: 0 1px 0 #9f7e2d;
+            }
+        }
+
+        .horse-banner, .greyhound-banner {
+            .banner-text {
+                font-size: 26px;
+                line-height: 26px;
+                letter-spacing: 3px;
+                text-align: center;
+                text-transform: uppercase;
+                font-weight: 700;
+                position: relative;
+            }
+        }
+
+        .planner {
+            background-color: $white-color;
+            margin-bottom: 10px;
+
+            .line-time {
+                flex-direction: row !important;
+            }
+
+            .inplay-title {
+                background-color: $green !important;
+            }
+
+            .a-line {
+                color: $black-color !important;
+                font-size: 10px !important;
+            }
+
+            .g-line {
+                color: $green !important;
+                font-size: 10px !important;
+            }
+
+            .section-title {
+                background-color: #cc5f36;
+                color: $white-color;
+                text-transform: capitalize;
+                display: flex;
+                align-items: center;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+                position: relative;
+                padding: 8px;
+                font-size: 18px;
+            }
+        }
+
+        .logo-img {
+            background-position: top center;
+        }
+
+        .header {
+            @include padding(0px, 10px, 0px, 10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+
+            .mb-menuicon {
+                float: left;
+                width: auto;
+            }
+
+            .mobile-logo {
+                @include resize($float-left, auto);
+                margin-left: 5px;
+
+                .logo-img {
+                    height: 35px !important;
+                    width: 100% !important;
+                }
+
+                .logo-area {
+                    padding: 0px;
+                }
+            }
+
+            .go-back {
+                float: $float-left;
+                //margin-top: 7px;
+                //margin-right: 10px;
+                font-size: 22px;
+                //@include txt(bold);
+                position: relative;
+                //top: 13px;
+            }
+
+            .fa-search {
+                color: $white-color;
+                margin-top: 10px;
+            }
+
+            .fa-menu {
+                @include headline($white-color, 22px);
+            }
+
+            .left-menu {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .right-menu {
+                margin: 0px;
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+
+                a {
+                    background-color: $account-overview;
+                    float: right;
+                    @include border-radius(3px);
+                    @include padding(2px, 0px, 2px, 0px);
+                    cursor: $cursor;
+                    color: $white-color;
+                    width: 100%;
+                    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+                }
+
+                span.align-c {
+                    @include resize($float-left, $width);
+                    font-size: 12px;
+                    margin: 0px !important;
+                    line-height: 18px;
+                }
+            }
+        }
+
+        .section.one-click-open {
+            top: 134px !important;
+            //height: calc(100% - 134px);
+        }
+
+        .section.one-click-open.move-top {
+            top: 96px !important;
+            //height: calc(100% - 96px);
+        }
+
+        .section.move-top {
+            top: 60px;
+            // height: calc(100% - 60px);
+        }
+
+        .section {
+            //@include resize($float-left, $width);
+            @include position(absolute);
+            top: 96px;
+            z-index: 0;
+            width: 100%;
+            // height: calc(100% - 96px);
+            //overflow-y: auto;
+            .table-score {
+                tbody {
+                    .sports_data {
+                        .match-title {
+                            .runner-p {
+                                float: left;
+                                width: 88%;
+
+                                .grey-icon, .black-icon {
+                                    height: 34px;
+                                }
+                            }
+
+                            .runner_p {
+                                width: auto;
+                                float: left;
+
+                                .grey-icon, .black-icon {
+                                    height: 34px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .title {
+                margin: 15px 0 15px 12px;
+            }
+
+            .menu-title {
+                font-size: 18px;
+                text-transform: capitalize;
+                margin: 0px;
+            }
+
+            .openbet {
+                text-transform: capitalize;
+                @include border(bottom, 1px, solid, #337ab7);
+                margin-top: 5px;
+            }
+
+            .match-status {
+                text-transform: capitalize;
+                font-size: 18px;
+                @include padding(0px, 5px, 0px, 10px);
+                margin: 5px 0;
+                @include display(block);
+
+                .icon-play {
+                    margin-right: 10px;
+                }
+            }
+
+            .inner-mb-menu {
+                @include resize($float-left, $width);
+                margin-top: 10px;
+
+                a {
+                    text-transform: capitalize;
+                    @include display(block);
+                    width: $width;
+                    background-color: $white-color;
+                    color: $black-color;
+                    @include padding(10px, 10px, 10px, 10px);
+                    margin-bottom: 3px;
+                }
+
+                .compation {
+                    @include padding(10px, 10px, 10px, 10px);
+                    text-transform: capitalize;
+                    @include display(block);
+                    @include headline($black-color, 18px);
+                }
+            }
+
+            .middle-section {
+                padding-bottom: 90px;
+                @include resize($float-left, $width);
+                margin-top: 10px;
+                // position:absolute;
+                // top:98px;
+                .matches-part.today {
+                    .matches-detail {
+                        .other-market {
+                            padding-bottom: 0px;
+                        }
+                    }
+                }
+
+                .matches-part {
+                    @include resize($float-left, $width);
+
+                    .menu-title {
+                        margin: 15px;
+                    }
+
+                    .matches-detail {
+                        @include resize($float-left, $width);
+                        background-color: $white-color;
+                        margin-bottom: 3px;
+
+                        .match-name {
+                            @include resize($float-left, $width);
+                            cursor: pointer;
+                            text-transform: capitalize;
+                            font-size: 16px;
+                            font-weight: 400;
+                            margin: 0px;
+                            @include padding(15px, 10px, 15px, 8px);
+
+                            a {
+                                color: $black-color;
+                            }
+
+                            .i-sport {
+                                float: left;
+                                width: 18px;
+                                display: block;
+                                margin-right: 10px;
+                                background-repeat: no-repeat;
+                                vertical-align: middle;
+                                background-size: 18px 18px;
+                                height: 18px;
+                            }
+
+                            .popular-games {
+                                background-image: url(/public/images/mobile/live.png);
+                            }
+
+                            .Casino {
+                                background-image: url(/public/images/icons/casino.png);
+                            }
+
+                            .kabaddi, .Kabaddi {
+                                background-image: url(/public/images/icons/kabaddi.ico);
+                            }
+
+                            .Live, .Teen, .Teen-patti, .exchange-games {
+                                background-image: url(/public/images/icons/live.png);
+                            }
+
+                            .Poker {
+                                background-image: url(/public/images/mobile/bets.png);
+                            }
+
+                            .Election, .Rajasthan {
+                                background-image: url(/public/images/icons/election.png);
+                            }
+
+                            .Cricket {
+                                background-image: url(/public/images/icons/cricket.png);
+                            }
+
+                            .Soccer {
+                                background-image: url(/public/images/icons/soccer.png);
+                            }
+
+                            .Tennis {
+                                background-image: url(/public/images/icons/tennis.png);
+                            }
+
+                            .Basketball {
+                                background-image: url(/public/images/icons/basketball.png);
+                            }
+
+                            .Horse {
+                                background-image: url(/public/images/icons/race-horse.png);
+                            }
+
+                            .Session {
+                                background-image: url(/public/images/icons/session.png);
+                            }
+
+                            .Snooker {
+                                background-image: url(/public/images/icons/snooker.png);
+                            }
+
+                            .Handball {
+                                background-image: url(/public/images/icons/handball.png);
+                            }
+
+                            .Greyhound {
+                                background-image: url(/public/images/icons/greyhound.png);
+                            }
+
+                            .Politics {
+                                background-image: url(/public/images/icons/politics.png);
+                            }
+
+                            .Pool {
+                                background-image: url(/public/images/icons/snooker.png);
+                            }
+
+                            .Rugby {
+                                background-image: url(/public/images/icons/rugby.png);
+                            }
+
+                            .Royal {
+                                background-image: url(/public/images/icons/teenpatti.png);
+                            }
+
+                            .Special {
+                                background-image: url(/public/images/icons/special.png);
+                            }
+
+                            .timing {
+                                @include resize($float-left, $width);
+                                @include padding(2px, 0px, 4px, 27px);
+                                @include headline($gray, 12px);
+                            }
+                        }
+
+                        .fa-menu-icon {
+                            font-size: 18px;
+                        }
+                    }
+
+                    .table-score {
+                        @include padding(0px, 15px, 10px, 15px);
+                    }
+                }
+
+                .openbet-a {
+                    text-transform: capitalize;
+                    text-decoration: underline;
+                    margin: 8px 10px 0 0;
+                    font-size: 11px;
+                    color: $openbet-a;
+                }
+
+                .table-score {
+                    @include padding(12px, 0px, 20px, 0px);
+                    margin-bottom: 0px;
+
+                    tr {
+                        td {
+                            border: none;
+                        }
+
+                        .match-title {
+                            width: $width;
+                        }
+                    }
+                }
+
+                .today {
+                    .match-name {
+                        @include resize($float-left, $width);
+                        padding: 15px 10px 10px 8px !important;
+                    }
+                }
+            }
+
+            .scorecard {
+                margin-top: 0px;
+
+                .twoTeam {
+                    @include padding(0px, 10px, 10px, 10px);
+                }
+
+                .game-head {
+                    margin-bottom: unset;
+                    background-color: $purple;
+                    color: $white-color;
+
+                    .game-visit {
+                        font-size: 1.8rem;
+                    }
+
+                    .icon-clock, .icon-play {
+                        font-size: 1.4rem;
+                        margin-right: 2px;
+                    }
+
+                    .score-date {
+                        font-size: 10px;
+                    }
+                }
+
+                .game-head {
+                    padding: 0px;
+                }
+
+                .soccer-twoTeam {
+                    float: left;
+                    width: 100%;
+                    background-color: $purple;
+
+                    .data {
+                        float: left;
+                        width: 13%;
+                        height: 50px;
+                        line-height: 50px;
+                    }
+
+                    .data-value {
+                        float: left;
+                        width: 10%;
+                        display: grid;
+                        height: 50px;
+                        background-color: $dark-grayish;
+                        padding: 5px;
+                    }
+
+                    .team_name {
+                        float: left;
+                        width: 75%;
+                        height: 50px;
+                        padding: 5px 0 5px 10px;
+
+                        .name-line {
+                            display: block;
+                        }
+
+                        .icon-outline-info {
+                            position: relative;
+                            top: 10px;
+                        }
+                    }
+                }
+
+                .live-video {
+                    padding: 0px;
+
+                    .game-head {
+                        //padding: 0px !important;
+                        margin-top: -5px;
+                        z-index: 129;
+                    }
+                }
+
+                .bets-wrap {
+                    .price {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .line {
+                //@include border('bottom', 1px, solid, $gray);
+                box-shadow: 0 1px 0 rgba(255,255,255,0.8);
+                @include line-height(15px);
+                padding-bottom: 3px !important;
+                margin-bottom: 4px;
+            }
+
+            .account-statement {
+                .filter-panel {
+                    .input-list li {
+                        .input-group {
+                            z-index: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        table {
+            .td-popup {
+                .score-btn {
+                    text-align: $center;
+                    @include line-height(15px);
+                }
+            }
+        }
+
+        .header-oneclick {
+            top: 96px;
+            position: sticky;
+            height: 38px;
+            margin: 0px !important;
+            @include padding(5px, 0px, 5px, 0px);
+            background-color: $gray;
+            z-index: 101;
+
+            &.market-on {
+                position: absolute;
+            }
+
+            &.move-top {
+                top: 60px;
+            }
+
+            .one-click-bet {
+                float: $float-left;
+            }
+
+            .oneclick-off {
+                margin-left: 20px;
+                @include line-height(28px);
+                color: $white-color;
+
+                @include respond-to2(handhelds) {
+                    margin-left: 10px;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .one-click {
+            @include resize($float-left, $width);
+            margin: 5px 0 5px 0;
+
+            h4 {
+                @include padding(0px, 10px, 15px, 10px);
+                //margin: 0px;
+            }
+
+            .one-click-bet {
+                @include padding(0px, 0px, 0px, 10px);
+            }
+        }
+
+        .oneclick-title {
+            @include line-height(30px);
+        }
+
+        .oneclickbet-wrap {
+            @include resize(right, 100%);
+            height: 30px;
+            margin: 15px 0;
+
+            .oneclick-title {
+                @include line-height(30px);
+            }
+
+            .oneclick-edit {
+                .on-btn {
+                    @include padding(0, 5px, 0, 5px);
+
+                    .small-btn {
+                        color: $white-color;
+                    }
+
+                    button {
+                        height: 40px;
+                        @include border-all(2px, solid, $green);
+                        color: $black-color;
+                    }
+
+                    .input-box {
+                        height: 40px;
+                    }
+
+                    .one-select {
+                        background-color: $one-click;
+                        cursor: $cursor;
+                        color: $white-color;
+                        @include border-all(2px, solid, $green);
+                        box-shadow: inset 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+                        &:hover {
+                            color: $white-color !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .setting-popup {
+            @include padding (10px, 0px, 10px, 0px);
+            @include resize($float-left, $width);
+            //@include border(top, 2px, solid, $border-color);
+            margin-top: 15px;
+
+            .oneclick-setting {
+                .fa-info-circle {
+                    color: $theme-color;
+                    vertical-align: text-bottom;
+                    margin-left: 6px;
+                    cursor: pointer;
+                }
+
+                .setting-rule {
+                    @include border-all(2px, solid, $theme-color);
+                    @include padding(8px, 8px, 8px, 8px);
+
+                    ul {
+                        padding-left: 20px;
+
+                        li {
+                            display: list-item;
+                            list-style-type: disc;
+                        }
+                    }
+                }
+            }
+
+            .stake-edit {
+                .stake-input {
+                    @include padding(6px, 4px, 6px, 4px);
+                    margin-bottom: 12px;
+                    @include border-all(2px, solid, $border-color);
+                }
+
+                .stake {
+                    @include display(inline-block);
+                    width: $width;
+
+                    a {
+                        text-align: $center;
+                        @include resize (left, 31%);
+                        @include line-height(45px);
+                        @include txt(normal);
+                        @include headline($green, 14px);
+                        background-color: $white-color;
+                        @include border-all(1px, solid, $border-color);
+                        margin: 4px;
+                        height: 48px;
+                        @include padding(0px, 5px, 0px, 5px);
+                        @include border-radius(4px);
+                        @include border-all(1px, solid, $green);
+
+                        &.select {
+                            @include border-all(2px, solid, $green);
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .ok-btn {
+                    @include display(inline-block);
+                    width: $width;
+
+                    .left-btn {
+                        input {
+                            background-color: $white-color;
+                            background-image: none;
+                            color: $dark-gray-black;
+                            width: 31%;
+                            margin: 4px;
+                            height: 40px;
+                            @include border-all(2px, solid, $border-color);
+                            text-align: $center;
+                            @include padding(0px, 0px, 0px, 0px);
+                            @include line-height(37px);
+                            @include border-radius(4px);
+
+                            &:focus {
+                                @include border-all(2px, solid, $green);
+                                outline: none;
+                            }
+                        }
+                    }
+
+                    .ok-button {
+                        a {
+                            color: $black-color;
+                            border: none;
+                            @include line-height(43px);
+                            background-color: $dark-gray-black;
+                            @include txt(normal);
+                        }
+                    }
+                }
+            }
+
+            .lbl-name {
+                @include resize (left, $width);
+            }
+
+            input {
+                @include border-radius(4px);
+                border-width: 1px;
+                @include padding (2px, 5px, 2px, 5px);
+                width: 35%;
+                margin-left: 10px;
+            }
+
+            .left-btn {
+                @include resize ($float-left, $width);
+
+                a:hover {
+                    background-image: none;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .session-runs {
+            background-color: transparent;
+
+            .td-left {
+                @include resize($float-left, 89%);
+                border: none;
+                height: auto;
+            }
+
+            .td-right {
+                @include resize($float-left, 11%);
+                @include padding(0px, 0px, 0px, 0px);
+                height: auto;
+            }
+
+            tr {
+                @include resize($float-left, $width);
+            }
+
+            .session-table {
+                tr {
+                    th {
+                        @include resize($float-left, 50%);
+                        text-align: $center;
+                    }
+
+                    td {
+                        @include resize($float-left, 50%);
+                        text-align: $center;
+                        @include line-height(28px);
+                    }
+                }
+            }
+        }
+
+        .fancy-to-win {
+            .table-score {
+                tr {
+                    .match-title {
+                        @include display(inline-block);
+                        float: none !important;
+                    }
+                }
+            }
+
+            .td-popup {
+                float: $float-left;
+            }
+        }
+
+        .open-bet {
+            .openbet-filter {
+                background: none;
+
+                .bet-details {
+                    padding-bottom: 10px;
+                }
+
+                .bet-detail {
+                    font-size: 12px;
+                }
+
+                table {
+                    tr {
+                        //@include border(bottom, 1px, solid, $border-color);
+                        background-color: transparent !important;
+                        @include padding(0px, 5px, 0px, 5px);
+
+                        .bet-info {
+                            font-size: 13px;
+                            @include line-height(20px);
+                            margin-top: 6px;
+                        }
+
+                        .pl-td {
+                            margin-bottom: 8px !important;
+                        }
+
+                        .openbet-name {
+                            font-size: 13px;
+                            padding-top: 8px;
+                        }
+
+                        td {
+                            @include resize($float-left, $width);
+                            @include padding(0px, 5px, 0px, 5px);
+
+                            span {
+                                float: $float-left;
+                                margin-right: 10px;
+                            }
+
+                            p {
+                                @include resize($float-left, $width);
+                                @include line-height(16px);
+                            }
+                        }
+                    }
+                }
+
+                .unmatched-bet {
+                    .bet-detail {
+                        .bet-events {
+                            background-color: transparent;
+                        }
+                    }
+                }
+
+                .unmatch-btn {
+                    margin-bottom: 10px;
+
+                    a {
+                        @include border-all(1px, solid, $border-color);
+                        @include resize($float-left, 49%);
+                        color: $black-color;
+                        margin: 0 15px 0 0;
+                        text-align: $center;
+                        @include padding(10px, 5px, 10px, 5px);
+                    }
+
+                    .update-btn {
+                        color: $white-color;
+                        margin: 0 0px 0 0;
+                    }
+                }
+            }
+        }
+
+        .livegame-result {
+            .teenpatti-title {
+                color: #303030;
+                font-weight: bold;
+                font-size: 14px;
+                margin: 5px 0 10px 0;
+            }
+
+            .livegame-detail {
+                float: left;
+                width: 100%;
+                margin: 10px 0 0 0;
+
+                .player-info {
+                    width: 60%;
+                }
+
+                .total-info {
+                    float: right;
+                    width: 60%;
+                }
+
+                .result-info {
+                    font-size: 16px;
+
+                    span {
+                        float: right;
+                    }
+                }
+            }
+
+            .last-result {
+                float: left;
+                width: 100%;
+                background-color: $liveresult-bg;
+
+                span {
+                    border-radius: 3px;
+
+                    &[class*="A"] {
+                        background-color: $result-a;
+                    }
+
+                    &[class*="B"] {
+                        background-color: $result-b;
+                    }
+
+                    &[class*="G"] {
+                        background-color: $result-g;
+                    }
+                }
+
+                .result-b {
+                    color: $livenumber;
+                }
+
+                .A {
+                    background-color: $result-a;
+                }
+
+                .B {
+                    background-color: $result-b;
+                }
+
+                .G {
+                    background-color: $result-g;
+                }
+            }
+        }
+    }
+
+    .my-wallet {
+        .list-view .list-view-table table {
+            max-width: none;
+        }
+    }
+
+    .tab-wallet {
+        border-left: 1px solid #c5c5c5;
+
+        .tab {
+            overflow-x: auto;
+        }
+
+        .tabs-container {
+            background-color: transparent;
+            white-space: nowrap;
+
+            .tab-container {
+                //background-color: transparent;
+                padding: 10px 10px;
+
+                &:hover, &.active {
+                    border-top: 3px solid $tab-active-border !important;
+                    background-color: $mbpayment-bg;
+                }
+
+                .tab-heading {
+                    padding: 0px;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                    color: #000;
+
+                    .fa {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+
+        .payment {
+            float: left;
+            width: 100%;
+            padding: 12px;
+            background-color: $mbpayment-bg;
+
+            .wallet-input {
+                float: left;
+                width: 50%;
+
+                label {
+                    width: 100%;
+                    float: left;
+                    color: #7c7c7c;
+                    margin: 0 0 1px 0;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                }
+            }
+
+            .wallet-detail {
+                border-right: 1px solid #a5a5a5;
+            }
+
+            .tab-text {
+                margin: 0 0 12px 0;
+                border: 1px solid $tab-text;
+                border-radius: 4px;
+                padding: 3px 5px 4px 5px;
+                font-size: 13px;
+                height: 29px;
+                width: 100%;
+            }
+
+            .submit {
+                border: 1px solid transparent;
+                background-color: $wallet-submitbg;
+                color: $wallet-submit;
+                padding: 5px 25px;
+                border-radius: 4px;
+                font-size: 14px;
+                text-transform: capitalize;
+
+                &:active, &:focus {
+                    outline: none !important;
+                }
+            }
+
+            .history-link {
+                padding-top: 12px;
+                font-size: 13px;
+                text-decoration: underline;
+            }
+
+            .wallet-title {
+                color: $wallet-title;
+                margin-top: 0px;
+                text-transform: capitalize;
+
+                .sub-text {
+                    font-size: 11px;
+                    font-weight: normal;
+                    float: right;
+                    text-transform: none;
+                    color: red;
+                }
+            }
+        }
+    }
+
+    tbody.suspend:before, tbody.ball:before, tbody.closed:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+        @include padding(10px, 0px, 10px, 0px);
+        transform: translate(-28%, 12%);
+    }
+
+    .poker-six {
+        position: relative;
+
+        tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+            //@include position(absolute);
+            top: 0%;
+            // transform: translate(-50%, 0%);
+        }
+    }
+
+    .poker-three {
+        tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+            @include position(absolute);
+            transform: translate(-50%, 88%);
+        }
+    }
+
+    .mobile-market-notification {
+        background-color: $notification-bg;
+        color: $notification;
+        font-size: 12px;
+        height: 25px;
+        line-height: 20px;
+        border-bottom: 3px solid $body-color;
+        border-top: 3px solid $body-color;
+
+        td {
+            padding: 0px !important;
+            border: none !important;
+            height: auto !important;
+        }
+
+        i {
+            padding: 3px 5px;
+            margin: 0px;
+        }
+
+        marquee {
+            width: calc(100% - 25px);
+            vertical-align: sub;
+        }
+    }
+
+    .table-score {
+        tbody {
+            tr.mobile-market-notification {
+                &:last-child {
+                    border-bottom: 3px solid $body-color !important;
+                }
+            }
+        }
+    }
+
+    .sports_book, .to-win {
+        .mobile-market-notification {
+            float: left;
+            width: 100%;
+            height: 22px;
+            line-height: 16px;
+
+            td {
+                float: left;
+                width: 100%;
+            }
+        }
+    }
+
+    .sports_book {
+        .other-market {
+            tbody {
+                tr {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    .marquee {
+        position: sticky;
+        @include resize($float-left, $width);
+        z-index: 1;
+        background-color: $marquee-bg;
+        padding: 10px 0px 8px 0px;
+        height: 36px;
+        top: 0;
+
+        &.market-on {
+            position: absolute;
+        }
+
+        marquee {
+            line-height: 15px;
+            font-size: 1.4rem;
+            width: calc(100% - 20px);
+        }
+    }
+
+    .m-close {
+        position: sticky;
+        // top: 1px;
+        // right: 1px;
+        line-height: 19px;
+        padding: 3px;
+        color: #fff;
+        background-color: $marquee-bg;
+
+        .fa-times {
+            font-size: 15px;
+        }
+    }
+
+    .market-on .m-close {
+        position: absolute;
+    }
+
+    .mb-header {
+        position: sticky;
+        top: 36px;
+        z-index: 1;
+        height: 60px;
+        line-height: 60px;
+
+        &.market-on {
+            position: absolute;
+        }
+    }
+
+    .top_header {
+        top: 0px;
+    }
+
+    .live-col2 {
+        th.th-col {
+            width: 83% !important;
+        }
+
+        tr {
+            td.match-title {
+                width: 83% !important;
+            }
+
+            .lay-1, .back-1, .oddsbox {
+                min-width: 120px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 1365px) {
+    .master-main {
+        @include resize($float-left, $width);
+        @include padding(0px, 10px, 0px, 10px);
+        overflow-y: auto;
+        height: calc(100% - 40px - 120px - 5px);
+        display: contents;
+        margin: 0 auto;
+        //min-width: 1594px;
+        .master_wrap {
+            //    width: 1365px !important;
+            display: inline-block !important;
+
+            .content-wrap {
+                max-width: inherit;
+            }
+
+            .full-position {
+                .exposure-table {
+                    .table-bets.full-position-table {
+                        margin: 0 15px;
+                        width: 98%;
+                    }
+                }
+            }
+        }
+
+        .master-main {
+            .m-name {
+                width: 172px;
+            }
+
+            .exposure-left .icons-list {
+                width: 83px;
+            }
+
+            .exposure-right .icons-list {
+                width: 69px;
+            }
+        }
+    }
+
+    .master-class {
+        float: left;
+
+        .master_header {
+            padding-top: 15px;
+            font-size: 12px !important;
+            //min-width: 1594px;
+            @include resize($float-left, $width);
+        }
+
+        .marquee {
+            width: $width;
+            min-width: 1594px;
+        }
+    }
+
+    .admin-header {
+        font-size: 12px !important;
+        min-width: 1500px;
+        float: left;
+        width: 100%;
+
+        .content-wrap {
+            max-width: 100% !important;
+        }
+    }
+
+    .admin_full {
+        min-width: 1500px;
+    }
+}
+
+@media only screen and (min-device-width: 1366px) and (max-device-width: 1367px) {
+    .mobile-top {
+        .promo {
+            .sidebar-content {
+                top: 61px;
+                height: 90%;
+                left: -265px;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+
+    .mobile-view {
+        .td-popup {
+            .select-btn {
+                width: 49.4% !important;
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 88% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.3% !important;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 88%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+        }
+
+        .mobile-main {
+            .new-table {
+                .market-title {
+                    width: 75%;
+                }
+
+                .markets-odd {
+                    width: 25%;
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 25%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 4%;
+                    }
+
+                    .data-value {
+                        width: 2.3%;
+                    }
+
+                    .team_name {
+                        width: 89%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 35% !important;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98.5% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 30% !important;
+                }
+
+                .total-info {
+                    width: 30% !important;
+                }
+            }
+        }
+
+        .card-on-video {
+            .rpt-div-video {
+                width: 115px;
+            }
+        }
+    }
+    /*.admin-part{
+        .my-account .center-section{width:81% !important;}
+    }
+    .admin-header{
+        .header-menu{
+            ul li a{padding:6px 8px; font-size:10px;}
+        } 
+    }*/
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1025px) {
+    .mobile-top {
+        .promo {
+            .sidebar-content {
+                top: 61px;
+                height: 87%;
+                left: -265px;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+
+            div.modal-overlay.disp {
+                overflow-y: scroll;
+            }
+        }
+    }
+
+
+    .mobile-view {
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -6.5%;
+            }
+        }
+
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -6.5%;
+        }
+
+        .three-col {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -7.2%;
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 85% !important;
+                    }
+
+                    .fancy-th {
+                        width: 7% !important;
+                    }
+                }
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 49% !important;
+            }
+
+            .ab-detail {
+                .popup-list a {
+                    width: 16% !important;
+                }
+
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 66%;
+                                transform: translate(-66%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 79%;
+                                transform: translate(-79%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .poker-six, .poker-three {
+            .popup-list a {
+                width: 16.1% !important;
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 85%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 85% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 85% !important;
+            }
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 49.3% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.2% !important;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 85% !important;
+            }
+
+            .td-right {
+                width: 15% !important;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 49%;
+            }
+        }
+
+        .login-page {
+            //.logo-img{width:122% !important;}
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 80% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 80% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 105px;
+                }
+            }
+        }
+
+        .mobile-main {
+
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -6.5%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 5%;
+                    }
+
+                    .data-value {
+                        width: 3%;
+                    }
+
+                    .team_name {
+                        width: 91%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        display: inline-block;
+                        width: 49% !important;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98.5% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+
+            .new-table {
+                .header_title {
+                    width: 55%;
+                }
+
+                .odds-header {
+                    width: 17%;
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+
+                .markets-odd {
+                    width: 17%;
+                    float: left;
+                    //overflow-x: overlay;
+                    overflow-y: hidden;
+                    /*.market__container {
+                        min-width: 314px;
+                        float: left;
+                    }*/
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 17%;
+                }
+
+                .market-title {
+                    width: 83%;
+                }
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+    }
+
+    .content-wrap-table {
+        padding: 0px 20px;
+
+        .main-content-tablecell #counter span {
+            font-size: 8vw !important;
+        }
+
+        .section-logo {
+            height: 80px;
+        }
+
+        .main-content-tablecell {
+            vertical-align: middle;
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 390px !important;
+                }
+            }
+        }
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 7px, 6px, 7px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 1023px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .mobile-view {
+
+        .mobile-main {
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        display: inline-block;
+                        width: 49% !important;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98.5% !important;
+                    }
+                }
+            }
+
+            .new-table {
+                .markets-odd {
+                    width: 31%;
+                    float: left;
+                    overflow-x: overlay;
+                    overflow-y: hidden;
+
+                    .market__container {
+                        min-width: inherit;
+                        float: right;
+                    }
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 31%;
+                }
+
+                .market-title {
+                    width: 69%;
+                }
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 85% !important;
+                    }
+
+                    .fancy-th {
+                        width: 7% !important;
+                    }
+                }
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 48.5% !important;
+            }
+
+            .ab-detail {
+                .popup-list a {
+                    width: 16% !important;
+                }
+
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 66%;
+                                transform: translate(-66%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 78%;
+                                transform: translate(-78%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .player {
+            height: 32px;
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 49.3% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.2% !important;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 80% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 80% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 105px;
+                }
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .mobile-main {
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+
+            .event-heading {
+                // margin-top: 0px;
+            }
+        }
+    }
+
+    .master_header {
+        .header-balance {
+            .menu-dropdown {
+                @include line-height(30px);
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 1022px) {
+    .mobile-top {
+        .promo {
+            .sidebar-content {
+                left: -265px;
+                top: 61px;
+                height: 87%;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+
+            div.modal-overlay.disp {
+                overflow-y: scroll;
+            }
+        }
+    }
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -6.5%;
+        }
+
+        .mobile-main {
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 6%;
+                    }
+
+                    .data-value {
+                        width: 4.5%;
+                    }
+
+                    .team_name {
+                        width: 89%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 40% !important;
+                    }
+                }
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -6.5%;
+            }
+        }
+    }
+
+
+    .content-wrap-table {
+        padding: 0px 20px;
+
+        .main-content-tablecell #counter span {
+            font-size: 7vw !important;
+        }
+
+        .section-logo {
+            height: 80px;
+            margin-bottom: 4rem;
+            margin-top: 3rem;
+        }
+
+        .main-content-tablecell {
+            vertical-align: top;
+
+            #counter {
+                margin-bottom: 2.2rem;
+            }
+
+            p {
+                font-size: 1.8vw !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 823px) and (max-device-width: 824px) and (orientation: landscape) {
+    .mobile-top {
+        .sidebar-content {
+            left: -265px;
+
+            &.active {
+                left: 0;
+            }
+
+            .sidebar > h3 {
+                padding-left: 5px;
+            }
+        }
+
+        .promo {
+            .sidebar-content {
+                top: 61px;
+                height: 83%;
+            }
+
+            div.modal-overlay.disp {
+                overflow-y: scroll;
+            }
+        }
+    }
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -7.9%;
+        }
+        /*.main-left {
+            transform: translateX(31vw);
+        }
+
+        .main-right {
+            transform: translateX(-31vw);
+        }*/
+        /*.mobile-menu {
+            .menu-left, .menu-right {
+                width: 31vw !important;
+            }
+        }*/
+        .poker-six, .poker-three {
+            .popup-list a {
+                width: 15.9% !important;
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 80% !important;
+            }
+        }
+
+        .mbsignup-form {
+            height: 140vh !important;
+        }
+
+        .player {
+            height: 32px;
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -8.1%;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 48% !important;
+            }
+        }
+
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 48.5% !important;
+            }
+
+            .ab-detail {
+                .popup-list a {
+                    width: 15.8% !important;
+                }
+
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 63%;
+                                transform: translate(-63%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 78%;
+                                transform: translate(-78%, -50%);
+                            }
+
+                            .dragon .card-img {
+                                left: 73%;
+                                transform: translate(-73%, -50%);
+                            }
+
+                            .tiger .card-img {
+                                right: 85%;
+                                transform: translate(-85%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+
+                .history-link {
+                    float: left;
+                    width: 100%;
+                    margin-left: 4px;
+                    padding-top: 5px;
+                }
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 81% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .mobile-market-notification {
+            marquee {
+                width: 97%;
+            }
+        }
+
+        .sports_book, .to-win {
+            .mobile-market-notification {
+                height: 23px;
+            }
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 49.2% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.1% !important;
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 81% !important;
+                    }
+
+                    .fancy-th {
+                        width: 9% !important;
+                    }
+                }
+            }
+        }
+
+        .list-view .list-view-table {
+            table {
+                width: 1350px !important;
+            }
+
+            div[template-url="templates.pagination"] {
+                width: 1350px !important;
+            }
+        }
+
+        .mobile-main {
+
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -8.1%;
+                }
+            }
+
+            .new-table {
+                .market-title {
+                    width: 60%;
+                }
+
+                .markets-odd {
+                    width: 40%;
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 40%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 7%;
+                    }
+
+                    .data-value {
+                        width: 4%;
+                    }
+
+                    .team_name {
+                        width: 87%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 49% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 81% !important;
+            }
+
+            .td-right {
+                width: 19% !important;
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 18vh !important;
+                overflow-x: hidden;
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 325px !important;
+                }
+            }
+        }
+    }
+
+    .master_header {
+        .header-balance {
+            span {
+                @include line-height(20px);
+            }
+
+            .menu-dropdown {
+                @include line-height(30px);
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        @include display(block);
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 10px, 6px, 10px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 812px) and (max-device-width: 813px) and (orientation: landscape) {
+    .mobile-top {
+        .sidebar-content {
+            left: -265px;
+
+            &.active {
+                left: 0;
+            }
+
+            .sidebar > h3 {
+                padding-left: 5px;
+            }
+        }
+
+        .promo {
+            .sidebar-content {
+                top: 61px;
+                height: 83%;
+            }
+
+            div.modal-overlay.disp {
+                overflow-y: scroll;
+            }
+        }
+    }
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -8.2%;
+        }
+
+        .poker-six, .poker-three {
+            .popup-list a {
+                width: 15.9% !important;
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 81% !important;
+                    }
+
+                    .fancy-th {
+                        width: 9% !important;
+                    }
+                }
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 48.5% !important;
+            }
+
+            .ab-detail {
+                .popup-list a {
+                    width: 15.8% !important;
+                }
+
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 63%;
+                                transform: translate(-63%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 78%;
+                                transform: translate(-78%, -50%);
+                            }
+
+                            .dragon .card-img {
+                                left: 70%;
+                                transform: translate(-70%, -50%);
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                transform: translate(-83%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .mbsignup-form {
+            height: 150vh !important;
+        }
+
+        .player {
+            height: 32px;
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 80% !important;
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -8.2%;
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+
+                .history-link {
+                    float: left;
+                    width: 100%;
+                    margin-left: 4px;
+                    padding-top: 5px;
+                }
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 81% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .mobile-market-notification {
+            marquee {
+                width: 97%;
+            }
+        }
+
+        .sports_book, .to-win {
+            .mobile-market-notification {
+                height: 23px;
+            }
+        }
+
+
+        .td-popup {
+            .select-btn {
+                width: 49.1% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.1% !important;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 81% !important;
+            }
+
+            .td-right {
+                width: 19% !important;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 48% !important;
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 12vh !important;
+                overflow-x: hidden;
+            }
+        }
+
+        .mobile-main {
+
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -8.2%;
+                }
+            }
+
+            .new-table {
+                .market-title {
+                    width: 60%;
+                }
+
+                .markets-odd {
+                    width: 40%;
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 40%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 7%;
+                    }
+
+                    .data-value {
+                        width: 4%;
+                    }
+
+                    .team_name {
+                        width: 88%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 49% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 325px !important;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .master_header {
+        .header-balance {
+            span {
+                @include line-height(20px);
+            }
+
+            .menu-dropdown {
+                @include line-height(30px);
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 10px, 6px, 10px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 767px) and (max-device-width: 768px) {
+    .mobile-top {
+        .promo {
+            .sidebar-content {
+                left: -265px;
+                top: 61px;
+                height: 91%;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+
+    .mobile-view {
+
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -8.7%;
+        }
+
+        .casino-banner {
+            .banner-txt {
+                flex-direction: row !important;
+
+                .play-txt {
+                    height: 90%;
+                }
+
+                .casino-txt {
+                    height: 90%;
+                }
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 80% !important;
+                    }
+
+                    .fancy-th {
+                        width: 10% !important;
+                    }
+                }
+            }
+        }
+
+        .poker-six, .poker-three {
+            .popup-list a {
+                width: 15.9% !important;
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 48.5% !important;
+            }
+
+            .popup-list a {
+                width: 15.8% !important;
+            }
+        }
+
+        .my-wallet {
+            .list-view .list-view-table table {
+                width: 1100px;
+            }
+
+            .list-view .list-view-table div[template-url="templates.pagination"] {
+                width: 1100px;
+            }
+
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+
+                .history-link {
+                    float: left;
+                    width: 100%;
+                    margin-left: 4px;
+                    padding-top: 5px;
+                }
+
+                .payment {
+                    .wallet-title {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 81% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 80% !important;
+            }
+        }
+
+        .mobile-market-notification {
+            marquee {
+                width: 97%;
+            }
+        }
+
+        .td-popup {
+            .select-btn, .score-btn {
+                width: 48.5% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16.1% !important;
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -8.7%;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 80% !important;
+            }
+
+            .td-right {
+                width: 20% !important;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 48% !important;
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -8.8%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 6%;
+                    }
+
+                    .data-value {
+                        width: 4%;
+                    }
+
+                    .team_name {
+                        width: 89%;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+
+            .new-table {
+                .header_title {
+                    width: 50%;
+                }
+
+                .odds-header {
+                    width: 22%;
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+
+                .markets-odd {
+                    width: 22%;
+                    float: left;
+                    //overflow-x: overlay;
+                    overflow-y: hidden;
+                    /*.market__container {
+                        min-width: 314px;
+                        float: left;
+                    }*/
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 22%;
+                }
+
+                .market-title {
+                    width: 78%;
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 385px !important;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .master_header {
+        .header-balance {
+            span {
+                @include line-height(20px);
+            }
+
+            .menu-dropdown {
+                @include line-height(30px);
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+            // height: 80px;
+            ul {
+                li a {
+                    @include padding(6px, 8px, 6px, 8px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 731px) and (max-device-width: 736px) and (orientation: landscape) {
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -9%;
+        }
+        /*.main-left {
+            transform: translateX(35vw);
+        }
+
+        .main-right {
+            transform: translateX(-35vw);
+        }*/
+        .casino-banner {
+            .banner-txt {
+                flex-direction: row !important;
+
+                .play-txt {
+                    height: 90%;
+                }
+
+                .casino-txt {
+                    height: 90%;
+                }
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -9.2%;
+            }
+        }
+
+        .poker-six, .poker-three {
+            table {
+                .minline {
+                    .select-btn, .score-btn {
+                        width: 48.6% !important;
+                    }
+
+                    .keypad {
+                        width: 99.5%;
+                    }
+                }
+            }
+
+            .popup-list a {
+                width: 15.9% !important;
+            }
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 48.9% !important;
+            }
+
+            .popup-list {
+                a {
+                    width: 16% !important;
+                }
+            }
+        }
+
+        .mbsignup-form {
+            height: 145vh !important;
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 80% !important;
+            }
+        }
+
+
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 79% !important;
+                    }
+
+                    .fancy-th {
+                        width: 10% !important;
+                    }
+                }
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 79% !important;
+            }
+
+            .td-right {
+                width: 21% !important;
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 14vh !important;
+                overflow-x: hidden;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 73% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 73% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 100px;
+                }
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 80% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -9%;
+                }
+            }
+
+            .new-table {
+                .market-title {
+                    width: 56%;
+                }
+
+                .markets-odd {
+                    width: 44%;
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 44%;
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 48% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 9%;
+                    }
+
+                    .data-value {
+                        width: 4.5%;
+                    }
+
+                    .team_name {
+                        width: 86%;
+                    }
+                }
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 320px !important;
+                }
+            }
+        }
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 10px, 6px, 10px);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 667px) {
+    .mobile-view {
+        .mobile-main {
+            div.casino-banner {
+                div.banner {
+                    background-size: auto 130% !important;
+                }
+
+                .banner-txt {
+                    flex-direction: row !important;
+                    padding: 8px 16px 8px 215px !important;
+
+                    .play-txt {
+                        height: 90%;
+                        margin-bottom: 0px;
+                    }
+
+                    .casino-txt {
+                        height: 90%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 667px) and (max-device-width: 668px) and (orientation: landscape) {
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -9.9%;
+        }
+        /*.main-left {
+            transform: translateX(40vw);
+        }
+
+        .main-right {
+            transform: translateX(-40vw);
+        }*/
+        /*.mobile-menu {
+            .menu-left, .menu-right {
+                width: 40vw !important;
+            }
+        }*/
+        .poker-six, .poker-three {
+            table {
+                .minline {
+                    .keypad {
+                        width: 99.56%;
+                    }
+                }
+            }
+        }
+
+        .full-market-list {
+            .table-score {
+                thead {
+                    .th-col {
+                        width: 77% !important;
+                    }
+
+                    .fancy-th {
+                        width: 11% !important;
+                    }
+                }
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 49% !important;
+            }
+
+            .ab-detail {
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 68%;
+                                transform: translate(-68%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 80%;
+                                transform: translate(-80%, -50%);
+                            }
+
+                            .dragon .card-img {
+                                left: 68%;
+                                transform: translate(-68%, -50%);
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                transform: translate(-83%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -10%;
+            }
+        }
+
+        .mbsignup-form {
+            height: 150vh !important;
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 77%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 78% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 49% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 16% !important;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 77% !important;
+            }
+
+            .td-right {
+                width: 23% !important;
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 14vh !important;
+                overflow-x: hidden;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 70% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 70% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 100px;
+                }
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -9.9%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 7%;
+                    }
+
+                    .data-value {
+                        width: 5%;
+                    }
+
+                    .team_name {
+                        width: 87%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 49% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 35% !important;
+                }
+
+                .total-info {
+                    width: 35% !important;
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 315px !important;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 10px, 6px, 10px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 640px) and (max-device-width: 641px) and (orientation: landscape) {
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -10.4%;
+        }
+        /*.main-left {
+            transform: translateX(41vw);
+        }
+
+        .main-right {
+            transform: translateX(-41vw);
+        }*/
+        /*.mobile-menu {
+            .menu-left, .menu-right {
+                width: 41vw !important;
+            }
+        }*/
+        .login-page {
+            height: 110vh !important;
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 48.7% !important;
+            }
+        }
+
+        .mbsignup-form {
+            height: 155vh !important;
+        }
+
+        .andar-bahar {
+            .ab-detail {
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 68%;
+                                transform: translate(-68%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 80%;
+                                transform: translate(-80%, -50%);
+                            }
+
+                            .dragon .card-img {
+                                left: 68%;
+                                transform: translate(-68%, -50%);
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                transform: translate(-83%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 15.9% !important;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 76% !important;
+            }
+
+            .td-right {
+                width: 24% !important;
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -10.6%;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 75%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 77% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 10vh !important;
+                overflow-x: hidden;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 69% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 39% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 100px;
+                }
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -10.3%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 9%;
+                    }
+
+                    .data-value {
+                        width: 5%;
+                    }
+
+                    .team_name {
+                        width: 85%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 49% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 97% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 38% !important;
+                }
+
+                .total-info {
+                    width: 38% !important;
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 315px !important;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+
+            .event-heading {
+                //margin-top: 0px;
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 14px, 6px, 14px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 567px) and (max-device-width: 568px) and (orientation: landscape) {
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -11.6%;
+        }
+        /*.main-left {
+            transform: translateX(46vw);
+        }
+
+        .main-right {
+            transform: translateX(-46vw);
+        }*/
+        /*.mobile-menu {
+            .menu-left, .menu-right {
+                width: 46vw !important;
+            }
+        }*/
+        .login-page {
+            height: 120vh !important;
+        }
+
+        .td-popup {
+            .select-btn {
+                width: 48.5% !important;
+            }
+        }
+
+        .mbsignup-form {
+            height: 170vh !important;
+        }
+
+        .popup-list {
+            a {
+                width: 15.8% !important;
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -11.8%;
+            }
+        }
+
+        .andar-bahar {
+            .td-popup .select-btn {
+                width: 48.5% !important;
+            }
+
+            .ab-detail {
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                left: 63%;
+                                transform: translate(-63%, -50%);
+                            }
+
+                            .bahar .card-img {
+                                right: 76%;
+                                transform: translate(-76%, -50%);
+                            }
+
+                            .dragon .card-img {
+                                left: 65%;
+                                transform: translate(-65%, -50%);
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                transform: translate(-83%, -50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 73% !important;
+            }
+
+            .td-right {
+                width: 27% !important;
+            }
+        }
+
+        .login-page {
+            .header-top {
+                padding-top: 8vh !important;
+                overflow-x: hidden;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 75%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 75% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 68% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 68% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 90px;
+                }
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -11.8%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data {
+                        width: 8%;
+                    }
+
+                    .data-value {
+                        width: 5.5%;
+                    }
+
+                    .team_name {
+                        width: 85%;
+                    }
+                }
+            }
+
+            .td-popup {
+                .score-left {
+                    .score-btn {
+                        margin: 0 auto !important;
+                        float: none;
+                        width: 49% !important;
+                        display: inline-block;
+                    }
+                }
+
+                .score-right {
+                    .score-btn {
+                        width: 98% !important;
+                    }
+                }
+            }
+
+            .new-table {
+                .markets-odd {
+                    width: 57%;
+                    float: left;
+
+                    .market__container {
+                        min-width: inherit;
+                        float: right;
+                    }
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 57%;
+                }
+
+                .market-title {
+                    width: 43%;
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 40% !important;
+                }
+
+                .total-info {
+                    width: 40% !important;
+                }
+            }
+        }
+    }
+
+
+
+    .master-main {
+        overflow-x: auto;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 315px !important;
+                }
+            }
+        }
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li a {
+                    @include padding(6px, 9px, 6px, 9px);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 736px) and (orientation: landscape) {
+    .mobile-top {
+        .promo {
+            .sidebar-content {
+                left: -265px;
+                top: 61px;
+                height: 83%;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+
+            div.modal-overlay.disp {
+                overflow-y: scroll;
+            }
+        }
+    }
+
+    .mobile-view {
+
+        .unmatch-btn {
+            a {
+                width: 48% !important;
+            }
+        }
+
+        .player {
+            height: 32px;
+        }
+
+        .filter-panel {
+            .input-list {
+                li .input-group {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .list-view .list-view-table {
+            table {
+                width: 1350px !important;
+            }
+
+            div[template-url="templates.pagination"] {
+                width: 1350px !important;
+            }
+        }
+
+
+        .mobile-market-notification {
+            marquee {
+                width: 96%;
+            }
+        }
+
+        .sports_book, .to-win {
+            .mobile-market-notification {
+                height: 23px;
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 17px;
+                font-size: 11px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .mobile-main {
+            .m-right {
+                float: right;
+            }
+
+            .livegame-detail {
+                //  .player-info{width:40% !important;}
+                //  .total-info{width:40% !important;}
+                .result-info {
+                    font-size: 14px !important;
+                }
+            }
+        }
+
+        .my-wallet {
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+
+                .wallet-title {
+                    font-size: 16px;
+                }
+
+                .form-deposit {
+                    margin-bottom: 20px;
+                }
+
+                .payment .wallet-detail {
+                    border-right: none;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        .master-main {
+            overflow-x: auto;
+            width: 98.5%;
+
+            .admin-right {
+                min-width: inherit;
+
+                .event-heading {
+                    //margin-top: 0px;
+                }
+            }
+        }
+
+        .admin_full, .admin-main {
+            display: block !important;
+        }
+
+        .master_header, .admin-header {
+            .logo-img {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .content-wrap-table {
+        padding: 0px 20px;
+
+        .main-content-tablecell #counter span {
+            font-size: 7.5vw !important;
+        }
+
+        .section-logo {
+            height: 80px !important;
+            margin-bottom: 5rem;
+            margin-top: 3rem;
+        }
+
+        .main-content-tablecell {
+            vertical-align: top;
+
+            .row {
+                padding-bottom: 3rem;
+            }
+
+            #counter {
+                margin-bottom: 1.5rem;
+            }
+
+            p {
+                font-size: 1.8vw !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 321px) and (max-device-width: 479px) {
+    .mobile-top {
+        .promo {
+            .popup {
+                top: -98px;
+            }
+
+            .sidebar-content {
+                top: 61px;
+                height: 87%;
+
+                &.active {
+                    left: 0;
+                }
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+
+            div.modal-overlay {
+                div .modal-box {
+                    div.inner-modal {
+                        padding: 3em 3em;
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-view {
+        /*.main-left {
+            transform: translateX(69vw);
+        }
+
+        .main-right {
+            transform: translateX(-69vw);
+        }
+
+        .mobile-menu {
+            .menu-left, .menu-right {
+                width: 69vw !important;
+            }
+        }*/
+        .my-wallet {
+            .list-view .list-view-table table {
+                width: 1100px;
+            }
+
+            .list-view .list-view-table div[template-url="templates.pagination"] {
+                width: 1100px;
+            }
+
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+
+                .payment .wallet-detail {
+                    border-right: none;
+                    margin-bottom: 20px;
+                }
+
+                .history-link {
+                    float: left;
+                    width: 100%;
+                    margin-left: 4px !important;
+                }
+
+                .payment {
+                    .form-deposit {
+                        margin-bottom: 20px;
+                    }
+
+                    .padding-r {
+                        padding: 0px;
+                    }
+
+                    .wallet-input {
+                        width: 100%;
+                    }
+
+                    .wallet-title {
+                        font-size: 16px;
+
+                        .sub-text {
+                            line-height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .content-wrap-table {
+        padding: 0px 15px;
+
+        .main-content-tablecell #counter span {
+            font-size: 10.5vw !important;
+        }
+
+        .section-logo {
+            margin-bottom: 6rem !important;
+        }
+
+        .main-content-tablecell {
+            p {
+                font-size: 3.5vw !important;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 390px) and (max-device-width: 428px) {
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -16%;
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -16.2%;
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data-value {
+                        width: 7.5%;
+                    }
+                }
+            }
+
+            .new-table {
+                .header_title {
+                    width: 50%;
+                }
+
+                .odds-header {
+                    width: 42%;
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+
+                .market-title {
+                    width: 58%;
+                }
+
+                .markets-odd {
+                    width: 42%;
+                    float: left;
+                    //overflow-x: overlay;
+                    overflow-y: hidden;
+
+                    .bet-button {
+                        width: 52px;
+                    }
+                    /*.market__container {
+                        min-width: 319px;
+                        float: left;
+                    }*/
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 42%;
+                }
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -16.4%;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 32% !important;
+                margin: 0 1px 4px 2px !important;
+                border-radius: 0px;
+            }
+        }
+
+        .login-page .login-link {
+            width: 375px;
+        }
+
+        .scorecard {
+            .lay-1, .back-1, .oddsbox {
+                font-size: 11px;
+            }
+        }
+
+        .poker-six, .poker-three {
+            .minline .keypad {
+                float: left;
+                width: 99%;
+                padding-left: 4px;
+
+                table tbody {
+                    display: contents;
+
+                    .td-popup .select-btn, .td-popup .score-btn {
+                        width: 49%;
+                    }
+                }
+            }
+        }
+
+        .andar-bahar {
+            .ab-detail {
+                .middle-detail {
+                    .score-btn {
+                        font-size: 12px;
+                    }
+
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                top: 19%;
+                                left: 56%;
+                                transform: translate(-56%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .bahar .card-img {
+                                top: 19%;
+                                right: 73%;
+                                transform: translate(-73%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .dragon .card-img {
+                                top: 20%;
+                                left: 59%;
+                                transform: translate(-59%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                top: 20%;
+                                transform: translate(-83%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .board .joker-img {
+                                img {
+                                    width: 95%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 62% !important;
+            }
+
+            .td-right {
+                width: 38% !important;
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 80% !important;
+            }
+        }
+
+        .cash-value {
+            .check {
+                font-size: 10px;
+                padding-right: 5px;
+            }
+
+            .cash-btn {
+                font-size: 10px;
+            }
+
+            .btn-cancle {
+                font-size: 12px;
+                height: 36px;
+                margin-left: 3px;
+                @include padding(7px, 15px, 11px, 15px);
+            }
+        }
+
+
+        .live-col2 {
+            th.th-col {
+                width: 58% !important;
+            }
+
+            tr {
+                /*td.match-title {
+                    width: 58% !important;
+                }*/
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 80px;
+                }
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 15px;
+                font-size: 10px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+
+        .mobile-market-notification {
+            font-size: 10px;
+
+            marquee {
+                width: 94%;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 82% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .mbsignup-form {
+            .header-top {
+                padding-top: 16vh !important;
+            }
+        }
+    }
+
+
+
+    .unmatch-btn {
+        a {
+            width: 48% !important;
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+        width: 97%;
+
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 364px !important;
+                }
+            }
+
+            .carousel-control.left {
+                left: -15px;
+            }
+
+            .carousel-control.right {
+                right: -15px;
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li {
+                    width: 102px;
+
+                    a {
+                        @include padding(6px, 6px, 6px, 6px);
+                    }
+                }
+            }
+        }
+    }
+
+    .master_header, .admin-header {
+        .logo-img {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 390px) and (max-device-width: 391px) {
+    .mobile-view .mobile-main .new-table .market__container {
+        min-width: 311px;
+    }
+
+    .mobile-view .mobile-main .new-table .markets-odd .bet-button {
+        width: 50px;
+    }
+}
+
+@media only screen and (max-device-width: 375px) {
+    .mobile-top {
+        .promo {
+            .cmodal-content {
+                .input_text {
+                    margin: 0.8em 1em 0 0;
+
+                    .dropdown .form-control {
+                        height: 40px;
+                        line-height: 28px;
+                        padding: 6px;
+                        font-size: 10px !important;
+
+                        &.caret {
+                            right: 6px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -17.6%;
+        }
+
+        .login-page {
+            .login-link {
+                width: 340px;
+            }
+        }
+
+        .scorecard {
+            .lay-1, .back-1, .oddsbox {
+                //  font-size: 11px;
+            }
+        }
+
+        .andar-bahar {
+            .ab-detail {
+                .middle-detail {
+                    .score-btn {
+                        font-size: 12px;
+                    }
+
+                    .shuffle-detail {
+                        h4 {
+                            font-size: 15px;
+                        }
+
+                        .price {
+                            font-size: 14px;
+                        }
+
+                        table {
+                            .andar .card-img {
+                                top: 19%;
+                                left: 53%;
+                                transform: translate(-53%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .bahar .card-img {
+                                top: 19%;
+                                right: 72%;
+                                transform: translate(-72%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .dragon .card-img {
+                                left: 59%;
+                                top: 20%;
+                                transform: translate(-59%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                top: 20%;
+                                transform: translate(-83%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .board .joker-img {
+                                img {
+                                    width: 95%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -18.6%;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 58% !important;
+            }
+
+            .td-right {
+                width: 42% !important;
+            }
+        }
+
+        .section {
+            .my-multi {
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 80%;
+                                    float: left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 80% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .mbsignup-form {
+            .header-top {
+                padding-top: 17vh !important;
+            }
+        }
+
+        .runner-table, .other-market {
+            .runner_p {
+                width: 78% !important;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 47% !important;
+            }
+        }
+
+        .mobile-market-notification {
+            font-size: 10px;
+
+            marquee {
+                width: 94%;
+            }
+        }
+
+        .cash-value {
+            .check {
+                font-size: 10px;
+                padding-right: 5px;
+            }
+
+            .cash-btn {
+                font-size: 10px;
+            }
+
+            .btn-cancle {
+                font-size: 10px;
+                margin-left: 3px;
+                height: 36px;
+                @include padding(9px, 15px, 11px, 15px);
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 15px;
+                font-size: 10px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 56% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 100% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 75px;
+                }
+            }
+        }
+
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -17.8%;
+                }
+            }
+
+            .accordion {
+                .accordion-body {
+                    .match-title {
+                        font-weight: bold;
+                    }
+
+                    .runner-title {
+                        width: 135px;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .section {
+                .scorecard .soccer-twoTeam {
+                    .data-value {
+                        width: 9%;
+                    }
+                }
+            }
+
+            .popup-list {
+                a {
+                    width: 32% !important;
+                    margin: 0 1px 4px 2px !important;
+                    border-radius: 0px;
+                }
+            }
+
+            .new-table {
+                .header_title {
+                    width: 50%;
+                }
+
+                .odds-header {
+                    width: 46%;
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+
+                .market-title {
+                    width: 54%;
+                }
+
+                .markets-odd {
+                    width: 46%;
+                    float: left;
+                    //overflow-x: overlay;
+                    overflow-y: hidden;
+
+                    .bet-button {
+                        width: 52px;
+                    }
+                    /*.market__container {
+                        min-width: 319px;
+                        float: left;
+                    }*/
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 46%;
+                }
+            }
+
+            .header {
+                .mobile-logo .logo-area {
+                    width: 125px;
+
+                    .logo-img {
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 60% !important;
+                }
+
+                .total-info {
+                    width: 60% !important;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        /*overflow-x: auto;
+        width: 97%;*/
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .master_header, .admin-header {
+        .logo-img {
+            margin-bottom: 10px;
+        }
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+            // height: 190px;
+            ul {
+                li {
+                    width: 107px;
+
+                    a {
+                        @include padding(6px, 10px, 6px, 10px);
+                    }
+                }
+
+                .admin-video {
+                    width: 35px;
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 325px !important;
+                }
+            }
+        }
+
+        .carousel {
+            .carousel-control.left {
+                left: -12px;
+            }
+
+            .carousel-control.right {
+                right: -12px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-device-width: 360px) {
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -18.7%;
+        }
+
+        .login-page .login-link {
+            width: 335px;
+        }
+
+        .scorecard {
+            .lay-1, .back-1, .oddsbox {
+                // font-size: 11px;
+            }
+        }
+
+        .andar-bahar {
+            .ab-detail {
+                .middle-detail {
+                    .shuffle-detail {
+                        table {
+                            .andar .card-img {
+                                top: 19%;
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .bahar .card-img {
+                                top: 19%;
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .dragon .card-img {
+                                top: 20%;
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .tiger .card-img {
+                                top: 20%;
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .board .joker-img {
+                                img {
+                                    width: 95%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 57% !important;
+            }
+
+            .td-right {
+                width: 43% !important;
+            }
+        }
+
+        .mobile-market-notification {
+            font-size: 10px;
+
+            marquee {
+                width: 94%;
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -18.9%;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 47% !important;
+            }
+        }
+
+        .mbsignup-form {
+            .header-top {
+                padding-top: 10vh !important;
+            }
+        }
+
+
+        .live-col2 {
+            th.th-col {
+                width: 56% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 60% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 75px;
+                }
+            }
+        }
+
+        .cash-value {
+            .check {
+                font-size: 10px;
+                padding-right: 5px;
+            }
+
+            .cash-btn {
+                font-size: 10px;
+            }
+
+            .btn-cancle {
+                font-size: 10px;
+                margin-left: 3px;
+                height: 36px;
+                @include padding(9px, 15px, 0px, 15px);
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 15px;
+                font-size: 10px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -18.8%;
+                }
+            }
+
+            .accordion {
+                .accordion-body .runner-title {
+                    width: 120px;
+                }
+            }
+
+            .new-table {
+                //.competitors{width:115px;}
+                .header_title {
+                    width: 50%;
+                }
+
+                .odds-header {
+                    width: 47%;
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+
+                .market-title {
+                    width: 53%;
+                }
+
+                .markets-odd {
+                    width: 47%;
+                    float: left;
+                    overflow-y: hidden;
+
+                    .bet-button {
+                        width: 52px;
+                    }
+                    /*.market__container {
+                        min-width: 319px;
+                        float: left;
+                    }*/
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 47%;
+                }
+            }
+
+            .livegame-detail {
+                .player-info {
+                    width: 65% !important;
+                }
+
+                .total-info {
+                    width: 65% !important;
+                }
+            }
+
+            .popup-list {
+                a {
+                    width: 32% !important;
+                    margin: 0 1px 4px 2px !important;
+                    border-radius: 0px;
+                }
+            }
+        }
+    }
+
+    .master-main {
+        /*overflow-x: auto;
+        width: 97%;*/
+        .admin-right {
+            min-width: inherit;
+        }
+    }
+
+    .admin_full, .admin-main {
+        @include display(block);
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li {
+                    width: 110px;
+
+                    a {
+                        @include padding(6px, 10px, 6px, 10px);
+                    }
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            .carousel-control.left {
+                left: -17px;
+            }
+
+            .carousel-control.right {
+                right: -17px;
+            }
+        }
+    }
+
+    .master_header, .admin-header {
+        .logo-img {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media only screen and (max-device-width: 320px) {
+    .mobile-top {
+        .promo {
+            .popup {
+                top: -98px;
+            }
+
+            div.modal-overlay {
+                div .modal-box {
+                    div.inner-modal {
+                        padding: 3em 2.5em;
+                    }
+                }
+            }
+
+            .sidebar-content {
+                top: 61px;
+                height: 82%;
+
+
+                .sidebar > h3 {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+
+    .mobile-view {
+        tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+            right: -21.6%;
+        }
+        /*.main-left {
+            transform: translateX(69vw);
+        }
+
+        .main-right {
+            transform: translateX(-69vw);
+        }
+
+        .mobile-menu {
+            .menu-left, .menu-right {
+                width: 69vw !important;
+            }
+        }*/
+        .login-page {
+            .login-footer footer p {
+                margin-top: 15px;
+            }
+
+            .header-top {
+                padding-top: 16vh !important;
+            }
+
+            .login-link {
+                width: 298px;
+
+                a {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .poker-six, .poker-three {
+            tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+                @include position(absolute);
+                transform: translate(-85%, 88%);
+            }
+        }
+
+        .single-market {
+            tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                right: -21.1%;
+            }
+        }
+
+        .unmatch-btn {
+            a {
+                width: 47% !important;
+            }
+        }
+
+        .mobile-market-notification {
+            font-size: 10px;
+
+            marquee {
+                width: 94%;
+            }
+        }
+
+        .andar-bahar {
+            .ab-detail {
+                .btn-div {
+                    label {
+                        width: 70%;
+                    }
+                }
+
+                .middle-detail {
+                    .score-btn {
+                        font-size: 12px;
+                    }
+
+                    .shuffle-detail {
+                        h4 {
+                            font-size: 14px;
+                        }
+
+                        .price {
+                            font-size: 13px;
+                        }
+
+                        table {
+                            .andar .card-img {
+                                top: 22%;
+                                left: 45%;
+                                transform: translate(-45%, -50%);
+
+                                img {
+                                    width: 35px;
+                                }
+                            }
+
+                            .bahar .card-img {
+                                top: 19%;
+                                right: 68%;
+                                transform: translate(-68%, -50%);
+
+                                img {
+                                    width: 37px;
+                                }
+                            }
+
+                            .dragon .card-img {
+                                left: 55%;
+                                top: 20%;
+                                transform: translate(-55%, -50%);
+
+                                img {
+                                    width: 35px;
+                                }
+                            }
+
+                            .tiger .card-img {
+                                right: 83%;
+                                top: 20%;
+                                transform: translate(-83%, -50%);
+
+                                img {
+                                    width: 35px;
+                                }
+                            }
+
+                            .board .joker-img {
+                                img {
+                                    width: 92%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .section {
+            .my-multi {
+                .event-heading {
+                    font-size: 16px;
+
+                    .event-time {
+                        font-size: 11px;
+                        line-height: 22px;
+                    }
+                }
+
+                .table-score {
+                    tbody {
+                        .sports_data {
+                            .match-title {
+                                .runner_p {
+                                    width: 75%;
+                                    float: left;
+
+                                    .grey-icon, .black-icon {
+                                        height: 34px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bets-wrap {
+                .sports_book {
+                    table {
+                        .match-title {
+                            .runner-p {
+                                width: 77% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .scorecard {
+            .lay-1, .back-1, .oddsbox {
+                // font-size: 11px;
+            }
+        }
+
+        .mobile-main {
+            .upcoming-race {
+                tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+                    right: -20.9%;
+                    width: 132px;
+                }
+            }
+
+            .accordion {
+                .accordion-body .runner-title {
+                    width: 90px;
+                }
+            }
+
+            .header {
+                .mobile-logo .logo-area {
+                    width: 125px;
+
+                    .logo-img {
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            .header {
+                .right-menu {
+                    width: 31%;
+
+                    a {
+                        text-align: center;
+                        line-height: 16px;
+                        width: 100%;
+                    }
+
+                    span.align-c {
+                        //float: none;
+                    }
+                }
+            }
+
+            .new-table {
+                .header_title {
+                    width: 50%;
+                }
+
+                .odds-header {
+                    width: 50%;
+
+                    .odds-col {
+                        width: 44px;
+                        margin-left: 6px;
+                    }
+
+                    .visible-landscape {
+                        display: none;
+                    }
+                }
+                //.competitors{width:75px;}
+                .market-title {
+                    width: 53%;
+                }
+
+                .markets-odd {
+                    width: 47%;
+                    float: left;
+                    //overflow-x: overlay;
+                    overflow-y: hidden;
+
+                    .bet-button {
+                        width: 46px;
+                    }
+
+                    .market__container {
+                        min-width: 282px;
+                        float: left;
+                    }
+                }
+
+                .markets-odd.roundover:before, .markets-odd.suspend:before, .markets-odd.ball:before {
+                    width: 47%;
+                }
+            }
+        }
+
+        .matches-detail {
+            table {
+                tr {
+                    .runner-title {
+                        font-size: 11px;
+                    }
+
+                    .price {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+
+
+        .my-wallet {
+            .list-view .list-view-table table {
+                width: 1100px;
+            }
+
+            .list-view .list-view-table div[template-url="templates.pagination"] {
+                width: 1100px;
+            }
+
+            .white-wrap {
+                overflow-x: hidden;
+            }
+
+            .tab-wallet {
+
+                .payment .wallet-detail {
+                    border-right: none;
+                    margin-bottom: 20px;
+                }
+
+                .history-link {
+                    float: left;
+                    width: 100%;
+                    margin-left: 4px;
+                }
+
+                .payment {
+                    .form-deposit {
+                        margin-bottom: 20px;
+                    }
+
+                    .padding-r {
+                        padding: 0px;
+                    }
+
+                    .wallet-input {
+                        width: 100%;
+                    }
+
+                    .wallet-title {
+                        font-size: 19px;
+
+                        .sub-text {
+                            line-height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+
+        table {
+            th {
+                font-size: 12px;
+            }
+
+            tr {
+                .match-title {
+                    // font-size: 13px;
+                }
+
+                .price {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .td-popup {
+            .select-btn, .score-btn {
+                //width: 47.5% !important;
+            }
+        }
+
+        .popup-list {
+            a {
+                width: 31.9% !important;
+                margin: 0 1px 4px 2px !important;
+                border-radius: 0px;
+            }
+        }
+
+        .session-runs {
+            .td-left {
+                width: 51% !important;
+            }
+
+            .td-right {
+                width: 49% !important;
+            }
+        }
+
+        .live-col2 {
+            th.th-col {
+                width: 56% !important;
+            }
+
+            tr {
+                td.match-title {
+                    width: 56% !important;
+                }
+
+                .lay-1, .back-1, .oddsbox {
+                    min-width: 75px;
+                }
+            }
+        }
+
+        .cash-value {
+            .check {
+                font-size: 10px;
+                padding-right: 5px;
+            }
+
+            .cash-btn {
+                font-size: 10px;
+            }
+
+            .btn-cancle {
+                font-size: 10px;
+                margin-left: 3px;
+                height: 36px;
+                @include padding(9px, 10px, 11px, 10px);
+            }
+        }
+
+        .card-on-video {
+            .img-on-video {
+                height: 24px;
+            }
+
+            .rname-on-video {
+                height: 15px;
+                font-size: 10px;
+            }
+
+            .cards-inside-video {
+                height: 28px;
+            }
+        }
+
+        tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+            left: 62.7%;
+            width: 130px;
+        }
+    }
+
+    .master-main {
+        overflow-x: auto;
+        width: 97%;
+
+        .admin-right {
+            min-width: inherit;
+        }
+
+        .livegame-detail {
+            .player-info {
+                width: 80% !important;
+            }
+
+            .total-info {
+                width: 80% !important;
+            }
+
+            .result-info {
+                font-size: 13px !important;
+            }
+        }
+    }
+
+    .content-wrap-table {
+        padding: 0px 10px;
+
+        .main-content-tablecell #counter span {
+            font-size: 10.5vw !important;
+        }
+
+        .section-logo {
+            margin-bottom: 6rem !important;
+            height: 80px;
+        }
+
+        .main-content-tablecell {
+            p {
+                font-size: 2.8vw !important;
+            }
+
+            h1 {
+                font-size: 1.8rem !important;
+            }
+        }
+    }
+
+    .admin_full, .admin-main {
+        display: block !important;
+    }
+
+    .admin-header {
+        @include padding(15px, 0px, 0px, 0px);
+
+        .admin-menu {
+            margin-top: 15px;
+
+            ul {
+                li {
+                    width: 104px;
+                }
+
+                li a {
+                    @include padding(6px, 8px, 6px, 8px);
+                }
+            }
+        }
+    }
+
+    .promotion {
+        .carousel {
+            div.carousel-inner {
+                .item > img {
+                    width: 325px !important;
+                }
+            }
+
+            .carousel-control.left {
+                left: -12px;
+            }
+
+            .carousel-control.right {
+                right: -12px;
+            }
+        }
+    }
+
+    .master_header, .admin-header {
+        .logo-img {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media only screen and (max-device-width: 980px) {
+    .master-class .agent-member .member-inner {
+        width: 46%;
+    }
+}

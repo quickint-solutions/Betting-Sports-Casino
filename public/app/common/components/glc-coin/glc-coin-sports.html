@@ -1,0 +1,13 @@
+﻿
+
+<a>
+    <p>
+        {{isBm=='true' && item.price ? (item.price | toBMPrice  ): item.price }}
+    </p>
+    <span ng-if="item.percentage && item.percentage!=100">
+        {{item.percentage}}
+    </span>
+    <span ng-if="showSize == 'true' && item && item.size > 0 ">
+        {{item.size | toRateOnly | shortNumber}}
+    </span>
+</a>

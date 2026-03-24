@@ -1,0 +1,122 @@
+﻿<div class="horse-detail">
+    <div class="scorecard">
+        <div id="gameHead" class="game-head" style="">
+            <div class="twoTeam">
+                <div class="horse_pin">
+                    <i class="fa fa-thumb-tack add-pin"
+                       ng-class="{'pinned':fullMarket.pin}" ng-click="ctrl.pinMe(fullMarket);"></i>
+
+                </div>
+                <div class="game-visit bold">{{fullMarket.name}}<span>{{fullMarket.event.name}}</span></div>
+                <a class="refresh">
+                    <span class="to_info" >
+                        <kt-rules data-market="fullMarket" data-open-date="{{fullMarket.openDate}}"></kt-rules>
+                    </span>
+                </a>
+            </div>
+        </div> <!-- game head  -->
+
+        <div class="game-info">
+            <span ng-if="fullMarket.inPlay && fullMarket.marketStatus!=4">
+                <i class="fa fa-clock-o fa-lg in-time"></i>
+                {{'inplay.label' | translate}}
+            </span>
+            <span ng-if="!fullMarket.inPlay && fullMarket.marketStatus!=4">
+                <i class="fa fa-clock-o fa-lg out-time"></i>
+                {{fullMarket.startTime | date:'EEE dd MMM, H:mm'}}
+            </span>
+
+            <span ng-if="fullMarket.marketStatus==4">
+                <i class="fa fa-clock-o closed"></i>{{'closed.label' | translate}}
+            </span>
+            <span class="matches">{{'market.matched.label' | translate}}<b><kt-glc-code data-item="{{fullMarket.totalMatched}}"></kt-glc-code></b></span>
+        </div>
+        <kt-counter data-bet-in-process="fullMarket.betInProcess" data-event-type="{{fullMarket.eventType.id}}"></kt-counter>
+        <table class="team-score">
+            <tbody ng-class="{'stop':fullMarket.temporaryStatus==3,'ball':fullMarket.temporaryStatus==2,'suspend':fullMarket.marketStatus==3,'closed':fullMarket.marketStatus==4}">
+                <tr class="bet-all">
+                    <td class="refer-bet">{{fullMarket.marketRunner.length}} {{'market.selections.label' | translate}}</td>
+                    <td class="refer-bet" colspan="2"></td>
+                    <td class="back-all bold" ng-click="ctrl.betAll(fullMarket,1);"><a><span>{{'market.backall.label' | translate}}</span></a></td>
+                    <td class="lay-all bold"  ng-click="ctrl.betAll(fullMarket,2);"><a><span>{{'market.layall.label' | translate}}</span></a></td>
+                    <td class="refer-book" colspan="2"></td>
+                </tr>
+                <tr id="tr_{{fullMarket.id}}_{{r.runner.id}}" class="tr-data" ng-repeat="r in fullMarket.marketRunner">
+                    <th class="team-name">
+                        <p>
+                            <a><i style="margin:5px;" class="fa fa-bar-chart" ng-show="fullMarket.source==1" ng-click="ctrl.openBFChart(fullMarket,r);" aria-hidden="true"></i></a>{{r.runner.name}}
+                            <span ng-if="r.pl" class="positive ppl" ng-class="{'negative':r.pl<0 }">{{r.pl}}</span>
+                            <span ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" class="ppl" ng-if="r.pPL">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>{{r.pPL}}
+                            </span>
+                        </p>
+                    </th>
+                    <td colspan="6" ng-if="r.status!=1"><span ng-if="r.status==2">{{'winner.label'|translate}}</span></td>
+                    <td ng-if="r.status==1" class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                        ng-repeat="i in [3,2,1]" kt-click ng-click="ctrl.placeBet(fullMarket,1,fullMarket.name,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price :'',r.runner.name);">
+                        <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                    </td>
+                    <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                        ng-repeat="i in [1,2,3]" kt-click ng-click="ctrl.placeBet(fullMarket,2,fullMarket.name,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                        <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="upcoming-race accordion" ng-if="otherMarkets.length>0">
+            <h3 class="upcoming-title">Upcoming Races</h3>
+            <div class="card" ng-repeat="om in otherMarkets">
+                <div class="accordion-header" id="heading{{$index}}" ng-click="ctrl.selectedTabChanged($index)">
+                    <button class="btn btn-link" ng-class="{'collapsed':selectedTab==$index}" type="button" data-toggle="collapse" data-target="#collapse{{$index}}"
+                            aria-expanded="true" aria-controls="collapse{{$index}}">
+                        <span ng-click="ctrl.changeHorseMarket(om.id)">{{om.name}} ({{om.event.name}})</span>
+                        <time><i class="fa fa-dot-circle-o positive" ng-if="om.inPlay" style="padding-right:5px"></i><kt-date data-date-value="om.startTime" data-format="HH:mm"></kt-date></time>
+                    </button>
+                </div>
+                <div id="collapse{{$index}}" class="collapse" ng-class="{'in':selectedTab==$index}" aria-labelledby="heading{{$index}}" data-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="process-div">
+                                    <kt-counter data-bet-in-process="om.betInProcess" data-event-type="{{om.eventType.id}}" data-small="{{om.length<3}}"></kt-counter>
+                                    <table class="team-score">
+                                        <tbody ng-class="{'stop':om.temporaryStatus==3,'ball':om.temporaryStatus==2,'suspend':om.marketStatus==3,'closed':om.marketStatus==4}">
+                                            <tr class="bet-all">
+                                                <td class="refer-bet"></td>
+                                                <td class="refer-bet" colspan="2"></td>
+                                                <td class="back-all bold" ng-click="ctrl.betAll(om,1);"><a><span>{{'market.backall.label' | translate}}</span></a></td>
+                                                <td class="lay-all bold" ng-click="ctrl.betAll(om,2);"><a><span>{{'market.layall.label' | translate}}</span></a></td>
+                                                <td class="refer-book" colspan="2"></td>
+                                            </tr>
+                                            <tr id="tr_{{om.id}}_{{r.runner.id}}" class="tr-data" ng-repeat="r in om.marketRunner">
+                                                <th class="team-name">
+                                                    <p>
+                                                        <a><i style="margin:5px;" class="fa fa-bar-chart" ng-show="om.source==1" ng-click="ctrl.openBFChart(om,r);" aria-hidden="true"></i></a>{{r.runner.name}}
+                                                        <span ng-if="r.pl" class="positive ppl" ng-class="{'negative':r.pl<0 }">{{r.pl}}</span>
+                                                        <span ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" class="ppl" ng-if="r.pPL">
+                                                            <i class="fa fa-arrow-right" aria-hidden="true"></i>{{r.pPL}}
+                                                        </span>
+                                                    </p>
+                                                </th>
+                                                <td colspan="6" ng-if="r.status!=1"><span ng-if="r.status==2">{{'winner.label'|translate}}</span></td>
+                                                <td ng-if="r.status==1" class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                                                    ng-repeat="i in [3,2,1]" kt-click ng-click="ctrl.placeBet(om,1,om.name,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price :'',r.runner.name);">
+                                                    <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                                                </td>
+                                                <td ng-if="r.status==1" class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                                                    ng-repeat="i in [1,2,3]" kt-click ng-click="ctrl.placeBet(om,2,om.name,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name);">
+                                                    <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

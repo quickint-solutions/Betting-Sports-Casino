@@ -1,0 +1,215 @@
+﻿<div class="main-section">
+    <div class="col-sm-12" style="height:100%;">
+        <div class="row" style="height:100%;">
+            <div class="marquee" ng-if="announcement">
+                <marquee>{{announcement}}</marquee>
+            </div>
+            <div class="header main-header">
+                <div class="content-wrap">
+                    <div class="header-base">
+                        <div class="logo-area">
+                            <a ui-sref="base.home" class="logo-img"></a>
+                        </div>
+                        <div class="header-balance">
+                            <span><kt-date data-date-value="currentDate" data-format="MMM d, yyyy"></kt-date></span>
+                            <span class="time"><kt-date data-date-value="currentDate" data-format="HH:mm:ss"></kt-date></span>
+                            <div class="menu-dropdown">
+                                <a class="clock-zone">( {{selectedTimezone}}<i class="icon-angle-down" aria-hidden="true"></i> )</a>
+                                <div class="dropdown-menulist">
+                                    <a class="align-l" ng-click="ctrl.timezoneChanged('+00:00')">System time - (GMT +00:00)</a>
+                                    <a class="align-l" ng-click="ctrl.timezoneChanged(timezone)">Your computer time - (GMT {{timezone}})</a>
+                                    <a class="align-l" ng-click="ctrl.timezoneChanged('+05:30')">India standard time - (GMT +05:30)</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="header-wrap">
+                            <li class="search-data">
+                                <i class="icon-search" aria-hidden="true"></i>
+                                <input type="text" placeholder="Search Events" ng-model="searchEvent"
+                                       ng-change="ctrl.searchEvent(searchEvent)">
+                                <ul ng-show="eventList.length>0" class="-qa-search-results">
+                                    <li ng-repeat="e in eventList">
+                                        <a class="-qa-item-name " ng-click="ctrl.eventSelected(e)">
+                                            <span class="link-name ng-binding ng-scope">{{e.event.name}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-dropdown setting-menu" ng-if="isB2C">
+                                <a class="account-a " style="padding:0 15px;text-decoration:underline" ui-sref="base.account.transferonline({tab:5})">
+                                    <i style="margin-right:3px;" class="icon-money" aria-hidden="true"></i>Deposit/Withdrawal
+                                </a>
+                            </li>
+                            <li class="menu-dropdown setting-menu" uib-dropdown on-toggle="toggled(open)">
+                                <a class="account-a" style="padding:0 15px;text-decoration:underline" uib-dropdown-toggle>
+                                    <i style="margin-right:3px;" class="icon-cog" aria-hidden="true"></i>{{user.username}}
+                                </a>
+                                <ul class="dropdown-menulist" uib-dropdown-menu>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.profile">
+                                            My Profile
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.statement">
+                                            Account Statement
+                                        </a>
+                                    </li>
+                                    <li class="align-l" ng-show="isB2C">
+                                        <a ui-sref="base.account.bonusstatement">
+                                            Bonus Statement
+                                        </a>
+                                    </li>
+                                    <li ng-show="hasReferral" class="align-l">
+                                        <a ui-sref="base.account.referralstatement">
+                                            Referral Statement
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.transferstatement">
+                                            Transfer Statement
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.transferonline"
+                                           ng-if="isB2C">
+                                            Deposit/Withdrawal
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.bets"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            My Bets
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.profitloss">
+                                            Betting Profit and Loss
+                                        </a>
+                                    </li>
+                                    <li class="align-l" ng-show="hasCasino">
+                                        <a ui-sref="base.account.fdprofitloss">
+                                            FD Profit and Loss
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.passwordchange">
+                                            Change Password
+                                        </a>
+                                    </li>
+                                    <li class="align-l">
+                                        <a ui-sref="base.account.history">
+                                            Login History
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="logout-btn">
+                                <a class="logout-a" ng-click="ctrl.logout()">
+                                    <i class="icon-signout" aria-hidden="true" style="margin-right:3px;"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-highlight">
+                <div class="nav-menu">
+                    <span class="nav_link" ng-repeat="e in eventTypes | filter:{showInMenu:true}">
+                        <a ng-click="ctrl.menuClick(e.id,e.name)">{{e.name}}</a>
+                    </span>
+                    <span class="nav_link" ng-if="hasCasino">
+                        <a ui-sref="base.livegames" style="color:red">{{'fd.casino.label' | translate}}</a>
+                    </span>
+                    <span class="nav_link" ng-if="hasAPK">
+                        <a ng-click="ctrl.downloadAPK()" class="blink-color"><i style="font-size:16px;" class="fa fa-android"></i></a>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="main-content" style="min-height:{{mainContentMinHeight}}px!important" ng-class="{'no-marquee':!announcement}" ui-view="main">
+
+            </div>
+            <div class="promo" ng-hide="ctrl.isActiveBool('/live-games')">
+                <footer class="footer footer-icon">
+                    <div class="tutorials" ng-if="currentWebApp=='lotus365gg'">
+                        <div class="tutorial-btn">
+                            <a href="https://vimeo.com/752093924" target="_blank">Introduction</a>
+                        </div>
+                        <div class="tutorial-btn"><a href="https://vimeo.com/751610667" target="_blank">How to register</a></div>
+                        <div class="tutorial-btn"><a href="https://vimeo.com/751698929" target="_blank">How to deposit</a></div>
+                        <div class="tutorial-btn"><a href="https://vimeo.com/751686294" target="_blank">How to use bonus</a></div>
+                    </div>
+                    <a ng-click="ctrl.$rootScope.showTemplate(0)"><span class="plus-18">18+</span>Underage gambling is an offence</a>
+                    <a ng-click="ctrl.openRules();">Rules & Regulations</a>
+                    <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a>
+                    <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a>
+                    <a ng-click="ctrl.$rootScope.showTemplate(3)">Responsible Gambling</a>
+                    <a ng-click="ctrl.$rootScope.showTemplate(4)">Exclusion Policy</a>
+                    <a ng-click="ctrl.openTermsConditions();">Terms and Conditions</a>
+
+                    <div class="footer-container mr-top-20">
+                        <div class="footer-links" style="display: flex; align-items: center; flex-direction: row; justify-content: space-evenly; width: 50%; margin: auto;">
+                            <a>Copyright 2020-2023 {{displayName}}. All rights reserved</a>
+                            <div class="social-icon" ng-if="supportDetail.facebook || supportDetail.twitter || supportDetail.instagram || supportDetail.telegram || supportDetail.telegram">
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.facebook}}" ng-if="supportDetail.facebook" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.twitter}}" ng-if="supportDetail.twitter" target="_blank">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.instagram}}" ng-if="supportDetail.instagram" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.telegram}}" ng-if="supportDetail.telegram" target="_blank">
+                                    <i class="fa fa-telegram"></i>
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.youtube}}" ng-if="supportDetail.youtube" target="_blank">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.discord}}" ng-if="supportDetail.discord" target="_blank">
+                                    <img ng-src="{{imagePath}}images/icons/discord-icon.svg" style="width:22px" />
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.threads}}" ng-if="supportDetail.threads" target="_blank">
+                                    <img ng-src="{{imagePath}}images/icons/threads-icon.svg" style="width:22px" />
+                                </a>
+                                <a style="width:unset;float:unset;margin:0px 8px;" href="{{supportDetail.tiktok}}" ng-if="supportDetail.tiktok" target="_blank">
+                                    <img ng-src="{{imagePath}}images/icons/tiktok-icon.svg" style="width:22px" />
+                                </a>
+                            </div>
+                            <a href="https://licensing.gaming-curacao.com/validator/?lh=f0c53a0d18654c1ee80ec97d4bb02ae7" TARGET="_blank"
+                               ng-if=" currentWebApp=='lotus365gg'">
+                                <img ng-src="{{webImagePath}}gc-logo.png"
+                                     WIDTH="150" HEIGHT="50" BORDER="0" ALT="Gaming Curacao: Click to Validate">
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <div class="support-float"
+         ng-hide="ctrl.isActiveBool('/live-games')"
+         ng-if="offerList.length>0 || supportDetail.telegramhelp || supportDetail.whatsapp">
+        <div ng-if="offerList.length>0" class="offer-float">
+            <a ng-click="ctrl.openOfferModal()" title="Check latest offers">
+                <img class="offer_img" ng-src="/public/images/{{currentWebApp}}/special-offer.gif" alt="">
+            </a>
+        </div>
+        <div ng-if="supportDetail.telegramhelp" class="whatsApp-float">
+            <a href="{{supportDetail.telegramhelp}}" target="_blank" title="Contact us on telegram for queries">
+                <img class="telegram_img" ng-src="/public/images/{{currentWebApp}}/telegram.svg" alt="">
+            </a>
+        </div>
+        <div ng-if="supportDetail.whatsapp" class="whatsApp-float">
+            <a href="{{supportDetail.whatsapp}}" target="_blank" title="Get a new ID instatly over whatsapp">
+                <img class="whatsApp_img" ng-src="/public/images/{{currentWebApp}}/whatsapp.svg" alt="">
+                <div class="circleIconPanel"></div>
+            </a>
+        </div>
+    </div>
+</div>

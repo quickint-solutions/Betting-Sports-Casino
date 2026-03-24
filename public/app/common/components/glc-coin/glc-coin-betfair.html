@@ -1,0 +1,14 @@
+﻿
+<div class="bf-bet-button-info">
+    <span class="bet-button-price">
+        {{isBm=='true' && item.price ? (item.price | toBMPrice  ): item.price }}
+        {{showSize == 'true' && item.percentage && item.percentage!=100 ? ' : '+item.percentage : ''}}
+    </span>
+    <span class="bet-button-size" ng-if="showSize == 'false' && item.percentage ">{{item.percentage}}</span>
+    <span class="bet-button-size" ng-if="showSize == 'true' && item && item.size > 0 && item.size <= 5000">
+        ${{item.size | toRate:0}}
+    </span>
+    <span ng-if="showSize == 'true' && item && item.size >  5000" class="bet-button-size">
+        ${{5000 | toRate:0}}+
+    </span>
+</div>

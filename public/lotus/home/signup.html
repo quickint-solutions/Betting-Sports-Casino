@@ -1,0 +1,86 @@
+﻿<div class="login">
+    <div class="login-page signup-form" ng-if="loginMode == 4">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 login-form">
+                <div class="row">
+                    <div class="login-bottom">
+                        <form class="form-signin " name="loginform" ng-submit="ctrl.register()">
+                            <p class="login-user">
+                                <input type="email" maxlength="250"
+                                       placeholder="Enter Email"
+                                       tabindex="1" autocomplete="off"
+                                       required autofocus ng-model="$parent.model.email" class="form-control">
+                            </p>
+                            <p>
+                                <input type="text" maxlength="15" minlength="11" size="12"
+                                       placeholder="Enter Mobile" name="mobile"
+                                       tabindex="2" autocomplete="off" kt-number-only
+                                       required ng-model="$parent.model.mobile" class="form-control">
+                                <div style="float:right; padding:0 0 7px 0">
+                                    <span class="sub-text">* Number with country code</span>
+                                    <span class="sub-text">* OTP will be sent on this number</span>
+                                </div>
+                            </p>
+                            <p>
+                                <input type="text" maxlength="100"
+                                       placeholder="Enter Username"
+                                       tabindex="3" autocomplete="off"
+                                       required autofocus ng-model="$parent.model.username" class="form-control">
+                            </p>
+                            <p>
+                                <input type="password"
+                                       placeholder="Enter password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="4"
+                                       required class="form-control" ng-model="$parent.model.password" data-type="password">
+                            </p>
+                            <p>
+                                <input type="password"
+                                       placeholder="Confirm Password"
+                                       ng-maxlength=16
+                                       ng-minlength="6"
+                                       tabindex="5"
+                                       required class="form-control" ng-model="$parent.model.confirmpassword" data-type="password">
+                            </p>
+                          
+                            <p class="captcha-div">
+                                <span class="code">
+                                    <span>
+                                        <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                        <i class="fa fa-refresh refresh-btn" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                    </span>
+                                </span>
+                                <input type="text" name="captcha" ng-model="$parent.model.captcha"
+                                       class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="6"
+                                       placeholder="Enter code" />
+                            </p>
+                            <p class="confirm-text">
+                                <i class="fa fa-check-square" aria-hidden="true"></i>&nbsp; I confirm that I am informed and completely agree with the rules of bets, pay-outs, rules of gambling games.
+                            </p>
+                            <p class="login-btn">
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="loginform.$invalid">
+                                    Register <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                            <p class="confirm-text" style="float:right;">
+                                Already have an account? <a class="register" ng-click="ctrl.gotoLogin()">Login Here</a>
+                            </p>
+                        </form>
+                        <kt-messages data-messages="messages"></kt-messages>
+                    </div>
+                    <div class="betfair-img"><a class="powerby-bf" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

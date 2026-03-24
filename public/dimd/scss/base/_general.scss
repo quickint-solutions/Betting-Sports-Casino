@@ -1,0 +1,258 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+
+.table > tbody + tbody {
+    border-top: none !important;
+}
+
+.grid-spinner {
+    height: 58px;
+    margin-bottom: -28px;
+    margin-top: -24px;
+
+    .outside {
+        height: 58px;
+        margin-bottom: -28px;
+        margin-top: -24px;
+    }
+}
+
+.no-data {
+    padding: 5px;
+    font-size: 14px;
+}
+.hide-header {
+    thead {
+        display: none !important;
+    }
+}
+.mobile-top {
+    .no-data {
+        padding: 10px 5px;
+        font-size: 13px;
+        background: gray;
+        text-align: center;
+        color: white;
+    }
+}
+
+.fb-scoreboard {
+    width: 100%;
+    @include padding(0px, 0, 10px, 0);
+
+    iframe {
+        width: 100%;
+        border: none;
+    }
+}
+
+.negative {
+    color: $red !important;
+}
+
+.float-r {
+    float: right;
+}
+
+.float-l {
+    float: left;
+}
+
+.mr-top-10 {
+    margin-top: 10px;
+}
+
+.positive {
+    color: $green;
+}
+
+.right-pd-5 {
+    padding-right: 5px;
+}
+
+.left-pd-5 {
+    padding-left: 5px;
+}
+
+.boolean {
+    text-align: center !important;
+}
+
+.errorMsg {
+    background-color: $red;
+    @include padding(0px, 5px, 0px, 5px);
+    @include line-height(24px);
+    @include resize($float-left, $width);
+    @include headline($white-color, $font-size-tab );
+}
+
+.warningMsg {
+    background-color: $yellow;
+    @include padding(0px, 5px, 0px, 5px);
+    @include line-height(24px);
+    @include resize($float-left, $width);
+    @include headline($black-color, $font-size-tab );
+}
+
+a {
+    cursor: pointer !important;
+}
+
+.position_match {
+    @include border-all(1px, solid, $gray);
+
+    .position {
+        @include border(bottom, 1px, solid, $gray);
+        @include padding(5px, 5px, 5px, 5px);
+        text-align: center;
+        @include resize($float-left, $width);
+    }
+}
+
+.rpt-animate {
+    .ng-move,
+    .ng-enter,
+    .ng-leave {
+        -webkit-transition: opacity linear 0.5s;
+        -moz-transition: opacity linear 0.5s;
+        -ms-transition: opacity linear 0.5s;
+        -o-transition: opacity linear 0.5s;
+        transition: opacity linear 0.5s;
+    }
+
+    .ng-move,
+    .ng-enter,
+    .ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+    .ng-leave,
+    .ng-move.ng-move-active,
+    .ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.winner {
+    color: $green;
+}
+
+.cashout {
+    // margin-left:10px;
+    vertical-align: bottom;
+    margin-left: 5px;
+
+    .fa-circle {
+        @include padding(2px, 2px, 2px, 2px);
+        margin-right: 5px;
+        background-color: $cashbtn-bg;
+        @include headline($cashbtn, 7px);
+        @include border-all(1px, solid, $cashbtn);
+    }
+
+    a {
+        @include headline($black-color, 12px);
+        text-transform: capitalize;
+        @include border(right, 2px, solid, $border-color);
+        padding-right: 5px;
+    }
+}
+
+.cash-value {
+    text-transform: capitalize;
+    width: $width;
+    text-align: right;
+    float: left;
+    padding: 0 5px 0 0;
+    margin: 15px 0 10px 0;
+    font-size: 13px;
+
+    .btn-title {
+        @include display(inline-block);
+        margin-right: 10px;
+        vertical-align: middle;
+
+        span {
+            display: grid;
+        }
+    }
+
+    .cash-btn {
+        background-color: $cashbg;
+        @include padding(4px, 5px, 5px, 5px);
+        @include border-radius(3px);
+        color: $black-color;
+        vertical-align: middle;
+        width: 25%;
+        @include display(inline-block);
+
+        .icon-glc-icon:before {
+            @include padding(0px, 2px, 0px, 2px);
+        }
+
+        span {
+            @include line-height(11px);
+            @include txt(normal);
+            @include display(block);
+        }
+    }
+
+    .btn-cancle {
+        color: $black-color;
+        margin-left: 10px;
+        background-color: $border-color;
+        @include border-radius(3px);
+        text-transform: capitalize;
+        height: 38px;
+        @include padding(11px, 20px, 0px, 20px);
+        display: inline-block !important;
+        vertical-align: top;
+    }
+
+    input[type="checkbox"] {
+        vertical-align: bottom;
+        margin-right: 3px;
+    }
+
+    .check {
+        @include padding(0px, 10px, 0px, 0px);
+        @include display(inline-block);
+    }
+
+    .cash-price {
+        padding-top: 2px;
+    }
+
+    .cash-stake {
+        background-color: #00a950;
+    }
+}
+
+.left-column {
+    float: left;
+    width: calc(50% - 2px);
+}
+
+.right-column {
+    float: right;
+    width: calc(50% - 2px);
+}
+.fade {
+    &.show, &.in {
+        opacity: 1;
+    }
+}
+.box-login {
+    .alert-class{
+        top:0px;
+        left:0px;
+        width:100%!important;
+        margin-bottom:10px;
+    }
+}

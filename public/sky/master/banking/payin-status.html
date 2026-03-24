@@ -1,0 +1,89 @@
+﻿<div class="row ">
+    <div class="col-sm-12">
+        <div class="input-group master_wrap">
+            <span>Deposit Request Of : &nbsp;</span>
+            <label class="bold">{{item.user.username}}</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-5  mr-top-10">
+        <div>Amount : <b class="green">{{item.amount | toRate}}</b></div>
+        <div>Bonus Amount : <b class="green">{{item.bonusAmount | toRate}}</b></div>
+        <div class="mr-top-10">Current Status :    <b>{{ctrl.getStatus(item.oldstatus) }}</b></div>
+
+        <div class="mr-top-10">
+            UTR No. : <b class="red">{{item.utrNo }}</b>
+                      <i ng-click="ctrl.getReceiptImage(item)"
+                         class="fa fa-image" ng-if="item.imageId">
+                      </i>
+        </div>
+        <div class="mr-top-10">A/C No. : <b>{{item.acNo }}</b></div>
+        <div class="mr-top-10" ng-show="item.bankName">Bank : <b>{{item.bankName }}</b></div>
+        <div class="mr-top-10" ng-show="item.acHolder">A/C Holder : <b>{{item.acHolder }}</b></div>
+
+        <div class="mr-top-10">Date : <kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date></div>
+
+    </div>
+    <div class="col-sm-7  mr-top-10">
+        <div class="col-sm-12 ">
+            <div class="input-group">
+                <select class="form-control" ng-model="item.status">
+                    <option ng-repeat="s in fairxpayinList" value="{{s.id}}">
+                        {{s.name}}
+                    </option>
+                </select>
+                <span class="input-group-addon">Status</span>
+            </div>
+        </div>
+        <div class="col-sm-12 ">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="100" ng-model="item.amountNew"
+                       placeholder="Amount" />
+                <span class="input-group-addon">Amount</span>
+            </div>
+        </div>
+        <div class="col-sm-12 ">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="200" ng-model="item.utr"
+                       placeholder="UTR" />
+                <span class="input-group-addon">UTR</span>
+            </div>
+        </div>
+        <div class="col-sm-12 ">
+            <div class="checkbox">
+                <input type="checkbox" id="chk-iscode" ng-model="item.removeOffer" ng-change="ctrl.offerTickChanged()">
+                <label for="chk-iscode">Remove Offer?</label>
+            </div>
+        </div>
+        <div class="col-sm-12 ">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="100" ng-model="item.bonusAmountNew"
+                       placeholder="Bonus Amount" ng-disabled="item.removeOffer" />
+                <span class="input-group-addon">Bonus</span>
+            </div>
+        </div>
+        <div class="col-sm-12 ">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="100" ng-model="item.comment"
+                       placeholder="Comment" />
+                <span class="input-group-addon">Comment</span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <button class="btn btn-default" type="button" ng-click="ctrl.setComment('Payment Received')">
+                Payment Received <i class=" fa fa-arrow-circle-o-up"></i>
+            </button>
+            <button class="btn btn-default" type="button" ng-click="ctrl.setComment('Payment Not Received')">
+                Payment Not Received <i class=" fa fa-arrow-circle-o-up"></i>
+            </button>
+            <button class="btn btn-default" type="button" ng-click="ctrl.setComment('Used Slip')">
+                Used Slip <i class=" fa fa-arrow-circle-o-up"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+

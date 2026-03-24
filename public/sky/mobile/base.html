@@ -1,0 +1,173 @@
+﻿<div class="loader-table" ng-show="generalLoader.active()">
+    <div class="loader-container" ng-include="loadderTemplate"></div>
+</div>
+<div class="mobile-view fair-promo" ng-init="openbetsCollapse=true;settingCollapse=true" ng-class="{'casino-live':ctrl.isActiveState('mobile.base.fdlivegames')}">
+    <!--open bets sidebar-->
+    <div class="openbet-sidebar" ng-class="{'active':!openbetsCollapse}">
+        <span class="bets ">
+            <img src="/public/images/mobile/side-bets.png" />{{'openbets.label' | translate}}
+        </span>
+        <div class="mb-close" ng-click="openbetsCollapse=true">
+            <i class="fa fa-close"></i>
+        </div>
+        <div ui-view="openbets">
+        </div>
+    </div>
+    <!--settings side bar-->
+    <div class="setting-sidebar" ng-class="{'active':!settingCollapse}">
+        <span class="bets ">
+            <i class="fa fa-gear" style="margin-right:5px;"></i>Settings
+        </span>
+        <div class="mb-close" ng-click="settingCollapse=true">
+            <i class="fa fa-close"></i>
+        </div>
+        <div>
+            <!--Start****Setting popup-->
+            <ul class="setting-popup">
+                <li class="line">
+                    <label><strong>{{'defaultstake.label' | translate}}</strong></label>
+                    <input class="stake-input" type="text" ng-model="stakeConfig.defaultStake">
+                </li>
+                <li ng-show="!editStake" class="stake line">
+                    <label class="lbl-name"><strong>{{'stake.label' | translate}}</strong></label>
+                    <div class="left-btn">
+                        <a ng-class="{'select':s.isActive}"
+                           ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                            {{s.stake}}
+                        </a>
+                    </div>
+                    <div class="edit-btn" kt-has-claim claims="{Claims: ['client.stake.config.manage']}">
+                        <a ng-click="editStake=true">{{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </div>
+                </li>
+                <li class="ok-btn line" ng-show="editStake">
+                    <label class="lbl-name"><strong>{{'stake.label' | translate}}</strong></label>
+                    <div class="left-btn col-odd">
+                        <input type="text"
+                               ng-model="s.stake"
+                               ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                    </div>
+                    <div class="ok-button">
+                        <a class="btn btn-primary" ng-click="editStake=false">{{'common.button.ok' | translate}}</a>
+                    </div>
+                </li>
+                <li class="select-btn line" kt-has-claim claims="{Claims: ['client.stake.config.manage']}">
+                    <a class="btn btn-default" ng-disabled="editStake" ng-click="settingCollapse=true">Cancel</a>
+                    <a class="btn btn-primary" ng-disabled="editStake" ng-click="ctrl.saveStakeConfig()">save</a>
+                </li>
+                <li class="line">
+                    <label class="lbl-name"><strong>{{'odds.label' | translate}}</strong></label>
+                    <input type="checkbox" id="chk-highlight" class="check" ng-model="ctrl.$rootScope.highlightOnOddsChange">
+                    <label for="chk-highlight">Highlight when odds change</label>
+                </li>
+                <li>
+                    <label><strong>{{'language.label' | translate}}</strong></label>
+                    <select ng-model="selectedLanguage" ng-change="ctrl.languageChanged()">
+                        <option ng-repeat="l in languageList" value="{{l.id}}">
+                            {{l.name}}
+                        </option>
+                    </select>
+                </li>
+
+            </ul>
+            <!--End****Setting popup-->
+        </div>
+    </div>
+
+    <header>
+        <div class="mobile_header">
+            <div class="m-header">
+                <div class="m-header-center">
+                    <a ui-sref="mobile.base.home">
+                        <img class="m-logo" ng-if="currentWebApp!='scorpionbook'" ng-src="{{webImagePath}}logo.png" />
+                        <img class="m-logo" ng-if="currentWebApp=='scorpionbook'" ng-src="{{webImagePath}}m-logo.png" />
+                    </a>
+                </div>
+                <div class="main-wallet">
+                    <a class="bf-login-btn" ui-sref="mobile.base.account">
+                        <i class="fa fa-user"></i>
+                        <span class="txt">
+                            <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure+ balanceInfo.bonus}}"></kt-glc-code>
+                        </span>
+                    </a>
+                    <a class="bf-login-btn wallet blink-color" ui-sref="mobile.base.transferonline"
+                       ng-if="isB2C">
+                        <i class="fa fa-bank" aria-hidden="true"></i>
+                        <span class="txt">D/W</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+    <div class="header_msg" ng-if="announcement">
+        <i class="fa fa-bullhorn"></i>
+        <marquee class="marquee-msg">
+            {{announcement}}
+        </marquee>
+    </div>
+
+    <!--center part where all other screen will be placed-->
+    <div class="mobilewrap client-side" ng-class="{'activeoneclick':oneClickEnable,'videoison':isVideoOn}" ui-view="center">
+
+    </div>
+
+
+
+    <!--one click toolbar-->
+    <div ng-if="ctrl.$rootScope.displayOneClick && oneClickEnable">
+        <div class="one_click-wrap" ng-init="editOneClickStake=false">
+            <div class="oneclick-setting" ng-show="!editOneClickStake">
+                <ul class="one_click-stake">
+                    <li ng-repeat="s in stakeConfig.oneClickStake">
+                        <a class="btn" ng-click="ctrl.selectOneClickStake($index,s)" index="{{$index}}"
+                           ng-class="{'select':s.isActive}">{{s.stake}}</a>
+                    </li>
+                </ul>
+                <a class="setting-edit" ng-click="editOneClickStake=true">edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </div>
+            <div class="oneclick-betstake" ng-show="editOneClickStake">
+                <ul class="one_click-stake">
+                    <li ng-repeat="s in stakeConfig.oneClickStake">
+                        <input ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true">
+                    </li>
+                </ul>
+                <a class="setting-save dark-btn" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">{{'common.button.save' | translate}}</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="mobile_nav" ng-if="!ctrl.isActiveState('mobile.base.fdlivegames')">
+        <ul class="flex">
+            <li ng-class="ctrl.isActive('/mobile/home')"><a href="" ui-sref="mobile.base.home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li ng-class="ctrl.isActive('/mobile/inplay')"><a href="" ui-sref="mobile.base.inplay"><i class="fa fa-clock-o" aria-hidden="true"></i>In-Play</a></li>
+            <li ng-show="hasBottomTeenpatti" ng-class="ctrl.isContain('/mobile/teenpatti')" class="sport">
+                <a ui-sref="mobile.base.teenpatti"><i class="tp-icon"></i>Teen Patti</a>
+            </li>
+            <li ng-class="ctrl.isActive('/mobile/my-markets')"><a ui-sref="mobile.base.mymarket"><i class="fa fa-magic" aria-hidden="true"></i>My</a></li>
+            <li ng-hide="hasBottomTeenpatti" ng-class="ctrl.isContain('/mobile/sports')" class="sport"><a href="" ui-sref="mobile.base.sports"><i class="fa fa-trophy" aria-hidden="true"></i>Sports</a></li>
+            <li><a ng-click="$parent.openbetsCollapse=false"><i class="fa fa-thumb-tack" aria-hidden="true"></i>Bets</a></li>
+            <li ng-class="ctrl.isActive('/mobile/account')"><a href="" ui-sref="mobile.base.account"><i class="fa fa-user" aria-hidden="true"></i> Account</a></li>
+        </ul>
+    </nav>
+
+</div>
+<div class="openbet-overlay" ng-click="openbetsCollapse=true;settingCollapse=true"
+     ng-class="{'active':!openbetsCollapse || !settingCollapse}"></div>
+
+<div class="openbet-overlay" ng-class="{'active':isBetInProcess}">
+    <div class="col-xs-12 betprocess">
+        <div class="row">
+            <div class="col-xs-12">
+                Your bet is being processed.<br />
+                Please wait...
+            </div>
+            <div class="col-xs-12 loader">
+                <span class="bet-process">
+                </span>
+                <!--<label ng-if="betDelay>=0">{{betDelay}}</label>-->
+            </div>
+        </div>
+    </div>
+</div>

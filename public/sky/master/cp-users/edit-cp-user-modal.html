@@ -1,0 +1,43 @@
+﻿<div class="pop-inner">
+    <div class="col-sm-2 pad-0"><label>Username</label></div>
+    <div class="col-sm-4">
+        <label class="link-a">{{user.username}}</label>
+    </div>
+
+    <div class="col-sm-2 pad-0"><label>Status</label></div>
+    <div class="col-sm-4" >
+        <select class="form-control" ng-model="user.status">
+            <option ng-repeat="status in userStatus" value="{{status.id}}">
+                {{status.name}}
+            </option>
+        </select>
+    </div>
+
+    <div class="col-sm-2 pad-0 mr-top-24"><label>Password</label></div>
+    <div class="col-sm-4 mr-top-24">
+        <input class="form-control"
+               min="6" max="20"
+               type="password" ng-model="user.password" />
+    </div>
+
+    <div class="col-sm-2 pad-0 mr-top-24"><label>Repeat Password</label></div>
+    <div class="col-sm-4 mr-top-24">
+        <input class="form-control" type="password"
+               min="6" max="20"
+               ng-model="user.confirmpassword" />
+    </div>
+
+    <div class="col-sm-2 pad-0 mr-top-24"><label>First Name</label></div>
+    <div class="col-sm-4 mr-top-24">
+        <input class="form-control" type="text"
+               min="2" max="16" required ng-model="user.firstName" />
+    </div>
+
+    <div class="col-sm-2 pad-0 mr-top-24"><label>Last Name</label></div>
+    <div class="col-sm-4 mr-top-24">
+        <input class="form-control" type="text"
+               min="2" max="16" required ng-model="user.lastName" />
+    </div>
+
+
+</div>

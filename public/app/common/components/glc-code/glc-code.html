@@ -1,0 +1,10 @@
+﻿<span>
+    <span style="margin-left:5px" ng-if="special=='false'">
+        <i style="margin-right:5px;font-weight:bold;font-style:normal;"  ng-if="currencyCode">{{$parent.currencyCode}}</i>{{convertValue == true ? (item | toRate) : (item | number:currencyFraction)}}
+    </span>
+    <span style="margin-left:5px" ng-if="special=='true'">
+        <i style="margin-right:5px;font-weight:bold;font-style:normal;vertical-align:middle;" ng-if="$parent.currencyCode">{{$parent.currencyCode}}</i>
+        <kt-odometer data-value="{{$parent.convertValue == true ? ($parent.item | toRate) : ($parent.item | number:$parent.currencyFraction)}}">
+        </kt-odometer>
+    </span>
+</span> 

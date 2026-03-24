@@ -1,0 +1,110 @@
+﻿
+<div class="Profit-l">
+    <h1 class="title">Bonus Statement</h1>
+    <div class="filter-panel">
+        <ul class="input-list">
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn small-btn search_btn" ng-click="ctrl.refreshGrid();">Refresh</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-bonusstatement-grid"
+                 load-items="ctrl.getBonusStatement(params)"
+                 show-total="true"
+                 cache-key="ktbonusstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                   template-pagination="{{ :: paginationUrl }}">
+
+                <tbody class="info-text">
+                    <tr class="inner-tr" ng-repeat="item in $data track by $index">
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-12 text-wrap">
+                                    <label> <span>Bonus Code :&nbsp;</span></label>
+                                    <span>{{item.bonusCode}}</span>
+                                </div>
+                                <div class="col-sm-12 text-wrap">
+                                    <label> <span id="to">Bonus Amount :&nbsp;</span> </label>
+                                    <span>{{item.bonusAmount | toRate}}</span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label><span>Bonus Date :&nbsp;</span></label>
+                                    <span>
+                                        <kt-date data-date-value="item.createdOn" data-format="dd-MMM-yyyy HH:mm"></kt-date>
+                                    </span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label><span>Expiry Date :&nbsp;</span></label>
+                                    <span>
+                                        <kt-date data-date-value="item.expiredOn" data-format="dd-MMM-yyyy HH:mm"></kt-date>
+                                    </span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label><span>Is Expired? :&nbsp;</span></label>
+                                    <span>
+                                        <i class="fa fa-check" ng-show="item.isExpired"></i>
+                                        <i class="fa fa-close" ng-show="!item.isExpired"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mr-top-10">
+                                <div class="col-sm-12 text-center">
+                                    <label>Required Turnover to Activate</label>
+                                </div>
+                                <div class="col-sm-12 text-center mr-top-10">
+                                    <div ng-show="item.requiredTurnover>0">
+                                        <uib-progressbar max="item.requiredTurnover | toRateOnly" value="item.currentTurnover | toRateOnly"
+                                                         type="info" class="progress-striped active">
+                                            <i>{{item.currentTurnover | toRateOnly}} / {{item.requiredTurnover | toRateOnly}}</i>
+                                        </uib-progressbar>
+                                    </div>
+                                    <div ng-show="item.requiredTurnover<=0">Instant</div>
+                                </div>
+                            </div>
+                            <div class="row mr-top-10">
+                                <div class="col-sm-12 text-center">
+                                    <label>Required Turnover to Withdraw</label>
+                                </div>
+                                <div class="col-sm-12 text-center mr-top-10">
+                                    <div ng-show="item.requiredWithdrawalTurnover>0">
+                                        <uib-progressbar max="item.requiredWithdrawalTurnover | toRateOnly" value="item.currentWithdrawalTurnover | toRateOnly"
+                                                         type="info" class="progress-striped active">
+                                            <i>{{item.currentWithdrawalTurnover | toRateOnly}} / {{item.requiredWithdrawalTurnover | toRateOnly}}</i>
+                                        </uib-progressbar>
+                                    </div>
+                                    <div ng-show="item.requiredWithdrawalTurnover<=0">Instant</div>
+                                </div>
+                            </div>
+                            <hr style="margin-bottom:0px;" />
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

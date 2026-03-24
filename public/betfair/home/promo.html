@@ -1,0 +1,509 @@
+﻿
+<div class="container  full-width-page scrollable-columns default-min-size-page">
+    <div class="top">
+        <div class="bf-row no-bottom-gutter">
+            <div class="bf-col-24-24">
+                <div id="ssc-header-container" class="ssc-container ssc-theme-betfair">
+                    <div id="header">
+                        <div id="mod-header-18808-container" class="mod">
+                            <div id="mod-header-18808" class="mod-header mod-header-header">
+                                <div id="ssc-hw">
+                                    <div class="ssc-hc">
+                                        <table id="ssc-ht" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a class="logo-header logo-img" ui-sref="base.home" title="Home"></a>
+                                                    </td>
+
+                                                    <td id="ssc-ssec" style="width:100%">
+                                                        <div id="mod-search-44684-container" class="mod">
+                                                            <div id="mod-search-44684" class="mod-search mod-search-search">
+                                                                <div id="ssc-search">
+                                                                    <div class="ssc-sbf">
+                                                                        <form name="search" method="GET">
+                                                                            <input type="search" autocomplete="off" placeholder="Find teams, competitions, races, and more..." name="query" class="ssc-sbi">
+                                                                            <button type="reset" class="ssc-sxi ssc-hdn"></button>
+                                                                            <button type="submit" value="Search" title="Search" class="ssc-sbb"></button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                    <td class="ssc-ilo" ng-show="showLoginForm">
+                                                        <a data-label="" class=" ssc-Mobile ssc-mls  ex-prod ssc-default"
+                                                           title="Sports Betting" style="background-position: -6px -78px; width: 79px; height: 21px" data-gtml="Mobile">
+                                                        </a>
+                                                        <div id="ssc-lsec">
+                                                            <div id="mod-login-266612-container" class="mod">
+                                                                <div id="mod-login-266612" class="mod-login mod-login-login">
+                                                                    <form class="ssc-lif" ng-submit="ctrl.quicklogin()" name="quickloginform">
+                                                                        <div class="ssc-lifg">
+                                                                            <input id="ssc-liu" class="ssc-itx" type="text" required placeholder="Enter your username" maxlength="200" ng-model="quickModel.username">
+                                                                            <input id="ssc-lipw" class="ssc-itx" type="{{showVPass ? 'text' : 'password'}}" required
+                                                                                   placeholder="Enter your password" ng-model="quickModel.password"
+                                                                                   ng-maxlength=16
+                                                                                   ng-minlength="6">
+                                                                            <span class="ssc-shpb" type="button" ng-hide="showVPass" ng-click="showVPass=!showVPass"></span>
+                                                                            <span class="ssc-sp ssc-shpb" type="button" ng-show="showVPass" ng-click="showVPass=!showVPass"></span>
+                                                                        </div>
+
+                                                                        <div class="ssc-lib">
+                                                                            <input type="submit" id="ssc-lis" class="ssc-cta ssc-cta-simple" value="Log In" ng-disabled="quickloginform.$invalid">
+                                                                            <span class="ssc-lkh ssc-sprite" ng-hide="showLoading"></span>
+                                                                            <img class="grid-spinner " ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                                                        </div>
+
+                                                                        <a ng-if="isRegisterEnabled" ng-click="ctrl.openModal('verify-modal')" title="Join Now" class="ssc-cta ssc-cta-primary ssc-lij  sscmw width(1050) height(910) autoscroll(true)" data-gtml="Join now">
+                                                                            <span>Join Now</span>
+                                                                        </a>
+
+                                                                        <div class="ssc-lid">
+                                                                            <div class="ssc-rm ssc-hdn-nojs">
+                                                                                <label class="checkbox">
+                                                                                    <input id="ssc-rmb" type="checkbox" value="Remember me" ng-model="model.remember">
+                                                                                    <span class="checkmark"></span>
+                                                                                    <span class="ssc-rmb-text">Remember me</span>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="ssc-fyup">
+                                                                                Forgot your
+                                                                                <a title="" class="ssc-username" data-gtml="forgot your username">
+                                                                                    username
+                                                                                </a>
+                                                                                /
+
+                                                                                <a title="" id="ssc-fp" class="ssc-password" data-gtml="forgot your password">
+                                                                                    password
+                                                                                </a>
+                                                                                ?
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="ssc-ilo connect-wallet" ng-show="isWalletSignInEnabled">
+                                                        <div class="before-connect" ng-click="ctrl.connect()">
+                                                            <img class="wallet-icon" ng-src="{{imagePath}}images/icon2/wallet-icon.svg" />
+                                                            <div class="wallet-text">
+                                                                <span>Connect</span>
+                                                                Your Wallet
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div id="ssc-hbt">
+                                            <div id="mod-main-navigation-319505-container" class="mod">
+                                                <div id="mod-main-navigation-319505" class="mod-main-navigation mod-main-navigation-main-navigation">
+                                                    <!--<div class="ssc-sac ">
+                                                        <a title="Safer Gambling" data-gtml="Responsible Gambling">Safer Gambling</a>
+
+                                                    </div>-->
+                                                    <ul id="ssc-pn">
+                                                        <li ng-class="{'ssc-actv':ctrl.isActive('/promo')}">
+                                                            <a ui-sref="promo" title="Exchange" data-gtml="EXCHANGE">
+                                                                Exchange
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a title="Sportsbook" data-gtml="SPORTSBOOK">
+                                                                Sportsbook
+                                                            </a>
+                                                        </li>
+                                                        <li ng-class="{'ssc-actv':ctrl.isActive('/promo/casino')}">
+                                                            <a ui-sref="promo.casino" title="Virtual Sports" data-gtml="VIRTUAL_SPORTS">
+                                                                Live Casino
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bf-row no-bottom-gutter no-side-gutter" ng-show="ctrl.isActive('/promo')">
+            <div class="bf-col-20-24">
+                <div id="subnav" class="subnav-wrapper">
+                    <ul class="subnav">
+                        <li class="subnav-first">
+                            <a class="subnav-link mod-link" data-link-type="HOMEPAGE"
+                               ng-click="bfSubNavCtrl.events.handleInternalLink($event)">Home</a>
+                        </li>
+                        <li>
+                            <a class="subnav-link mod-link" ng-click="ctrl.openModal('login-modal')">In-Play</a>
+                        </li>
+                        <li><a class="subnav-link mod-link">Cash Out</a></li>
+                        <li ng-repeat="s in sports | filter:{'showInMenu':true}"><a class="subnav-link mod-link">{{s.name}}</a></li>
+                        <li><a class="subnav-link mod-link">Results</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bf-col-4-24" ng-init="showSettingsPane=false">
+                <div class="settings-container">
+                    <button class="settings-toggle" title="Settings" ng-class="showSettingsPane ? 'open' : ''" ng-click="showSettingsPane=!showSettingsPane">
+                        <span class="settings-toggle-text">Settings</span>
+                        <svg class="svg-icon-default settings-arrow" data-icon="arrow-light" data-style="settings-arrow" viewBox="0 0 100 100">
+                            <path d="M48.889,78.733L0.074,29.915l7.769-6.652l41.045,41.059l43.276-41.059l7.761,6.652L48.889,78.733z"></path>
+                        </svg>
+                    </button>
+                    <div class="settings-panel" ng-class="::{'logged-in': bfSettings.data.isLoggedIn}" ng-show="showSettingsPane">
+                        <div class="tab-navigation">
+                            <ul class="tab-list" ng-init="activePane=1">
+                                <li>
+                                    <button id="tab-main" class="tab-title" ng-class="{'active': activePane==1}" ng-click="activePane=1">Main</button>
+                                </li>
+                                <li>
+                                    <button id="tab-cashout" class="tab-title" ng-class="{'active': activePane==2}" ng-click="activePane=2">Cash Out</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="pane" ng-show="activePane==1">
+                                    <div class="pane-container-odds">
+                                        <h3 class="section-title">Main</h3>
+                                        <ul class="section-container">
+                                            <li class="section-item">
+                                                <input class="section-element " type="checkbox" id="setting-lay-odds">
+                                                <span class="section-element" for="setting-lay-odds">Lay odds</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pane" ng-show="activePane==2">
+                                    <div class="pane-container-odds">
+                                        <h3 class="section-title">Cash Out</h3>
+                                        <ul class="section-container">
+                                            <li class="section-item">
+                                                <input class="section-element " type="checkbox" id="setting-lay-odds">
+                                                <span class="section-element" for="setting-lay-odds">Cash out</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scrollable-panes-height-taker " ng-init="leftMenuCollapsed=false;" style="z-index:9;" ui-view="center">
+
+    </div>
+</div>
+<div class="modal-overlay login-dialog" id="login-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Please log in below</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form ng-submit="ctrl.login()" name="loginform" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="loginMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <label class="label-text">Username:</label>
+                            <input class="login-input" type="text"
+                                   autofocus required ng-model="loginModel.username" title="Enter your username" maxlength="256">
+
+                            <label class="label-text">Password:</label>
+                            <input class="login-input" type="password" ng-model="loginModel.password" required title="Enter your password"
+                                   ng-maxlength="16" ng-minlength="6">
+
+                            <div>
+                                <input class="login-button" type="submit" value="Log In" ng-disabled="loginform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Forgot your</span>
+                                <a class="forgot-link">username/password</a> ?
+                            </div>
+                        </form>
+                        <div class="right">
+                            <span class="title">New to {{displayName}}?</span>
+                            <span class="first-text">
+                                {{displayName}} is indian's number one and among world's leading online gambling companies with most comprehensive In-Play services. India's No.1 Casino Game Teenpatti with Live Streaming of More than 15 different Games Offered 24/7.
+                            </span>
+                            <span class="second-text">Opening an account is quick and easy to do.</span>
+                            <a class="join-now-button" ng-if="isRegisterEnabled" ng-click="ctrl.openModal('verify-modal')">Join Now</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay login-dialog" id="changepassword-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Change your password</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form ng-submit="ctrl.changePassword()" name="changepwform" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="changePasswordMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <label class="label-text">Current Password:</label>
+                            <input class="login-input" type="password"
+                                   placeholder="Old Password *"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   required ng-model="changePasswordModel.oldpassword">
+
+                            <label class="label-text">New Password:</label>
+                            <input class="login-input" type="password" placeholder="New Password *"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   required ng-model="changePasswordModel.newpassword">
+
+                            <label class="label-text">Confirm Password:</label>
+                            <input class="login-input" type="password" placeholder="Confirm Password *"
+                                   ng-maxlength=16
+                                   ng-minlength="1"
+                                   required ng-model="changePasswordModel.confirmpassword">
+
+                            <div>
+                                <input class="login-button" type="submit" value="Submit" ng-disabled="changepwform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Forgot your</span>
+                                <a class="forgot-link">username/password</a> ?
+                            </div>
+                        </form>
+                        <div class="right">
+                            <span class="title">New to {{displayName}}?</span>
+                            <span class="first-text">
+                                {{displayName}} is indian's number one and among world's leading online gambling companies with most comprehensive In-Play services. India's No.1 Casino Game Teenpatti with Live Streaming of More than 15 different Games Offered 24/7.
+                            </span>
+                            <span class="second-text">Opening an account is quick and easy to do.</span>
+                            <a class="join-now-button" ng-if="isRegisterEnabled" ng-click="ctrl.openModal('verify-modal')">Join Now</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay login-dialog" id="verify-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Verify your mobile</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form name="verifyform" ng-submit="ctrl.confirmOpt()" class="left">
+                            <kt-messages data-messages="verifyMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">
+                                    We will send OTP on below mobile number
+                                </span>
+                            </div>
+                            <input class="login-input" type="text" maxlength="15" placeholder="Mobile *" name="mobile" autocomplete="off" 
+                                   ng-model="verifyModel.mobile"
+                                   required value="{{verifyModel.mobile}}">
+                            <div>
+                                <input type="radio" class="ch" value="sms" name="otpby" id="chek-1" ng-model="verifyModel.otpvia">Receive OTP via SMS
+                            </div>
+                            <div>
+                                <input type="radio" class="ch" value="call" name="otpby" ng-model="verifyModel.otpvia">Receive OTP over Call
+                            </div>
+                            <div class="otp-timer">
+                                <span style="margin: 5px;font-weight: bold;vertical-align:sub">
+                                    {{resendTimer>0?('Resend in '+ctrl.formatTime(resendTimer)):''}}
+                                </span>
+                                <button type="button" ng-click="otpEverClicked=true;ctrl.requestNewOtp()" ng-show="resendTimer<=0">
+                                    Send OTP
+                                </button>
+                            </div>
+                            <label class="label-text">OTP:</label>
+                            <input class="login-input" type="text" ng-model="verifyModel.otp" required title="Enter otp"
+                                   ng-maxlength="6" ng-minlength="6">
+                            <div>
+                                <input class="login-button" type="submit" value="Verify" ng-disabled="verifyform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Forgot your</span>
+                                <a class="forgot-link">username/password</a> ?
+                            </div>
+                        </form>
+                        <div class="right">
+                            <span class="title">New to {{displayName}}?</span>
+                            <span class="first-text">
+                                {{displayName}} is indian's number one and among world's leading online gambling companies with most comprehensive In-Play services. India's No.1 Casino Game Teenpatti with Live Streaming of More than 15 different Games Offered 24/7.
+                            </span>
+                            <span class="second-text">Already have an account?</span>
+                            <a class="join-now-button" ng-click="ctrl.openModal('login-modal')">Login Here</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-dialog modal-overlay " id="change-mobile-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Change Your Mobile Number</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form ng-submit="ctrl.changeNumber()" name="changenumberform" class="left">
+                            <kt-messages data-messages="changeMobileMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+
+                            <label class="label-text">Current Number:</label>
+                            <input class="login-input" type="text" placeholder="Old Mobile *"
+                                   ng-maxlength=16 disabled
+                                   ng-minlength="1" ng-model="changeMobileModel.oldMobileNo">
+
+                            <label class="label-text">New Number:</label>
+                            <!--<div class="two_input">
+                                <div class="first_box">
+                                    <ui-select ng-model="changeMobileModel.selectedCountry" theme="bootstrap"
+                                               on-select="ctrl.countrySelected()"
+                                               close-on-select="true">
+                                        <ui-select-match class="ui-select-match">
+                                            {{$select.selected.code}} ({{$select.selected.dial_code}})
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                           class="ui-select-choices"
+                                                           refresh="$parent.ctrl.searchCountry($select.search)">
+                                            <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                            (<span class="align-l" ng-bind-html="u.dial_code | highlight: $select.search"></span>)
+                                            &nbsp;
+                                            <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <input class="login-input" type="text" ng-model="changeMobileModel.newMobileNo"
+                                       maxlength="15" minlength="5" placeholder="New Mobile *" required>
+                            </div>-->
+                            <input class="login-input" type="text" ng-model="changeMobileModel.newMobileNo"
+                                   maxlength="15" minlength="5" placeholder="New Mobile *" required>
+                            <div class="small-text" style="font-size: 9px; margin-bottom: 5px;">
+                                <div>* Number with country code</div>
+                                <div>* OTP will be sent on this number</div>
+                            </div>
+                            <div>
+                                <input class="login-button" type="submit" value="Log In" ng-disabled="changenumberform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Don't want to change number?</span>
+                                <a class="forgot-link" ng-click="ctrl.CancelChageNumber()">Verify Now</a>
+                            </div>
+                        </form>
+                        <div class="right">
+                            <span class="title">New to {{displayName}}?</span>
+                            <span class="first-text">
+                                {{displayName}} is indian's number one and among world's leading online gambling companies with most comprehensive In-Play services. India's No.1 Casino Game Teenpatti with Live Streaming of More than 15 different Games Offered 24/7.
+                            </span>
+                            <span class="second-text">Already have an account?</span>
+                            <a class="join-now-button" ng-click="ctrl.openModal('login-modal')">Login Here</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-dialog modal-overlay" id="register-modal">
+    <div class="modal-dialog">
+        <div class="overlay " ng-click="ctrl.closeAllMOdal(true,$event)">
+            <div class="dialog-container">
+                <div class="dialog" style="width: auto;" ng-click="$event.stopPropagation();">
+                    <div class="dialog-header">
+                        <span class="dialog-title">Please fill in below to open an account</span>
+                        <span class="close-dialog" ng-click="ctrl.closeAllMOdal(true,$event)"></span>
+                    </div>
+                    <section class="dialog-content no-close">
+                        <form name="registerform" ng-submit="ctrl.register()" class="left ng-pristine ng-valid">
+                            <kt-messages data-messages="registerMessages" style="width: 100%!important;float: left;left: 0;padding:5px 0px"></kt-messages>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">
+                                    Please make sure your details are accurate.
+                                </span>
+                            </div>
+                            
+                            <label class="label-text">Mobile:</label>
+                           
+                            <input class="login-input" maxlength="16" minlength="5" placeholder="Mobile with country code*" readonly
+                                   type="text" ng-model="registerModel.mobile">
+                            <div class="small-text" style="font-size: 9px; margin-bottom: 5px;">
+                                <div>* Number with country code</div>
+                                <div>* OTP will be sent on this number</div>
+                            </div>
+
+                            <label class="label-text">Reference code(optional):</label>
+                            <input class="login-input" maxlength="100" placeholder="Reference code" ng-model="registerModel.referralCode">
+
+                            <label class="label-text">Username:</label>
+                            <input class="login-input" maxlength="100" placeholder="Username *" required ng-model="registerModel.username">
+
+                            <label class="label-text">Password:</label>
+                            <input class="login-input" type="password" ng-model="registerModel.password" required placeholder="Password *"
+                                   ng-maxlength="16" ng-minlength="6">
+
+                            <label class="label-text">Confirm Password:</label>
+                            <input class="login-input" type="password" ng-model="registerModel.confirmpassword" required placeholder="Confirm Password *"
+                                   ng-maxlength="16" ng-minlength="6">
+                            <div class="small-text">
+                                <span class="bold">
+                                    <i>
+                                        <i class="fa fa-check-square-o"></i>
+                                        By continuing you will receive a one-time
+                                        <br />verification code to your phone number by SMS.
+                                        <br />Message and data rates may apply.
+                                    </i>
+                                </span>
+                            </div>
+
+                            <div>
+                                <input class="login-button" type="submit" value="Next" ng-disabled="registerform.$invalid">
+                                <img class="grid-spinner p-abs" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                            </div>
+                            <div style="margin-bottom:5px;">
+                                <span class="forgot-label">Forgot your</span>
+                                <a class="forgot-link">username/password</a> ?
+                            </div>
+                        </form>
+                        <div class="right">
+                            <span class="title">New to {{displayName}}?</span>
+                            <span class="first-text">
+                                {{displayName}} is indian's number one and among world's leading online gambling companies with most comprehensive In-Play services. India's No.1 Casino Game Teenpatti with Live Streaming of More than 15 different Games Offered 24/7.
+                            </span>
+                            <span class="second-text">Already have an account?</span>
+                            <a class="join-now-button" ng-click="ctrl.openModal('login-modal')">Login Here</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="captchaholder"></div>

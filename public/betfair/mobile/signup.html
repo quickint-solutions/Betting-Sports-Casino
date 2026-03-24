@@ -1,0 +1,165 @@
+﻿<div class="mobile-view">
+    <div class="login-page login-book" ng-if="loginMode == 2">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-details">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="login-detail">
+                            <div class="login-left float-l">
+                                <h4 class="l-title"><b>Please login in below </b></h4>
+                                <form class="form_signin" name="signupform" ng-submit="ctrl.register()">
+                                    <p class="login-user">
+                                        <label>Email Address</label>
+                                        <input type="email" maxlength="250"
+                                               placeholder=""
+                                               tabindex="1" autocomplete="off"
+                                               required autofocus ng-model="$parent.model.email" class="form-control">
+                                    </p>
+                                    <div class="country-parent mr-top-20">
+                                        <label>Mobile</label>
+                                        <div class="country-mobile">
+                                            <ui-select ng-model="model.selectedCountry" theme="bootstrap"
+                                                       on-select="ctrl.countrySelected()"
+                                                       close-on-select="true">
+                                                <ui-select-match class="ui-select-match">
+                                                    {{$select.selected.code}} ({{$select.selected.dial_code}})
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="u in countryList | filter: $select.search"
+                                                                   class="ui-select-choices"
+                                                                   refresh="$parent.ctrl.searchCountry($select.search)">
+                                                    <span class="align-l" ng-bind-html="u.code | highlight: $select.search"></span>
+                                                    (<span class="align-l" ng-bind-html="u.dial_code | highlight: $select.search"></span>)
+                                                    &nbsp;
+                                                    <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                        <input type="text" maxlength="15" minlength="5" size="16"
+                                               placeholder="" name="mobile"
+                                               tabindex="2" autocomplete="off" kt-number-only
+                                               required ng-model="$parent.model.mobile" class="form-control mobile">
+                                    </div>
+                                    <div style="float:right">
+                                        <span class="sub-text">* Number with country code</span>
+                                        <span class="sub-text">* OTP will be sent on this number</span>
+                                    </div>
+                                    <p class="login-user">
+                                        <label>Reference Code (optional)</label>
+                                        <input type="text" maxlength="100"
+                                               placeholder=""
+                                               tabindex="3" autocomplete="off"
+                                               autofocus ng-model="$parent.model.referralCode" class="form-control">
+                                    </p>
+                                    <p class="login-user">
+                                        <label>Username</label>
+                                        <input type="text" maxlength="100"
+                                               placeholder=""
+                                               tabindex="4" autocomplete="off"
+                                               required autofocus ng-model="$parent.model.username" class="form-control">
+                                    </p>
+                                    <p>
+                                        <label>Password</label>
+                                        <input type="password"
+                                               placeholder=""
+                                               ng-maxlength=16
+                                               ng-minlength="6"
+                                               tabindex="5"
+                                               required class="form-control" ng-model="$parent.model.password" data-type="password">
+                                    </p>
+                                    <p>
+                                        <label>Confirm Password</label>
+                                        <input type="password"
+                                               placeholder=""
+                                               ng-maxlength=16
+                                               ng-minlength="6"
+                                               tabindex="6"
+                                               required class="form-control" ng-model="$parent.model.confirmpassword" data-type="password">
+                                    </p>
+                                    <p class="captcha-div" ng-if="captchaMode==2">
+                                        <span class="code">
+                                            <span>
+                                                <img id="code" ng-src="data:image/png;base64,{{captcha.captcha}}" />
+                                                <i class="fa fa-refresh" aria-hidden="true" ng-click="ctrl.getCaptcha(false)"></i>
+                                            </span>
+                                        </span>
+                                        <input type="text" name="captcha" ng-model="$parent.model.captcha"
+                                               class="captcha" maxlength="4" size="4" autocomplete="off" required tabindex="7"
+                                               placeholder="Enter code" />
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" name="chk-agree" value="true" checked disabled>I confirm that I am informed and completely agree with the rules of bets, pay-outs, rules of gambling games.
+                                    </p>
+                                    <p class="login-btn">
+                                        <button class="btn btn-lg  btn-block btn-login" tabindex="8"
+                                                type="submit" ng-disabled="loginform.$invalid">
+                                            Register &nbsp;<i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                            <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                        </button>
+                                    </p>
+                                </form>
+                                <kt-messages data-messages="messages"></kt-messages>
+                                <div class="new-betfair">
+                                    <h4 class="l-title"><b>Already have an account? </b></h4>
+                                    <div style="margin-left:10px">
+                                        <span class="login-title">Login to fairbook and enjoy below events and services</span>
+                                        <div class="login-text" style="margin-left:10px">
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/cricket.png" />cricket</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/soccer.png" />soccer</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/kabaddi.ico" />kabaddi</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/race-horse.png" />horse racing</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/greyhound.png" />greyhound racing</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/teen-patti.png" />teen patti</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/crypto.png" />crypto & indexes</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/election.png" />Election</a>
+                                            <a style="margin-top:10px"><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/oneclick.png" />one click bet</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/multi.png" />multi bet support</a>
+                                            <a><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/s247.png" />24x7 support</a>
+                                            <a style="margin-bottom:10px"><img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/report.png" />user friendly reports</a>
+                                        </div>
+                                        <span class="login-title">For assistance please contact us at</span>
+                                        <div class="login-text" style="margin-left:10px">
+                                            <a target="_blank" href="https://wa.me/{{supportDetail.whatsapp}}" ng-if="supportDetail.whatsapp">
+                                                <img ng-src="{{imagePath}}images/{{currentWebApp}}/icon/whatsapp.png" />{{supportDetail.whatsapp}}
+                                            </a>
+                                            <a target="_blank" href="https://t.me/{{supportDetail.telegram}}" ng-if="supportDetail.telegram">
+                                                <i class="fa fa-telegram"></i> join us on telegram
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <p class="join-today">
+                                        <button class="btn btn-lg  btn-block btn-login" ng-click="ctrl.gotoLogin()">
+                                            Click to Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                        </button>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 rules float-l">
+                <div class="center">
+                    <span>
+                        <a ng-click="ctrl.openResponsibleGambling()" style="">Gambling can be addictive, please play responsibly</a> |
+                        <a ng-click="ctrl.openResponsibleGambling()" style="color:#ffb80c;">18+</a>
+                    </span>
+                    <span class="rules-name">
+                        <a ng-click="ctrl.openPrivacyPolicy();">Privacy Policy</a> |
+                        <a ng-click="ctrl.openCookiePolicy()">Cookie Policy</a> |
+                        <a ng-click="ctrl.openTermsConditions()">Terms & Conditions</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="captchaholder"></div>

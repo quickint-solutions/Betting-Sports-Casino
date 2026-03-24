@@ -1,0 +1,41 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'inquiry.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-inquiry-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             cache-key="ktinquirygrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'user.name.label' | translate" data-sortable="'name'"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.name}}">{{item.name}} </span>
+                    </td>
+                    <td data-title="::'user.email.label' | translate" data-sortable="'emailId'"
+                        data-header-class="'size-xl'" class="size-xl">
+                        <span title="{{item.emailId}}">{{item.emailId}}</span>
+                    </td>
+                    <td data-title="::'user.contactno.label' | translate" data-sortable="'contactNo'"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.contactNo}}">{{item.contactNo}}</span>
+                    </td>
+                    <td data-title="::'messagetype.label' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean"
+                        data-sortable="'side'">
+                        <span ng-if="item.messageType==3">Book Maker</span>
+                        <span ng-if="item.messageType==4">Player</span>
+                    </td>
+                    <td data-title="::'createddate.label' | translate"
+                        data-header-class="'boolean'" class="boolean"
+                        data-sortable="'createdon'">
+                        <span title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

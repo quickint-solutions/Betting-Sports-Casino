@@ -1,0 +1,48 @@
+﻿
+    <div ng-scrollbars>
+        <div class="mobile-inner-menu" ng-if="ctrl.$stateParams.nodetype==1">
+            <h1 class="title bold">{{ctrl.$stateParams.name}}</h1>
+            <div ng-show="(highlights | filter:{inPlay:true}).length>0">
+                <span class="match-status green bold">
+                    <i class="icon-play" aria-hidden="true"></i>in play({{(highlights | filter:{inPlay:true}).length}})
+                </span>
+                <div class="inner-mb-menu">
+                    <a ng-repeat="h in highlights | filter:{inPlay:true} " ui-sref="mobile.seven.base.market({eventId:h.eventId})">
+                        {{ h.event.name}}
+                        <i class="icon-play green float-r" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="inner-mb-menu" ng-show="sportTreeList.length>0">
+                <span class="compation">Competitions</span>
+                <div ng-repeat="s in sportTreeList">
+                    <a ui-sref="mobile.seven.base.sports({nodetype:s.sportNodeType,id:s.id,name:s.name,eventTypeId:ctrl.$stateParams.eventTypeId})">
+                        {{s.name}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-inner-menu" ng-if="ctrl.$stateParams.nodetype==2">
+            <h1 class="title bold">{{ctrl.$stateParams.name}}</h1>
+            <div class="inner-mb-menu" ng-show="sportTreeList.length>0">
+                <div ng-repeat="d in sportTreeList" style="margin-bottom:5px;float: left;width: 100%;">
+                    <div class="open-bet">
+                        <div class="bet-title">
+                            <kt-date data-date-value="d.values[0].openDate" data-momentformat="Do MMMM YYYY"></kt-date>
+                        </div>
+                    </div>
+                    <div ng-repeat="s in d.values" >
+                        <a ui-sref="mobile.seven.base.market({eventId:s.id})" style="float:left">
+                            {{s.name}}
+                            <div>
+                                <span>{{s.openDate | toDays:1}}</span>&nbsp;
+                                <kt-date data-date-value="s.openDate" data-format="HH:mm"></kt-date>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="no-data-msg" ng-if="highlights.length<=0 && sportTreeList.length<=0 ">
+    {{'common.noevents.display' | translate}}</div>

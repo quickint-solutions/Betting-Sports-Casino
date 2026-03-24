@@ -1,0 +1,288 @@
+﻿
+<div class="slip-wrap process-div" style="max-height:{{$parent.$parent.rightPlaceBetHeight}}px"
+     ng-show="backData.length>0 || layData.length>0">
+    <div class="common-betprocess" ng-cloak="" ng-show="bet_loader.active()">
+        <div class="col-xs-12 betprocess">
+            <div class="row">
+                <div class="col-xs-12" style="color: white;top: 49%;position: absolute;">
+                    Bet Placement in progress
+                </div>
+                <div class="col-xs-12 loader">
+                    <div class="bet-process">
+                        <!--<span class="delay" ng-show="betDelay>=0">{{betDelay}}</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bet-slip" style="background:white">
+        <div ng-show="messages" ng-repeat="msg in messages">
+            <div class="warningMsg" ng-if="msg.responseMessageType==2">
+                {{msg.text}}
+            </div>
+            <div class="errorMsg" ng-if="msg.responseMessageType==8">
+                {{msg.text}}
+            </div>
+            <div class="red bold" style="padding:15px 0px 0px 5px" ng-if="msg.responseMessageType==4">
+                {{msg.text}}
+            </div>
+        </div>
+        <div id="placebet" class="placebet-data">
+            <div id="place-bet" ng-if="!confirmationMode">
+                <form name="placebet">
+                    <div class="betslipboard" ng-show="backData.length>0">
+                        <div class="bet-detail" ng-repeat="b in backData">
+                            <h6 class="bet-type-info info-back">Back</h6>
+                            <h4 class="event-name">
+                                {{b.name}}
+                            </h4>
+                            <div ng-repeat="e in b.eventData">
+                                <div class="bet-events back">
+                                    <div class="event-runner">
+                                        <div class="short-amount">
+                                            <p>
+                                                <a class="match-odd" ng-if="!e.isHorse" ui-sref="base.home.sport.fullmarket({nodetype:4,id:b.id,marketid:e.marketId})">{{e.runnerName}}</a>
+                                                <a class="match-odd" ng-if="e.isHorse">{{e.runnerName}}</a>
+                                            </p>
+                                            <span class="float-r" ng-show="e.maxProfit>0">
+                                                Max Market: {{e.maxProfit | toRate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <table id="tb{{$index}}" style="margin-left:5px; width:99%;">
+                                        <tbody>
+                                            <tr class="">
+                                                <td class="col-odd" ng-init="e.toPrice=e.price">
+                                                    <p class="bet-name" style="margin-left:5px">odds</p>
+                                                    <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                                                     data-min="{{e.minUnitValue}}"
+                                                                     data-max="{{e.maxUnitValue}}"
+                                                                     data-interval="{{e.interval}}"
+                                                                     data-ladder-type="{{e.priceLadderType}}"
+                                                                     data-messages="messages"
+                                                                     data-value-changed="ctrl.backOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                                                     data-value="e.price"
+                                                                     ng-if="e.canChange && e.bettingType!=8 ">
+                                                    </kt-price-ladder>
+                                                    <span class="odd-v" ng-if="!e.canChange">{{e.price | number:2}}</span>
+                                                    <input kt-number-only allow-decimal="true" positive-only="true" class="placebet-khado" ng-if="e.bettingType==8" ng-model="e.price" />
+                                                    <span class="placebet-khado toValue" ng-if="e.price && e.bettingType==8">&nbsp;- {{ (e.price*1)  + (e.toPrice*1) - 1 }}</span>
+                                                </td>
+                                                <td class="col-stake ">
+                                                    <p class="bet-name" style="margin-left:10px">stake</p>
+                                                    <input kt-number-only allow-decimal="true" positive-only="true" class="form-invalid"
+                                                           ng-change="ctrl.calculateLiability(true);" ng-model="e.size" ng-focus="e.hidePH=true" ng-blur="e.hidePH=false">
+                                                    <div class="cus-placeholder" ng-show="!e.hidePH && !e.size">
+                                                        <span ng-if="e.minBet>0">Min: {{e.minBet | toRate}}</span>
+                                                        <span ng-if="e.maxBet>0">Max: {{e.maxBet | toRate}}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="col-profit" style="margin-left:0px" ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">
+                                                    <p class="bet-name">profit</p>
+                                                    <span style="line-height:26px">
+                                                        {{(e.price-1)*e.size | number:2}}
+                                                    </span>
+                                                </td>
+                                                <td class="col-profit" style="margin-left:0px" ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">
+                                                    {{((e.size*e.percentage)/100) | number:2}}
+                                                </td>
+                                                <td class="col-delete" style="padding-top:13px;">
+                                                    <a class="button btn-remove" ng-click="ctrl.deleteBet(1,e.marketId,e.runnerId)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="bet-limit">
+                                        <span class="popup-list back-3">
+                                            <a class="btn" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                                                {{s.isMax ? '' : '+'}}{{s.isMax ? s.name : s.stake}}
+                                            </a>
+                                            <span ng-if="$last" class="float-r" style="margin-top: 5px;cursor:pointer;" ng-click="e.size=''"><u>Clear</u></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="betslipboard" ng-show="layData.length>0">
+                        <div class="bet-detail" ng-repeat="l in layData">
+                            <h6 class="bet-type-info info-lay">lay</h6>
+                            <h4 class="event-name">
+                                {{l.name}}
+                            </h4>
+                            <div ng-repeat="e in l.eventData">
+                                <div class="bet-events lay">
+                                    <div class="event-runner">
+                                        <div class="short-amount">
+                                            <p>
+                                                <a class="match-odd" ng-if="!e.isHorse" ui-sref="base.home.sport.fullmarket({nodetype:4,id:b.id,marketid:e.marketId})">{{e.runnerName}}</a>
+                                                <a class="match-odd" ng-if="e.isHorse">{{e.runnerName}}</a>
+                                            </p>
+                                            <span class="float-r" ng-show="e.maxProfit>0">
+                                                Max Market: {{e.maxProfit | toRate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <table style="margin-left:5px; width:99%;">
+                                        <tbody>
+                                            <tr class="">
+                                                <td class="col-odd">
+                                                    <p class="bet-name" style="margin-left:5px">odds</p>
+                                                    <kt-price-ladder data-on-focus="ctrl.hideStake()"
+                                                                     data-min="{{e.minUnitValue}}"
+                                                                     data-max="{{e.maxUnitValue}}"
+                                                                     data-interval="{{e.interval}}"
+                                                                     data-ladder-type="{{e.priceLadderType}}"
+                                                                     data-messages="messages"
+                                                                     data-value-changed="ctrl.layOddsChanged(e.marketId,e.runnerId,newvalue)"
+                                                                     data-value="e.price"
+                                                                     ng-if="e.canChange">
+                                                    </kt-price-ladder>
+                                                    <span class="odd-v" ng-if="!e.canChange">{{e.price | number:2}}</span>
+                                                </td>
+                                                <td class="col-stake ">
+                                                    <p class="bet-name" style="margin-left:10px">stake</p>
+                                                    <input kt-number-only allow-decimal="true" positive-only="true" ng-change="ctrl.calculateLiability(true);" ng-model="e.size"
+                                                           ng-focus="e.hidePH=true" ng-blur="e.hidePH=false">
+                                                    <div class="cus-placeholder" ng-show="!e.hidePH && !e.size">
+                                                        <span ng-if="e.minBet>0">Min: {{e.minBet | toRate}}</span>
+                                                        <span ng-if="e.maxBet>0">Max: {{e.maxBet | toRate}}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="col-profit" ng-if="e.bettingType!=7 && e.bettingType!=2">
+                                                    <p class="bet-name">Liability</p>
+                                                    <span style="line-height:26px">{{(e.price-1)*e.size | number:2}} </span>
+                                                </td>
+                                                <td class="col-profit" ng-if="e.bettingType==7 || e.bettingType==2">
+                                                    <p class="bet-name">Liability</p>
+                                                    <span style="line-height:26px">{{e.size | number:2}}</span>
+                                                </td>
+                                                <td class="col-delete">
+                                                    <a class="button btn-remove" ng-click="$parent.$parent.ctrl.deleteBet(2,e.marketId,e.runnerId)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="bet-limit">
+                                        <span class="popup-list lay-3">
+                                            <a class="btn" ng-click="ctrl.stakeClick(e,s.stake)" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}">
+                                                {{s.isMax ? '' : '+'}}{{s.isMax ? s.name : s.stake}}
+                                            </a>
+                                            <span ng-if="$last" class="float-r" style="margin-top: 5px;cursor:pointer;" ng-click="e.size=''"><u>Clear</u></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="bets-btn">
+                        <div class="liab-total">
+                            Liability <span class="red">{{liability | number:2}}</span>
+                        </div>
+                        <div class="float-r">
+                            <a class="button btn-remove" ng-click="ctrl.deleteAllBets()">Remove All</a>
+                            <button type="submit" class="button small-btn" ng-class="{'bets':isValid,'bets-disabled':!isValid}"
+                                    kt-has-claim claims="{Claims: ['client.bet.place']}" kt-click
+                                    ng-disabled="!isValid" ng-click="ctrl.submitBet();">
+                                Place Bets
+                            </button>
+                        </div>
+                        <div class="float-l bet-checkbox">
+                            <input class="checkbox float-l" id="chk_confirm" ng-model="$parent.needsToConfirm" ng-change="ctrl.confirmationModeChanged()" type="checkbox">
+                            <label for="chk_confirm">Please confirm your bets.</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--  Confirm Bet  -->
+
+            <div id="confirm-bet" ng-if="confirmationMode" style="min-height:250px;">
+                <form name="confirmbet">
+                    <div class="betslipboard" ng-show="backData.length>0">
+                        <div class="bet-detail" ng-repeat="b in backData">
+                            <h4 class="event-name">
+                                <i class="fa fa-circle " ng-class="{'in-play':b.inPlay,'out-play':!b.inPlay}" aria-hidden="true"></i> {{b.name}}
+                            </h4>
+                            <div class="confirm-detail" ng-repeat="e in b.eventData">
+                                <table>
+                                    <tbody>
+                                        <tr class="back">
+                                            <td>
+                                                <div class="short-amount">
+                                                    <div class="betslip-name">
+                                                        <p class="float-l bold">{{e.runnerName}}</p>
+                                                        <span>
+                                                            <a class="match-odd" ng-if="!e.isHorse" ui-sref="base.home.sport.fullmarket({nodetype:4,id:b.id,marketid:e.marketId})">{{e.marketName}}</a>
+                                                            <a class="match-odd" ng-if="e.isHorse" ui-sref="base.home.sport.fullracemarket({nodetype:4,id:b.id,marketid:e.marketId})">{{e.marketName}}</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-odd"> {{e.price}} <span ng-show="e.bettingType==8">&nbsp;- {{(e.price*1)+(e.toPrice*1)-1}}</span> </td>
+                                            <td class="col-odd ">{{e.size}}</td>
+                                            <td class="col-profit" ng-if="e.bettingType!=7 && e.bettingType!=2 && e.bettingType!=8 ">{{(e.price-1)*e.size | number:2}}</td>
+                                            <td class="col-profit" ng-if="e.bettingType==7 || e.bettingType==2 || e.bettingType==8 ">{{e.size | number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="betslipboard" ng-show="layData.length>0">
+                        <div class="bet-detail" ng-repeat="l in layData">
+                            <h4 class="event-name">
+                                <i class="fa fa-circle " ng-class="{'in-play':l.inPlay,'out-play':!l.inPlay}" aria-hidden="true"></i> {{l.name}}
+                            </h4>
+                            <div class="confirm-detail" ng-repeat="e in l.eventData">
+                                <table>
+                                    <tbody>
+                                        <tr class="lay">
+                                            <td>
+                                                <div class="short-amount">
+                                                    <div class="betslip-name">
+                                                        <p class="float-l bold">{{e.runnerName}}</p>
+                                                        <span>
+                                                            <a class="match-odd" ng-if="!e.isHorse" ui-sref="base.home.sport.fullmarket({nodetype:4,id:l.id,marketid:e.marketId})">{{e.marketName}}</a>
+                                                            <a class="match-odd" ng-if="e.isHorse" ui-sref="base.home.sport.fullracemarket({nodetype:4,id:l.id,marketid:e.marketId})">{{e.marketName}}</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-odd">{{e.price}}</td>
+                                            <td class="col-odd ">{{e.size}}</td>
+                                            <td class="col-profit" ng-if="e.bettingType!=7 && e.bettingType!=2 ">{{(e.price-1)*e.size | number:2}}</td>
+                                            <td class="col-profit" ng-if="e.bettingType==7 || e.bettingType==2 ">{{e.size | number:2}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bets-btn" ng-show="backData.length>0 || layData.length>0">
+                        <div class="liab-total">
+                            {{'exposure.label' | translate}} <span class="red">{{liability | number:2}}</span>
+                        </div>
+                        <div class="float-r">
+                            <a class="button small-btn" ng-click="$parent.confirmationMode=false">{{'editall.button' | translate}}</a>
+                            <button id="btn-bet-confirm" type="submit" class="button small-btn" tabindex="0" ng-click="ctrl.submitBet(true);" kt-click>{{'confirmbets.button' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bet-filter" ng-hide="backData.length>0 || layData.length>0">
+    <div class="emptyslip">
+        <img ng-src="/public/images/emptyslip.svg" />
+        <div><b>Your betslip is empty</b></div>
+        <div class="bet-notice">Click on odds to add a bet to the betslip</div>
+    </div>
+</div>

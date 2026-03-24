@@ -1,0 +1,13 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div ng-class="{'promotion':isMobileView,'web-promotion':!isMobileView}">
+            <uib-carousel interval="3000" no-wrap="false">
+                <uib-slide ng-repeat="slide in data" active="slide.active" index="$index">
+                    <img ng-src="{{slide.imageContent}}" style="margin:auto; width:100%;cursor:pointer;" >
+                    <div class="carousel-caption">
+                    </div>
+                </uib-slide>
+            </uib-carousel>
+        </div>
+    </div>
+</div>

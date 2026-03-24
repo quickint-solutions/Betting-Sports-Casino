@@ -1,0 +1,77 @@
+﻿<div class="concept flexible-grid  viewportSizeWide" id="grid-container">
+    <div id="main-navigation" role="banner">
+        <div class="nav-wrapper clearfix">
+            <div id="mod-returntosite-44021-container" class="mod yui3-widget yui3-module yui3-bfmodule-returntosite">
+                <div id="mod-returntosite-44021" class="mod-returntosite mod-returntosite-returntosite yui3-bfmodule-returntosite-content">
+                    <div class="returnToSite-container returnToSite-container-new" id="yui_3_3_0_1_16640055340374046">
+                        <a class="back-button" ui-sref="base.home" id="backButton">Back to betting</a>
+                    </div>
+                </div>
+            </div>
+            <div id="mod-navigator-44012-container" class="mod yui3-widget yui3-module yui3-bfmodule-navigator">
+                <div id="mod-navigator-44012" class="mod-navigator mod-navigator-navigator yui3-bfmodule-navigator-content">
+                    <ul class="i6" data-qa="navigation-tabs">
+                        <li class="link-group home" ui-sref-active="selected">
+                            <a class="single" ui-sref="base.account.profile">
+                                {{'common.myprofile.label' | translate}}
+                            </a>
+                        </li>
+                        <li class="link-group" ui-sref-active="selected">
+                            <a class="single" ui-sref="base.account.wallet">
+                                {{'common.mywallet.label' | translate}}
+                            </a>
+                        </li>
+                        <li class="link-group" ui-sref-active="selected" kt-has-claim claims="{Claims: ['ui.client.payment.crypto','ui.client.payment.offlinepayment','ui.client.payment.fairex','ui.client.payment.arropay','ui.client.payment.neteller','ui.client.payment.skrill']}">
+                            <a class="single" ui-sref="base.account.transferonline">
+                                Transfer Online
+                            </a>
+                        </li>
+                        <li class="link-group" ui-sref-active="selected">
+                            <a class="single" ui-sref="base.account.statement">
+                                {{'common.accountstatement.label' | translate}}
+                            </a>
+                        </li>
+
+                        <li class="link-group" ui-sref-active="selected">
+                            <span class="label">
+                                Betting Activity
+                            </span>
+                            <ul class="dropdown" data-group-tag="Betting Activity">
+                                <li class="sub-link">
+                                    <a ui-sref="base.account.bets.current" kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                        {{'currentbets.label' | translate}}
+                                    </a>
+                                </li>
+                                <li class="sub-link">
+                                    <a ui-sref="base.account.bets.history">
+                                        {{'bethistory.label' | translate}}
+                                    </a>
+                                </li>
+                                <li class="sub-link">
+                                    <a ui-sref="base.account.bets.profitloss">
+                                        {{'profitloss.label' | translate}}
+                                    </a>
+                                </li>
+                                <li class="sub-link">
+                                    <a ui-sref="base.account.bets.fdprofitloss">
+                                        The Fair Casino P&L
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="link-group" ui-sref-active="selected" kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                            <a class="single" ui-sref="base.account.history">
+                                {{'common.loginhistory.label' | translate}}
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view="content" class="account-content">
+
+    </div>
+</div>

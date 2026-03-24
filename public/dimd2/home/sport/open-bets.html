@@ -1,0 +1,36 @@
+﻿<div class="my-market-container">
+    <div>
+        <h4 class="mb-0 d-none-mobile bet-slip-title">My Bets</h4>
+    </div>
+    <div ng-repeat="o in openBets" ng-if="hasMatched && (o.bets | betFilter:'sizeMatched').length>0">
+        <div class="my-market-title" aria-expanded="true">
+            {{o.marketName}} [{{o.eventName}}]
+            <img ng-src="{{$parent.webImagePath}}arrow-down.svg" class="float-right">
+        </div>
+        <div class="bet-slip-box collapse show" ng-repeat="b in ctrl.matchedBetFilter(o.bets)">
+            <div class="bet-slip " ng-class="{'back-border':b.side==1,'lay-border':b.side==2}">
+                <div class="row row2 market-desc">
+                    <div class="col-12">
+                        {{'ref.label' | translate}}: {{b.betId}} || <kt-date data-date-value="b.createdOn"></kt-date>
+                    </div>
+                    <div class="col-6 text-left">
+                        <div class="my-market-nation">
+                            <span class="bold" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                            <span ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{o.marketName}} {{b.percentage}}%</span>
+                        </div>
+                    </div>
+                    <div class="col-2 text-center">
+                        <div>{{b.avgPrice }}</div>
+                    </div>
+                    <div class="col-2 text-center">
+                        <div>{{b.sizeMatched | toRate }}</div>
+                    </div>
+                    <div class="col-2 text-right">
+                        <div ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</div>
+                        <div ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

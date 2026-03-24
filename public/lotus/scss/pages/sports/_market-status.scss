@@ -1,0 +1,386 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+tbody.suspend, tbody.closed, tbody.ball, tbody.stop, tbody.gameover, tbody.roundover {
+    @include position(relative);
+    height: $height;
+    width: $width;
+}
+
+tbody.suspend, tbody.closed, tbody.ball, tbody.stop, tbody.gameover, tbody.roundover {
+    .back1, .back2, .back3, .lay1, .lay2, .lay3, .empty-score, .tomatch-score, .back-1, .back-2, .back-3, .lay-1, .lay-2, .lay-3, .poker-value {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+.disable {
+    &.back1, &.back2, &.back3, &.lay1, &.lay2, &.lay3, &.empty-score, &.tomatch-score, &.back-1, &.back-2, &.back-3, &.lay-1, &.lay-2, &.lay-3, &.poker-value {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before {
+    //@include txt(bold);
+    @include padding(10px, 0px, 10px, 0px);
+    background-color: rgba(255,255,255,.85);
+    //   @include position(absolute, left 69.7% top 12%);
+    // transform: translate(-50%, -50%);
+    @include position(absolute, left 69.7%);
+    transform: translate(-50%, 50%);
+    z-index: 100;
+    text-align: $center;
+}
+
+.mobile-view .poker-six,.poker-six {
+    tbody.suspend:before, tbody.ball:before, tbody.stop:before, tbody.roundover:before {
+        @include position(absolute);
+        width: 100% !important;
+        transform: translate(0%, 0%) !important;
+        right: 0 !important;
+    }
+
+    tbody.gameover:before {
+        @include position(absolute);
+        transform: translate(0%, 150%) !important;
+        right: 0 !important;
+        left: 40%;
+    }
+}
+
+.poker-three {
+    tbody.suspend:before, tbody.ball:before, tbody.stop:before, tbody.roundover:before {
+        @include position(absolute);
+        width: 100% !important;
+        transform: translate(0%, 0%) !important;
+        right: 0 !important;
+    }
+
+    tbody.gameover:before {
+        @include position(absolute);
+        transform: translate(0%, 150%) !important;
+        right: 0 !important;
+        left: 40%;
+    }
+}
+
+tbody.suspend:before {
+    content: "SUSPENDED";
+    @include headline(#1e3f5a, 13px);
+    //include border-all(1px, solid, $red);
+    width: 153px;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -3%;
+    left: inherit;
+    transform: translate(-50%, 0%);
+    background-color: #e8ebee;
+}
+
+
+tbody.roundover:before {
+    content: "ROUND OVER";
+    @include headline($red, 13px);
+    //@include border-all(1px, solid, $red);
+    //width: 165px;
+    width: 153px;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -3%;
+    left: inherit;
+    transform: translate(-50%, 0%);
+    background-color: #e8ebee;
+}
+
+tbody.ball:before {
+    content: "BALL RUNNING";
+    @include headline(#0b8272, 13px);
+    //@include border-all(1px, solid, $green);
+    //width: 165px;
+    width: 153px;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -3%;
+    left: inherit;
+    transform: translate(-50%, 0%);
+    background-color: #e8ebee;
+}
+
+tbody.closed:before {
+    content: "CLOSED";
+    @include headline($green, 13px);
+    @include border-all(1px, solid, $green);
+    width: 150px;
+}
+
+tbody.gameover:before {
+    content: "GAME OVER";
+    @include headline($green, 13px);
+    @include border-all(1px, solid, $green);
+   width: 150px;
+}
+
+tr.suspend, tr.closed, tr.ball, tr.stop, tr.roundover, tr.gameover {
+    @include position(relative);
+    height: $height;
+    width: $width;
+    float: $float-left;
+    border-bottom: none !important;
+}
+
+.markets-odd, tr {
+    &.suspend, &.closed, &.ball, &.stop, &.roundover, &.gameover {
+        .back1, .back2, .back3, .lay1, .lay2, .lay3, .empty-score, .tomatch-score, .back-1, .back-2, .back-3, .lay-1, .lay-2, .lay-3 {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+}
+
+
+tr.suspend:before, tr.closed:before, tr.ball:before, tr.stop:before, tr.roundover:before, tr.gameover:before {
+    //@include txt(bold);
+    @include padding(2px, 0px, 2px, 0px);
+    background-color: rgba(255,255,255,.85);
+    @include position(absolute, right 2%);
+    transform: translate(-50%, 40%);
+    z-index: 100;
+    text-align: $center;
+}
+
+tr.suspend:before {
+    content: "SUSPENDED";
+    // @include border-all(1px, solid, $red);
+    @include headline(#1e3f5a, 12.5px);
+    width: 53.2%;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -26.5%;
+    transform: translate(-50%, 2%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+
+
+tr.gameover:before {
+    content: "GAME OVER";
+    @include border-all(1px, solid, $green);
+    @include headline($green, 12.5px);
+    width: 150px;
+}
+
+tr.closed:before {
+    content: "CLOSED";
+    @include border-all(1px, solid, $green);
+    @include headline($green, 12.5px);
+    width: 150px;
+}
+
+tr.roundover:before {
+    content: "ROUND OVER";
+    //@include border-all(1px, solid, $red);
+    @include headline($red, 12.5px);
+    //width: 150px;
+    width: 53.2%;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -26.5%;
+    transform: translate(-50%, 2%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+
+tr.ball:before {
+    content: "BALL RUNNING";
+    //@include border-all(1px, solid, $green);
+    @include headline(#0b8272, 12.5px);
+    //width: 165px;
+    width: 53.2%;
+    font-weight: bold;
+    height: 100%;
+    line-height: 33px;
+    right: -26.5%;
+    transform: translate(-50%, 2%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+
+.markets-odd {
+    &.gameover:before, &.roundover:before, &.suspend:before, &.ball:before, &.closed:before {
+        @include padding(2px, 0px, 2px, 0px);
+        background-color: rgba(255,255,255,.85);
+        @include position(absolute, right 5%);
+        transform: translate(0%, 40%);
+        z-index: 100;
+        text-align: $center;
+        width: 35%;
+    }
+}
+
+.markets-odd.gameover:before {
+    content: "GAME OVER";
+    @include border-all(1px, solid, $green);
+    @include headline($green, 12.5px);
+}
+.markets-odd.roundover:before {
+    content: "ROUND OVER";
+    //@include border-all(1px, solid, $red);
+    @include headline($red, 12.5px);
+    width: 44%;
+    font-weight: bold;
+    //height: 100%;
+    line-height: 41px;
+    right: unset;
+    transform: translate(0%, 0%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+.markets-odd.ball:before {
+    content: "BALL RUNNING";
+    //@include border-all(1px, solid, $green);
+    @include headline(#0b8272, 12.5px);
+    width: 44%;
+    font-weight: bold;
+    //height: 100%;
+    line-height: 41px;
+    right: unset;
+    transform: translate(0%, 0%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+.markets-odd.closed:before {
+    content: "CLOSED";
+    @include border-all(1px, solid, $green);
+    @include headline($green, 12.5px);
+}
+.markets-odd.suspend:before {
+    content: "SUSPENDED";
+    // @include border-all(1px, solid, $red);
+    @include headline(#1e3f5a, 12.5px);
+    width: 44%;
+    font-weight: bold;
+    //height: 100%;
+    line-height: 41px;
+    right: unset;
+    transform: translate(0%, 0%);
+    background-color: #e8ebee; //rgba(30, 63, 90, 0.1);
+}
+
+.ludo-market {
+    // tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before, tbody.gameover:before, tbody.roundover:before{top:24%;}
+}
+
+.process-div {
+    @include position(relative);
+    clear: both;
+    overflow: hidden;
+
+    tbody.suspend:before, tbody.ball:before, tbody.roundover:before {
+        width: 53.2%;
+        font-weight: bold;
+        height: 100%;
+        right: -26.5%;
+        left: inherit;
+        transform: translate(-50%, 0%);
+    }
+}
+
+tr.bet-process {
+    @include position(relative);
+    height: $height;
+    width: $width;
+    pointer-events: none;
+    z-index: 100;
+    display: block;
+}
+
+tr.bet-process:before {
+    @include position(absolute);
+    // transform: translate(0%, 0%);
+    content: "Your bet is being processed. Please wait...";
+    background-color: rgba(255,255,255,0.84);
+    // background-color: rgba(136, 136, 136, 0.59);
+    // background-image: url(/public/images/gif/spinner.gif);
+    //  background-repeat: no-repeat;
+    // background-size: 6% 80% !important;
+    // background-position: center center;
+    width: 100%;
+    height: 41px;
+    text-align: right;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+
+
+tbody.bet-process {
+    @include position(relative);
+    height: $height;
+    @include display(inline-block);
+    width: $width;
+    pointer-events: none;
+    z-index: 100;
+}
+
+tbody.bet-process:before {
+    @include position(absolute, left 50% top 50%);
+    transform: translate(-50%, -50%);
+    content: "";
+    width: $width;
+    height: $height;
+    background-color: rgba(136, 136, 136, 0.59);
+    background-image: url(/public/images/gif/spinner.gif);
+    background-repeat: no-repeat;
+    background-size: 10% 40% !important;
+    background-position: center center;
+}
+
+.common-betprocess {
+    @include position(absolute);
+    width: $width !important;
+    height: 99% !important;
+    overflow: hidden;
+    z-index: 101;
+    color: white;
+
+    .betprocess {
+        background-color: rgba(0,0,0,0.65);
+        font-size: 12px;
+        @include txt(bold);
+        text-align: $center;
+        padding-top: 12px;
+        height: $height;
+    }
+
+    .row {
+        height: 100%;
+    }
+
+    .loader {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        .delay {
+            font-size: 14px;
+            @include position(absolute);
+            top: 42%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: 100% 100% !important;
+        vertical-align: middle;
+        text-align: $center;
+        width: 100px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

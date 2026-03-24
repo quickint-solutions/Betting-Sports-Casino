@@ -1,0 +1,67 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'runners.price.label' | translate}}</h1>
+    </header>
+</div>
+
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-runnerprice-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditRunnerPrice()"
+             cache-key="ktrunnerpricegrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'Id' | translate"
+                        data-sortable="'id'" data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <span>{{item.id}} </span>
+                    </td>
+                    <td data-title="::'runner.id.label' | translate"
+                        data-sortable="'runnerid'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.runnerId }} </span>
+                    </td>
+                    <td data-title="::'runner.name.label' | translate"
+                        data-sortable="'runnername'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.runnerName }} </span>
+                    </td>
+                    <td data-title="::'runner.gametype.label' | translate"
+                        data-header-class="'size-md'" class="size-md">
+                        <span>{{$parent.$parent.$parent.ctrl.getGameType(item.gameType)}} </span>
+                    </td>
+                    <td data-title="::'runner.price.label' | translate"
+                        data-sortable="'price'" data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.price}} </span>
+                    </td>
+                    <td data-title="::'Increament'"
+                        data-sortable="'Increament'" data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.increament}} </span>
+                    </td>
+                    <td data-title="::'runner.backsize.label' | translate"
+                        data-sortable="'backsize'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.backSize}} </span>
+                    </td>
+                    <td data-title="::'runner.laysize.label' | translate"
+                        data-sortable="'laysize'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.laySize}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditRunnerPrice(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnEdit{{$index}}" class="btn btn-danger"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteRunnerPrice(item.id)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

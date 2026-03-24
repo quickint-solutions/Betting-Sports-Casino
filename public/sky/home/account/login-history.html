@@ -1,0 +1,31 @@
+﻿<div class="table-bets">
+    <div class="login-history list-view">
+        <h1 class="title" ng-if="!fromMaster">{{'loginhistory.label' | translate}}</h1>
+       
+
+        <div class="list-view-table ">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="align-l size-md"><span>{{'login.datetime.label' | translate}}</span></th>
+                        <th class="align-l  size-md"><span>{{'logout.datetime.label' | translate}}</span></th>
+                        <th class="size-smd"><span>{{'ipaddress.label' | translate}}</span></th>
+                        <th class="size-xl boolean"><span>{{'login.isp.label' | translate}}</span></th>
+                        <th class="boolean "><span>{{'login.citystatecountry.label' | translate}}</span></th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lh in loginHistory">
+                        <td class="align-l size-md">{{lh.issuedOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="align-l  size-md">{{lh.expiresOn | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="size-smd">{{lh.remoteIp}}</td>
+                        <td class="size-xl boolean">{{lh.provider}}</td>
+                        <td class="boolean"><span>{{lh.location}}</span></td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+﻿$spacing: 14px;
+$footer-height: 70px;
+
+.resizable {
+    position: relative;
+
+    &.no-transition {
+        transition: none !important;
+    }
+}
+
+.rg-right, .rg-left, .rg-top, .rg-bottom {
+    display: block;
+    width: $spacing;
+    height: $spacing;
+    line-height: $spacing;
+    position: absolute;
+    z-index: 1;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    span {
+        position: absolute;
+        box-sizing: border-box;
+        display: block;
+        border: 1px solid #ccc;
+    }
+}
+
+.rg-right, .rg-left {
+    span {
+        border-width: 0 1px;
+        top: 50%;
+        margin-top: -10px;
+        margin: -10px 0 0 $spacing/4;
+        height: 20px;
+        width: $spacing/2;
+    }
+}
+
+.rg-top, .rg-bottom {
+    span {
+        border-width: 1px 0;
+        left: 50%;
+        margin: $spacing/4 0 0 -10px;
+        width: 20px;
+        height: $spacing/2;
+    }
+}
+
+.rg-top {
+    cursor: row-resize;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: -$spacing/2;
+}
+
+.rg-right {
+    cursor: col-resize;
+    height: 100%;
+    right: 0;
+    top: 0;
+    margin-right: -$spacing;
+}
+
+.rg-bottom {
+    cursor: row-resize;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    margin-bottom: -$spacing/2;
+}
+
+.rg-left {
+    cursor: col-resize;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin-left: -$spacing;
+}
+
+
+.rz-content {
+    flex: 1;
+    display: flex;
+    // flex-flow: column nowrap;
+    // justify-content: space-around;
+    // align-content: space-around;
+    padding: 7px;
+}
+
+
+
+.rz-row {
+    min-height: 50px;
+    flex: 1;
+    display: flex;
+    //flex-flow: row nowrap;
+    //justify-content: space-around;
+    // align-content: space-around;
+    &.resizable {
+        flex: 0 0 auto;
+    }
+
+    section, resizable {
+        box-sizing: border-box;
+        border-radius: 10px;
+        padding: 10px;
+        background: #ddd;
+        border: $spacing/2 solid #fff;
+        flex: 1;
+        min-width: 30px;
+
+        &.resizable {
+            flex: 0 0 auto;
+        }
+    }
+}
+
+main {
+    display: flex;
+    height: 100%;
+    padding-bottom: $footer-height;
+    background: #fff;
+}
+
+.ui-resizable {
+    position: relative;
+}
+
+.ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+    display: none;
+}
+
+.ui-resizable-n {
+    cursor: n-resize;
+    height: 7px;
+    width: 100%;
+    top: -5px;
+    left: 0;
+}
+
+.ui-resizable-s {
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+}
+
+.ui-resizable-e {
+    cursor: e-resize;
+    width: 7px;
+    right: -5px;
+    top: 0;
+    height: 100%;
+}
+
+.ui-resizable-w {
+    cursor: w-resize;
+    width: 7px;
+    left: -5px;
+    top: 0;
+    height: 100%;
+}
+
+.ui-resizable-se {
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px;
+}
+
+.ui-resizable-sw {
+    cursor: sw-resize;
+    width: 9px;
+    height: 9px;
+    left: -5px;
+    bottom: -5px;
+}
+
+.ui-resizable-nw {
+    cursor: nw-resize;
+    width: 9px;
+    height: 9px;
+    left: -5px;
+    top: -5px;
+}
+
+.ui-resizable-ne {
+    cursor: ne-resize;
+    width: 9px;
+    height: 9px;
+    right: -5px;
+    top: -5px;
+}

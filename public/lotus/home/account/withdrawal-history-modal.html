@@ -1,0 +1,45 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="table-bets">
+            <kt-grid grid-id="kt-withdrawalrequest-grid"
+                     load-items="ctrl.loadWithdrawalHistory(params)"
+                     name-param="id"
+                     name-value-property="id"
+                     show-total="true"
+                     cache-key="ktwithdrawalrequestgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                            <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'account.datetime.name.label' | translate"
+                                data-sortable="'requestedOn'">
+                                <span title="{{item.requestedOn | date:'yyyy-MM-dd HH:mm:ss'}}">
+                                    <kt-date data-date-value="item.requestedOn"></kt-date>
+                                </span>
+                            </td>
+                            <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'common.amount.label' | translate">
+                                <span class="positive" title="{{item.amount | toRate }}">{{item.amount | toRate }} </span>
+                            </td>
+                            <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'common.mobileno.label' | translate">
+                                <span title="{{item.mobileNo  }}">{{item.mobileNo  }} </span>
+                            </td>
+                            <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'common.remark.label' | translate">
+                                <span title="{{item.remarks}}">{{item.remarks | shortme:30}} </span>
+                            </td>
+                            <td data-title="::'common.isconfirm.label' | translate"
+                                header-class="'boolean'" class="boolean">
+                                <div class="status-btn">
+                                    <span ng-class="{'active':item.status!=3,'suspend':item.status==3}">
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                        {{$parent.$parent.$parent.ctrl.getStatus(item.status)}}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

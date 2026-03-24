@@ -1,0 +1,50 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'competitions.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-competition-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             list-new-items="listNewItems"
+             cache-key="ktcompetitiongrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id" ng-click="ctrl.selectedRow($index)" ng-class="{'selected-row':selectedIndex==$index}">
+                    <td data-title="::'competition.name.label' | translate"
+                        data-sortable="'name'"
+                        data-header-class="'size-xl'" class="size-xl">
+                        <span ng-click="$parent.$parent.$parent.ctrl.viewEvents(item)">
+                            {{item.name}}
+                        </span>
+                    </td>
+                    <td data-title="::'competition.status.label' | translate"
+                        data-sortable="'status'"
+                        data-header-class="'size-xl boolean'" class="size-xl boolean">
+                        <span>{{$parent.$parent.$parent.ctrl.getMarketStatus(item.status)}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditCompetition(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnViewComp{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.viewEvents(item)">
+                            <i class="fa fa-eye"></i>
+                            {{'events.label' | translate}}
+                        </a>
+                        <a id="btnaddEvent{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEvent(item)">
+                            <i class="fa fa-plus"></i>
+                            {{'events.label' | translate}}
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

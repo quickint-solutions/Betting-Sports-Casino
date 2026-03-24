@@ -1,0 +1,88 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Key</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   readonly="readonly"
+                   autofocus ng-model="data.secretKey" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Config</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Config "
+                   autofocus ng-model="data.config" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Url</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Url "
+                   required autofocus ng-model="data.url" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Root Context</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Root Context "
+                   required autofocus ng-model="data.rootContext" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Authentication Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Authentication Method "
+                   autofocus ng-model="data.authenticationMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">ConfirmBet Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator ConfirmBet Method "
+                   autofocus ng-model="data.confirmBetMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">PlaceBet Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Placebet Method"
+                   autofocus ng-model="data.placeBetMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">GetBalance Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator GetBlance Method "
+                   autofocus ng-model="data.getBalanceMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Profitloss Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Profitloss Method "
+                   autofocus ng-model="data.profitlossMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Rollback Profit-Loss Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Rollback Profit Loss Method "
+                   autofocus ng-model="data.rollbackProfitlossMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Credit Debit Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Credit Debit Method"
+                   autofocus ng-model="data.creditDebitMethod" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Rollback Credit Debit Method</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Please enter operator Rollback Credit Debit Method"
+                   autofocus ng-model="data.rollbackCreditDebitMethod" class="form-control">
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-ssl" ng-model="data.isCrDr ">
+            <label for="chk-ssl">Is Credit or Debit ?</label>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Access Level</span>
+            <select class="form-control" ng-model="data.accessLevel">
+                <option ng-repeat="s in accessLevelList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>

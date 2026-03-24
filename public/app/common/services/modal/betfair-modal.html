@@ -1,0 +1,55 @@
+﻿<div class="login-dialog">
+    <div class="modal-dialog" width="auto">
+        <div class="overlay" data-ng-click="modalOptions.close()">
+            <div class="dialog-container">
+                <div class="dialog" ng-style="dialogStyle" ng-click="$event.stopPropagation();" style="width: auto;">
+
+                    <div class="dialog-header">
+                        <span class="dialog-title">
+                            <i ng-if="modalOptions.icon" class="fa fa-{{modalOptions.icon}}"></i>{{modalOptions.header | translate}}
+                        </span>
+                        <span class="close-dialog" data-ng-click="modalOptions.close()" id="{{modalOptions.id + '-header-close'}}"></span>
+                    </div>
+
+                    <section class="dialog-content">
+                        <form role="form" class="left" name="modalOptions.modalForm">
+                            <div class="d-content">
+                                <div ng-if="modalOptions.bodyUrl">
+                                    <kt-messages data-messages="messages"></kt-messages>
+
+                                </div>
+                                <p ng-if="modalOptions.body && !(modalOptions.bodyHtml || modalOptions.bodyUrl)">{{modalOptions.body | translate}}</p>
+
+                                <div class="row" ng-if="modalOptions.bodyHtml">
+                                    <div class="col-sm-12">
+                                        <p ng-bind-html="modalOptions.bodyHtml"></p>
+                                    </div>
+                                </div>
+
+                                <div ng-include="modalOptions.bodyUrl"></div>
+                            </div>
+
+
+                        </form>
+                    </section>
+                    <div class="modal-footer">
+                        <button class="login-button"
+                                ng-click="modalOptions.ok()"
+                                kt-click
+                                ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                                data-ng-show="modalOptions.actionButton != ''"
+                                id="{{modalOptions.id + '-ok'}}">
+                            {{modalOptions.actionButton | translate}}
+                        </button>
+                        <a class="join-now-button" id="{{modalOptions.id + '-close'}}"
+                           data-ng-click="modalOptions.close()" data-ng-show="modalOptions.closeButton !=''">
+                            {{modalOptions.closeButton | translate}}
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

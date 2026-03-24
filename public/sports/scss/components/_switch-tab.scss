@@ -1,0 +1,165 @@
+/// <reference path="../variables/__variables.scss" />
+.switch-tab {
+    background-color: #EEE;
+    display: flex;
+    border-radius: 3px;
+}
+
+.switch-tab .tab {
+    width: 50%;
+}
+
+.switch-tab label {
+    margin-bottom: 0 !important;
+    font-weight: 600 !important;
+}
+
+.switch-tab input[type="radio"].toggle {
+    display: none !important;
+}
+
+.switch-tab input[type="radio"].toggle + label {
+    cursor: pointer !important;
+    min-width: 60px !important;
+}
+
+.switch-tab input[type="radio"].toggle + label:hover {
+    background: none !important;
+    color: #1a1a1a !important;
+}
+
+.switch-tab input[type="radio"].toggle + label:after {
+    content: "" !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    -webkit-transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1) !important;
+    transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1) !important;
+    width: 100% !important;
+    z-index: -1 !important;
+}
+
+.switch-tab input[type="radio"].toggle.toggle-left + label {
+    border-right: 0 !important;
+}
+
+.switch-tab input[type="radio"].toggle.toggle-left + label:after {
+    left: 100% !important;
+}
+
+.switch-tab input[type="radio"].toggle.toggle-right + label {
+    margin-left: -5px !important;
+}
+
+.switch-tab input[type="radio"].toggle.toggle-right + label:after {
+    left: -100% !important;
+}
+
+.switch-tab input[type="radio"].toggle:checked + label {
+    cursor: default !important;
+    color: #555 !important;
+    -webkit-transition: color 200ms !important;
+    transition: color 200ms !important;
+    position: relative;
+    border-bottom: 2px solid;
+    border-radius: 0;
+}
+
+.switch-tab input[type="radio"].toggle:checked + label:after {
+    left: 0 !important;
+}
+
+
+
+/* SWITCH 2  */
+:root {
+    --switch-w: 55px;
+    --blue-custom: #091e3f;
+}
+
+.button-switch {
+    font-size: 1.5em;
+    height: 1.875em;
+    position: relative;
+    width: var(--switch-w);
+}
+
+.button-switch .lbl-off,
+.button-switch .lbl-on {
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    line-height: 1em;
+    color: var(--blue-custom);
+    position: absolute;
+    top: 5px;
+    transition: all 0.25s ease-out 0.1s;
+    font-weight: 600;
+}
+
+.button-switch .lbl-off {
+    right: 6px;
+}
+
+.button-switch .lbl-on {
+    opacity: 0;
+    left: 10px;
+}
+
+.button-switch .switch {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 0;
+    font-size: 1em;
+    left: 0;
+    line-height: 0;
+    outline: none;
+    position: absolute;
+    top: 0;
+    width: 0;
+    border: none;
+}
+
+.button-switch .switch:before,
+.button-switch .switch:after {
+    content: "";
+    font-size: 1em;
+    position: absolute;
+}
+
+.button-switch .switch:before {
+    border-radius: 30px;
+    background: #FFF;
+    height: 22px;
+    left: 0;
+    top: 0;
+    transition: background-color 0.25s ease-out 0.1s;
+    width: 60px;
+}
+
+.button-switch .switch:after {
+    border-radius: 30px;
+    background: #FFF;
+    height: 16px;
+    transform: translate(3px, 3px);
+    transition: transform 0.15s ease-out 0.1s;
+    width: 16px;
+}
+
+.button-switch .switch:checked:after {
+    transform: translate(40px, 2px);
+}
+
+.button-switch .switch:checked ~ .lbl-off {
+    opacity: 0;
+}
+
+.button-switch .switch:checked ~ .lbl-on {
+    opacity: 1;
+    color: #030303;
+}
+
+.button-switch .switch#input-switch:checked:before {
+    background: #666;
+}

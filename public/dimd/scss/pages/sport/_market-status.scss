@@ -1,0 +1,303 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.process-div {
+    @include position(relative);
+    clear: both;
+    overflow: hidden;
+   
+}
+
+.common-betprocess {
+    @include position(absolute);
+    width: $width !important;
+    height: 100% !important;
+    overflow: hidden;
+    z-index: 101;
+    color: white;
+    
+
+    .betprocess {
+        background-color: rgba(0,0,0,0.65);
+        font-size: 12px;
+        @include txt(bold);
+        text-align: $center;
+        padding-top: 12px;
+        height: $height;
+    }
+
+    .loader {
+        height: 25vh;
+
+        .delay {
+            font-size: 14px;
+            @include position(absolute);
+            top: 42%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: 100% 100% !important;
+        vertical-align: middle;
+        text-align: $center;
+        width: 52px;
+        height: 52px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.factor.bet-process {
+    @include position(relative);
+    height: $height;
+    pointer-events: none;
+    //z-index: 100;
+}
+
+.factor.bet-process:before {
+    @include position(absolute);
+    // transform: translate(0%, 0%);
+    content: "Your bet is being processed. Please wait...";
+    background-color: rgba(255,255,255,0.84);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px;
+    z-index: 101;
+    margin-top: -0.4em;
+}
+
+
+
+.factor.suspend, .factor.closed, .factor.ball, .factor.stop, .factor.gameover, .factor.roundover {
+    background-color: rgba(255,255,255,.65);
+    opacity: 0.7;
+    position: relative;
+    pointer-events: none;
+}
+.fixed-odd-box.suspend, .fixed-odd-box.closed, .fixed-odd-box.ball, .fixed-odd-box.stop, .fixed-odd-box.gameover, .fixed-odd-box.roundover {
+    opacity: 0.7;
+    position: relative;
+    padding: 0px;
+    pointer-events: none;
+}
+
+.factor.suspend:before, .factor.closed:before, .factor.ball:before, .factor.stop:before,
+.factor.gameover:before, .factor.roundover:before{
+    font-weight: bold;
+    //border: 2px solid $red;
+    position: absolute;
+    z-index: 99;
+    text-align: center;
+    width: 100%;
+    //line-height: 39px;
+    height: 100%;
+    //margin-top: -5px;
+    background-color: rgba(248, 248, 248, 0.66);
+    border-radius: 2px;
+    padding: 12px;
+}
+.fixed-odd-box.suspend:before, .fixed-odd-box.closed:before, .fixed-odd-box.ball:before, .fixed-odd-box.stop:before,
+.fixed-odd-box.gameover:before, .fixed-odd-box.roundover:before {
+    font-weight: bold;
+    position: absolute;
+    z-index: 99;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(248, 248, 248, 0.66);
+    border-radius: 2px;
+    padding: 12px;
+    font-size: 59%;
+}
+
+.factor.suspend:before, .fixed-odd-box.suspend:before {
+    content: "SUSPENED";
+    color: $red;
+}
+
+.factor.closed:before, .fixed-odd-box.closed:before {
+    content: "CLOSED";
+    color: $red;
+}
+
+.factor.ball:before, .fixed-odd-box.ball:before {
+    content: "BALL RUNNING";
+    color: $red;
+}
+
+.factor.stop:before, .fixed-odd-box.stop:before {
+    //content: "STOP";
+    color: $red;
+}
+.factor.gameover:before, .fixed-odd-box.gameover:before {
+    content: "GAME OVER";
+    color: $red;
+}
+.factor.roundover:before, .fixed-odd-box.roundover:before {
+    content: "ROUND OVER";
+    color: $red;
+}
+
+
+.openbet-overlay {
+    /* full screen */
+    width: 100vw;
+    height: 100vh;
+    /* transparent black */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    /* middle layer, i.e. appears below the sidebar */
+    z-index: 100;
+}
+.openbet-overlay {
+    .betprocess {
+        //top: 33vh;
+        background-color: rgba(49,49,49,0.60);
+        color: #1e1e1e;
+        font-size: 14px;
+        @include txt(bold);
+        padding-top: 14px;
+        height: 100vh;
+        text-align: $center;
+
+        .center-div {
+            transform: translate(0,80%);
+            width: 70%;
+            margin: auto;
+            background: white;
+            padding: 25px 10px;
+            border-radius: 10px;
+        }
+    }
+
+    .loader {
+        height: 100px;
+
+        label {
+            @include position(absolute);
+            //left: 48%;
+            //top: 30%;
+            -webkit-transform: translate(-60%,200%);
+            transform: translate(-60%,200%);
+        }
+    }
+
+    .bet-process {
+        @include position(relative);
+        pointer-events: none;
+        z-index: 100;
+        display: contents;
+    }
+
+    .bet-process:before {
+        //left: 40vw;
+        //top: 3vh;
+        @include position(absolute);
+        -webkit-transform: translate(-50%, 0%);
+        transform: translate(-50%, 0%);
+        content: "";
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: contain !important;
+        width: 100px;
+        height: 125px;
+        vertical-align: middle;
+    }
+}
+
+.loader-table {
+    @include position(relative);
+
+}
+.loader-table .loader-container {
+    @include position(absolute);
+    width: $width;
+}
+.loader-table.ng-hide {
+    opacity: 0;
+}
+
+.loader-table.ng-hide-add {
+    transition: all linear 0.1s;
+}
+
+.market-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(246,246,246,0.26);
+
+    .loader {
+        background: url(/public/images/gif/spin-black2.gif);
+        width: 50px;
+        height: 50px;
+        background-size: 100%;
+        top: 45%;
+        z-index: 101;
+        left: 45%;
+        position: absolute;
+    }
+
+    .spinner {
+        top: 46%;
+        left: 46%;
+        position: absolute;
+        font-size: 27px;
+    }
+}
+
+.common-betprocess {
+    @include position(absolute);
+    width: $width !important;
+    height: 99% !important;
+    overflow: hidden;
+    z-index: 101;
+
+    .betprocess {
+        background-color: rgba(17,17,17,0.64);
+        font-size: 12px;
+        @include txt(bold);
+        text-align: $center;
+        padding-top: 12px;
+        height: $height;
+    }
+
+    .loader {
+        height: 25vh;
+
+        .delay {
+            font-size: 14px;
+            @include position(absolute);
+            top: 42%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        background-image: url(/public/images/gif/spin-black.svg);
+        background-repeat: no-repeat;
+        background-size: 100% 100% !important;
+        vertical-align: middle;
+        text-align: $center;
+        width: 57px;
+        height: 46px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

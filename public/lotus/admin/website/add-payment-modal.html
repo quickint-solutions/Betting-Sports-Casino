@@ -1,0 +1,379 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-telegram" ng-model="request.enableNotification">
+            <label for="chk-telegram">Is <b>Telegram</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">ChannelName</span>
+            <input type="text" ng-model="request.channelName" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">BotApiKey</span>
+            <input type="text" ng-model="request.botApiKey" class="form-control">
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <div>Set <b>Offline Deposit/Withdrawal</b> Limits</div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Deposit</span>
+            <input type="text" ng-model="request.offlinePaymentConfig.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Deposit</span>
+            <input type="text" ng-model="request.offlinePaymentConfig.maxDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Withdrawal</span>
+            <input type="text" ng-model="request.offlinePaymentConfig.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Withdrawal</span>
+            <input type="text" ng-model="request.offlinePaymentConfig.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-paymor" ng-model="request.isEnabledPaymor">
+            <label for="chk-paymor">Is <b>Paymor</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">MerchantId</span>
+            <input type="text" ng-model="request.paymor.merchantId" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">SaltKey</span>
+            <input type="text" ng-model="request.paymor.saltKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">SecretKey</span>
+            <input type="text" ng-model="request.paymor.secretKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Deposit</span>
+            <input type="text" ng-model="request.paymor.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Deposit</span>
+            <input type="text" ng-model="request.paymor.maxDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Withdrawal</span>
+            <input type="text" ng-model="request.paymor.minWithdrawal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Withdrawal</span>
+            <input type="text" ng-model="request.paymor.maxWithdrawal" class="form-control">
+        </div>
+    </div>
+
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-sm-4">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-crypto" ng-model="request.isEnabledCrypto">
+            <label for="chk-crypto">Is <b>NowPayment </b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-crypto1" ng-model="request.nowPayment.fixedRate">
+            <label for="chk-crypto1">Is Fixed Rate?</label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-crypto2" ng-model="request.nowPayment.isFeePaidByUser">
+            <label for="chk-crypto2">Is Fee Pay By User?</label>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">Currency</span>
+            <input type="text" ng-model="request.nowPayment.baseCurrency" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">API Key</span>
+            <input type="text" ng-model="request.nowPayment.apiKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">IPN API Key</span>
+            <input type="text" ng-model="request.nowPayment.ipnApiKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Callback Url</span>
+            <input type="text" ng-model="request.nowPayment.callbackUrl" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min. D</span>
+            <input type="text" ng-model="request.nowPayment.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max. D</span>
+            <input type="text" ng-model="request.nowPayment.maxDeposit" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-gameok" ng-model="request.isEnabledGameOkCrypto">
+            <label for="chk-gameok">Is <b>GameOKCrypto</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">AppId </span>
+            <input type="text" ng-model="request.gameOkCrypto.appId" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">Api Key </span>
+            <input type="text" ng-model="request.gameOkCrypto.apiKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">Secret </span>
+            <input type="text" ng-model="request.gameOkCrypto.secret" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Deposit</span>
+            <input type="text" ng-model="request.gameOkCrypto.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Deposit</span>
+            <input type="text" ng-model="request.gameOkCrypto.maxDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min Withdrawal</span>
+            <input type="text" ng-model="request.gameOkCrypto.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max Withdrawal</span>
+            <input type="text" ng-model="request.gameOkCrypto.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-skrill" ng-model="request.isEnabledSkrill">
+            <label for="chk-skrill">Is <b>Skrill</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Merchant Id</span>
+            <input type="text" ng-model="request.skrill.merchantId " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Merchant Email</span>
+            <input type="text" ng-model="request.skrill.merchantEmail " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Secret</span>
+            <input type="text" ng-model="request.skrill.secret " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Api Password</span>
+            <input type="text" ng-model="request.skrill.apiPassword " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Pay In Url</span>
+            <input type="text" ng-model="request.skrill.payInUrl " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Status Url</span>
+            <input type="text" ng-model="request.skrill.statusUrl " class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min D</span>
+            <input type="text" ng-model="request.skrill.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max D</span>
+            <input type="text" ng-model="request.skrill.maxDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min W</span>
+            <input type="text" ng-model="request.skrill.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max W</span>
+            <input type="text" ng-model="request.skrill.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-Netellr" ng-model="request.isEnabledNeteller">
+            <label for="chk-Netellr">Is <b>Neteller</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">client Key</span>
+            <input type="text" ng-model="request.neteller.clientKey " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">client Secret</span>
+            <input type="text" ng-model="request.neteller.clientSecret " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">currency Code</span>
+            <input type="text" ng-model="request.neteller.currencyCode " class="form-control" maxlength="3">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">currency muliplier</span>
+            <input type="text" ng-model="request.neteller.currencyBaseUnitsMultiplier " class="form-control" maxlength="5">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">street</span>
+            <input type="text" ng-model="request.neteller.street " class="form-control" maxlength="50">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">city</span>
+            <input type="text" ng-model="request.neteller.city " class="form-control" maxlength="40">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">zip</span>
+            <input type="text" ng-model="request.neteller.zip " class="form-control" maxlength="10">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">state</span>
+            <input type="text" ng-model="request.neteller.state " class="form-control" maxlength="40">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">country</span>
+            <input type="text" ng-model="request.neteller.country " class="form-control" maxlength="2">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min D</span>
+            <input type="text" ng-model="request.neteller.minDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max D</span>
+            <input type="text" ng-model="request.neteller.maxDeposit" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min W</span>
+            <input type="text" ng-model="request.neteller.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max W</span>
+            <input type="text" ng-model="request.neteller.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+</div>

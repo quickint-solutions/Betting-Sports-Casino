@@ -1,0 +1,81 @@
+﻿<div class="full-wrap">
+    <div class="content-part my-account">
+        <div class="col-sm-2">
+            <div class="row left-part">
+                <div class="sidebar-tab">
+                    <div class="vertical-tab">
+                        <div class="path">
+                            <ul>
+                                <li class="path-last">
+                                    <a> {{currentUsername}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <nav class="inner-nav">
+                            <div id="mySidenav" class="sidenav myaccount-nav">
+                                <ul>
+                                    <li>
+                                        <a ui-sref="master.member.profile"
+                                           ng-class="ctrl.isActive('/profile')">
+                                            {{'profile.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="master.member.statement"
+                                           ng-class="ctrl.isActive('/statement')">
+                                            {{'common.accountstatement.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="master.member.casinostatement"
+                                           ng-class="ctrl.isActive('/casino-statement')">
+                                            {{'common.casinostatement.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li kt-has-claim claims="{Claims: ['master.bet.view']}">
+                                        <a ui-sref="master.member.bethistory"
+                                           ng-class="ctrl.isActive('/bethistory')">
+                                            {{'bethistory.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li kt-has-claim claims="{Claims: ['master.bet.view']}">
+                                        <a ui-sref="master.member.profitloss"
+                                           ng-class="ctrl.isActive('/profitloss')">
+                                            {{'profitloss.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li kt-has-claim claims="{Claims: ['master.loginhistory.member.view']}">
+                                        <a ui-sref="master.member.loginhistory"
+                                           ng-class="ctrl.isActive('/loginhistory')">
+                                            {{'common.loginhistory.label' | translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="row ">
+                <div class="center-part">
+                    <ul class="breadcrumb" ng-if="userTree">
+                        <li ng-repeat="u in userTree track by $index" ng-init="usertype=ctrl.getUserTypeShort(u.userType)">
+                            <span class="usertype-lable {{usertype}}">{{usertype}}</span>
+                            <a ui-sref="master.account.profile" ng-if="$index==0">
+                                {{u.name}}
+                            </a>
+                            <a ui-sref="master.member.profile({memberid:u.id})" ng-if="$index!=0">
+                                {{u.name}}
+                            </a>
+                        </li>
+                    </ul>
+                    <div ui-view="content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

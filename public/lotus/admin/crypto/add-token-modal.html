@@ -1,0 +1,71 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Name/Code</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter token offical name"
+                   required autofocus ng-model="token.token" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Chain</span>
+            <select class="form-control" ng-model="token.chain">
+                <option ng-repeat="s in tokenChains" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Token Address</span>
+            <input type="text" minlength="1" maxlength="1000"
+                   placeholder="Enter token address"
+                   autofocus ng-model="token.address" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Deposit Fee%</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter deposit fee %"
+                   required autofocus ng-model="token.depositFee" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Withdrawal Fee%</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter withdrawal fee %"
+                   required autofocus ng-model="token.withdrawalFee" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Min. Deposit</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter min deposit"
+                   required autofocus ng-model="token.minDeposit" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Min. Withdrawal</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter min withdrawal"
+                   required autofocus ng-model="token.minWithdrawal" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Token Has</span>
+            <select class="form-control" ng-model="token.tokenHas">
+                <option ng-repeat="s in tokenHas" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Display Order</span>
+            <input type="text" minlength="1" maxlength="50"
+                   placeholder="Enter display order"
+                   required autofocus ng-model="token.displayOrder" class="form-control">
+        </div>
+        <div>
+            <div class="checkbox">
+                <input type="checkbox" id="chk-showInMenu" ng-model="token.isActive" class="check">
+                <label for="chk-showInMenu">Is Active?</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

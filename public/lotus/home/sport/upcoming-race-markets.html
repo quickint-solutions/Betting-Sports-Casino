@@ -1,0 +1,143 @@
+﻿<div class="main-event racing">
+    <h1 class="event-heading" ng-show="!anyMarketSelected">{{raceType}}</h1>
+    <h1 class="event-heading racing-title" ng-show="anyMarketSelected">
+        <kt-date data-date-value="fullMarket.startTime" data-format="HH:mm"></kt-date>&nbsp;{{fullMarket.event.raceName}}
+        <span class="racing-sub-title">
+            <small style="color:#0f2327">{{fullMarket.name}}</small>
+            <span class="indicators float-r" ng-show="fullMarket.inPlay"><i class="icon-play green">In-Play</i></span>
+            <kt-date-diff class="indicators float-r" ng-show="!fullMarket.inPlay" data-market="fullMarket" data-field="startTime"></kt-date-diff>
+        </span>
+    </h1>
+
+    <div class="full-market-list to-win" ng-if="fullMarket">
+        <div class="" ng-show="!anyMarketSelected">
+            <h1 style="font-size:15px;margin-bottom:10px;">
+                Next Race:
+
+                <kt-date data-date-value="fullMarket.startTime" data-format="HH:mm"></kt-date>&nbsp;{{fullMarket.event.raceName}}
+            </h1>
+        </div>
+        <div class="align-r"><kt-rules data-market="fullMarket" data-text="Rules"></kt-rules></div>
+        <div class="process-div">
+            <kt-counter data-bet-in-process="fullMarket.betInProcess" data-event-type="{{fullMarket.eventType.id}}" data-small="{{fullMarket.length<3}}"></kt-counter>
+            <table class="table-score">
+                <thead>
+                    <tr>
+                        <th class="align-l th-col">Race Odds</th>
+                        <th style="width:63px;" colspan="2"></th>
+                        <th class="align-l">{{'market.back.label' | translate}}</th>
+                        <th class="align-r">{{'market.lay.label' | translate}}</th>
+                        <th style="width:63px;" colspan="2"></th>
+                    </tr>
+                </thead>
+
+                <tbody ng-class="{'stop':fullMarket.temporaryStatus==3,'ball':fullMarket.temporaryStatus==2,'suspend':fullMarket.marketStatus==3,'closed':fullMarket.marketStatus==4}">
+                    <tr id="tr_{{fullMarket.id}}_{{r.runner.id}}" ng-repeat="r in fullMarket.marketRunner" ng-show="r.status<5">
+                        <td class="match-title">
+                            <div class="runner_number">
+                                <span ng-if="r.runner.meta['CLOTH_NUMBER_ALPHA']">{{r.runner.meta['CLOTH_NUMBER_ALPHA']}}</span>
+                                <span ng-if="r.runner.meta['STALL_DRAW']">({{r.runner.meta['STALL_DRAW']}})</span>
+                            </div>
+                            <div class="runner-img" title="{{r.runner.meta['COLOURS_DESCRIPTION']}}" ng-if="r.runner.meta['COLOURS_FILENAME']">
+                                <img ng-src="https://content-cache.cdnbf.net/feeds_images/Horses/SilkColours/{{r.runner.meta['COLOURS_FILENAME']}}" />
+                            </div>
+                            <span class="runner-title">{{r.runner.name}}</span>
+                            <span style="display:block; font-weight:normal">{{r.runner.meta['JOCKEY_NAME']}}</span>
+                            <span ng-if="r.pl" class="ppl positive" ng-class="{'negative':r.pl<0 }">{{r.pl  | toFixDigit}}</span>
+                            <span class="ppl" ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" ng-if="r.pPL">
+                                <i class="icon-angle-double-right" aria-hidden="true"></i>{{r.pPL  | toFixDigit}}
+                            </span>
+                            <span class="winner" ng-if="r.status==2">{{'winner.label'|translate}}</span>
+                        </td>
+                        <td class="back{{i}} align-c" kt-animate-on-change="r.backPrice[i-1].size" ng-repeat="i in [3,2,1]"
+                            kt-click ng-click="ctrl.placeBet(fullMarket,1,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price : '',r.runner.name,fullMarket.event.name);">
+                            <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                        </td>
+                        <td class="lay{{i}} align-c disable" kt-animate-on-change="r.layPrice[$index].size" ng-repeat="i in [1,2,3]" kt-click
+                            ng-click="ctrl.placeBet(fullMarket,2,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name,fullMarket.event.name);">
+                            <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+    <div class="upcoming-race accordion" ng-if="otherMarkets.length>0">
+        <h3 class="upcoming-title">Upcoming Races</h3>
+        <div class="card" ng-repeat="om in otherMarkets">
+            <div class="accordion-header" id="heading{{$index}}" ng-click="ctrl.selectedTabChanged($index)">
+                <button class="btn btn-link" ng-class="{'collapsed':selectedTab==$index}" type="button" data-toggle="collapse" data-target="#collapse{{$index}}"
+                        aria-expanded="true" aria-controls="collapse{{$index}}">
+                    <div class="float-l f32" style="margin:0px 10px;">
+                        <div class="flag {{om.event.countryCode | joinme}}"></div>
+                    </div>
+                    <div class="float-l">
+                        <span ng-click="ctrl.changeHorseMarket(om.id)">{{om.event.venue}}</span>
+                        <time><kt-date data-date-value="om.startTime" data-format="HH:mm"></kt-date></time>
+                    </div>
+
+                </button>
+            </div>
+            <div id="collapse{{$index}}" class="collapse" ng-class="{'in':selectedTab==$index}" aria-labelledby="heading{{$index}}" data-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="process-div">
+                                <kt-counter data-bet-in-process="om.betInProcess" data-event-type="{{om.eventType.id}}" data-small="{{om.length<3}}"></kt-counter>
+                                <table class="table-score ">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-l th-col" style="text-transform:inherit">
+                                                Top 3 of {{om.marketRunner.length}} runners &nbsp;
+                                                <kt-date-diff class="indicators" ng-show="!om.inPlay" data-market="om" data-field="startTime">
+                                                </kt-date-diff>
+                                            </th>
+                                            <th style="width:63px;" colspan="2"></th>
+                                            <th class="align-l">{{'market.back.label' | translate}}</th>
+                                            <th class="align-r">{{'market.lay.label' | translate}}</th>
+                                            <th style="width:63px;" colspan="2"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody ng-class="{'stop':om.temporaryStatus==3,'ball':om.temporaryStatus==2,'suspend':om.marketStatus==3,'closed':om.marketStatus==4}">
+                                        <tr id="tr_{{om.id}}_{{r.runner.id}}" ng-repeat="r in om.marketRunner | limitTo:3" ng-show="r.status<5">
+                                            <td class="match-title">
+                                                <div class="runner_number">
+                                                    <span ng-if="r.runner.meta['CLOTH_NUMBER_ALPHA']">{{r.runner.meta['CLOTH_NUMBER_ALPHA']}}</span>
+                                                    <span ng-if="r.runner.meta['STALL_DRAW']">({{r.runner.meta['STALL_DRAW']}})</span>
+                                                </div>
+                                                <div class="runner-img" title="{{r.runner.meta['COLOURS_DESCRIPTION']}}" ng-if="r.runner.meta['COLOURS_FILENAME']">
+                                                    <img ng-src="https://content-cache.cdnbf.net/feeds_images/Horses/SilkColours/{{r.runner.meta['COLOURS_FILENAME']}}" />
+                                                </div>
+                                                <span class="runner-title">{{r.runner.name}}</span>
+                                                <span style="display:block; font-weight:normal">{{r.runner.meta['JOCKEY_NAME']}}</span>
+                                                <span ng-if="r.pl" class="ppl positive" ng-class="{'negative':r.pl<0 }">{{r.pl | toFixDigit}}</span>
+                                                <span class="ppl" ng-class="{'positive':r.pPL>=0,'negative':r.pPL<0}" ng-if="r.pPL">
+                                                    <i class="icon-angle-double-right" aria-hidden="true"></i>{{r.pPL | toFixDigit}}
+                                                </span>
+                                                <span class="winner" ng-if="r.status==2">{{'winner.label'|translate}}</span>
+                                            </td>
+                                            <td class="back{{i}} align-c" kt-animate-on-change="r.backPrice[i-1].size" ng-repeat="i in [3,2,1]"
+                                                kt-click ng-click="ctrl.placeBet(om,1,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price : '',r.runner.name,om.event.name);">
+                                                <kt-glc data-item="r.backPrice[i-1]"></kt-glc>
+                                            </td>
+                                            <td class="lay{{i}} align-c disable" kt-animate-on-change="r.layPrice[$index].size" ng-repeat="i in [1,2,3]" kt-click
+                                                ng-click="ctrl.placeBet(om,2,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name,om.event.name);">
+                                                <kt-glc data-item="r.layPrice[$index]"></kt-glc>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="!anyMarketSelected && !isRequestProcessing && !fullMarket">{{'common.noevents.display' | translate}}</div>

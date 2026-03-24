@@ -1,0 +1,281 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.withdraw {
+    @include txt(bold);
+    @include headline($dark-blue, 13px);
+    width:60%;
+
+    a {
+        @include border-all(1px, solid, $gray);
+        @include border-radius(4px);
+        background-image: linear-gradient(-180deg, #FEFEFE 0%, #eaeaea 100%);
+        @include padding(6px, 10px, 6px, 10px);
+        cursor: $cursor;
+        color: $dark-blue;
+
+        &.disable {
+            background: $gray-gains;
+            color: $light-medium-grey;
+            cursor: not-allowed;
+
+            &:hover {
+                background-image: none;
+            }
+        }
+
+        &:hover {
+            background-image: linear-gradient(-180deg, #eaeaea 20%, #FEFEFE 100%);
+        }
+    }
+
+    ul {
+        @include display(inline-block);
+
+        li {
+            a {
+                @include border-radius(4px);
+                font-size: 13px;
+                @include position(relative);
+
+                &:after {
+                    @include position(absolute, top -2px right -60px);
+                    width: 12px;
+                    font-size: 15px;
+                    @include txt(normal);
+                    line-height: 30px;
+                    z-index: 2;
+                }
+
+                &.select-D {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color;
+                    background: $green-color;
+                    // padding-right:0px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002b';
+                        color: $green-color;
+                    }
+                }
+
+                &.select-W {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color;
+                    background: $red-color;
+                    // padding-right:4px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002d';
+                        right: -26px;
+                        color: $red-color;
+                    }
+                }
+            }
+
+            &:first-of-type a {
+                border-right-width: 0;
+                border-radius: 4px 0 0 4px;
+            }
+
+            &:last-of-type a {
+                border-radius: 0 4px 4px 0;
+            }
+        }
+    }
+
+    input {
+        text-align: right;
+        @include border-all(1px, solid, $gray);
+        @include padding(4px, 5px, 4px, 5px);
+        height: 30px;
+        width: -webkit-calc(100% - 70px - 50px - 44px) !important;
+        width: -moz-calc(100% - 70px - 50px - 44px) !important;
+        width: calc(100% - 70px - 50px - 44px) !important;
+        @include border-radius(4px);
+        margin: 0 3px 0 7px;
+        box-shadow: inset 0px 2px 0px rgba(0,0,0,0.1);
+    }
+}
+.bm-maker{
+    .bm_title{margin-top:10px;}
+    .runner-part{
+        .market-details{
+            height:auto;
+            .black-back{ 
+                .refresh{@include padding(0px, 11px, 6px, 8px); margin-left:2px;}
+            }
+        }
+        .position_match{margin-top:5px;}
+        .market-details{
+            .runner-right{
+                height:385px;
+               .match_run{@include resize($float-left, 90%); margin-left:5px !important}
+               .matched{
+                   .match_run{width:$width;}
+               }
+            }
+        }
+    }
+
+    .playing-cards{
+        .clock{
+            right:15px;
+        }
+    }
+
+    .runner{
+        .runner-right{
+                .black-back{color:$white-color; @include padding(0px, 5px, 0px, 5px);}
+                .position_match{
+                    @include border-all(1px, solid, $gray);
+                    .position {
+                        @include border(bottom, 1px, solid, $gray);
+                        @include padding(5px, 5px, 5px, 5px);     text-align:$text-center;
+                        @include resize($float-left, $width); 
+                        span{@include resize($float-left, 50%);}
+                    }
+                }
+            }
+    }
+    .full-bookmaker{
+        .market-details{ margin-top:10px; background-color:$white-color;
+            .market-detail{ background-color:transparent; margin-bottom:0px;  padding-bottom:0px; border-bottom:none;
+                .black-back{ margin-bottom:0px;
+                    span{width:auto;}
+                }
+                .refresh{padding-top:0px;}
+                
+            }
+            .delete {
+                background-image: url('/public/images/arrow-img.png');
+                background-position: -20px -116px;
+                text-indent: -99999px;
+                height: 20px;
+                @include resize (left, 16px);
+                cursor: $cursor;
+                @include display(block);
+                margin: 0px;
+                @include padding(0px, 0px, 5px, 0px);
+            }
+             .back-btn, .lay-btn {
+                background-color: $back-1-color;
+                float: $float-left;
+                @include padding(2px, 6px, 4px, 6px);
+                text-align: $text-center;
+                @include border-radius(4px);
+                @include headline($dark-gray-black, 11px);
+                margin: 0px !important;
+            }
+             .lay-btn {
+                background-color: $lay-1-color;
+                @include padding(2px, 9px, 3px, 9px);
+            }
+             .match_run {
+                @include resize(right, 74%);
+                margin-left: 5px;
+
+                span {
+                    @include border-radius(4px);
+                    @include padding(0px, 0px, 0px, 0px);
+                    margin: 0;
+                    font-weight: 600;
+                    @include headline($light-gray-black, 11px);
+                    @include display(inline-block);
+                }
+
+                .bet_price {
+                    float: right;
+                    span {
+                        float:$float-left; @include padding(0px, 8px, 0px, 8px);
+                    }
+                    .bet-time{float:$float-left; font-size:11px; width:50px;}
+                }
+            }
+        }
+        .bm-livegame{
+            .input-container{
+                margin-bottom:10px; float:left; width:100%;
+                form{
+                    .input-group{
+                        margin-bottom:10px; padding-right:15px;
+                    }
+                }
+            }
+        }
+        .fixed-odd-container{ height:auto; @include padding(3px, 5px, 10px, 8px);}
+        .run_matched{ margin-bottom:10px; @include resize($float-left, $width);
+            .match-div{
+                @include padding(5px, 5px, 5px, 5px); font-size:12px;
+                @include resize($float-left, $width);
+                @include border(bottom, 1px, solid, $gray);
+                
+            }
+        }
+
+        .runner-right {
+            .run_matched {
+                    .run-class {
+                        .match_name {
+                            @include resize($float-left, auto);
+                        }
+                    }
+
+                    .bet_price {
+                        span {
+                            width: 60px !important;
+                        }
+
+                        .bet_stake {
+                            width: 80px !important;
+                        }
+                    }
+
+                    .match_run {
+                        @include resize(right, 81%);
+                        margin-left: 20px;
+                        font-size: 12px;
+                    }
+
+                    .unmatch {
+                        .match_run {
+                            @include resize(right, 81%);
+                            margin-left: 20px;
+                        }
+                    }
+            }
+        }
+    }
+
+}
+.bmcol-3{
+    height:460px;
+}
+.bm_banking{
+    margin:0 5px;
+    .grid-ring{ 
+        height: auto !important;
+        width: 99.3%;
+    }
+}
+.downline{
+    margin:0 5px;
+    .total-data{@include resize(left, $width);}
+    .grid-ring{ 
+            height: auto !important;
+            width: 99.3%;
+        }
+    .list-view{
+        @include resize(left, $width);
+       .list-view-table { 
+           table{
+              th.size-lg{width:150px !important}
+              td.size-lg{width:150px !important}
+            }
+        }
+    }
+    .btn{@include padding(6px, 8px, 6px, 8px);}
+    .btn-default{margin-left:4px;}
+}

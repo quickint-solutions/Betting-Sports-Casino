@@ -1,0 +1,41 @@
+﻿<div class="rules-modal">
+    <div class="row" ng-if="market.betOpenTime || market.betCloseTime">
+        <div class="col-sm-12">
+            Betting
+            <span class="event-time" ng-if="market.betOpenTime">
+                Open at <b>
+                    <kt-date data-date-value="market.betOpenTime" data-format="dd MMMM yyyy, H:mm"></kt-date>
+                </b>
+            </span>
+            <span class="event-time" ng-if="market.betCloseTime">
+                Close at <b>
+                    <kt-date data-date-value="market.betCloseTime" data-format="dd MMMM yyyy, H:mm"></kt-date>
+                </b>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6" ng-hide="market.gameType">
+            <span style="display:block" class="start_time">Event Start Time : <b>{{market.startTime | date:'dd MMMM yyyy, H:mm'}}</b></span>
+            <span style="display:block">Max Bet : <b>{{market.maxBet | toRate}}</b></span>
+            <span style="display:block">Loss Limit : <b>{{market.maxLiability | toRate}}</b></span>
+            <span style="display:block">Max Profit : <b>{{market.maxProfit | toRate}}</b></span>
+        </div>
+        <div class="col-sm-6">
+            <span class="start_time">&nbsp;</span>
+            <span style="display:block">• Bet accept upto odds value less than <b>{{market.allowBetUpTo}}</b></span>
+            <span style="display:block">• Before event start, limit bet is <b>{{market.allowLimit ? 'allowed' : 'not allowed'}}</b>.</span>
+            <span style="display:block">• After event start, limit bet is <b>{{market.inPlayAllowLimit ? 'allowed' : 'not allowed'}}</b>.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rule_info">
+            <div class="col-sm-12">
+                <span ng-bind-html="market.rule | safeHtml"></span>
+            </div>
+            <div class="col-sm-12">
+                <span ng-bind-html="market.clarification | safeHtml"></span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿<div class="collapse in" style="background: white; min-height: 100%; position: absolute; width: 100%; ">
+
+    <div ng-if="bettingType==7 || bettingType==2 || bettingType==8"
+         class="sa-userposition">
+        <table class="exposure-col">
+            <thead>
+                <tr>
+                    <th colspan="3" style=" padding: 5px 5px; border-bottom: 1px dotted #51828c;">
+                        <span style="color: #ff8787"> {{p.market.name}}</span>
+                        <span class="float-r">
+                            <span>
+                                <input type="checkbox" id="chk-pt-bm" ng-model="$parent.includePT" ng-click="ctrl.refreshBetsAndPosition()">
+                                <label for="chk-pt-bm">Include PT?</label>
+                            </span>
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <span>Username</span>
+                    </th>
+                    <th style="width:200px">Max Win</th>
+                    <th style="width:200px">Max Exposure</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="parent-tr">
+                    <td>
+                        {{loginUserPosition.username}}
+                        <span class="float-r parent-box box2">
+                            <i class="icon-ladder icons fa" style="padding-right:0px;"
+                               ng-click="ctrl.openBook($event,loginUserPosition)"></i>
+                        </span>
+
+                    </td>
+                    <td style="width:200px">
+                        <span class="market-team">
+                            {{loginUserPosition.maxWin | toRate}}
+                        </span>
+                    </td>
+                    <td style="width:200px">
+                        <span class="market-team">
+                            {{loginUserPosition.pl | toRate}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="3" style="padding:1px">
+                        <table>
+                            <tbody id="tbody_{{marketId}}_{{loginUserPosition.userId}}"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-repeat="sm in positions track by $index" style="margin-top:7px;"
+                   ng-init="parentUserType=sm.userType" ng-include="sessionpositionTemplate"></tbody>
+        </table>
+    </div>
+    <div ng-if="bettingType!=7 && bettingType!=2 && bettingType!=8"
+         ng-scrollbars-config="{axis:'yx'}" class="sa-userposition">
+        <table class="exposure-col">
+            <thead>
+                <tr>
+                    <th colspan="{{runners.length+1}}" style=" padding: 5px 5px; border-bottom: 1px dotted #51828c;">
+                        <span style="color: #ff8787"> {{p.market.name}}</span>
+                        <span class="float-r">
+                            <span>
+                                <input type="checkbox" id="chk-pt-bm" ng-model="$parent.includePT" ng-click="ctrl.refreshBetsAndPosition()">
+                                <label for="chk-pt-bm">Include PT?</label>
+                            </span>
+                        </span>
+                    </th>
+                </tr>
+                <tr>
+                    <th><span> Username</span></th>
+                    <th style="width:150px" ng-repeat="r in runners track by $index">{{r}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="parent-tr">
+                    <td>
+                        {{loginUserPosition.username}}
+                        <span class="float-r parent-box">&nbsp;</span>
+                    </td>
+                    <td ng-repeat="r in loginUserPosition.marketRunners track by $index" style="width:150px">
+                        <span class="market-team">
+                            {{r.pl  | toRate}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-repeat="sm in positions track by $index" style="margin-top:7px;"
+                   ng-init="parentUserType=sm.userType" ng-include="userpositionTemplate"></tbody>
+        </table>
+    </div>
+
+</div>

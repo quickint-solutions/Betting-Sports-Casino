@@ -1,0 +1,19 @@
+﻿<div class="my-bets">
+    <ul class="tabbing-blue tab2">
+        <li ng-class="ctrl.isActive('/master/myreport/downline')">
+            <a ui-sref="master.myreport.downline">
+                <i class="fa fa-line-chart"></i>
+                {{'myreport.downline.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/master/myreport/market')">
+            <a ui-sref="master.myreport.market">
+                <i class="fa fa-area-chart"></i>
+                {{'myreport.market.label' | translate}}
+            </a>
+        </li>
+    </ul>
+    <div ui-view="myreport">
+
+    </div>
+</div>

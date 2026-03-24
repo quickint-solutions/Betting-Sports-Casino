@@ -1,0 +1,20 @@
+﻿<div class="table-responsive run-amount-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Run</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in positions">
+                <td>
+                    <span>{{p.start}}</span>
+                    <span ng-hide="p.start==p.end || $last">{{' - '+p.end}}</span>
+                    <span ng-show="$last">+</span>
+                </td>
+                <td ng-class="{'text-success':p.pl>=0,'text-danger':p.pl<0}">{{p.pl | toRate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

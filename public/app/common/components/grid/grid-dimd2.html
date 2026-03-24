@@ -1,0 +1,41 @@
+﻿<div class="w-100">
+    <div class="report-page-count ">
+        <div class="form-group mb-0">
+            <label class="mr-1">Show</label>
+            <select class="form-control" ng-model="tableParams.selectedCount" ng-change="tableParams.count(tableParams.selectedCount)">
+                <option ng-repeat="count in tableParams.settings().counts" value="{{count}}"
+                        ng-selected="tableParams.count()==count">
+                    {{count}}
+                </option>
+            </select>
+            <label class="ml-1">Entries</label>
+        </div>
+
+        <div class="file-icons  loader-section-parent">
+            <i class="fa fa-spinner fa-pulse fa-2x fa-fw mr-2" ng-show="isLoading"></i>
+            <div ng-if="::isShowTotal" class="d-flex align-items-center mr-2">{{total}} {{totalRowMsg | translate}}</div>
+
+            <kt-button data-btn-class="btn btn-info mr-2" ng-show="hasNewRights"
+                       label="{{newButtonLabelProperty}}" action="ctrl.goToNew()" ng-if="newState || goToNewStateEnabled"></kt-button>
+
+            <div ng-repeat="item in listNewItems track by $index" class="mr-2" ng-if="listNewItems.length > 0"
+                 ng-show="hasNewRights" uib-dropdown>
+                <a class="btn btn-primary" ng-click="item.func(item.url)">
+                    <i class="{{item.cssClass}}"></i>
+                    <span translate="{{item.name}}"></span>
+                </a>
+            </div>
+
+            <div ng-show="exportToPdf && total > 0" ng-click="ctrl.clickExportToExcel()"><i class="fas fa-file-pdf "></i></div>
+            <div ng-show="exportToExcel && total > 0" ng-click="ctrl.clickExportToExcel()"><i class="fas fa-file-excel "></i></div>
+        </div>
+
+    </div>
+    <div class="report-table  table-responsive  {{tableParentClass}}">
+        <div class="w-100 myTranscludedContent"></div>
+        <div class="w-100 no-record" ng-show="total == 0 && showEmptyMsg && (!msgs || msgs.length == 0)">
+            <div translate="{{emptyMsg}}"></div>
+        </div>
+    </div>
+
+</div>

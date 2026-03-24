@@ -1,0 +1,207 @@
+﻿<div class="filter-panel">
+    <ul class="input-list">
+
+        <li><label>{{'side.label' | translate}}</label></li>
+        <li>
+            <select ng-model="search.betside" ng-change="ctrl.betSideChanged()">
+                <option ng-repeat="b in betSides" value="{{b.id}}">
+                    {{b.name}}
+                </option>
+            </select>
+        </li>
+    </ul>
+</div>
+
+<div class="mbac-tab">
+    <div class="tabbing">
+        <div class="tab">
+            <button class="tablinks" ng-class="{'active':search.status==2}" ng-click="search.status=2;ctrl.betSideChanged();">Matched</button>
+            <button class="tablinks" ng-class="{'active':search.status==3}" ng-click="search.status=3;ctrl.betSideChanged();">Unmatched</button>
+            <button class="tablinks" ng-class="{'active':search.status==-1}" ng-click="search.status=-1;ctrl.betSideChanged();">Both</button>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="search.status == -1 || search.status ==3" class="table-bets">
+
+    <div class="mb-mybets mb-current">
+        <kt-grid grid-id="kt-unmatchedbets-grid"
+                 load-items="ctrl.getUnmatchedBets(params)"
+                 
+                 name-param="id"
+                 name-value-property="id"
+                 data-total-row-msg="common.total.unmatchedbets.label"
+                 show-total="true"
+                 cache-key="ktunmatchedbetsgrid">
+            <table ng-table="tableParams" class="table table-hover clickable  "
+                   style="display: block;"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index" ng-click="goToDetail(item)">
+                        <td style="padding:0px;">
+                            <div class="mybet-new">
+                                <div class="my-b-detail">
+                                    <div class="my-b-field ">
+                                        <strong><span>{{item.market.name}}</span></strong>
+                                    </div>
+                                    <div class="my-b-field field-title">
+                                        <span>
+                                            <span id="from">{{item.market.event.eventType.name}}</span>
+                                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                            <span id="to">{{item.market.event.name | shortme:30}}</span>
+                                        </span>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">betid</div>
+                                        <div title="{{item.betId}}">{{item.betId}} </div>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">runner name</div>
+                                        <div title="{{item.runnerName}}">{{item.runnerName}}</div>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="inner-field">
+                                            <div class="my-title bold">side</div>
+                                            <div title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}}</div>
+                                        </div>
+                                        <div class="inner-field">
+                                            <div class="my-title bold">price</div>
+                                            <div title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="inner-field">
+                                            <div class="my-title bold">matched size</div>
+                                            <div title="{{item.sizeMatched | toRate }}">{{item.sizeMatched | toRate }} </div>
+                                        </div>
+                                        <div class="inner-field">
+                                            <div class="my-title bold">remaining size</div>
+                                            <div title="{{item.sizeRemaining | toRate }}">{{item.sizeRemaining | toRate }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">create date</div>
+                                        <div title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </div>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">update date</div>
+                                        <div title="{{item.updatedOn }}">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="$data.length<=0">
+                        <td style="padding:0px;">
+                            <div class="mybet-new">
+                                <div class="my-b-detail">
+                                    <div class="my-b-field">
+                                        No Records Found.
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+
+
+</div>
+
+
+<div ng-if="search.status == -1 || search.status ==2" class="table-bets">
+    <div class="mb-mybets mb-current current-2">
+        <kt-grid grid-id="kt-matchedbets-grid"
+                 load-items="ctrl.getMatchedBets(params)"
+                 
+                 name-param="id"
+                 name-value-property="id"
+                 data-total-row-msg="common.total.matchedbets.label"
+                 show-total="true"
+                 cache-key="ktmatchedbetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover hide-header"
+                   style="display: block;">
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td style="padding:0px;">
+                            <div class="mybet-new">
+                                <div class="my-b-detail">
+                                    <div class="my-b-field ">
+                                        <strong><span>{{item.market.name}}</span></strong>
+                                    </div>
+                                    <div class="my-b-field field-title">
+                                        <span>
+                                            <span id="from">{{item.market.event.eventType.name}}</span>
+                                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                            <span id="to">{{item.market.event.name | shortme:30}}</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">betid</div>
+                                        <div title="{{item.betId}}" class="">{{item.betId}}</div>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">runner name</div>
+                                        <div title="{{item.runnerName}}">{{item.runnerName}}</div>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="inner-field">
+                                            <div class="my-title bold">side</div>
+                                            <div title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}}</div>
+                                        </div>
+                                        <div class="inner-field">
+                                            <div class="my-title bold">price</div>
+                                            <div title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</div>
+                                        </div>
+                                        <div class="inner-field">
+                                            <div class="my-title bold">avg. price</div>
+                                            <div title="{{item.avgPrice}}" class="">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">matched size</div>
+                                        <div title="{{item.sizeMatched | toRate }}" class="">{{item.sizeMatched | toRate }}</div>
+                                    </div>
+
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">create date</div>
+                                        <div title="{{item.createdOn }}" class="">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </div>
+                                    </div>
+                                    <div class="my-b-field">
+                                        <div class="my-title bold">update date</div>
+                                        <div title="{{item.updatedOn }}" class="">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-if="$data.length<=0">
+                        <td style="padding:0px;">
+                            <div class="mybet-new">
+                                <div class="my-b-detail">
+                                    <div class="my-b-field">
+                                        No Records Found.
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+
+</div>
+

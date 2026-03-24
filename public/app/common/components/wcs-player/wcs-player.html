@@ -1,0 +1,38 @@
+﻿
+<div class="wcs" style="height:{{$parent.$parent.$parent.iframeHeight ? $parent.$parent.$parent.iframeHeight+'px' : 'inherit'}};width:inherit;">
+
+    <div id="video_container" ng-show="videoPlayer==2" style="height:inherit;width:inherit;">
+        <video id="remoteVideoHLS" style="height:inherit;width:inherit;" playsinline
+               controls preload="auto">
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading
+                to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">
+                    supports
+                    HTML5 video
+                </a>
+            </p>
+        </video>
+    </div>
+
+    <div id="web_video" ng-show="videoPlayer==1">
+        <div id="error_output"></div>
+        <div id="play" ng-click="ctrl.playPause(true)" kt-click><img ng-src="{{playButton}}" alt=""></div>
+        <div class="display" id="remoteVideo"></div>
+        <div class="player">
+            <div class="status"></div>
+            <div class="play-pause">
+                <span class="play-button" ng-click="ctrl.playPause(true)" kt-click>
+                    <i class="fa fa-play-circle"></i>
+                </span>
+                <div class="pause-button" ng-click="ctrl.playPause(false)" kt-click>
+                    <i class="fa fa-pause-circle"></i>
+                </div>
+            </div>
+            <div class="fullscreen" ng-if="allowf!='false'">
+                <div class="fullscreenBtn" ng-click="ctrl.fullScreen()">
+                    <i class="fa fa-expand"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

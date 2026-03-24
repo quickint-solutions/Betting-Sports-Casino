@@ -1,0 +1,79 @@
+﻿
+<div class="account-statement">
+    <h1 class="title">P&L Statement</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.getstatement' | translate}}</a></li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-2,'M')" class="btn">{{'history.last2month.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+
+
+    <div class="table-bets" style="margin-top:6px">
+        <div class="total-pnl bold" ng-init="totalPL=0;">
+            <span>Total P&L : </span>
+            <span class="positive" ng-class="{'negative':totalPL<0}">{{totalPL | toRate}}</span>
+        </div>
+        <kt-grid grid-id="kt-plstatement-grid"
+                 load-items="ctrl.getPLStatement(params)"
+                 show-total="false"
+                 can-i-load="canILoad"
+                 cache-key="ktplstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by $index">
+                        <td header-class="'size-xl align-l'" class="size-xl align-l" data-title="'Date'">
+                            <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy HH:mm:ss"></kt-date>
+                        </td>
+                        <td header-class="'size-sm'" class="size-sm" data-title="'Description'">
+                            <span title="{{item.narration}}">{{item.narration}}</span>
+                        </td>
+                        <td class="align-l">
+                            <span>
+                                {{item.marketInfo.eventName +' - '+item.marketInfo.name}}
+                                &nbsp;{{item.marketInfo.roundId ? item.marketInfo.roundId : ''}}
+                            </span>
+                        </td>
+                        <td header-class="'size-smd align-r'" class="size-smd align-r" data-title="'P&L'">
+                            <span class="positive" title="{{item.balance | toRate}}"
+                                  ng-class="{'negative':item.balance<0}">{{item.balance  | toRate}} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

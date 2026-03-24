@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-sm-12 mr-top-10">
+        <textarea maxlength="1000" rows="4" style="width:100%" ng-model="$parent.$parent.text1"></textarea>
+    </div>
+    <div class="col-sm-12">
+        <button class="btn btn-primary float-r"
+                ng-click="$parent.ctrl.updateNotification(1)"
+                ng-disabled="$parent.$parent.text1==$parent.$parent.oldTxt.text1">
+            Update
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 mr-top-10">
+        <textarea maxlength="1000" rows="4" style="width:100%" ng-model="$parent.$parent.text2"></textarea>
+    </div>
+    <div class="col-sm-12">
+        <button class="btn btn-primary float-r" ng-click="$parent.ctrl.updateNotification(2)"
+                ng-disabled="$parent.$parent.text2==$parent.$parent.oldTxt.text2">
+            Update
+        </button>
+    </div>
+</div>

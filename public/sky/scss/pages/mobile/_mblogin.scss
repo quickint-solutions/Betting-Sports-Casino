@@ -1,0 +1,257 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.mobile-view {
+    display: none;
+
+    .login-page {
+        @include resize($float-left, 100vw);
+        height: 100vh;
+        background: $login-full-bg;
+        background-size: cover;
+        @include padding(0px, 0px, 0px, 0px);
+
+        .header-top {
+            width: 100vw;
+            height: 100vh;
+            max-width: unset;
+
+            .login-top {
+                @include resize($float-left, 100vw);
+                height: 50vh;
+
+                .logo-img {
+                    width: 90vw !important;
+                }
+            }
+
+            .login-form {
+                @include resize($float-left, 100vw);
+                height: 50vh;
+
+                .form-signin {
+                    float: right;
+                    width: 93vw;
+                    @include position(absolute);
+                    left: unset;
+                    top: -45px;
+                    background: $white-color;
+                    @include border-radius(5px);
+                    @include padding(10px, 10px, 10px, 10px);
+                    transform: translate(14px, -45px);
+
+                    input {
+                        height: 35px;
+                        width: 85%;
+                        float: right;
+                        @include padding(6px, 5px, 6px, 15px);
+                        @include border-radius(5px);
+                        border-bottom: none;
+                        border-left: none;
+                        border-right: none;
+                        border-top: none;
+                        background-color: $white-color;
+                        box-shadow: none;
+
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+
+                    p {
+                        @include resize(left, $width);
+
+                        .fa {
+                            font-size: 20px;
+                            @include padding(8px, 10px, 8px, 10px);
+                        }
+
+                        .fa-user {
+                            border-top-left-radius: 10px;
+                            float: $float-left;
+                            color: $login-icon;
+                            background-color: $login-icon-bg;
+                        }
+
+                        .fa-lock {
+                            border-bottom-left-radius: 10px;
+                            @include padding(8px, 14px, 8px, 14px);
+                            float: $float-left;
+                            color: $login-icon;
+                            background-color: $login-icon-bg;
+                        }
+
+                        .fa-refresh {
+                            color: $login-icon;
+                            background-color: $login-icon-bg;
+                        }
+
+                        label {
+                            text-transform: capitalize;
+                            @include headline($dark-black-color, 13px);
+                        }
+                    }
+
+                    .login-btn {
+                        @include padding(0px, 0px, 0px, 0px);
+
+                        label {
+                            display: none;
+                        }
+
+                        .btn-login {
+                            background-color: #303030;
+                            opacity: 1 !important;
+                            letter-spacing: 1px;
+                            @include padding(6px, 14px, 6px, 14px);
+                            @include headline($login-btn, 14px);
+                            //  @include border-all(1px, solid, $login-btn);
+                            @include border-radius(30px);
+                            width: $width;
+                            text-transform: uppercase;
+                            line-height: 28px;
+
+                            &:hover {
+                                color: $login-btn;
+                            }
+
+                            .fa {
+                                float: none;
+                                @include padding(0px, 0px, 0px, 0px);
+                                @include headline($login-btn, 14px);
+                            }
+                        }
+                    }
+
+                    .code {
+                        float: right;
+
+                        input {
+                            float: none;
+                        }
+
+                        label {
+                            vertical-align: top;
+                        }
+                    }
+
+                    #captcha {
+                        vertical-align: top;
+
+                        .fa {
+                            float: none;
+                        }
+
+                        img {
+                            vertical-align: top;
+                            height: 22px;
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .captcha-div {
+                        @include padding(15px, 0, 15px, 0);
+
+                        input {
+                            @include padding(5px, 7px, 5px, 7px);
+                            height: 32px;
+                            @include border-all(1px, solid, $login-border);
+                            @include border-radius(20px);
+                            @include resize($float-left, 50%);
+                        }
+
+                        img {
+                            vertical-align: top;
+                        }
+
+                        .fa-refresh {
+                            @include border-radius(6px);
+                            font-size: 16px;
+                            @include padding(6px, 8px, 6px, 8px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* ----  new login page   ---  */
+    .new-loginpage {
+        .login-img-part {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .login-top-img {
+            //  background:url(/public/images/winexch/login-bg.jpg) no-repeat 100% 100%;
+            //  background-size:cover;
+        }
+
+        .mobile-img {
+            display: none;
+        }
+
+        .download-app-win {
+            margin-top: 2vh;
+            margin-left: unset;
+        }
+
+        width: 100vw;
+        height: 100vh;
+
+        .login-wrap {
+             top: 0;
+            /*width: 100vw;
+            height: 100vh;
+            left: unset;
+            top: 0;
+            transform: unset;
+            border-radius: unset;*/
+            .login-form-part{
+               // top:-5px;
+                //background-color:$theme-yellow;
+            }
+        }
+
+        .app-btn{
+          div{padding:0px 10px;}
+            i{
+                color:$black-color;
+            }
+        }
+    }
+
+    .login-royal{
+        .login-top{
+            .logo-img{
+                background-size: 55% !important;
+            }
+        } 
+        .login-form {
+            .form-signin{
+                .captcha-div .code{top:28px;}
+            }
+        } 
+    } 
+
+   
+
+    @media only screen and (orientation: landscape) {
+        .login-page {
+            height: 160vh;
+
+            .header-top {
+                height: 160vh;
+
+                .login-top {
+                    height: 80vh;
+                }
+
+                .login-form {
+                    height: 80vh;
+                }
+            }
+        }
+    }
+}

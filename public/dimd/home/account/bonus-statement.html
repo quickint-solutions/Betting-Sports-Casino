@@ -1,0 +1,95 @@
+﻿<div class="account-statement">
+    <h1 class="title">Bonus Statement</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.getstatement' | translate}}</a></li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn" ng-show="isCurrentStatement">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn" ng-show="isCurrentStatement">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn" ng-show="isCurrentStatement">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-2,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last2month.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn" ng-show="!isCurrentStatement">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-bonusstatement-grid"
+                 load-items="ctrl.getBonusStatement(params)"
+                 show-total="true"
+                 cache-key="ktbonusstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-smd">Code</th>
+                        <th class="size-smd boolean">Bonus Amount</th>
+                        <th class="size-lg boolean">Required Turnover to Activate</th>
+                        <th class="size-lg boolean">Required Turnover to Withdraw</th>
+                        <th class="size-md boolean">Bonus Date</th>
+                        <th class="size-md boolean">Bonus Expiry</th>
+                        <th class="size-sm boolean">Is Expired?</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="size-smd bold align-l">{{item.bonusCode}}</td>
+                        <td class="size-smd boolean">{{item.bonusAmount | toRate}}</td>
+                        <td class="size-lg boolean">
+                            <div ng-show="item.requiredTurnover>0">
+                                <uib-progressbar max="item.requiredTurnover | toRateOnly" value="item.currentTurnover | toRateOnly"
+                                                 type="danger" class="progress-striped active">
+                                    <i>{{item.currentTurnover | toRateOnly}} / {{item.requiredTurnover | toRateOnly}}</i>
+                                </uib-progressbar>
+                            </div>
+                            <div ng-show="item.requiredTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-lg boolean">
+                            <div ng-show="item.requiredWithdrawalTurnover>0">
+                                <uib-progressbar max="item.requiredWithdrawalTurnover | toRateOnly" value="item.currentWithdrawalTurnover | toRateOnly"
+                                                 type="danger" class="progress-striped active">
+                                    <i>{{item.currentWithdrawalTurnover | toRateOnly}} / {{item.requiredWithdrawalTurnover | toRateOnly}}</i>
+                                </uib-progressbar>
+                            </div>
+                            <div ng-show="item.requiredWithdrawalTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-md boolean">
+                            <kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm"></kt-date>
+                        </td>
+                        <td class="size-md boolean">
+                            {{item.expiredOn | toDays:1}}
+                        </td>
+                        <td class="size-sm boolean">
+                            <i class="fa fa-check" ng-show="item.isExpired"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

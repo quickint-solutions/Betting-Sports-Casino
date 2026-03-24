@@ -1,0 +1,56 @@
+﻿<div class="account-statement">
+    <h1 class="title">Transfer Statement</h1>
+    <div ng-show="totalItems<=0" style="padding:10px;padding-top:5px;">There are no transfer statement in the 180 days</div>
+    <div class="table-bets" ng-show="totalItems>0">
+        <kt-grid grid-id="kt-transferstatement-grid"
+                 load-items="ctrl.getTransferStatement(params)"
+                 show-total="false"
+                 total="totalItems"
+                 data-group-field="createdOn"
+                 data-date-group="true"
+                 cache-key="kttransferstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr style="background-color:#000000 !important;color:#DDDDDD!important;">
+                        <th header-class="'size-sm align-l'" class="size-sm align-l">Date</th>
+                        <th header-class="'align-l'" class="align-l">Description</th>
+                        <th class="size-xs"></th>
+                        <th header-class="'size-sm align-r'" class="size-sm align-r">Amount</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                    <tr>
+                        <td class="td-date">
+                            <kt-date data-date-value="itemGrp.date"></kt-date>
+                        </td>
+                    </tr>
+                    <tr class="inner-tr" ng-repeat="item in itemGrp.values track by $index">
+                        <td class="size-sm align-l">
+                            <span>
+                                <kt-date data-date-value="item.createdOn" data-format="HH:mm"></kt-date>
+                            </span>
+                        </td>
+                        <td class="align-l">
+                            <span>{{item.narration}} </span>
+
+                        </td>
+                        <td class="size-xs" tooltip-class="client-tooltip"
+                            tooltip-placement="top-middle"
+                            tooltip-trigger="click outsideClick"
+                            uib-tooltip-html="'{{item.comment}}'">
+
+                            <a>
+                                <i class="fa fa-info-circle fa-lg" ng-show="item.comment"></i>
+                            </a>
+                        </td>
+                        <td class="size-sm align-r">
+                            <span class="positive" ng-class="{'negative':item.balance<0}">{{item.balance  | toRate}} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

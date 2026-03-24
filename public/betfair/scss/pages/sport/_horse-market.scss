@@ -1,0 +1,85 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.horse-racing{
+      .tabbing-blue{
+            margin:15px 0 !important;
+      }
+      .race-detail{padding-bottom:0px !important;
+            
+            .race{
+                font-size:$font-size-tab; background-color:$white-color; 
+                @include padding(10px, 10px, 10px, 10px); 
+                @include border('bottom', 1px, solid, $light-grey);
+                .race-title{ @include txt(bold); margin-bottom:8px;width:$width; @include display(block);}
+                ul{
+                    li{
+                        a{
+                            width: 40px;
+                            line-height: 19px;
+                            font-size: $font-size-tab;
+                            @include padding(6px, 4px, 6px, 4px);
+                            @include border-all(1px, solid, transparent);
+                            @include border-radius(3px);
+                            margin-right: 5px;      
+                            &:hover{ border: 1px solid;}
+                        }
+                    }
+                }
+                &:hover{background-color:$light-hover-color;}
+           }
+       }
+}
+
+.horse-detail{
+    .horse_pin{
+        display:grid; float:$float-left;
+        .fa-info{margin-left:4px;}
+    }
+     .game-visit{
+         font-size:16px !important;
+          span{
+                background-color:$white-color; 
+                @include padding(1px, 10px, 1px, 10px);
+                @include border-radius(4px);
+                margin-left: 10px;
+                color:$dark-gray-black;
+          }
+     }
+    .tab-HS{
+          @include resize (left, $width);
+          background-image:url('/public/images/back-img.png');
+          background-position:0 -2116px;
+          height: 32px;
+          a{
+              @include display(block); 
+              width:95px; 
+              height:30px; 
+              line-height:30px;
+              @include headline($dark-gray-black, 12px);  
+              @include border('right', 1px, solid, $light-gray-blue);
+              text-align:$text-center;
+              &.select {
+                   @include border('top', 2px, solid, $tab-top-color);
+                   background-color: $white-color;
+                   height: 32px;
+                   line-height: 28px;
+              }
+          }
+     }
+    .game-info{
+           margin-bottom:15px;
+           @include padding(3px, 5px, 3px, 5px); 
+           @include border('bottom', 1px, solid, $base-color-light);
+
+           .inplay-label{
+               font-size:12px;
+           }
+    }
+    .team-score{
+         margin-top:0px;
+         .refer-book{text-align:right;}
+    }
+}

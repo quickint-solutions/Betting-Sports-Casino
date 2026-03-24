@@ -1,0 +1,139 @@
+﻿<!--  Bets history  -->
+<div class="bets-history master-page-class" ng-init="totalRows=0;showFilter=false;">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="event-heading">P&L Report By FD Games</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group" style="float:left;">
+                    <div id="picker-market-report" class="ktdatepicker"
+                         kt-date-range-picker
+                         data-from-date="search.fromdate"
+                         data-to-date="search.todate"
+                         data-on-selection="ctrl.refreshReportGrid()"
+                         data-format="DD MMM YYYY ">
+                        {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+                <a class="filters-toggle" ng-click="showFilter=!showFilter" ng-class="{'selected':showFilter}">
+                    <i class="icon-filter" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn_value float-r">
+                    <button class="btn btn-secondary" ng-click="ctrl.exportToExcel('kt-marketreport-grid')" ng-disabled="!reportData">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mr-top-10" ng-show="showFilter">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">
+                <div class="bet-input">
+                    <input class="form-control" type="text" placeholder="Table Name" ng-model="search.tableName" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text ">
+                    <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                               close-on-select="true">
+                        <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                            {{$select.selected.username}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                           class="ui-select-choices"
+                                           refresh="$parent.ctrl.searchUser($select.search)">
+                            <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                            &nbsp;-&nbsp;
+                            <span class="align-l" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                            <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_text">
+                    <a class="btn btn-secondary" ng-click="ctrl.refreshReportGrid();">
+                        Apply
+                    </a>
+                    <a class="btn btn-danger" ng-click="ctrl.resetCriteria();" style="margin-left:10px;">
+                        Clear
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pl_table pl-market ">
+        <kt-grid grid-id="kt-marketreport-grid"
+                 load-items="ctrl.getPLbyMarket(params)"
+                 name-param="id"
+                 show-total="false"
+                 data-total="totalRows"
+                 cache-key="ktmarketreportgrid">
+            <table ng-table="tableParams" class="table table-hover clickable member_table " id="kt-marketreport-grid"
+                   template-pagination="{{ :: paginationUrl }}">
+                <tbody ng-repeat="item in $data track by $index" class="info-text">
+                    <tr>
+                        <td data-title="::'User' | translate">
+                            <span>
+                                {{item.user.username }}&nbsp;({{item.user.userCode}})
+                            </span>
+                            <a ui-sref="master.lotusmember.fdbettingpl({memberid:item.user.id,usertype:item.user.userType})">
+                                <i class="fa fa-eye link-a"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="link-a" ng-click="$parent.$parent.$parent.ctrl.getPLByTable(item)">
+                                Table Wise PL
+                            </a>
+                        </td>
+                        <td header-class="'size-md align-r'" class="size-md align-r" data-title="::'pl.label' | translate">
+                            <span title="{{item.win}}" ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win | toRate}}</span>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.show && item.userPLInfo.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Table Name</th>
+                                        <th class="align-r boolean">Provider</th>
+                                        <th class="align-r boolean">{{'pl.label' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="e in item.userPLInfo | orderBy:'win':true">
+                                        <td class="boolean">
+                                            <span>{{e.tableName }} </span>
+                                        </td>
+                                        <td class="align-r boolean">
+                                            <span>{{$parent.$parent.$parent.$parent.$parent.ctrl.getTableProvider(e.provider) }} </span>
+                                        </td>
+                                        <td class="align-r boolean">
+                                            <span ng-class="{'positive':e.win>=0,'negative':e.win<0}">{{e.win | toRate}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="size-md align-r">{{$data | total:'stake' | toRate}}</td>
+                        <td class="size-md align-r">{{$data | total:'win' | toRate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

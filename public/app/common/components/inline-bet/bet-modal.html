@@ -1,0 +1,73 @@
+﻿<div class="home-bet-slip loader-section-parent">
+    <div class="loader-section" ng-show="animateLoader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="bet-slip-box" ng-class="{'back':side==1,'lay':side==2}" ng-init="toPrice=price">
+        <div class="bet-slip">
+            <div class="bet-nation"><span>{{eventName}}</span></div>
+            <div class="match-result">
+                {{marketName}}
+            </div>
+            <div class="bet-team">
+                <span class="bet-team-name">
+                    {{runnerName}} <span ng-if="bettingType==7">-  {{percentage}}</span>
+                </span>
+                <div class="bet-input-box" ng-hide="disableOdds">
+                    <button class="btn-minus" ng-disabled="disableOdds" ng-click="ctrl.down()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <div class="bet-input">
+                        <input type="text" ng-disabled="disableOdds" ng-blur="ctrl.priceLeave()"
+                               kt-number-only allow-decimal="true" positive-only="true" ng-model="price" class="form-control">
+                    </div>
+                    <button class="btn-plus" ng-disabled="disableOdds" ng-click="ctrl.up()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <span class="bet-team-name" ng-show="disableOdds">
+                    {{price}}
+                </span>
+                <div class="bet-team-name" ng-if="bettingType==8">
+                    <span style="font-size:14px;">
+                        &nbsp; -  {{(price*1)+(toPrice*1)-1 | number:2}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="bet-input">
+            <input type="number" maxlength="9" ng-model="size" ng-change="ctrl.sizeChanged()"
+                   placeholder="Amount"
+                   kt-number-only allow-decimal="true" positive-only="true"
+                   class="form-control">
+        </div>
+        <div class="possible-win" ng-if="placeBetLabel!=0">
+            <span>Profit/Loss:</span>
+            <h1 class="mb-0">{{placeBetLabel | number:2}}</h1>
+        </div>
+        <div class="bet-info">
+            <span class="" ng-if="minBet>0">Min Bet : {{minBet | toRateOnly | shortNumber }} </span>
+            <span class="" ng-if="maxBet>0">Max Bet : {{maxBet | toRateOnly | shortNumber }} </span>
+            <span class="" ng-if="maxLiability>0">Loss Limit : {{maxLiability | toRateOnly | shortNumber }} </span>
+            <span class="" ng-if="maxProfit>0">Max Profit : {{maxProfit | toRateOnly | shortNumber }} </span>
+        </div>
+        <div class="bet-buttons">
+            <button class="btn btn-primary" ng-repeat="s in stakeConfig.stake | filter:{isActive:true}"
+                    ng-click="ctrl.stakeClick(s.stake)">
+                <span>{{s.stake}}</span>
+            </button>
+            <button class="btn btn-primary" ng-click="ctrl.stakeClick(0,true)"><span>Clear</span></button>
+        </div>
+    </div>
+    <div class="place-bet-btn ">
+        <button class="btn btn-primary btn-block"
+                ng-disabled="price<=0 || !size || size<=0"
+                kt-has-claim claims="{Claims: ['client.bet.place']}"
+                ng-click="ctrl.submitBet()" kt-click>
+            <span>Place bet</span>
+
+        </button>
+    </div>
+</div>

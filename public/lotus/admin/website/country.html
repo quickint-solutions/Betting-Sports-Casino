@@ -1,0 +1,57 @@
+﻿<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">Country</h1>
+            </header>
+            <kt-grid grid-id="kt-country-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     has-new-rights="true"
+                     new-button-label="{{'common.button.addnew' | translate}}"
+                     go-to-new-state="ctrl.addEditCountry()"
+                     cache-key="ktcountrygrid">
+                <table ng-table="tableParams" class="table table-hover clickable "
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.code">
+                            <td data-title="::'Country' | translate" data-sortable="'name'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span title="{{item.name}}">{{item.name}} </span>
+                            </td>
+                            <td data-title="::'Code' | translate" data-sortable="'code'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span title="{{item.code}}">{{item.code}}</span>
+                            </td>
+                            <td data-title="::'Dialcode' | translate" data-sortable="'rate'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span title="{{item.dialCode}}">{{item.dialCode}}</span>
+                            </td>
+
+                            <td data-title="::'Provider' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean">
+                                <span>{{$parent.$parent.$parent.ctrl.getOtpProvider(item.provider)}}</span>
+                            </td>
+                            <td data-title="::'Channel' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean">
+                                <span>{{$parent.$parent.$parent.ctrl.getChannel(item.supportedChannel)}}</span>
+                            </td>
+
+                            <td data-title="::'Active?'"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <i ng-show="item.isAllow" class="fa fa-check"></i>
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean'" class="boolean">
+                                <a id="btnEdit{{$index}}" class="btn btn-light" title="Edit Website"
+                                   ng-click="$parent.$parent.$parent.ctrl.addEditCountry(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

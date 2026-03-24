@@ -1,0 +1,709 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+.payment-img {
+    width: 50px;
+    display: block;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    background-size: 50px 18px;
+    height: 18px;
+    margin: auto;
+    //margin-top: 6px;
+
+    &.fairxpay {
+        background-image: url(/public/images/icons/fairxpay.png);
+    }
+
+    &.arropay {
+        background-image: url(/public/images/icons/arropay.png);
+    }
+
+    &.paytm {
+        background-image: url(/public/images/icons/paytm.png);
+    }
+
+    &.skrill {
+        background-image: url(/public/images/icons/skrill.png);
+    }
+
+    &.neteller {
+        background-image: url(/public/images/icons/neteller.png);
+        width: 65px;
+        background-size: 65px 18px;
+    }
+
+    &.tether {
+        background-image: url(/public/images/icons/tether.png);
+        width: 60px;
+        background-size: 100% 100%;
+    }
+
+    &.bank {
+        background-image: url(/public/images/icons/bank-transfer.png);
+        width: 65px;
+        background-size: 65px 22px;
+        height: 22px;
+        margin-top: 3px;
+    }
+}
+
+.td-date {
+    text-align: left;
+}
+
+.gt-lbl {
+    width: 100%;
+    margin-bottom: 5px;
+
+    small {
+        padding: 3px 3px 0px;
+        cursor: pointer;
+        text-align: right;
+        font-weight: normal;
+    }
+}
+
+.my-account {
+    //margin-top: 5px;
+    .left-part {
+        background-color: transparent;
+        overflow: visible; /*top:40px;*/
+    }
+
+    .center-part {
+        // margin-right:0px;
+        // margin-left:17.8%;
+        // @include headline($edit-btn, 14px);
+
+        .fa-caret-right {
+            @include headline($grayish, 14px);
+            vertical-align: middle;
+        }
+
+        .title {
+            color: $dark-gray-black;
+        }
+
+        .table-bets tbody th, .table-bets tbody td {
+            text-align: right;
+        }
+
+        .account-statement {
+            font-size: $font-size-tab;
+            @include padding(10px, 0, 0, 0);
+
+            table {
+                background-color: $white-color;
+            }
+        }
+
+        .login-history {
+            @include padding(10px, 0, 0, 0);
+
+            table {
+                td {
+                    line-height: 24px;
+                }
+            }
+        }
+
+        .my-wallet {
+           
+
+            font-size: $font-size-tab;
+            @include padding(10px, 0, 0, 0);
+
+            .tab-wallet {
+                border-left: 1px solid #c5c5c5;
+
+                .fairxpay.active, .fairxpay:hover {
+                    background-color: #ffe6ab !important;
+                }
+
+                .arropay.active, .arropay:hover {
+                    background-color: #ffffe6 !important;
+                }
+
+                .skrill.active, .skrill:hover {
+                    background-color: #ffe0f5 !important;
+                }
+
+                .neteller.active, .neteller:hover {
+                    background-color: #eeffd7 !important;
+                }
+
+                .tether.active, .tether:hover {
+                    background-color: #b4f2e0 !important;
+                }
+
+                .tabs-container {
+                    background-color: transparent;
+
+                    .tab-container {
+                        background-color: $white-color;
+                        //width: 8%;
+                        height: 35px;
+                        padding: 8px 10px;
+
+                        &:hover, &.active {
+                            border-top: 3px solid $tab-top-color !important;
+                            background-color: $payment-bg;
+                        }
+
+                        .tab-heading {
+                            padding: 0px;
+                            font-size: 14px;
+                            text-transform: capitalize;
+                            color: #000;
+                            top: 0;
+                            transform: unset;
+
+                            .fa {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+
+                .payment {
+                    float: left;
+                    width: 100%;
+                    padding: 12px;
+                    // background-color: $payment-bg;
+                    min-height: 100px;
+
+                    .wallet-input {
+                        float: left;
+                        width: 50%;
+
+                        label {
+                            width: 100%;
+                            float: left;
+                            color: #7c7c7c;
+                            margin: 0 0 1px 0;
+                            font-weight: normal;
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    .tab-text {
+                        margin: 0 0 12px 0;
+                        border: 1px solid $tab-text;
+                        border-radius: 4px;
+                        padding: 3px 5px 4px 5px;
+                        font-size: 13px;
+                        height: 29px;
+                        width: 100%;
+                    }
+
+                    .submit {
+                        border: 1px solid transparent;
+                        background-color: $wallet-submitbg;
+                        color: $wallet-submit;
+                        padding: 5px 25px;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        text-transform: capitalize;
+
+                        &:active, &:focus {
+                            outline: none !important;
+                        }
+                    }
+
+                    .history-link {
+                        margin-left: 35px;
+                        text-decoration: underline;
+                        font-size: 14px;
+                        vertical-align: middle;
+                    }
+
+                    .wallet-title {
+                        color: $wallet-title;
+                        text-transform: capitalize;
+
+                        .sub-text {
+                            font-size: 11px;
+                            font-weight: normal;
+                            float: right;
+                            text-transform: none;
+                            color: red;
+                        }
+                    }
+                }
+            }
+
+
+            .white-wrap {
+                background-color: $white-color;
+                @include padding(7px, 10px, 5px, 10px);
+                @include border('bottom', 1px, solid, $light-gray-blue);
+                margin-bottom: 15px;
+
+                h3 {
+                    margin: 0px 0px 10px 0;
+                    font-size: 15px;
+                    @include txt(bold);
+                }
+
+                .head-balance {
+                    //   @include border('right', 1px, solid, $grayish);
+                }
+
+                .total-bal {
+                    @include headline( $link-color-default, 30px);
+                    line-height: 36px;
+                    @include txt(bold);
+
+                    span {
+                        @include headline($light-gray-blue, 12px);
+                        @include txt(normal);
+                    }
+                }
+            }
+        }
+    }
+    /*-- center-part --*/
+}
+
+.account-content {
+    background: $body-color;
+}
+
+.table-bets {
+    font-size: $font-size-tab;
+    width: $width;
+    margin: 12px 0 18px 0;
+    //@include border(bottom, 1px, solid, $light-gray-blue);
+    caption {
+        background-color: $dark-blue;
+        color: $white-color;
+        @include padding(5px, 10px, 5px, 10px);
+        @include txt(bold);
+        @include border(bottom, 2px, solid, $light-gray-blue);
+    }
+
+    th {
+        text-align: right;
+
+        &:first-child {
+            text-align: left;
+        }
+    }
+
+    tbody {
+        background-color: $white-color;
+        font-size: 13px;
+
+        tr {
+            @include border(bottom, 1px, solid, $light-white);
+
+            th {
+                @include padding(6px, 5px, 6px, 5px);
+                color: $medium-gray-black;
+                background-color: $light-white;
+                text-align: right;
+                vertical-align: middle;
+                @include border(bottom, 1px, solid, $dark-blue);
+                @include border(top, 1px, solid, $dark-blue);
+            }
+
+            td {
+                @include padding(4px, 2px, 4px, 2px);
+                text-align: right;
+                vertical-align: middle;
+            }
+
+            .betid a.pl-avrg {
+                background-image: url('/public/images/report.png');
+                background-repeat: $back-norepeat;
+                background-position: -16px -110px;
+                padding-left: 15px;
+            }
+
+            .betid a.ml-avrg {
+                background-image: url('/public/images/report.png');
+                background-repeat: $back-norepeat;
+                background-position: -16px -127px;
+                padding-left: 15px;
+            }
+
+            .betid a.betprogress {
+                background-image: url('/public/images/gif/dual-ring.svg');
+                background-repeat: $back-norepeat;
+                padding-left: 20px;
+                background-position: unset;
+                background-size: 15px 15px;
+            }
+
+            .pl-avrg a {
+                background-position: 23px -112px;
+                @include padding(0px, 20px, 0px, 0px);
+            }
+            /*&:last-child {
+                border-bottom: none;
+            }*/
+        }
+
+        .profit-expand {
+            .profit-td {
+                text-align: left;
+                @include padding(0px, 0px, 0px, 0px );
+                border-top: none;
+            }
+
+            .table-bets {
+                margin: 0px 0 0 22% !important;
+                width: 74% !important;
+                display: table;
+                @include border('right', 1px, solid, $light-gray-blue);
+
+                tr {
+                    border: none;
+
+                    &:nth-child(even) {
+                        background-color: $light-grayish-blue;
+                    }
+
+                    td {
+                        border: none;
+                        box-shadow: none;
+                    }
+                }
+
+                .net-total {
+                    background-color: $nav-total-color !important;
+                    @include border('top', 1px, solid, $light-gray-blue);
+
+                    dd {
+                        @include padding(0px, 0px, 8px, 0px);
+                    }
+
+                    dt {
+                        @include resize (left, 85%);
+                        @include txt(normal);
+                    }
+
+                    .net_total {
+                        @include border('top', 1px, dotted, $light-gray-blue);
+                        @include padding(5px, 0px, 0px, 0px);
+                    }
+                }
+            }
+
+            .expand-arrow {
+                background-position: -17px -94px !important;
+                left: initial !important;
+                right: 35px !important;
+            }
+        }
+
+        .expand-table {
+            background-color: $light-grayish-blue;
+            margin: 10px 0;
+
+            .expand-td {
+                text-align: left;
+                @include padding(0px, 0px, 0px, 0px);
+                border-top: none;
+            }
+
+            td {
+                @include border('top', 1px, solid, $light-gray-blue);
+                @include border('bottom', 1px, solid, $light-gray-blue);
+                box-shadow: inset 0 2px 0 rgba(0,0,0,0.1);
+                @include position(relative);
+            }
+
+            .expand-arrow {
+                background-image: url('/public/images/report.png');
+                background-repeat: $back-norepeat;
+                background-position: -17px -103px;
+                height: 9px;
+                width: 10px;
+                @include position(absolute, top -1px left 24.1%);
+            }
+
+            .table-bets {
+                margin: 0 0 0 25%;
+                width: 74%;
+                min-width: 74%;
+                @include border('left', 1px, solid, $light-gray-blue);
+                @include border('right', 1px, solid, $light-gray-blue);
+
+                td {
+                    @include position (relative);
+                    border-top-color: $light-gray-blue;
+                    @include border('bottom', 1px, solid, $light-gray-blue);
+                }
+
+                th {
+                    border-top: none !important;
+                    box-shadow: inset 0 2px 0 rgba(0,0,0,0.1);
+                    background-color: $light-grayish-blue;
+                }
+            }
+        }
+    }
+
+    .info-text tr {
+        .td-date {
+            //line-height: 30px;
+            //font-size: 14px;
+            font-weight: bold;
+            text-align: left !important;
+        }
+
+        td {
+            label {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .info-text {
+        td {
+            span {
+                line-height: 20px !important;
+            }
+        }
+
+        label {
+            @include txt(normal);
+            margin: 0px;
+        }
+    }
+
+    .no-data {
+        @include padding(10px, 10px, 10px, 10px);
+        @include border(bottom, 1px, solid, $light-gray-blue);
+        text-align: left;
+    }
+}
+
+.admin-part {
+    .grid-ring {
+        width: 97.7%;
+    }
+}
+
+.admin-down {
+    .btn {
+        @include padding(6px, 7px, 6px, 7px);
+    }
+
+    .btn-default {
+        margin-left: 5px;
+    }
+}
+
+.my-wallet .tab-wallet {
+    position: relative;
+
+    .form-group {
+        margin-bottom: 15px !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control {
+        height: 30px;
+        border: 1px solid #cacaca;
+        border-radius: 3px;
+        padding: 0px 5px;
+        background: white;
+    }
+
+    a.tab-heading {
+        color: #68676a;
+        font-weight: bold;
+    }
+
+    .event-heading {
+        color: #000;
+        font-size: 17px;
+        margin: 0;
+        line-height: 26px;
+        text-transform: capitalize;
+        border-bottom: 1px solid rgba(15,35,39,.4);
+        margin-bottom: 20px;
+        padding: 10px 0 9.5px;
+    }
+
+    .payment {
+        border: 1px solid $gray-gains;
+        display: flex;
+        border-top: none;
+        padding: 20px;
+
+        small {
+            display: block;
+        }
+    }
+
+    .stake-btn {
+        height: 40px;
+        font-size: 15px !important;
+        font-weight: normal;
+        color: whitesmoke;
+        text-transform: unset;
+        width: 100%;
+        box-shadow: unset;
+        border: none;
+        background: conic-gradient(from 1turn,$p-btn-bg-1,$p-btn-bg-2);
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: conic-gradient(from 1turn,$p-btn-bg-2,$p-btn-bg-1);
+            box-shadow: 0 2px 0 0 $p-btn-shadow;
+        }
+    }
+
+    button[disabled] {
+        pointer-events: none;
+        color: black;
+        background: $p-btn-shadow;
+    }
+
+    .chg-pass {
+        padding: 20px;
+        width: 30%;
+        min-width: 250px;
+        clear: unset;
+        border: 1px solid $payment-bg;
+        background: $payment-bg;
+        border-radius: 4px;
+    }
+
+
+
+    .payment.tether {
+        //background-color: #b4f2e0;
+        min-height: 250px;
+    }
+
+    .fairxpay .chg-pass {
+        &.deposit {
+            width: 60%;
+
+            .bank-left {
+                width: 50%;
+                float: left;
+            }
+
+            .bank-right {
+                width: 50%;
+                float: left;
+            }
+
+            .bank-detail {
+                font-size: 14px;
+                padding: 5px 0px;
+
+                label {
+                    font-weight: bold;
+                    width: 130px;
+                    float: left;
+                    text-align: right;
+                    margin-right: 5px;
+                }
+            }
+
+            .qr-parent {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 25px 0px;
+
+                .qr-text {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px;
+                    background: #f6b800;
+                    border-radius: 3px;
+                    align-items: center;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    color: #0c811a;
+
+                    img {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+            .copy {
+                cursor: pointer;
+            }
+
+            .bank-options {
+                display: flex;
+                overflow-y: auto;
+
+                .bank-option {
+                    padding: 5px;
+
+                    .option-sec {
+                        background: #dad8d8;
+                        padding: 5px;
+                        border-radius: 3px;
+                        position: relative;
+                        //padding-bottom: 20px;
+                        cursor: pointer;
+
+                        &.active {
+                            box-shadow: 0 0 5px rgba(0, 0, 0, 0.50);
+                        }
+
+                        img {
+                            width: 100px;
+                            height: 32px;
+                        }
+
+                        .o-bottom-div {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+
+                            .last-line {
+                                color: #0c811a;
+                                font-size: 9px;
+                                padding-top: 5px;
+                                font-weight: bold;
+                            }
+
+                            .fa {
+                                font-size: 14px;
+                            }
+
+                            .fa-check-circle {
+                                color: #0c811a;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .deposit-form {
+                padding: 10px 5px;
+
+                .d-stake-btns {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+
+                    button {
+                        font-weight: bold;
+                        background-color: #f6b800;
+                        width: 32%;
+                        padding: 5px;
+                        border-radius: 3px;
+                        border: 1px solid #9e8325;
+                    }
+                }
+            }
+        }
+    }
+}
+.h100{height:100%;}

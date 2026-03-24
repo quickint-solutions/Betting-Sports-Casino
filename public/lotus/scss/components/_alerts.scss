@@ -1,0 +1,153 @@
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+.modal-content {
+    .alert-class {
+        left: 0px;
+        width: 100% !important
+    }
+}
+.alert-class {
+    position: relative !important;
+    top: -15px;
+    left: 82px;
+    width: 68% !important
+}
+.alert {
+    padding: 2px 6px !important ;
+    margin: 10px 0;
+    margin:0px !important;
+    font-size:12px;
+    border: {
+        width: 2px;
+        style: solid;
+        color: transparent;
+        radius: 2px;
+    }
+}
+
+.alert-danger {
+    background: $theme-danger;
+    color: $white-color;
+    border: none;
+}
+
+.alert-success {
+    background: $theme-success;
+    color: $white-color;
+    border: none;
+}
+
+.toast-error {
+  background-color: #e84c4d;
+}
+.mobile.toast-top-full-width{
+    margin-top:10px;
+}
+#toast-container > div{
+    padding:20px 20px 20px 20px;
+    opacity:1;
+}
+#toast-container > .toast-info {
+  background-image:unset !important;
+}
+#toast-container > .toast-wait {
+  background-image:unset !important;
+}
+#toast-container > .toast-error {
+  background-image:unset !important;
+}
+#toast-container > .toast-success {
+  background-image:unset !important;
+}
+#toast-container > .toast-warning {
+  background-image:unset !important;
+}
+
+:not(.no-enter)#toast-container > div.ng-enter
+{ 
+  -webkit-animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	        animation: swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+} 
+:not(.no-leave)#toast-container > div.ng-leave
+{
+    -webkit-animation: swing-out-top-bck 0.45s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+	        animation: swing-out-top-bck 0.45s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+}
+
+
+:not(.no-enter)#toast-container > div.ng-enter.ng-enter-active, 
+:not(.no-leave)#toast-container > div.ng-leave {
+    //opacity: 1;
+}
+
+:not(.no-leave)#toast-container > div.ng-leave.ng-leave-active,
+:not(.no-enter)#toast-container > div.ng-enter {
+    //opacity: 0;
+}
+
+@-webkit-keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+@keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes swing-out-top-bck {
+  0% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+}
+@keyframes swing-out-top-bck {
+  0% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+}

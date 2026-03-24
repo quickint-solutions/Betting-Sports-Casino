@@ -1,0 +1,146 @@
+﻿<div class="slip-wrap" ng-init="showUnmatched=true;showMatched=true;" style="max-height:{{$parent.$parent.rightPlaceBetHeight}}px">
+    <div class="bet-slip open-bet process-div">
+        <div class="bet-detail action-ctrl">
+            <input type="checkbox" id="chk-betinfo" ng-model="showBetInfo" ng-click="showAverageOdds = false" />
+            <label for="chk-betinfo">Show bet info</label>
+            <span style="margin-left:5px;" ng-show="isEventView">
+                <input type="checkbox" id="chk-betinfothisevent" ng-model="filterThisEventBets" ng-click="ctrl.showBetsThisEvent()" />
+                <label for="chk-betinfothisevent">Show bets for this event</label>
+            </span>
+            <div class="openbet-btn float-r">
+                <span class="grid-spinner" ng-show="openbet_loader.active()"><img class="outside" ng-src="{{spinnerImg}}" /> </span>
+                <a class="button btn-remove" ng-if="hasUnmatched" ng-click="ctrl.cancelAllBets()">{{'common.cancelall.button' | translate}}</a>
+                <!--<a class="button btn-remove" ng-click="ctrl.getOpenBetsAndExposure()">refresh</a>-->
+            </div>
+        </div>
+
+        <div class="openbet-filter">
+            <div class="unmatched-bet">
+                <a class="bet-title" ng-click="showUnmatched=!showUnmatched">
+                    unmatched bets<i class="arrow-icon" ng-class="{'icon-angle-down':showUnmatched,'icon-angle-up':!showUnmatched}" aria-hidden="true"></i>
+                </a>
+                <div class="bet-details" ng-class="{'show':showUnmatched}">
+                    <div class="bet-detail" ng-repeat="o in openBets" ng-if="hasUnmatched && (o.bets | betFilter:'sizeRemaining').length>0">
+                        <h4 class="event-name">
+                            <!---<i class="fa fa-circle" ng-class="{'in-play':b.inPlay,'out-play':!b.inPlay}" aria-hidden="true"></i>-->
+                            {{o.eventName}}
+                        </h4>
+                        <div ng-repeat="b in o.bets | betFilter:'sizeRemaining'" ng-init="ctrl.isInEdit(b);">
+                            <div class="bet-events" ng-class="{'back':b.side==1,'lay':b.side==2}">
+                                <div class="event-runner">
+                                    <div class="bet-time " ng-if="showBetInfo">{{'ref.label' | translate}}: {{b.betId}} || <kt-date data-date-value="b.createdOn"></kt-date></div>
+                                    <div class="short-amount">
+                                        <p>{{b.runnerName | shortme:22}}</p>
+                                        <span>
+                                            <a class="match-odd">{{b.marketName | shortme:22}}</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <table id="tb{{$index}}">
+                                    <tbody>
+                                        <tr class="">
+                                            <td class="col-odd">
+                                                <kt-price-ladder data-min="{{o.minUnitValue}}"
+                                                                 data-max="{{o.maxUnitValue}}"
+                                                                 data-interval="{{o.interval}}"
+                                                                 data-ladder-type="{{o.priceLadderType}}"
+                                                                 data-messages="messages"
+                                                                 data-value="b.newPrice"
+                                                                 data-value-changed="ctrl.updateBet(b)">
+                                                </kt-price-ladder>
+
+                                            </td>
+                                            <td class="col-stake ">{{b.sizeRemaining | toRate}}</td>
+                                            <td class="col-profit" ng-if="o.bettingType!=7 && o.bettingType!=2 ">{{(b.newPrice-1)*b.sizeRemaining  | toRate}}</td>
+                                            <td class="col-profit" ng-if="o.bettingType==7 || o.bettingType==2 ">{{b.sizeRemaining  | toRate}}</td>
+                                            <td class="col-delete">
+                                                <a class="button btn-remove" ng-click="ctrl.cancelBet(b)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bet-detail bet-text align-c" ng-if="!hasUnmatched">
+                        You have no unmatched bets
+                    </div>
+                </div>
+            </div>
+
+            <div class="matched-bet">
+                <a class="bet-title" ng-click="showMatched=!showMatched">
+                    matched bets<i class="arrow-icon" ng-class="{'icon-angle-down':showMatched,'icon-angle-up':!showMatched}" aria-hidden="true"></i>
+                </a>
+                <div class="bet-details" ng-class="{'show':showMatched}">
+                    <label class="action-ctrl" ng-if="hasMatched">
+                        <input type="checkbox" id="chk_conso" ng-model="$parent.showConsolidate" ng-click="showBetInfo=false" />
+                        <label for="chk_conso" style="margin-right:8px;">Consolidate</label>
+                        <input type="checkbox" id="chk_avg" ng-model="$parent.showAverageOdds" ng-click="$parent.showBetInfo=false" />
+                        <label for="chk_avg" style="margin-right:8px;">Average Odds</label>
+                        <input type="checkbox" id="chk_bydate" ng-model="$parent.showByDate" ng-click="showBetInfo=false" />
+                        <label for="chk_bydate" style="margin-right:8px;">Order by date</label>
+                    </label>
+                    <div class="bet-detail" ng-repeat="o in openBets" ng-if="hasMatched && (o.bets | betFilter:'sizeMatched').length>0">
+                        <h4 class="event-name">
+                            <!--<i class="fa fa-circle" ng-class="{'in-play':b.inPlay,'out-play':!b.inPlay}" aria-hidden="true"></i>-->
+                            {{o.eventName}}
+                        </h4>
+                        <h4 class="event-name" ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 " style="margin-top:0px;">
+                            {{o.marketName}}
+                        </h4>
+                        <ul class="slip-head" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">
+                            <li class="col-bet bold">{{o.marketName}}</li>
+                            <li class="col-odd">odds</li>
+                            <li class="col-stake">stake</li>
+                            <li class="col-profit">Profit/Liability</li>
+                        </ul>
+                        <ul class="slip-head" ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">
+                            <li class="col-bet" style="font-size:9px">runs</li>
+                            <li class="col-odd">odds (H-J)</li>
+                            <li class="col-stake">stake</li>
+                            <li class="col-profit">Profit/Liability</li>
+                        </ul>
+                        <table ng-if="!showAverageOdds" ng-repeat="b in ctrl.matchedBetFilter(o.bets)">
+                            <tbody>
+                                <tr ng-class="{'back':b.side==1,'lay':b.side==2}">
+                                    <td class="bet-time" ng-if="showBetInfo">{{'ref.label' | translate}}: {{b.betId}} || <kt-date data-date-value="b.createdOn"></kt-date></td>
+                                    <td class="col-bet">
+                                        <p class="bold" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.runnerName | shortme:22}}</p>
+                                        <p ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{b.avgPrice}}</p>
+                                    </td>
+                                    <td class="col-odd align-c">
+                                        <p ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.avgPrice }}</p>
+                                        <p ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{b.percentage}}</p>
+                                    </td>
+                                    <td class="col-stake ">{{b.sizeMatched  | toRate}}</td>
+                                    <td class="col-profit" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</td>
+                                    <td class="col-profit" ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table ng-if="showAverageOdds" ng-repeat="b in o.avgBets | betFilter:'sizeMatched'">
+                            <tbody>
+                                <tr ng-class="{'back':b.side==1,'lay':b.side==2}">
+                                    <td class="bet-time" ng-if="showBetInfo">{{'ref.label' | translate}}: {{b.id}} || <kt-date data-date-value="b.createdOn"></kt-date></td>
+                                    <td class="col-bet bold">
+                                        <p>{{b.runnerName | shortme:22}}</p>
+                                    </td>
+                                    <td class="col-odd align-c">{{b.price}}{{b.percentage && b.percentage!= 100 ? '('+b.percentage+'%)' : ''}}</td>
+                                    <td class="col-stake ">{{b.sizeMatched  | toRate}}</td>
+                                    <td class="col-profit" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.price-1)*b.sizeMatched  | toRate}}</td>
+                                    <td class="col-profit" ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{b.sizeMatched  | toRate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bet-detail bet-text  align-c" ng-if="!hasMatched">
+                        You have no matched bets
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

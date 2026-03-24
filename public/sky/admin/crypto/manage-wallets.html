@@ -1,0 +1,60 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">Manage Wallets</h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-translation-grid"
+             load-items="ctrl.getItems(params,filters)"
+             total="totalItems"
+             data-show-total="true" 
+             has-new-rights="false"
+             list-new-items="listNewItems"
+             cache-key="kttranslationgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+
+                    <td data-title="::'Chain' | translate" data-sortable="'chain'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getTokenChain(item.chain)}} </span>
+                    </td>
+                    <td data-title="::'Address' | translate"
+                        data-header-class="'size-xxl'" class="size-xxl">
+                        <span title="{{item.address}}">{{item.address}} </span>
+                    </td>
+
+                    <td data-title="::'Active?' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <i ng-show="item.isActive" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'Last Accessed' | translate"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.lastAccess}}">{{item.lastAccess | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnDelete{{$index}}" class="btn btn-primary"
+                           title="Copy Token Address"
+                           ng-click="$parent.$parent.$parent.ctrl.copyAddress(item)">
+                            <i class="fa fa-copy"></i>
+                        </a>
+
+                        <a id="btnEdit{{$index}}" class="btn btn-light" 
+                           title="Edit Token"
+                           ng-click="$parent.$parent.$parent.ctrl.AddEditToken(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+
+                        <a id="btnDelete{{$index}}" class="btn btn-danger" 
+                           title="Delete Token"
+                           ng-click="$parent.$parent.$parent.ctrl.removeWallet(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

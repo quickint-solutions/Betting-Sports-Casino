@@ -1,0 +1,297 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">
+                B2C Summary
+            </h1>
+        </header>
+        <div class="form-pannel">
+            <div class="row">
+                <div class="col-sm-2">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+
+                <div class="col-sm-2">
+                    <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:48%;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        {{'common.button.search' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <kt-grid grid-id="kt-b2csummary-grid"
+                 load-items="ctrl.getB2CSummary(params)"
+                 show-total="true"
+                 can-i-load="canILoad"
+                 data-items="gridItems"
+                 has-new-rights="true"
+                 new-button-label="Export to Excel"
+                 go-to-new-state="ctrl.exportData()"
+                 cache-key="kttb2csummarygrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable master_table "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-sm align-l">Date</th>
+                        <th class="align-l size-md">Agent</th>
+                        <th class="size-xsm boolean">New Clients</th>
+                        <th class="size-xsm boolean">Code Used</th>
+                        <th class="size-md boolean">1st/2nd/3rd</th>
+                        <th class="size-md boolean">Count/Deposit</th>
+                        <th class="size-md boolean">Count/Withdrawal</th>
+                        <th class="size-md boolean">Count/Bonus</th>
+                        <th class="size-md boolean">Net Deposit</th>
+                        <th class="size-sm boolean">Bonus Activated</th>
+                        <th class="size-sm boolean">Bonus Redeem</th>
+                        <th class="size-sm boolean">Bonus Expired</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="item in $data track by $index">
+                    <tr>
+                        <td class="size-sm align-l">
+                            <span class="bold">
+                                <kt-date data-date-value="item.date" data-format="dd-MM-yyyy" style="color:#909090"></kt-date>
+                            </span>
+                        </td>
+                        <td class="size-md align-l">
+                            <span>{{item.agentName}} </span>
+                        </td>
+                        <td class="size-xsm boolean">
+                            <span>
+                                {{item.newUserCount=item.newUsers.length}}
+                                <a ng-click="$parent.$parent.$parent.ctrl.showInlineDetail('showUsers',!item.showUsers,item);" ng-show="item.newUsers.length>0">&nbsp;<i class="fa fa-sitemap"></i></a>
+                            </span>
+                        </td>
+                        <td class="size-xsm boolean">
+                            <span>
+                                {{item.offerCount=item.bonusCodeList.length}}
+                                <a ng-click="$parent.$parent.$parent.ctrl.showInlineDetail('showBonusList',!item.showBonusList,item);" ng-show="item.bonusCodeList.length>0">&nbsp;<i class="fa fa-sitemap"></i></a>
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>
+                                {{item.firstDepositCount}}
+                                <a ng-click="$parent.$parent.$parent.ctrl.showInlineDetail('showFirstDepositList',!item.showFirstDepositList,item);"
+                                   ng-show="item.firstDepositCount>0"><i class="fa fa-sitemap"></i>&nbsp;</a>
+                            </span>/
+                            <span>
+                                {{item.secondDepositCount}}
+                                <a ng-click="$parent.$parent.$parent.ctrl.showInlineDetail('showSecondDepositList',!item.showSecondDepositList,item);"
+                                   ng-show="item.secondDepositCount>0"><i class="fa fa-sitemap"></i>&nbsp;</a>
+                            </span>/
+                            <span>
+                                {{item.thirdDepositCount}}
+                                <a ng-click="$parent.$parent.$parent.ctrl.showInlineDetail('showThirdDepositList',!item.showThirdDepositList,item);"
+                                   ng-show="item.thirdDepositCount>0"><i class="fa fa-sitemap"></i>&nbsp;</a>
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>{{item.depositCount}}</span>/
+                            <span>
+                                <a ng-click="$parent.$parent.$parent.ctrl.showTransactions(item,'D')"><u>{{item.deposit | toRate}}</u></a>
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>{{item.withdrawalCount}}</span>/
+                            <span>
+                                <a ng-click="$parent.$parent.$parent.ctrl.showTransactions(item,'W')"><u> {{item.withdrawal | toRate}}</u></a>
+                            </span>
+                        </td>
+                        <td class="size-md boolean">
+                            <span>{{item.bonusCount}}</span>/
+                            <span>
+                                <a ng-click="$parent.$parent.$parent.ctrl.showTransactions(item,'B')"><u> {{item.bonus | toRate}}</u></a>
+                            </span>
+                        </td>
+                        <td class="size-md boolean"><span>{{item.netDeposit | toRate}}</span></td>
+                        <td class="size-sm boolean">
+                            <span><a ng-click="$parent.$parent.$parent.ctrl.showBonusTransactions(item,'A')"><u>{{item.bonusActivated  | toRate}}</u></a></span>
+                        </td>
+                        <td class="size-sm boolean">
+                            <span><a ng-click="$parent.$parent.$parent.ctrl.showBonusTransactions(item,'R')"><u>{{item.bonusRedeem | toRate}}</u></a></span>
+                        </td>
+                        <td class="size-sm boolean">
+                            <span><a ng-click="$parent.$parent.$parent.ctrl.showBonusTransactions(item,'E')"><u>{{item.bonusExpired  | toRate}}</u></a></span>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.showUsers && item.newUsers.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Mobile</th>
+                                        <th class="boolean">Username</th>
+                                        <th class="boolean">Bonus Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in item.newUsers">
+                                        <td class="boolean">
+                                            <span>{{b.mobile }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.username}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.offerCode}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.showBonusList && item.bonusCodeList.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Bonus Code</th>
+                                        <th class="boolean">Count</th>
+                                        <th class="boolean">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in item.bonusCodeList">
+                                        <td class="boolean">
+                                            <span>{{b.offerCode}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.bonusCount}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.bonusAmount | toRate}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.showFirstDepositList && item.firstDeposit.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Mobile</th>
+                                        <th class="boolean">Username</th>
+                                        <th class="boolean">Deposit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in item.firstDeposit">
+                                        <td class="boolean">
+                                            <span>{{b.mobile }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.username}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.amount | toRate}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.showSecondDepositList && item.secondDeposit.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Mobile</th>
+                                        <th class="boolean">Username</th>
+                                        <th class="boolean">Deposit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in item.secondDeposit">
+                                        <td class="boolean">
+                                            <span>{{b.mobile }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.username}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.amount | toRate}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.showThirdDepositList && item.thirdDeposit.length>0">
+                        <td></td>
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="boolean">Mobile</th>
+                                        <th class="boolean">Username</th>
+                                        <th class="boolean">Deposit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in item.thirdDeposit">
+                                        <td class="boolean">
+                                            <span>{{b.mobile }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.username}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span>{{b.amount | toRate}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-sm bold">Total</td>
+                        <td class="size-md"></td>
+                        <td class="size-xsm boolean">{{$data | total:'newUserCount' | number:0}}</td>
+                        <td class="size-xsm boolean">{{$data | total:'offerCount' | number:0}}</td>
+                        <td class="size-md boolean">{{$data | total:'firstDepositCount'}}/{{$data | total:'secondDepositCount'}}/{{$data | total:'thirdDepositCount'}}</td>
+                        <td class="size-md boolean">{{$data | total:'depositCount' }}/{{$data | total:'deposit' | toRate}}</td>
+                        <td class="size-md boolean">{{$data | total:'withdrawalCount' }}/{{$data | total:'withdrawal' | toRate}}</td>
+                        <td class="size-md boolean">{{$data | total:'bonusCount' }}/{{$data | total:'bonus' | toRate}}</td>
+                        <td class="size-md boolean">{{$data | total:'netDeposit' | toRate}}</td>
+                        <td class="size-sm boolean">{{$data | total:'bonusActivated' | toRate}}</td>
+                        <td class="size-sm boolean">{{$data | total:'bonusRedeem' | toRate}}</td>
+                        <td class="size-sm boolean">{{$data | total:'bonusExpired' | toRate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

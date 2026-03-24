@@ -1,0 +1,305 @@
+﻿<div class="master-page-class">
+    <div class="dashboard"  kt-has-claim claims="{Claims: ['agent.referral.access']}">
+        <div class="balance-info">
+            <div class="admin-down">
+                <div class="header-balance referral">
+                    <div class="col-sm-12 col-xs-12" >
+                        <div class="row" ng-if="referral.refeLink">
+                            <div class="col-sm-12 col-xs-12">
+                                <span class="col-name float-l">Referral Link -> </span>
+                                <span class="col-name float-l mrg-left-10">{{referral.refeLink}} </span>
+                                <a ng-click="ctrl.copyReferLink()" class="btn btn-secondary mrg-left-10 float-l"><i class="fa fa-copy"></i></a>
+
+                                <span class="mrg-left-10 float-l col-name">||</span>
+                                <span class="col-name float-l mrg-left-10">Referral Code -> </span>
+                                <span class="col-name float-l mrg-left-10">{{referral.link}} </span>
+                                <a ng-click="ctrl.copyCode()" class="btn btn-secondary mrg-left-10 float-l"><i class="fa fa-copy"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard " ng-init="showBalance=false;">
+        <div class="balance-info">
+            <div class="admin-down">
+                <div class="header-balance">
+                    <div class="col-sm-10 col-xs-10">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-3">
+                                <span class="col-name float-l">Balance Up : </span>
+                                <span class="col-value  float-l" ng-class="{'negative':balanceInfo.balanceUp<0,'positive':balanceInfo.balanceUp>0}">
+                                    <kt-glc-code data-item="{{balanceInfo.balanceUp}}"></kt-glc-code>
+                                </span>
+                            </div>
+                            <div class="col-sm-3 col-xs-3">
+                                <span class="col-name float-l">Balance Down : </span>
+                                <span class="col-value  float-l" ng-class="{'negative':balanceInfo.balanceDown<0,'positive':balanceInfo.balanceDown>0}">
+                                    <kt-glc-code data-item="{{balanceInfo.balanceDown}}"></kt-glc-code>
+                                </span>
+                            </div>
+                            <div class="col-sm-3 col-xs-3">
+                                <span class="col-name float-l">Net Exposure : </span>
+                                <span class="col-value negative float-l" data-item=""><kt-glc-code data-item="{{balanceInfo.exposure}}"></kt-glc-code></span>
+                            </div>
+                            <div class="col-sm-3 col-xs-3">
+                                <span class="col-name float-l">Available Credit : </span>
+                                <span class="col-value float-l" data-item=""><kt-glc-code data-item="{{balanceInfo.availableCredit}}"></kt-glc-code></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-xs-2">
+                        <a ng-click="ctrl.getBalance()" class="btn btn-secondary float-r"><i class="fa fa-refresh"></i></a>
+                        <a ng-click="showBalance=!showBalance" class="btn btn-secondary float-r" style="margin-right:10px">
+                            {{showBalance ? 'Less ' : 'More '}}<i class="fa" ng-class="{'fa-angle-double-up':showBalance,'fa-angle-double-down':!showBalance}"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-view " ng-class="{'showme':showBalance}" ng-show="showBalance">
+                <div class="list-view-table">
+                    <div class="balninfo-table">
+                        <h1 class="event-heading">balance information </h1>
+                        <table class="table table-hover clickable master_table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">Balance</p>
+                                        <span class="float-r negative"><kt-glc-code data-item="{{balanceInfo.balance}}"></kt-glc-code></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">net exposure</p>
+                                        <span class="float-r negative"><kt-glc-code data-item="{{balanceInfo.exposure}}"></kt-glc-code></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">balance up</p>
+                                        <span class="float-r " ng-class="{'negative':balanceInfo.balanceUp<0,'positive':balanceInfo.balanceUp>0}">
+                                            <kt-glc-code data-item="{{balanceInfo.balanceUp}}"></kt-glc-code>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">balance down</p>
+                                        <span class="float-r " ng-class="{'negative':balanceInfo.balanceDown<0,'positive':balanceInfo.balanceDown>0}">
+                                            <kt-glc-code data-item="{{balanceInfo.balanceDown}}"></kt-glc-code>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">credit limit</p>
+                                        <span class="float-r"><kt-glc-code data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l">available credit</p>
+                                        <span class="float-r"><kt-glc-code data-item="{{balanceInfo.availableCredit}}"></kt-glc-code></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="float-l bold">total credit given to downline</p>
+                                        <span class="float-r">
+                                            <kt-glc-code data-item="{{balanceInfo.givenCredit}}" ng-show="balanceInfo.isBalanceLoaded"></kt-glc-code>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="admin-part mr-top-10">
+        <div class="content-wrap row">
+            <div class="chart-detail">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="growth">
+                                <p class="a-title">
+                                    Markets
+                                    <a class="v-btn float-r" ng-click="ctrl.setTotalMarket();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                </p>
+                                <h4 class="c-value">
+                                    <kt-odometer data-value="{{marketBox.inplayMarkets}}"></kt-odometer>
+                                    <span class="c-sub">In-Play</span>
+                                </h4>
+                                <div class="month-value">
+                                    <span class="p-value positive">
+                                        <i class="fa fa-database" aria-hidden="true" style="margin-right:3px;"></i>{{marketBox.totalMarkets}}
+                                    </span>
+                                    <span class="p-value">Total (excluding closed markets)</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="growth">
+                                <p class="a-title">
+                                    Users
+                                    <a class="v-btn float-r" ng-click="ctrl.setUserSummary();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                </p>
+                                <h4 class="c-value">
+                                    <kt-odometer data-value="{{userSummary.liveUser}}"></kt-odometer>
+                                    <span class="c-sub">Online Users</span>
+                                </h4>
+                                <div class="month-value">
+                                    <span class="p-value positive">
+                                        <i class="fa fa-user" aria-hidden="true" style="margin-right:3px;"></i>{{userSummary.totalUser}}
+                                    </span>
+                                    <span class="p-value">Total Users</span>
+                                    <a class="v-btn float-r" ui-sref="master.liveusers" target="_blank" style="margin-top: -7px;">
+                                        <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="growth">
+                                <p class="a-title">
+                                    Live Bets
+                                    <a class="v-btn float-r" ng-click="ctrl.setLivebetTotal();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                </p>
+                                <h4 class="c-value">
+                                    <kt-odometer data-value="{{bets.totalBets}}"></kt-odometer>
+                                    <span class="c-sub">Total active bets</span>
+                                </h4>
+                                <div class="month-value">
+                                    <span class="p-value negative" style="margin-left:-5px;">
+                                        <kt-glc-code data-special="true" data-item="{{bets.stake}}"></kt-glc-code>
+                                    </span>
+                                    <span class="p-value">Total stake matched</span>
+                                    <a class="v-btn float-r" ui-sref="master.livebets" target="_blank" style="margin-top: -7px;">
+                                        <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="growth">
+                                <p class="a-title">
+                                    Profit/Loss
+                                    <a class="v-btn float-r" ng-click="ctrl.setRecentProfitloss();"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                </p>
+                                <h4 class="c-value">
+                                    <kt-odometer data-value="{{pl.today | toRate}}" class="positive" ng-class="{'negative':pl.today<0}"></kt-odometer>
+                                    <span class="c-sub">Today</span>
+                                </h4>
+                                <div class="month-value">
+                                    <span class="p-value positive" ng-class="{'negative':pl.yesterday<0}">
+                                        {{pl.yesterday | toRate}}
+                                    </span>
+                                    <span class="p-value">Yesterday, </span>
+                                    <span class="p-value positive" ng-class="{'negative':pl.week<0}">
+                                        {{pl.week | toRate}}
+                                    </span>
+                                    <span class="p-value">Last 7 days</span>
+                                    <a class="v-btn float-r" ui-sref="master.myreport.downline" target="_blank" style="margin-top: -7px;">
+                                        <i class="fa fa-external-link negative" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 ">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div kt-chart id="plchart" data-options="plHistoryChartOption" data-chart-id="plchart" ng-if="plHistoryChartOption"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div kt-chart id="livebetchart" data-options="liveBetChartOption" data-chart-id="livebetchart" ng-if="liveBetChartOption"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 mr-top-10">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="dashboar-card">
+                            <div class="card-header">
+                                <div>Top Casino Users</div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="topUser.sorting=true;ctrl.loadUserWisePL()" ng-class="{'btn-secondary':topUser.sorting,'btn-default':!topUser.sorting}">Winner</button>
+                                    <button type="button" class="btn" ng-click="topUser.sorting=false;ctrl.loadUserWisePL()" ng-class="{'btn-secondary':!topUser.sorting,'btn-default':topUser.sorting}">Loser</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="ctrl.setUserCurrentTab('Day')" ng-class="{'btn-secondary':userCurrentTab=='Day','btn-default':userCurrentTab!='Day'}">Today</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setUserCurrentTab('Week')" ng-class="{'btn-secondary':userCurrentTab=='Week','btn-default':userCurrentTab!='Week'}">This Week</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setUserCurrentTab('Month')" ng-class="{'btn-secondary':userCurrentTab=='Month','btn-default':userCurrentTab!='Month'}">This Month</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setUserCurrentTab('LastMonth')" ng-class="{'btn-secondary':userCurrentTab=='LastMonth','btn-default':userCurrentTab!='LastMonth'}">Last Month</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th class="center">Round Played</th>
+                                            <th class="align-r">P&L</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="tu in topUserList track by $index">
+                                            <td>{{tu.username}}</td>
+                                            <td class="center">{{tu.roundPlayed}}</td>
+                                            <td class="align-r positive" ng-class="{'negative':tu.pl<0}">{{tu.pl | toRate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dashboar-card">
+                            <div class="card-header">
+                                <div>Top Casino Games</div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="topTable.sorting=true;ctrl.loadTableWisePL()" ng-class="{'btn-secondary':topTable.sorting,'btn-default':!topTable.sorting}">Winner</button>
+                                    <button type="button" class="btn" ng-click="topTable.sorting=false;ctrl.loadTableWisePL()" ng-class="{'btn-secondary':!topTable.sorting,'btn-default':topTable.sorting}">Loser</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="ctrl.setTableCurrentTab('Day')" ng-class="{'btn-secondary':tableCurrentTab=='Day','btn-default':tableCurrentTab!='Day'}">Today</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setTableCurrentTab('Week')" ng-class="{'btn-secondary':tableCurrentTab=='Week','btn-default':tableCurrentTab!='Week'}">This Week</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setTableCurrentTab('Month')" ng-class="{'btn-secondary':tableCurrentTab=='Month','btn-default':tableCurrentTab!='Month'}">This Month</button>
+                                    <button type="button" class="btn" ng-click="ctrl.setTableCurrentTab('LastMonth')" ng-class="{'btn-secondary':tableCurrentTab=='LastMonth','btn-default':tableCurrentTab!='LastMonth'}">Last Month</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Game Name</th>
+                                            <th class="center">Round Played</th>
+                                            <th class="align-r">P&L</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="tu in topTableList track by $index">
+                                            <td>{{tu.tablename}}</td>
+                                            <td class="center">{{tu.roundPlayed}}</td>
+                                            <td class="align-r positive" ng-class="{'negative':tu.pl<0}">{{tu.pl | toRate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

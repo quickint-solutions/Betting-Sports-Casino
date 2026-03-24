@@ -1,0 +1,649 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.exposure-border {
+    @include padding(1px, 8px, 1px, 8px);
+    @include border-radius(4px);
+    @include border-all(1px, solid, $verylight-green);
+    margin: 0 10px 0 6px;
+    float: right;
+    color: $theme-color;
+}
+
+
+.position-special {
+    .center-part {
+        .tab-desc {
+            .permission {
+                table {
+                    tr {
+                        td {
+                            font-size: 12px;
+                            line-height: 28px;
+                            min-width: 85px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sidenav {
+    .add-pin {
+        float: right;
+        color: $blue-color;
+        border-color: $blue-color;
+    }
+
+    .add-pin.pinned, .add-pin-square.pinned {
+        @include border-all(1px, solid, $light-green);
+        color: $light-green;
+    }
+}
+
+.full-position {
+    .filter-panel {
+        @include padding(5px, 5px, 5px, 5px);
+        margin: 0px;
+    }
+
+    .form-control {
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .btn {
+        font-size: 12px;
+        line-height: 1.1;
+    }
+
+    .table-bets {
+        border: none;
+
+        .list-view {
+            @include display(block);
+            @include resize($float-left, $width);
+          padding:0px;
+        }
+
+        table {
+            display: grid;
+        }
+
+        div[template-url="templates.pagination"] {
+           // width: 813px !important
+           margin-top:5px;
+        }
+    }
+
+    .full-position-table {
+        div[template-url="templates.pagination"] {
+            //width: 950px !important
+        }
+    }
+
+    .ui-select-choices-row > a {
+        @include padding(3px, 5px, 3px, 5px);
+
+        span {
+            font-size: 11px;
+        }
+    }
+
+    .tab-desc {
+        .full-market-back {
+            @include padding(0px, 0px, 4px, 0px);
+
+            a {
+                @include padding(0px, 3px, 0px, 3px);
+
+                .fa {
+                    margin-left: 2px;
+                }
+            }
+        }
+    }
+
+    .exposure-table {
+        .scorecard {
+            .game-head {
+                @include padding(5px, 5px, 5px, 5px);
+
+                .matches {
+                    color: $white-color;
+                }
+            }
+        }
+
+        .exposure-filter label {
+            font-weight: 400;
+            margin-right: 5px;
+        }
+
+        .full-market-back {
+            @include padding(3px, 0px, 2px, 0px);
+        }
+
+        div[template-url="templates.pagination"] {
+            //   max-width: 1526px !important;
+            width: 100% !important;
+        }
+
+        .table-score {
+            .tr-data {
+                border-bottom: 1px solid $border-color;
+
+                td {
+                    text-align: $text-center;
+
+                    .price {
+                        @include display(block);
+                        width: $width;
+                        color: $black-color;
+                        @include txt(bold);
+                    }
+
+                    .size {
+                        @include display(block);
+                        width: $width;
+                        color: #1e1e1e;
+                        @include txt(normal);
+                    }
+                }
+            }
+
+            .match-title {
+                width: 50%;
+                @include padding(3px, 3px, 3px, 3px);
+            }
+        }
+
+        .exposure-col, .exposure-2col {
+            background-color: transparent;
+
+            thead {
+                th {
+                    @include padding(6px, 5px, 6px, 5px);
+                }
+            }
+        }
+    }
+}
+
+.position-special {
+    .tab-desc {
+        .full-market-back {
+            font-size: 13px;
+            @include padding(0px, 0px, 4px, 0px);
+
+            a {
+                @include padding(0px, 3px, 0px, 3px);
+
+                .fa {
+                    margin-left: 2px;
+                }
+            }
+        }
+    }
+}
+
+.net-exposure {
+    font-size: 12px;
+    color: white;
+
+    .red {
+        color: #ff9393;
+    }
+
+    thead {
+        tr {
+            background-color: transparent !important;
+
+            th {
+                // color: $black-color !important;
+                text-align: $text-center;
+                @include padding(5px, 0px, 5px, 0px);
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            line-height: 25px;
+        }
+    }
+
+    .icons-list {
+        float: right;
+        width: 70px;
+
+        .fa-th-list {
+            padding: 2px 3px 3px;
+        }
+
+        .fa-sitemap {
+            padding: 2px 3px 3px;
+        }
+    }
+
+    .exposure-left {
+        @include resize($float-left, 50%);
+
+        .m-name {
+            width: 250px;
+        }
+    }
+
+    .exposure-right {
+        @include resize(right, 50%);
+
+        table {
+            tbody {
+                tr {
+                    @include border(bottom, 1px, solid, $border-color);
+                }
+            }
+        }
+    }
+
+    .event-name {
+        background: linear-gradient(to bottom,$mybook-header 84%, lighten($mybook-header,10%) 100%);
+        color: $white-color;
+        font-size: 14px;
+        @include padding(7px, 7px, 7px, 7px);
+        //box-shadow: inset 1px -1px 1px 0px lighten($mybook-header,10%);
+    }
+
+    .in-play {
+        margin-left: 5px;
+        color: #5dca5f;
+    }
+
+    .m-name {
+        background-color: $mybook-m-name; //#5059a7;
+        @include padding(3px, 0px, 3px, 5px);
+        color: $black-color;
+        width: 200px;
+        font-size: 13px;
+    }
+
+
+    .icons {
+        font-size: 13px;
+        @include padding(0px, 5px, 0px, 0px);
+        color: $black-color;
+        cursor: pointer;
+        //height: 32px;
+    }
+
+    .fa-dashboard {
+        // background-color: $mybook-dashboard; //#485096;
+    }
+
+    .fa-th-list {
+        //background-color: $mybook-list; //#373d73;
+    }
+
+    .fa-sitemap {
+        //background-color: #2f3462;
+    }
+
+    .stake {
+        background-color: #f1f1da; // #deeaf7;
+        color: #4d4a4a;
+        @include txt(bold);
+        min-width: 90px;
+        text-align: $text-center;
+        font-size: 13px;
+    }
+
+    .runner-pl {
+        background-color: #e5e5e5; // #e6f2ff;
+        @include txt(bold);
+        min-width: 90px;
+        text-align: $text-center;
+        font-size: 13px;
+
+        &.green-light {
+            color: $light-green;
+        }
+    }
+
+    .position-bg {
+        background: $mybook-open;
+    }
+
+    .fixedodds {
+        .icons {
+            color: $mybook-m-name;
+        }
+    }
+}
+
+.master-class .master_wrap .session-tr .session-table {
+    color: black;
+
+    thead {
+        background-color: #b2d0fc;
+    }
+}
+
+.exposure-detail .exposure-table .table-score tbody .tr-data .match-title {
+    padding: 4px 6px 6px 4px;
+}
+
+.exposure-detail .exposure-table .table-score tbody tr .match-title, .exposure-table .team-score tbody tr .team-name {
+    border: 1px solid #101010;
+    padding-top: 0;
+    background-color: transparent;
+    color: #fff;
+    line-height: 20px;
+    font-size: 15px !important;
+}
+
+.exposure-detail .userposition .exposure-col tbody .parent-tr {
+    background-color: #deeaf7 !important;
+    color: #000;
+}
+
+.master_wrap .exposure-detail .userposition, .master_wrap .exposure-detail .userposition .exposure-col thead tr {
+    background-color: $gray_black;
+}
+
+.sa-userposition {
+    //background-color: #37133f;
+    padding: 0 10px 10px 10px;
+
+    .session-runs .session-table thead {
+        background-color: #4f767c;
+    }
+
+    .icons {
+        font-size: 13px;
+        @include padding(0px, 6px, 0px, 0px);
+        //color: $mybook-icon;
+        cursor: $cursor;
+    }
+
+    .icons-list {
+        width: 70px;
+        float: right;
+        margin-top: 5px;
+
+        .fa-dashboard {
+            padding: 2px 3px 3px;
+        }
+
+        .fa-th-list {
+            padding: 2px 3px 3px;
+        }
+
+        .fa-sitemap {
+            padding: 2px 3px 3px;
+        }
+    }
+
+
+    .permission {
+        padding: 3px;
+    }
+
+    .exposure-col {
+        th, td {
+            width: auto;
+            min-width: 50px;
+            @include padding(5px, 0px, 5px, 5px);
+        }
+
+        .p-user {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        thead {
+            line-height: 22px;
+
+            th {
+                @include padding(5px, 0px, 5px, 5px);
+                color: #fff;
+            }
+
+            tr {
+                background-color: #8a8452;
+            }
+        }
+
+        tbody {
+            font-size: 13px !important;
+
+            .parent-tr {
+                background-color: #deeaf7 !important;
+                color: black;
+            }
+
+            tr.session-tr {
+                background-color: transparent;
+            }
+
+            tr {
+                border: none !important;
+                background-color: rgba(245, 245, 245, 0.1);
+
+                td {
+                    border: none !important;
+                    line-height: 25px;
+                }
+
+                .parent-box {
+                    //background-color: #373d73;
+                    width: 30px;
+                    margin: -2px;
+                    line-height: 30px;
+                    text-align: center;
+
+                    &.box2 {
+                        //  background-color: #192164;
+                    }
+                }
+
+                .p-user {
+                    // color: $white-color;
+                }
+            }
+        }
+
+        .fa-sort-amount-desc {
+            color: $theme-color;
+            margin-right: 4px;
+        }
+    }
+
+    .exposure-2col {
+        th, td {
+            width: 25%;
+        }
+    }
+}
+
+.exposure-detail {
+    .back2, .back3, .back1, .back-1, .back-2, .back-3,
+    .lay2, .lay3, .lay1, .lay-1, .lay-2, .lay-3 {
+        min-width: 63px;
+        border: 1px solid #947b97;
+
+        a {
+            font-size: 14px;
+            color: black;
+
+            .size {
+                font-size: 7px;
+            }
+        }
+    }
+
+    .permission {
+        overflow: auto;
+    }
+
+    .positive {
+        color: #85e819;
+    }
+
+    .negative {
+        color: #ff6868;
+    }
+
+    .userposition .exposure-col tbody tr {
+        border: none !important;
+        background-color: rgba(245,245,245,.1);
+
+        td {
+            border: none;
+            line-height: 25px;
+        }
+
+        .p-user {
+            color: #fff;
+            font-size: 12px;
+        }
+    }
+
+    .fa {
+        color: #a3f5ff !important;
+        padding-top: 5px;
+        padding-right: 5px;
+        font-size: 13px;
+    }
+
+    .fa-rotate-180 {
+        padding-top: 0;
+        padding-bottom: 5px;
+        padding-left: 5px;
+    }
+
+    .full-position-table {
+        padding: 6px 10px 0px 10px !important;
+    }
+
+    .sports_book .sports_data {
+        background-color: transparent;
+        color: white;
+
+        .sport_td, .sport_fulltd {
+            border: 1px solid #101010;
+
+            &:hover {
+                background: none;
+            }
+        }
+    }
+
+    .userposition .exposure-col td, .userposition .exposure-col th {
+        min-width: 150px;
+    }
+}
+
+.pl_table {
+
+
+    .list-view {
+        padding-bottom: 50px;
+    }
+
+    .border-r {
+        border-right: 1px solid #fff !important;
+    }
+
+    .list-view-table table.table .body-repeat:nth-child(odd) {
+        background-color: rgba(245,245,245,.1);
+
+        tr {
+            background-color: unset;
+        }
+    }
+
+    .list-view-table table.table .body-repeat:nth-child(even) {
+        background-color: unset;
+
+        tr {
+            background-color: unset;
+        }
+    }
+
+    .list-view-table table.table tbody tr:nth-child(odd) {
+        background-color: rgba(245,245,245,.1);
+    }
+
+    .list-view-table table.table tbody tr:nth-child(even) {
+        background-color: unset;
+    }
+}
+
+.pl_table .list-view .list-view-table table .no-bg, .pl_table .list-view .list-view-table table.no-bg {
+    background-color: transparent !important;
+}
+
+.master-class .pl-market .list-view .list-view-table table td {
+    overflow: unset;
+    text-overflow: unset;
+    white-space: unset;
+}
+
+.pad-0 {
+    padding: 0 !important;
+}
+
+.no-tr-hover:hover {
+    background-color: unset !important;
+}
+
+.pl_table .table > tbody > tr > td, .pl_table .table > tbody > tr > th, .pl_table .table > tfoot > tr > td, .pl_table .table > tfoot > tr > th, .pl_table .table > thead > tr > td, .pl_table .table > thead > tr > th {
+    border-top: none !important;
+}
+
+.table > tbody + tbody {
+    border: 0 !important;
+}
+
+.master-class .pl-market .list-view .list-view-table table thead tr th {
+    padding: 5px !important;
+}
+
+.master-class .list-view .list-view-table {
+    .positive {
+        color: #93ef2e;
+    }
+
+    .negative {
+        color: #ff6767;
+    }
+}
+
+.full_position {
+    .master-toggle .switch {
+        width: 60px;
+        height: 23px;
+        margin-top: 2px !important;
+    }
+
+    .master-toggle .switch-label {
+        font-size: 11px;
+    }
+
+    .master-toggle .switch-handle {
+        width: 20px;
+        height: 20px;
+        left: 1px;
+    }
+
+    .master-toggle .switch-input:checked ~ .switch-handle {
+        left: 39px;
+        top: 1px;
+    }
+
+
+    .master-toggle .switch-input:checked ~ .switch-label {
+        background: #ef3f31;
+    }
+}

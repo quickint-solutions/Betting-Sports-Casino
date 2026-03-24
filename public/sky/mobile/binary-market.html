@@ -1,0 +1,83 @@
+﻿<div class="scorecard" style="height: calc(100% - 0px);">
+
+    <div class="tab-desc" style="background-color:black" ng-if="bf_video || wcs_video">
+        <div class="black-back" style="margin-bottom:0" ng-click="videoExpanded=!videoExpanded">
+            <i class="fa faimg" aria-hidden="true" ng-class="{'fa-minus-square-o':videoExpanded, 'fa-plus-square-o':!videoExpanded}"></i>
+        </div>
+        <div class="collapse" ng-class="{'in':videoExpanded}">
+            <div ng-if="wcs_video">
+                <kt-video-player wcs-config="wcs_video" style="height:210px" pause-me="{{ !videoExpanded}}">
+                </kt-video-player>
+            </div>
+            <div class="bf-video" ng-if="bf_video">
+                <iframe scrolling="no" ng-src="{{bf_video}}"></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="gameHead" class="game-head column-2">
+        <div class="twoTeam">
+
+            <div class="game-visit bold">
+                <kt-rules data-market="fancyMarkets[0]"></kt-rules>&nbsp;{{fancyMarkets[0].event.name}}
+            </div>
+        </div>
+    </div>
+
+    <div class="game-info">
+        <span class="out-time" ng-if="!fullMarket.inPlay">
+            <i class="fa fa-clock-o"></i>
+            {{fancyMarkets[0].event.openDate | date:'EEE dd MMM, H:mm'}}
+        </span>
+    </div>
+
+    <div class="fancy-market" ng-if="(fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2]).length>0">
+        <div class="bets-wrap">
+            <table class="team-score " ng-repeat="m in fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2]">
+                <tbody id="tbody_{{m.id}}" ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}" style="display:inline-table; width:100%">
+                    <tr class="t-header" ng-if="$index==0">
+                        <th class="align-l match-title"></th>
+                        <th class="align-c oddsbox">{{'market.no.label' | translate}}</th>
+                        <th class="align-c oddsbox">{{'market.yes.label' | translate}}</th>
+                    </tr>
+                    <tr ng-init="m.pin=ctrl.isMarketPinned(m.id)" class="tr-data" id="tr_{{m.id}}_{{r.runner.id}}" ng-class="{'td_border':$last}" ng-repeat="r in m.marketRunner" ng-show="r.status<5">
+                        <th class="team-name" ng-if="$index==0" ng-class="{'set-middle':m.marketRunner.length>1}">
+                            <p>
+                                <i class="fa add-pin fa-thumb-tack" style="font-size:10px!important;" ng-click="ctrl.pinMe(m);" ng-class="{'pinned':m.pin,'blue-pin':!m.pin}"></i>
+                                <span>{{m.name}}</span>
+                            </p>
+                            <a class="new-info"><kt-rules data-market="m"></kt-rules></a>
+                            <div class="grey-icon float-r " ng-if="$index==0" ng-click="m.showSession=!m.showSession; ctrl.openBook(m.id,m.showSession)" ng-class="{'black-icon':m.pl}"></div>
+                        </th>
+                        <th class="team-name" ng-if="$index!=0"></th>
+
+                        <td colspan="2" ng-if="r.status!=1"><span>{{m.winner}}</span></td>
+                        <td ng-if="r.status==1" class="lay-1" kt-animate-on-change="r.layPrice[0].size" ng-class="{'td_border':!$parent.$last}"
+                            kt-click ng-click="ctrl.placeBet(m,2,r.runner.id,r.layPrice[0] ? r.layPrice[0].price : '',r.runner.name,r.layPrice[0] ? r.layPrice[0].percentage : '');">
+                            <kt-glc data-item="r.layPrice[0]" data-show-size="false"></kt-glc>
+                        </td>
+
+                        <td ng-if="r.status==1" class="back-1" kt-animate-on-change="r.backPrice[0].size" ng-class="{'td_border':!$parent.$last}"
+                            kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name,r.backPrice[0] ? r.backPrice[0].percentage : '');">
+                            <kt-glc data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                        </td>
+
+                    </tr>
+                    <tr ng-if="m.betOpenTime || m.betCloseTime" class="mobile-market-notification">
+                        <td colspan="8">
+                            <span>
+                                <i class="fa fa-line-chart"></i>
+                                <span ng-if="m.betOpenTime"> Open@<kt-date data-date-value="m.betOpenTime" data-format="dd MMM, H:mm"></kt-date></span>
+                                <span ng-if="m.betCloseTime">&nbsp;Close@<kt-date data-date-value="m.betCloseTime" data-format="dd MMM, H:mm"></kt-date></span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr ng-if="m.notification" class="mobile-market-notification">
+                        <td colspan="8">
+                            <span><i class="fa fa-microphone"></i><marquee>{{m.notification}}</marquee></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

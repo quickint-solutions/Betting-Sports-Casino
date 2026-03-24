@@ -1,0 +1,14 @@
+﻿<div class="menu-popup">
+    <div class="popup-overlay" ng-click="closeMe()"></div>
+    <div class="popup-content receipt" ng-if="!forQR">
+        <img ng-src="{{receiptImgBase64}}" />
+        <a class="k-close" ng-click="closeMe()"><i class="fa fa-close" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content receipt" ng-if="forQR">
+        <div style="width: 250px; height: 250px; display: flex; flex-direction: column; align-items: center;background: white;">
+            <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{receiptImgBase64}}" />
+            <a target="_blank" href="{{upiString}}" style="font-size: 18px; margin-bottom: 15px;">Click To Pay</a>
+        </div>
+        <a class="k-close" ng-click="closeMe()"><i class="fa fa-close" aria-hidden="true"></i></a>
+    </div>
+</div>

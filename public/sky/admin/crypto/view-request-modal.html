@@ -1,0 +1,82 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <label>Address :&nbsp;</label> {{request.address}} <button ng-click="ctrl.copyAddress()">Copy</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <label>Token :&nbsp;</label> {{request.token}}
+        </div>
+        <div class="input-group">
+            <label>Network :&nbsp;</label> {{ctrl.getTokenChain(request.chain)}}
+        </div>
+        <div class="input-group">
+            <label>Tranferable Amount :&nbsp;</label> {{request.amount-request.fee}}
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group float-r">
+            <img ng-src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{request.address}}" />
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-hide="request.status==2">
+    <div class="col-sm-4">
+        <div class="input-group">
+            <button type="button" class="btn btn-default" ng-click="ctrl.getTokenBalace()">Fetch {{request.token}} Balance</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group" style="line-height: 30px;" ng-show="request.tokenBalance">
+            <div>{{request.tokenBalance}} Available {{request.token}}</div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group" ng-show="request.tokenBalance">
+            <button type="button" class="btn btn-default" ng-click="ctrl.processWithdrawal()">
+                Transfer {{request.token}}
+                <i class="fa fa-spinner fa-spin fa-pulse fa-fw" ng-show="transferProgress"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="request.transactionHash">
+    <div class="col-sm-12">
+        Transaction submitted with : {{request.transactionHash}}
+    </div>
+    <div class="col-sm-12 mr-top-10" ng-show="transferMsg">
+        <b>{{transferMsg}}</b>
+    </div>
+</div>
+<div class="row" ng-hide="request.status==2 || request.transactionHash">
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">Status</span>
+            <select class="form-control" ng-model="request.status">
+                <option ng-repeat="s in wStatus" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-show="existingStatus!=request.status">
+        <button type="submit" class="btn btn-primary modal-button" ng-click="ctrl.saveWithdrawalStatus()">
+            Save
+        </button>
+    </div>
+</div>
+<div class="row" ng-hide="request.status==2 || request.transactionHash">
+    <div class="col-sm-8">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-conf" ng-model="token.confirmed" class="check">
+            <label for="chk-conf">Select if transferred token <b>manually</b>, to mark this request as confirm</label>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-show="token.confirmed">
+        <button type="submit" class="btn btn-primary modal-button" ng-click="ctrl.saveWithdrawalStatus()">
+            Save
+        </button>
+    </div>
+</div>

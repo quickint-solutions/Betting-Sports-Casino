@@ -1,0 +1,34 @@
+﻿<tr class="position-bg">
+    <td style="text-align:left;padding-left:15px">
+        <a class="p-user" >
+            {{sm.username}}
+            <span class="icons-list">
+                <i class="fa float-r" ng-click="ctrl.open_Close_Check_Position(sm,true);" ng-if="sm.downline" ng-class="{'fa-sitemap':!sm.open,'fa-sort-amount-asc fa-rotate-180':sm.open}"></i>
+                <i class="icon-ladder icons fa float-r" ng-click="ctrl.openBook($event,sm)"></i>
+            </span>
+        </a>
+    </td>
+    <td><span class="market-team" ng-class="{'green-light':sm.maxWin>=0,'negative':sm.maxWin<0}"> {{sm.maxWin  | toRate}}</span></td>
+    <td><span class="market-team" ng-class="{'green-light':sm.pl>=0,'negative':sm.pl<0}"> {{sm.pl  | toRate}}</span></td>
+</tr>
+<tr>
+    <td colspan="3">
+        <table>
+            <tbody id="tbody_{{sm.userId}}"></tbody>
+        </table>
+    </td>
+</tr>
+<tr ng-if="sm.downline && sm.open" style="background-color:rgba(245, 245, 245, 0);">
+    <td colspan="3" style="padding:0px">
+        <table ng-repeat="d in sm.downline track by $index" style="margin-top:7px;">
+            <thead>
+                <tr>
+                    <th style="padding:0px;"></th>
+                    <th style="width:200px;padding:0px;"></th>
+                    <th style="width:200px;padding:0px;"></th>
+                </tr>
+            </thead>
+            <tbody ng-include="sessionpositionChildTemplate" ></tbody>
+        </table>
+    </td>
+</tr>

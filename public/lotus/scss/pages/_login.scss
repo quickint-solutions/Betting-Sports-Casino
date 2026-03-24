@@ -1,0 +1,297 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+
+[ui-view="main"] {
+    height: $height;
+    width: $width;
+}
+
+.login {
+    width: $width;
+    height: $height;
+
+    .signup-form {
+        top: 18%;
+        transform: translateY(-18%)
+    }
+}
+
+div.login-casino {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    .game-lobby {
+        float: left;
+        background-color: white;
+        width: 100%;
+
+        .text-label {
+            padding-bottom: 10px;
+        }
+
+        .heading-text {
+            padding: 10px 0px 0 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .title-text {
+            padding: 10px 0px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .gambling-title {
+            border-bottom: 1px dotted;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px 0px 0 0;
+            margin-bottom: 7px;
+        }
+
+        .section {
+            p {
+                padding-bottom: 10px;
+            }
+
+            .disc {
+                list-style-type: disc;
+                padding-left: 45px;
+                margin-bottom: 12px !important;
+
+                li {
+                    display: list-item;
+                    line-height: 22px;
+                }
+
+                ul {
+                    list-style-type: circle;
+                    padding-left: 45px;
+                }
+            }
+        }
+    }
+
+    .policy {
+        float: left;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+        letter-spacing: 0.5px;
+        margin: 0;
+        padding: 9px 10px;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .casino-header {
+        .casino-logo {
+            height: 80px;
+        }
+    }
+
+    .pop-info {
+        float: left;
+        width: 100%;
+        padding: 20px 25px;
+    }
+}
+
+.login-page {
+    @include position(relative);
+    top: 30%;
+    transform: translateY(-30%);
+
+    .login-link {
+        width: 450px;
+        margin: 0 auto;
+        padding: 15px 0 0 0;
+        text-align: center;
+
+        a {
+            color: $login-link;
+            font-size: 12px;
+        }
+
+        .gambling {
+            float: left;
+            width: 100%;
+            line-height: 15px;
+            padding: 3px 0 0 0;
+        }
+
+        .age {
+            border: 1.5px solid $login-link;
+            border-radius: 100%;
+            font-size: 9px;
+            padding: 3px 1px;
+            margin-left: 4px;
+        }
+    }
+
+    .header-top {
+        width: 320px;
+        margin: 0 auto;
+
+        .betfair-img {
+            width: 100%;
+            margin: auto;
+        }
+
+        .confirm-text {
+            color: $confirm
+        }
+
+        .sub-text {
+            color: $sub-text;
+            float: right;
+        }
+
+        .register {
+            color: $register-color;
+            margin-left: 5px;
+        }
+
+        .login-text {
+            color: $login-text;
+        }
+
+        .login-user {
+            color: $login-user;
+        }
+
+        .login-form {
+            padding: 25px;
+
+            p {
+                margin: 0 0 5px 0 !important;
+            }
+
+            input {
+                @include border-all(2px, solid, $border-color);
+                width: $width;
+                height: 36px;
+                padding: 6px 15px;
+                font-size: 12px !important;
+                border-radius: 3px !important;
+
+                &:focus {
+                    border: 2px solid #0f2327;
+                    outline: none !important
+                }
+            }
+
+            .captcha-div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                input {
+                    width: 49%;
+                    @include padding(6px, 12px, 6px, 12px);
+                }
+
+                .code {
+                    width: 49%;
+                    @include line-height(32px);
+                    border-radius: 3px !important;
+                    @include border-all(2px, solid, $border-color);
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    span {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+                }
+            }
+
+            .login-btn {
+                margin: 25px 0 0 0 !important;
+
+                .btn-login {
+                    // @include padding(7px, 16px, 7px, 16px);
+                    // @include headline($white-color, 15px);
+                    //  @include border-radius(3px);
+                    // background-color: $login-btn;
+                    //border-bottom-color: $login-border;
+                    //border-right-color: $login-border;
+                    min-height: 30px;
+                    line-height: 30px;
+                    padding: 0 12px;
+                    font-size: 14px;
+                    border-radius: 0px !important;
+                    background-color: $login-btn;
+                    color: $login-btn-color;
+                    border-bottom: 2px solid $login-border;
+                    border-right: 2px solid $login-border;
+                    opacity: 1;
+
+                    &:hover {
+                        //box-shadow: 1.5px 1.5px 0px 0px $login-shadow;
+                        background-color: $login-btn-hover;
+                    }
+                }
+            }
+
+            .alert-wrapper {
+                position: absolute !important;
+                top: -27px;
+                left: unset !important;
+                width: $width !important;
+            }
+        }
+    }
+}
+
+.recaptchaTerms {
+    color: white;
+    padding-top: 12px;
+    display: block;
+
+    a {
+        color: #ffd64a;
+    }
+}
+
+.gradient-border {
+    --border-width: 1px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //width: 300px;
+    //height: 200px;
+    //font-family: Lato, sans-serif;
+    //font-size: 2.5rem;
+    //text-transform: uppercase;
+    //color: white;
+    //background: #222;
+    border-radius: var(--border-width);
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient( 60deg, hsl(224, 85%, 66%), hsl(269, 85%, 0%), hsl(314, 85%, 66%), hsl(359, 85%, 0%), hsl(44, 85%, 66%), hsl(89, 85%, 0%), hsl(134, 85%, 66%), hsl(179, 85%, 0%) );
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 4s alternate infinite;
+    }
+}
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}

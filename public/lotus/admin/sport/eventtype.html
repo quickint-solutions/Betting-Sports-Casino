@@ -1,0 +1,65 @@
+﻿<div class="content-wrap">
+    <div class="">
+        <header>
+            <h1 class="title">{{'eventtypes.label' | translate}}</h1>
+        </header>
+        <kt-grid grid-id="kt-eventtype-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 show-total="true"
+                 has-new-rights="true"
+                 list-new-items="listNewItems"
+                 cache-key="kteventtypegrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id" ng-click="ctrl.selectedRow($index)" ng-class="{'selected-row':selectedIndex==$index}">
+
+                        <td data-title="::'eventtype.name.label' | translate"
+                            data-header-class="'size-lg'" class="size-lg"
+                            data-sortable="'name'">
+                            <span title="{{item.name}}" ng-click="$parent.$parent.$parent.ctrl.viewEvents(item)">
+                                {{item.name}}
+                            </span>
+                        </td>
+                        <td data-title="::'eventtype.source.label' | translate"
+                            data-header-class="'size-md boolean'" class="size-md boolean">
+                            <span ng-if="item.eventSource==1">B</span>
+                            <span ng-if="item.eventSource==2">M</span>
+                        </td>
+                        <td data-title="::'eventtype.isactive.label' | translate"
+                            data-header-class="'size-md boolean'" class="size-md boolean">
+                            <i ng-show="item.isActive" class="fa fa-check"></i>
+                        </td>
+                        <td data-title="::'eventtype.showinmenu.label' | translate"
+                            data-header-class="'size-md boolean'" class="size-md boolean">
+                            <i ng-show="item.showInMenu" class="fa fa-check"></i>
+                        </td>
+                        <td data-title="::'eventtype.displayorder.label' | translate"
+                            data-sortable="'displayorder'"
+                            data-header-class="'size-md boolean'" class="size-md boolean">
+                            <span>{{item.displayOrder}}</span>
+                        </td>
+                        <td data-header-class="'boolean'" class="boolean"
+                            data-title="::'grid.button.action.header' | translate">
+                            <a id="btnEdit{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.addEditEventType(item)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a id="btnViewComp{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.viewEvents(item)">
+                                <i class="fa fa-eye"></i>
+                                {{'events.label' | translate}}
+                            </a>
+                            <a id="btnaddEvent{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.addEvent(item)">
+                                <i class="fa fa-plus"></i>
+                                {{'events.label' | translate}}
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

@@ -1,0 +1,343 @@
+/// Mixin for creating a mobile-first media query using min-width.
+/// 1. The `sm` breakpoint represents the breakpoint to target everything from 768px wide and up.
+/// 2. The `md` breakpoint represents the breakpoint to target everything from 1024px wide and up.
+/// 3. The `lg` breakpoint represents the breakpoint to target everything from 1200px wide and up.
+/// 4. The `xl` breakpoint represents the breakpoint to target everything from 1600px wide and up.
+///
+/// @param {String} $breakpoint - The breakpoint (sm, md, lg or xl) for the styles defined in this block.
+///
+/// @content The given content will be wrapped inside a media query.
+///
+/// @throw Throws an error when the given breakpoint is not found in the list of available breakpoints.
+///
+/// @example scss - Usage
+///   .foo {
+///     font-size: 1.5em;
+///     
+///     @include respond-to('md') {
+///       font-size: 0.75em;
+///     }
+///   }///
+/// @example css - CSS output
+///   .foo {
+///     font-size: 1.5em;
+///   }
+///
+///   @media only screen and (min-width: 1024px) {
+///     .foo {
+///       font-size: 0.75em;
+///     }
+///   }
+
+@mixin respond-to($breakpoint) {
+  $breakpoints: (
+    'xs': (min-width: 640px),
+    'sm': (min-width: 768px),
+    'md': (min-width: 1024px),
+    'lg': (min-width: 1200px),
+    'xl': (min-width: 1600px),
+  );
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media only screen and #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+
+/// Mixin used to render a FontAwesome icon
+///
+/// @param {String} $content-value - The FontAwesome icon content-value (eg. '\f105')
+
+@mixin include-fa-icon($content-value) {
+  content: $content-value;
+  font: {
+    family: FontAwesome;
+    style: normal;
+    weight: normal;
+  }
+  text-decoration: inherit;
+}
+
+
+
+/// Mixin used to embed a webfont.
+///
+/// @param {String} $family - The name of the font (to be used in CSS)
+/// @param {String} $filename - The path and name of the webfont files (without file extension)
+/// @param {String | Number} $weight - The font weight (e.g. normal, bold, 100, 300, 500, ...)
+/// @param {String} $style - The font style (normal, italic, ...)
+///
+/// @example scss - Usage
+///   @include font-face('Museo Sans', '../fonts/museo-sans/museo-sans_100', 100, normal);
+///
+/// @example css - CSS output
+///   @font-face {
+///     font-family: 'Museo Sans';
+///     src: url('../fonts/museo-sans/museo-sans_100.eot');
+///     src: url('../fonts/museo-sans/museo-sans_100.eot?#iefix') format('embedded-opentype'),
+///          url('../fonts/museo-sans/museo-sans_100.woff2') format('woff2'),
+///          url('../fonts/museo-sans/museo-sans_100.woff') format('woff'),
+///          url('../fonts/museo-sans/museo-sans_100.ttf') format('truetype');
+///     font-weight: 100;
+///     font-style: normal;
+///   }
+
+@mixin font-face($family, $file, $weight: false, $style: false) {
+  @font-face {
+    font-family: quote($family);
+    src: url('#{$file}.eot');
+    src: url('#{$file}.eot?#iefix') format('embedded-opentype'),
+         url('#{$file}.woff2') format('woff2'),
+         url('#{$file}.woff') format('woff'),
+         url('#{$file}.ttf') format('truetype');
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
+  }
+}
+
+
+
+/// Set a style on all link states for a given property of a link with one mixin call.
+///
+/// @param {String} $property - The property to set the linked state for.
+/// @param {Number | String | Color | Boolean | List | Map} $normal - The property's value in the default state.
+/// @param {Number | String | Color | Boolean | List | Map} $hover [false] - The property's value in the hover state.
+/// @param {Number | String | Color | Boolean | List | Map} $active [false] - The property's value in the active state.
+/// @param {Number | String | Color | Boolean | List | Map} $visited [false] - The property's value in the visited state.
+
+@mixin generic-link-style($property, $normal, $hover: false, $active: false, $visited: false) {
+  #{$property}: $normal;
+  &:link {
+    #{$property}: $normal;
+  }
+  &:visited {
+    @if $visited {
+      #{$property}: $visited;
+    } @else {
+      #{$property}: $normal;
+    }
+  }
+  &:focus {
+    #{$property}: $normal;
+  }
+  &:hover {
+    @if $hover {
+      #{$property}: $hover;
+    } @else {
+      $hover: $normal;
+      #{$property}: $hover;
+    }
+  }
+  &:active {
+    @if $active {                        
+      #{$property}: $active;
+    } @else {
+      #{$property}: $hover;
+    }
+  }
+}
+
+/// Mixin used to set the `color` property of in various link states.
+///
+/// @param {Color} $normal - The color in the default state.
+/// @param {Color} $hover [false] - The color in the hover state.
+/// @param {Color} $active [false] - The color in the active state.
+/// @param {Color} $visited [false] - The color in the visited state.
+///
+/// @example scss - Usage
+///   a {
+///     @include link-colors(#00c, #0cc, #c0c, #ccc);
+///   }
+///
+/// @example css - CSS output
+///   a { color: #00c; }
+///   a:link { color: #00c; }
+///   a:visited { color: #ccc; }
+///   a:focus { color: #00c; }
+///   a:hover { color: #0cc; }
+///   a:active { color: #c0c; }
+
+@mixin link-colors($normal, $hover: false, $active: false, $visited: false) {
+  @include generic-link-style(color, $normal, $hover, $active, $visited);
+}
+
+/// Mixin used to set the `background-color` property of in various link states.
+///
+/// @param {Color} $normal - The background-color in the default state.
+/// @param {Color} $hover [false] - The background-color in the hover state.
+/// @param {Color} $active [false] - The background-color in the active state.
+/// @param {Color} $visited [false] - The background-color in the visited state.
+///
+/// @example scss - Usage
+///   a {
+///     @include link-background-colors(#00c, #0cc, #c0c, #ccc);
+///   }
+///
+/// @example css - CSS output
+///   a { backgroundcolor: #00c; }
+///   a:link { backgroundcolor: #00c; }
+///   a:visited { backgroundcolor: #ccc; }
+///   a:focus { backgroundcolor: #00c; }
+///   a:hover { backgroundcolor: #0cc; }
+///   a:active { backgroundcolor: #c0c; }
+
+@mixin link-background-colors($normal, $hover: false, $active: false, $visited: false) {
+  @include generic-link-style(background-color, $normal, $hover, $active, $visited);
+}
+
+/// Font smoothing
+
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+/// CSS3 calc functionality with fallback.
+
+@mixin calc($property, $expression, $fallback: null) {
+  @if $fallback != null {
+    #{$property}: $fallback;
+  }
+  #{$property}: calc(#{$expression});
+}
+
+/// Mixin for cross-browser min-height support.
+///
+/// @param {String} $min-height - The breakpoint (sm, md, lg or xl) for the styles defined in this block
+///
+@mixin min-height($min-height) {
+  min-height: $min-height;
+  height: auto !important;
+  height: $min-height;
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin headline ($color, $size) {
+  color: $color;
+  font-size: $size;
+}
+
+@mixin txt($weight) {
+    @if $weight == bold { font-weight: bold;}
+    @else { font-weight: normal;}
+}
+
+@mixin resize($float, $width){
+    float:$float;
+    width:$width;
+}
+
+@mixin padding ( $t-padding, $r-padding, $b-padding, $l-padding) {
+    padding-top: $t-padding;
+    padding-right: $r-padding;
+    padding-bottom: $b-padding;
+    padding-left: $l-padding;
+}
+
+@mixin display($display) {
+    @if $display == block { display:block;}
+    @else { display:inline-block;}
+}
+
+@mixin position($position, $args: ()) {
+      $offsets: top right bottom left;
+      position: $position;
+      @each $offset in $offsets {                                       
+        $index: index($args, $offset);                                  
+    
+        @if $index {                                                     
+          @if $index == length($args) {                                 
+            #{$offset}: 0;                                               
+          }
+          @else {                                                      
+            $next: nth($args, $index + 1);                              
+            @if is-valid-length($next) {                               
+              #{$offset}: $next;                                        
+            }
+            @else if index($offsets, $next) {                            
+              #{$offset}: 0;                                             
+            }
+            @else {                                                      
+              @warn "Invalid value `#{$next}` for offset `#{$offset}`."; 
+            }
+          }
+        }
+      }
+}
+
+@mixin border-all($width, $style, $color) {
+  border-width: $width;
+  border-style: $style;
+  border-color: $color;
+}
+
+@mixin border($direction, $width, $style, $color) {
+  border-#{$direction}: $width $style $color;
+}
+
+@mixin border-radius($size) {
+    -webkit-border-radius: $size;
+    -moz-border-radius: $size;
+    border-radius: $size;
+}
+
+$break-small: 320px;
+$break-extra-small:480px;
+$break-extra-medium:640px;
+$break-medium: 768px;
+$break-large: 1200px;
+$break-extra_large: 1366px;
+
+$mq-mobile-landscape	: 480px !default;
+$mq-tablet-landscape	: 1024px !default;
+
+
+@mixin respond-to2($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == extra-small-screens {
+    @media screen and (max-width: $break-extra-small) and (min-width: $break-small + 1 )   { @content; }
+  }
+  @else if $media == extra-medium-screens {
+    @media screen and (max-width: $break-extra-medium ) and (min-width: $break-extra-small + 1 )   { @content; }
+  }
+  @else if $media == medium-screens {
+    @media screen and (max-width: $break-medium - 1) and (min-width: $break-small + 1 )   { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (max-width: $break-large) and (min-width: $break-medium) { @content; }
+  }
+}
+
+
+@mixin tablet-only {
+	@media only screen and (min-width : $mq-mobile-landscape + 1) and (max-width : $mq-tablet-landscape) {
+		@content;
+	}
+}
+
+// $size: 45px;
+
+@mixin line-height($size) {
+    line-height: $size;
+}

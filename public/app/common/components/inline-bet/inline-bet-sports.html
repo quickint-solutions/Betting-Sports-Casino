@@ -1,0 +1,101 @@
+﻿
+<div id="bet-slip" ng-init="toPrice=price">
+    <div class="bet-slip" style="position: relative; top: -3px; z-index: 1;" ng-class="{'back':side==1,'lay':side==2}">
+        <div class="overlay" ng-show="animateLoader">
+            <div class="loader d-flex">
+                <div id="bet-loading" style="width: 50px; height: 50px; overflow: hidden; margin: auto;"></div>
+            </div>
+        </div>
+        <div class="bet-input-container">
+            <div class="offer-form">
+                <div class="offer-input-group">
+                    <div class="input-group">
+                        <div class="bet-minus" ng-hide="disableOdds">
+                            <button type="button" class="dec btn btn-secondary" ng-click="ctrl.down()" ng-disabled="disableOdds">
+                                <span class="material-icons">remove</span>
+                            </button>
+                        </div>
+                        <input class="form-control" ng-disabled="disableOdds" ng-blur="ctrl.priceLeave()"
+                               kt-number-only allow-decimal="true" positive-only="true" ng-model="price">
+                        <div class="bet-plus" ng-hide="disableOdds">
+                            <button type="button" class="dec btn btn-secondary" ng-disabled="disableOdds" ng-click="ctrl.up()">
+                                <span class="material-icons">add</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-group mr-3">
+                        <span ng-if="bettingType==8" style="font-size:14px;">
+                            &nbsp; -  {{(price*1)+(toPrice*1)-1}}
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <div class="bet-minus">
+                            <button type="button" class="dec btn btn-secondary" ng-click="ctrl.downSize()">
+                                <span class="material-icons">remove</span>
+                            </button>
+                        </div>
+                        <input ng-model="size" ng-change="ctrl.sizeChanged()" kt-number-only allow-decimal="true" positive-only="true"
+                               placeholder="Stake" class="form-control">
+                        <div class="bet-plus">
+                            <button type="button" class="dec btn btn-secondary" ng-click="ctrl.upSize()">
+                                <span class="material-icons">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-offer-form-group">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="input-group">
+                            <div class="bet-minus" ng-hide="disableOdds">
+                                <button type="button" class="dec btn btn-secondary" ng-click="ctrl.down()" ng-disabled="disableOdds">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                            </div>
+                            <input class="form-control" ng-disabled="disableOdds" ng-blur="ctrl.priceLeave()"
+                                   kt-number-only allow-decimal="true" positive-only="true" ng-model="price">
+                            <div class="bet-plus" ng-hide="disableOdds">
+                                <button type="button" class="dec btn btn-secondary" ng-disabled="disableOdds" ng-click="ctrl.up()">
+                                    <span class="material-icons">add</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="bet-minus">
+                                <button type="button" class="dec btn btn-secondary" ng-click="ctrl.downSize()">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                            </div>
+                            <input ng-model="size" ng-change="ctrl.sizeChanged()" kt-number-only allow-decimal="true" positive-only="true"
+                                   placeholder="Stake" class="form-control">
+                            <div class="bet-plus">
+                                <button type="button" class="dec btn btn-secondary" ng-click="ctrl.upSize()">
+                                    <span class="material-icons">add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="default-stake">
+                    <div class="stake">
+                        <a ng-repeat="s in stakeConfig.stake | filter:{isActive:true}"
+                           ng-click="ctrl.stakeClick(s.stake)"><span>{{s.stake}}</span></a>
+
+                        <a ng-click="ctrl.stakeClick(0,true)" class="clear-btn">Clear</a>
+                    </div>
+                </div>
+                <div class="multi-form-button pt-2 pb-2">
+                    <div class="d-flex justify-content-end flex-wrap align-items-center">
+                        <button class="btn cancel-btn" ng-click="ctrl.cancelInlineBet()">
+                            <span>Cancel</span>
+                        </button>
+                        <button class="btn bet-place-btn" kt-has-claim claims="{Claims: ['client.bet.place']}" ng-click="ctrl.submitBet()" kt-click>
+                            <span class="material-icons">check</span>
+                            <span>Place Bet</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

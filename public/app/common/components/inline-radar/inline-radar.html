@@ -1,0 +1,123 @@
+﻿<div class="radar-view" ng-init="ctrl.s_b_tab=0;">
+    <div class="bm-special">
+        <div class="bm-tab">
+            <div ng-repeat="r in market.marketRunner" class="tab-head"
+                 ng-click="ctrl.s_b_tab=$index"
+                 ng-class="{'active':ctrl.s_b_tab==$index}">
+                {{r.runner.name}}
+                <span ng-if="r.pl!=0" style="margin-right: 10px;"><small ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">(P&L : {{r.pl }})</small></span>
+                <div class="process-counter">
+                    <div class="counter-betprocess" ng-cloak="" ng-show="r.radar_processor.active()">
+                        <div class="col-xs-12 betprocess">
+                            <div class="row">
+                                <div class="loader">
+                                    <div class="bet-process">
+                                        <span class="delay">{{r.radar_processor.trackingCount()}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="rd-icon tab-close" ng-click="ctrl.openRadaraView();" ng-show="showFullOption=='true'" title="Fullscreen">
+                <i class="fa fa-arrows-alt " title="Fullscreen"></i>
+            </span>
+            <div class="tab-close">
+                <i class="fa fa-remove" ng-click="market.openBookBuilder=false;"></i>
+            </div>
+        </div>
+        <div class="bm-content">
+            <div class="runner-content" ng-repeat="r in market.marketRunner" ng-show="$index==ctrl.s_b_tab">
+                <div class="odds-content">
+                    <div class="rd-table-div">
+                        <table class="rd-table">
+                            <thead>
+                                <tr>
+                                    <th class="rd-th amt-td back-2">Pending</th>
+                                    <th class="rd-th amt-td back-2">Traded</th>
+                                    <th class="rd-th amt-td back-2">Back</th>
+                                    <th class="rd-th odds-td">Odds</th>
+                                    <th class="rd-th amt-td lay-2">Lay</th>
+                                    <th class="rd-th amt-td lay-2">Traded</th>
+                                    <th class="rd-th amt-td lay-2">Pending</th>
+                                </tr>
+                                <tr class="summary-data">
+                                    <th class="rd-th amt-td">{{r.radarData | total:'backUnmatched' | toRate}}</th>
+                                    <th class="rd-th amt-td">{{r.radarData | total:'backMatched' | toRate}}</th>
+                                    <th class="rd-th amt-td"></th>
+                                    <th class="rd-th"></th>
+                                    <th class="rd-th amt-td"></th>
+                                    <th class="rd-th amt-td">{{r.radarData | total:'layMatched' | toRate}}</th>
+                                    <th class="rd-th amt-td">{{r.radarData | total:'layUnmatched' | toRate}}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rv in r.radarData">
+                                    <td class="rd-td amt-td">
+                                        <div ng-show="rv.backUnmatched>0" ng-click="ctrl.cancelBet(r,rv.backBetIds)">
+                                            {{rv.backUnmatched | toRate}}
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                    <td class="rd-td amt-td"><span ng-show="rv.backMatched>0"><a>{{rv.backMatched | toRate}}</a></span></td>
+                                    <td class="rd-td amt-td" ng-class="{'back-1':rv.backSize>0,'back-2':!rv.backSize || rv.backSize<=0}" ng-click="ctrl.placeBMBet(1,r,rv.odds);">
+                                        <span ng-if="rv.backSize>0">
+                                            {{rv.backSize | toRate}}
+                                        </span>
+                                        <span class="no-size" ng-if="!rv.backSize || rv.backSize<=0">Place a bet</span>
+                                    </td>
+                                    <td class="rd-td odds-td"><span>{{rv.odds}}</span></td>
+                                    <td class="rd-td amt-td" ng-class="{'lay-1':rv.laySize>0,'lay-2':!rv.laySize || rv.laySize<=0}" ng-click="ctrl.placeBMBet(2,r,rv.odds);">
+                                        <span ng-if="rv.laySize>0">
+                                            {{ rv.laySize | toRate }}
+                                        </span>
+                                        <span class="no-size" ng-if="!rv.laySize || rv.laySize<=0">Place a bet</span>
+                                    </td>
+                                    <td class="rd-td amt-td"><span ng-show="rv.layMatched>0">{{rv.layMatched | toRate}}</span></td>
+                                    <td class="rd-td amt-td">
+                                        <div ng-show="rv.layUnmatched>0" ng-click="ctrl.cancelBet(r,rv.layBetIds)">
+                                            {{rv.layUnmatched | toRate}}
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bottom-line">
+                    <div class="stake-content">
+                        <div>Select Stake : </div>
+                        <div class="section-item" ng-show="!ctrl.editStake">
+                            <a class="stake-btn" ng-class="{'select':r.selectedStake==s.stake}" ng-click="r.selectedStake=s.stake"
+                               ng-repeat="s in r.stakeConfig.stakeList">
+                                {{s.stake}}
+                            </a>
+                            <a ng-click="ctrl.editStake=true" class="join-now-button">
+                                {{'common.button.edit' | translate}}
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="section-item" ng-show="ctrl.editStake">
+                            <input type="text"
+                                   ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                                   ng-repeat="s in r.stakeConfig.stakeList">
+
+                            <a class="join-now-button" ng-click="ctrl.editStake=false;">
+                                Save<i class="fa fa-save" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bottom-right">
+                        <a ng-click="ctrl.cancelAllBets(r);" class="join-now-button">
+                            Delete All Bets
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

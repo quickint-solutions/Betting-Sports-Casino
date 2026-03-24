@@ -1,0 +1,79 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'translations.label' | translate}} ({{ctrl.$stateParams.langName | uppercase}})</h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'translation.search.key.placeholder' | translate}}"
+                       autofocus ng-model="search.key" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="{{'translation.search.value.placeholder' | translate}}"
+                       autofocus ng-model="search.value" class="form-control">
+            </div>
+            
+            <div class="col-sm-2 checkbox">
+                <input type="checkbox" id="chk-isui" ng-model="search.isUi">
+                <label for="chk-isui" style="color:#ffb80c" >{{'translation.isui.label' | translate}}?</label>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:100%;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {{'common.button.search' | translate}}
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-default" tabindex="10" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    {{'common.button.reset' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-translation-grid"
+             load-items="ctrl.getItems(params,filters)"
+             total="totalItems"
+             data-show-total="true"
+             has-new-rights="true"
+             cache-key="kttranslationgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'translation.key.label' | translate" data-sortable="'key'"
+                        data-header-class="'size-xl'" class="size-xl">
+                        <span title="{{item.key}}">{{item.key}} </span>
+                    </td>
+                    <td data-title="::'translation.value.label' | translate" data-sortable="'value'"
+                        data-header-class="'size-xl'" class="size-xl">
+                        <span title="{{item.value}}">{{item.value}}</span>
+                    </td>
+                    <td data-title="::'translation.isui.label' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <i ng-show="item.isUi" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light" ng-hide="item.edit"
+                           title="Edit Translation"
+                           ng-click="$parent.$parent.$parent.ctrl.editTranslation(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnDelete{{$index}}" class="btn btn-danger" ng-hide="item.edit"
+                           title="Delete Translation"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteTranslation(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

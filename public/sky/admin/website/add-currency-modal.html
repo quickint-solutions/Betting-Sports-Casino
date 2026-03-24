@@ -1,0 +1,55 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Name</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'currency.name.placeholder' | translate}}"
+                   required autofocus ng-model="data.name" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Code</span>
+            <input type="text" minlength="1" maxlength="5"
+                   placeholder="{{::'currency.code.placeholder' | translate}}"
+                   required ng-model="data.code" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Rate</span>
+            <input type="text" maxlength="6" kt-number-only allow-decimal="true"
+                   placeholder="{{::'currency.rate.placeholder' | translate}}"
+                   required ng-model="data.rate" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Fraction #.00</span>
+            <input type="text" maxlength="1" kt-number-only
+                   placeholder="{{::'currency.fractional.placeholder' | translate}}"
+                   required ng-model="data.fractional" class="form-control">
+        </div>
+        <h4 class="text-uppercase mr-top-24">Casino Configuration</h4>
+        <div class="input-group">
+            <span class="input-group-addon">Fairdeal Code</span>
+            <input type="text" minlength="1" maxlength="5"
+                   placeholder="Please enter fairdeal currency code"
+                   ng-model="data.fairDealCode" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Casino Rate</span>
+            <input type="text" maxlength="6" kt-number-only allow-decimal="true"
+                   placeholder="{{::'currency.rate.placeholder' | translate}}"
+                   ng-model="data.casinoRate" class="form-control">
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-showInMenu" ng-model="data.showPopup" class="check">
+            <label for="chk-showInMenu">Display conversation message?</label>
+        </div>
+
+        <h4 class="text-uppercase mr-top-24">Super Exchange Setting</h4>
+        <div class="input-group">
+            <span class="input-group-addon">Super Exchange Code</span>
+            <input type="text" minlength="1" maxlength="5"
+                   placeholder="Please enter super exchange code"
+                   ng-model="data.superExchangeCode" class="form-control">
+        </div>
+    </div>
+</div>

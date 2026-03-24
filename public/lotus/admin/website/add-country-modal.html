@@ -1,0 +1,45 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">Country Name</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="Country name"
+                   required autofocus ng-model="data.name" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Country Code</span>
+            <input type="text" minlength="1" maxlength="5"
+                   placeholder="Country code"
+                   required ng-model="data.code" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Dial Code</span>
+            <input type="text"
+                   placeholder="Country dialCode"
+                   required ng-model="data.dialCode" class="form-control">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">Channel</span>
+            <select class="form-control" ng-model="data.supportedChannel">
+                <option ng-repeat="w in supportedChannelList" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Provider</span>
+            <select class="form-control" ng-model="data.provider">
+                <option ng-repeat="w in oTPProviderList" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-showInMenu" ng-model="data.isAllow" class="check">
+            <label for="chk-showInMenu">Is Active?</label>
+        </div>
+    </div>
+</div>

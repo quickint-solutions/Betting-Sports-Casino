@@ -1,0 +1,25 @@
+﻿<tbody name="session_tbody_{{id}}" class="session-runs">
+    <tr class="session-tr no-tr-hover">
+        <td class="td-left" colspan="6" ng-hide="ladders.length>5"></td>
+        <td class="td-right">
+            <table class="session-table">
+                <thead>
+                    <tr>
+                        <th>Runs</th>
+                        <th>P&L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="g in grpPositions track by $index">
+                        <td>
+                            <span >{{g.start}}</span>
+                            <span ng-hide="g.start==g.end || $last">{{' - '+g.end}}</span>
+                            <span ng-show="$last">+</span>
+                        </td>
+                        <td><span class="p_value" title="{{g.pl | toRate}}" ng-class="{'positive':g.pl>=0,'negative':g.pl<0}">{{g.pl | toRate}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</tbody>

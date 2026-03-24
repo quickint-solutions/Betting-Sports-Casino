@@ -1,0 +1,48 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-4">
+                <div ng-if="!member.readonly">
+                    <input type="checkbox" id="chk-eventtype" ng-model="isSamePtConfig"
+                           ng-change="ctrl.ptConfigSameAll(isSamePtConfig)" class="check">
+                    <label for="chk-eventtype">Same for all sports</label>
+                </div>
+            </div>
+            <div class="col-sm-3"> {{parentPSname}} Position(%) </div>
+            <div class="col-sm-1" ng-if="!member.readonly && member.userType!=5"></div>
+            <div class="col-sm-3" ng-if="member.userType!=5"> {{myPSname}} Max Position(%) </div>
+            <div class="col-sm-1" ng-if="!member.readonly"></div>
+        </div>
+    </div>
+</div>
+<div class="row mr-top-10" ng-repeat="p in ptConfigList">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-4">
+                {{p.ptCodeName}}
+            </div>
+            <div class="col-sm-3">
+                <input ng-if="!member.readonly" type="text" placeholder="0" ng-model="p.takePt"
+                       ng-change="ctrl.ptConfigChange('takePt')"
+                       ng-blur="ctrl.validatePT(p)" class="form-control"
+                       ng-class="{'error-input':!p.isvalid}" kt-number-only allow-decimal="true"
+                       ng-disabled="$index>0 && isSamePtConfig" />
+                <span ng-if="member.readonly">{{p.takePt}}</span>
+            </div>
+            <div class="col-sm-1" ng-if="!member.readonly && member.userType!=5">
+                <span class="plus">+</span>
+            </div>
+            <div class="col-sm-3" ng-if="member.userType!=5">
+                <input ng-if="!member.readonly" type="text" placeholder="0" ng-model="p.givePt"
+                       ng-change="ctrl.ptConfigChange('givePt')" class="form-control"
+                       ng-blur="ctrl.validatePT(p)" kt-number-only allow-decimal="true"
+                       ng-class="{'error-input':!p.isvalid}"
+                       ng-disabled="$index>0 && isSamePtConfig" />
+                <span ng-if="member.readonly">{{p.givePt}}</span>
+            </div>
+            <div class="col-sm-1" ng-if="!member.readonly">
+                <span class="limit-value"><i class="fa fa-angle-left"></i>= {{p.maxpt}}</span>
+            </div>
+        </div>
+    </div>
+</div>

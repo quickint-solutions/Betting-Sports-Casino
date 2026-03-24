@@ -1,0 +1,17 @@
+﻿
+<div ng-scrollbars>
+    <div class="mobile-inner-menu" >
+        <h1 class="title bold">{{ctrl.$stateParams.name}}</h1>
+        <div ng-show="(gameList).length>0">
+            <span class="match-status green bold" style="font-size:15px">
+                <i class="icon-play" aria-hidden="true"></i>in play({{(gameList).length}})
+            </span>
+            <div class="inner-mb-menu">
+                <a ng-repeat="g in gameList " ui-sref="mobile.seven.base.livegamesmarket({eventid:g.id})">
+                    {{ g.name}}
+                    <i class="icon-play green float-r" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="event-heading">Manage Offers</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="float-r">
+                    <a class="btn btn-secondary" ng-click="ctrl.addEditOffer()">
+                        Add New
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing">
+        <kt-grid grid-id="kt-clarification-grid"
+                 load-items="ctrl.getItems(params,filters)"
+                 show-total="true"
+                 cache-key="ktclarificationgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr ng-repeat="item in $data track by item.id">
+                        <td data-title="::'user.name.label' | translate"
+                            data-sortable="'Title'" data-header-class="'size-md'" class="size-md">
+                            <span>{{item.title | shortme:30}} </span>
+                        </td>
+                        <td data-title="::'Offer On' " data-header-class="'boolean'" class="boolean">
+                            <span>{{$parent.$parent.$parent.ctrl.getOfferOn(item.offerOn)}} </span>
+                        </td>
+                        <td data-title="::'Offer Type' " data-header-class="'boolean'" class="boolean">
+                            <span>{{$parent.$parent.$parent.ctrl.getOfferType(item.offerType)}} </span>
+                        </td>
+                        <td data-title="::'Value' " data-header-class="'boolean size-xsm'" class="boolean size-xsm">
+                            <span>{{item.offerType==1 ? (item.value | toRate) : item.value}} </span>
+                        </td>
+                        <td data-title="::'Offer Used/Budget' " data-header-class="'boolean'" class="boolean">
+                            <span>{{item.offerUsedBudget ? (item.offerUsedBudget | toRate) : 0}}/{{item.offerBudget ? (item.offerBudget | toRate) : 0}} </span>
+                        </td>
+                        <td data-title="::'User Count/Max' " data-header-class="'boolean'" class="boolean">
+                            <span>{{item.offerUserUsed ? item.offerUserUsed : 0}}/{{item.offerUserLimit}} </span>
+                            <span ng-if="item.offerUserUsed>0">
+                                <a ui-sref="admin.offerlog({id:item.id})" target="_blank"><i class="fa fa-external-link"></i></a>
+                            </span>
+                        </td>
+                        <td data-title="::'Website' " data-header-class="'boolean'" class="boolean">
+                            <span>{{item.websiteName}} </span>
+                        </td>
+                        <td data-title="::'Order' " data-header-class="'boolean size-xsm'" class="boolean size-xsm">
+                            <span>{{item.displayOrder}} </span>
+                        </td>
+                        <td data-title="::'Start' " data-header-class="'boolean'" class="boolean">
+                            <span>{{item.startDate | date:'dd-MM-yyyy HH:mm'}} </span>
+                        </td>
+                        <td data-title="::'End' " data-header-class="'boolean'" class="boolean">
+                            <span>{{item.endDate | date:'dd-MM-yyyy HH:mm'}} </span>
+                        </td>
+
+                        <td data-title="::'grid.button.action.header' | translate"
+                            data-header-class="'boolean size-md'" class="boolean size-md">
+                            <a id="btnEdit{{$index}}" class="btn btn-light"
+                               ng-click="$parent.$parent.$parent.ctrl.addEditOffer(item)">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a id="delete{{$index}}" class="btn btn-danger"
+                               ng-click="$parent.$parent.$parent.ctrl.deleteOffer(item.id)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

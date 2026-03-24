@@ -1,0 +1,103 @@
+﻿<div class="card">
+    <div class="card-header"><h3>BONUS STATEMENT</h3></div>
+    <div class="card-header" style="border-radius: 0px;">
+        <div class="filter-type-block">
+            <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                <div class="d-flex flex-row mr-2">
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.fromdate"
+                                   is-open="fopened"
+                                   placeholder="{{'fromdate.placeholder' | translate}}"
+                                   ng-click="fopened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="to-block">TO</div>
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.todate"
+                                   is-open="topened"
+                                   placeholder="{{'todate.placeholder' | translate}}"
+                                   ng-click="topened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.refreshGrid();">
+                    <i class="material-icons">search</i>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <kt-grid grid-id="kt-bonusstatement-grid"
+                 load-items="ctrl.getBonusStatement(params)"
+                 show-total="true"
+                 cache-key="ktbonusstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable "
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-smd">Code</th>
+                        <th class="size-smd boolean">Bonus Amount</th>
+                        <th class="size-lg boolean">Required Turnover to Activate</th>
+                        <th class="size-lg boolean">Required Turnover to Withdraw</th>
+                        <th class="size-md boolean">Bonus Date</th>
+                        <th class="size-md boolean">Bonus Expiry</th>
+                        <th class="size-sm boolean">Is Expired?</th>
+                    </tr>
+                </thead>
+                <tbody class="info-text">
+                    <tr ng-repeat="item in $data track by $index">
+                        <td class="size-smd bold align-l">{{item.bonusCode}}</td>
+                        <td class="size-smd boolean">{{item.bonusAmount | toRate}}</td>
+                        <td class="size-lg boolean">
+                            <div class="position-relative" ng-show="item.requiredTurnover>0">
+                                <uib-progressbar max="item.requiredTurnover | toRateOnly" value="item.currentTurnover | toRateOnly"
+                                                 type="info" class="progress-striped active">
+
+                                </uib-progressbar>
+                                <div class="position-absolute" style="top: 0; left: 30%; line-height: 18px; color: black;">
+                                    {{item.currentTurnover | toRateOnly}} / {{item.requiredTurnover | toRateOnly}}
+                                </div>
+                            </div>
+                            <div ng-show="item.requiredTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-lg boolean">
+                            <div class="position-relative" ng-show="item.requiredWithdrawalTurnover>0">
+                                <uib-progressbar max="item.requiredWithdrawalTurnover | toRateOnly" value="item.currentWithdrawalTurnover | toRateOnly"
+                                                 type="info" class="progress-striped active">
+                                </uib-progressbar>
+                                <i class="position-absolute" style="top: 0; left: 30%; line-height: 18px; color: black;">
+                                    {{item.currentWithdrawalTurnover | toRateOnly}} / {{item.requiredWithdrawalTurnover | toRateOnly}}
+                                </i>
+                            </div>
+                            <div ng-show="item.requiredWithdrawalTurnover<=0">Instant</div>
+                        </td>
+                        <td class="size-md boolean">
+                            <kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm"></kt-date>
+                        </td>
+                        <td class="size-md boolean">
+                            {{item.expiredOn | toDays:1}}
+                        </td>
+                        <td class="size-sm boolean">
+                            <i class="fa fa-check" ng-show="item.isExpired"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

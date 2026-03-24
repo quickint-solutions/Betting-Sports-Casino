@@ -1,0 +1,49 @@
+﻿<div class="content-wrap">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">{{'setting.label' | translate}}</h1>
+            </header>
+            <kt-grid grid-id="kt-setting-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     has-new-rights="true"
+                     new-button-label="{{'common.button.addnew' | translate}}"
+                     go-to-new-state="ctrl.addEditSetting()"
+                     cache-key="ktsettinggrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id">
+                            <td data-title="::'user.name.label' | translate"
+                                data-sortable="'name'" data-header-class="'size-md'" class="size-md">
+                                <span>{{item.name}} </span>
+                            </td>
+                            <td data-title="::'setting.key.label' | translate"
+                                data-sortable="'settingKey'" data-header-class="'size-xl'" class="size-xl">
+                                <span>{{item.settingKey}} </span>
+                            </td>
+                            <td data-title="::'setting.value.label' | translate"
+                                data-sortable="'settingValue'" data-header-class="'align-l'" class="align-l">
+                                <span>{{item.settingValue | shortme:75}} </span>
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean size-xl'" class="boolean size-xl">
+                                <a id="btnEdit{{$index}}" class="btn btn-light"
+                                   ng-click="$parent.$parent.$parent.ctrl.addEditSetting(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a id="btnDelete{{$index}}" class="btn btn-danger" title="Delete Setting"
+                                   ng-click="$parent.$parent.$parent.ctrl.deleteSetting(item)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿<div class="main-account">
+    <div class="sidebar-content left-aside">
+        <div class="sidebar">
+
+            <h3 class="bold">Member</h3>
+            <ul class="side-list">
+                <li kt-has-claim claims="{Claims: ['ui.client.payment.crypto','ui.client.payment.offlinepayment','ui.client.payment.fairex','ui.client.payment.arropay','ui.client.payment.neteller','ui.client.payment.skrill']}">
+                    <a class="side-item" ui-sref="base.account.transferonline">
+                        <span class="sid-img"  >
+                            <i class="fa fa-money y-icon" aria-hidden="true"></i>
+                            <span>Deposit/Withdrawal</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+                <li>
+                    <a class="side-item" ui-sref="base.account.passwordchange">
+                        <span class="sid-img" >
+                            <i class="fa fa-lock y-icon" aria-hidden="true"></i>
+                            <span>Change Password</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+            </ul>
+            <h3 class="bold">Main Dashboard</h3>
+            <ul class="side-list">
+                <li kt-has-claim claims="{Claims: ['client.bet.view']}">
+                    <a class="side-item" ui-sref="base.account.bets.current">
+                        <span class="sid-img" >
+                            <i class="fa fa-list-alt y-icon" aria-hidden="true"></i>
+                            <span>mybet</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+                <li>
+                    <a class="side-item" ui-sref="base.account.profitloss">
+                        <span class="sid-img" >
+                            <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                            <span>profit and loss</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+                <li>
+                    <a class="side-item" ui-sref="base.account.fdprofitloss">
+                        <span class="sid-img" >
+                            <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                            <span>FD profit and loss</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+                <li>
+                    <a class="side-item" ui-sref="base.account.statement">
+                        <span class="sid-img" >
+                            <i class="fa fa-file-text-o y-icon" aria-hidden="true"></i>
+                            <span>account statement</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+            </ul>
+
+            <h3 class="bold">Personal</h3>
+            <ul class="side-list">
+                <li>
+                    <a class="side-item" ui-sref="base.account.profile">
+                        <span class="sid-img" >
+                            <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                            <span> My Profile</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+                <li kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                    <a class="side-item" ui-sref="base.account.history">
+                        <span class="sid-img"  >
+                            <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                            <span>{{'common.loginhistory.label' | translate}}</span>
+                        </span>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </a>
+                </li>
+            </ul>
+
+            <a class="back-btn"  ui-sref="base.home">
+                <span class="back-b"></span>
+                Back
+            </a>
+
+         </div>
+    </div>
+    <div class="ac-right-aside">
+        <div ui-view="content">
+
+        </div>
+    </div>
+</div>
+

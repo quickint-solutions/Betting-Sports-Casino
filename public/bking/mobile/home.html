@@ -1,0 +1,426 @@
+﻿<main class="main-container rpt-animate">
+    <div class="header-gm-name">
+        <div class="gm-name">
+            <button ng-class="{'gmActive':selectedEventTypeName=='!alleventypes'}"
+                    ng-click="selectedEventTypeName='!alleventypes'">
+                <div class="sid-img">
+                    <i class="infinity"></i>
+                </div> <span>All</span>
+            </button>
+            <button ng-repeat="eventtype in filters"
+                    ng-class="{'gmActive':selectedEventTypeName==eventtype.name}"
+                    ng-click="$parent.$parent.selectedEventTypeName=eventtype.name"
+                    ng-if="eventtype.displayOrder>=0 && eventtype.showInMenu">
+                <div class="sid-img ">
+                    <i class="icon-sport-{{eventtype.name |joinme}}"></i>
+                </div><span>{{eventtype.name }}</span>
+            </button>
+        </div>
+    </div>
+    <div ng-if="announcement" class="header-gm-name">
+        <div class="gmTitle announcement">
+            <i class="fa fa-microphone"></i>
+            <marquee>
+                {{announcement}}
+            </marquee>
+        </div>
+    </div>
+    <div class="gamePlay no-event-parent" ng-if="(inPlayMarkets | filter:{eventTypeName:selectedEventTypeName}).length<=0 && (liveGamesHighlight| filter:{eventTypeName:selectedEventTypeName}).length<=0 && (popularMarkets| filter:{eventTypeName:selectedEventTypeName}).length<=0 && !generalLoader.active()">
+        <div class="no_this_evnt">
+            No event
+        </div>
+    </div>
+    <div class="slick-parent" ng-if="selectedEventTypeName=='!alleventypes'">
+        <div class="my-slick-wrapper">
+            <img ng-src="{{webImagePath}}mobile-1.jpg" alt="">
+            <img ng-src="{{webImagePath}}mobile-2.jpg" alt="">
+            <img ng-src="{{webImagePath}}mobile-3.jpg" alt="">
+            <img ng-src="{{webImagePath}}mobile-4.jpg" alt="">
+            <img ng-src="{{webImagePath}}mobile-5.jpg" alt="">
+            <img ng-src="{{webImagePath}}mobile-6.jpg" alt="">
+        </div>
+    </div>
+    <div class="gamePlay all-gmplay" ng-if="(inPlayMarkets | filter:{eventTypeName:selectedEventTypeName}).length>0 || (liveGamesHighlight| filter:{eventTypeName:selectedEventTypeName}).length>0">
+        <div class="gamePLay-title">
+            <div class="sid-img">
+                <i class="inplay"></i>
+            </div>
+            <h2>IN-PLAY</h2>
+        </div>
+        <div class="transfer-home" ng-show="$parent.isChatEnabled">
+            <a ng-click="$parent.$parent.ctrl.openChat()"><i class="fa fa-comments-o"></i> Chat with upline</a>
+        </div>
+
+        <div class="header-gm-name">
+            <div class="gmTitle">
+                <div class="gmTitle-name-match">Match</div>
+                <div class="gmTitle-name-set">state</div>
+                <div class="gmTitle-set">
+                    <span>1</span>
+                    <span>x</span>
+                    <span>2</span>
+                </div>
+            </div>
+            <div class="gmContainer" ng-if="(inPlayMarkets | filter:{eventTypeName:selectedEventTypeName}).length>0"
+                 ng-repeat="h in inPlayMarkets | filter:{eventTypeName:$parent.selectedEventTypeName}" ng-init="h.pin=ctrl.isMarketPinned(h.id)"
+                 id="tr_{{h.id}}">
+                <div class="gmContent">
+                    <div class="bt-country">
+                        <div class="ball-img sid-img">
+                            <i class="icon-sport-{{h.eventTypeName|joinme}}"></i>
+                        </div>
+                        <button ng-click="ctrl.pinMe(h);">
+                            <div class="ball-img sid-img">
+                                <i ng-class="{'no-favourite':!h.pin,'favourite':h.pin}"></i>
+                            </div>
+                        </button>
+                        <a class="country" ng-click="ctrl.openFullMarket(h.eventId)">
+                            <div ng-if="h.bettingType==6" class="country-1">
+                                <div class="count-nm">
+                                    {{h.event.name}}
+                                </div>
+                            </div>
+                            <div ng-if="h.bettingType!=6" class="country-1" ng-repeat="m in h.marketRunner | limitTo:2">
+                                <div class="count-number">
+                                    {{$index+1}}
+                                </div>
+                                <div class="count-nm">
+                                    {{m.runner.name}}
+                                </div>
+                            </div>
+                        </a>
+                        <div class="sc-rBLzX ">
+                            <div class="dv" ng-show="h.hasVideo"><i class="tv-icon" aria-hidden="true"></i></div>
+                            <div class="dv" ng-show="h.hasFancy">BM</div>
+                        </div>
+                        <div class="nk-play ">
+                            <span ng-show="h.inPlay"> In-play</span>
+                        </div>
+                    </div>
+                    <div class="factor"
+                         ng-class="{'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} ">
+                        <div class="fact">
+                            <div class="fact-box back1" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(h,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.layPrice[0].size" ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}">
+                                <div class="fct" ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]" ng-class="{'no-fct':!m2}">
+                                <div class="fct" ng-if="m2" kt-click ng-click="ctrl.placeBet(h,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                                 ng-class="{'no-fct':!m2 || h.bettingType==6,'lay1':m2 && h.bettingType!=6}">
+                                <div ng-if="m2 && h.bettingType!=6" class="fct"
+                                     kt-click ng-click="ctrl.placeBet(h,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(h,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box " ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                                <div class="fct" ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gmContainer" ng-if="(liveGamesHighlight| filter:{eventTypeName:selectedEventTypeName}).length>0"
+                 ng-repeat="event in liveGamesHighlight | filter:{eventTypeName:$parent.selectedEventTypeName} | orderBy:'name'"
+                 id="tr_{{event.market.id}}">
+                <div class="gmContent" ng-init="event.market.pin=ctrl.isMarketPinned(event.market.id)">
+                    <div class="bt-country">
+                        <div class="ball-img sid-img">
+                            <i class="icon-sport-{{liveGameEventName|joinme}}"></i>
+                        </div>
+                        <button ng-click="ctrl.pinMe(event.market);">
+                            <div class="ball-img sid-img">
+                                <i ng-class="{'no-favourite':!event.market.pin,'favourite':event.market.pin}"></i>
+                            </div>
+                        </button>
+                        <a class="country" ng-click="ctrl.openGameFullMarket(event.id)">
+                            <div class="country-1">
+                                <div class="count-nm">
+                                    {{event.market.event.name}}
+                                </div>
+                            </div>
+                        </a>
+                        <div class="sc-rBLzX ">
+                            <div class="dv"><i class="tv-icon" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="nk-play ">
+                            <span> In-play</span>
+                        </div>
+                    </div>
+                    <div class="factor"
+                         ng-class="{'stop':event.market.temporaryStatus==3,'roundover':event.market.temporaryStatus==2,'bet-process':event.market.betInProcess,'suspend':event.market.marketStatus==3,'gameover':event.market.marketStatus==4} "
+                         ng-if="event.market.gameType!=1 && event.market.gameType!=3 && event.market.gameType!=11 && event.market.gameType!=9">
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m0 = event.market.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(event.market,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-item="m0.backPrice[0]" data-show-size="{{event.market.bettingType==1}}"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box" ng-init="m0 = event.market.marketRunner[0]"
+                                 kt-animate-on-change="m0.layPrice[0].size"
+                                 ng-class="{'lay1':event.market.bettingType!=6,'no-fct':event.market.bettingType==6}">
+                                <div class="fct" ng-if="event.market.bettingType!=6" kt-click ng-click="ctrl.placeBet(event.market,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-item="m0.layPrice[0]" data-show-size="{{event.market.bettingType==1}}"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fact">
+                            <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = event.market.marketRunner[1]" ng-if=" event.market.gameType==10"
+                                 ng-class="{'no-fct':!m2}">
+                                <div class="fct" ng-if="m2" kt-click ng-click="ctrl.placeBet(event.market,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-item="m2.backPrice[0]" data-show-size="{{event.market.bettingType==1}}"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = event.market.marketRunner[2]" ng-if=" event.market.gameType!=10"
+                                 ng-class="{'no-fct':!m2  || event.market.gameType==6}">
+                                <div class="fct" ng-if="m2 && event.market.gameType!=6 " kt-click ng-click="ctrl.placeBet(event.market,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+
+                            <div class="fact-box" ng-init="m2 = event.market.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                                 ng-class="{'lay1':m2 && event.market.bettingType!=6,'no-fct':!m2 || event.market.bettingType==6}">
+                                <div ng-if="m2 && event.market.bettingType!=6" class="fct"
+                                     kt-click ng-click="ctrl.placeBet(event.market,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-if="event.market.gameType==10" ng-init="m1 =event.market.marketRunner[2]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div kt-click class="fct" ng-click="ctrl.placeBet(event.market,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box  back1" ng-if="event.market.gameType!=10" ng-init="m1 =event.market.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div kt-click class="fct" ng-click="ctrl.placeBet(event.market,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box " ng-class="{'lay1':event.market.bettingType!=6,'no-fct':event.market.bettingType==6}"
+                                 ng-init="m1 = event.market.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                                <div class="fct" ng-if="event.market.bettingType!=6" kt-click ng-click="ctrl.placeBet(event.market,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="factor"
+                         ng-class="{'stop':event.market.temporaryStatus==3,'roundover':event.market.temporaryStatus==2,'bet-process':event.market.betInProcess,'suspend':event.market.marketStatus==3,'gameover':event.market.marketStatus==4} "
+                         ng-if="event.market.gameType==1 || event.market.gameType==3 || event.market.gameType==11">
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m0 = event.market.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                <div kt-click class="fct" ng-click="ctrl.placeBet(event.market,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name+'-'+event.market.pattiRunner[0].name,0,event.market.pattiRunner[0].id);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m0.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box no-fct">
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = event.market.marketRunner[0]" ng-if="event.market.pattiRunner.length>2 "
+                                 ng-class="{'no-fct':!m2}">
+                                <div ng-if="m2 " kt-click class="fct"
+                                     ng-click="ctrl.placeBet(event.market,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name+'-'+event.market.pattiRunner[2].name,0,event.market.pattiRunner[2].id);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box no-fct" ng-if="event.market.pattiRunner.length<3"></div>
+                            <div class="fact-box no-fct"></div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m1 = event.market.marketRunner[0]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(event.market,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name+'-'+event.market.pattiRunner[1].name,0,event.market.pattiRunner[1].id);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box no-fct"></div>
+                        </div>
+                    </div>
+                    <div class="factor"
+                         ng-class="{'stop':event.market.temporaryStatus==3,'roundover':event.market.temporaryStatus==2,'bet-process':event.market.betInProcess,'suspend':event.market.marketStatus==3,'gameover':event.market.marketStatus==4} "
+                         ng-if="event.market.gameType==9">
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m0 = event.market.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(event.market,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name+'-'+m0.metadata.up7down[0].name,0,m0.metadata.up7down[0].id);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m0.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box no-fct">
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box no-fct"></div>
+                            <div class="fact-box no-fct"></div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m1 = event.market.marketRunner[0]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(event.market,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name+'-'+m1.metadata.up7down[1].name,0,m1.metadata.up7down[1].id);">
+                                    <kt-glc data-show-size="{{event.market.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box no-fct"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="gamePlay all-gmplay" ng-show="selectedEventTypeName=='!alleventypes' && hasCasino">
+        <div class="gamePLay-title">
+            <div class="sid-img">
+                <i class="casino"></i>
+            </div>
+            <h2>Live Casino / Slot Games</h2>
+        </div>
+        <div class="content-games">
+            <div class="play-games mix-game">
+                <div class="game-box cards mix" 
+                     ng-repeat="lg in liveGamesMarkets | limitTo:12" >
+                    <div class="play-buttons">
+                        <a ng-click="ctrl.openFDGame(lg)">PLAY</a>
+                    </div>
+                    <div class="game-img">
+                        <label class="name" ng-if="lg.name"><span>{{lg.name}}</span></label>
+                        <img ng-src="{{webImagePath}}{{lg.img}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gamePlay all-gmplay" ng-if="(popularMarkets| filter:{eventTypeName:selectedEventTypeName}).length>0">
+        <div class="gamePLay-title">
+            <div class="sid-img">
+                <i class="inplay"></i>
+            </div>
+            <h2>Popoular</h2>
+        </div>
+        <div class="transfer-home" ng-if="isB2C">
+            <a ui-sref="mobile.seven.base.transferonline">Deposit Money</a>
+        </div>
+        <div class="header-gm-name">
+            <div class="gmTitle">
+                <div class="gmTitle-name-match">Match</div>
+                <div class="gmTitle-name-set">state</div>
+                <div class="gmTitle-set">
+                    <span>1</span>
+                    <span>x</span>
+                    <span>2</span>
+                </div>
+            </div>
+            <div class="gmContainer" ng-repeat="h in popularMarkets| filter:{eventTypeName:selectedEventTypeName} | orderBy:'event.openDate'"
+                 ng-init="h.pin=ctrl.isMarketPinned(h.id)"
+                 id="tr_{{h.id}}">
+                <div class="gmContent">
+                    <div class="bt-country">
+                        <div class="ball-img sid-img">
+                            <i class="icon-sport-{{h.eventTypeName|joinme}}"></i>
+                        </div>
+                        <button ng-click="ctrl.pinMe(h);">
+                            <div class="ball-img sid-img">
+                                <i ng-class="{'no-favourite':!h.pin,'favourite':h.pin}"></i>
+                            </div>
+                        </button>
+                        <a class="country" ng-click="ctrl.openFullMarket(h.eventId)">
+                            <div ng-if="h.bettingType==6" class="country-1">
+                                <div class="count-nm">
+                                    {{h.event.name}}
+                                </div>
+                            </div>
+                            <div ng-if="h.bettingType!=6" class="country-1" ng-repeat="m in h.marketRunner | limitTo:2">
+                                <div class="count-number">
+                                    {{$index+1}}
+                                </div>
+                                <div class="count-nm">
+                                    {{m.runner.name}}
+                                </div>
+                            </div>
+                        </a>
+                        <div class="sc-rBLzX ">
+                            <div class="dv" ng-show="h.hasVideo"><i class="tv-icon" aria-hidden="true"></i></div>
+                            <div class="dv" ng-show="h.hasFancy">BM</div>
+                        </div>
+                        <div class="nk-play state">
+                            <kt-date data-date-value="h.event.openDate" data-format="MMM-dd HH:mm:ss"></kt-date>
+                        </div>
+                    </div>
+                    <div class="factor" ng-class="{'border-bottom':$last,'stop':h.temporaryStatus==3,'ball':h.temporaryStatus==2,'bet-process':h.betInProcess,'suspend':h.marketStatus==3,'closed':h.marketStatus==4} ">
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(h,1,m0.runner.id,m0.backPrice[0].price ? m0.backPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-item="m0.backPrice[0]" data-show-size="{{h.bettingType==1}}"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box" ng-init="m0 = h.marketRunner[0]" kt-animate-on-change="m0.layPrice[0].size" ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}">
+                                <div class="fct" ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m0.runner.id,m0.layPrice[0].price ? m0.layPrice[0].price : '',m0.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m0.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" kt-animate-on-change="m2.backPrice[0].size" ng-init="m2 = h.marketRunner[2]" ng-class="{'no-fct':!m2}">
+                                <div class="fct" ng-if="m2" kt-click ng-click="ctrl.placeBet(h,1,m2.runner.id,m2.backPrice[0].price ? m2.backPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box" ng-init="m2 = h.marketRunner[2]" kt-animate-on-change="m2.layPrice[0].size"
+                                 ng-class="{'no-fct':!m2 || h.bettingType==6,'lay1':m2 && h.bettingType!=6}">
+                                <div ng-if="m2 && h.bettingType!=6" class="fct"
+                                     kt-click ng-click="ctrl.placeBet(h,2,m2.runner.id,m2.layPrice[0].price ? m2.layPrice[0].price : '',m2.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m2.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-box  back1" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.backPrice[0].size">
+                                <div class="fct" kt-click ng-click="ctrl.placeBet(h,1,m1.runner.id,m1.backPrice[0].price ? m1.backPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.backPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                            <div class="fact-box " ng-class="{'lay1':h.bettingType!=6,'no-fct':h.bettingType==6}" ng-init="m1 = h.marketRunner[1]" kt-animate-on-change="m1.layPrice[0].size">
+                                <div class="fct" ng-if="h.bettingType!=6" kt-click ng-click="ctrl.placeBet(h,2,m1.runner.id,m1.layPrice[0].price ? m1.layPrice[0].price : '',m1.runner.name);">
+                                    <kt-glc data-show-size="{{h.bettingType==1}}" data-item="m1.layPrice[0]"></kt-glc>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div ng-show="hasAPK && selectedEventTypeName=='!alleventypes'">
+        <a ng-click="$parent.ctrl.downloadAPK()" style="position: relative; float: left; padding-left: 15px; text-decoration: underline; font-size: 17px; margin-top: 15px;">
+            <i class="fa fa-android"></i> Download Andriod App
+        </a>
+    </div>
+    <div ng-if="isB2C && selectedEventTypeName=='!alleventypes'">
+        <a ui-sref="mobile.seven.base.transferonline({tab:5})" style="position: relative; float: left; padding-left: 15px; text-decoration: underline; font-size: 17px; margin-top: 10px;">
+            <i class="fa fa-hand-o-right"></i> Show Deposit/Withdrawal
+        </a>
+    </div>
+</main>

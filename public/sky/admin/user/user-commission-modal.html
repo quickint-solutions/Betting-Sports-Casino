@@ -1,0 +1,109 @@
+﻿
+<div class="row">
+    <div class="col-sm-12">
+        <span class="set_comm">Set Commission of <strong class="negative"> {{username}}</strong></span>
+    </div>
+    <div class="col-sm-12">
+        <div class="float-l" ng-repeat="b in bettingTypeList" ng-class="{'mr-top-10':!onlyCommission,'odd-row':$odd && !onlyCommission,'even-row':$even && !onlyCommission}">
+            <div class="col-sm-2" ng-class="{'col-sm-4':onlyCommission}">
+                <div class="row">
+                    <span>{{b.name}}</span>
+                </div>
+            </div>
+            <div class="col-sm-8"  ng-class="{'col-sm-10':!onlyCommission}">
+                <div class="row">
+                    <div class="col-sm-2" ng-class="{'col-sm-12':onlyCommission}">
+                        <div class="input-group">
+                            <input type="text" minlength="1" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.percentage" class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-percent" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <select class="form-control" ng-model="b.commissionOn">
+                            <option ng-repeat="c in commissionOnList" value="{{c.id}}">
+                                {{c.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <select class="form-control" ng-model="b.commissionType">
+                            <option ng-repeat="c in commissionTypeList" value="{{c.id}}">
+                                {{c.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.commissionUpTo" class="form-control">
+                            <span class="input-group-addon">up to GLC</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.excludeLowerPrice" class="form-control">
+                            <span class="input-group-addon">lower Price</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.excludeUpperPrice" class="form-control">
+                            <span class="input-group-addon">upper Price</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.superAdminShare" class="form-control">
+                            <span class="input-group-addon">SA %</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.adminShare" class="form-control">
+                            <span class="input-group-addon">AD %</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.superMasterShare" class="form-control">
+                            <span class="input-group-addon">SM %</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.masterShare" class="form-control">
+                            <span class="input-group-addon">MA %</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-if="!onlyCommission">
+                        <div class="input-group">
+                            <input type="text" maxlength="25"
+                                   autocomplete="off" kt-number-only allow-decimal="true"
+                                   ng-model="b.agentShare" class="form-control">
+                            <span class="input-group-addon">AG %</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+   
+</div>

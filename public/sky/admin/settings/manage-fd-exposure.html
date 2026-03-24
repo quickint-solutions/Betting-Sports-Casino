@@ -1,0 +1,97 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">Manage FD Exposure</h1>
+    </header>
+</div>
+<div class="col-sm-12 ">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="search.provider" required tabindex="5">
+                            <option ng-repeat="w in providerList" value="{{w.id}}">
+                                {{w.name}}
+                            </option>
+                        </select>
+                    </div>
+                   
+                    <div class="col-sm-2">
+                        <button id="btnSearch" class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:100%;">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            {{'common.button.search' | translate}}
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="btnreset" class="btn btn-default" ng-click="ctrl.resetCriteria()" style="width:100%;">
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                            {{'common.button.reset' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-setting-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             data-items="gridItems"
+             has-new-rights="true"
+             list-new-items="listNewItems"
+             cache-key="ktsettinggrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'user.name.label' | translate"
+                        data-sortable="'name'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.username}} </span>
+                    </td>
+                    <td data-title="::'Table Name' | translate"
+                        data-sortable="'tableName'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.tableName}} </span>
+                    </td>
+                    <td data-title="::'Round Id' | translate"
+                        data-sortable="'roundId'" data-header-class="'size-lg'" class="size-lg">
+                        <span>{{item.roundId}} </span>
+                    </td>
+                    <td data-title="::'Provider' | translate"
+                        data-sortable="'provider'" data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span>{{$parent.$parent.$parent.ctrl.getProvider(item.provider)}} </span>
+                    </td>
+                    <td data-title="::'Credit' | translate"
+                        data-sortable="'credit'" data-header-class="'size-sm align-r'" class="size-sm align-r">
+                        <span>{{item.credit}} </span>
+                    </td>
+                    <td data-title="::'Debit' | translate"
+                        data-sortable="'debit'" data-header-class="'size-sm align-r'" class="size-sm align-r">
+                        <span>{{item.debit}} </span>
+                    </td>
+                    <td data-title="::'Is PL?' | translate" data-header-class="'size-sm boolean'" class="size-sm boolean">
+                        <span><i class="fa fa-check" ng-if="item.isPlRequest"></i> </span>
+                    </td>
+                    <td data-title="::'Created' | translate"
+                        data-sortable="'createdOn'" data-header-class="'size-md'" class="size-md">
+                        <span>{{item.createdOn | date:'dd-MM-yyyy HH:mm:ss'}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean size-md'" class="boolean size-md">
+
+                        <a id="btnDelete{{$index}}" class="btn btn-danger" title="Delete Setting"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteExposure(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <span class="mrg-left-10">
+                            <input type="checkbox" id="chk-delete-{{$index}}" ng-model="item.isDelete" class="chk-box">
+                            <label for="chk-delete-{{$index}}" style="margin-bottom:18px;"></label>
+                        </span>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

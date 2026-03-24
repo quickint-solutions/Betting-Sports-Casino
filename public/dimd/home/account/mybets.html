@@ -1,0 +1,21 @@
+﻿<div class="my-bets">
+    <h1 class="title">{{'mybets.label' | translate}}</h1>
+    <ul class="tabbing-blue">
+        <li ng-class="ctrl.isActive('/ac/bets/currentbets')" class="tab2">
+            <a ui-sref="base.home.account.bets.current">
+                <i class="fas fa-chart-line"></i>
+                {{'currentbets.label' | translate}}
+            </a>
+        </li>
+        <li ng-class="ctrl.isActive('/ac/bets/betshistory')" class="tab2">
+            <a ui-sref="base.home.account.bets.history">
+                <i class="fas fa-history"></i>
+                {{'bethistory.label' | translate}}
+            </a>
+        </li>
+        
+    </ul>
+    <div ui-view="betsreport">
+
+    </div>
+</div><!-- my beats -->

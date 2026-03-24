@@ -1,0 +1,57 @@
+﻿<div class="mobile-view">
+    <div class="login-page" ng-if="loginMode == 4">
+        <div class="header-top ">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="login-top">
+                        <a class="logo-img"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 login-form">
+                <div class="row">
+                    <div class="login-bottom">
+                        <form class="form-signin " name="verifyform" ng-submit="ctrl.confirmOpt()">
+                            <p class="login-user">
+                                <span>We have sent OTP on below mobile number</span>
+                            </p>
+                            <p class="login-user">
+                                <input type="text" maxlength="15"
+                                       placeholder="" name="mobile"
+                                       tabindex="1" autocomplete="off" disabled
+                                       required value="{{$parent.model.mobile}}" class="form-control">
+                            </p>
+                            <p>
+                                <input type="text" name="captcha" ng-model="$parent.model.otp"
+                                       class="form-control" maxlength="6" size="6" autocomplete="off" required tabindex="2"
+                                       placeholder="Enter OTP" />
+                            </p>
+                            <p class="login-user">
+                                <span style="margin: 5px;font-weight: bold;">{{$parent.resendTimer>0?ctrl.formatTime($parent.resendTimer):''}}</span>
+                                <button type="button" class="btn btn-success float-r" style="margin-left: 18px; margin-bottom:3px;" ng-disabled="$parent.resendTimer>0" ng-click="ctrl.requestNewOtp()">
+                                    &nbsp;Resend OTP &nbsp;<i class="fa fa-refresh" aria-hidden="true"></i>
+                                </button>
+                            </p>
+                          
+                            <p class="confirm-text" style="float:left; width:100%; text-align:justify;">
+                                <i class="fa fa-check-square" aria-hidden="true"></i>&nbsp; I confirm that I am informed and completely agree with the rules of bets, pay-outs, rules of gambling games.
+                            </p>
+                            <p class="login-btn">
+                                <button class="btn btn-lg  btn-block btn-login" tabindex="4"
+                                        type="submit" ng-disabled="verifyform.$invalid">
+                                    Verify <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                    <img class="grid-spinner" ng-show="showLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </p>
+                            <p class="confirm-text" style="float:right;">
+                                Already have an account? <a class="register" ng-click="ctrl.gotoLoginMobile()">Login Here</a>
+                            </p>
+                        </form>
+                        <kt-messages data-messages="messages"></kt-messages>
+                    </div>
+                    <div class="betfair-img"><a class="powerby-bf" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

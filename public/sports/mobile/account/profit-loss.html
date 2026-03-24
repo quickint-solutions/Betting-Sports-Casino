@@ -1,0 +1,200 @@
+﻿<div class="main-account-statement-block other-page-section d-flex">
+    <div class="main-section-vh">
+        <div class="card">
+            <div class="card-header"><h3>PROFIT/LOSS</h3></div>
+            <div class="card-header" style="border-radius: 0px;">
+                <div class="filter-type-block">
+                    <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                        <div class="d-flex mr-2">
+                            <div class="calender-auto mx-datepicker ">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.fromdate"
+                                           is-open="fopened"
+                                           placeholder="{{'fromdate.placeholder' | translate}}"
+                                           ng-click="fopened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" />
+                                    <i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="to-block">TO</div>
+                            <div class="calender-auto mx-datepicker">
+                                <div class="mx-input-wrapper">
+                                    <input type="text" class="mx-input"
+                                           uib-datepicker-popup="dd MMM yyyy"
+                                           ng-model="search.todate"
+                                           is-open="topened"
+                                           placeholder="{{'todate.placeholder' | translate}}"
+                                           ng-click="topened=true"
+                                           close-text="Close"
+                                           alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.getProfitLoss();">
+                            <i class="material-icons">search</i>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header p-0 mt-2" style="border-radius: 0px;">
+                <ul class="total-show text-left">
+                    <li class="sports-switch " ng-class="{'underline':selectedEventType!= e.eventTypeId}" ng-repeat="e in eventSummary">
+                        <span ng-click="ctrl.changeMarketData(e.eventTypeId)">
+                            {{e.eventTypeName}}&nbsp;:&nbsp;
+                            <span style="margin-left:0px;font-weight:bold;" ng-class="{'positive':e.totalPl>=0,'negative':e.totalPl<0}">
+                                {{e.totalPl | toRate}}
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body p-0 table-responsive mt-2">
+                <div class="list-view">
+                    <div ng-repeat="itemGrp in gridData track by $index" ng-show="totalItems>0">
+                        <div class="list-view-table myTranscludedContent currency">
+                            <table class="table table-hover clickable ng-table hide-header" style="display: table">
+                                <tbody ng-repeat="item in itemGrp.values track by $index">
+                                    <tr class="no-tr-hover" ng-click="ctrl.getBet(item,!item.show)">
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <div class="col-12">
+                                                    <label>{{'market.name.label' | translate}} : &nbsp;</label>
+                                                    <span>
+                                                        <span id="to"><strong>{{item.eventName}}</strong></span>
+                                                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                                        <span id="to">{{item.marketName}}</span>
+                                                    </span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>{{'starttime.label' |  translate}} : &nbsp;</label>
+                                                    <span>
+                                                        {{item.marketTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                    </span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>{{'settledtime.label' | translate}} : &nbsp;</label>
+                                                    <span>
+                                                        {{item.settleTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row">
+                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                    <label>Win </label>
+                                                    <span ng-class="{'text-success':item.win>0,'text-danger':item.win<0}">
+                                                        {{item.win | toRate}}
+                                                    </span>
+                                                </div>
+                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                    <label>Commission  </label>
+                                                    <span ng-class="{'text-success':item.comm>0,'text-danger':item.comm<0}">
+                                                        {{item.comm | toRate}}
+                                                    </span>
+                                                </div>
+                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                    <label>P&L</label>
+                                                    <span ng-class="{'text-success':item.tpl >= 0,'text-danger':item.tpl < 0}">
+                                                        {{item.tpl= ((itemGrp.values | total:'win') + (itemGrp.values | total:'comm')) | toRate}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-if="item.show && !item.inprogress" class="expand-table">
+                                        <td class="profit-td">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr ng-repeat="b in item.betDetailItems.bets | orderBy:'createdOn'">
+                                                        <td>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="col-12">
+                                                                    <label>Selection : &nbsp;</label>
+                                                                    <span ng-class="{'lay-text':b.side==2,'back-text':b.side==1}">{{(b.bettingType==7 ? b.avgPrice+' ' : '')}}{{ b.runnerName}}</span>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label>{{'placed.label'|translate}} : &nbsp;</label>
+                                                                    <span><kt-date data-date-value="b.createdOn"></kt-date></span>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label>{{'betid.label'|translate}} : &nbsp;</label>
+                                                                    <span>{{b.id}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row">
+                                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                                    <label>{{'odds.label'|translate}}</label>
+                                                                    <span>{{b.avgPrice ? b.avgPrice : b.price | number:2}}{{b.percentage && b.percentage!= 100 ? '('+b.percentage+'%)' : ''}}</span>
+                                                                </div>
+                                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                                    <label>{{'stake.label'|translate}} </label>
+                                                                    <span>{{b.sizeMatched | toRate}}</span>
+                                                                </div>
+                                                                <div class="col-4 d-flex flex-column align-items-center">
+                                                                    <label>P&L</label>
+                                                                    <span ng-class="{'text-success':b.pl>=0,'text-danger':b.pl<0}">
+                                                                        {{b.pl | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex flex-column">
+                                                                <div class="col-12 text-right">
+                                                                    <label>{{'backtotal.label'|translate}} : &nbsp;</label>
+                                                                    <span>
+                                                                        {{((item.betDetailItems.bets | betSideFilter:'1') | total:'pl')  | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-12 text-right">
+                                                                    <label>{{'laytotal.label'|translate}} : &nbsp;</label>
+                                                                    <span>
+                                                                        {{((item.betDetailItems.bets | betSideFilter:'2') | total:'pl')  | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-12 text-right">
+                                                                    <label>{{'marketsubtotal.label'|translate}} : &nbsp;</label>
+                                                                    <span>
+                                                                        {{item.betDetailItems.pl.win  | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-12 text-right">
+                                                                    <label>{{'commission.label'|translate}} : &nbsp;</label>
+                                                                    <span>
+                                                                        {{item.betDetailItems.pl.commission  | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-12 text-right">
+                                                                    <label>{{'netmarkettotal.label'|translate}} : &nbsp;</label>
+                                                                    <span ng-class="{'text-success':item.betDetailItems.pl.pnl>=0,'text-danger':item.betDetailItems.pl.pnl<0}">
+                                                                        {{item.betDetailItems.pl.pnl  | toRate}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="alert alert-info empty-msg " ng-show="totalItems<=0">
+                        <p>There are no settled bets in the {{dateDiff}} days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'sports/template/footer.html'"></div>
+</div>

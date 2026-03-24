@@ -1,0 +1,142 @@
+﻿<div class="bets-history">
+    <div class="">
+        <div class="header-name">
+            <div class="filter-input">
+                <h1 class="event-heading">Position Taking Listing</h1>
+                <div class="filter-panel live-select">
+                    <div class="input_text" style="padding-top: 8px;margin-right: -32px;">
+                        <span for="usersearch">Search by Login Name</span>
+                    </div>
+                    <div class="input_text ">
+                        <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                                   close-on-select="true">
+                            <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                               class="ui-select-choices"
+                                               refresh="$parent.ctrl.searchUser($select.search)">
+                                <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                &nbsp;-&nbsp;
+                                <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="btn_value float-r" kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess']}" ng-hide="parentUserType==4 && ctrl.$stateParams.memberid">
+                        <button class="btn btn-default" ng-disabled="(downlineList |filter:{selected:true}).length<=0"
+                                ng-click="ctrl.editBulkPT()">
+                            Edit PT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-listing list-table statement-table ma-listing pl-listing">
+            <p style="color:white;">
+                <span style="float:left;width:50%;font-style:italic;">
+                    <span ng-show="userTree.length<=0">Position Taking Listing</span>
+                    <a class="link-a" ng-show="userTree.length>0" ui-sref="master.ptlist({memberid:'',userid:''})">Position Taking Listing</a>
+                    <span ng-repeat="ut in userTree">
+                        <span ng-show="$index==userTree.length-1">
+                            <i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}
+                        </span>
+                        <span ng-show="$index!=userTree.length-1">
+                            <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                            <a class="link-a" ui-sref="master.ptlist({memberid:ut.id,userid:''})">{{ut.name}}</a>
+                        </span>
+                    </span>
+                </span>
+                <span style="float:right;width:50%" class="align-r" ng-if="!ctrl.$stateParams.memberid && ptConfigList.length>0">
+                    {{ctrl.$rootScope.current.short}} Max PT: <span ng-repeat="p in ptConfigList">{{p.maxpt}}{{$last ? ' %' :'/'}}</span>
+                </span>
+            </p>
+            <div class="no-bg list-view pt-listing" style="padding:0px;">
+                <div class="list-view-table">
+                    <table class="table table-hover clickable pt-table ng-table" ng-show="downlineList.length>0" style="display:table">
+                        <thead>
+                            <tr class="rowspan-labels rowspan-top">
+                                <th class="size-xs" ng-hide="parentUserType==4  && ctrl.$stateParams.memberid">
+                                    <label class="option-detail-square check_box-square" style="position:relative;">
+                                        <input type="checkbox" name="allmember" ng-model="allSelected"
+                                               ng-change="ctrl.allMemberSelectionChanged(true)">
+                                        <span class="checkmark" style="top:-6px;margin-left:5px;"></span>
+                                    </label>
+                                </th>
+                                <th class="size-md boolean">Login Name</th>
+                                <th class="size-md boolean border-right">Name</th>
+                                <th class="size-sm boolean border-right" ng-hide="parentUserType==4">Downline</th>
+                                <th ng-repeat="p in ptConfigList" class="border-right boolean" style="width:100%">
+                                    <div title="{{p.name}}">
+                                        <span class="sport-icon icon-sport-{{p.name}}"></span>
+                                        <span style="vertical-align:top;">({{p.maxpt}}%)</span>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="rowspan-labels rowspan-bottom">
+                                <th class="size-xs" ng-hide="parentUserType==4 && ctrl.$stateParams.memberid"></th>
+                                <th class="size-md boolean"></th>
+                                <th class="size-md boolean border-right"></th>
+                                <th class="size-sm boolean border-right" ng-hide="parentUserType==4"></th>
+                                <th ng-repeat="p in ptConfigList" class="boolean border-right" ng-if="parentUserType!=4">
+                                    <div class="align-l pt-take-give">TAKE</div>
+                                    <div class="align-r pt-take-give">GIVE</div>
+                                </th>
+                                <th ng-repeat="p in ptConfigList" class="boolean border-right" ng-if="parentUserType==4">
+                                    <div class="align-c pt-take-give" ng-repeat="ul in uplineTree">
+                                        {{ul.short}}
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="d in downlineList track by $index">
+                                <td class="size-xs" ng-hide="parentUserType==4 && ctrl.$stateParams.memberid">
+                                    <label class="option-detail-square check_box-square" style="position:relative;">
+                                        <input type="checkbox" name="allmember" ng-model="d.selected" ng-change="ctrl.allMemberSelectionChanged()">
+                                        <span class="checkmark" style="top:-12px;margin-left:5px;"></span>
+                                    </label>
+                                </td>
+                                <td class="size-md boolean">{{d.username}}</td>
+                                <td class="size-md boolean border-right">{{d.name}}</td>
+                                <td class="size-sm boolean border-right" ng-hide="d.userType==5">
+                                    <span ng-if="!ctrl.haveChild(d.userType)">-</span>
+                                    <a ng-if="ctrl.haveChild(d.userType)"
+                                       ui-sref="master.ptlist({memberid:d.id,userid:''})">
+                                        <i class="fa fa-sitemap fa-lg link-a"></i>
+                                    </a>
+                                </td>
+                                <td ng-repeat="p in ptConfigList   " class="boolean border-right" ng-if="d.userType!=5">
+                                    <div ng-repeat="pc in d.ptConfigs | filter:{code:p.code}:true">
+                                        <div class="align-l pt-take-give">{{pc.takePt}}</div>
+                                        <div class="align-r pt-take-give">{{pc.givePt}}</div>
+                                    </div>
+                                </td>
+                                <td ng-repeat="p in ptConfigList  " class="boolean border-right" ng-if="d.userType==5">
+                                    <div class="align-c pt-take-give" ng-repeat="u in uplineList | orderBy:'userType' ">
+                                        <div ng-repeat="pc in u.ptConfigs | filter:{code:p.code}:true">
+                                            {{pc.takePt}}
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div  class="align-c pt-take-give"
+                                         ng-repeat="pc in d.ptConfigs | filter:{code:p.code}:true">
+                                        {{pc.takePt}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,185 @@
+﻿
+<div class="mobilewrap client-side">
+    <section class="banner__slider" ng-if="offerList.length>0 ">
+        <h1 class="header">Offers/Promotions</h1>
+
+        <div class="slider stick-dots">
+            <div class="slide" ng-repeat="ol in offerList track by $index">
+                <div class="slide__img">
+                    <img ng-src="{{imagePath+'images/cover-image/offer-banner.jpg'}}" class="full-image animated" />
+                </div>
+                <div class="slide__content" ng-class="{'slide__content__left':$odd,'slide__content__right':$even}">
+                    <div class="slide__content--headings " ng-class="{'text-left':$odd,'text-right':$even}">
+
+                        <p class="animated top-title" data-animation-in="{{$odd ? 'fadeInLeft' :'fadeInRight'}}" data-delay-in="0.3">{{ol.title}}</p>
+                        <h2 class="animated title" data-animation-in="{{$even ? 'fadeInLeft' :'fadeInRight'}}">
+                            <span ng-show="ol.bonusCode">Offer Code : {{ol.bonusCode}}</span>
+                            <br ng-show="ol.bonusCode" />
+                            This offer is applicable
+                            <span ng-if="ol.offerOn==1">for First time deposit</span>
+                            <span ng-if="ol.offerOn==2">on new deposit</span>
+                            <span ng-if="ol.offerOn==3">on new user signup</span>
+                            <span ng-if="ol.offerOn==4">on Second time deposit</span>
+                            <span ng-if="ol.offerOn==5">on Third time deposit</span>
+                            <br ng-show="ol.offerType==3" />
+                            <span ng-show="ol.offerType==3">
+                                <span>Offer Percentage : </span>
+                                <span class="bold">
+                                    {{ol.value}}%
+                                </span>
+                            </span>
+                        </h2>
+
+                        <button class="btn-success btn button-custom animated text-white"
+                                ng-show="ol.offerOn==3"
+                                ng-click="$parent.ctrl.sendSignup()"
+                                data-animation-in="fadeInUp">
+                            Sign Up
+                        </button>
+                        <button class="btn-success btn button-custom animated text-white"
+                                ng-show="ol.offerOn!=3"
+                                ng-click="$parent.ctrl.sendLogin()"
+                                data-animation-in="fadeInUp">
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="mb-topmenu" ng-init="ctrl.selectedEventType='!-1'">
+        <div class="games-title">
+            <section class="tab tab-header">
+                <ul class="tabs-container">
+                    <li class="item sportmenu-li" ng-class="{'active' : (ctrl.selectedEventType=='!-1')}">
+                        <a class="tab-heading" ng-click="ctrl.selectedEventType='!-1'">
+                            <i class="i-sport all-sports"></i>
+                            <span class="tab-label">All</span>
+                        </a>
+                    </li>
+                    <li class="item sportmenu-li" ui-sref-active="active" ng-show="hasCasino">
+                        <a class="tab-heading" ng-click="ctrl.openModal('login-modal')">
+                            <i class="i-sport casino"></i>
+                            <span class="tab-label">
+                                {{'fd.casino.label' | translate}}
+                            </span>
+                        </a>
+                    </li>
+                    <li class="item sportmenu-li" ng-repeat="event in sports "
+                        ng-class="{'active' : (event.id==ctrl.selectedEventType)}">
+                        <a href="" class="tab-heading" ng-click="ctrl.selectedEventType=event.id">
+                            <i class="i-sport {{event.name | joinme}}"></i>
+                            <span class="tab-label">
+                                {{event.name}}
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </section>
+        </div>
+        <div class="highlight main-score" ng-if="(popularMarkets | filter:{eventTypeId:ctrl.selectedEventType}).length>0 ">
+            <div class="tab-desc">
+                <div>
+                    <table class="team-score sportmenu-li">
+                        <tbody>
+                            <tr id="tr_{{h.id}}" ng-repeat="h in popularMarkets | filter:{eventTypeId:ctrl.selectedEventType}">
+                                <td class="team-title ">
+                                    <div class="mb-market-list">
+                                        <span class="play mb-play" ng-if="h.inPlay" style="width:unset">{{'inplay.label' | translate}}</span>
+                                        <span ng-if="h.hasFancy" class="play mb-fancy" style="width:unset"><i class="fa fa-check"></i> Fancy</span>
+                                        <span style="width:unset" class="play mb-tv" ng-if="h.hasVideo">  <i class="fa fa-tv "></i></span>
+                                        <span class="game-list-time mb-game-time" style="width:unset">{{h.event.openDate | toDays}} {{h.event.openDate | date:'HH:mm a'}}</span>
+                                    </div>
+                                    <a ng-show="h.marketRunner.length<=3" ng-click="ctrl.openModal('login-modal')">
+                                        <i class="fa fa-play-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>
+                                        <b>{{h.marketRunner[0].runner.name}}</b> vs <b>{{h.marketRunner[1].runner.name}}</b>
+                                    </a>
+                                    <a ng-show="h.marketRunner.length>3" ng-click="ctrl.openModal('login-modal')">
+                                        <i class="fa fa-play-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>
+                                        <b>{{h.event.name}}</b>
+                                    </a>
+                                </td>
+                                <td class="pin" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                                    <i class="i-sport {{h.event.eventType.name | joinme}}" style="float:right;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="highlight main-score" ng-if="races  && horseId==ctrl.selectedEventType">
+            <div class="tab-desc">
+                <div>
+                    <table class="team-score sportmenu-li">
+                        <tbody>
+                            <tr id="tr_{{h.id}}" ng-repeat="h in races">
+                                <td class="team-title ">
+                                    <div class="mb-market-list">
+                                        <span class="play mb-play" ng-if="h.inPlay" style="width:unset">{{'inplay.label' | translate}}</span>
+                                        <span style="width:unset" class="play mb-tv" ng-if="h.hasVideo">  <i class="fa fa-tv "></i></span>
+                                        <span class="game-list-time mb-game-time" style="width:unset">{{h.startTime | toDays}} {{h.startTime | date:'HH:mm a'}}</span>
+                                    </div>
+                                    <a ng-click="ctrl.openModal('login-modal')">
+                                        <i class="fa fa-play-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>
+                                        <b>{{h.name}}</b>
+                                    </a>
+                                </td>
+                                <td class="pin">
+                                    <i class="i-sport {{h.eventTypeName | joinme}}" style="float:right;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <section class="highlight" ng-if="((popularMarkets | filter:{eventTypeId:ctrl.selectedEventType}).length<=0 &&  horseId!=ctrl.selectedEventType) || (races.length<=0 && horseId==ctrl.selectedEventType) ">
+            <div class="tab-desc">
+                <table class="team-score sportmenu-li">
+                    <tbody>
+                        <tr>
+                            <td style="padding:5px;">
+                                {{'common.noevents.display' | translate}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div ng-include="'sky/template/loader-center.html'"
+             ng-show="isRequestProcessing"
+             class="loader-div"></div>
+    </div>
+
+
+
+
+
+
+
+    <section class="quick-links-mod-container mr-top-10" ng-show="hasCasino">
+        <div class="load-screen ng-animate-enabled">
+            <section class="mod-quick-links">
+                <h1 class="header">Play Games</h1>
+                <div class="widget-content">
+                    <div class="game-item" ng-repeat="lg in liveGamesMarkets">
+                        <div class="game-item-wrapper">
+                            <img ng-src="{{imagePath}}images/{{currentWebApp}}/img/{{lg.img}}" class="game-item-image">
+                            <div class="game-item-overlay">
+                                <div class="game-item-overlay-cta-wrapper">
+                                    <a class="game-item-default-cta game-item-primary-cta" ng-click="ctrl.openModal('login-modal')">Play Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <div ng-include="'sky/template/mobile-footer.html'" class="mobile-ftr">
+
+    </div>
+</div>

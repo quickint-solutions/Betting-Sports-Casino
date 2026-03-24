@@ -1,0 +1,991 @@
+﻿/// <reference path="../variables/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+.modal-spinner {
+    position: absolute;
+    top: 0;
+    right: 12%;
+    width: 40px;
+}
+
+.modal-button {
+    position: relative;
+}
+
+.modal-dialog {
+    pointer-events: unset;
+    height: 100%;
+
+    .modal-header {
+        background-color: black;
+        color: $white-color;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        border-bottom: none;
+    }
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        background-color: #b3abab;
+    }
+
+    .close {
+        float: right;
+        font-weight: bold;
+        color: $white-color;
+        font-size: 21px;
+        line-height: 1;
+        opacity: 1;
+    }
+
+    .modal-footer {
+        border-top: none;
+
+        /*&.md-white {
+            background: #fff;
+        }*/
+    }
+    /*.modal-footer {
+        
+        /*border-top: none;
+     
+        #-close{background-color:$dark-gray-black; color:$login-back;}
+    }*/
+    .user-form {
+        input, select {
+            margin-bottom: 10px;
+        }
+    }
+
+    .toggle-buttons {
+        .btn {
+            padding: 4px 8px 4px 8px;
+            height: 27px;
+            font-size: $font-size-tab;
+
+            &.active {
+                background: $theme-color;
+            }
+
+            &:not(.active) {
+                @include link-background-colors( transparent, mix($base-color-light, $white-color, 28%), mix($base-color-light, $white-color, 37%) );
+                @include border-all(1px, solid, $base-color-light);
+                color: #bfbfbf;
+                @include padding(4px, 8px, 4px, 8px);
+            }
+            /*&.btn-default:focus, &.btn-default:hover {
+            color: $white-color;
+            //background-color:$support-a-color;
+        }*/
+        }
+
+        div.btn-group {
+            .btn {
+                border-color: $black-color;
+            }
+
+            .active {
+                background-color: $black-color;
+                color: $login-back;
+            }
+        }
+    }
+    /*.form-tried-to-save {
+    .toggle-buttons.ng-invalid {
+        .btn {
+            border-color: $theme-danger;
+        }
+    }
+}
+*/
+    .form-control {
+        background-color: #22262a;
+        min-height: 44px;
+        color: #f9fafa;
+        border: none;
+        font-size: 15px;
+    }
+}
+
+.modal-dialog.modal-xlg {
+    width: 875px;
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(0%, -50%);
+    bottom: -50%;
+}
+
+.mobile-bg {
+    .modal.in .modal-dialog {
+        transform: translate(0%, -50%);
+        bottom: -50%;
+
+       
+    }
+}
+
+.modal-dialog.modal-banner {
+    div {
+        height: 100%;
+    }
+
+    .swiper-wrapper, .swiper-slide {
+        height: 100% !important;
+    }
+
+    width: 80vw;
+    max-height: 80vh;
+    height: 80vh;
+    margin: auto;
+
+    .slider-item {
+        display: flex;
+        justify-content: center;
+
+        img {
+            margin: auto;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .pop_close {
+        right: 0px;
+        top: 0px;
+        z-index: 1051;
+        height: 25px;
+    }
+
+    .popup-div {
+        overflow: hidden;
+        background-color: transparent;
+    }
+
+
+    .modal-content {
+        box-shadow: unset;
+        border: none;
+        background-color:transparent;
+    }
+}
+
+
+.modal-dialog.modal-full {
+    width: 97%;
+    height: 97%;
+}
+
+.modal-body {
+    border: 0;
+
+    form {
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .position {
+            @include padding(6px, 0, 6px, 0px);
+            width: 55%;
+            margin: 0 auto;
+            @include txt(bold);
+
+            .p_value {
+                float: right
+            }
+        }
+    }
+
+   /* &.md-white {
+        background: #fff;
+    }*/
+}
+
+.popup-div {
+    color: #fff;
+    overflow: auto;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.7);
+    font-size: 14px;
+
+    .datetimepicker {
+        color: #000;
+
+        .switch {
+            width: unset;
+        }
+
+        th, td {
+            width: 35px;
+        }
+    }
+
+    .datetimepicker .disabled, .datetimepicker .disabled:hover {
+        color: #adadad;
+    }
+}
+
+.popup-div .pop_close {
+    position: absolute;
+    top: -16px;
+    right: -18px;
+    cursor: pointer;
+    background-color: #dedede;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+}
+
+.modal-open .modal {
+    background-color: rgba(0,0,0,.7);
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.popup-div .pop-inner {
+    float: left;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #191919;
+}
+
+
+.modal-dialog .modal-content {
+    //background-color: transparent !important;
+    overflow: hidden;
+    height: auto;
+    overflow-y: overlay;
+}
+
+.popup-div {
+    input {
+        padding: 0 5px;
+        border: 2px solid #ddd;
+        color: #000;
+    }
+
+    .credit {
+        float: left;
+        margin-right: 25px;
+        width: 45%;
+    }
+
+    .pop-form-row label {
+        float: left;
+        width: 100%;
+    }
+
+    .readonly {
+        .pop-form-row {
+            width: 100%;
+        }
+    }
+
+    .pop-form-row {
+        float: left;
+        width: 50%;
+        margin: 10px 0;
+        padding-right: 5px;
+    }
+
+    .credit-row {
+        width: 100%;
+    }
+
+    .pop-form-row .paswd {
+        width: 100%;
+        height: 35px;
+    }
+
+    .credit .c-value {
+        display: block;
+        line-height: 18px;
+    }
+
+    .credit input {
+        width: 170px;
+        float: left;
+        margin-right: 5px;
+    }
+
+    input {
+        height: 35px;
+    }
+
+    label {
+        font-weight: normal;
+    }
+
+    .popup-table tr .td-limit {
+        padding: 8px;
+        min-width: 100px;
+    }
+
+    .popup-table tr th {
+        padding: 8px;
+    }
+
+    .popup-table {
+        width: auto;
+        margin-right: 60px;
+    }
+
+    textarea {
+        width: 100%;
+        border: 2px solid #ddd;
+        min-width: 270px;
+        min-height: 100px;
+        color: #000;
+        padding: 5px;
+    }
+
+    .pop-btn button {
+        padding: 8px 16px;
+        text-transform: capitalize;
+
+        &:focus {
+            outline: none !important;
+            border: 1px dotted;
+        }
+    }
+
+    .pop-btn .cancle-popup {
+        color: #18c432;
+        background-color: transparent;
+        border: 1px dotted transparent;
+
+        &:focus {
+            border: 1px dotted #18c432;
+        }
+    }
+
+    .pop-btn .save-popup {
+        background-color: #0f8422;
+        color: #FFF;
+        border-top: none;
+        border-left: none;
+        border-bottom: 2px solid #0a5616;
+        border-right: 2px solid #0a5616;
+    }
+
+    .pop-option label {
+        text-transform: uppercase;
+        font-weight: 400;
+        vertical-align: middle;
+        position: relative;
+    }
+}
+
+.option-detail-square {
+    padding: 0 10px 0 22px;
+    font-weight: 400;
+    position: relative;
+}
+
+.option-detail-square .checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border-radius: 0;
+    border: 2px solid #fff;
+
+    &.disable {
+        border: 2px solid #eee;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.option-detail-square input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.option-detail-square .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 3px;
+    top: -1px;
+    width: 7px;
+    height: 10px;
+    border-radius: 0;
+    border: solid #1d7f1e;
+    border-width: 0 3px 2px 0;
+    -webkit-transform: rotate(35deg);
+    transform: rotate(35deg);
+    background-color: transparent;
+}
+
+.option-detail-circle {
+    padding: 0 10px 0 22px;
+    font-weight: normal;
+    position: relative;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 2px solid #fff;
+
+        &.disable {
+            border: 2px solid #eee;
+            opacity: 0.5;
+        }
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .checkmark:after {
+        top: 2px;
+        left: 2px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $green-color;
+    }
+}
+
+// =============================================================
+// FoxBetX-style Login Modal
+// =============================================================
+.modal-overlay {
+    display: none;
+    height: 100%;
+
+    .captcha-div {
+        .captcha-img {
+            position: absolute;
+            right: 25px;
+            background: white;
+            padding: 2px;
+            border-radius: 2px;
+            margin-top: 11px;
+        }
+    }
+
+    .close-dialog-outside {
+        position: absolute;
+        top: 0px;
+        right: -45px;
+        cursor: pointer;
+        width: 28px;
+        height: 28px;
+        padding: 2px;
+        border-radius: 15px;
+        background: url(/public/images/icon2/close-round-2.svg) 0 0 no-repeat #3a4142;
+        box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    }
+
+    .div-input {
+        position: relative;
+        display: flex;
+
+        .fa {
+            position: absolute;
+            top: 16px;
+            right: 12px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.5);
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+
+    .div-input .drp-login-method {
+        position: absolute;
+        right: 0;
+        height: 50px;
+        display: flex;
+        align-items: center;
+
+        .btn {
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .dropdown-menu {
+            width: 95px;
+            min-width: 95px;
+            background-color: #1e2121;
+            border: 1px solid #3a4142;
+            border-radius: 8px;
+            padding: 4px 0;
+            font-size: 14px;
+
+            .dropdown-item {
+                width: 95px;
+                padding: 8px 10px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                cursor: pointer;
+                background: transparent;
+                color: #fff;
+
+                &:hover {
+                    background: rgba(52, 51, 201, 0.3);
+                }
+            }
+
+            .fa-mobile, .fa-user {
+                font-size: 16px;
+            }
+
+            .fa {
+                right: 0;
+                margin-right: 5px;
+            }
+        }
+
+        &.open > .dropdown-menu {
+            display: unset;
+        }
+
+        .fa {
+            font-size: 18px;
+            position: relative;
+            top: 0px;
+            transition: unset;
+        }
+    }
+
+    &.disp {
+        display: block;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 101;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: table;
+        backdrop-filter: blur(5px);
+    }
+
+    .dialog-container {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .dialog {
+            padding: 0;
+            height: auto;
+            display: inline-block;
+            vertical-align: top;
+            background-color: #232626;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            position: relative;
+            text-align: left;
+            color: #fff;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 0;
+            overflow-y: auto;
+            max-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+
+            .small-text {
+                font-size: 10px;
+            }
+        }
+
+        .dialog-header {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            padding: 20px 20px 0;
+
+            .tabbutton {
+                display: flex;
+                width: 100%;
+                height: auto;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .dialog-title {
+                font-family: 'Poppins', sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1.2;
+                color: #fff;
+                display: block;
+                cursor: default;
+                height: auto;
+                width: auto;
+
+                &:nth-child(odd) {
+                    border-top-left-radius: 0;
+                }
+
+                &:nth-child(even) {
+                    border-top-right-radius: 0;
+                }
+
+                &.inactive {
+                    background: transparent;
+                    color: rgba(255, 255, 255, 0.4);
+                    box-shadow: none;
+                }
+            }
+
+            .close-dialog {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                cursor: pointer;
+                width: 28px;
+                height: 28px;
+                padding: 2px;
+                border-radius: 15px;
+                background: url(/public/images/icon2/close-round-2.svg) 0 0 no-repeat #3a4142;
+                box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        .dialog-content {
+            padding: 20px 20px 24px;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .left {
+        float: left;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+
+        .label-text {
+            width: 200px;
+            height: 13px;
+            margin-bottom: 3px;
+            display: block;
+            font-size: 11px;
+            color: #7e97a7;
+        }
+
+        .login-input {
+            border-radius: 8px;
+            border: 1px solid #3a4142;
+            margin-bottom: 12px;
+            padding: 8px 20px;
+            cursor: text;
+            width: 100%;
+            height: 48px;
+            box-sizing: border-box;
+            background-color: #1e2121;
+            color: #fff !important;
+            -webkit-text-fill-color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            transition: border-color 0.2s ease-in-out;
+
+            &:focus, &:active {
+                outline: none;
+                border-color: #3433c9;
+                background-color: #1e2121;
+            }
+
+            &:-webkit-autofill {
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            &::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+                opacity: 1;
+            }
+
+            &:-ms-input-placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            &::-ms-input-placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            &[disabled] {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .forgot-link {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    .login-button {
+        color: #fff;
+        overflow: visible;
+        background: linear-gradient(90deg, #090921, #3433c9);
+        border: 1px solid #3433c9;
+        border-radius: 7px;
+        box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                    0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+        cursor: pointer;
+        padding: 6px 30px;
+        margin: 8px 0 12px;
+        width: 100%;
+        height: 40px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        text-transform: none;
+        user-select: none;
+        transition: color 0.15s ease-in-out,
+                    background-color 0.15s ease-in-out,
+                    border-color 0.15s ease-in-out,
+                    box-shadow 0.15s ease-in-out;
+
+        &:hover {
+            background: linear-gradient(90deg, #0e0e30, #4a49e0);
+            border-color: #4a49e0;
+            box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
+                        0 -2px 0 0 rgba(74, 73, 224, 0.55) inset;
+        }
+    }
+
+    *, *::before, *::after {
+        box-sizing: content-box;
+    }
+
+    .div-btn {
+        display: flex;
+        position: relative;
+    }
+
+    .two_input {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+
+        .first_box {
+            width: 25%;
+            margin-right: 15px;
+
+            select {
+                background: #1e2121;
+                background-color: #1e2121 !important;
+                border: 1px solid #3a4142;
+                height: 48px;
+                border-radius: 8px;
+                box-shadow: none;
+                padding: 0;
+                min-width: 100%;
+                text-align: center;
+                font-size: 14px;
+                color: #fff !important;
+                font-family: 'Poppins', sans-serif;
+
+                &.form-control {
+                    color: #fff !important;
+                }
+            }
+
+            .btn {
+                padding: 0px;
+                font-size: unset;
+            }
+        }
+
+        .div-input {
+            width: 75%;
+        }
+
+        &.full .div-input {
+            width: 100%;
+        }
+    }
+
+    .grid-spinner {
+        height: 28px;
+        position: absolute;
+        margin: 0px;
+        right: 0;
+        top: 15px;
+        outline: none !important;
+    }
+
+    input [type="radio"], input[type="checkbox"] {
+        vertical-align: sub;
+    }
+
+    .otp-timer {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            border: 1px solid #3433c9;
+            padding: 5px 10px;
+            border-radius: 7px;
+            font-size: 12px;
+            background: linear-gradient(90deg, #090921, #3433c9);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                        0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+        }
+    }
+
+    .ready-id {
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+
+        .forgot-link {
+            background: linear-gradient(90deg, #090921, #3433c9);
+            padding: 3px 10px;
+            border-radius: 7px;
+            margin-left: 10px;
+            color: white;
+            font-size: 13px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #3433c9;
+            box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                        0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+        }
+
+        .fa-whatsapp {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    }
+
+    a {
+        font-weight: bold;
+    }
+
+    .login-link {
+        color: #3433c9;
+    }
+
+    // New to FoxBetX / Create account link
+    .text-center {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+
+        a {
+            color: #3433c9;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            &:hover {
+                color: #4a49e0;
+            }
+        }
+    }
+
+    // Download button override
+    .download-btn {
+        background: linear-gradient(90deg, #090921, #3433c9) !important;
+        border: 1px solid #3433c9;
+        border-radius: 7px;
+        box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
+                    0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        transition: all 0.15s ease-in-out;
+
+        &:hover {
+            background: linear-gradient(90deg, #0e0e30, #4a49e0) !important;
+            border-color: #4a49e0;
+        }
+    }
+}
+
+.modal-overlay.disp {
+    .dialog-container .dialog {
+        animation: modalZoomIn 0.3s ease-in-out;
+        transform: scale(1);
+    }
+}
+
+@keyframes modalZoomIn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

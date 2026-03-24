@@ -1,0 +1,600 @@
+﻿<div class="loader-table" ng-show="generalLoader.active()">
+    <div class="loader-container" ng-include="loadderTemplate"></div>
+</div>
+<div class="mobile-view " ng-init="enableSearch=false;">
+    <header class="header ">
+        <div class="header-container">
+            <div class="left-hd">
+                <div class="month-time-mobile">
+                    <p>Device Time</p>
+                    <span id="time-mobile">{{currentDate | date:'HH:mm:ss'}}</span>
+                </div>
+            </div>
+            <div class="logo">
+                <a class="logo-bg" ui-sref="mobile.seven.base.home">
+                </a>
+            </div>
+
+            <div class="right-hd">
+                <div class="right-hd-detail">
+                    <div class="month-time ">
+                        <span id="time-mobile">
+                            {{currentDate | date:'dd-MM-yyyy HH:mm:ss'}}
+                        </span>
+                    </div>
+                    <div class="user-icon">
+                        <div class="drop_down">
+                            <button id="myarrow" ng-click="openMenu=!openMenu" class="dropbtn" ng-class="{'active':openMenu}">
+                                <img ng-src="{{webImagePath}}user-client.png" alt="" class="icon">
+                                {{user.username}}
+                            </button>
+                            <div id="myDropdown" class="dropdown-content" ng-class="{'show':openMenu}">
+                                <div class="device-time">
+                                    <div class="d-left">
+                                        <span>Device Time</span>
+                                    </div>
+                                    <div class="d-right">{{currentDate | date:'dd-MM-yyyy HH:mm:ss'}}</div>
+                                </div>
+                                <div class="credit-div">
+                                    <div class="c-title">
+                                        <span class="c-detail">Available Credit</span>
+                                        <span style="float:right">
+                                            <kt-glc-code data-special="true"
+                                                         data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                    <div class="c-title">
+                                        <span class="c-detail">Credit Limit</span>
+                                        <span style="float:right"><kt-glc-code data-special="true" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                                    </div>
+                                    <div class="c-title">
+                                        <span class="c-detail">Winnings</span>
+                                        <span style="float:right">
+                                            <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.balance<0,}"
+                                                         data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                    <div class="c-title">
+                                        <span class="c-detail">Net Exposure</span>
+                                        <span style="float:right">
+                                            <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.exposure<0,}"
+                                                         data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-menu">
+                                    <div class="d-main-title dt-menu">Member</div>
+                                    <div class="ds-menu">
+                                        <a class="sub-menu" ui-sref="mobile.seven.base.transferonline" ng-if="isB2C">
+                                            <i class="fa fa-money y-icon" aria-hidden="true"></i>Deposit/Withdrawal
+                                        </a>
+                                        <a class="sub-menu" ui-sref="mobile.seven.base.passwordchange">
+                                            <i class="fa fa-lock y-icon" aria-hidden="true"></i>
+                                            Change Password
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-menu dpdn-menu">
+                                    <div class="dpdn-tab">
+                                        <input type="checkbox" id="chck1" style="display:none;">
+                                        <label class="tab-label dt-menu" for="chck1">Main</label>
+                                        <div class="ds-menu">
+                                            <a class="sub-menu" ui-sref="mobile.seven.base.mybets.currentbets">
+                                                <i class="fa fa-list-alt y-icon" aria-hidden="true"></i>
+                                                my bet
+                                            </a>
+                                            <a class="sub-menu" ui-sref="mobile.seven.base.profitloss">
+                                                <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                                                profit and loss
+                                            </a>
+                                            <a class="sub-menu" ui-sref="mobile.seven.base.fdprofitloss">
+                                                <i class="fa fa-signal y-icon" aria-hidden="true"></i>
+                                                FD profit and loss
+                                            </a>
+                                            <a class="sub-menu" ui-sref="mobile.seven.base.accountstatement">
+                                                <i class="fa fa-file-text-o y-icon" aria-hidden="true"></i>
+                                                account statement
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-menu dpdn-menu">
+                                    <div class="dpdn-tab">
+                                        <input type="checkbox" id="chck2" style="display:none;">
+                                        <label class="tab-label dt-menu" for="chck2">Personal</label>
+                                        <div class="ds-menu">
+                                            <a class="sub-menu" ui-sref="mobile.seven.base.profile">
+                                                <i class="fa fa-address-book y-icon" aria-hidden="true"></i>
+                                                My Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="logout">
+                                    <a ng-click="openMenu=false;ctrl.logout()">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="margin-right:8px; font-size:17px;"></i>
+                                        Log Out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-right-hd">
+                    <div class="user-icon">
+                        <div class="click-menu" id="overlay-input" />
+                        <label for="overlay-input" id="overlay-button" ng-click="openMenu=!openMenu">
+                            {{user.username}}
+                            <small style="font-size: 10px; display: block;"> <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code></small>
+                        </label>
+                        <div id="overlay" ng-class="{'show':openMenu}">
+                            <div class="logout">
+                                <a ng-click="openMenu=false;ctrl.logout()">
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="margin-right:8px; font-size:17px;"></i>
+                                    Log Out
+                                </a>
+                            </div>
+                            <div class="device-time">
+                                <div class="d-left">
+                                    <span>Device Time</span>
+                                </div>
+                                <div class="d-right">{{currentDate | date:'dd-MM-yyyy HH:mm:ss'}}</div>
+                            </div>
+
+                            <div class="credit-display">
+                                <div class="cr-div">
+                                    <div class="cd-info">
+                                        <span class="cd-detail">Available Credit</span>
+                                        <span class="cd-value red"><kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure}}"></kt-glc-code></span>
+                                    </div>
+                                    <div class="cd-info">
+                                        <span class="cd-detail">Credit Limit</span>
+                                        <span class="cd-value"><kt-glc-code data-special="true" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                                    </div>
+                                    <div class="cd-info">
+                                        <span class="cd-detail">Winnings</span>
+                                        <span class="cd-value">
+                                            <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.balance<0,}"
+                                                         data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                    <div class="cd-info">
+                                        <span class="cd-detail">Net Exposure</span>
+                                        <span class="cd-value">
+                                            <kt-glc-code data-special="true" class="positive" ng-class="{'negative':balanceInfo.exposure<0,}"
+                                                         data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="member mb-details">
+                                <div class="mb-trasfer" ng-show="isB2C">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.transferonline" ng-click="openMenu=false;">
+                                        <i class="fa fa-money" aria-hidden="true"></i>Deposit/Withdrawal
+                                    </a>
+                                </div>
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.passwordchange" ng-click="openMenu=false;">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                        Change Password
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="m-dashbord mb-details">
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.mybets.currentbets" ng-click="openMenu=false;">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        my bets
+                                    </a>
+                                </div>
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.profitloss" ng-click="openMenu=false;">
+                                        <i class="fa fa-signal" aria-hidden="true"></i>
+                                        profit and loss
+                                    </a>
+
+                                </div>
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.fdprofitloss" ng-click="openMenu=false;">
+                                        <i class="fa fa-signal" aria-hidden="true"></i>
+                                        FD profit and loss
+                                    </a>
+                                </div>
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.accountstatement" ng-click="openMenu=false;">
+                                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                        account statement
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="p-dashbord mb-details">
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.profile" ng-click="openMenu=false;">
+                                        <i class="fa fa-signal" aria-hidden="true"></i>
+                                        My Profile
+                                    </a>
+                                </div>
+                                <div class="mb-trasfer">
+                                    <a class="sub-menu" ui-sref="mobile.seven.base.loginhistory" ng-click="openMenu=false;">
+                                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                        Login History
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="center-mobile" id="center-mobile">
+        <div ui-view="center" class="center-content">
+        </div>
+        <div ng-include="footerTemplate" class="height100"></div>
+    </div>
+
+    <div class="sidebar-content" ng-class="{'active':leftMenuOpen}">
+        <div class="sidebar">
+            <h3>Quick Access</h3>
+            <ul class="side-list">
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ui-sref="mobile.seven.base.home" ng-click="leftMenuOpen=false">
+                            <i class="inplay"></i>
+                            <span>In-play</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ui-sref="mobile.seven.base.multimarket" ng-click="leftMenuOpen=false">
+                            <i class="favourite"></i>
+                            <span>Favourites</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li>
+                    <div class="side-item">
+                        <a class="sid-img" ui-sref="mobile.seven.base.mymarket" ng-click="leftMenuOpen=false">
+                            <i class="my-market"></i>
+                            <span>My Markets</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li ng-if="hasCasino">
+                    <div class="side-item">
+                        <a class="sid-img" ui-sref="mobile.base.fdlivegames">
+                            <i class="icon-sport-teen-patti"></i>
+                            <span>{{'fd.casino.label' | translate}}</span>
+                        </a>
+                        <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </li>
+                <li ng-repeat="sport in eventTypes" ng-if="sport.isLiveGame">
+                    <div class="side-item" ng-click="ctrl.openChild(sport,null,sport.id)">
+                        <div class="sid-img li-togle">
+                            <i class="icon-sport-{{sport.name|joinme}}"></i>
+                            <span>{{sport.name}}</span>
+                        </div>
+                        <button class="chevr " ng-class="{'oval':sport.child.length>0}">
+                            {{sport.child.length}}
+                            <div ng-class="{'oval-img':sport.child.length>0}">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <ul class="slideContent" ng-class="{'show':sport.isOpen && sport.child.length>0}">
+                        <li class="depth-2" ng-repeat="ch1 in sport.child" ng-init="ch1.isLiveGame=true">
+                            <div class="side-item li-togle" ng-click="ctrl.openChild(ch1,sport.id,sport.id)">
+                                <div class="sid-img">
+                                    <i class="icon-sport-{{sport.name|joinme}}"></i>
+                                    <span>{{ch1.name}}</span>
+                                </div>
+                                <button class="chevr"> <i class="fa fa-chevron-right"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Sports</h3>
+            <ul class="side-list">
+                <li ng-repeat="sport in eventTypes" ng-if="sport.displayOrder>=0 && !sport.isLiveGame">
+                    <div class="side-item li-togle" ng-click="ctrl.openChild(sport,null,sport.id)">
+                        <div class="sid-img">
+                            <i class="icon-sport-{{sport.name|joinme}}"></i>
+                            <span>{{sport.name}}</span>
+                        </div>
+                        <button class="chevr " ng-class="{'oval':sport.child.length>0}">
+                            {{sport.child.length}}
+                            <div ng-class="{'oval-img':sport.child.length>0}">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <ul class="slideContent" ng-class="{'show':sport.isOpen && sport.child.length>0}">
+                        <li class="depth-2" ng-repeat="ch1 in sport.child" ng-init="ch1.isRace=sport.isRace">
+                            <div class="side-item li-togle" ng-click="ctrl.openChild(ch1,sport.id,sport.id)">
+                                <div class="sid-img">
+                                    <i class="icon-sport-trophy"></i>
+                                    <span ng-hide="sport.isRace">{{ch1.name}}</span>
+                                    <span ng-show="sport.isRace">
+                                        <kt-date data-date-value="ch1.startTime" data-format="HH:mm"></kt-date>&nbsp;{{ch1.event.raceName}}
+                                    </span>
+                                </div>
+                                <button class="chevr " ng-class="{'oval':ch1.child.length>0}">
+                                    {{ch1.child.length}}
+                                    <div ng-class="{'oval-img':ch1.child.length>0}">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </div>
+                                </button>
+                            </div>
+                            <ul class="slideContent" ng-class="{'show':ch1.isOpen &&  ch1.child.length>0}">
+                                <li class="depth-3" ng-repeat="ch2 in ch1.child">
+                                    <div class="side-item li-togle" ng-click="ctrl.openChild(ch2,ch1.id,sport.id)">
+                                        <div class="sid-img market-circle">
+                                            <span>{{ch2.name}}</span>
+                                        </div>
+                                        <button class="chevr">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="top-side">
+                <div class="foo-18"><img ng-src="{{webImagePath}}18.png"></div>
+                <span>© 2020-2024</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bet-content" ng-class="{'active':showRightmenu}">
+        <div class="inner-bet">
+            <div class="section">
+                <div class="sec">
+                    <h2>1-Click Bet</h2>
+                    <div class="on-off-toggle">
+                        <input class="on-off-toggle__input  first-toglle" type="checkbox" id="bopis"
+                               ng-model="oneClickEnable" ng-click="ctrl.oneClickToggle();" />
+                        <label for="bopis" class="on-off-toggle__slider"></label>
+                    </div>
+                </div>
+                <div class="sec-childe sec-childe-1" ng-init="editOneClickStake=false" ng-if="oneClickEnable">
+                    <div class="sec-childe-inner">
+                        <button class="bet-but " ng-show="!editOneClickStake"
+                                ng-class="{'bet-but-active':s.isActive}" ng-click="ctrl.selectOneClickStake($index,s)"
+                                ng-repeat="s in stakeConfig.oneClickStake | limitTo:3">
+                            {{s.stake}}
+                        </button>
+                        <input ng-show="editOneClickStake" type="text" ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                               class="bet-but"
+                               ng-repeat="s in stakeConfig.oneClickStake | limitTo:3">
+
+                        <button class="edit-st" ng-show="!editOneClickStake" ng-click="editOneClickStake=true">
+                            <div class="st-img">
+                                <img ng-src="{{webImagePath}}feather-white.png" alt="">
+                            </div>
+                            Edit Stakes
+                        </button>
+                        <button class="save" ng-show="editOneClickStake" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">
+                            <div class="st-img cls-img">
+                                <img ng-src="{{webImagePath}}check-client.png" alt="">
+                            </div>
+                            Save
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="sec">
+                    <h2> Bet Slip</h2>
+                    <button class="setings" ng-show="!editStake" ng-click="editStake=true">
+                        <div class="st-img cls-img">
+                            <img ng-src="{{webImagePath}}gear-edit-stake-client.png" alt="">
+                        </div>
+                        Edit stakes
+                    </button>
+                    <button class="setings" ng-show="editStake" ng-click="editStake=false;">
+                        <div class="st-img cls-img">
+                            <img ng-src="{{webImagePath}}x.png" alt="">
+                        </div>
+                        Cancel Editing
+                    </button>
+
+                </div>
+                <div class="yc-cont" ng-show="editStake">
+                    <div class="YcXkh">
+                        <input type="text" ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                               ng-repeat="s in stakeConfig.stake | filter:{isActive:true}" class="bet-input">
+                        <button class="save-inp" ng-click="editStake=false;ctrl.saveStakeConfig()">
+                            <img ng-src="{{webImagePath}}check-white.png" alt="">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ui-view="openbets">
+
+            </div>
+            <div class="section open-sc ng-hide">
+                <div class="sec">
+                    <h2>Opened bets</h2>
+                </div>
+                <div class="matched">
+                    <div class="tab-btn">
+                        <button class="match active-match">Unmatched</button>
+                        <button class="match">Matched</button>
+                    </div>
+                    <div style="padding:0 8px;">
+                        <div class="match-info">
+                            <div class="select-event">
+                                <span class="evnt-name">Selected Event:</span>
+                                <div class="dropdown-btn">
+                                    <button onclick="myFunction()" class="drop_btn circle">all</button>
+                                    <div id="Dropdownbtn" class="dropdown-info">
+                                        <a href="#home" class="">All 1</a>
+                                        <a href="#about" class="">All 2</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tabbing">
+                            <div class="tab">
+                                <button class="tablinks" id="defaultOpen" onclick="openEvent(event, 'conso')">consolidated</button>
+                                <button class="tablinks" onclick="openEvent(event, 'avg')">average</button>
+                                <button class="tablinks" onclick="openEvent(event, 'edate')">event date</button>
+                            </div>
+
+                            <div id="conso" class="tabcontent">
+                                <div class="Matched-bet">
+                                    <h4 class="m-title">Santillan v Peniston</h4>
+                                    <div class="bet-table">
+                                        <span class="b-title">match odds</span>
+                                        <div class="bet-detail">
+                                            <div class="hd-name" style="text-align:left">Selection</div>
+                                            <div class="hd-name">Odds</div>
+                                            <div class="hd-name">Stake</div>
+                                            <div class="hd-name">P&L</div>
+                                        </div>
+                                        <div class="bet-detail bt-detail">
+                                            <div class="bt-name bt-title blue">Akira Akira</div>
+                                            <div class="bt-name">1.64</div>
+                                            <div class="bt-name">50.00</div>
+                                            <div class="bt-name negative">+32.00</div>
+                                        </div>
+                                        <div class="bet-detail bt-detail">
+                                            <div class="bt-name bt-title blue">Akira Akira</div>
+                                            <div class="bt-name">1.64</div>
+                                            <div class="bt-name">50.00</div>
+                                            <div class="bt-name positive">+32.00</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="avg" class="tabcontent">
+                                AVERAGE
+                            </div>
+
+                            <div id="edate" class="tabcontent">
+                                EVENT DATE
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-manu" ng-init="leftMenuOpen=false;showRightmenu=false;" ng-hide="ctrl.isActive('/mobile/fd-live-games')">
+        <div class="footer-item">
+            <div class="i-img burger" ng-click="leftMenuOpen=!leftMenuOpen">
+                <img ng-src="{{webImagePath}}burger.png" ng-show="!leftMenuOpen">
+                <img ng-src="{{webImagePath}}x.png" ng-show="leftMenuOpen">
+                <span>Menu</span>
+            </div>
+        </div>
+
+        <div class="footer-item">
+            <a class="i-img" ui-sref="mobile.seven.base.home" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}home-menu-active.png" class="act-img">
+                <img ng-src="{{webImagePath}}home-menu.png" class="non-act-img">
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="footer-item" ng-if="hasCasino">
+            <a class="i-img" ui-sref="mobile.base.fdlivegames" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}cards-inactive.png" class="non-act-img">
+                <img ng-src="{{webImagePath}}cards.png" class="act-img">
+                <span>{{'fd.casino.label' | translate}}</span>
+            </a>
+        </div>
+        <div class="footer-item">
+            <a class="i-img" ui-sref="mobile.seven.base.mymarket" ui-sref-active="active">
+                <img ng-src="{{webImagePath}}sss-inactive.png" class="non-act-img">
+                <img ng-src="{{webImagePath}}sss.png" class="act-img">
+                <span>My Markets</span>
+            </a>
+        </div>
+        <div class="footer-item">
+            <div class="i-img" ng-click="showRightmenu=!showRightmenu">
+                <img ng-src="{{webImagePath}}my-bet-menu-inactive.png" ng-show="!showRightmenu">
+                <img ng-src="{{webImagePath}}back-menu.png" ng-show="showRightmenu">
+                <span class="my-bets">My-Bets</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="openbet-overlay" ng-class="{'active':isBetInProcess}">
+    <div class="col-xs-12 betprocess">
+        <div class="row center-div">
+            <div class="col-xs-12">
+                Your bet is being processed.<br />
+                Please wait...
+            </div>
+            <div class="col-xs-12 loader">
+                <span class="bet-process">
+                </span>
+                <label ng-if="betDelay>=0">{{betDelay}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tabbing  -->
+<script>
+    function openEvent(evt, EventName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(EventName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+</script>
+
+<script>
+    function myFunction() {
+        document.getElementById("Dropdownbtn").classList.toggle("show");
+    }
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.drop_btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-info");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>

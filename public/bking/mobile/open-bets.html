@@ -1,0 +1,152 @@
+﻿<div class="section open-sc" ng-init="betView=1">
+    <div class="sec">
+        <h2>Opened bets</h2>
+    </div>
+    <div class="matched">
+        <div class="tab-btn">
+            <button class="match " ng-class="{'active-match':betView==1}" ng-click="betView=1">Matched <span class="c-value">{{countMatched}}</span></button>
+            <button class="match " ng-class="{'active-match':betView==2}" ng-click="betView=2">Unmatched <span class="c-value">{{countUnmatched}}</span></button>
+        </div>
+        <div style="padding:0 8px;">
+            <div ng-show="betView==1">
+                <div class="match-info">
+                    <div class="select-event">
+                        <span class="evnt-name">Selected Event:</span>
+                        <div class="dropdown-btn">
+                            <button class="drop_btn" ng-click="showList=!showList">{{selectedEvent.eventName}}</button>
+                            <div id="Dropdownbtn" class="dropdown-info" ng-class="{'show':showList}">
+                                <a ng-click="$parent.showList=false;ctrl.selectedMarketChanged(m.id)" ng-repeat="m in eventList">
+                                    {{m.name}} <span class="c-value">{{m.count}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabbing">
+                    <div ng-if="countMatched <=0">No matched bets found.</div>
+                    <div ng-if="countMatched>0">
+                        <div class="tab">
+                            <button class="tablinks" ng-class="{'active':$parent.showConsolidate}" ng-click="$parent.showConsolidate=true;$parent.showAverageOdds=false;$parent.showByDate=false">consolidated</button>
+                            <button class="tablinks" ng-class="{'active':$parent.showAverageOdds}" ng-click="$parent.showAverageOdds=true;$parent.showConsolidate=false;$parent.showByDate=false">average</button>
+                            <button class="tablinks" ng-class="{'active':$parent.showByDate}" ng-click="$parent.showByDate=true;$parent.showConsolidate=false;$parent.showAverageOdds=false">event date</button>
+                        </div>
+
+                        <div class="tabcontent" ng-if="!showAverageOdds">
+                            <div class="Matched-bet" ng-repeat="selectedMarket in selectedEvent.openBets">
+                                <h4 class="m-title" ng-if="$index==0">{{selectedEvent.eventName}}</h4>
+                                <div class="bet-table" >
+                                    <span class="b-title">{{selectedMarket.marketName | shortme:22}}</span>
+                                    <div class="bet-detail">
+                                        <div class="hd-name" style="text-align:left">Selection</div>
+                                        <div class="hd-name">Odds(H-J)</div>
+                                        <div class="hd-name">Stake</div>
+                                        <div class="hd-name">P&L</div>
+                                    </div>
+                                    <div class="bet-detail bt-detail" ng-repeat="b in ctrl.matchedBetFilter(selectedMarket.bets)">
+                                        <div class="bt-name bt-title" ng-class="{'blue':b.side==1,'pink':b.side==2}">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{b.avgPrice}}</span>
+                                        </div>
+                                        <div class="bt-name">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{b.avgPrice }}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{b.percentage}}</span>
+                                        </div>
+                                        <div class="bt-name">{{b.sizeMatched  | toRate}}</div>
+                                        <div class="bt-name " ng-class="{'positive':b.side==1,'negative':b.side==2}">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="avg" class="tabcontent" ng-if="showAverageOdds">
+                            <div class="Matched-bet" ng-repeat="selectedMarket in selectedEvent.openBets">
+                                <h4 class="m-title" ng-if="$index==0">{{selectedEvent.eventName}}</h4>
+                                <div class="bet-table" >
+                                    <span class="b-title">{{selectedMarket.marketName | shortme:22}}</span>
+                                    <div class="bet-detail">
+                                        <div class="hd-name" style="text-align:left">Selection</div>
+                                        <div class="hd-name">Odds(H-J)</div>
+                                        <div class="hd-name">Stake</div>
+                                        <div class="hd-name">P&L</div>
+                                    </div>
+                                    <div class="bet-detail bt-detail" ng-repeat="b in selectedMarket.avgBets | betFilter:'sizeMatched'">
+                                        <div class="bt-name bt-title" ng-class="{'blue':b.side==1,'pink':b.side==2}">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{b.price}}</span>
+                                        </div>
+                                        <div class="bt-name">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{b.price }}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{b.percentage}}</span>
+                                        </div>
+                                        <div class="bt-name">{{b.sizeMatched  | toRate}}</div>
+                                        <div class="bt-name " ng-class="{'positive':b.side==1,'negative':b.side==2}">
+                                            <span ng-if="selectedMarket.bettingType!=7 && selectedMarket.bettingType!=2 && selectedMarket.bettingType!=8 ">{{(b.price-1) * b.sizeMatched  | toRate}}</span>
+                                            <span ng-if="selectedMarket.bettingType==7 || selectedMarket.bettingType==2 || selectedMarket.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="betView==2">
+                <div class="tabbing">
+                    <div ng-if="countUnmatched <=0">No unmatched bets found.</div>
+                    <div ng-if="countUnmatched>0">
+                        <div class="bt-cbtn">
+                            <span class="grid-spinner" ng-show="openbet_loader.active()"><img class="outside" ng-src="{{spinnerImg}}" /> </span>
+                            <a class="button btn-remove" ng-click="ctrl.cancelAllBets()">{{'common.cancelall.button' | translate}}</a>
+                        </div>
+                        <div ng-repeat="ab in allOpenBets" class="aaa">
+                            <div ng-repeat="o in ab.openBets" ng-if="(o.bets | betFilter:'sizeRemaining').length>0">
+                                <div class="tabcontent">
+                                    <div class="Matched-bet">
+                                        <h4 class="m-title" ng-if="$index==0">{{ab.eventName}}</h4>
+                                        <div class="bet-table">
+                                            <span class="b-title">{{o.marketName | shortme:22}}</span>
+                                            <div class="bet-detail">
+                                                <div class="hd-name" style="text-align:left">Selection</div>
+                                                <div class="hd-name">Odds(H-J)</div>
+                                                <div class="hd-name">Stake</div>
+                                                <div class="hd-name">
+                                                    P&L
+
+                                                </div>
+                                            </div>
+                                            <div class="bet-detail bt-detail" ng-repeat="b in o.bets | betFilter:'sizeRemaining'" ng-init="ctrl.isInEdit(b);">
+                                                <div class="bt-name bt-title" ng-class="{'blue':b.side==1,'pink':b.side==2}">
+                                                    <span>{{b.runnerName | shortme:22}}</span>
+                                                </div>
+                                                <div class="bt-name bt-input">
+                                                    <kt-price-ladder data-min="{{o.minUnitValue}}"
+                                                                     data-max="{{o.maxUnitValue}}"
+                                                                     data-interval="{{o.interval}}"
+                                                                     data-ladder-type="{{o.priceLadderType}}"
+                                                                     data-messages="messages"
+                                                                     data-value="b.newPrice"
+                                                                     data-value-changed="ctrl.updateBet(b)">
+                                                    </kt-price-ladder>
+                                                </div>
+                                                <div class="bt-name">{{b.sizeRemaining  | toRate}}</div>
+                                                <div class="bt-name " ng-class="{'positive':b.side==1,'negative':b.side==2}">
+                                                    <span ng-if="o.bettingType!=7 && o.bettingType!=2 ">{{(b.newPrice-1)*b.sizeRemaining  | toRate}}</span>
+                                                    <span ng-if="o.bettingType==7 || o.bettingType==2 ">{{b.sizeRemaining  | toRate}}</span>
+                                                    <a class="button btn-remove" ng-click="ctrl.cancelBet(b)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

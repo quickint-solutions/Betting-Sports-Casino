@@ -1,0 +1,125 @@
+﻿
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-2"
+             ng-if="!$parent.ctrl.isActive('/inplay') && !$parent.ctrl.isActive('/recent-results')">
+            <div class="row left-part" ng-scrollbars>
+                <div ui-view="left">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7" ng-class="{'col-sm-9':($parent.ctrl.isActive('/inplay') || $parent.ctrl.isActive('/recent-results'))}">
+            <div class="row">
+                <div class="center-part">
+                    <div ui-view="center" ng-scrollbars class="scrollwrap">
+                    </div>
+                    <div class="one_click_screen" ng-show="oneClickEnable">
+                        <div class="reoverlay" ng-class="{'hide':shown_OneClickWarning}"></div>
+                        <div>
+                            <div class="dialog-wrap white-halo" ng-class="{'hide':shown_OneClickWarning}">
+                                <h4>{{'oneclick.warinng.header' | translate}}</h4>
+                                <div class="dialog-content">
+                                    <p>
+                                        {{'oneclick.warinng.content' | translate}}
+                                        <br><span class="attention">
+                                            {{'oneclick.warinng.attention' | translate}}
+                                        </span>
+                                    </p>
+                                </div>
+                                <ul class="break">
+                                    <li>
+                                        <a class="btn_send bets" style="cursor:pointer;" ng-click="ctrl.hideOneClickWarning()">
+                                            {{'common.button.ok' | translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <img class="arrow-dialog" src="/public/images/down-arrow.png">
+                            </div>
+
+
+                            <div class="one_click-wrap" ng-init="editOneClickStake=false">
+                                <div class="oneclick-setting" ng-show="!editOneClickStake">
+                                    <span class="stake-title">{{'oneclickstake.header' | translate}}</span>
+                                    <ul class="one_click-stake">
+                                        <li ng-repeat="s in stakeConfig.oneClickStake">
+                                            <a class="btn" ng-click="ctrl.selectOneClickStake($index,s)" index="{{$index}}" kt-click
+                                               ng-class="{'select':s.isActive}">{{s.stake}}</a>
+                                        </li>
+                                    </ul>
+                                    <a class="setting-edit" ng-click="editOneClickStake=true">edit <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="oneclick-betstake" ng-show="editOneClickStake">
+                                    <span class="stake-title">{{'oneclickstake.edit.header' | translate}}</span>
+                                    <ul class="one_click-stake">
+                                        <li ng-repeat="s in stakeConfig.oneClickStake">
+                                            <input ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true">
+                                        </li>
+                                    </ul>
+                                    <a class="setting-save dark-btn" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">{{'common.button.save' | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="right-part scrollwrap" ng-scrollbars ng-class="{'height63':isVideoActive && videoExpanded,'height97':isVideoActive && !videoExpanded}">
+                    <div>
+                        <section class="tab">
+                            <ul class="tabs-container">
+                                <li class="tab-container" ng-class="{'active':selectedBetTab==0}">
+                                    <a class="tab-heading" ng-click="selectedBetTab=0">
+                                        <span class="tab-label">{{'betslip.label' | translate}}</span>
+                                    </a>
+                                </li>
+                                <li class="tab-container" ng-class="{'active':selectedBetTab==1}">
+                                    <a class="tab-heading" ng-click="selectedBetTab=1">
+                                        <span class="tab-label">{{'openbets.label' | translate}}</span>
+                                    </a>
+                                </li>
+                                <!--<li class="video-button float-r">
+                                    <a ng-click="ctrl.openVideo()">
+                                        <img src="/public/images/mobile/play.png">
+                                    </a>
+                                </li>-->
+                                <li class="video-button float-r" ng-if="$parent.isB2C">
+                                    <a ui-sref="base.account.transferonline" class="blink-color dw-btn">
+                                        <i class="fa fa-bank"></i> Deposit Now
+                                    </a>
+                                </li>
+                            </ul>
+                        </section>
+                        <div ui-view="right_placebet" ng-show="selectedBetTab==0">
+                        </div>
+                        <div ui-view="right_openbet" ng-show="selectedBetTab==1">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="right-part video" ng-show="isVideoActive" ng-class="{'height3':!videoExpanded}">
+                    <div class="tab-desc">
+                        <div class="black-back" ng-click="videoExpanded=!videoExpanded">
+                            <i class="fa faimg" aria-hidden="true" ng-class="{'fa-minus-square-o':videoExpanded, 'fa-plus-square-o':!videoExpanded}"></i>
+                        </div>
+                        <div class="collapse" ng-class="{'in':videoExpanded}">
+                            <div ng-show="wcs_video">
+                                <kt-video-player wcs-config="wcs_video" style="height:180px" pause-me="{{ !videoExpanded}}" ng-if="wcs_video"></kt-video-player>
+                            </div>
+                            <div style="width:100%;height:100%" ng-show="bf_video">
+                                <iframe style="width:calc(100% - 20px)" height="185" scrolling="no" ng-src="{{bf_video}}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

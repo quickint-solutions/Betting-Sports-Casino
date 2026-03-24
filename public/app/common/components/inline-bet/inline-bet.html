@@ -1,0 +1,31 @@
+﻿<div>
+    <div style="float:left; width:100%; padding:0 5px" ng-init="toPrice=price">
+        <span class="select-btn">
+            <a class="btn cancle" ng-click="ctrl.cancelInlineBet()">Cancel</a>
+        </span>
+        <span class="score-btn" ng-if="!disableOdds" ng-class="{'khado':$parent.bettingType==8}">
+            <a style="float:left" ng-click="ctrl.down()"><i class="fa fa-minus" aria-hidden="true"></i></a>
+            <input ng-blur="ctrl.priceLeave()" kt-number-only allow-decimal="true" positive-only="true" ng-model="$parent.price" />
+            <a style="float:right" ng-click="ctrl.up()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </span>
+        <span class="score-btn-khado-to" ng-if="$parent.bettingType==8">&nbsp; -  {{($parent.price*1)+($parent.toPrice*1)-1}}</span>
+        <span class="score-btn disable" ng-if="disableOdds">
+            <span> {{price}}</span>
+        </span>
+        <span class="score-btn">
+            <a style="float:left" ng-click="ctrl.downSize()"><i class="fa fa-minus" aria-hidden="true"></i></a>
+            <input ng-model="size" ng-change="ctrl.sizeChanged()" kt-number-only allow-decimal="true" positive-only="true" />
+            <a style="float:right" ng-click="ctrl.upSize()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </span>
+        <span class="select-btn place-btn" kt-has-claim claims="{Claims: ['client.bet.place']}">
+            <a class="btn save dark-btn" ng-click="ctrl.submitBet()" kt-click>
+                Place Bet
+                <span ng-class="{'green-light':placeBetLabel>0,'red':placeBetLabel<0}">{{placeBetLabel | number:2}}</span>
+            </a>
+        </span>
+    </div>
+    <span class="popup-list">
+        <a ng-repeat="s in stakeConfig.stake | filter:{isActive:true}"
+           ng-click="ctrl.stakeClick(s.stake)">{{s.stake}}</a>
+    </span>
+</div>

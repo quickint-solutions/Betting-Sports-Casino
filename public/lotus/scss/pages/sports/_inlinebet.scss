@@ -1,0 +1,397 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.td-popup {
+    //padding: 8px 0px 5px 0px !important;
+    padding: 5px 1px 8px 1px !important;
+    cursor: default !important;
+    //float:left;
+    //box-shadow: inset 0px 0px 3px 0px black;
+    width: $width;
+    height: auto !important;
+
+    .score-btn.khado {
+        width: 18% !important;
+    }
+
+    .score-btn-khado-to {
+        width: 5% !important;
+        float: left;
+        vertical-align: middle;
+        line-height: 28px;
+    }
+
+    .score-btn {
+        @include resize ($float-left, 24%);
+        text-align: $center;
+        //height: 27px;
+        margin: 0px 7px 5px 7px;
+        @include display(block);
+        background-color: $white-color;
+        @include border-radius(4px);
+
+        @include respond-to2(extra-small-screens) {
+            width: 23.5%;
+        }
+
+        @include respond-to2(handhelds) {
+            width: 24%;
+        }
+
+        &.disable {
+            padding-top: 4px;
+        }
+
+        a {
+            width: 18%;
+            @include line-height(35.3px);
+            text-align: $center;
+
+            i {
+                font-size: 11px;
+                font-weight: normal;
+
+                @include respond-to2(handhelds) {
+                    //  font-size: 10px;
+                }
+            }
+        }
+
+        .score-a {
+            background-color: $btn-inline-bg;
+            color: $btn-inline-color;
+        }
+
+        input {
+            width: 64%;
+            //height: 27px;
+            border: none;
+            padding: 8px 11px;
+            font-size: 13px;
+            text-align: $center;
+            @include border('top', 1px, solid, $border-color);
+            @include border('bottom', 1px, solid, $border-color);
+
+            &:focus {
+                outline: none;
+            }
+
+            @include respond-to2(handhelds) {
+                // font-size: 10px;
+            }
+        }
+
+        .btn-input {
+            @include border('left', 1px, solid, $border-color);
+            @include border('right', 1px, solid, $border-color);
+            width: 100%;
+            padding: 8px 11px;
+        }
+    }
+
+    .score-left {
+        float: left;
+        width: 50%;
+    }
+
+    .score-right {
+        float: left;
+        width: 50%;
+    }
+
+    .select-btn {
+        @include resize (left, 24%);
+        padding: 0 0px !important;
+        border: none !important;
+
+        @include respond-to2(extra-small-screens) {
+            //width: 22%;
+        }
+
+        @include respond-to2(handhelds) {
+            width: 20%;
+        }
+
+        .btn {
+            background-color: $white-color;
+            width: $width;
+            font-size: 13px;
+            @include display(inline-block);
+            @include line-height(20px);
+            height: 35px;
+            border-radius: 2px;
+            color: #777777;
+            border: 1px solid #777777;
+            text-transform: capitalize;
+
+            @include respond-to2(handhelds) {
+                //font-size: 10px;
+            }
+        }
+    }
+
+    .place-btn {
+        .btn {
+            color: $white-color;
+            background-color: $btn-primary-bg; //#777777;
+            @include padding(4px, 12px, 2px, 12px);
+            @include line-height(15px);
+            text-transform: capitalize;
+
+            &.disable {
+                opacity:0.6;
+                pointer-events:none;
+            }
+
+            &.active {
+                background-color: $btn-primary-bg;
+            }
+
+            .red, .green-light {
+                color: $white-color;
+            }
+        }
+
+        span {
+            @include resize($float-left, $width);
+            @include line-height(12px);
+            font-size: 10px;
+        }
+    }
+}
+
+.td-popup.back-1 {
+    .select-btn {
+        /*border: 1px solid $dark-blue !important;
+            border-bottom: 2px solid  $dark-blue !important;
+            border-right: 2px solid  $dark-blue !important;*/
+        //box-shadow: 1px 1px $black-color !important;
+
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $back-shadow !important;
+        }
+    }
+
+    .score-btn {
+        /*border: 1px solid $dark-blue;
+            border-bottom: 2px solid $dark-blue !important;
+            border-right: 2px solid $dark-blue !important;*/
+       //box-shadow: 1px 1px $black-color !important;
+
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $back-shadow;
+        }
+    }
+
+    &:hover {
+        background-color: $back1;
+    }
+}
+
+.td-popup.lay-1 {
+    .select-btn {
+        /*border: 1px solid $dark-pink !important;
+            border-bottom: 2px solid $dark-pink !important;
+            border-right: 2px solid $dark-pink !important;*/
+       //box-shadow: 1px 1px $black-color !important;
+
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $lay-shadow !important;
+        }
+    }
+
+    .score-btn {
+        /*border: 1px solid $dark-pink;
+            border-bottom: 2px solid $dark-pink !important;
+            border-right: 2px solid $dark-pink !important;*/
+        //box-shadow: 1px 1px $black-color !important;
+
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $lay-shadow;
+        }
+    }
+
+    &:hover {
+        background-color: $lay1;
+    }
+}
+
+
+.popup-list {
+    @include resize ($float-left, $width);
+    vertical-align: middle;
+    @include padding(5px, 5px, 2px, 7px);
+
+    a {
+        background-color: $btn-inline-bg;
+        border-bottom-color: $btn-inline-border;
+        border-right-color: $btn-inline-border;
+        min-height: 27px;
+        padding: 0 0px;
+        margin: 0 5px 2px 0;
+        @include border-radius(3px);
+        @include resize (left, 16%);
+        @include line-height(28px);
+        @include headline($btn-inline-color, 10px);
+        text-align: $center;
+        @include txt(normal);
+        line-height: 27px;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+        /*background: -moz-linear-gradient(270deg, $inline-btn-cr1 0%, $inline-btn-cr2 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $inline-btn-cr1), color-stop(100%, $inline-btn-cr2)); 
+        background: -webkit-linear-gradient(270deg, $inline-btn-cr1 0%, $inline-btn-cr2 100%); 
+        background: -o-linear-gradient(270deg, $inline-btn-cr1 0%, $inline-btn-cr2 100%); 
+        background: -ms-linear-gradient(270deg, $inline-btn-cr1 0%, $inline-btn-cr2 100%);
+        background: linear-gradient(180deg, $inline-btn-cr1 0%, $inline-btn-cr2 100%); 
+        border: 0px solid $purple !important;
+        border-bottom: 2px solid $purple !important;
+        border-right: 2px solid $purple !important; */
+        &:hover {
+            box-shadow: 1.5px 1.5px 0px 0px $btn-inline-hover-shadow !important;
+            background-color: $btn-inline-hover-bg;
+            color: $btn-inline-color !important;
+        }
+
+        @include respond-to2(extra-small-screens) {
+            width: 14%;
+            margin: 0 4px;
+            font-size: 10px;
+        }
+
+        @include respond-to2(handhelds) {
+            margin: 0 2px;
+            font-size: 10px;
+            width: 15%;
+        }
+    }
+}
+
+.minline {
+    @include padding(8px, 5px, 5px, 8px);
+    background-color:$white-color;
+    float:left; width:100%;
+    .popup-list{
+        margin:5px 0 1px 0;
+        padding:0px;
+        a{border-radius:2px !important;}
+    }
+    .select-btn{
+        &:hover {
+            box-shadow: none !important;
+        }
+    }
+    .score-btn {
+        width: 96% !important;
+        margin: 0px 3px 5px 1px !important;
+         
+        &:hover {
+            box-shadow: none !important;
+        }
+    }
+
+    .score-btn.khado {
+        width: 25% !important;
+    }
+
+    .score-btn-khado-to {
+        width: 20% !important;
+        float: left;
+        vertical-align: middle;
+        line-height: 28px;
+    }
+
+    .select-btn {
+        width: 47.9% !important;
+        margin: 8px 3px 4px 3px !important;
+    }
+
+    .popup-list {
+        a {
+            width: 15.4% !important;
+            margin: 0 2px !important;
+
+            &:last-child {
+                margin-right: 0px !important;
+            }
+        }
+    }
+
+    .one-click {
+        width: 98% !important;
+        margin: 8px 5px 5px 5px !important;
+
+        .oneclick-off {
+            font-size: 15px;
+            text-transform:none;
+        }
+        //.switch-input:checked ~ .switch-label{background:$green}
+    }
+
+    .switch {
+        display: unset;
+        float: $float-right;
+    }
+
+    .keypad {
+        //float: left;
+        width: $width;
+        @include padding(0px, 6px, 0px, 2px);
+
+        tbody {
+            display: inline-table;
+            text-align: $center;
+            margin-top: 3px;
+
+            a {
+                color: black;
+            }
+        }
+
+        tr {
+            width: $width;
+            float: none;
+        }
+
+        td {
+            width: 14%;
+            box-shadow: 0px 0px 2px 0px black;
+        }
+    }
+}
+
+.confirm-bet {
+    @include padding(20px, 5px, 20px, 5px);
+    margin: 15px 0px !important;
+    background-color: transparent;
+
+    &.back-border {
+        //box-shadow: 1px 1px 6px 0px $back-text;
+            border: 1px solid #dadada;
+    }
+
+    &.lay-border {
+        //box-shadow: 1px 1px 6px 0px $lay-text;
+        border: 1px solid #dadada;
+    }
+
+    &.row {
+        margin: unset;
+    }
+}
+
+/*  Fixed odd  */
+
+.fancy-to-win, .fixed-odd {
+    .td-popup {
+        float: $float-left;
+
+        .score-btn {
+            text-align: $center;
+            @include line-height(23px);
+        }
+    }
+}

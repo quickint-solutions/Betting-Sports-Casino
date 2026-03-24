@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">
+        <i ng-if="modalOptions.icon" class="fa fa-{{modalOptions.icon}}"></i>
+        {{modalOptions.header | translate}}
+    </h4>
+
+    <button id="{{modalOptions.id + '-header-close'}}" type="button" class="close" data-ng-click="modalOptions.close()">
+        x
+    </button>
+
+</div>
+<div class="modal-body md-white">
+    <div class="row" ng-if="modalOptions.bodyUrl && messages.length>0">
+        <div class="col-sm-12">
+            <kt-messages data-messages="messages"></kt-messages>
+        </div>
+    </div>
+    <p ng-if="modalOptions.body && !(modalOptions.bodyHtml || modalOptions.bodyUrl)">{{modalOptions.body | translate}}</p>
+    <div class="row" ng-if="modalOptions.bodyHtml">
+        <div class="col-sm-12">
+            <p ng-bind-html="modalOptions.bodyHtml"></p>
+        </div>
+    </div>
+
+    <form role="form" ng-if="modalOptions.bodyUrl" class="login-form" name="modalOptions.modalForm" autocomplete="off">
+        <div ng-include="modalOptions.bodyUrl"></div>
+
+    </form>
+</div>
+<div class="modal-footer" ng-show="modalOptions.showFooter">
+    <glc-button id="{{modalOptions.id + '-extra'}}" btn-class="btn btn-primary" data-action="modalOptions.extraClick()"
+                ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                data-ng-show="modalOptions.extraButton != '' " kt-click data-label="{{modalOptions.extraButton}}">
+    </glc-button>
+    <glc-button id="{{modalOptions.id + '-ok'}}" btn-class="btn btn-primary" data-action="modalOptions.ok()"
+                ng-disabled="modalOptions.modalForm.$invalid && modalOptions.bodyUrl"
+                data-ng-show="modalOptions.actionButton != ''" kt-click data-label="{{modalOptions.actionButton}}">
+    </glc-button>
+    <button id="{{modalOptions.id + '-close'}}" class="btn btn-secondary" data-ng-click="modalOptions.close()" 
+            data-ng-show="modalOptions.closeButton !=''">
+        {{modalOptions.closeButton | translate}}
+    </button>
+</div>

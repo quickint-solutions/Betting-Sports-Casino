@@ -1,0 +1,101 @@
+﻿<div class="horse-detail">
+    <div class="detail-page-container">
+        <div class="banner scorecard-banner"
+             style="background-image: url(&quot;{{imagePath}}images/{{currentWebApp}}/10.png&quot;);">
+            <div class="scorecard">
+                <div class="text-success"></div>
+                <div class="time-detail">
+                    <p>{{fullMarket.event.countryCode}} &gt; {{fullMarket.event.venue}}</p>
+                    <h5>
+                        <span>{{fullMarket.startTime | date:'dd/MM/yyyy hh:mm:ss'}} (UTC {{fullMarket.startTime | date:'Z'}})</span>
+                        <span>| {{fullMarket.name}}</span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="market-12" id="goto-0">
+            <div class="bet-table">
+                <div class="bet-table-header">
+                    <div class="nation-name">
+                        <span title="MATCH_ODDS" data-toggle="collapse" aria-expanded="true">
+                            <a href="javascript:void(0)" title="">
+                                <img ng-src="{{webImagePath}}arrow-down.svg" class="mr-1">
+                            </a>
+                            {{fullMarket.name}}
+                        </span>
+                        <span class="max-bet d-none-desktop">
+                            <span class="d-flex flex-column" ng-if="fullMarket.maxBet>0 || fullMarket.maxProfit>0">
+                                <span ng-if="fullMarket.maxBet>0">
+                                    Max Bet:
+                                    <span>{{fullMarket.maxBet | toRateOnly | shortNumber}}</span>
+                                </span>
+                                <span ng-if="fullMarket.maxProfit>0">
+                                    Max PL:
+                                    <span>{{fullMarket.maxProfit | toRateOnly | shortNumber}}</span>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="bet-table-body collapse show" id="market0">
+                    <div class="bet-table-row d-none-mobile">
+                        <div class="nation-name">
+                            <span class="max-bet" ng-if="fullMarket.maxBet>0 || fullMarket.maxProfit>0">
+                                <span ng-if="fullMarket.maxBet>0">
+                                    Max Bet:
+                                    <span>{{fullMarket.maxBet | toRateOnly | shortNumber}}</span>
+                                </span>
+                                <span ng-if="fullMarket.maxProfit>0">
+                                    Max PL:
+                                    <span>{{fullMarket.maxProfit | toRateOnly | shortNumber}}</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="back bl-title back-title">Back</div>
+                        <div class="lay bl-title lay-title">Lay</div>
+                    </div>
+                    <div class="bet-table-row"
+                         data-title="{{fullMarket.temporaryStatus==2 ?  'BALL' : (fullMarket.marketStatus==3 ? 'SUSPEND':'')}}"
+                         ng-class="{'suspendedtext':fullMarket.temporaryStatus==3 || fullMarket.temporaryStatus==2 || fullMarket.marketStatus==3 || fullMarket.marketStatus==4}"
+                         ng-repeat="r in fullMarket.marketRunner">
+                        <div class="nation-name">
+                            <div class="custom-control custom-checkbox pl-0">
+                                <label for="732810">
+                                    <div ng-if="r.runner.meta['CLOTH_NUMBER_ALPHA'] && r.runner.meta['STALL_DRAW']">
+                                        <span>{{r.runner.meta['CLOTH_NUMBER_ALPHA']}}</span>
+                                        <br>
+                                        <span>({{r.runner.meta['STALL_DRAW']}})</span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <span>{{r.runner.name}}</span>
+                                        </span>
+                                        <div class="float-right">
+                                            <span ng-if="r.pl!=0" ng-class="{'book-red':r.pl<0 ,'book-green':r.pl>0}">{{r.pl}}</span>
+                                        </div>
+                                        <span class="jockey-detail">{{r.runner.meta['JOCKEY_NAME']}}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="bl-box back back{{i-1}}"
+                             kt-animate-on-change="r.backPrice[i-1].size" ng-repeat="i in [3,2,1]"
+                             kt-click ng-click="ctrl.placeBet(fullMarket,1,r.runner.id,r.backPrice[i-1] ? r.backPrice[i-1].price : '',r.runner.name,fullMarket.event.venue);">
+                            <kt-glc data-item="r.backPrice[i-1]" data-is-bm="{{fullMarket.source!=1}}"></kt-glc>
+                        </div>
+
+                        <div class="bl-box lay lay{{i-1}}"
+                             kt-animate-on-change="r.layPrice[$index].size" ng-repeat="i in [1,2,3]"
+                             kt-click ng-click="ctrl.placeBet(fullMarket,2,r.runner.id,r.layPrice[$index] ? r.layPrice[$index].price : '',r.runner.name,fullMarket.event.venue);">
+                            <kt-glc data-item="r.layPrice[$index]" data-is-bm="{{fullMarket.source!=1}}"></kt-glc>
+                        </div>
+                    </div>
+                </div>
+                <div class="market-message" ng-if="fullMarket.notification">
+                    <marquee>{{fullMarket.notification}}</marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

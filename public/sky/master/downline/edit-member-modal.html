@@ -1,0 +1,43 @@
+﻿<div style="color:white;">
+    <div class="pop-inner">
+        <h4>Information</h4>
+        <div>
+            <div class="pop-form-row" style="width:100%">
+                <label>Usercode</label>
+                <span>{{$parent.$parent.member.username}} ({{$parent.$parent.member.userCode}})</span>
+            </div>
+            <div class="pop-form-row">
+                <label>Mobile</label>
+                <input class="paswd" type="text" maxlength="20" ng-model="$parent.$parent.member.mobile" autocomplete="off" />
+            </div>
+            <div class="pop-form-row">
+                <label>PT</label>
+                <input class="paswd" type="text"  kt-number-only  maxlength="20" ng-model="$parent.$parent.member.pt" autocomplete="off" />
+            </div>
+            <div class="pop-form-row">
+                <label>Password</label>
+                <input class="paswd" ng-class="{'error-input':member.invalidPassword}" type="password" autocomplete="new-password" ng-model="member.password" />
+            </div>
+
+            <div class="pop-form-row">
+                <label>Repeat Password</label>
+                <input class="paswd" type="password" ng-class="{'error-input':member.invalidPassword}" ng-blur="ctrl.validate()" ng-model="member.confirmpassword" />
+            </div>
+            <div class="pop-option">
+                <p class="bold">Status</p>
+                <label for="active" class="option-detail-circle" ng-repeat="us in userStatusList">
+                    <input type="radio" name="radio" ng-model="$parent.$parent.member.status" value="{{us.id}}">
+                    <span class="checkmark"></span>
+                    {{us.name}}
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pop-inner">
+        <h4>Notes</h4>
+        <textarea maxlength="1000" ng-model="$parent.$parent.member.notes"></textarea>
+    </div>
+
+</div>

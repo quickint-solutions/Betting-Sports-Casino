@@ -1,0 +1,73 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">Manage Tokens</h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-translation-grid"
+             load-items="ctrl.getItems(params,filters)"
+             total="totalItems"
+             data-show-total="true" has-new-rights="true"
+             list-new-items="listNewItems"
+             cache-key="kttranslationgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="::'Name' | translate" data-sortable="'key'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span title="{{item.token}}">{{item.token}} </span>
+                    </td>
+                    <td data-title="::'Chain' | translate" data-sortable="'chain'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getTokenChain(item.chain)}} </span>
+                    </td>
+                    <td data-title="::'Address' | translate"
+                        data-header-class="'size-xxl'" class="size-xxl">
+                        <span title="{{item.address}}">{{item.address}} </span>
+                    </td>
+                    <td data-title="::'D Fee%' | translate" data-header-class="'size-xsm boolean'" class="size-xsm boolean">
+                        <span title="{{item.depositFee}}">{{item.depositFee}} </span>
+                    </td>
+                    <td data-title="::'W Fee%' | translate" data-header-class="'size-xsm boolean'" class="size-xsm boolean">
+                        <span title="{{item.withdrawalFee}}">{{item.withdrawalFee}} </span>
+                    </td>
+
+                    <td data-title="::'Min. D' | translate" data-header-class="'size-xsm boolean'" class="size-xsm boolean">
+                        <span title="{{item.minDeposit}}">{{item.minDeposit}} </span>
+                    </td>
+                    <td data-title="::'Min. W' | translate" data-header-class="'size-xsm boolean'" class="size-xsm boolean">
+                        <span title="{{item.minWithdrawal}}">{{item.minWithdrawal}} </span>
+                    </td>
+                    <td data-title="::'Token Has' | translate" data-sortable="'chain'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getTokenHas(item.tokenHas)}} </span>
+                    </td>
+                    <td data-title="::'Order' | translate" data-sortable="'displayOrder'"
+                        data-header-class="'size-sm'" class="size-sm">
+                        <span>{{item.displayOrder}} </span>
+                    </td>
+                    <td data-title="::'Active?' | translate"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <i ng-show="item.isActive" class="fa fa-check"></i>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class="boolean">
+                        <a id="btnDelete{{$index}}" class="btn btn-light"
+                           title="Copy Token Address"
+                           ng-click="$parent.$parent.$parent.ctrl.copyAddress(item)">
+                            <i class="fa fa-copy"></i>
+                        </a>
+
+                        <a id="btnEdit{{$index}}" class="btn btn-light" ng-hide="item.edit"
+                           title="Edit Token"
+                           ng-click="$parent.$parent.$parent.ctrl.AddEditToken(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

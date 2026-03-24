@@ -1,0 +1,90 @@
+﻿<!--  Bets history  -->
+<div class="account-statement">
+    <h1 class="event-heading" ng-if="!fromMember">FD Profit/Loss</h1>
+    <div class="input-detail">
+        <div class="input-group">
+            <label>Round Id</label>
+            <input type="text" placeholder="Round Id" class="form-control" ng-model="search.roundId" />
+        </div>
+        <div class="input-group" style="width:9.5%">
+            <label>From</label>
+            <input type="text" class="form-control"
+                   uib-datepicker-popup="dd MMM yyyy"
+                   ng-model="search.fromdate"
+                   is-open="fopened"
+                   placeholder="{{'fromdate.placeholder' | translate}}"
+                   ng-click="fopened=true"
+                   close-text="Close"
+                   alt-input-formats="dd/MM/yyyy" />
+        </div>
+
+        <div class="input-group" style="width:9.5%">
+            <label>To</label>
+            <input type="text" class="form-control"
+                   uib-datepicker-popup="dd MMM yyyy"
+                   ng-model="search.todate"
+                   is-open="topened"
+                   placeholder="{{'todate.placeholder' | translate}}"
+                   ng-click="topened=true"
+                   close-text="Close"
+                   alt-input-formats="dd/MM/yyyy" />
+        </div>
+        <a class="btn small-btn search_btn" ng-click="ctrl.refreshGrid();"><i class="fa fa-search"></i> {{'common.button.search' | translate}}</a>
+    </div>
+    <div class="input-detail">
+        <a ng-click="ctrl.setDates(0,'d')" class="btn small-btn search_btn">{{'history.today.label' | translate}}</a>
+        <a ng-click="ctrl.setDates(-1,'d')" class="btn small-btn search_btn">{{'history.fromyesterday.label' | translate}}</a>
+        <a ng-click="ctrl.setDates(-7,'d')" class="btn small-btn search_btn">{{'history.last7day.label' | translate}}</a>
+        <a ng-click="ctrl.setDates(-30,'d')" class="btn small-btn search_btn">{{'history.last30day.label' | translate}}</a>
+        <a ng-click="ctrl.setDates(-3,'M')" class="btn small-btn search_btn">{{'history.last3month.label' | translate}}</a>
+    </div>
+    <kt-grid grid-id="kt-historybets-grid"
+             load-items="ctrl.getProfitLoss(params)"
+             name-param="id"
+             name-value-property="id"
+             show-total="true"
+             cache-key="kthistorybetsgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <thead>
+                <tr>
+                    <th class="align-l size-sm">Round Id</th>
+                    <th class="boolean">Game Name</th>
+                    <th class="size-md boolean">Provider</th>
+                    <th class="size-sm boolean">{{'profitloss.label' | translate}}</th>
+                    <th class="size-smd boolean">{{'settledtime.label' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody class="info-text" ng-repeat="item in $data track by $index">
+                <tr>
+                    <td class="align-l size-sm">
+                        <span>{{item.roundId}}</span>
+                    </td>
+                    <td class="boolean">
+                        <span id="to">{{item.tableName}} </span>
+                    </td>
+                    <td class="size-sm boolean">
+                        <span>{{$parent.$parent.$parent.ctrl.getTableProvider(item.provider)}} </span>
+                    </td>
+
+                    <td class="size-sm boolean">
+                        <span title="{{item.win | toRate }}" ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win  | toRate}}</span>
+                    </td>
+                    <td class="size-smd boolean">
+                        <span>{{item.createdOn | date:'yy-MM-dd HH:mm'}} </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="$data.length>0" class="summary-data">
+                <tr>
+                    <td class="size-md"></td>
+                    <td></td>
+                    <td class="size-md align-r"></td>
+                    <td class="size-md align-r">{{$data | total:'win' | number:2}}</td>
+                    <td class="size-md"></td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

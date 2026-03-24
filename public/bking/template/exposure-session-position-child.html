@@ -1,0 +1,39 @@
+﻿<tr class="position-bg">
+    <td style="text-align:left;padding-left:15px">
+        <a style="color:white;" ng-click="ctrl.open_Close_Check_Position(d,true);">
+            {{d.username}}
+            <span class="icons-list">
+                <i class="icon-ladder icons" ng-click="ctrl.openBook($event,d)"></i>
+                <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,exposureTreeMarket.id,exposureTreeMarket.name,d.userId)"></i>
+                <i class="fa icons" ng-if="d.downline" ng-class="{'fa-sitemap':!d.open,'fa-sort-amount-asc fa-rotate-180':d.open}"></i>
+            </span>
+
+        </a>
+    </td>
+    <td>{{d.stake  | toRate}}</td>
+    <td><span class="market-team" ng-class="{'green-light':d.maxWin>=0,'negative':d.maxWin<0}">{{d.maxWin  | toRate}}</span></td>
+    <td><span class="market-team" ng-class="{'green-light':d.pl>=0,'negative':d.pl<0}">{{d.pl  | toRate}}</span></td>
+</tr>
+<tr>
+    <td colspan="4">
+        <table>
+            <tbody id="tbody_{{d.userId}}"></tbody>
+        </table>
+    </td>
+</tr>
+<tr ng-if="d.downline && d.open">
+    <td colspan="4" style="padding:0px">
+        <table ng-repeat="d in d.downline track by $index"
+               style="margin:10px 15px;width:calc(100% - 15px)">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                </tr>
+            </thead>
+            <tbody ng-include="sessionpositionChildTemplate" ></tbody>
+        </table>
+    </td>
+</tr>

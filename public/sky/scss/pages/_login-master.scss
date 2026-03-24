@@ -1,0 +1,185 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+.login-form-master {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background: $m-bg; 
+
+    .alert-class {
+        left: 0px;
+        width: 100% !important;
+        padding: 0px;
+    }
+
+    section {
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        padding: 50px;
+        margin: auto;
+        width: 400px;
+        min-height: 405px;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .apl-form .apl-form-row:before, .apl-form .apl-form-row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .browsers {
+        text-align: center;
+    }
+
+    .apl-form-label.qa-browsers-label {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    section .browsers .apl-form-label {
+        width: 130px;
+        float: none;
+        font-weight: normal;
+    }
+
+    .apl-form .apl-form-label {
+        width: 200px;
+        margin-top: 5px;
+        float: left;
+        margin-bottom: 10px;
+        font-weight: normal;
+    }
+
+    .apl-form .apl-form-row {
+        margin-top: 10px;
+    }
+
+    section .apl-form.apl-form-horizontal .apl-form-controls {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+
+    ._clearfix:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+    .captcha-div .code {
+        width: 45%;
+        height: 43px;
+        float: right;
+        vertical-align: middle;
+        background-color: white;
+
+        div {
+            padding: 10px 8px;
+        }
+    }
+
+    .captcha.inputbox {
+        width: 50%;
+    }
+
+    .inputbox {
+        overflow: visible;
+        box-sizing: border-box;
+        margin: 0;
+        font: inherit;
+        letter-spacing: 0;
+        width: 100%;
+        max-width: 100%;
+        border: 2px solid #DDDDDD;
+        background: #FFFFFF;
+        transition: linear 0.2s;
+        border-radius: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        vertical-align: middle;
+        height: 42px;
+        padding: 8px 6px;
+        font-size: 16px;
+        color: black;
+    }
+
+    .apl-btn.apl-btn-primary {
+        appearance: none;
+        margin: 0;
+        border: none;
+        overflow: visible;
+        font: inherit;
+        display: inline-block;
+        box-sizing: border-box;
+        background: #727272;
+        vertical-align: middle;
+        text-decoration: none;
+        text-align: center;
+        border-bottom: 2px solid $m-btn-default-border-bottom;
+        border-right: 2px solid $m-btn-default-border-bottom;
+        border-radius: 0;
+        float: right;
+        cursor: pointer;
+        min-height: 40px;
+        padding: 0 15px;
+        line-height: 40px;
+        font-size: 16px;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 0;
+        background-color: $m-btn-default-bg;
+        color: $m-btn-default-color;
+        /*border-bottom-color: #66166d;
+        border-right-color: #66166d;*/
+        width: 100%;
+    }
+
+    .apl-btn:disabled {
+        background-color: $m-btn-default-border;
+        border-bottom-color: $m-btn-default-border-bottom;
+        border-right-color: $m-btn-default-border-bottom;
+        color: $m-btn-default-color;
+        //border-color: #222;
+        box-shadow: none;
+    }
+
+    .apl-form input[type="text"]:focus {
+        border: 2px solid $m-input-border;
+        outline: 0 !important;
+        /*background: #ffffff;
+        color: #444444;*/
+    }
+
+    .apl-btn:not(:disabled).apl-btn-primary:hover, .apl-btn:not(:disabled).apl-btn-primary:focus {
+        background-color: $m-input-border;
+        color: $m-btn-default-color;
+        box-shadow: 1.5px 1.5px 0px 0px $m-btn-default-shadow;
+        outline: 0 !important;
+    }
+
+    .apl-form .icon {
+        width: 35px;
+        height: 35px;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .apl-form .icon.firefox {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAMAAAApB0NrAAABO1BMVEUAAAAXmdzOUjGCfYnOUjHdWjTsYTYXmdzOUjEXmdzOUjHdWjTsYTaXd3gXmdzOUjHsYTbOUjEXmdzOUjHsYTbOUjHbWTPsYTYXmdzOUjHsYTbOUjHRUzHWVjLkXTUXmdzOUjHdWjTlXTXsYTYXmdzOUjHsYTbOUjHbWDPsYTYXmdzOUjHQUzHSVDLsYTYXmdwildEkltIukMcyksc5jLw/j71Fh7FMi7NQg6dShKdWhqhaiKhef5xnepFnhJ50gZN4eId+cXyCfYmEdH2JbXGLbnGPen+TcXOaa2egZFykcGmpc2qsX1Gva16zbV+3W0a3b2C7Z1TDVjzEVzzEbFXGWDzOUjHQUzHQXT7RaEvUVTLWVjLXVzPZWDPbWTPdWjTfWjTfZUDhWzTjXDTlXTXmXjXoXzXqYDbsYTZZwqGkAAAAL3RSTlMAEBAgICAgMDBAQEBAUGBgYHCAgICPj4+fn5+vr6+vv7+/v7/Pz8/f39/v7+/v7+AiryUAAAG9SURBVHgBdc97XxJNGMbxWx4ewY0wWcvIDlaKhdmACVRWxOYhs5SIltiNOOAu1/t/Bc3uzmwz+4Hv37/PNfeQJpMvBFaWaIGVu2UmbefnZZlHTKhXGFcuUFKBxeqtq68nr/lWhhS3luSIcHjS+XFWK+cptl7aZqFK/VBElTdnv/z2qzhaBligevqzxaT3nT8ArJsU2QAataZ11PeO1eeuHA94uUyhEoTpAVNUWj0fuEchxGpMc+wACIf+Q2yciFoeUIrOUbTbSnbwcRQN5aDpMsUQXI7ooQ+FxVTfwW0Q9WZKcso038A9z9EdSNfDySXTXCJwg9Yh2eedc6ZpI2DQU0hv+U/mNJ5BTyB1q0z3rg9ulKbH0KNa80g2XxB4RvQA//SbH4L5C+2c+0TmDEmWaMbgpqtExgS6cfRW9XMDgUGKiPah6lvi8u6nPjh/kzhzAsj3mvJr1QtEXIO41L5ykVhpdBGZblLIHEDRtixLFvBfpCmyM8R8M2eVhNTuaEFSpFh2b7A4kf7fcTwkXPdEIqVu2wMfCv+3vUZJxpbtjjwRTFx7K01zZIu7tu24rmvbe8UsLZI21kzTNBLBX+LOFgKc2+KhAAAAAElFTkSuQmCC);
+    }
+
+    .apl-form .icon.ie {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAMAAAApB0NrAAAAwFBMVEUAAABBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFBofFNo+RNp/JZpddZrfNls/RxqrxxufV8rK98vvWIrqKIxPaUsJSUyvegs4eg0PistXqsy8+4t2242Oy43PrEuV/ExIrE08LE4vvQu1LQ3NHQ6PzbvUXbwVPb7fznwDjn8/3zwirz46nz8uLz+f7/yzn/z0f/01b/2nL/3oD/4o7/6ar/7bj/9NX/+/H///9n5gW9AAAAEHRSTlMAECAwQFBgcICPn6+/z9/vIxqCigAAAWBJREFUeAGFlOla4jAUhluWTulSDmEGyrRQxaggLqDFRYFz/3dlGo9NG5PH91d+vE2/szxxNHoVjp1ekMAXSdA3Gh4JROI5Ot0YdOKudgmYaF3lg5nAfovCr+sBO1SfOwSNcbr4T8ehK52BZkwud+v1Lm9G6oCCzVc3dy+PGYN0AUSnXVNR4vv+gIjb6SQHYiAc1V6Op+fXE0quRkAkzV/N8bj/KHmxQcETg2+6qjesPO6P90zKgqJ2/qg4mVBwBhXbKlKjjwEQ50LBjaREwV8gIiei0+jhgC2mP53lG1odyjPeXaDAPHxylmeZ+pgVgkZmGvo6Z1VSWTvj4rRqjp7uuU2vqxaLHvJKxn+1IyYfgiTNJxwVWa2E7Q0rSjLKmbbUMdSwjIsW8oxBTaKvqn1ZB2CG0kjc2KrErvObNOyQYZdiUkgKTFlc/WFJNCMxPS9eCIrIc8y4fT+MBH6/9ZdPRLRW740WJy4AAAAASUVORK5CYII=);
+    }
+
+    .apl-form .icon.chrome {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAMAAAApB0NrAAABVlBMVEUAAABRuE7mSUX90S9RuE7mSUX90S9RuE7mSUX90S9RuE7SyzfmSUX90S9RuE7mSUX90S9RuE7mSUX90S9RuE7mSUX90S9RuE7mSUX90S9RuE7mSUX90S9RuE7IX0fmSUX90S/mSUX90S/mSUX90S9RuE7mSUX5vDJRuE7mSUVRuE7mSUX90S9GksVRuE5SmclasU1cukxcvFldoMxkqk1nu0pnwWRpptByxW90rdR2nEx8vkaAlUuAtNeHwESHzoWLu9uSwUKS05CcgUqd15ujyeKo3Keuc0iyxj2z4LK61um7zqW+5L3BZUfF3e3HzEbJ6cjR5PHSyzfTV0bU7dPc6/TdUEbdzDXmSUXo8fjp9unra2jsd3Tugn/vjYvyzzHz+Pv2u7n3rzX4wIP50tH86Oj90S/91Dz910n92lb+3WP+4n3+66T+7rH/9Mv/+eX//PL///8+nuORAAAALXRSTlMAEBAQICAgMDAwQEBAQFBQUGBgYHBwcICAgI+Pj5+fn5+vr7+/z8/P39/v7++xT+E1AAABjUlEQVR42oXQ+TdCQRTA8ZssRSGFipAsLd5ElmTfClnDY571oZ6d5v//xavXzJvJ6/j+ds/5nHvPDAg5ev2RSGTA72oClgiGE5gV7rIQLREsFnPVEz/+W1i42BTGVk04ODKBrUuYaAg3KkbP+ZZww8IGaUZotzHqqZoQQtOX2OjusVgsPt7z14w1etvV+aZElONsXiGlW3FREFU616d7oqxKlTIyeX6iTeomWjUr+hYiJyWjZJ68a7RW/ZTRES4qOqFI/mHGC501M3dDNiSzDPmgZhD6Ua0DVeJTvqgZM81FQTDH3/+brJU5FU3ByuyQJG/UT2pGoZ2aBZLlyIb5QQGwIdqhmmZkVmWntG6AcWpS1wyl5fIrM3YAH6ItXpN8Rc1mSfmNkREAsMUZSu0TohZUQr5eNJZbN8bLqFrP5XJbJ5rZGFSyRZHYssblhGrtdeaKI31QyyOQTY6MACvIkZkHKyJu2uOJUBv9ynkmprqhPo/xvDMqAnawqDMUR2sGGPXyQqy5wx1wu50g9AtgJgfP4Te/nQAAAABJRU5ErkJggg==);
+    }
+}

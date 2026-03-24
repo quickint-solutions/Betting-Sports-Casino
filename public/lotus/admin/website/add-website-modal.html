@@ -1,0 +1,178 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Website</span>
+            <input id="name" type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'website.name.placeholder' | translate}}"
+                   required autofocus ng-model="data.name" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">URL</span>
+            <input id="url" type="text" minlength="1" maxlength="255"
+                   placeholder="{{::'website.url.placeholder' | translate}}"
+                   required ng-model="data.url" class="form-control">
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-ssl" ng-model="data.hasTradefair">
+            <label for="chk-ssl">Has Fair Trade?</label>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-Fair" ng-model="data.hasCasino">
+            <label for="chk-Fair">Has Fair Deal Casino?</label>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-bfair" ng-model="data.isBetfair ">
+            <label for="chk-bfair">Is Powered by Betfair?</label>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="chk-line" ng-model="data.allowLineMarket ">
+            <label for="chk-line">Allow Line Market?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Host</span>
+            <input id="hosts" type="text" minlength="1" maxlength="255"
+                   placeholder="{{::'website.hosts.placeholder' | translate}}"
+                   required ng-model="data.hosts" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Captcha Mode</span>
+            <select class="form-control" ng-model="data.captchaMode">
+                <option ng-repeat="w in captchaModes" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Storage Mode</span>
+            <select class="form-control" ng-model="data.storageMode">
+                <option ng-repeat="w in storageModes" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Max Casino PL</span>
+            <input id="name" type="text"
+                   placeholder="Max Casino PL"
+                   required autofocus ng-model="data.maxCasinoPl" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Current Casino PL</span>
+            <input id="url" type="text"
+                   placeholder="Current Casino PL"
+                   required ng-model="data.currentCasinoPl" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-registration" ng-model="data.isRegisterEnabled">
+            <label for="chk-registration">Registration Enabled?</label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-b2c" ng-model="data.isB2C">
+            <label for="chk-b2c">Is B2C?</label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-hasReferral" ng-model="data.hasReferral">
+            <label for="chk-hasReferral">Has Referral?</label>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Telg. Channel</span>
+            <input id="hosts" type="text" minlength="1" maxlength="100"
+                   placeholder="Channel Name"
+                   ng-model="data.channelName" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">BotApiKey</span>
+            <input id="hosts" type="text" minlength="1" maxlength="255"
+                   placeholder="Bot API Key"
+                   ng-model="data.botApiKey" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-facebook-official"></i></span>
+            <textarea id="facebook" type="text" maxlength="2000"
+                      placeholder="{{::'website.supportdetails.placeholder' | translate}}" multiple rows="6"
+                      ng-model="data.supportDetails" class="form-control"></textarea>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <span class="span-check" style="margin-right:10px;">
+            <input type="checkbox" id="chk_filter_all" ng-model="$parent.$parent.selectAllEventTypes"
+                   ng-click="ctrl.eventTypeChanged(true)" />
+            <label for="chk_filter_all">All Event Types</label>
+        </span>
+        <span class="span-check" style="margin-right:10px;" ng-repeat="f in eventTypes">
+            <input id="chk_filter_{{$index}}" type="checkbox" ng-change="ctrl.eventTypeChanged()" ng-model="f.checked" />
+            <label for="chk_filter_{{$index}}">{{f.name}}</label>
+        </span>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div class="col-sm-12">
+        <span class="span-check" style="margin-right:10px;">
+            <input type="checkbox" id="chk_filter_all_tables" ng-model="$parent.$parent.selectAllTables"
+                   ng-click="ctrl.tableProviderChanged(true)" />
+            <label for="chk_filter_all_tables">All Tables</label>
+        </span>
+        <span class="span-check" style="margin-right:10px;" ng-repeat="f in tableProviders">
+            <input id="chk_filter_t_{{$index}}" type="checkbox" ng-change="ctrl.tableProviderChanged()" ng-model="f.checked" />
+            <label for="chk_filter_t_{{$index}}">{{f.name}}</label>
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 mr-top-10">
+        <h3>
+            Manage Referral Code
+            <button class="btn btn-default float-r" type="button" ng-click="ctrl.addCode()"><i class="fa fa-plus"></i> Add</button>
+        </h3>
+    </div>
+    <div class="col-sm-12">
+        <div class="row mr-top-10" ng-repeat="d in referralCodes track by $index">
+            <div class="col-sm-3">
+                <input type="text"
+                       placeholder="Referral code"
+                       ng-model="d.referralCode" class="form-control">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" kt-number-only
+                       placeholder="User limit"
+                       ng-model="d.userLimit" class="form-control">
+            </div>
+            <div class="col-sm-4">
+                <input type="text" disabled
+                       placeholder="User created"
+                       ng-model="d.userCreated" class="form-control">
+            </div>
+            <div class="col-sm-2 text-center">
+                <button class="btn btn-danger" type="button" ng-click="ctrl.removeCode($index)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

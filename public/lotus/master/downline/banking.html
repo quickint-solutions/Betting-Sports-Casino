@@ -1,0 +1,153 @@
+﻿<div class="bets-history">
+    <div class="">
+        <div class="table-bets">
+            <div class="header-name">
+                <div class="filter-input">
+                    <div class="filter-panel">
+                        <h1 class="event-heading">Transfer</h1>
+                        <div class="filter-panel live-select">
+                            <div class="input_text" style="padding-top: 8px;margin-right: -32px;">
+                                <span for="usersearch">Search by Login Name</span>
+                            </div>
+                            <div class="input_text ">
+                                <ui-select ng-model="search.selectedUser" tabindex="1" theme="bootstrap" on-select="ctrl.userSelected()"
+                                           allow-clear close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Username/Mobile">
+                                        {{$select.selected.username}} ({{$select.selected.mobile}})
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="u in userList | filter: $select.search | limitTo:15"
+                                                       class="ui-select-choices"
+                                                       refresh="$parent.ctrl.searchUser($select.search)">
+                                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                        &nbsp;-&nbsp;
+                                        <span class="align-l" ng-bind-html="u.mobile | highlight: $select.search"></span>
+                                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="input_text">
+                                <div class="input-group">
+                                    <input type="text" minlength="1" maxlength="50"
+                                           placeholder="User/Mobile"
+                                           required ng-model="search.username" class="form-control">
+                                    <span class="input-group-addon" style="cursor:pointer" ng-click="ctrl.refreshGrid()"><i class="fa fa-search"></i></span>
+                                </div>
+                            </div>
+                            <div class="input_text">
+                                <a class="btn btn-danger" ng-click="ctrl.resetCriteria();" style="margin-left:10px;">
+                                    Clear
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-detail float-l" style="width:100%;">
+
+                    </div>
+                </div>
+            </div>
+            <p style="color:white;margin-bottom:15px!important;font-style:italic;">
+                <a class="link-a" ng-show="userTree.length>0" ui-sref="master.banking({memberid:'',userid:''})">Transfer</a>
+                <span ng-repeat="ut in userTree">
+                    <span ng-show="$index==userTree.length-1"><i class="fa fa-angle-right" style="margin:0px 5px;"></i>{{ut.name}}</span>
+                    <span ng-show="$index!=userTree.length-1">
+                        <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                        <a class="link-a" ui-sref="master.banking({memberid:ut.id,userid:''})">{{ut.name}}</a>
+                    </span>
+                </span>
+            </p>
+            <div class="total-pnl bold" style=" color:white;">
+                <span>Available to take : </span>
+                <span>{{availableToTake | toRate}}</span>
+            </div>
+            <kt-grid grid-id="kt-lotus-banking-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     name-param="id"
+                     data-items="gridItems"
+                     name-value-property="id"
+                     total="totalItems"
+                     data-page-size="200"
+                     data-show-total="false"
+                     cache-key="ktbankinggrid">
+                <table ng-table="tableParams" class="table table-hover clickable member_table"
+                       template-pagination="{{ :: paginationUrl }}">
+                    <thead>
+                        <tr>
+
+                            <th class="align-l">Username</th>
+                            <th class="size-smd boolean">Mobile</th>
+                            <th class="size-sm align-r">Exposure</th>
+                            <th class="size-md align-r">Take</th>
+                            <th class="size-md align-r">Give</th>
+                            <th class="size-smd align-r">Balance</th>
+                            <th class="size-md align-r">Credit Limit</th>
+                            <th class="size-smd align-r" ng-if="$parent.$parent.currentUserType<4">Available Credit</th>
+                            <th class="size-md boolean">Transfer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id">
+
+                            <td class="align-l">
+                                <span ng-if="!$parent.$parent.$parent.ctrl.haveChild(item.userType)">
+                                    {{item.username}}
+                                </span>
+                                <a ng-if="$parent.$parent.$parent.ctrl.haveChild(item.userType)"
+                                   ui-sref="master.banking({memberid:item.id,userid:''})" class="link-a">
+                                    {{item.username}}
+                                </a>
+                            </td>
+                            <td class="size-smd boolean">
+                                <span>{{item.mobile}}</span>
+                            </td>
+                            <td class="size-sm align-r">
+                                <span class="positive bold" ng-class="{'negative':item.balanceInfo.exposure<0}"
+                                      title="{{item.balanceInfo.exposure | toRate}}">{{item.balanceInfo.exposure | toRate}}</span>
+                            </td>
+                            <td class="size-md align-r">
+                                <span class="positive" ng-show="item.balanceInfo.take>0">{{item.balanceInfo.take | toRate}}</span>
+                                <span ng-show="item.balanceInfo.take<=0">-</span>
+                            </td>
+                            <td class="size-md align-r">
+                                <span class="negative" ng-show="item.balanceInfo.give!=0">{{item.balanceInfo.give | toRate}}</span>
+                                <span ng-show="item.balanceInfo.give==0">-</span>
+                            </td>
+                            <td class="size-smd align-r">
+                                <span>{{item.balanceInfo.balance | toRate}}</span>
+                            </td>
+                            <td class="size-md align-r">
+                                <span class="credit-ref" ng-show="item.balanceInfo.creditLimit>0">{{item.balanceInfo.creditLimit | toRate}}</span>
+                                <span class="credit-ref" ng-show="item.balanceInfo.creditLimit<=0">-</span>
+                            </td>
+                            <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType<4">
+                                <span title="{{item.balanceInfo.availableCredit | toRate}}" class="bold">
+                                    {{item.balanceInfo.availableCredit | toRate}}
+                                </span>
+                            </td>
+                            <td class="size-md boolean">
+                                <a ng-disabled="item.chips == 0" ng-click="$parent.$parent.$parent.ctrl.transferChip(item)"
+                                   ng-class="{'disable':!(item.balanceInfo.take > 0 || item.balanceInfo.give > 0)}" class="link-a">
+                                    Transfer
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="$data.length>0" class="summary-data">
+                        <tr>
+                            <td>Total</td>
+                            <td class="size-smd"></td>
+                            <td class="size-sm boolean"></td>
+                            <td class="size-md align-r positive">{{$data | total:'balanceInfo.take':true | toRate }}</td>
+                            <td class="size-md align-r negative">{{$data | total:'balanceInfo.give':true | toRate}}</td>
+                            <td class="size-smd align-r">{{$data | total:'balanceInfo.balance':true | toRate}}</td>
+                            <td class="size-md align-r ">{{$data | total:'balanceInfo.creditLimit':true | toRate}}</td>
+                            <td class="size-smd align-r" ng-if="$parent.$parent.$parent.currentUserType<4">
+                                {{$data | total:'balanceInfo.availableCredit':true | toRate}}
+                            </td>
+                            <td class="size-md"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

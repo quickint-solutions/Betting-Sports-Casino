@@ -1,0 +1,99 @@
+﻿<div class="report-title">
+    <div class="report-name">Bonus Statement</div>
+</div>
+<div class="report-form">
+    <div class="form-group from-date">
+        <label>From</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em">
+                        <path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path>
+                    </svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div class="form-group to-date">
+        <label>To</label>
+        <div class="mx-datepicker">
+            <div class="mx-input-wrapper">
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+                <i class="mx-icon-calendar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1em" height="1em"><path d="M940.218182 107.054545h-209.454546V46.545455h-65.163636v60.50909H363.054545V46.545455H297.890909v60.50909H83.781818c-18.618182 0-32.581818 13.963636-32.581818 32.581819v805.236363c0 18.618182 13.963636 32.581818 32.581818 32.581818h861.090909c18.618182 0 32.581818-13.963636 32.581818-32.581818V139.636364c-4.654545-18.618182-18.618182-32.581818-37.236363-32.581819zM297.890909 172.218182V232.727273h65.163636V172.218182h307.2V232.727273h65.163637V172.218182h176.872727v204.8H116.363636V172.218182h181.527273zM116.363636 912.290909V442.181818h795.927273v470.109091H116.363636z"></path></svg>
+                </i>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" ng-click="ctrl.refreshGrid();">Submit</button>
+</div>
+<div class="w-100">
+    <kt-grid grid-id="kt-bonusstatement-grid"
+             load-items="ctrl.getBonusStatement(params)"
+             show-total="true"
+             cache-key="ktbonusstatementgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable "
+               template-pagination="{{ :: paginationUrl }}">
+            <thead>
+                <tr>
+                    <th class="">Code</th>
+                    <th class="boolean">Bonus Amount</th>
+                    <th class="boolean">Required Turnover to Activate</th>
+                    <th class="boolean">Required Turnover to Withdraw</th>
+                    <th class="boolean">Bonus Date</th>
+                    <th class="boolean">Bonus Expiry</th>
+                    <th class="boolean">Is Expired</th>
+                </tr>
+            </thead>
+            <tbody class="info-text">
+                <tr ng-repeat="item in $data track by $index">
+                    <td class="size-smd bold">{{item.bonusCode}}</td>
+                    <td class="size-smd boolean">{{item.bonusAmount | toRate}}</td>
+                    <td class="size-lg boolean">
+                        <div ng-show="item.requiredTurnover>0">
+                            <uib-progressbar max="item.requiredTurnover | toRateOnly" value="item.currentTurnover | toRateOnly"
+                                             type="info" class="progress-striped active">
+                                <i class="position-absolute text-dark">{{item.currentTurnover | toRateOnly}} / {{item.requiredTurnover | toRateOnly}}</i>
+                            </uib-progressbar>
+                        </div>
+                        <div ng-show="item.requiredTurnover<=0">Instant</div>
+                    </td>
+                    <td class="size-lg boolean">
+                        <div ng-show="item.requiredWithdrawalTurnover>0">
+                            <uib-progressbar max="item.requiredWithdrawalTurnover | toRateOnly" value="item.currentWithdrawalTurnover | toRateOnly"
+                                             type="info" class="progress-striped active">
+                                <i class="position-absolute text-dark">{{item.currentWithdrawalTurnover | toRateOnly}} / {{item.requiredWithdrawalTurnover | toRateOnly}}</i>
+                            </uib-progressbar>
+                        </div>
+                        <div ng-show="item.requiredWithdrawalTurnover<=0">Instant</div>
+                    </td>
+                    <td class="size-md boolean">
+                        <kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm" style="color:#909090"></kt-date>
+                    </td>
+                    <td class="size-md boolean">
+                        {{item.expiredOn | toDays:1}}
+                    </td>
+                    <td class="size-sm boolean">
+                        <i class="fa fa-check" ng-show="item.isExpired"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

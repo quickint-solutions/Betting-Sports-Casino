@@ -1,0 +1,61 @@
+﻿<div class="bets-history main-downline">
+    <!--table-bets-->
+    <div class="">
+        <div class="header-name">
+            <div class="filter-input">
+                <h1 class="event-heading">User Listing</h1>
+                <div class="filter-panel live-select">
+                    <div class="btn_value float-r">
+                        <button class="btn btn-default" ng-click="ctrl.addAdminUser()">
+                            Create New User
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-view">
+            <div class="list-view-table myTranscludedContent currency">
+
+                <table  class="table table-hover member_table clickable ng-table">
+                    <thead>
+                        <tr>
+                            <th class="size-smd align-l">Username</th>
+                            <th class="size-xsm boolean">Edit</th>
+                            <th class="size-xsm boolean">Access</th>
+                            <th class="size-smd align-l">User Status</th>
+                            <th class="size-smd align-l">First Name</th>
+                            <th class="size-smd align-l">Last Name</th>
+                            <th class="size-lg align-l">Created</th>
+                            <th class="align-l">Last Login Date</th>
+                            <th class="align-l">Last IP</th>
+                        </tr>
+                    </thead>
+                    <tbody class="info-text">
+                        <tr ng-repeat="a in admUsers | orderBy:'createdOn'">
+                            <td class="size-smd align-l">{{a.username}}</td>
+                            <td class="size-xsm boolean">
+                                <a ng-click="ctrl.editUser(a);"><i class="fa fa-pencil fa-lg link-a"></i></a>
+                            </td>
+                            <td class="size-xsm boolean">
+                                <a ng-click="ctrl.editAccess(a)"> <i class="fa fa-lock fa-lg link-a"></i></a>
+                            </td>
+                            <td class="size-smd align-l ">
+                                <span ng-show="a.status==2">ACTIVE</span>
+                                <span ng-show="a.status==3">INACTIVE</span>
+                            </td>
+                            <td class="size-smd align-l">{{a.firstName}}</td>
+                            <td class="size-smd align-l">{{a.lastName}}</td>
+                            <td class="size-lg align-l">
+                                <kt-date data-date-value="a.createdOn" data-format="dd/MM/yyyy HH:mm:ss"></kt-date>
+                            </td>
+                            <td class="align-l">
+                                <kt-date data-date-value="a.lastLogin" data-format="dd/MM/yyyy HH:mm:ss"></kt-date>
+                            </td>
+                            <td class="align-l">{{a.lastLoginIp}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

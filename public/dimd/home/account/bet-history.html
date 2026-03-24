@@ -1,0 +1,156 @@
+﻿<!--  Bets history  -->
+<div class="bets-history master_bet">
+    <h1 class="title" ng-if="fromMember">{{'bethistory.label' | translate}}</h1>
+    <div class="filter-panel ">
+        <ul class="input-list">
+            <li class="bet_name"><label>{{'common.betstatus.label' | translate}}</label></li>
+            <li>
+                <select ng-model="search.status">
+                    <option ng-repeat="b in betStatus" value="{{b.id}}">
+                        {{b.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.fromdate"
+                           is-open="fopened"
+                           placeholder="{{'fromdate.placeholder' | translate}}"
+                           ng-click="fopened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           uib-datepicker-popup="dd MMM yyyy"
+                           ng-model="search.todate"
+                           is-open="topened"
+                           placeholder="{{'todate.placeholder' | translate}}"
+                           ng-click="topened=true"
+                           close-text="Close"
+                           alt-input-formats="dd/MM/yyyy" />
+                </div>
+            </li>
+            <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.gethistory' | translate}}</a></li>
+        </ul>
+        <ul class="input-list">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+    </div>
+    <div class="table-bets">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getHistoryBets(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 export-to-excel="ctrl.exportBetHistory(params,1)"
+                 export-to-pdf="ctrl.exportBetHistory(params,2)"
+                 load-export-data="true"
+                 show-total="true"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by item.id">
+                    <tr ng-click="item.show=!item.show">
+                        <td class="align-l " 
+                            data-title="::'betid.label' | translate"
+                            data-sortable="'id'">
+                            <span>{{item.betId}}</span>
+                        </td>
+                        <td header-class="'boolean'" class="boolean" data-title="::'market.name.label' | translate"
+                            data-sortable="'eventname'"
+                            uib-tooltip="{{item.market.event.eventType.name}} >> {{item.market.event.name}} >> {{item.market.name}}">
+                            <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                                <span id="from">{{item.market.event.eventType.name}}</span>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <span id="to"><strong>{{item.market.event.name | shortme:20}}</strong></span>
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <span id="to">{{item.market.name}}</span>
+                            </label>
+                            <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                                <span id="to">{{item.market.name}} # <strong>{{item.market.roundId}}</strong></span>
+                            </label>
+                        </td>
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'runner.name.label' | translate"
+                            uib-tooltip="{{item.runnerName}}"
+                            data-sortable="'runnername'">
+                            <span title="{{item.runnerName}}">{{item.runnerName}}</span>
+                        </td>
+                        <td header-class="'size-xs boolean'" class="size-xs boolean" data-title="::'side.label' | translate"
+                            data-sortable="'side'">
+                            <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side-1].name}}</span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'price.label' | translate"
+                            data-sortable="'price'">
+                            <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'size.label' | translate">
+                            <span title="{{item.sizeMatched | toRate }}" ng-if="item.sizeMatched>0 ">{{item.sizeMatched  | toRate}} </span>
+                            <span title="{{item.sizeCancelled | toRate }}" ng-if="item.sizeCancelled>0 && item.sizeMatched<=0">{{item.sizeCancelled  | toRate}} </span>
+                            <span title="{{item.sizeVoided | toRate }}" ng-if="item.sizeVoided>0 && item.sizeMatched<=0">{{item.sizeVoided  | toRate}} </span>
+                        </td>
+
+                        <td data-title="::'avgprice.label' | translate"
+                            header-class="'size-sm boolean'" class="size-sm boolean">
+                            <span title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                        </td>
+                        <td header-class="'size-sm boolean'" class="size-sm boolean"
+                            data-title="::'profitloss.label' | translate"
+                            data-sortable="'pl'">
+                            <span ng-if="item.pl" title="{{item.pl | toRate }}" ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">({{item.pl  | toRate}})</span>
+                        </td>
+                        <td header-class="'size-smd boolean'" class="size-smd boolean" data-title="::'createddate.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn }}">{{item.createdOn | date:'yy-MM-dd HH:mm'}} </span>
+                        </td>
+                        <td data-title="::'ipaddress.label' | translate"
+                            data-header-class="'size-smd boolean'" class="size-smd boolean">
+                            <span>{{item.remoteIp }} </span>
+                            <span ng-if="item.referenceText" uib-tooltip="{{item.referenceText}}" tooltip-placement="left"><i class="fa fa-info-circle red"></i></span>
+                        </td>
+                    </tr>
+                    <tr class="expand-table" ng-if="item.show && item.betDetails.length>0">
+                        <td class="expand-td">
+                            <div class="expand-arrow"></div>
+                            <table class="table-bets">
+                                <tbody>
+                                    <tr>
+                                        <th class="boolean">{{'oddsreq.label' | translate}}</th>
+                                        <th class="boolean">{{'stake.label' | translate}}</th>
+                                        <th class="boolean">{{'profitloss.label' | translate}}</th>
+                                        <th class="align-l boolean">{{'createddate.label' | translate}}</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr ng-repeat="b in item.betDetails | orderBy:'createdOn'">
+                                        <td class="boolean">
+                                            <span title="{{b.price }}">{{b.price }} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span title="{{b.size }}">{{b.size  | toRate}} </span>
+                                        </td>
+                                        <td class="boolean">
+                                            <span ng-if="b.pl" title="{{b.pl | toRate }}" ng-class="{'positive':b.pl>=0,'negative':b.pl<0}">({{b.pl  | toRate}})</span>
+                                        </td>
+                                        <td class="align-l boolean">
+                                            <span title="{{b.createdOn }}">{{b.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

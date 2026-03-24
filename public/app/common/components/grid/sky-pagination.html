@@ -1,0 +1,33 @@
+﻿<ul class="pager ng-cloak" ng-if="pages && pages.length > 1">
+    <li ng-repeat="page in pages" ng-switch="page.type" ng-class="{ 'disabled': !page.active, 'active': !page.active }">
+        <a ng-if="$index==0" ng-click="params.page(1)" href="" class="page pager-arrow" style="font-size:19px; font-weight:bold">&laquo;</a>
+        <a ng-switch-when="prev" ng-click="params.page(page.number)" href="" class="pager-arrow" style="font-size:19px; font-weight:bold">&#8249;</a>
+        <a ng-switch-when="first" ng-click="params.page(page.number)" href="" class="page number-dis"><span ng-bind="page.number"></span></a>
+        <a ng-switch-when="page" ng-click="params.page(page.number)" href="" class="page number-dis "><span ng-bind="page.number"></span></a>
+        <span ng-switch-when="more" class="">&hellip;</span>
+        <a ng-switch-when="last" ng-click="params.page(page.number)" href="" class="page number-dis"><span ng-bind="page.number"></span></a>
+        <a ng-switch-when="next" ng-click="params.page(page.number)" href="" class="pager-arrow" style="font-size:19px;font-weight:bold">&#8250;</a>
+        <a ng-if="$last" ng-click="params.page(pages.length+1)" href="" class="page pager-arrow" style="font-size:19px;font-weight:bold">&raquo;</a>
+    </li>
+    <li ng-init="customRange=1;" ng-test="{{pages}}">
+        <form ng-submit="params.page(customRange)" style="display:inline-block">
+            <input type="number" style="width:35px;font-size:10px;text-align:center;" ng-model="customRange" />
+            <a style="padding:2px">/</a>
+            <a style="padding:2px;padding-left:0px;">{{(pages | filter:{type:'last'})[0].number}}</a>
+            <button type="submit" class="ng-hide"></button>
+        </form>
+    </li>
+    <li>
+        <div ng-if="params.settings().counts.length" 
+             class="ng-table-counts btn-group pull-right" 
+             ng-init="selectedCount=params.count().toString();">
+            <select class="form-control" ng-model="selectedCount"  ng-change="params.count(selectedCount)"
+                    style="padding: 2px; height: 20px; font-size: 11px;padding-left:5px;">
+                <option ng-repeat="count in params.settings().counts" 
+                        value="{{count}}" ng-selected="params.count()==count">
+                    {{count}}
+                </option>
+            </select>
+        </div>
+    </li>
+</ul>

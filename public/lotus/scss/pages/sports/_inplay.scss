@@ -1,0 +1,103 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.popup_height {
+    min-height: 190px;
+}
+.filter-list {
+    margin: 15px 0;
+    @include position(relative);
+    background-color: $light-grey;
+    @include border('bottom', 1px, solid, $blue );
+    @include padding(12px, 12px, 12px, 12px);
+
+    ul {
+        li {
+            font-size: $font-size-tab;
+            display:inline-block;
+            a{float:none; width:auto;}
+            span {
+                color: $black-color;
+
+                .fa-circle {
+                    @include headline($blue, 6px);
+                    vertical-align: middle;
+                    @include padding(0px, 3px, 0px, 3px);
+                }
+            }
+        }
+
+        .filter-head {
+            margin: 0 8px 3px 0;
+        }
+
+        .filter_team {
+            float: right;
+
+            a {
+                background-color: $light-white;
+                @include border-all(1px, solid, $light-medium-grey);
+                line-height: 13px;
+                @include border-radius(4px);
+                @include headline($dark-gray-black, 12px);
+                @include padding(4px, 30px, 4px, 30px);
+
+                &:hover {
+                    background-color: $white-color;
+                }
+            }
+
+            &:hover .filter-pop {
+                @include display(block);
+            }
+        }
+    }
+
+    .filter-pop {
+        width: 450px;
+        @include position(absolute, top 33px right 10px);
+        @include border-radius(4px);
+        background-color: $white-color;
+        @include padding(8px, 8px, 0px, 30px);
+        z-index: 3;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.5);
+        display: none;
+
+        ul {
+            li {
+                @include display(inline-block);
+                width: 50%;
+                .span-check{
+                    input{margin:0;}
+                    label{
+                        margin-left:5px; vertical-align:middle;
+                    }
+                    [type="checkbox"]:not(:checked) + label:before, [type="checkbox"]:checked + label:before{
+                        top:0; left:-19px;
+                    }
+                    [type="checkbox"]:not(:checked) + label:after, [type="checkbox"]:checked + label:after{
+                        top:0.3em;
+                        left:-1.3em;
+                    }
+                }
+            }
+        }
+
+        .filter-btn {
+            @include border('top', 1px, solid, $border-color);
+            @include padding(10px, 0px, 10px, 0px);
+            margin: 5px 0 0 0;
+            @include txt(bold);
+            a{
+               background-color:$filter-save-bg;
+               color:$filter-save;
+               border:1px solid $filter-border;
+               &:hover{color:$filter-save-hover;}
+            }
+            .dark-btn {
+                margin-right: 8px;
+            }
+        }
+    }
+}

@@ -1,0 +1,1710 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.lmt-score {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-bottom: -24px;
+}
+
+.scorecard {
+    @include position(relative);
+   // background: $market-bg;
+
+    .tab .tabs-container {
+        background-color: transparent;
+    }
+
+    .to_info {
+        .fa-info {
+            /* font-size: 16px;
+            @include border-all(1px, solid, $blue-color);
+            border-radius: 100%;
+            @include padding(1px, 7px, 1px, 7px);
+            margin-top: 5px;
+            color: $white-color;
+            cursor: $cursor;*/
+            margin: 0px;
+        }
+    }
+
+    .game-scores {
+        .scores-box, .tennis-scores-box {
+            height: 100%;
+            @include padding(5px, 10px, 5px, 10px);
+            background-color: $table-header-color;
+            @include border('right',1px, solid, $dark-blue);
+            @include border('bottom', 1px, solid, $dark-blue);
+            text-align: center;
+
+            h4 {
+                @include resize($float-left, $width);
+                margin: 5px 0;
+                height: 17px;
+                font-size: 15px;
+            }
+        }
+
+        .scores-box {
+            width: 18%;
+        }
+
+        .tennis-scores-box {
+            width: 6.2%;
+            text-align: $text-center;
+        }
+
+        .scores-box .scores-inns, .tennis-scores-box .scores-inns {
+            @include txt(normal);
+            line-height: 14px;
+            @include headline($light-gray-blue, 10px);
+        }
+
+        .scores-team {
+            width: 57.5%;
+
+            .scores-time, .tennis-scores-time {
+                @include txt(normal);
+                line-height: 14px;
+                font-size: 13px;
+                text-transform: uppercase;
+            }
+
+            .tennis-scores-time {
+                text-transform: none;
+            }
+
+            h4 {
+                margin: 7px 0;
+                font-size: 16px;
+            }
+        }
+
+        .pin-btn {
+            @include resize($float-left, 40px);
+            @include padding(5px, 10px, 34px, 10px);
+        }
+
+        td {
+            float: $float-left;
+        }
+    }
+
+    .game-head.column-2 {
+        .scores-box {
+            float: right;
+        }
+    }
+
+    p {
+        margin-bottom: 0px;
+    }
+
+    .soccer-score {
+        .scores-team {
+            padding-top: 5px;
+        }
+
+        .scores-time {
+            @include resize($float-left, $width);
+            @include padding(5px, 0px, 0px, 0px);
+        }
+
+        .pin-btn {
+            @include padding(5px, 10px, 10px, 10px);
+        }
+    }
+
+    .scores-time {
+        @include resize($float-left, $width);
+        @include padding(0px, 0px, 2px, 0px);
+    }
+
+    .pin-btn {
+        @include padding(5px, 10px, 10px, 10px);
+    }
+
+
+    .refresh {
+        @include position(absolute, top 10px right 8px );
+        @include padding(0px, 0px, 0px, 0px);
+
+        i {
+            font-size: 16px;
+            color: $white-color;
+        }
+    }
+
+    .game-head {
+        clear: $clear-both;
+        @include resize ($float-left, $width);
+        background-color: $gray_black;
+
+        .twoTeam {
+            color: $light-hover-color;
+            @include resize ($float-left, $width);
+            padding-bottom: 10px;
+
+            .game-visit {
+                @include padding(6px, 6px, 0px, 0px);
+                margin-left: 4px;
+                font-size: 18px;
+            }
+
+            .game-vs {
+                font-size: $font-size-tab;
+                @include padding(3px, 0px, 0px, 5px);
+
+                .to_info {
+                    margin-right: 3px;
+                }
+            }
+        }
+    }
+
+    .game-info {
+        // clear: $clear-both;
+        float: left;
+        width: 100%;
+        background: $light-hover-color;
+        @include padding(0px, 8px, 0px, 0px);
+
+        span {
+            //padding-top: 5px;
+            @include display(inline-block);
+            line-height: 30px;
+            font-size: 12px;
+        }
+
+        .match_title {
+            text-transform: capitalize;
+            font-size: 12px;
+            background-color: $silver;
+            @include padding(5px, 22px, 7px, 3px);
+            border-bottom-right-radius: 34px;
+            @include resize($float-left, auto);
+
+            span {
+                padding-top: 0px;
+                @include txt(bold);
+                line-height: normal;
+                margin-top: 2px;
+            }
+
+            &.normal {
+                span {
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .matches {
+            float: right;
+            font-size: $font-size-tab;
+            line-height: 30px;
+            padding-top: 0px;
+            display: inline;
+
+            span {
+                padding-top: 0px;
+            }
+        }
+    }
+
+    .line {
+        @include border('top', 1px, solid, $base-color-light);
+    }
+
+    .left-column, .right-column {
+        .black-back {
+            a.to-expand {
+                width: auto;
+            }
+
+            .to_info {
+                float: right;
+            }
+        }
+    }
+
+    .session-market {
+        margin-bottom: 15px;
+        padding: 0px !important;
+
+        .over-title {
+            margin-bottom: 0px;
+        }
+
+        .left-column {
+            .tr-data {
+                line-height: 13px;
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        line-height: 15px;
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+
+        .right-column {
+            .tr-data {
+                line-height: 13px;
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        line-height: 15px;
+                    }
+                }
+            }
+        }
+
+        .right-column {
+            .tr-data {
+                line-height: 13px;
+
+                td {
+                    a {
+                        min-height: 20px !important;
+                        height: 20px;
+                    }
+                }
+
+                .team-name {
+                    p {
+                        line-height: 15px;
+                    }
+                }
+
+                .lay-1 {
+                    margin: 0px;
+                }
+            }
+        }
+    }
+
+    .fancy-bets-wrap {
+        padding-bottom: 0px !important;
+    }
+
+    .pd-top-0 {
+        padding-top: 0px !important;
+    }
+
+    .bets-wrap {
+        @include position(relative);
+        clear: $clear-both;
+        @include padding(0px, 0px, 5px, 0px);
+        overflow: hidden;
+
+        .over-title {
+            background-color: $body-color;
+            @include border(bottom, 1px, solid, $theme-color);
+            margin-bottom: 5px;
+            @include resize($float-left, $width);
+            @include padding(0px, 8px, 0px, 0px);
+
+            .pin {
+                float: $float-left;
+                @include padding(0px, 4px, 0px, 0px);
+            }
+
+            .fancy-bet {
+                float: $float-left;
+                text-transform: capitalize;
+                background-color: $fancybet;
+                @include padding(0px, 0px, 0px, 5px);
+                line-height: 25px;
+                border-top-right-radius: 10px;
+                @include txt(bold);
+                letter-spacing: 0.5px;
+                font-size: 12px;
+
+                .fa-info-circle {
+                    @include padding(7px, 7px, 4px, 7px);
+                    font-size: 12px;
+                    line-height: 15px;
+                    background-color: $black-color;
+                    vertical-align: -9%;
+                    border-top-right-radius: 10px;
+
+                    &:before {
+                        color: $white-color;
+                    }
+                }
+
+                .add-pin {
+                    margin: 3px 2px 0 0;
+                    font-size: 13px !important;
+                    @include border-all(1px,solid, $black-color);
+                    height: 18px;
+                    width: 18px;
+                    color: $black-color !important;
+
+                    &.pinned {
+                        color: $green-color !important;
+                        border-color: $green-color !important;
+                    }
+                }
+            }
+
+            .matches {
+                float: right;
+                font-size: 11px;
+                line-height: 25px;
+            }
+        }
+
+        .counts {
+            @include headline($base-color-light, 11px);
+            margin-left: 5px;
+        }
+    }
+
+    .tab-wrap:last-child {
+        margin-right: 0px !important;
+    }
+
+    .tab-wrap:first-child {
+        margin-left: 0px !important;
+    }
+
+    .view-more {
+        line-height: 24px;
+        @include padding(0px, 6px, 0px, 0px);
+        font-size: $font-size-tab;
+        @include resize ($float-left, $width);
+        text-align: right;
+    }
+}
+/* scorecard */
+
+.to_info {
+    margin: 0px;
+
+    .fa-info-circle {
+        margin: 0px 8px 0 5px;
+        font-size: 14px;
+        vertical-align: middle;
+        cursor: $cursor;
+        color: $white-color;
+    }
+}
+
+.runner_number {
+    width: 25px;
+    float: left;
+    margin-right: 8px;
+    text-align: center;
+
+    span {
+        display: block;
+        font-weight: normal
+    }
+}
+
+.runner-img {
+    float: left;
+    margin: 4px 8px 0 0;
+
+    img {
+        width: 29px;
+        height: 20px;
+    }
+}
+
+/* -------  new tabbing   -------- */
+.tab-topplay {
+    @include position (relative);
+    height: 25px;
+    margin-bottom: 20px;
+
+    ul {
+        @include position (absolute, top -3px left 12px);
+
+        li {
+            @include position (relative);
+            height: 28px;
+            line-height: 28px;
+            @include txt (bold);
+            @include padding(0px, 19px, 0px, 5px);
+            margin-left: -12px;
+
+            a {
+                background-image: url('/public/images/back-img.png');
+                background-position: 0 -2245px;
+                @include display(block);
+                @include padding(0px, 0px, 0px, 10px);
+                @include headline($white-color, 12px);
+
+                &:before {
+                    background-image: url('/public/images/agent.png');
+                    background-position: -53px -364px;
+                    background-repeat: $back-norepeat;
+                    left: 0;
+                    height: 28px;
+                    width: 5px;
+                    @include pseudo(block, absolute, '');
+                }
+
+                &:after {
+                    top: 0;
+                    right: 0;
+                    @include pseudo(block, absolute, '');
+                    background-image: url('/public/images/agent.png');
+                    background-position: -39px -422px;
+                    background-repeat: $back-norepeat;
+                    height: 28px;
+                    width: 19px;
+                }
+            }
+
+            &.select {
+                height: 30px;
+                z-index: 2;
+                line-height: 30px;
+
+                a {
+                    background-position: 0 -2214px;
+                    color: $dark-blue;
+
+                    &:before {
+                        background-position: -53px -334px;
+                        height: 30px;
+                    }
+
+                    &:after {
+                        background-position: -39px -392px;
+                        height: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.error-page {
+    text-align: $text-center;
+    transform: translate(0%,15%);
+
+    p {
+        width: 50%;
+        margin: 15px auto;
+        @include display(block);
+    }
+
+    span {
+        @include display(block);
+        margin-top: 25px;
+
+        img {
+            margin-right: 10px;
+        }
+
+        a {
+            @include headline($login-back, 15px);
+            @include border-all(3px, double, $login-back);
+            background: $black-color;
+            @include padding(6px, 8px, 6px, 8px);
+            @include border-radius(6px);
+        }
+    }
+}
+
+.new-menu {
+    ul {
+        li {
+            @include padding(10px, 10px, 10px, 10px);
+
+            a {
+                margin-left: 5px;
+                color: $black-color;
+            }
+        }
+    }
+}
+
+.full-part {
+    @include padding(0px, 5px, 0px, 5px);
+
+    .bookmark_table {
+        //    background-color: $white-color;
+
+        .full-marketlist {
+            height: 600px;
+            overflow-y: auto;
+
+            table {
+                tr {
+                    td {
+                        font-size: 12px;
+                        min-width: 100px;
+                        line-height: 28px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.full_position {
+    background-color: $white-color;
+    margin: 0px 10px;
+
+    .full-marketlist {
+        table {
+            tr {
+                td {
+                    font-size: 12px;
+                    min-width: 100px;
+                    line-height: 28px;
+                }
+            }
+        }
+    }
+
+    .nav-tabs {
+        li {
+            background: #f2f2f2;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin-right: 2px;
+
+            &.active {
+                background: #ddd;
+            }
+        }
+
+        a {
+            color: black !important;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    }
+
+    .tab-content {
+        position: relative;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-top: none;
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+
+        .tab-pane {
+            float: left;
+            width: 100%;
+        }
+    }
+
+    .fa {
+        cursor: pointer;
+    }
+
+    .team-score .team-name p, .team-score .team-name span,
+    .sports_book .sports_data .sport_td p .name,
+    .sports_book .sports_data .sport_td span {
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .sports_book .sports_data .sport_td span {
+        float: left;
+    }
+
+    .team-score .tr-data td a {
+        font-size: 13px;
+    }
+
+    .team-score .tr-data td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .team-score .bet-all .refer-bet, .team-score .bet-all .refer-book, .win-title {
+        font-size: 12px;
+        font-weight: bold;
+    }
+}
+
+.full-position {
+    .full-position-table.table-bets, .table-bets tbody {
+        font-size: 10px;
+
+        .list-view .list-view-table table {
+            font-size: 11px;
+        }
+    }
+
+}
+
+.market-notification {
+    font-size: 11px;
+    background-color: $notification-bg;
+    color: $notification;
+    height: 25px;
+    line-height: 20px;
+    border-bottom: 3px solid $body-color;
+    border-top: 3px solid $body-color;
+
+    i {
+        padding: 0 8px;
+    }
+
+    marquee {
+        width: calc(100% - 25px);
+        vertical-align: sub;
+    }
+}
+
+.lg-clarification {
+    border: 1px solid #dddada !important;
+
+    span {
+        vertical-align: middle;
+    }
+
+    margin-bottom: 2px;
+    clear: both;
+}
+
+/* ------  Runner  ------ */
+
+.runner-part {
+    width: auto;
+    overflow: hidden;
+    margin-right: 0px !important;
+
+    .bookmark_table {
+        @include resize($float-left, $width);
+        background-color: $white-color;
+        @include padding(0px, 0px, 10px, 0px);
+
+
+        .permission {
+            height: 145px;
+
+            th {
+                @include padding(4px, 0px, 4px, 7px);
+            }
+        }
+    }
+
+    .market-details {
+        height: 340px;
+        overflow: hidden;
+        margin-bottom: 0px;
+        @include resize($float-left, $width);
+        background-color: $white-color;
+        @include border-all(1px, solid, $dark-black-color);
+
+        .market-detail {
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+        }
+
+        .black-back {
+            .to-expand {
+                width: auto;
+            }
+
+            .add-pin.pinned, .add-pin-square.pinned {
+                float: $float-left;
+            }
+
+            .refresh {
+                float: right !important;
+                width: auto !important;
+                padding-top: 0px !important;
+            }
+        }
+    }
+
+    .runner {
+        h3 {
+            margin-bottom: 0px;
+
+            .multiMarketPin {
+                color: $white-color;
+                @include padding(0, 0, 0, 35px);
+            }
+
+            .game-vs {
+                @include padding(0, 0, 0, 15px);
+                @include txt(bold);
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .fixed-odd-table {
+            table {
+                tr {
+                    td {
+                        @include padding(8px, 0, 0, 0);
+                    }
+
+                    .save_btn {
+                        @include padding(4px, 0, 4px, 0);
+                    }
+
+                    .reset_btn {
+                        @include padding(3px, 0, 3px, 0);
+                    }
+                }
+            }
+        }
+
+        .multimarket {
+            span {
+                @include resize(left, 46px);
+                height: 34px;
+                margin: 15px 0px 0px 0;
+                font-size: 13px;
+                @include padding(9px, 4px, 4px, 4px);
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            input {
+                @include display(inline-block);
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+
+            .from-to {
+                input {
+                    margin: 15px 15px 15px 0;
+
+                    &:last-child {
+                        margin-right: 0px;
+                    }
+
+                    @include resize($float-left, 97px);
+                }
+            }
+
+            .start_bar {
+                span {
+                    margin: 0px 0px 0px 0;
+                }
+
+                input {
+                    width: 78%;
+                }
+
+                button {
+                    float: right;
+                    @include padding(6px, 20px, 6px, 20px);
+                }
+            }
+        }
+
+        .position_match {
+            margin-bottom: 7px;
+
+            .black-back {
+                color: $white-color;
+                padding-left: 8px;
+            }
+        }
+
+        .market-detail {
+            table {
+                margin-top: 30px;
+            }
+        }
+
+        .runner-right {
+            height: 300px;
+            overflow: hidden;
+            padding: 0px 6px 0 0 !important;
+
+            &:last-child {
+                padding: 0px 0px 0px 6px !important;
+            }
+
+            h3 {
+                margin-top: 5px;
+                padding-left: 10px;
+                color: $white-color;
+            }
+
+            .bet-time {
+                opacity: 0.7;
+                @include headline($medium-gray-black, 11px);
+                line-height: 20px;
+                @include padding(0px, 0, 0px, 0);
+                @include resize (right, 28px);
+            }
+
+            .back-btn, .lay-btn {
+                background-color: $back-1-color;
+                float: $float-left;
+                @include padding(2px, 6px, 4px, 6px);
+                text-align: $text-center;
+                @include border-radius(4px);
+                @include headline($dark-gray-black, 11px);
+                margin: 0px !important;
+            }
+
+            .lay-btn {
+                background-color: $lay-1-color;
+                @include padding(2px, 9px, 3px, 9px);
+            }
+
+            .back-2 {
+                @include border('bottom', 1px, solid, $back-1-color);
+                display: table;
+                width: $width;
+                @include padding(4px, 8px, 4px, 8px);
+            }
+
+            .lay-2 {
+                @include border('bottom', 1px, solid, $lay-1-color);
+                display: table;
+                width: $width;
+                @include padding(4px, 8px, 4px, 8px);
+            }
+
+            .position {
+                background-color: $white-color;
+                @include border('bottom', 1px, solid, $grayish );
+                @include border('left', 1px, solid, $grayish );
+                @include border('right', 1px, solid, $grayish );
+                @include padding(5px, 8px, 5px, 8px);
+                font-size: $font-size-tab;
+
+                span {
+                    @include display(inline-block);
+                    width: 48%;
+                }
+
+                .p_value {
+                    text-align: $text-center;
+                }
+            }
+
+            .delete {
+                background-image: url('/public/images/arrow-img.png');
+                background-position: -20px -116px;
+                text-indent: -99999px;
+                height: 20px;
+                @include resize (left, 16px);
+                cursor: $cursor;
+                @include display(block);
+                margin: 0px;
+                @include padding(0px, 0px, 5px, 0px);
+            }
+
+            .matched_right {
+                .match_run {
+                    @include resize(right, 81%);
+                    margin-left: 20px;
+
+                    .match_name {
+                        width: auto;
+                    }
+
+                    .bet_price {
+                        span {
+                            width: 60px !important;
+                        }
+
+                        .bet_stake {
+                            width: 80px !important;
+                        }
+                    }
+                }
+            }
+
+            .unmatch {
+                .match_run {
+                    @include resize(right, 81%);
+                    margin-left: 20px;
+
+                    .match_name {
+                        width: auto;
+                    }
+
+                    .bet_price {
+                        span {
+                            width: 60px !important;
+                        }
+
+                        .bet_stake {
+                            width: 80px !important;
+                        }
+                    }
+                }
+            }
+
+            .match_run {
+                @include resize(right, 74%);
+                margin-left: 5px;
+
+                span {
+                    @include border-radius(4px);
+                    @include padding(0px, 0px, 0px, 0px);
+                    margin: 0;
+                    font-weight: 600;
+                    @include headline($light-gray-black, 11px);
+                    @include display(inline-block);
+                }
+
+                .bet_price {
+                    float: right;
+
+                    span {
+                        width: 46px;
+                    }
+                }
+            }
+        }
+    }
+
+    .commentary {
+        background-color: $white-color;
+        padding-bottom: 20px;
+
+        form {
+            .toggle-buttons {
+                margin: 5px 0 0 0 !important;
+
+                button {
+                    line-height: 0px;
+                    height: 30px;
+
+
+                    &:not(.active):focus {
+                        background-color: transparent !important;
+                        color: $black-color;
+                        box-shadow: transparent;
+                    }
+
+                    &:focus {
+                        background-color: transparent !important;
+                        color: $black-color;
+                        box-shadow: none;
+                    }
+
+                    &:hover {
+                        background-color: $dark-gray-black !important;
+                        color: $btngroup-hover;
+                    }
+
+                    &:active {
+                        color: $btngroup-hover !important;
+                        background-color: $dark-gray-black !important;
+                    }
+                }
+            }
+
+            .comm_data {
+                @include padding(12px, 0px,0px, 12px);
+            }
+        }
+    }
+}
+
+.bookmark {
+    .sidebar-tab {
+        .inner-nav {
+            .sidenav {
+                .pin {
+                    width: 25px;
+                    @include position(relative);
+                    right: -6px;
+                }
+            }
+        }
+    }
+}
+
+/* ------------------ */
+
+
+.video-button {
+    float: right;
+}
+
+
+/* ----- ---- ---- */
+.fixed-odd-container {
+    @include display(inline-block);
+    height: 285px;
+
+    .fixed-odd-table {
+        @include border-all(1px, solid, $base-color-light);
+        height: $height;
+        margin: 0 3px 3px 0;
+        @include resize(left, auto);
+
+        tr {
+            @include padding(5px, 5px, 5px, 5px);
+        }
+
+        .runner-name {
+            @include padding(6px, 8px, 6px, 8px);
+            @include txt(bold);
+            @include border('bottom', 1px, solid, $base-color-light);
+            background-color: $light-grey;
+        }
+
+        .icon {
+            @include padding(0px, 8px, 0, 8px);
+            color: $theme-color;
+            width: 16px;
+        }
+
+        .save_btn {
+            width: 92%;
+            margin: 4px 4px 3px 4px;
+        }
+
+        .reset_btn {
+            width: 90%;
+            margin: 4px 4px 3px 4px;
+        }
+
+        input {
+            width: 60px;
+            margin: 6px 0px 5px 5px;
+            font-size: $font-size-tab;
+            @include padding(2px, 3px, 2px, 3px);
+            @include border-radius(5px);
+            @include border-all(1px, solid, $grayish);
+        }
+    }
+}
+
+
+.full-popup {
+    min-width: 600px;
+    height: 350px;
+    width: $width;
+    overflow: hidden;
+    @include border-all(1px, solid, $black-color );
+    background-color: $white-color;
+
+    .popup-left {
+        @include resize($float-left, 38%);
+        height: 350px;
+        @include padding(0px, 0px, 0px, 0px);
+        @include border('right', 1px, solid, $support-a-color);
+
+        ul {
+            .popup_li {
+                @include position(reative);
+                @include border('bottom', 1px, solid, $support-a-color);
+                @include resize ($float-left, $width);
+
+                &:before {
+                    content: '\f0da';
+                    font-family: "FontAwesome";
+                    @include display(block);
+                    width: 10px;
+                    height: 10px;
+                    @include position(absolute);
+                    right: 0px;
+                    top: 2px;
+                }
+
+                a {
+                    @include padding(4px, 6px, 4px, 6px);
+                    @include resize($float-left, $width);
+                    @include headline($dark-gray-black, 11px);
+                    text-transform: capitalize;
+
+                    .fa {
+                        float: right;
+                    }
+                }
+
+                .popup_list {
+                    display: none;
+                    @include resize ($float-left, $width);
+                    @include border('top', 1px, solid, $support-a-color);
+
+                    li {
+                        @include border('bottom', 1px, solid, $support-a-color);
+                        width: $width;
+                        float: $float-left !important;
+
+                        a {
+                            text-transform: capitalize;
+                            @include resize ($float-left, $width);
+                            background-color: $light-white;
+                            @include padding(4px, 6px, 4px, 15px);
+                        }
+                    }
+                }
+
+                &.active {
+                    .popup_list {
+                        @include display(block);
+                    }
+
+                    &:before {
+                        content: '\f0d7';
+                        font-family: "FontAwesome";
+                        @include display(block);
+                        width: 14px;
+                        height: 10px;
+                        @include position(absolute);
+                        right: 0px;
+                    }
+                }
+            }
+        }
+    }
+
+    .popup-right {
+        @include resize ($float-left, 60%);
+        padding-right: 8px;
+        height: $height;
+
+        .video-frame {
+            height: 90%;
+        }
+    }
+}
+
+.progress_bar {
+    @include resize($float-left, $width);
+    @include padding(20px, 0px, 8px, 0px);
+
+    .top-bar {
+        width: $width;
+        background-color: $grayish;
+        @include display(block);
+        height: 5px;
+        @include position(relative);
+
+        .bottom-bar {
+            background-color: $green-color;
+            @include position(absolute);
+            top: 0px;
+            @include display(block);
+            height: 5px;
+        }
+
+        .ball {
+            top: -17px !important;
+        }
+
+        .stop {
+            top: -17px !important;
+        }
+
+        span {
+            @include position(absolute);
+        }
+
+        .yellow-card {
+            background: #ffb80c;
+            width: 10px;
+            height: 15px;
+        }
+
+        .red-card {
+            background: #fe0000;
+            width: 10px;
+            height: 15px;
+        }
+
+        .top-card {
+            top: -15px;
+        }
+
+        .bottom-card {
+            top: 5px;
+        }
+
+        .fa-stop {
+            transform: scale(0.7, 1);
+            @include border-all(1px, solid, $black-color);
+            line-height: 12px;
+        }
+    }
+}
+
+
+.rules-modal {
+    .start_time {
+        padding-bottom: 15px;
+    }
+
+    span {
+        @include resize(left, $width);
+        padding-bottom: 3px;
+    }
+
+    .rule_info {
+        @include resize(left, $width);
+        padding-top: 15px;
+
+        h4 {
+            margin: 0px 0px 5px 0px;
+            font-size: 15px;
+        }
+    }
+}
+
+.expand-pn {
+    width: 74%;
+    margin: 0 0 0 25%;
+
+    .expand-div {
+        @include resize(left, 48%);
+
+        span {
+            @include resize(left, 33%);
+            @include padding(5px, 10px, 5px, 10px);
+            @include txt(bold);
+            @include border('bottom', 1px, solid, $light-gray-blue);
+        }
+
+        .expand-repeat {
+            @include resize(left, $width);
+            @include border('bottom', 1px, solid, $light-gray-blue);
+
+            span {
+                border-bottom: none;
+                @include padding(0px, 10px, 0px, 10px);
+                @include txt(normal);
+                //background-color: $white-color;
+
+                &:last-child {
+                    border-bottom: none !important;
+                }
+            }
+        }
+    }
+
+    .expand-p {
+        @include border-all(1px, solid, $green-color);
+        margin-right: 25px;
+
+        .expand-title {
+            @include resize(left, $width);
+            background-color: rgba(80, 141, 14, 0.2);
+        }
+    }
+
+    .expand-n {
+        @include border-all(1px, solid, $red-color);
+
+        .expand-title {
+            @include resize(left, $width);
+            background-color: rgba(254, 0, 0, 0.2);
+        }
+    }
+}
+
+/* ------------------- */
+
+.new-market {
+    margin-bottom: 15px;
+
+    .bet-all {
+        border-bottom: 2px solid $theme-color !important;
+        line-height: 9px !important;
+
+        th {
+            border-left: none !important;
+
+            a {
+                vertical-align: text-top;
+            }
+
+            span {
+                vertical-align: text-top;
+            }
+        }
+
+        .back-all, .lay-all {
+            background-color: transparent !important;
+        }
+    }
+
+    .over-title {
+        color: $white-color;
+        @include resize($float-left, 75%);
+        @include padding(0px, 8px, 0px, 0px);
+
+        .pin {
+            float: $float-left;
+            @include padding(0px, 4px, 0px, 0px);
+        }
+
+        .fancy-bet {
+            float: $float-left;
+            text-transform: capitalize;
+            background-color: $fancybet;
+            @include padding(0px, 0px, 0px, 5px);
+            line-height: 25px;
+            border-top-right-radius: 10px;
+            @include txt(bold);
+            color: $black-color;
+            letter-spacing: 0.5px;
+            font-size: 12px;
+
+            .fa-info-circle {
+                @include padding(7px, 7px, 4px, 7px);
+                font-size: 12px;
+                line-height: 15px;
+                background-color: $black-color;
+                vertical-align: -9%;
+                border-top-right-radius: 10px;
+
+                &:before {
+                    color: $white-color;
+                }
+            }
+
+            .add-pin {
+                margin: 3px 2px 0 0;
+                font-size: 13px !important;
+            }
+        }
+
+        .matches {
+            float: right;
+            font-size: 11px;
+            line-height: 25px;
+        }
+    }
+
+    table {
+        tbody {
+            vertical-align: top;
+        }
+
+        .bet-all {
+            .back-all, .lay-all {
+                background-color: transparent !important;
+                border-left: none !important;
+            }
+        }
+
+        .tr-data {
+            border-bottom: none;
+            height: 36px;
+
+            td {
+                line-height: 12px;
+
+                a {
+                    height: 28px;
+                }
+            }
+
+            td.pin {
+                min-width: 30px !important;
+                width: 5%;
+                background-color: $white-color;
+                @include padding(0px, 0px, 0px, 0px);
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+        tr {
+            .team-name {
+                //   width:70%;
+                p {
+                    float: $float-left;
+                }
+
+                .icon {
+                    float: none !important;
+                }
+
+                .fa-info-circle {
+                    font-size: 14px;
+                }
+            }
+
+            .lay-1, .back-1 {
+                min-width: 66px !important;
+                width: 10%;
+            }
+        }
+    }
+}
+
+
+/* ---------  */
+.fancy-market {
+    .team-name {
+        margin: 0px;
+    }
+
+    .game-info {
+        color: $fancyname;
+        @include resize($float-left, $width);
+        padding-bottom: 0px;
+        background-color: $fancy-headerbg;
+
+        .match_title {
+            background-color: $fancyname_bg;
+            color: $fancyname;
+        }
+    }
+
+    .add-pin {
+        cursor: pointer;
+        background-color: #000;
+        //color: #ffffff !important;
+        font-size: 11px !important;
+        padding-top: 2px;
+        padding-right: 3px;
+        padding-bottom: 0px;
+        padding-left: 3px;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        margin-right: 3px;
+        height: auto;
+        width: auto;
+    }
+}
+
+.tr-noborder {
+    border: 0px !important;
+}
+
+.fancy-match {
+    //margin-top: 10px;
+
+    .add-pin {
+        padding-top: 3px;
+        padding-right: 4px;
+        padding-bottom: 2px;
+        padding-left: 4px;
+    }
+}
+
+/*  session-ladder  */
+
+.session-ladder {
+    border-left: 1px solid $border-color;
+
+    .run-btn {
+        border-left: 3px solid #a3a3a3;
+        border-right: 3px solid #a3a3a3;
+        @include txt(bold);
+    }
+
+    .active-col {
+        background-color: rgba(217,251,212,0.59);
+    }
+
+    thead {
+        background-color: #eeeeee;
+
+        th {
+            cursor: $cursor;
+            text-align: $text-center;
+            @include padding(5px, 2px, 5px, 2px);
+            width: 55px;
+            border-right: 1px solid #cecece;
+        }
+    }
+
+    tbody {
+        td {
+            text-align: $text-center;
+            width: 55px;
+        }
+
+        tr {
+            border-bottom: 1px solid $border-color;
+
+            td {
+                border-right: 1px solid $border-color;
+            }
+
+            .range-btn {
+                margin: 5px 0 4px 0;
+                box-shadow: 0 0 1px black;
+
+                &:hover {
+                    box-shadow: 0 0 4px $live-winnerbg;
+                }
+            }
+
+            &:hover {
+                background-color: #ffa;
+            }
+        }
+    }
+}
+
+.session-runs {
+    background-color: transparent;
+
+    .td-left {
+        @include resize($float-left, 50%);
+        border: none;
+        height: auto;
+        padding-top: 5px;
+    }
+
+    .td-right {
+        @include resize($float-left, 50%);
+        @include padding(0px, 0px, 0px, 0px);
+        height: auto;
+        border: none !important;
+    }
+
+    tr {
+        @include resize($float-left, $width);
+    }
+
+    .session-table {
+        border: 1px solid #bebebe;
+        background-color: #f3f3f3;
+
+        thead {
+            background-color: $border-color;
+        }
+
+        tr {
+            th {
+                @include resize($float-left, 50%);
+                text-align: center;
+            }
+
+            td {
+                @include resize($float-left, 50%);
+                @include padding(0px, 0px, 0px, 0px);
+                text-align: center;
+                line-height: 28px;
+                height: 33px !important;
+                @include txt(bold);
+                border-right: 1px solid #bebebe;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+}
+
+.no-tr-hover {
+    &:hover {
+        background-color: unset !important;
+    }
+}
+
+.grey-icon {
+    background: url(/public/images/grey-icon.png) no-repeat center center;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.black-icon {
+    background: url(/public/images/black-icon.png) no-repeat center center;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+}
+
+.center-part {
+    .scorecard {
+        .bets-wrap {
+            .team-score {
+                .bet-all {
+                    td span {
+                        color: $bet-color;
+                        font-size: 13px !important;
+                    }
+                }
+
+                tbody {
+                    .tr-data {
+                        border-bottom: 1px solid #DDD;
+                    }
+                }
+            }
+        }
+
+        .fancy-market {
+            .game-info {
+                background-color: transparent;
+
+                .match_title {
+                    background-color: transparent;
+
+                    span {
+                        padding-left: 5px;
+                    }
+                }
+
+                .fancy-title {
+                    font-size: 18px;
+                    border-bottom: 2px solid $fancy-border;
+                    margin-left: 5px;
+                    padding: 0 0 4px 0 !important;
+                }
+            }
+
+            .team-score {
+                tbody {
+                    .tr-data {
+                        border-bottom: 1px solid #DDD;
+                    }
+
+                    .td_border {
+                        border-bottom: 1px solid #DDD !important;
+                    }
+                }
+
+                .t-header {
+                    color: $fancyname;
+                }
+            }
+        }
+    }
+}
+
+.team-score .team-name span.ppl, .ppl {
+    .fa {
+        font-size: 13px !important;
+        font-weight: normal;
+    }
+
+    &.green {
+        color: $theme-success !important;
+    }
+
+    font-size: 13px !important;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.ppl {
+    margin: 5px 5px 0px 5px;
+}

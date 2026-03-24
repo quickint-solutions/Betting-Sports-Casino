@@ -1,0 +1,33 @@
+﻿<div class="master-page-class">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="event-heading">Notifications</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <form name="msg1Form" ng-submit="ctrl.updateNotification(1)">
+            <div class="col-sm-12 mr-top-10">
+                <textarea maxlength="1000" rows="4" style="width:100%" ng-model="text1"></textarea>
+            </div>
+            <div class="col-sm-12" kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess']}">
+                <button class="btn btn-default float-r" ng-disabled="text1==oldTxt.text1">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form name="msg2Form" ng-submit="ctrl.updateNotification(2)">
+            <div class="col-sm-12 mr-top-10">
+                <textarea maxlength="1000" rows="4" style="width:100%" ng-model="text2"></textarea>
+            </div>
+            <div class="col-sm-12" kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess']}">
+                <button class="btn btn-default float-r" ng-disabled="text2==oldTxt.text2">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

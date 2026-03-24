@@ -1,0 +1,174 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="header-name">
+        <div class="filter-input">
+            <h1 class="event-heading" ng-hide="ctrl.$stateParams.memberid">{{'common.accountstatement.label' | translate}}</h1>
+            <div class="filter-panel">
+                <ul class="input-list">
+                    <li>
+                        <div class="input-group">
+                            <div id="picker-market-report" class="ktdatepicker"
+                                 kt-date-range-picker
+                                 data-from-date="search.fromdate"
+                                 data-to-date="search.todate"
+                                 data-on-selection="ctrl.refreshGrid()"
+                                 data-format="DD MMM YYYY ">
+                                {{search.fromdate | date:'dd MMM yyyy '}} - {{search.todate | date:'dd MMM yyyy '}}
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="btn_value float-r">
+                    <button class="btn btn-secondary" ng-click="ctrl.exportAccountStatement()" ng-hide="totalRows<=0">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing list-table statement-table ac-statement">
+        <div class="bet-manager">
+            <ul class="tab">
+                <li><a class="tabing-title " ng-class="{'active':selectedTab==0}" ng-click="selectedTab=0;ctrl.search()">A/C Statement</a></li>
+                <li><a class="tabing-title " ng-class="{'active':selectedTab==1}" ng-click="selectedTab=1;ctrl.search()">P&L Statement</a></li>
+                <li><a class="tabing-title" ng-class="{'active':selectedTab==2}" ng-click="selectedTab=2;ctrl.search()">Credit Statement</a></li>
+            </ul>
+            <div ng-if="selectedTab==0">
+                <kt-grid grid-id="kt-acstatement-grid"
+                         load-items="ctrl.getAccountStatement(params)"
+                         show-total="false"
+                         data-total="$parent.totalRows"
+                         data-date-group="true"
+                         data-group-field="createdOn"
+                         cache-key="ktacstatementgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable member_table"
+                           template-pagination="{{ :: paginationUrl }}">
+                        <thead>
+                            <tr>
+                                <th class="size-sm align-l">Date</th>
+                                <th class="align-l ">Description</th>
+                                <th class="size-lg"></th>
+                                <th class="size-md boolean">P&L</th>
+                                <th class="size-smd boolean">Credit Limit</th>
+                                <th class="size-smd boolean">Balance</th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                            <tr>
+                                <td class="td-date">
+                                    <kt-date data-date-value="itemGrp.date"></kt-date>
+                                </td>
+                            </tr>
+                            <tr class="inner-tr" ng-repeat="item in itemGrp.values track by $index">
+                                <td class="size-sm align-l " style="padding-left:20px!important;">
+                                    <span>
+                                        <kt-date data-date-value="item.createdOn" data-format="HH:mm:ss" style="color:#909090"></kt-date>
+                                    </span>
+                                </td>
+                                <td class="align-l">
+                                    <span title="{{item.narration}}">{{item.narration}}</span>
+                                    <span ng-if="item.accountType==7" class="bold"> # {{item.roundId}}</span>
+                                    <span ng-if="item.comment">({{item.comment}}) </span>
+                                </td>
+                                <td class="size-lg">
+                                    <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                                    <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                                </td>
+                                <td class="size-md boolean">
+                                    <span title="{{item.balance | toRate}}"
+                                          ng-class="{'negative':item.balance<0,'positive bold':item.balance>=0}">{{item.balance | toRate}}</span>
+                                </td>
+                                <td class="size-smd boolean">
+                                    <span class="positive" ng-show="item.accountType==13" ng-class="{'negative':item.creditTotal<0}">{{item.creditTotal | toRate}}</span>
+                                    <span class="positive" ng-show="item.accountType!=13">-</span>
+                                </td>
+                                <td class="size-smd boolean">
+                                    <span title="{{item.total | toRate }}"
+                                          ng-class="{'positive':item.total >= 0,'negative':item.total < 0}">
+                                        {{item.total  | toRate}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+            <div class="" ng-if="selectedTab==1">
+                <div class="total-pnl bold" ng-init="totalPL=0;">
+                    <span>Total P&L : </span>
+                    <span class="positive" ng-class="{'negative':totalPL<0}">{{totalPL | toRate}}</span>
+                </div>
+                <kt-grid grid-id="kt-plstatement-grid"
+                         load-items="ctrl.getPLStatement(params)"
+                         name-param="id"
+                         name-value-property="id"
+                         show-total="false"
+                         cache-key="ktplstatementgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable member_table"
+                           template-pagination="{{ paginationUrl }}">
+                        <tbody class="info-text">
+                            <tr ng-repeat="item in $data track by $index">
+                                <td header-class="'size-xl align-l'" class="size-xl align-l" data-title="'Date'">
+                                    <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy HH:mm:ss"></kt-date>
+                                </td>
+                                <td header-class="'size-sm'" class="size-sm" data-title="'Description'">
+                                    <span title="{{item.narration}}">{{item.narration}}</span>
+                                </td>
+                                <td class="align-l">
+                                    <a ng-if="item.marketInfo" class="link-a"
+                                       ng-click="$parent.$parent.$parent.$parent.ctrl.openBetReport(item);">
+                                        {{item.marketInfo.eventName +' - '+item.marketInfo.name}}&nbsp;
+                                        {{item.marketInfo.roundId ? item.marketInfo.roundId : ''}}
+                                    </a>
+                                </td>
+                                <td header-class="'size-md align-r'" class="size-md align-r" data-title="'P&L'">
+                                    <span class="positive" title="{{item.balance | toRate}}"
+                                          ng-class="{'negative':item.balance<0}">{{item.balance  | toRate}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+
+            <div class="" ng-if="selectedTab==2">
+                <kt-grid grid-id="kt-creditstatement-grid"
+                         load-items="ctrl.getCreditStatement(params)"
+                         name-param="id"
+                         name-value-property="id"
+                         show-total="false"
+                         cache-key="ktcreditstatementgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable member_table"
+                           template-pagination="{{ :: paginationUrl }}">
+                        <tbody class="info-text">
+                            <tr ng-repeat="item in $data track by $index">
+                                <td header-class="'size-md align-l'" class="size-md align-l" data-title="'Date'">
+                                    <span>
+                                        <kt-date data-date-value="item.createdOn" data-format="dd/MM/yyyy HH:mm:ss"></kt-date>
+                                    </span>
+                                </td>
+                                <td header-class="'boolean size-xl'" class="boolean size-xl" data-title="'Description'">
+                                    <span title="{{item.narration}}">{{item.narration | shortme:70}} </span>
+                                </td>
+                                <td class="align-l" header-class="'align-l'" data-title="'To/From'">
+                                    <span title="{{item.remarks}}">{{item.remarks | shortme:70}} </span>
+                                </td>
+                                <td class="size-md boolean" header-class="'size-md boolean'" data-title="'Amount'">
+                                    <span title="{{item.balance  | toRate}}" class="positive" ng-class="{'negative':item.balance<0}">{{item.balance  | toRate}} </span>
+                                </td>
+                                <td class="size-md boolean" header-class="'size-md boolean'" data-title="'Credit Balance'">
+                                    <span title="{{item.total | toRate }}" ng-class="{'positive':item.total >= 0,'negative':item.total < 0}">{{item.total  | toRate}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+</div>

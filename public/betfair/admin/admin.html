@@ -1,0 +1,216 @@
+﻿<div class="admin_part">
+    <div class="header admin-header ">
+        <div class="header-top">
+            <div class="flex flex-main-justify flex-center-cross">
+                <div style="width:230px">
+                    <a href="" ui-sref="admin" class="logo-img"></a>
+                </div>
+                <div class="account-nav flex">
+                    <div class="account-wrap flex flex-center-cross" style="float:right;">
+                        <div class="accountCredit" ng-init="utype=ctrl.getUserTypeShort(user.userType)">
+                            <div>
+                                <span class="usertype-lable {{utype}}"> {{utype}}</span>
+                                <a ui-sref="admin.socketlist">{{user.username}}, &nbsp;</a>
+                            </div>
+                            <div>
+                                Main Balance
+                                <strong class="betCredit" ng-class="{'dark-red':balanceInfo.balance<0,'green':balanceInfo.balance>0}">
+                                    <kt-glc-code data-special="true" data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                </strong>
+                            </div>
+                            <div>
+                                Exposure
+                                <strong class="totalExposure" ng-class="{'dark-red':balanceInfo.exposure<0}">
+                                    <kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="head-refresh">
+                            <a ng-click="ctrl.getBalance()"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="account">
+                            <a class="accountPopup mrg-left-5">Click Here<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+                            <ul class="account_pop">
+
+                                <li kt-has-claim claims="{Claims: ['admin.website.manage']}">
+                                    <a ui-sref="admin.websites"><i class="fa fa-globe"></i>{{'websites.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.language.manage']}">
+                                    <a ui-sref="admin.languages"><i class="fa fa-language"></i>{{'languages.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.betfair.account.manage']}">
+                                    <a ui-sref="admin.betfair"><i class="fa fa-address-book"></i> {{'betfair.account.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.permission.manage']}">
+                                    <a ui-sref="admin.permissions"><i class="fa fa-drivers-license"></i>{{'permissions.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['master.dw']}">
+                                    <a ui-sref="admin.casinobanking.list">
+                                        <i class="fa fa-bank"></i>  {{'casinobanking.label' | translate}}
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.video.manage']}">
+                                    <a ui-sref="admin.videomanager"><i class="fa fa-video-camera"></i>{{'videomanager.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.runner.manage']}">
+                                    <a ui-sref="admin.runners"><i class="fa fa-bars"></i>{{'runners.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.defaultprice.manage']}">
+                                    <a ui-sref="admin.runnersprice"><i class="fa fa-bars"></i>{{'runners.price.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.commentary.manage']}">
+                                    <a ui-sref="admin.commentary"><i class="fa fa-commenting"></i>{{'commentary.label'| translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.setting.manage']}">
+                                    <a ui-sref="admin.settings"><i class="fa fa-gear"></i>{{'setting.label'| translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.paymentnumber.manage']}">
+                                    <a ui-sref="admin.paymentnumbers"><i class="fa fa-gear"></i>{{'paymentnumbers.label'| translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.marketrule.manage']}">
+                                    <a ui-sref="admin.marketrule"><i class="fa fa-sticky-note"></i>{{'marketrules.label'| translate}}</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="admin.currency"><i class="fa fa-usd"></i>{{'currency.label'| translate}}</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="admin.operatorcurrency"><i class="fa fa-usd"></i>{{'operator.currency.label'| translate}}</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="admin.inquiry"><i class="fa fa-inbox"></i>{{'inquiry.label'| translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.clear.cache']}">
+                                    <a ng-click="ctrl.clearCache()">
+                                        <i class="fa fa-database"></i> Clear cache
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.setting.manage']}">
+                                    <a ng-click="ctrl.mobileNotification()">
+                                        <i class="fa fa-mobile"></i>Mobile Notification
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.setting.manage']}">
+                                    <a ng-click="ctrl.webNotification()">
+                                        <i class="fa fa-microphone"></i>Web Notification
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['master.loginhistory.member.view']}">
+                                    <a ui-sref="admin.liveusers"><i class="fa fa-group"></i>Live Users</a>
+                                </li>
+                                <li>
+                                    <a ng-click="ctrl.changePassword()"><i class="fa fa-key"></i>{{'changepwd.label' | translate}}</a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['admin.clear.cache']}">
+                                    <a ui-sref="admin.systemlog">
+                                        <i class="fa fa-database"></i> System Logs
+                                    </a>
+                                </li>
+                                <li class="logout"><a class="btn" ng-click="ctrl.logout()">{{'logout.label' | translate}}<i class="fa fa-sign-out"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-menu admin-menu">
+            <div class="col-sm-12">
+                <ul id="sub-header">
+                    <li>
+                        <a ng-class="ctrl.isActive('/admin/dashboard')"
+                           ui-sref="admin.dashboard">Dashboard</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['master.member.view']}">
+                        <a ng-class="ctrl.isActive('/admin/users')"
+                           ui-sref="admin.users">{{'users.label' | translate}}</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['admin.eventtype.manage']}">
+                        <a ng-class="ctrl.isContain('/admin/sports')"
+                           ui-sref="admin.sports">{{'sports.label' | translate}}</a>
+                    </li>
+
+                    <li kt-has-claim claims="{Claims: ['admin.market.manage']}">
+                        <a ng-class="ctrl.isActive('/admin/markets')"
+                           ui-sref="admin.markets">{{'managemarket.label' | translate}}</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['admin.manage.bot']}">
+                        <a ng-class="ctrl.isActive('/admin/betfair/sports')"
+                           ui-sref="admin.betfairsports">{{'betfair.sport.label' | translate}}</a>
+                    </li>
+                    <li>
+                        <a ng-class="ctrl.isContain('/admin/pl-statement')"
+                           ui-sref="admin.account.plstatement">{{'common.myaccount.label'| translate}}</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['master.bet.view']}">
+                        <a ng-class="ctrl.isContain('/admin/position')"
+                           ui-sref="admin.position">{{'position.label'| translate}}</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['master.bet.live.view']}">
+                        <a ui-sref="admin.livebets" ng-class="ctrl.isActive('/admin/livebets')">
+                            {{'livebets.label' | translate}}
+                        </a>
+                    </li>
+                    <!--<li kt-has-claim claims="{Claims: ['master.bet.live.view']}">
+                        <a ui-sref="admin.fdlivebets" ng-class="ctrl.isActive('/admin/fd-livebets')">
+                            {{'fd.livebets.label' | translate}}
+                        </a>
+                    </li>-->
+                    <li kt-has-claim claims="{Claims: ['admin.fdexposure.manage']}">
+                        <a ui-sref="admin.managefdexposure" ng-class="ctrl.isActive('/admin/manage-fd-exposure')">FD Exposure</a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['master.dw']}">
+                        <a ui-sref="admin.banking.list" ng-class="ctrl.isContain('/admin/banking')">
+                            {{'banking.label' | translate}}
+                        </a>
+                    </li>
+                   
+                    <li kt-has-claim claims="{Claims: ['betfair.bet.view']}">
+                        <a ui-sref="admin.btbets" ng-class="ctrl.isContain('/admin/betfair-bets')">
+                            {{'btbets.label' | translate}}
+                        </a>
+                    </li>
+                    <li kt-has-claim claims="{Claims: ['admin.myreport.view']}">
+                        <a ng-class="ctrl.isContain('/admin/report')"
+                           ui-sref="admin.report.downline">{{'myreport.label' | translate}}</a>
+                    </li>
+                    <!--<li kt-has-claim claims="{Claims: ['admin.paytmwithdrawal.manage']}">
+        <a ng-class="ctrl.isContain('/admin/confirm-withdrawal')"
+           ui-sref="admin.confimwithdrawal">{{'confirmwithdrawal.label' | translate}}</a>
+    </li>-->
+                    <li kt-has-claim claims="{Claims: ['master.fairxpayrequest.manage']}">
+                        <a ui-sref-active="active"
+                           ui-sref="admin.fairxpayout">
+                            FairX Payout
+                        </a>
+                    </li>
+                    <li class="video-button">
+                        <a ng-click="ctrl.openVideo()">
+                            <img src="/public/images/mobile/play.png">
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div><!-- header -->
+
+    <div class="full-wrap admin_full" style="">
+        <div class="row">
+            <!--<div class="col-sm-12" ng-if="ctrl.isContain('/admin/sports')">
+                <ul>
+                    <li class="breadcrumb">
+                        <div ncy-breadcrumb=""></div>
+                    </li>
+                </ul>
+            </div>-->
+            <div class="main-bookmaker">
+                <div ui-view="main" class="admin-part master-page-class" style="margin-top:10px">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

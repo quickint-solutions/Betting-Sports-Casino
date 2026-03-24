@@ -1,0 +1,127 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.openbet-sidebar {
+    min-width: 90vw;
+    max-width: 90vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -90vw;
+    /* top layer */
+    z-index: 110;
+    transition: all 0.5s;
+    background-color: $white-color;
+
+    .slip-wrap {
+        .bet-slip {
+            display: inherit !important;
+        }
+
+        .mCustomScrollBox {
+            @include respond-to2(extra-small-screens) {
+                max-height: 520px !important;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width : 1023px) and (max-device-width : 1024px) and (orientation : landscape) {
+    .openbet-sidebar {
+        .slip-wrap {
+            .open-bet {
+                .mCustomScrollBox {
+                    max-height: 600px !important;
+                }
+            }
+        }
+    }
+}
+
+
+.openbet-sidebar.active {
+    left: 0;
+}
+
+.openbet-overlay {
+    /* full screen */
+    width: 100vw;
+    height: 100vh;
+    /* transparent black */
+    background: rgba(0, 0, 0, 0.56);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    /* middle layer, i.e. appears below the sidebar */
+    z-index: 100;
+}
+
+.openbet-overlay.active {
+    @include display(block);
+}
+
+.openbet-overlay {
+    .betprocess {
+        top: 33vh;
+        background-color: rgba(255,255,255,0.46);
+        font-size: 16px;
+         @include txt(bold);
+        padding-top: 14px;
+        height: 33vh;
+        text-align: center;
+    }
+
+    .loader {
+        height: 25vh;
+
+        label {
+           @include position(absolute);
+            left: 52%;
+            top: 34%;
+            -webkit-transform: translate(52%,-34%);
+            transform: translate(-52%,-34%);
+        }
+    }
+
+    .bet-process {
+        @include position(relative);
+        pointer-events: none;
+        z-index: 100;
+        display: contents;
+    }
+
+    .bet-process:before {
+        left: 40vw;
+        top: 3vh;
+        @include position(absolute);
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+        content: "";
+        background-image: url(/public/images/gif/spinner.gif);
+        background-repeat: no-repeat;
+        background-size: 40% 80% !important;
+        width: 60%;
+        height: 66%;
+        vertical-align: middle;
+    }
+}
+
+.setting-sidebar {
+    min-width: 90vw;
+    max-width: 90vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -90vw;
+    /* top layer */
+    z-index: 110;
+    transition: all 0.5s;
+    background-color: $white-smoke;
+}
+
+.setting-sidebar.active {
+    right: 0;
+}

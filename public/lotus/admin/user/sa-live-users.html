@@ -1,0 +1,129 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'liveusers.label'| translate}}</h1>
+    </header>
+</div>
+<div class="col-sm-12">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="Please enter username"
+                       autofocus ng-model="search.username" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="Please enter IP Address"
+                       autofocus ng-model="search.ipAddress" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="Please enter IMEI"
+                       autofocus ng-model="search.iMEI" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="Please enter device id"
+                       autofocus ng-model="search.device" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" minlength="1" maxlength="200"
+                       placeholder="Please enter login hours"
+                       autofocus ng-model="search.loginMax" class="form-control">
+            </div>
+
+            <div class="col-sm-2">
+                <button class="btn btn-secondary" ng-click="ctrl.refreshGrid()" style="width:48%;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    {{'common.button.search' | translate}}
+                </button>
+                <button class="btn btn-default" ng-click="ctrl.resetCriteria()" style="width:48%;">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    {{'common.button.reset' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="row mr-top-10">
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-globe" aria-hidden="true"></i></span>
+                    <select class="form-control" ng-model="search.websiteId" required tabindex="5">
+                        <option ng-repeat="w in websites" value="{{w.id}}">
+                            {{w.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <kt-grid grid-id="kt-liveuser-grid"
+             load-items="ctrl.getItems(params,filters)"
+             data-show-total="true"
+             has-new-rights="true"
+             cache-key="ktliveusersgrid">
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by $index">
+                    <td data-title="'ID'" data-sortable="'userId'"
+                        data-header-class="'size-xs'" class="size-xs">
+                        <span title="{{item.userId}}">{{item.userId}} </span>
+                    </td>
+                    <td data-title="::'user.username.label' | translate" data-sortable="'username'"
+                        data-header-class="' align-l'" class="align-l ">
+                        <span class="usertype-lable {{utype}}">{{utype= $parent.$parent.$parent.ctrl.getUserTypeShort(item.user.userType)}}</span>
+                        <span id="to">
+                            <strong>
+                                <a target="_blank" ui-sref="admin.member.profile({memberid:item.userId})"> {{item.user.username}}</a>
+                            </strong>
+                        </span>
+                        <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent"></i>
+                        <span ng-if="item.user.parent">{{item.user.parent.username}}</span>
+                        <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent"></i>
+                        <span ng-if="item.user.parent.parent">{{item.user.parent.parent.username}}</span>
+                        <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent.parent"></i>
+                        <span ng-if="item.user.parent.parent.parent">{{item.user.parent.parent.parent.username}}</span>
+                        <i class="fa fa-random" ng-show="item.user.allowMultiLogin"></i>
+                    </td>
+                    <td data-title="'IP'" data-sortable="'remoteIp'"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span title="{{item.remoteIp}}">{{item.remoteIp}} </span>
+                    </td>
+                    <td data-title="'Login Since'" data-sortable="'loginSince'"
+                        data-header-class="'size-md boolean'" class="size-md boolean">
+                        <span title="{{item.loginSince}}">{{item.loginSince}} </span>
+                    </td>
+                    <td data-title="'Device'" data-sortable="'device'"
+                        data-header-class="'size-lg'" class="size-lg">
+                        <span title="{{item.device}}">{{item.device}} </span>
+                    </td>
+                    <td data-title="'Issue On'" data-sortable="'issuedOn'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.issuedOn}}">{{item.issuedOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td data-title="'Expire On'" data-sortable="'expiresOn'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.expiresOn}}">{{item.expiresOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td data-title="'Location'" data-sortable="'location'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.location}}">{{item.location}} </span>
+                    </td>
+                    <td data-title="'Provider'" data-sortable="'provider'"
+                        data-header-class="'size-md'" class="size-md">
+                        <span title="{{item.provider}}">{{item.provider}} </span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'size-xs boolean'" class="size-xs boolean">
+                        <a id="btnvoid{{$index}}" class="btn btn-danger"
+                           ng-click="$parent.$parent.$parent.ctrl.removeToken(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

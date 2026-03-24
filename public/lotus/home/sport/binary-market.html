@@ -1,0 +1,84 @@
+﻿<div class="main-event">
+    <div class="full-market-list to-win">
+        <h1 class="event-heading">
+            <i class="icon-play green"></i>
+            {{fancyMarkets[0].event.name}}
+            <span style="float:right;" >
+                <span class="event-time" style="float:none;">
+                    <kt-rules data-market="fancyMarkets[0]" data-text="Rules"></kt-rules>
+                </span>
+            </span>
+        </h1>
+
+        <div style="height:20px">
+            <div class="float-l market-loader-parent" ng-show="isRequestProcessing">
+                <div ng-include="loadderTemplate"></div>
+            </div>
+        </div>
+       
+    </div>
+
+
+    <!--fancy session market-->
+    <div class="full-market-list fancy-session" ng-if="(fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2]).length>0">
+        <div class="process-div" ng-repeat="m in fancyMarkets  | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[7,2]">
+            <kt-counter data-bet-in-process="m.betInProcess" data-event-type="{{m.eventType.id}}" data-small="{{m.marketRunner.length<2}}"></kt-counter>
+            <table class="table-score">
+                <thead ng-if="$index==0">
+                    <tr>
+                        <th class="align-l th-col"></th>
+                        <th></th>
+                        <th></th>
+                        <th class="align-r">{{'market.no.label' | translate}}</th>
+                        <th class="align-l">{{'market.yes.label' | translate}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_{{m.id}}">
+                    <tr id="tr_{{m.id}}_{{r.runner.id}}" ng-repeat="r in m.marketRunner" ng-show="r.status<5"
+                        ng-class="{'stop':m.temporaryStatus==3,'ball':m.temporaryStatus==2,'suspend':m.marketStatus==3,'closed':m.marketStatus==4}">
+                        <td class="match-title" ng-if="$index==0">
+                            <span class="runner-title">{{m.name}}</span>
+                            <span class="ppl negative" ng-if="m.pl">{{m.pl  | toFixDigit }}</span>
+                            <div class="grey-icon float-r " ng-click="m.showSession=!m.showSession;ctrl.openBook(m.id,m.showSession)" ng-class="{'black-icon':m.pl}"></div>
+                            <span class="winner" ng-if="m.winner">{{m.winner}}</span>
+                        </td>
+                        <th class="match-title" ng-if="$index!=0"></th>
+                        <td class="empty-score empty-score-2" colspan="2">
+                            <span class="event-time" style="float:none;" ng-if="m.betOpenTime && $index==0">
+                                Open @
+                                <kt-date data-date-value="m.betOpenTime" data-format="dd MMM, H:mm"></kt-date>
+                            </span>
+                            <span class="event-time" style="float:none;" ng-if="m.betCloseTime && $index==0">
+                                Close @
+                                <kt-date data-date-value="m.betCloseTime" data-format="dd MMM, H:mm"></kt-date>
+                            </span>
+                        </td>
+                        <td class="lay1 align-c" kt-animate-on-change="r.layPrice[0].price"
+                            kt-click ng-click="ctrl.placeBet(m,2,r.runner.id,r.layPrice[0] ? r.layPrice[0].price : '',r.runner.name,r.layPrice[0] ? r.layPrice[0].percentage : '');">
+                            <kt-glc data-item="r.layPrice[0]" data-show-size="false"></kt-glc>
+                        </td>
+                        <td class="back1 align-c" kt-animate-on-change="r.backPrice[0].price"
+                            kt-click ng-click="ctrl.placeBet(m,1,r.runner.id,r.backPrice[0] ? r.backPrice[0].price : '',r.runner.name,r.backPrice[0] ? r.backPrice[0].percentage : '');">
+                            <kt-glc data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                        </td>
+                        <td class="empty-score empty-score-2" colspan="2">
+                            <span ng-if="$index==0"> Max Bet : {{m.maxBet | toRate}}</span>
+                            <span ng-if="$index==0"> Max Mkt : {{m.maxProfit | toRate}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="m.notification" class="market-notification">
+                        <td colspan="8">
+                            <span><i class="fa fa-microphone"></i>{{m.notification}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    
+</div>
+

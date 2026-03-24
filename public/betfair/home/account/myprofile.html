@@ -1,0 +1,121 @@
+﻿<div id="content-container" class="main-content-container main-content-desktop-container__page light">
+    <div class="content main-content-container__page">
+        <div id="main" role="main">
+            <div id="mod-mydetails-v2-44018-container" class="mod yui3-widget yui3-module yui3-bfmodule-my-details-v2">
+                <div id="mod-mydetails-v2-44018" class="mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 mod-mydetails-v2 mod-mydetails-v2-mydetails-v2 ga yui3-bfmodule-my-details-v2-content">
+                    <div class="mydetails-wrapper">
+                        <div class="view">
+                            <div class="col-row">
+                                <div class="maw-header-text maw-header-text--main"><h1>My Profile</h1></div>
+                            </div>
+                            <div class="col-group">
+                                <div class="col-mb-2 col-mb-box">
+                                    <div class="section tooltips-right s-about-you" data-module-name="about you">
+                                        <div class="maw-header-text maw-header-text--second" data-qa="s-about-you-header">
+                                            <h4>About You</h4>
+                                        </div>
+                                        <div class="content">
+                                            <div>
+                                                <div>
+                                                    <span class="item-label" data-qa="aboutyou-name">Name:</span>
+                                                    <span class="item-data" data-hj-masked="">{{user.name}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="item-label" data-qa="aboutyou-username">Username:</span>
+                                                    <span class="item-data">{{user.username}}</span>
+                                                </div>
+                                              
+                                                <div style="display: flex; justify-content: space-between;">
+                                                    <div>
+                                                        <span class="item-label" data-qa="aboutyou-pass">Password:</span>
+                                                        <span class="item-data">••••••••••••••••</span>
+                                                    </div>
+                                                    <a ng-click="ctrl.changePassword()"
+                                                       kt-has-claim claims="{Claims: ['common.password.manage']}"
+                                                       ng-if="!ctrl.$stateParams.memberid">
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                                <div class="login-with-email">
+                                                    <span class="item-label" data-qa="aboutyou-withemail">Language:</span>
+                                                    <span class="item-data">
+                                                        <select ng-model="$parent.user.languageId" ng-change="ctrl.languageChanged()">
+                                                            <option ng-repeat="l in languageList" value="{{l.id}}">
+                                                                {{l.name}}
+                                                            </option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="section tooltips-right s-address" data-module-name="address">
+                                        <div class="maw-header-text maw-header-text--second" data-qa="s-address-header">
+                                            <h4>Settings</h4>
+                                        </div>
+                                        <div class="content">
+                                            <div>
+                                                <div>
+                                                    <span class="item-label" data-qa="aboutyou-address">Currency:</span>
+                                                    <span class="item-data" data-hj-masked="">{{user.currency.code}}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="item-label" data-qa="aboutyou-town">Odds Format:</span>
+                                                    <span class="item-data" data-hj-masked="">--</span>
+                                                </div>
+                                                <div>
+                                                    <span class="item-label" data-qa="aboutyou-county">Timezone:</span>
+                                                    <span class="item-data" data-hj-masked="">{{timezone}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-mb-2 col-mb-box">
+                                    <div class="section tooltips-left s-contact-details" data-module-name="contact details">
+                                        <div class="maw-header-text maw-header-text--second" data-qa="s-contact-details-header">
+                                            <h4>Bet Config</h4>
+                                        </div>
+                                      
+                                        <div class="content">
+                                            <div>
+                                                <div>
+                                                    <table>
+                                                        <tr>
+                                                            <th> </th>
+                                                            <th class="align-c bold">{{'betconfig.min.label'|translate}}</th>
+                                                            <th class="align-c bold">{{'betconfig.max.label'|translate}}</th>
+                                                            <th class="align-c bold">{{'betconfig.delay.label'|translate}}</th>
+                                                            <th class="align-c bold">{{'betconfig.exposure.label'|translate}}</th>
+                                                            <th class="align-c bold">{{'betconfig.profit.label'|translate}}</th>
+                                                        </tr>
+                                                        <tr style="height: 30px;" ng-repeat="e in eventTypes">
+                                                            <td style="padding-left:10px">{{e.name}}</td>
+                                                            <td class="align-c">{{e.minBet | toRate }}</td>
+                                                            <td class="align-c">{{e.maxBet  | toRate}}</td>
+                                                            <td class="align-c">{{e.betDelay}}</td>
+                                                            <td class="align-c">{{e.maxExposure  | toRate}}</td>
+                                                            <td class="align-c">{{e.maxProfit  | toRate}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+

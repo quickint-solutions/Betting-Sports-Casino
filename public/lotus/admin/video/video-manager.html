@@ -1,0 +1,52 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">{{'videomanager.label' | translate}}</h1>
+    </header>
+    <kt-grid grid-id="kt-video-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditVideo()"
+             cache-key="ktvideogrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'video.url.label' | translate"
+                        data-sortable="'name'" data-header-class="'align-l'" class="align-l">
+                        <span>{{item.url}} </span>
+                    </td>
+                    <td data-title="::'video.streamname.label' | translate"
+                        data-sortable="'streamname'" data-header-class="'boolean size-md'" class="boolean size-md">
+                        <span>{{item.streamName}} </span>
+                    </td>
+                    <td data-title="::'video.appname.label' | translate"
+                        data-sortable="'name'" data-header-class="'boolean size-md'" class="boolean size-md">
+                        <span>{{item.appName}} </span>
+                    </td>
+                    <td data-title="::'video.rtspurl.label' | translate"
+                        data-sortable="'rtspurl'" data-header-class="'align-l'" class="align-l">
+                        <span>{{item.rtspUrl}} </span>
+                    </td>
+                    <td data-title="::'video.videosource.label' | translate"
+                         data-header-class="'boolean size-sm'" class="boolean size-sm">
+                        <span>{{$parent.$parent.$parent.ctrl.getVideoSource(item.videoSource)}}</span>
+                    </td>
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean size-md'" class="boolean size-md">
+                        <a id="btnEdit{{$index}}" class="btn btn-light"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditVideo(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a id="btnDelete{{$index}}" class="btn btn-danger"
+                           ng-click="$parent.$parent.$parent.ctrl.deleteVideo(item)">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

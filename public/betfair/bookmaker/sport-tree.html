@@ -1,0 +1,53 @@
+﻿<div class="sidebar-tab">
+    <div class="vertical-tab">
+        <div class="path">
+            <ul>
+                <li class="path-last" style="width:100%">
+                    <a ui-sref="book.base.feed">Sport</a>
+                    <a style="float:right" ng-click="ctrl.loadTreeData()"><i class="fa fa-refresh"></i></a>
+                </li>
+            </ul>
+        </div>
+        <nav class="inner-nav">
+            <div ng-scrollbars class="sidenav">
+                <ul class="left-menulist" ng-if="breadcrumb" style="float:left; width:100%;">
+                    <li ng-repeat="b in breadcrumb track by $index">
+                        <a ng-click="ctrl.breadcrumbClick(b);">{{b.name}}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li ng-repeat="sport in sportTreeList">
+                        <a class="active" ng-if="sport.sportNodeType != 5  && !sport.markets"
+                           uib-tooltip="{{sport.name}}"
+                           ng-click="ctrl.treeClick(sport.sportNodeType,sport.id,sport.name)">
+                            {{sport.name | shortme:35}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                            <span class="exposure-border" ng-if="sport.pl">
+                                <span class="negative">{{sport.pl | toRate}}</span>
+                            </span>
+                        </a>
+
+                        <a class="active" ng-if="sport.sportNodeType != 5 && sport.markets"
+                           uib-tooltip="{{sport.name}}"
+                           ng-click="ctrl.openLiveGamesFeedView($event,sport.id)">
+                            {{sport.name | shortme:35}}
+                            <i class="fa faimg fa-external-link"></i>
+                            <i class="fa fa-chevron-right go-icon"></i>
+                        </a>
+
+                        <a class="active" ng-if="sport.sportNodeType == 5"
+                           uib-tooltip="{{sport.name}}"
+                           ng-click="ctrl.pinMe(sport)" ng-init="sport.pin=ctrl.isMarketPinned(sport.id)">
+                            {{sport.name | shortme:22}}
+                            <i style="float:right;margin-right:5px;" class="fa add-pin" ng-class="{'fa-minus':sport.pin,'fa-plus':!sport.pin}"></i>
+                            <i class="fa faimg fa-external-link" ng-click="ctrl.openFullFeedView($event,sport.id)"></i>
+                            <span class="exposure-border" ng-if="sport.pl">
+                                <span class="negative">{{sport.pl | toRate}}</span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

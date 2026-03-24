@@ -1,0 +1,117 @@
+﻿<div class="col-sm-12">
+    <header>
+        <h1 class="title">Import Markets Json</h1>
+    </header>
+</div>
+<div class="col-sm-12 ">
+    <div class="form-pannel">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span style="color:white;font-size:20px;">
+                            Generate Markets in <b><u>{{eventname}}</u></b>
+                        </span>
+                    </div>
+                   
+                    <div class="col-sm-4">
+                        <input type="file" id="apk_file" class="form-control" kt-file-model="ctrl.jsonDataFile" />
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-secondary" ng-click="ctrl.processFile()" style="width:100%;">Submit</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-default" ng-click="ctrl.reset()" style="width:100%;">Reset</button>
+                    </div>
+                </div>
+                <div class="row mr-top-10">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" minlength="1" maxlength="100"
+                                   placeholder="Team A"
+                                   ng-model="search.teamA" class="form-control">
+                            <span class="input-group-addon">TEAM A</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" minlength="1" maxlength="100"
+                                   placeholder="Team B"
+                                   ng-model="search.teamB" class="form-control">
+                            <span class="input-group-addon">TEAM B</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-secondary" ng-click="ctrl.replaceTeamName()" style="width:100%;">Replace Team Name</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 import-market" ng-show="markets.length>0">
+    <div class="row" style="background: #e4ebe3;padding-top: 8px;">
+        <div class="col-sm-12" style="font-weight:bold;">
+            <span style="width:259px;display:inline-block;padding-left:10px;">
+                <input type="checkbox" id="chk-pk-selectall" ng-model="allSelected" class="check"
+                       ng-click="ctrl.marketSelectionChanged(true)">
+                <label for="chk-pk-selectall">Select All Markets</label>
+            </span>
+            <span class="m_label">Betting Type</span>
+            <span class="m_label">Ladder</span>
+            <span class="m_label">Group</span>
+            <span class="m_label" style="min-width:50px">Order</span>
+            <span class="m_label" style="min-width:75px">Min U Value</span>
+            <span class="m_label" style="min-width:75px">Max U Value</span>
+            <span class="m_label" style="min-width:75px">Interval</span>
+            <span class="m_label" style="min-width:75px">Bet</span>
+            <span class="m_label" style="min-width:75px">Profit</span>
+            <span class="m_label">Runners</span>
+        </div>
+    </div>
+    <div class="row" ng-repeat="m in markets">
+        <div class="col-sm-12">
+            <span class="m_mini">
+                <input type="checkbox" id="chk-pk-{{$index}}" ng-model="m.selected" class="check" ng-click="ctrl.marketSelectionChanged()">
+                <label for="chk-pk-{{$index}}">{{$index+1}}</label>
+            </span>
+            <span><input type="text" ng-model="m.name" class="input-box mname" /></span>
+            <span class="m_label">{{ctrl.getBettingType(m.bettingType)}}</span>
+            <span class="m_label">{{ctrl.getPriceLadder(m.priceLadderType)}}</span>
+            <span class="m_label">{{ctrl.getGroup(m.group)}}</span>
+            <span class="m_mini">{{m.displayOrder}}</span>
+            <span>
+                <input type="text" ng-model="m.minUnitValue" ng-show="m.priceLadderType==3" class="input-box mnumber" kt-number-only allow-decimal="true" />
+                <span class="empty-span" ng-show="m.priceLadderType!=3">&nbsp;</span>
+            </span>
+            <span>
+                <input type="text" ng-model="m.maxUnitValue" ng-show="m.priceLadderType==3" class="input-box mnumber" kt-number-only allow-decimal="true" />
+                <span class="empty-span" ng-show="m.priceLadderType!=3">&nbsp;</span>
+            </span>
+            <span>
+                <input type="text" ng-model="m.interval" ng-show="m.priceLadderType==3" class="input-box mnumber" kt-number-only allow-decimal="true" />
+                <span class="empty-span" ng-show="m.priceLadderType!=3">&nbsp;</span>
+            </span>
+            <span><input type="text" ng-model="m.maxBet" class="input-box mnumber" kt-number-only allow-decimal="true" /></span>
+            <span><input type="text" ng-model="m.maxProfit" class="input-box mnumber" kt-number-only allow-decimal="true" /></span>
+            <div class="m_runner">
+                <ui-select multiple ng-model="m.selectedRunner" theme="bootstrap" close-on-select="true">
+                    <ui-select-match class="ui-select-match"
+                                     placeholder="{{::'market.search.runner.placeholder' | translate}}">
+                        {{$item.name}}
+                    </ui-select-match>
+                    <ui-select-choices class="ui-select-choices" repeat="runner in m.runnerList "
+                                       refresh="$parent.$parent.ctrl.searchRunner($select.search,m)">
+                        <div ng-bind-html="runner.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background: #e4ebe3;">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-secondary" ng-click="ctrl.submitMarkets()" style="width:100%;">Generate Markets</button>
+        </div>
+    </div>
+</div>

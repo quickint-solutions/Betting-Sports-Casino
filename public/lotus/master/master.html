@@ -1,0 +1,309 @@
+﻿<div class="master-class">
+    <div class="header master_header">
+        <div class="header-top">
+            <div class="master-logo" style="float:left">
+                <a ui-sref="master.dashboard" class="logo-img"></a>
+            </div>
+            <div class="master-info" style="float:left">
+                <div class="header-balance">
+                    <div>
+                        <span><kt-date data-date-value="currentDate" data-format="MMM dd,yyyy"></kt-date></span>
+                        <span class="time"><kt-date data-date-value="currentDate" data-format="hh:mm:ss a"></kt-date></span>
+                    </div>
+                    <div class="menu-dropdown">
+                        <a class="clock-zone">(GMT {{selectedTimezone}}<i class="fa fa-angle-down" aria-hidden="true"></i>)</a>
+                        <div class="dropdown-menulist">
+                            <a class="align-l" ng-click="ctrl.timezoneChanged('+00:00')">System time - (GMT +00:00)</a>
+                            <a class="align-l" ng-click="ctrl.timezoneChanged(timezone)">Your computer time - (GMT {{timezone}})</a>
+                            <a class="align-l" ng-click="ctrl.timezoneChanged('+05:30')">India standard time - (GMT +05:30)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="master-logout float-r">
+                <ul class="account-wrap">
+                    <li class="accountCredit" ng-init="utype=ctrl.getUserTypeShort(user.userType)">
+                        <!--<span class="usertype-lable {{utype}}"> {{utype}}</span>-->
+                        <span>Logged in as {{user.username}}</span>
+                        <span style="font-size:11px;">Last logged in :&nbsp;<kt-date data-date-value="user.lastLogin" data-format="dd/M/yyyy HH:mm"></kt-date></span>
+                    </li>
+                    <li ng-if="hasAPK">
+                        <a class="account-a blink-color" ng-click="ctrl.downloadAPK()"><i style="margin-right:3px; font-size:18px;" class="fa fa-android" aria-hidden="true"></i></a>
+                    </li>
+                    <li ng-show="showB2CMenu">
+                        <a class="dw-icons" title="Deposit" ui-sref="master.offlinebanking({tab:0})">
+                            <img ng-src="{{imagePath+'images/icon2/deposit-icon.png'}}" />
+                            <span class="badge" ng-class="{'blink':dwPendingCounter.payInCount>0}">{{dwPendingCounter.payInCount}}</span>
+                        </a>
+                    </li>
+                    <li ng-show="showB2CMenu">
+                        <a class="dw-icons" title="Withdrawal" ui-sref="master.offlinebanking({tab:1})">
+                            <img ng-src="{{imagePath+'images/icon2/withdrawal-icon.png'}}" />
+                            <span class="badge " ng-class="{'blink':dwPendingCounter.payOutCount>0}">{{dwPendingCounter.payOutCount}}</span>
+                        </a>
+                    </li>
+                    <li class="menu-dropdown">
+                        <a class="account-a" style="padding:0 15px">
+                            <i style="margin-right:3px;" class="icon-cog" aria-hidden="true"></i>Settings
+                        </a>
+                        <ul class="dropdown-menulist">
+                            <li class="align-l">
+                                <a ng-click="ctrl.changePassword()">Change password</a>
+                            </li>
+                            <li class="align-l" ng-if="canUpdateWhatsapp">
+                                <a ng-click="ctrl.updateWhatsapp()">Update Whatsapp Number</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="logout">
+                        <a ng-click="ctrl.logout()">
+                            <i class="icon-signout" aria-hidden="true" style="margin-right:3px; font-size:14px;"></i>Logout
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="notifications">
+        <div class="wrapper -loader loading-indicator" ng-class="{'-visible': promiseTracker.active()}" data-type="loader" style="">
+            <div class="spinnerl"></div>
+        </div>
+    </div>
+    <div class="master-main" ng-init="leftPaneOpen=true;">
+        <div class="master-bg">
+            <div class="admin-left navigation" ng-class="{'left-hide':!leftPaneOpen || ctrl.isContain('/full-position/')}">
+                <div class="collapsable-left" ng-class="{'left-hide':!leftPaneOpen || ctrl.isContain('/full-position/')}">
+                    <ul class="mainmenu" ng-init="selectedMenu=(user.userType==4 && isCPUser ? 0 : 3);">
+                        <li ng-class="{'active':selectedMenu==0}" ng-click="selectedMenu=0"
+                           
+                            kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess','cp.downline.manage.viewonly','cp.transfer.fullaccess','cp.banking.dw.fullaccess']}">
+                            <a>
+                                Downline Management
+                                <i class="fa fa-caret-down float-r" ng-class="{'fa-caret-up': selectedMenu==0}"></i>
+                            </a>
+                            <ul class="submenu">
+                                <li kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess','cp.downline.manage.viewonly']}">
+                                    <a ui-sref="master.memberlist({memberid:'',userid:''})" ng-class="ctrl.isDownline('/master')">
+                                        {{ctrl.$rootScope.child.short}} Listing
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.transfer.fullaccess','master.dw']}" mandate-all="true">
+                                    <a ui-sref="master.banking" ui-sref-active="active" ng-hide="hideTransferMenu">
+                                        Transfer
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.downline.manage.fullaccess','cp.downline.manage.viewonly']}">
+                                    <a ui-sref="master.notify" ui-sref-active="active" kt-has-claim claims="{Claims: ['admin.notification.update']}">
+                                        Notifications
+                                    </a>
+                                </li>
+                                <li ng-if="showB2CMenu">
+                                    <a ui-sref="master.offlinebanking({tab:0})" ui-sref-active="active">
+                                        Manage D/W
+                                    </a>
+                                </li>
+                                <li ng-if="currentWebApp=='gameok' || currentWebApp=='gameokin'">
+                                    <a ui-sref="master.bficbanking({tab:0})" ui-sref-active="active">
+                                        BFIC D/W
+                                    </a>
+                                </li>
+                                <li ng-if="showOffersMenu">
+                                    <a ui-sref="master.manageoffers" ui-sref-active="active">
+                                        Manage Offers
+                                    </a>
+                                </li>
+                                <li ng-if="showBannerMenu">
+                                    <a ui-sref="master.managebanners" ui-sref-active="active">
+                                        Manage Banners
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li ng-class="{'active':selectedMenu==1}" ng-click="selectedMenu=1"
+                            kt-has-claim claims="{Claims: ['cp.riskmanagement.fullaccess','cp.pt.onoff.fullaccess']}">
+                            <a>
+                                Risk Management
+                                <i class="fa fa-caret-down float-r" ng-class="{'fa-caret-up': selectedMenu==1}"></i>
+                            </a>
+                            <ul class="submenu">
+                                <li kt-has-claim claims="{Claims: ['master.bet.view','cp.riskmanagement.fullaccess']}" mandate-all="true">
+                                    <a ui-sref="master.position" ui-sref-active="active" ng-click="leftPaneOpen=false">
+                                        Net Exposure
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['master.bet.live.view','cp.riskmanagement.fullaccess']}" mandate-all="true">
+                                    <a ui-sref="master.livebets" ui-sref-active="active">
+                                        Live Bets
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['master.bet.live.view','cp.riskmanagement.fullaccess']}" mandate-all="true">
+                                    <a ui-sref="master.fdlivebets" ui-sref-active="active">
+                                        FD Live Bets
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['master.event.manage','cp.pt.onoff.fullaccess']}" mandate-all="true">
+                                    <a ui-sref="master.eventmgmt" ui-sref-active="active">
+                                        Event Management
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li ng-class="{'active':selectedMenu==2}" ng-click="selectedMenu=2"
+                            kt-has-claim claims="{Claims: ['cp.riskmanagement.fullaccess','cp.reports.fullaccess','cp.transfer.fullaccess']}">
+                            <a>
+                                Reports
+                                <i class="fa fa-caret-down float-r" ng-class="{'fa-caret-up': selectedMenu==2}"></i>
+                            </a>
+                            <ul class="submenu">
+                                <li kt-has-claim claims="{Claims: ['cp.reports.fullaccess']}">
+                                    <a ui-sref="master.marketreport" ui-sref-active="active">
+                                        P&L Report by Market
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.reports.fullaccess']}">
+                                    <a ui-sref="master.fdgamereport" ui-sref-active="active">
+                                        P&L Report by FD Games
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.reports.fullaccess']}">
+                                    <a ui-sref="master.downlinereport({memberid:'',usertype:''})" ui-sref-active="active">
+                                        P&L Report by Agent
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.reports.fullaccess']}">
+                                    <a ui-sref="master.downlinesummary({memberid:'',usertype:''})" ui-sref-active="active">
+                                        Agent P&L Summary
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.riskmanagement.fullaccess']}">
+                                    <a ui-sref="master.lotusbetlist" ui-sref-active="active">
+                                        Bet List
+                                    </a>
+                                </li>
+                                <li ng-if="showB2CSummary">
+                                    <a ui-sref="master.b2csummary" ui-sref-active="active">
+                                        B2C Summary
+                                    </a>
+                                </li>
+                                <li ng-if="showB2CSummary">
+                                    <a ui-sref="master.b2cactivity" ui-sref-active="active">
+                                        B2C Activity
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li ng-class="{'active':selectedMenu==3}" ng-click="selectedMenu=3">
+                            <a>
+                                Account
+                                <i class="fa fa-caret-down float-r" ng-class="{'fa-caret-up': selectedMenu==3}"></i>
+                            </a>
+                            <ul class="submenu">
+                                <li kt-has-claim claims="{Claims: ['cp.statements.fullaccess']}">
+                                    <a ui-sref="master.dashboard" ui-sref-active="active">
+                                        balance
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.statements.fullaccess']}">
+                                    <a ui-sref="master.lotusstatement" ui-sref-active="active">
+                                        Statement
+                                    </a>
+                                </li>
+                                <li kt-has-claim claims="{Claims: ['cp.transfer.fullaccess']}">
+                                    <a ui-sref="master.lotustransferstatement" ui-sref-active="active">
+                                        Transfer Statement
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="master.loginhistory" ui-sref-active="active">
+                                        Login History
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li ng-class="{'active':$parent.selectedMenu==4}" ng-click="$parent.selectedMenu=4"
+                            kt-has-claim claims="{Claims: ['master.adminuser.manage']}" ng-if="!isCPUser">
+                            <a>
+                                Alias Users
+                                <i class="fa fa-caret-down float-r" ng-class="{'fa-caret-up': $parent.selectedMenu==4}"></i>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <a ui-sref="master.adminusers" ui-sref-active="active">
+                                        User Listing
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapsable" ng-class="{'left-hide':!leftPaneOpen }" 
+                     ng-click="leftPaneOpen=!leftPaneOpen" ng-hide="ctrl.isContain('/full-position/')">
+                    <div class="arrow">
+                        <span ng-show="leftPaneOpen">&lang;&lang;</span>
+                        <span ng-show="!leftPaneOpen">&rang;&rang;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-right right-menu " style="overflow:hidden" ng-class="{'left-hide':!leftPaneOpen || ctrl.isContain('/full-position/')}">
+                <div class="balance-info">
+                    <div class="admin-down">
+                        <div class="header-balance" ng-if="announcement" style="margin-top:0px;">
+                            <div class="row">
+                                <div class="marquee">
+                                    <marquee>
+                                        {{announcement}}
+                                    </marquee>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-balance" kt-has-claim claims="{Claims: ['cp.statements.fullaccess']}">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="bal_detail">
+                                        <span class="col-name float-l">Balance Down : </span>
+                                        <span class="col-value  float-l positive" ng-class="{'negative':balanceInfo.balanceDown<0}">
+                                            <kt-glc-code data-item="{{balanceInfo.balanceDown}}" ng-show="balanceInfo.isBalanceLoaded"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                    <div class="bal_detail">
+                                        <span class="col-name float-l">Balance Up : </span>
+                                        <span class="col-value  float-l positive" ng-class="{'negative':balanceInfo.balanceUp<0}">
+                                            <kt-glc-code data-item="{{balanceInfo.balanceUp}}" ng-show="balanceInfo.isBalanceLoaded"></kt-glc-code>
+                                        </span>
+                                    </div>
+
+                                    <div class="bal_detail">
+                                        <span class="col-name float-l">Net Exposure : </span>
+                                        <span class="col-value positive float-l" ng-class="{'negative':balanceInfo.exposure<0}">
+                                            <kt-glc-code data-item="{{balanceInfo.exposure}}" ng-show="balanceInfo.isBalanceLoaded"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                    <div class="bal_detail">
+                                        <span class="col-name float-l">Available Credit : </span>
+                                        <span class="col-value float-l">
+                                            <kt-glc-code data-item="{{(balanceInfo.availableCredit)}}" ng-show="balanceInfo.isBalanceLoaded"></kt-glc-code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-content scroll-wrap  full-part master_wrap">
+                    <div ui-view="main" class="master-rightbg">
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <a ng-click="ctrl.openRules();"> Rules & Regulations</a><a ng-click="ctrl.$rootScope.showTemplate(1)">KYC</a>
+                <a>© 2016-2020</a>
+            </div>
+        </div>
+    </div>
+</div>

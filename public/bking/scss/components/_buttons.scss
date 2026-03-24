@@ -1,0 +1,40 @@
+﻿/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+
+.btn-secondary, .btn-cancel {
+    background-color: $theme-color;
+    border: 1px solid $border-color !important;
+    color: $secondary-btn;
+    padding: 6px 7px;
+
+    @include respond-to('sm') {
+        @include padding(6px, 9px, 5px, 9px);
+    }
+
+    &:focus {
+        @include border-all(1px, solid, $border-color);
+        background-color: $theme-color;
+        color: $theme-dark-color;
+    }
+
+    &:hover {
+        background-color: $secondary-bg-hover;
+        border-color: $border-color;
+        color: $secondary-btn-hover !important;
+    }
+
+    &:active,
+    &.active {
+        background-color: $theme-color;
+        border-color: $border-color;
+        color: $theme-dark-color;
+    }
+
+    &.disabled,
+    &[disabled] {
+        background-color: $white-color;
+        border-color: $light-grey;
+        color: $theme-dark-color;
+    }
+}

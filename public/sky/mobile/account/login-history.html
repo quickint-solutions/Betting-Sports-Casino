@@ -1,0 +1,33 @@
+﻿<div class="table-bets">
+    <div class="login-history list-view">
+        <h1 class="title">{{'loginhistory.label' | translate}}</h1>
+        <div class="list-view-table ">
+            <table class="table table-hover" style="display: table;">
+                <thead>
+                    <tr>
+                        <th class="align-l size-md"><span>{{'login.datetime.label' | translate}}</span></th>
+                        <th class="align-l  size-md"><span>{{'logout.datetime.label' | translate}}</span></th>
+                        <th class="size-sm"><span>{{'ipaddress.label' | translate}}</span></th>
+                        <th class="boolean size-xl"><span>{{'login.isp.label' | translate}}</span></th>
+                        <th class="size-xl boolean "><span>{{'login.citystatecountry.label' | translate}}</span></th>
+                        <th class="size-sm boolean"><span>{{'grid.button.action.header' | translate}}</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lh in loginHistory">
+                        <td class="align-l size-md">
+                            <span>{{lh.issuedOn | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                        </td>
+                        <td class="align-l green size-md"><span>{{lh.expiresOn | date:'yyyy-MM-dd HH:mm:ss'}}</span></td>
+                        <td class="align-l size-sm"><span>{{lh.remoteIp}}</span></td>
+                        <td class="boolean size-xl"><span>{{lh.provider}}</span></td>
+                        <td class="size-lg boolean"><span>{{lh.location}}</span></td>
+                        <td class="size-sm boolean">
+                            <a class="btn btn-sm btn-danger">{{'raiseissue.button' | translate}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

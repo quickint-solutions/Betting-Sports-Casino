@@ -1,0 +1,36 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon">URL</span>
+            <input type="text" minlength="1" maxlength="250" required
+                   placeholder="{{::'video.url.placeholder' | translate}}"
+                   ng-model="video.url" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Stream Name</span>
+            <input type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'video.streamname.placeholder' | translate}}"
+                   ng-model="video.streamName" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">App Name</span>
+            <input type="text" minlength="1" maxlength="250"
+                   placeholder="{{::'video.appname.placeholder' | translate}}"
+                   ng-model="video.appName" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">Source</span>
+            <select class="form-control" ng-model="video.videoSource" required>
+                <option ng-repeat="w in videoSourceList" value="{{w.id}}">
+                    {{w.name}}
+                </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">RTSP URL</span>
+            <input type="text" minlength="1" maxlength="250"
+                   placeholder="{{::'video.rtspurl.placeholder' | translate}}"
+                   ng-model="video.rtspUrl" class="form-control">
+        </div>
+    </div>
+</div>

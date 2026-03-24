@@ -1,0 +1,320 @@
+﻿<div class="">
+    <div class="main-bg">
+        <div class="admin-down">
+            <div class="row exposure-filter">
+                <h1 class="event-heading">net exposure</h1>
+                <div class="col-sm-12" ng-show="canShowDetail">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="filter-header">Net Exposure By : </span>
+                            <label><input type="radio" name="pt" value="true" ng-change="ctrl.refreshMarkets();" ng-model="filterOptions.onlyPT" />My PT</label>
+                            <label><input type="radio" name="pt" value="false" ng-change="ctrl.refreshMarkets();" ng-model="filterOptions.onlyPT" />Total Book</label>
+                            <a class="btn btn-secondary float-r" ng-click="ctrl.refreshMarkets();">{{selectedInterval}}&nbsp; Refresh</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" ng-show="isExposureView">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span class="filter-header">Filter Sport By : </span>
+                            <label for="active" class="option-detail-circle" ng-repeat="e in eventTypes">
+                                <input type="radio" name="evnttypes" ng-change="ctrl.refreshMarkets();" value="{{e.id}}" ng-model="filterOptions.eventType" />
+                                <span class="checkmark"></span>
+                                {{e.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="net-exposure" ng-show="isExposureView && (events | filter:{isRace:false}).length>0">
+            <table class="first-table">
+                <thead>
+                    <tr class="exposure-left">
+                        <th style="width:300px"></th>
+                        <th style="min-width:90px">Stake</th>
+                        <th style="min-width:90px">1</th>
+                        <th style="min-width:90px">X</th>
+                        <th style="min-width:90px">2</th>
+                    </tr>
+                    <tr class="exposure-right">
+                        <th style="width:340px">&nbsp;</th>
+                        <th style="min-width:90px;">Stake</th>
+                        <th style="min-width:90px;">Over/Yes</th>
+                        <th style="min-width:90px;">Under/No</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="e in events" ng-if="!e.isRace">
+                    <tr>
+                        <td colspan="11" class="event-name">
+                            {{e.name}}
+                            <span class="in-play" ng-show="e.markets[0].inPlay">
+                                <i class="icon-play" aria-hidden="true"></i> In-Play
+                            </span>
+                            <span class="in-play" ng-hide="e.markets[0].inPlay">
+                                <kt-date data-date-value="e.openDate" data-format="dd-MM-yy HH:mm" style="color:#fff"></kt-date>
+                            </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="exposure-left" style="vertical-align: top;">
+                            <table ng-repeat="m in e.markets | orFilter:'bettingType':[1,9]}">
+                                <tr ng-init="p=m.position">
+                                    <td class="m-name" style="width:300px;">
+                                        {{m.name}}
+                                        <span class="icons-list" ng-if="!e.isLiveGame">
+                                            <i class="fa fa-dashboard icons" ng-hide="!canShowDetail" ng-click="ctrl.openFullPositionView($event,m.id)"></i>
+                                            <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                                            <i class="fa fa-sitemap icons" ng-hide="!canShowDetail" ng-click="ctrl.openExposureTree($event,m)"></i>
+                                        </span>
+                                        <span class="icons-list" ng-if="e.isLiveGame">
+                                            <i class="fa fa-dashboard icons" ng-hide="!canShowDetail" ng-click="ctrl.openLiveGameFullPositionView($event,e.id)"></i>
+                                            <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                                            <i class="fa fa-sitemap icons" ng-hide="!canShowDetail" ng-click="ctrl.openExposureTree($event,m)"></i>
+                                        </span>
+                                    </td>
+                                    <td class="stake">{{p.marketRunners | total:'stake' | toRate}}</td>
+                                    <td class="runner-pl" ng-class="{'red':p.marketRunners[0].pl<0,'green-light':p.marketRunners[0].pl>0}">{{p.marketRunners[0].pl | toRate}}</td>
+                                    <td class="stake" ng-class="{'red':p.marketRunners[2].pl<0,'green-light':p.marketRunners[2].pl>0}">{{p.marketRunners[2].pl | toRate}}</td>
+                                    <td class="runner-pl" ng-class="{'red':p.marketRunners[1].pl<0,'green-light':p.marketRunners[1].pl>0}">{{p.marketRunners[1].pl | toRate}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="exposure-right" style="vertical-align: top;">
+                            <table ng-repeat="m in e.markets |  orFilter:'bettingType':[7,2,8]">
+                                <tr>
+                                    <td class="m-name" style="width:340px;">
+                                        {{m.name}}
+                                        <span class="icons-list" style="width:82px;">
+                                            <i class="icon-dashboard icons" ng-hide="!canShowDetail" ng-click="ctrl.openFullPositionView($event,m.id)"></i>
+                                            <i class="icon-ladder icons" ng-click="ctrl.openExposureTree($event,m,true)"></i>
+                                            <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                                            <i class="fa fa-sitemap icons" ng-hide="!canShowDetail" ng-click="ctrl.openExposureTree($event,m)"></i>
+                                        </span>
+                                    </td>
+                                    <td class="stake">{{m.position.stake | toRate}}</td>
+                                    <td class="runner-pl" ng-class="{'red':m.position.maxWin<0,'green-light':m.position.maxWin>0}">{{m.position.maxWin | toRate}}</td>
+                                    <td class="runner-pl" ng-class="{'red':m.position.pl<0,'green-light':m.position.pl>0}">{{m.position.pl | toRate}}</td>
+                                </tr>
+                            </table>
+                            <table ng-repeat="m in e.markets | orFilter:'bettingType':[6]" ng-init="p=m.position">
+                                <tr class="fixedodds">
+                                    <td class="align-c" ng-if="!e.isLiveGame">
+                                        {{m.name}}
+                                        <i class="icon-dashboard icons" ng-hide="!canShowDetail" ng-click="ctrl.openFullPositionView($event,m.id)"></i>
+                                        <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                                    </td>
+                                    <td class="align-c" ng-if="e.isLiveGame">
+                                        {{m.name}}
+                                        <i class="icon-dashboard icons" ng-hide="!canShowDetail" ng-click="ctrl.openLiveGameFullPositionView($event,e.id)"></i>
+                                        <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                                    </td>
+                                    <td class="align-c">Stake</td>
+                                    <td class="align-c">P&L</td>
+                                </tr>
+                                <tr ng-repeat="r in p.marketRunners">
+                                    <td class="m-name" ng-repeat="mr in m.marketRunner | filter:{runner:{id:r.runner.id}}">{{mr.runner.name}}</td>
+                                    <td class="stake">{{r.stake | toRate}}</td>
+                                    <td class="runner-pl" ng-class="{'red':r.pl<0,'green-light':r.pl>0}">{{r.pl | toRate}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="net-exposure racing-markets mr-top-24" ng-show="(events | filter:{isRace:true}).length>0 && isExposureView">
+            <table ng-repeat="e in events" ng-if="e.isRace" class="first-table">
+                <thead>
+                    <tr class="exposure-left">
+                        <th style="width:150px"></th>
+                        <th style="width:200px"></th>
+                        <th style="width:150px">Stake</th>
+                        <th style="width:200px">P&L</th>
+                    </tr>
+                    <tr class="exposure-right">
+                        <th style="width:150px"></th>
+                        <th style="width:200px"></th>
+                        <th style="width:150px">Stake</th>
+                        <th style="width:200px">P&L</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="m in e.markets">
+                    <tr>
+                        <td colspan="11" class="event-name">
+                            {{e.name}} - {{m.name}}
+                            <span class="in-play" ng-show="m.inPlay">
+                                <i class="icon-play" aria-hidden="true"></i> In-Play
+                            </span>
+                            <span class="in-play" ng-hide="m.inPlay">
+                                <kt-date data-date-value="e.openDate" data-format="dd-MM-yy HH:mm" style="color:#fff"></kt-date>
+                            </span>
+                            <i class="fa fa-th-list fa-rotate-180 icons"
+                               ng-click="ctrl.openBetList($event,m.id,m.name,ctrl.$stateParams.memberid)"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="exposure-left" style="vertical-align: top;">
+                            <table ng-repeat="r in m.marketRunner " ng-if="$odd">
+                                <tr>
+                                    <td class="m-name">{{r.runner.name}}</td>
+                                    <td class="stake" ng-repeat="pm in m.position.marketRunners | filter:{runner:{id:r.runner.id}}">
+                                        {{pm.stake | toRate}}
+                                    </td>
+                                    <td class="runner-pl" ng-class="{'red':pm.pl<0,'green-light':pm.pl>0}"
+                                        ng-repeat="pm in m.position.marketRunners | filter:{runner:{id:r.runner.id}}">
+                                        {{pm.pl | toRate}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="exposure-right" style="vertical-align: top;">
+                            <table ng-repeat="r in m.marketRunner " ng-if="$even">
+                                <tr>
+                                    <td class="m-name">{{r.runner.name}}</td>
+                                    <td class="stake" ng-repeat="pm in m.position.marketRunners | filter:{runner:{id:r.runner.id}}">
+                                        {{pm.stake | toRate}}
+                                    </td>
+                                    <td class="runner-pl" ng-class="{'red':pm.pl<0,'green-light':pm.pl>0}"
+                                        ng-repeat="pm in m.position.marketRunners | filter:{runner:{id:r.runner.id}}">
+                                        {{pm.pl | toRate}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="net-exposure" ng-show="!isExposureView">
+            <div ng-if="exposureTreeMarket.bettingType==1 || exposureTreeMarket.bettingType==9">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:200px">Stake</th>
+                            <th style="width:200px" ng-repeat="r in exposureTreeMarket.marketRunner track by $index">{{r.runner.name}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="{{exposureTreeMarket.marketRunner.length+2}}" class="event-name">
+                                {{exposureTreeMarket.event.name}}
+                                <span class="in-play" ng-show="exposureTreeMarket.inPlay">
+                                    <i class="icon-play" aria-hidden="true"></i> In-Play
+                                </span>
+                                <span class="in-play" ng-hide="exposureTreeMarket.inPlay">
+                                    <kt-date data-date-value="exposureTreeMarket.event.openDate" data-format="dd-MM-yy HH:mm" style="color:#fff"></kt-date>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="m-name" style="width:unset;">
+                                {{exposureTreeMarket.name}}
+                                <span class="icons-list">
+                                    <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,exposureTreeMarket.id,exposureTreeMarket.name,ctrl.$stateParams.memberid)"></i>
+                                    <i class="fa fa-sort-amount-asc fa-rotate-180 icons" ng-click="ctrl.closeExposureTree()"></i>
+                                </span>
+                            </td>
+                            <td class="stake">{{loginUserPosition.marketRunners | total:'stake' | toRate}}</td>
+                            <td class="runner-pl" ng-repeat="mr in loginUserPosition.marketRunners track by $index"
+                                ng-class="{'red':mr.pl<0,'green-light':mr.pl>0}">
+                                {{mr.pl | toRate}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a class="link-a" ng-click="ctrl.closeExposureTree()">Net Exposure</a>
+                                <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                                <a class="link-a" ng-click="ctrl.closeExposureTree()">{{exposureTreeMarket.event.name}} - {{exposureTreeMarket.name}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="margin:10px 15px;width:calc(100% - 15px)">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:200px"></th>
+                            <th style="width:200px" ng-repeat="r in exposureTreeMarket.marketRunner track by $index"></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="sm in positions track by $index"
+                           style="text-align:center;color:white;"
+                           ng-init="parentUserType=sm.userType" ng-include="userpositionTemplate"></tbody>
+                </table>
+            </div>
+            <div ng-if="exposureTreeMarket.bettingType==7">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:200px">Stake</th>
+                            <th style="width:200px">Max Win</th>
+                            <th style="width:200px">Max Exposure</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_{{loginUserPosition.userId}}">
+                        <tr>
+                            <td colspan="4" class="event-name">
+                                {{exposureTreeMarket.event.name}}
+                                <span class="in-play" ng-show="exposureTreeMarket.inPlay">
+                                    <i class="icon-play" aria-hidden="true"></i> In-Play
+                                </span>
+                                <span class="in-play" ng-hide="exposureTreeMarket.inPlay">
+                                    <kt-date data-date-value="exposureTreeMarket.event.openDate" data-format="dd-MM-yy HH:mm" style="color:#fff"></kt-date>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="m-name" style="width:unset;">
+                                {{exposureTreeMarket.name}}
+                                <span class="icons-list">
+                                    <i class="icon-ladder icons" ng-click="ctrl.openBook($event,loginUserPosition)"></i>
+                                    <i class="fa fa-th-list fa-rotate-180 icons" ng-click="ctrl.openBetList($event,exposureTreeMarket.id,exposureTreeMarket.name,ctrl.$stateParams.memberid)"></i>
+                                    <i class="fa fa-sort-amount-asc fa-rotate-180 icons" ng-click="ctrl.closeExposureTree()"></i>
+                                </span>
+                            </td>
+                            <td class="stake">{{loginUserPosition.stake  | toRate}}</td>
+                            <td class="runner-pl" ng-class="{'red':loginUserPosition.maxWin<0,'green-light':loginUserPosition.maxWin>0}">{{loginUserPosition.maxWin | toRate}}</td>
+                            <td class="runner-pl" ng-class="{'red':loginUserPosition.pl<0,'green-light':loginUserPosition.pl>0}">{{loginUserPosition.pl | toRate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a class="link-a" ng-click="ctrl.closeExposureTree()">Net Exposure</a>
+                                <i class="fa fa-angle-right" style="margin:0px 5px;"></i>
+                                <a class="link-a" ng-click="ctrl.closeExposureTree()">{{exposureTreeMarket.event.name}} - {{exposureTreeMarket.name}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="margin:10px 15px;width:calc(100% - 15px)">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:200px"></th>
+                            <th style="width:200px"></th>
+                            <th style="width:200px"></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="sm in positions track by $index"
+                           style="text-align:center;color:white;"
+                           ng-init="parentUserType=sm.userType" ng-include="sessionpositionTemplate"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

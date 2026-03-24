@@ -1,0 +1,51 @@
+﻿
+<div class="list-view">
+    <kt-toolbar>
+        <ul class="align-left" ng-if="::isShowTotal">
+            <li class="item-count">{{total}} {{totalRowMsg | translate}}</li>
+        </ul>
+        <ul class="align-right" ng-class="{'invisible': editMode}">
+            <li style="line-height:0px;margin:0px;" ng-if="::isShowTotal">
+                <img class="grid-spinner" ng-src="{{spinnerImg}}" ng-show="isLoading" />
+            </li>
+            <kt-button ng-show="hasNewRights" data-btn-class="btn btn-secondary"
+                       label="{{newButtonLabelProperty}}" action="ctrl.goToNew()"
+                       ng-if="newState || goToNewStateEnabled"></kt-button>
+            <kt-button class="btn-copy" data-btn-class="btn btn-secondary" icon="copy" label="grid.copy"
+                       action="ctrl.clickCopy()" ng-show="selectedItem && isCopy"></kt-button>
+
+            <li ng-repeat="item in listNewItems track by $index" class="dropdown align-right" ng-if="listNewItems.length > 0" ng-show="hasNewRights" uib-dropdown>
+                <a class="btn btn-secondary btn-new" ng-click="item.func(item.url)">
+                    <i class="{{item.cssClass}}"></i>
+                    <span translate="{{item.name}}"></span>
+                </a>
+            </li>
+            <li class="dropdown align-right" ng-if="(exportToExcel || exportToPdf)" ng-show="total>0" uib-dropdown>
+                <a class="btn btn-secondary btn-new" href="" uib-dropdown-toggle>
+                    <i class="fa fa-download"></i>
+                    <span>{{'export.label' | translate}}</span>
+                </a>
+                <ul uib-dropdown-menu role="menu" style="font-size:12px">
+                    <li ng-show="exportToExcel && total > 0">
+                        <a href="" ng-click="ctrl.clickExportToExcel()"><i class="fa fa-file-excel-o" style="margin-right:5px"></i>{{'grid.exporttoexcel' | translate}}</a>
+                    </li>
+                    <li ng-show="exportToPdf && total > 0">
+                        <a href="" ng-click="ctrl.clickExportToPdf()"><i class="fa fa-file-pdf-o" style="margin-right:5px"></i>{{'grid.exporttopdf' | translate}}</a>
+                    </li>
+                </ul>
+            </li>
+            <kt-button class="btn-delete" data-btn-class="btn btn-secondary" icon="trash-o" label="grid.delete" action="ctrl.removeSelectedItems()" ng-show="hasRemoveRights && selectedItem && removeItems"></kt-button>
+            <!--<kt-button class="btn-export" data-btn-class="btn btn-secondary" icon="file-excel-o" label="grid.exportToExcel" action="ctrl.clickExportToExcel()" ng-show="exportToExcel && total > 0"></kt-button>
+            <kt-button class="btn-print" data-btn-class="btn btn-secondary" icon="file-pdf-o" label="grid.exportToPdf" action="ctrl.clickExportToPdf()" ng-show="exportToPdf && total > 0"></kt-button>-->
+            <kt-button class="btn-filter" data-btn-class="btn btn-secondary" ng-class="{'filter-active':tableParams.settings().$scope.show_filter}" icon="filter" action="ctrl.showHideFilter()" ng-if="isToggleFiltersEnabled"></kt-button>
+        </ul>
+    </kt-toolbar>
+    <div>
+        <div class="list-view-table myTranscludedContent currency">
+        </div>
+    </div>
+    <div class="alert alert-info empty-msg" ng-show="total == 0 && showEmptyMsg && (!msgs || msgs.length == 0)">
+        <p translate="{{emptyMsg}}"></p>
+    </div>
+    <kt-messages messages="msgs"></kt-messages>
+</div>

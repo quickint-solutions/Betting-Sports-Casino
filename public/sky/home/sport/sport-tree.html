@@ -1,0 +1,47 @@
+﻿<div class="sidebar-tab ">
+    <div class="vertical-tab">
+        <div class="path">
+            <ul>
+                <li class="path-last">
+                    <a ui-sref="base.home">Sport</a>
+                </li>
+            </ul>
+        </div>
+        <nav class="inner-nav sportmenu-li">
+            <div ng-scrollbars class="sidenav">
+                <ul class="left-menulist" ng-if="breadcrumb" style="float:left; width:100%;">
+                    <li ng-repeat="b in breadcrumb track by $index">
+                        <a ng-click="ctrl.breadcrumbClick(b);">
+                        <i class="i-sport {{b.name | joinme}}" ng-show="$index==0"></i>
+                        {{b.name}}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li ng-repeat="sport in sportTreeList">
+                        <a  ng-if="sport.sportNodeType != 4  && ctrl.$stateParams.eventTypeId != liveGamesId && !isRacing" ng-click="ctrl.treeClick(sport.sportNodeType,sport.id,sport.name)">
+                            <i class="i-sport {{sport.name | joinme}}" ng-if="sport.sportNodeType<2"></i>
+                            {{sport.name}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                        </a>
+
+                        <a  ng-if="ctrl.$stateParams.eventTypeId == liveGamesId" ui-sref="base.home.sport.livegamesmarket({nodetype:1,id:ctrl.$stateParams.id,eventid:sport.id})">
+                            {{sport.name}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                        </a>
+
+                        <a ng-if="sport.sportNodeType == 4 && ctrl.$stateParams.eventTypeId != liveGamesId && !isRacing" ng-click="ctrl.treeClick(2,ctrl.$stateParams.id,sport.name,sport.id)">
+                            {{sport.name}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                        </a>
+
+                        <a  ng-if="isRacing" ng-click="ctrl.treeClick(1,ctrl.$stateParams.id,'',sport.id)"
+                           ng-class="{'active':sport.id==ctrl.$state.params.marketid}" ng-test="{{ctrl.$state.params}}">
+                            <kt-date data-date-value="sport.startTime" data-format="HH:mm"></kt-date>&nbsp;{{sport.event.raceName}}
+                            <i class="fa fa-chevron-right go-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

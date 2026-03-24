@@ -1,0 +1,305 @@
+/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+.btn {
+    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: $white-color;
+
+    font: {
+        size: 12px;
+        weight: 600;
+    }
+
+    @include padding(13px, 15px, 12px, 15px);
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @include respond-to('sm') {
+        @include padding(7px, 10px, 6px, 10px);
+    }
+
+    &:active,
+    &.active {
+        box-shadow: none;
+    }
+
+    &:focus,
+    &:active:focus {
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+/**
+ * Primary button style
+ */
+
+
+/*.btn-primary {
+    background-color: $button !important;
+    color: $white-color !important;
+    border: none !important;
+
+    &:focus {
+        background-color: $button-hover !important;
+        color: $white-color !important;
+        box-shadow: 1.5px 1.5px 0px 0px $button-shadow;
+    }
+
+    &:hover {
+        background-color: $button-hover !important;
+        color: $white-color !important;
+        box-shadow: 1.5px 1.5px 0px 0px $button-shadow;
+    }
+
+    &:active,
+    &.active {
+        background-color: $button-hover !important;
+        color: $white-color !important;
+        box-shadow: 1.5px 1.5px 0px 0px $button-shadow;
+    }
+
+    &.disabled,
+    &[disabled] {
+        //    background: $light-hover-color;
+        color: $theme-dark-color;
+    }
+}*/
+
+/**
+ * Secondary button style
+ */
+
+.btn-secondary {
+    background-color: $secondary-bg;
+    border-bottom: 2px solid $btn-secondary-border !important;
+    border-right: 2px solid $btn-secondary-border !important;
+    //border: 1px solid $btn-secondary-border !important;
+    color: $secondary-btn;
+    padding: 0 12px !important;
+    line-height: 30px !important;
+    border-radius: 0px !important;
+
+    @include respond-to('sm') {
+        @include padding(6px, 9px, 5px, 9px);
+    }
+
+    &:focus {
+        // @include border-all(1px, solid, $border-color);
+        background-color: $secondary-hover;
+        color: $secondary-btn !important;
+    }
+
+    &:hover {
+        background-color: $secondary-hover;
+        // border-color: $border-color;
+        color: $secondary-btn !important;
+        // box-shadow: 1.5px 2px 0px 0px $theme-color !important;
+    }
+
+    &:active,
+    &.active {
+        background-color: $theme-color;
+        //border-color: $border-color;
+        color: $secondary-btn;
+    }
+
+    &.disabled,
+    &[disabled] {
+        background-color: #222;
+        color: #444;
+        border-color: #222 !important;
+        box-shadow: none !important;
+    }
+}
+
+.btn-light {
+    background-color: $master-grid-header-bg;
+}
+
+/*
+    * Light button style
+
+
+.btn-light {
+    background-color: $light-hover-color !important;
+    color: $black-color !important;
+    border:1px solid $border-color !important;
+    @include padding(3px, 7px, 3px, 7px);
+
+    &:focus {
+       background-color: $light-hover-color !important;
+       color: $black-color !important;
+    }
+
+    &:hover {
+       background-color: $light-hover-color !important;
+       color: $black-color !important;
+    }
+
+    &:active,
+    &.active {
+        background-color: $light-hover-color !important;
+        color: $black-color !important;
+    }
+
+    &.disabled,
+    &[disabled] {
+        background: $light-hover-color;
+        color: $theme-dark-color;
+    }
+}
+    */
+
+/**
+ * Edit button style
+ */
+
+.btn-edit {
+    @extend .btn-primary;
+}
+
+/**
+ * Save button style
+ */
+.master-class {
+    .btn {
+        border: none;
+        //@include border-radius(2px);
+        border-radius: 0px !important;
+    }
+
+    .btn-default {
+        color: $m-btn-default-color;
+        background-color: $m-btn-default-bg;
+        border-color: $m-btn-default-border;
+        border-bottom: 2px solid $m-btn-default-border-bottom !important;
+        border-right: 2px solid $m-btn-default-border-bottom !important;
+    }
+
+    .btn-success {
+        color: $m-btn-success-color;
+        background-color: $m-btn-success-bg;
+        border-color: $m-btn-success-border;
+        border-bottom: 2px solid $m-btn-success-border-bottom !important;
+        border-right: 2px solid $m-btn-success-border-bottom !important;
+    }
+}
+
+.btn-danger {
+    border: none !important;
+    border-bottom: 2px solid $btn-danger-border-bottom !important;
+    border-right: 2px solid $btn-danger-border-bottom !important;
+}
+
+.btn-save {
+    background-color: $theme-success;
+    color: $white-color;
+
+    &:focus {
+        background-color: $theme-success;
+        color: $white-color;
+    }
+
+    &:hover {
+        background-color: $theme-success;
+        color: $white-color;
+    }
+
+    &:active,
+    &.active {
+        background-color: darken($theme-success,10%);
+        color: $white-color;
+    }
+}
+
+/**
+ * Cancel button style
+ 
+
+.btn-cancel {
+    @extend .btn-secondary;
+}*/
+
+/**
+ * Link-styled button styles
+ */
+
+.btn-link {
+    // @include generic-link-style(border-color, $link-border-color-default, $link-border-color-hover, $link-border-color-active);
+    @include generic-link-style(text-decoration, none);
+    //@include link-colors($link-color-default, $link-color-hover, $link-color-active);
+    cursor: pointer;
+
+    border: {
+        style: solid;
+        width: 0 0 1px;
+        radius: 0;
+    }
+
+    text: {
+        decoration: none;
+        transform: none;
+    }
+}
+
+.btn-circle {
+    @include border-radius(50%);
+}
+
+.small-btn {
+    //min-height: 30px;
+    padding: 2px 12px;
+    //line-height: 30px;
+    font-size: 14px;
+    text-transform: capitalize;
+    border-radius: 4px;
+    background-color: $btn-small-bg; // $button;
+    color: $btn-small-color!important;
+    @include border-all(1px, solid, $btn-small-border);
+    border-bottom: 2px solid $btn-small-border-bottom !important; //$button-border !important;
+    border-right: 2px solid $btn-small-border-bottom !important; //$button-border !important;
+    &:hover {
+        box-shadow: 1.5px 1.5px 0px 0px $btn-small-hover-shadow; //$button-shadow;
+    }
+
+    &.dark {
+        background-color: $btn-small-bg-dark;
+        border-bottom: 2px solid $btn-small-bg-dark !important; //$button-border !important;
+        border-right: 2px solid $btn-small-bg-dark !important; //$button-border !important;
+        box-shadow: unset;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: default;
+        background-color: #b4b4b4;
+        color: #444;
+        border: none;
+        border-radius: 0;
+    }
+}
+
+.btn-remove {
+    background-color: $btn-danger-bg;
+    color: $btn-danger-color;
+    @include border-all(1px, solid, $btn-danger-border-bottom);
+    border-bottom: 2px solid $btn-danger-border-bottom !important;
+    border-right: 2px solid $btn-danger-border-bottom !important;
+    padding: 0 3px !important;
+
+    &:hover {
+        background-color: $btn-danger-hover;
+        color: $btn-danger-color !important;
+        box-shadow: 1.5px 1.5px 0px 0px $btn-danger-hover-shadow;
+    }
+}

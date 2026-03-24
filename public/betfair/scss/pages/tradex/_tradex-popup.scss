@@ -1,0 +1,111 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+
+.kt-model-header{
+    color:$gray !important;
+    background-color:$white-color !important;
+    border-bottom:none !important;
+    .close{
+        color:$gray !important;
+    }
+}
+
+.kt-model-body{
+    display:grid;
+    padding:0px !important;
+
+    .kt-model-detail{
+        color:$gray !important;
+        
+        .kt-model-list{
+            @include resize($float-left, $width);
+            margin:20px 0 20px 0;
+            .event-span{
+                text-transform:uppercase;
+            }
+            .kt-menu{
+                margin-top:5px;
+                .kt-menu-list{
+                     text-transform:uppercase; color:$light-gray-black !important;
+                     @include position(relative);
+                    .drp-fa{
+                        margin-left:10px; color:$gray;
+                    }
+                }
+                .kt-dropdown{
+                    display:none;
+                     @include position(absolute);
+                    top:41px;
+                    left:12px;
+                    width:85%;
+                    min-width:inherit;
+                    @include padding(0px, 0px, 0px, 0px);
+                    li{
+                        width:$width;
+                        border-bottom:1px solid $border-color;
+                        a{ @include padding(6px, 10px, 6px, 10px); text-transform:capitalize;}
+                    }
+                }
+                &:hover .kt-dropdown{@include display(block);}
+            }
+        }
+        .model-score{
+            @include resize($float-left, $width);
+            -webkit-box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+            padding-bottom:20px;
+        }
+        .kt-popup-left{
+            .kt-name{
+                width:$width;
+                color:$light-gray-black;
+                text-transform:uppercase;
+                font-size:18px;
+                font-weight:600;
+            }
+            .kt-score{
+                width:$width;
+                color:$tradex-popup-color;
+                font-size:20px;
+                font-weight:600;
+            }
+        }
+        .kt-popup-right{
+            text-align:right;
+            margin-top:27px;
+            font-size:20px;
+            .fa{cursor:$cursor;font-size:25px;}
+            .kt-buy{text-transform:uppercase; @include padding(0, 10px, 0, 10px);cursor:$cursor;}
+            .active{color:$tradex-popup-color;}
+         }  
+        .kt-quality{
+            margin:20px 0 10px 0;
+            @include position(relative);
+            label{width:$width; text-transform:uppercase; font-weight:normal; margin-bottom:0px;}
+            input{width:$width; height:35px; margin-top:5px; @include padding(5px, 5px, 5px, 5px);}
+            .inside-input{
+                @include position(absolute); color:$tradex-popup-color; width:auto !important; right:1px; top:27px; z-index:1;
+                @include padding(6px, 15px, 6px, 15px); background-color:#fbfbfb;
+            }
+        }
+    }
+}
+
+.kt-model-footer{
+    border-top:none !important;
+    .btn{
+        width:$width;
+        margin:10px 0 0 0 !important;
+    }
+    .kt-save-btn{
+        color:$white-color !important;
+        &:hover{color:$tradex-popup-color !important}
+    }
+    .kt-cancle-btn{
+        background-color:$tradex-popup-color; color:$white-color;
+        &:hover{background-color:#1E8A61; color:$white-color !important}
+    }
+}

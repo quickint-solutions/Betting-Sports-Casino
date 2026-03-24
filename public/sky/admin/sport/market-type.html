@@ -1,0 +1,35 @@
+﻿
+<div class="col-sm-12">
+    <header>
+        <h1 class="title">Market Type Mapping</h1>
+    </header>
+    <kt-grid grid-id="kt-markettype-grid"
+             load-items="ctrl.getItems(params,filters)"
+             show-total="true"
+             has-new-rights="true"
+             new-button-label="{{'common.button.addnew' | translate}}"
+             go-to-new-state="ctrl.addEditMarketType()"
+             cache-key="ktmarkettypegrid">
+        <table ng-table="tableParams" class="table table-hover clickable currency"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody>
+                <tr ng-repeat="item in $data track by item.id">
+                    <td data-title="::'Display Name'"  data-header-class="'size-lg'" class="size-lg">
+                        <span >{{item.displayName}} </span>
+                    </td>
+                    <td data-title="::'Market Type Code'"  data-header-class="'size-lg'" class="size-xl">
+                        <span>{{item.marketTypeCode}}</span>
+                    </td>
+                  
+                    <td data-title="::'grid.button.action.header' | translate"
+                        data-header-class="'boolean'" class=" boolean">
+                        <a id="btnEdit{{$index}}" class="btn btn-light" title="Edit Market Type"
+                           ng-click="$parent.$parent.$parent.ctrl.addEditMarketType(item)">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

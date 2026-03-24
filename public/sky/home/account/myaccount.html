@@ -1,0 +1,88 @@
+﻿
+<div class="full-wrap ">
+    <div class="content-part my-account">
+        <div class="col-sm-2">
+            <div class="row left-part">
+                <div class="sidebar-tab">
+                    <div class="vertical-tab">
+                        <div class="path">
+                            <a class="path-back" onclick="NavigationBar.togglePathPop(event);"></a>
+                            <ul>
+                                <li class="path-last">
+                                    <a>{{'common.myprofile.label' | translate}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <nav class="inner-nav">
+                            <div id="mySidenav" class="sidenav myaccount-nav">
+                                <ul>
+                                    <li>
+                                        <a ui-sref="base.account.profile" ui-sref-active="active">
+                                            <i class="fa fa-user"></i>
+                                            {{'common.myprofile.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="base.account.wallet" ui-sref-active="active">
+                                            <i class="fa fa-bank"></i>
+                                            {{'common.mywallet.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li kt-has-claim claims="{Claims: ['ui.client.payment.crypto','ui.client.payment.offlinepayment','ui.client.payment.fairex','ui.client.payment.arropay','ui.client.payment.neteller','ui.client.payment.skrill']}">
+                                        <a ui-sref="base.account.transferonline"
+                                           ui-sref-active="active">
+                                            <i class="fa fa-bank"></i>
+                                            Deposit/Withdrawal
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="base.account.statement" ui-sref-active="active">
+                                            <i class="fa fa-money"></i>
+                                            {{'common.accountstatement.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li ng-show="isB2C">
+                                        <a ui-sref="base.account.bonusstatement" ui-sref-active="active">
+                                            <i class="fa fa-magic"></i>
+                                            Bonus Statement
+                                        </a>
+                                    </li>
+                                    <li ng-show="hasReferral">
+                                        <a ui-sref="base.account.referralstatement" ui-sref-active="active">
+                                            <i class="fa fa-user-plus"></i>
+                                            Referral Statement
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="base.account.bets.current" ng-class="ctrl.isActive('/account/bets')"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            <i class="fa fa-pie-chart"></i>
+                                            {{'bets.label' | translate}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="base.account.history" kt-has-claim claims="{Claims: ['client.loginhistory.view']}"
+                                           ui-sref-active="active">
+                                            <i class="fa fa-history"></i>
+                                            {{'common.loginhistory.label' | translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="center-part">
+                    <div ng-scrollbars class="scrollwrap" ui-view="content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿
+<div class="setting-popup">
+    <h4 class="title">Set Stake Button Value</h4>
+    <ul class="stake-edit">
+       
+        <li class="ok-btn line" >
+            <div class="left-btn col-odd">
+                <input type="text"
+                       ng-model="s.stake" kt-number-only allow-decimal="true" positive-only="true"
+                       ng-repeat="s in $parent.$parent.$parent.stakeConfig.stake | filter:{isActive:true}">
+            </div>
+        </li>
+        <li class="align-r">
+            <button class="btn mobile-btn btn-primary"  ng-click="$parent.$parent.$parent.ctrl.saveStakeConfig()">Save</button>
+        </li>
+
+    </ul>
+</div>

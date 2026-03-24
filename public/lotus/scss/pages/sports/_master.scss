@@ -1,0 +1,3838 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+.link-a {
+    color: $a-link;
+
+    &.disable {
+        color: gray;
+    }
+
+    &:hover {
+        color: $a-link;
+    }
+}
+
+div.pd-left-5 {
+    padding-left: 5px;
+}
+
+div.pd-right-5 {
+    padding-right: 5px;
+}
+
+div.admin-left {
+    width: 200px;
+    height: 100%;
+    float: left;
+    margin-left: 0px !important;
+    //background-color: $m_selectbox;
+    height: calc(100vh - 85px);
+}
+
+.admin-right {
+    //min-width: 900px;
+    //width: calc(100% - 235px);
+    //float: $float-left;
+    width: calc(100% - 200px);
+    float: left;
+    // padding: 0 0 0 20px !important;
+    min-width: inherit;
+
+    .content-wrap {
+        max-width: initial;
+    }
+
+    .positive {
+        color: #3cd247 !important;
+    }
+
+    .negative {
+        color: #f43 !important;
+    }
+}
+
+.scroll-hide {
+    &::-webkit-scrollbar {
+        display: none
+    }
+}
+
+.master-class {
+    width: 100%;
+
+    .main-content {
+        height: 100% !important;
+        min-height: calc(100vh - 78px - 80px - 50px) !important;
+    }
+
+    .master_wrap {
+        .session-tr {
+            .session-table {
+                background-color: white !important;
+                width: 300px;
+
+                thead {
+                    background-color: #b2d0fc;
+
+                    th {
+                        color: black !important;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        td {
+                            border: 1px solid #ebe8e8 !important;
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .info {
+        @include headline($white-color, 10px);
+    }
+
+    font-size: 14px;
+
+    .master-rightbg {
+        padding: 10px 19px 10px 20px;
+        background-color: $master-table-bg;
+        float: left;
+        width: 100%;
+        height: auto;
+    }
+
+    .marquee {
+        padding: 2px 15px;
+        background-color: transparent;
+    }
+
+    input, textarea {
+        &:focus {
+            border: 2px solid $m-input-border !important;
+            outline: none !important;
+        }
+    }
+
+    .master_header {
+        margin: auto auto 5px;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.33);
+        height: 80px;
+        padding: 20px 0;
+        font-size: 14px !important;
+
+        .logo-img {
+            margin: auto;
+            background-size: contain;
+            height: 20px;
+            padding: 30px 20px;
+            margin-left: 10px;
+            position: relative;
+            top: -3.6px;
+            height: 20px;
+        }
+
+        .master-logo {
+            width: 180px;
+        }
+
+        .master-info {
+            width: 250px;
+            padding-left: 20px;
+
+            .time {
+                line-height: inherit;
+            }
+        }
+
+        .master-logout {
+            //width: 50%;
+            margin: 0;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            ul {
+                li {
+                    padding-left: 23px;
+
+                    &:first-child {
+                        padding-right: 25px;
+                    }
+
+                    .account-a {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .header-balance {
+            line-height: 25px;
+            width: 100%;
+            padding-left: 0px;
+            margin-top: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .menu-dropdown {
+                .dropdown-menulist {
+                    left: 0px;
+                }
+
+                .clock-zone {
+                    color: #fff;
+                }
+            }
+        }
+
+        .menu-dropdown .dropdown-menulist {
+            top: 36px;
+
+            &:before {
+                margin-top: -6px;
+                top: -18px;
+            }
+        }
+
+        .time {
+            font-size: 20px;
+        }
+
+        .account-wrap {
+            line-height: 40px;
+
+            .menu-dropdown .dropdown-menulist {
+                width: 145px;
+                border-radius: 0px;
+                padding: 6px;
+
+                a {
+                    font-size: 14px;
+                    border: none;
+                }
+
+                &:before {
+                    content: '\25b2';
+                    display: block;
+                    margin-top: -6px;
+                    position: absolute;
+                    left: 60px;
+                    color: #ffffff;
+                }
+            }
+
+            .accountCredit {
+                line-height: 20px;
+
+                span {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .pl-market {
+        .list-view-table table.table {
+            font-size: 13px !important;
+        }
+
+        .list-view {
+            padding-bottom: 50px;
+        }
+
+        .list-view .list-view-table table thead tr th {
+            padding: 5px !important;
+        }
+
+        .list-view .list-view-table .pager {
+            position: absolute;
+            right: 15px;
+            margin-top: 15px;
+            bottom: 0;
+        }
+
+        .list-view .list-view-table table td {
+            overflow: unset;
+            text-overflow: unset;
+            white-space: unset;
+        }
+    }
+
+    .footer {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.33);
+        color: #fff;
+        line-height: 20px;
+        padding: 10px 10px 10px 10px;
+        z-index: 0;
+
+        a {
+            color: #fff;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+    }
+
+    .my-bets {
+        .bets-history {
+            .table-bets .list-view table tbody tr td label {
+                width: 25%;
+            }
+        }
+    }
+
+    .master-main {
+        display: contents;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        //height: calc(100% - 40px - 80px - 5px);
+        height: 100%;
+
+        .master-bg {
+            height: $height;
+        }
+        /* --------  */
+        select {
+            color: #fff !important;
+        }
+
+        .btn-default {
+            border-radius: 0px !important;
+        }
+
+        .list-view-table {
+            table.table {
+                font-size: 14px;
+
+                thead {
+                    padding: 4px 0;
+
+                    tr {
+                        background-color: transparent !important;
+
+                        th {
+                            border-bottom: none !important;
+                            color: $master-switch;
+                        }
+
+                        .header {
+                            font-size: 14px;
+                            //height: 40px;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .login-history .event-heading {
+            border-bottom: 1px solid #fff;
+        }
+
+        .event-heading {
+            margin-right: 25px;
+            padding-bottom: 10px !important;
+            float: left;
+            color: #cae0e8;
+        }
+
+        .my-profile .full-my-profile {
+            width: 98%;
+        }
+    }
+
+    .add-member {
+        .list-view {
+            padding-top: 5px;
+        }
+    }
+
+    .agent-member {
+        .member-inner {
+            color: #fff;
+            float: left;
+            width: 24%;
+            margin: 0 24px 20px 0;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.07);
+
+            .user-input {
+                input {
+                    display: inline-block;
+                    width: 34px !important;
+                    height: 32px !important;
+                    text-align: center;
+                }
+            }
+
+            .ng-invalid-max, .error-input {
+                border: 2px solid red;
+            }
+
+            input {
+                padding: 4px 5px;
+                color: #000;
+                border: 2px solid #ddd;
+            }
+
+            label {
+                float: left;
+                width: 100%;
+            }
+
+            .member-title {
+                border-bottom: 1px solid #fff;
+                padding-bottom: 6px;
+            }
+
+            .input-row {
+                padding: 10px 0;
+
+                input {
+                    width: 100%;
+                }
+
+                select {
+                    background-color: white !important;
+                    color: black !important;
+                    height: 32px;
+                }
+            }
+
+            .pop-form-row {
+                padding-bottom: 10px;
+            }
+
+            .option-detail {
+                position: relative;
+                text-transform: uppercase;
+                width: auto;
+
+                .checkmark {
+                    top: 1px;
+                }
+            }
+
+            .member-option {
+                padding: 10px 0;
+            }
+
+            .c-value {
+                display: block;
+                line-height: 16px;
+            }
+        }
+
+        .add-btn {
+            float: left;
+            width: 100%;
+
+            .cancle-popup {
+                color: #18c432;
+                border: none;
+                background-color: transparent;
+                border: 1px dotted transparent;
+
+                &:focus {
+                    border: 1px dotted #18c432;
+                }
+            }
+
+            .create-popup {
+                background-color: #a222ad;
+                color: #FFFFFF;
+                border-bottom: 2px solid #66166d;
+                border-right: 2px solid #66166d;
+                border-top: none;
+                border-left: none;
+
+                &:hover {
+                    box-shadow: 1.5px 1.5px 0px 0px #521158;
+                }
+            }
+
+            button {
+                padding: 4px 12px;
+                text-transform: capitalize;
+                margin-left: 10px;
+
+                &:focus {
+                    outline: none !important;
+                }
+            }
+        }
+
+        .credit-info {
+            width: 24%;
+            padding: 15px 20px 30px 20px;
+        }
+
+        .position-info {
+            width: 40%;
+            padding: 15px 20px 30px 20px;
+
+            .td-limit {
+                width: 50%;
+            }
+
+            input {
+                width: 65%;
+            }
+
+            .plus {
+                padding-left: 22px;
+            }
+
+            .popup-table {
+                margin-bottom: 10px;
+            }
+        }
+
+        .notes-inner {
+            width: 46%;
+            margin-right: 0px;
+
+            textarea {
+                width: 100%;
+                min-height: 65px;
+                color: #000;
+                padding: 4px 5px;
+            }
+        }
+    }
+
+    .login-history {
+        .list-view-table table.table {
+            tbody tr {
+                &:nth-child(odd) {
+                    background-color: rgba(245, 245, 245, 0.1) !important;
+                }
+
+                td {
+                    line-height: 26px !important;
+                }
+            }
+        }
+    }
+
+    .bet-manager {
+        .tab {
+            .tabing-title {
+                background-color: transparent;
+                color: #fff;
+                display: block;
+                float: left;
+                min-width: 115px;
+                padding: 4px 20px;
+                font-size: 14px;
+            }
+
+            .tabing-title.active {
+                background-color: $master-table-bg !important;
+            }
+        }
+
+        .bet-list-table {
+            background-color: $master-table-bg !important;
+            padding: 15px;
+            float: left;
+            width: 100%;
+
+            .select-radio {
+                padding: 10px 0 5px 0px;
+
+                span {
+                    display: inline-block;
+                    padding: 0 5px;
+                    color: #fff;
+
+                    label {
+                        vertical-align: text-bottom;
+                        margin: 0px 15px 0 0;
+                        font-weight: normal;
+                        font-size: 14px;
+                    }
+
+                    input {
+                        margin-right: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.master_header, .admin-header {
+
+    .positive {
+        color: #4dd84e !important;
+    }
+
+    .negative {
+        color: #f17373 !important;
+    }
+
+    .header-top {
+        @include resize($float-left, $width);
+    }
+
+    .account-wrap {
+        li {
+            float: $float-left;
+        }
+    }
+}
+
+
+
+.bal_detail {
+    display: inline-block;
+    margin-right: 14px;
+    vertical-align: text-top;
+}
+
+.filter-input {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+}
+
+.admin-part {
+    .filter-input {
+        border-bottom: none;
+    }
+}
+
+.filter-panel {
+    .input_text {
+        float: left;
+        width: 15%;
+        margin-right: 15px;
+    }
+
+    .form-control {
+        border: 2px solid #ddd;
+    }
+}
+
+
+.bm-header {
+    .head-refresh {
+        margin-left: 11px !important;
+    }
+
+    .bm-account {
+        padding-right: 0px;
+    }
+}
+
+.admin-header {
+    padding-bottom: 0px !important;
+    padding-top: 0px;
+    font-size: 12px !important;
+    height: unset;
+
+    .logo-img {
+        background-position: left center;
+    }
+
+    .header-menu {
+        //height: 38px;
+        background-color: $purple;
+        @include resize($float-left, $width);
+        //margin-top: 20px;
+        .left-mennu {
+            ul {
+                li {
+                    //a {
+                    &.active, &:hover {
+                        a {
+                            background-color: $light-purple;
+                            @include border-radius(2px);
+                        }
+                    }
+                    //}
+                    a.active {
+                        background-color: $light-purple;
+                        @include border-radius(2px);
+                    }
+                }
+            }
+        }
+
+        ul {
+            @include line-height(36px);
+
+            li {
+                margin-top: 0px;
+                @include position(relative);
+                @include display(inline-block);
+
+                &:hover .sub-menu {
+                    @include display(block);
+                }
+
+                .sub-menu {
+                    @include line-height(11px);
+                    background-color: $purple;
+                    width: 120px;
+                    @include position(absolute);
+                    top: 35px;
+                    display: none;
+                    z-index: 3;
+
+                    li {
+                        @include resize($float-left, $width);
+
+                        a {
+                            @include resize($float-left, $width);
+                            text-transform: capitalize;
+                            @include line-height(20px);
+                            @include border(bottom, 1px, solid, $white-color);
+                        }
+                    }
+                }
+
+                a {
+                    padding: 11px 10px 10px 10px;
+
+                    .fa {
+                        padding-right: 10px;
+                    }
+
+                    color: $white-color;
+                    @include padding(6px, 10px, 6px, 10px);
+                }
+            }
+
+            .master-video {
+                margin: 0px;
+            }
+
+            .logout {
+                a {
+                    .fa--android {
+                        padding-right: 10px;
+                    }
+
+                    &.active, &:hover {
+                        background-color: $light-purple;
+                        @include border-radius(2px);
+                    }
+                }
+            }
+        }
+    }
+
+    .head-refresh {
+        margin-left: 15px;
+
+        a {
+            font-size: 13px;
+            color: $purple;
+            height: 24px;
+            text-align: $center;
+            @include border-radius(3px);
+            @include border-all(1px, solid, $white-color);
+            background-color: $white-color;
+            @include resize (left, 28px);
+
+            i {
+                padding-top: 6px;
+            }
+
+            &:hover {
+                background-color: $purple;
+                color: $white-color;
+
+                i {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+
+    .account-wrap {
+        padding-top: 18px;
+
+        .account {
+            @include padding (0px, 0px, 0px, 0px);
+            margin: 0 0px 0 6px;
+            height: 25px;
+            //width: 104px;
+            @include border-radius(4px);
+            @include border-all(1px, solid, $border-color);
+            background-color: $light-purple;
+
+            &:hover a {
+                color: $white-color;
+            }
+
+            a {
+                @include line-height(24px);
+                font-size: $font-size-tab;
+                color: $white-color;
+
+                i {
+                    margin: 0 5px;
+                }
+            }
+
+            h4 {
+                text-align: $float-left;
+                margin: 0px;
+                @include headline($dark-blue, $font-size-tab);
+                @include padding (0px, 0px, 0px, 8px);
+                @include txt(bold);
+                @include line-height(28px);
+                width: $width;
+
+                .gmt {
+                    font-size: 11px;
+                    @include border('left',1px, solid, $grayish );
+                    @include padding (0px, 5px, 0px, 5px);
+                    float: $float-right;
+                }
+            }
+
+            .account_pop {
+                background-color: $light-purple;
+                width: 200px;
+                @include position(absolute, top 44px);
+                z-index: 3;
+                box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+                @include border-radius(4px);
+                display: none;
+
+                li {
+                    @include border(bottom, 1px, solid, $border-color);
+                    float: $float-left !important;
+                    width: $width;
+
+                    a {
+                        @include headline( $dark-gray-black, $font-size-tab);
+                        text-align: $float-left;
+                        @include line-height(18px);
+                        float: $float-left !important;
+                        width: $width;
+                        color: $white-color !important;
+                        padding: 5px 10px !important;
+
+                        &:hover {
+                            background-color: $purple;
+                        }
+                    }
+                }
+
+                .logout {
+                    a {
+                        text-align: $center !important;
+                        margin: 5px;
+                        @include padding (0px, 0px, 0px, 0px !important);
+                        width: 95% !important;
+                        @include border-radius(4px);
+                        color: $purple !important;
+                        font-size: 14px;
+                        @include line-height(25px);
+                        letter-spacing: 1px;
+                        @include txt(bold);
+                        background-color: $gray;
+
+                        &:hover {
+                            color: $white-color !important;
+                        }
+                    }
+                }
+            }
+
+            &:hover .account_pop {
+                display: block !important;
+            }
+        }
+
+        .accountCredit {
+            @include line-height(26px);
+        }
+    }
+
+    .marquee {
+        padding-left: 5px;
+    }
+}
+
+.admin_full {
+    max-width: 100% !important;
+    padding: 0px 10px 0 10px;
+
+    &.content-wrap {
+        display: block;
+    }
+
+    .content-wrap {
+        max-width: 100% !important;
+    }
+
+    .master-class .pl-market .list-view .list-view-table .pager {
+        position: inherit;
+    }
+}
+
+.admin-part {
+    .title {
+        margin-top: 20px;
+    }
+
+    .form-pannel {
+        background-color: $border-color;
+        @include padding(10px, 10px, 10px, 10px);
+    }
+
+    .event-heading {
+        //color: $secondary-btn;
+        font-size: 20px;
+        @include txt(bold);
+        margin: 15px 0px;
+        padding: 0px !important;
+        text-transform: capitalize;
+        border: none;
+
+        .event-label {
+            font-size: 10px;
+            color: $secondary-btn;
+            @include padding(3px, 10px, 3px, 10px);
+            vertical-align: middle;
+        }
+    }
+
+    .list-view-table {
+        table {
+            thead {
+                .header {
+                    height: 38px;
+                }
+            }
+        }
+    }
+
+    .filter-panel {
+        @include padding(10px, 12px, 10px, 12px);
+        background-color: $border-color;
+        margin-bottom: 15px;
+        @include resize($float-left, $width);
+
+        .input-list li {
+            .input-group input {
+                border-radius: 3px !important;
+
+                &:hover {
+                    box-shadow: 1.5px 1.5px 0px 0px $heading !important;
+                }
+            }
+        }
+
+        .link-a {
+            color: #229691;
+            font-weight: bold;
+        }
+    }
+
+    .my-account {
+        .center-section {
+            width: 86% !important;
+        }
+    }
+
+    .position-special {
+        .center-section {
+            width: 80% !important;
+            padding-right: 0px;
+
+            .table-score tr {
+                float: none;
+            }
+
+            .table-score.to-win tr {
+                float: left !important;
+            }
+        }
+    }
+
+    .commentary-div .center-section {
+        width: 1210px;
+        padding-right: 0px;
+    }
+
+    .table-score {
+        tbody {
+            tr {
+                &:last-child {
+                    @include border('bottom', 1px, solid, $border-color);
+                }
+
+                .match-title {
+                    width: 50%;
+                    @include border-all(1px, solid, $border-color);
+                    padding-top: 0px;
+                    border-bottom: none;
+                }
+
+                td {
+                    @include padding(5px, 0px, 5px, 5px);
+                    border: 1px solid $border-color !important;
+                    border-bottom: none !important;
+                }
+            }
+        }
+    }
+
+    .my-account .center-section {
+        float: $float-left;
+    }
+
+    .market-table {
+        tbody {
+            tr {
+                @include border('bottom', 1px, solid, $border-color);
+
+                td {
+                    border-top: none;
+                }
+            }
+        }
+    }
+
+    .runner-part {
+        .to-win {
+            margin-bottom: 0px;
+        }
+
+        .tab-desc {
+            @include resize($float-left, $width);
+            margin-bottom: 10px;
+        }
+
+        .permission {
+            min-height: 140px;
+            float: $float-left;
+            width: 33.3333333333%;
+            margin: 0px;
+
+            table {
+                tbody {
+                    tr td {
+                        @include border(bottom, 1px, solid, $border-color);
+                    }
+                }
+            }
+        }
+    }
+
+    .to-win {
+        .match-title {
+            float: $float-left;
+        }
+    }
+
+    table {
+        tbody {
+            tr {
+                td {
+                    a {
+                        // color: $black-color;
+                    }
+                }
+            }
+
+            .bet-all {
+                td {
+                    border: none !important;
+                }
+            }
+        }
+    }
+
+    .commentary {
+        .black-back a {
+            color: $white-color;
+        }
+    }
+}
+
+.bm-maker {
+    table {
+        tbody {
+            tr {
+                td {
+                    a {
+                        color: $black-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .feed-market {
+        .input-container {
+            .input-group input {
+                height: auto;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.master_wrap, .admin-part, .bm-maker {
+    table {
+        thead {
+            tr {
+                background-color: $border-color;
+
+                th {
+                    color: $black-color;
+                }
+            }
+        }
+    }
+
+    .list-view-table {
+        table {
+            display: table;
+        }
+
+        .profit-expand {
+            .profit-td {
+                text-align: $float-left;
+                @include padding(0px, 0px, 0px, 0px );
+                border-top: none;
+
+                .cust-name {
+                    text-align: right;
+                }
+
+                tbody {
+                    tr {
+                        height: 30px;
+
+                        td {
+                            @include padding(9px, 6px, 6px, 6px);
+                        }
+
+                        span {
+                            @include line-height(12px);
+                        }
+                    }
+                }
+            }
+
+            .profile-tr {
+                height: 20px !important;
+                border-bottom: 1px solid $border-color !important;
+            }
+
+            .table-bets {
+                margin: 0px 0 0 22% !important;
+                width: 74% !important;
+                display: table;
+                @include border('right', 1px, solid, $border-color);
+
+                tr {
+                    border: none;
+
+                    td {
+                        border: none;
+                        box-shadow: none;
+                    }
+                }
+
+                .net-total {
+                    height: auto;
+                    @include border('top', 1px, solid, $border-color);
+
+                    dd {
+                        @include padding(0px, 0px, 8px, 0px);
+                        text-align: right;
+                    }
+
+                    dt {
+                        @include resize ($float-left, 85%);
+                        @include txt(normal);
+                        text-align: right;
+                    }
+
+                    .net_total {
+                        @include border('top', 1px, dotted, $border-color);
+                        @include padding(5px, 0px, 0px, 0px);
+                        @include txt(bold);
+                    }
+                }
+            }
+
+            .expand-arrow {
+                background-position: -17px -94px !important;
+                left: initial !important;
+                right: 35px !important;
+            }
+        }
+
+        .expand-table {
+            height: auto;
+            background-color: $light-medium-white;
+            width: $width;
+
+            .expand-td {
+                text-align: $center;
+                @include padding(0px, 0px, 5px, 0px);
+                border-top: none;
+                color: #22270f;
+
+                .link-a {
+                    color: $a-link;
+                }
+            }
+
+            .title-tr {
+                height: 25px;
+            }
+
+            td {
+                box-shadow: inset 0 2px 0 rgba(0,0,0,0.1);
+                @include position(relative);
+            }
+
+            .expand-arrow {
+                background-image: url('/public/images/report.png');
+                background-repeat: $back-norepeat;
+                background-position: -17px -103px;
+                height: 9px;
+                width: 10px;
+                @include position(absolute, top -1px left 24.1%);
+            }
+
+            .table-bets {
+                margin: 0 0 0 25%;
+                width: 74%;
+                min-width: 74%;
+                @include border('left', 1px, solid, $border-color);
+                @include border('right', 1px, solid, $border-color);
+
+                tr {
+                    @include border('bottom', 1px, solid, $border-color);
+
+                    td {
+                        @include position (relative);
+                        border-top-color: $border-color;
+                    }
+
+                    th {
+                        border-top: none !important;
+                        box-shadow: inset 0 2px 0 rgba(0,0,0,0.1);
+                        background-color: $light-medium-white;
+                        @include line-height(20px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.admin-right {
+    .list-view {
+        //  @include padding(10px, 18px, 20px, 20px);
+        // background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .list-view-table {
+        // @include padding(0px, 0px, 0px, 0px);
+    }
+
+    .balance-info {
+        .event-heading {
+            @include txt(normal);
+            @include border(bottom, 1px, solid, $white-color);
+            margin: 0 0 10px 0;
+            padding-bottom: 8px !important;
+        }
+
+        .header-balance {
+            @include txt(bold);
+            padding: 6px 20px 4px 20px;
+            margin-top: 10px;
+            color: $master-bl-fr;
+            @include resize($float-left, $width);
+            background-color: $master-bl-bg;
+
+            .fa-refresh {
+                margin-right: 5px;
+            }
+
+            .col-sm-2 {
+                border: none;
+                width: 15%;
+                @include padding(0px, 0px, 0px, 0px);
+            }
+
+            .col-value {
+                margin-left: 0px;
+            }
+
+            .col-name, .col-value {
+                width: auto;
+                @include line-height(27px);
+            }
+
+            .tracking-swich {
+                .switch {
+                    margin-left: 10px !important;
+                    border: none;
+                }
+
+                .switch-handle {
+                    width: 21px;
+                }
+            }
+
+
+            .col-name, .col-value {
+                width: auto;
+                @include line-height(27px);
+            }
+
+            .tracking-swich {
+                .switch {
+                    margin-left: 10px !important;
+                    border: none;
+                }
+
+                .switch-handle {
+                    width: 21px;
+                }
+            }
+
+            .btn {
+                line-height: 1;
+            }
+        }
+
+        .balninfo-table {
+            min-height: 305px;
+            width: 50%;
+            float: $float-left;
+            @include padding(0px, 15px, 15px, 0px);
+
+            .event-heading {
+                width: 100%;
+            }
+
+            table {
+                background-color: transparent !important;
+
+                tr {
+                    td {
+                        font-size: 14px;
+                        padding: 3px 5px 3px 10px !important;
+                        text-transform: capitalize;
+
+                        p, span {
+                            @include line-height(22px);
+                        }
+                    }
+                }
+            }
+
+            &.referral {
+                table tr td {
+                    text-transform: none;
+                }
+            }
+        }
+    }
+}
+
+.position-bg {
+    background: $mybook-position-row;
+}
+
+.m-grid-header-bg {
+    .list-view-table {
+        background: $master-grid-header-bg;
+    }
+}
+
+.master_wrap {
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 17px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        // background: #f3f3f3;
+        border-radius: 5px;
+        border: 3px solid $scroll-border;
+        box-shadow: inset 0 0 0px 15px #ffffff;
+    }
+
+    .downline-arrow {
+        background-color: rgba(255, 255, 255, 0.15);
+        width: 44px;
+        //height: calc(102vh - 80px - 5px - 40px - 180px);
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        //top: 40px;
+        right: -5px;
+        cursor: pointer;
+        z-index: 1;
+
+        &:hover {
+            background-color: #8b828c;
+        }
+
+        &::after {
+            content: '\f061';
+            position: absolute;
+            left: 50%;
+            font-size: 22px;
+            color: #d8d5d8c7;
+            font-family: "FontAwesome";
+            transform: translate(-50%,50%);
+        }
+    }
+
+    .arrow:after {
+        content: '\f060';
+        position: absolute;
+        left: 50%;
+        font-size: 22px;
+        color: #d8d5d8c7;
+        font-family: "FontAwesome";
+        transform: translate(-50%,50%);
+    }
+
+    .transitionable-table {
+        //padding-right: 44px;
+        width: calc(100% - 44px);
+        //float: left;
+        //position: relative;
+        box-sizing: border-box;
+    }
+
+    .filter-detail {
+        padding: 0 0 8px 0;
+
+        .form-control {
+            padding: 6px 8px 8px 8px;
+        }
+
+        .input_text {
+            width: 12%;
+            position: relative;
+        }
+
+        .bet-input {
+            float: left;
+            width: 13%;
+            margin-right: 15px;
+
+            input {
+                width: 100%;
+                color: #fff;
+                background-color: rgba(0, 0, 0, 0.5);
+                border: 1px solid rgba(0, 0, 0, 0.5);
+                padding: 6px 8px;
+                outline: 0;
+            }
+        }
+
+        .dropdown_list {
+            background-color: #fff;
+            color: #60686b;
+            z-index: 999;
+            max-height: 326px;
+            min-width: 100%;
+            white-space: nowrap;
+            position: absolute;
+
+            .number-content {
+                padding: 8px 20px;
+                display: inline-block;
+                margin: 8px 0;
+
+                input {
+                    background-color: #ececec;
+                    color: #000;
+                    text-align: center;
+                    border: none;
+                    width: 100px;
+                    padding: 5px;
+                    margin-left: 8px;
+
+                    &:focus {
+                        outline: none !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .live-select {
+        .input_text div:focus {
+            outline: none !important;
+        }
+
+        .btn-default-focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .form-control {
+            background-color: $m_selectbox !important;
+            border: 1px solid transparent;
+            color: #fff !important;
+
+            &:focus {
+                box-shadow: none !important;
+            }
+        }
+
+        .ui-select-bootstrap .ui-select-choices-row.active > a {
+            background: #DDDDDD;
+            color: #727272;
+            line-height: 2.5;
+        }
+
+        .ui-select-bootstrap .ui-select-choices-row > a {
+            padding: 3px 10px;
+            font-size: 12px;
+            line-height: 2.5;
+        }
+
+        .ui-select-container.dropdown ul {
+            padding: 0px;
+        }
+
+        .ui-select-bootstrap > .ui-select-choices {
+            max-height: 300px;
+            width: 250px;
+        }
+    }
+
+    .small-btn {
+        border-radius: 0px !important;
+    }
+
+    .commentary-div .center-section {
+        width: 995px;
+    }
+
+    .downline-table {
+        //height: calc(101vh - 80px - 5px - 40px - 166px);
+        display: flex;
+        overflow-x: hidden;
+        width: 100%;
+        /*table {
+            margin: 0;
+            width: 100%;
+
+            tbody tr {
+                width: 1850px;
+            }
+        }*/
+    }
+
+    .exposure-detail {
+        font-size: 14px;
+        //overflow-x:auto;
+        //.content-wrap{min-width:1270px;}
+        .event-heading {
+            padding: 0 0 5px 10px !important;
+        }
+
+        .scorecard {
+            margin: 0px;
+
+            .game-head {
+                background: $master-grid-header-bg;
+                margin-bottom: 0px;
+            }
+
+            .game-scores {
+                .scores-box {
+                    background-color: $score-box;
+                }
+
+                .tennis-scores-box {
+                    background-color: $score-box;
+                }
+            }
+        }
+
+        .fa {
+            color: $mybook-icon !important;
+            padding-top: 5px;
+            padding-right: 5px;
+            font-size: 13px;
+        }
+
+        .fa-rotate-180 {
+            padding-top: 0px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        .exposure-table {
+            .bookmark_table {
+                background-color: $master-grid-header-bg;
+            }
+
+            .table-score {
+                margin: 0px;
+
+                .session {
+                    &.suspend:before, &.roundover:before, &.ball:before {
+                        transform: translate(0%, 0%);
+                        right: 0px;
+                    }
+                }
+
+                tbody {
+                    background-color: transparent;
+
+                    .tr-data .match-title {
+                        padding: 4px 6px 6px 4px;
+                    }
+
+                    tr {
+                        font-size: 13px;
+
+                        &:last-child {
+                            border-bottom: 0px solid transparent !important;
+                        }
+
+                        &:hover {
+                            background-color: $master-submenu-hover;
+                        }
+
+                        .match-title {
+                            border: 1px solid $mybook-odds-border;
+                            padding-top: 0px;
+                            background-color: $mybook-odds-bg;
+                            color: $white-color;
+                            line-height: 20px;
+                            font-size: 15px !important;
+                        }
+
+                        .positive, .negative {
+                            font-size: 13px !important;
+                        }
+
+                        td {
+                            @include padding(5px, 0px, 5px, 5px);
+                        }
+                    }
+                }
+            }
+
+            .back2, .back3, .back1, .back-1, .back-2, .back-3,
+            .lay2, .lay3, .lay1, .lay-1, .lay-2, .lay-3 {
+                min-width: 63px;
+                border: 1px solid #947b97;
+
+                a {
+                    font-size: 14px;
+                    color: black;
+
+                    .size {
+                        font-size: 7px;
+                    }
+                }
+            }
+        }
+
+
+        .userposition {
+            background-color: $master-grid-header-bg;
+            //width: 748px;
+            .permission {
+                padding: 3px;
+                overflow: auto;
+            }
+
+            .exposure-col {
+                th, td {
+                    width: auto;
+                    min-width: 150px;
+                }
+
+                .p-user {
+                    font-weight: bold;
+                    font-size: 12px;
+                }
+
+                thead {
+                    line-height: 22px;
+
+                    th {
+                        @include padding(5px, 0px, 5px, 5px);
+                        color: #fff;
+                    }
+
+                    tr {
+                        background-color: $master-grid-header-bg;
+                    }
+                }
+
+                tbody {
+                    font-size: 13px !important;
+
+                    .parent-tr {
+                        background-color: #deeaf7 !important;
+                        color: black;
+                    }
+
+                    tr.session-tr {
+                        background-color: transparent;
+                    }
+
+                    tr {
+                        border: none !important;
+                        background-color: rgba(245, 245, 245, 0.1);
+
+                        td {
+                            border: none !important;
+                            line-height: 25px;
+                        }
+
+                        .parent-box {
+                            background-color: $parent-box;
+                            width: 30px;
+                            margin: -2px;
+                            line-height: 30px;
+                            text-align: center;
+
+                            &.box2 {
+                                background-color: $parent-box-2;
+                            }
+                        }
+
+                        .p-user {
+                            color: $white-color;
+                        }
+                    }
+                }
+
+                .fa-sort-amount-desc {
+                    color: $theme-color;
+                    margin-right: 4px;
+                }
+            }
+
+            .exposure-2col {
+                th, td {
+                    width: 25%;
+                }
+            }
+        }
+
+        .full-position-table {
+            margin-top: 6px !important;
+
+            .list-view {
+                background-color: transparent;
+                padding: 0 6px; //#37133f;
+                table {
+                    thead {
+                        padding: 0px;
+
+                        .header {
+                            height: 33px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .full-position {
+        .list-view {
+            .list-view-table {
+                div[template-url="templates.pagination"] {
+                    width: $width;
+                }
+            }
+        }
+    }
+
+    .total-data {
+        background-color: rgba(0, 0, 0, 0.33);
+
+        .col-name {
+            color: $white-color;
+        }
+    }
+    /*.pl-listing {
+        width: 1276px !important;
+    }*/
+    .statement-table {
+        float: left;
+        width: 100%;
+        padding: 10px 0px; //background-color:rgba(0, 0, 0, 0.4);
+        .total-pnl {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px 0 20px;
+            color: #fff;
+        }
+
+        .bet-manager .tab .tabing-title {
+            min-width: 120px;
+
+            &.active {
+                color: $master-switch;
+            }
+        }
+    }
+
+    .ma-listing {
+        .list-view-table {
+            table.table thead {
+                padding-bottom: 10px;
+
+                tr {
+                    .limit-th {
+                        padding-right: 25px;
+                    }
+
+                    th {
+                        div {
+                            white-space: normal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .ac-statement .list-view {
+        background-color: $master-table-bg;
+        padding: 10px;
+    }
+
+    .list-view-table {
+        div .pagination li.active a {
+            background-color: #37133f;
+        }
+
+        div[template-url="templates.pagination"] div button.active {
+            background-color: #37133f;
+        }
+
+        table.table {
+            //@include display(block);
+            background-color: transparent !important;
+            color: $white-color;
+
+            thead {
+                tr {
+                    background-color: $master-grid-header-bg;
+
+                    th {
+                        span {
+                            color: $master-switch;
+                        }
+                    }
+                }
+            }
+
+            .bet-tr {
+                span {
+                    line-height: 50px;
+                }
+            }
+
+            tbody {
+                .agent-list {
+                    td {
+                        border: none;
+                        vertical-align: middle;
+                        @include padding(8px, 8px, 8px, 8px);
+                        line-height: 40px;
+                    }
+                }
+
+                tr {
+                    td {
+                        border: none;
+                        vertical-align: middle;
+                        @include padding(5px, 8px, 3px, 8px);
+                        line-height: 22px;
+                        /*a {
+                            color: $white-color;
+                        }*/
+                        input {
+                            background-color: transparent;
+                        }
+                    }
+
+                    &:nth-child(odd) {
+                        //background-color: rgba(245, 245, 245, 0.1) !important;
+                        background-color: rgba(245, 245, 245, 0.1);
+                    }
+
+                    &.inner-tr {
+                        background-color: transparent;
+                    }
+
+                    &:hover {
+                        //background-color: rgba(255, 255, 255, 0.2) !important;
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+                }
+            }
+
+
+            .summary-data {
+                background-color: transparent;
+
+                tr {
+                    background-color: transparent !important;
+
+                    &:hover {
+                        background-color: transparent !important;
+                    }
+                }
+            }
+        }
+
+        .expand-table {
+            background-color: transparent;
+
+            &:hover {
+                background-color: transparent !important;
+            }
+
+            .table-bets {
+                background-color: rgba(0, 0, 0, 0.33) !important;
+
+                tr {
+                    th {
+                        background-color: $m-expand-header !important;
+                    }
+                }
+            }
+
+            .expand-div {
+                .expand-repeat {
+                    color: $black-color;
+                }
+            }
+        }
+
+        div[template-url="templates.pagination"] {
+            background-color: rgba(0, 0, 0, 0) !important;
+        }
+    }
+
+    .bets-history {
+        .filter-input {
+            padding-bottom: 0px !important;
+        }
+
+        .filter-panel {
+            color: $white-color;
+            background-color: transparent !important;
+        }
+
+        table {
+            tbody {
+                border: none;
+            }
+        }
+    }
+
+
+
+    .my-bets {
+        .filter-panel {
+            color: $white-color;
+        }
+    }
+
+    .Profit-l {
+        .list-view-table {
+            table {
+                tbody {
+                    .betid {
+                        a.pl-avrg:before {
+                            right: 20px !important;
+                            width: auto !important;
+                            left: inherit !important;
+                        }
+
+                        a.ml-avrg:after {
+                            right: 20px !important;
+                            width: auto !important;
+                            left: inherit !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .to-win {
+        .fixed-odd tbody {
+            .match-title {
+                padding-left: 5px !important;
+
+                .tomatch-score {
+                    height: 35px;
+                }
+            }
+        }
+    }
+
+    .live-col2 {
+        tr {
+            th.match-title {
+                width: 100% !important;
+            }
+        }
+    }
+
+    .my-account {
+        float: left;
+        width: 100%;
+        padding: 20px;
+        background-color: $master-bl-bg;
+    }
+
+    .exposure-filter {
+        // padding:0 0 10px 0;
+        border-bottom: 1px solid #fff;
+
+        .event-heading {
+            padding: 0 0 10px 10px !important;
+        }
+
+        .option-detail {
+            // position:relative;
+        }
+    }
+}
+
+.filters-toggle {
+    float: left;
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    display: table;
+    padding: 5px 11px;
+    cursor: pointer;
+    background-color: $m_selectbox;
+    margin-left: 5px;
+    color: #fff;
+
+    &.selected {
+        background-color: #fff;
+        color: $m_selectbox;
+    }
+}
+
+.modal-open {
+    .modal-dialog {
+        form {
+            select {
+                border: 1px solid #ccc !important;
+            }
+        }
+    }
+}
+
+.super-admin {
+    .form-pannel {
+        .form-control {
+            border-radius: 3px !important;
+        }
+    }
+
+    .btn-secondary {
+        border-radius: 3px !important;
+        //&:hover{border-bottom:2px solid #0c454f  !important;border-right:2px solid #0c454f  !important;}
+    }
+
+    .pl_table {
+        .list-view-table {
+            table tbody tr {
+                border-top: none;
+            }
+        }
+    }
+
+    .list-view-table {
+        table {
+            tbody {
+                tr {
+                    border-top: 1px solid #ddd;
+
+                    &:hover, &.selected-row {
+                        background-color: $admin-row-hover;
+                        color: $admin-row-selected-cr;
+
+                        a {
+                            color: $admin-row-selected-cr;
+                        }
+                    }
+
+                    td {
+                        padding: 4px 8px 0px 8px;
+                    }
+
+                    .td-date {
+                        padding: 4px 8px 4px 8px;
+                        border-top: none;
+                    }
+                }
+
+                tr.expand-table {
+                    &:hover {
+                        background: unset;
+                        color: unset;
+                    }
+                }
+            }
+        }
+
+        div[template-url="templates.pagination"] {
+            padding: 5px 6px !important;
+        }
+    }
+
+    .my-account {
+        .sports-leftmenu .sport-right-menu {
+            li {
+                a {
+                    padding: 3px 8px 5px 8px;
+                    line-height: 22px;
+                    display: inherit;
+                    height: inherit;
+                    float: left;
+                    width: 100%;
+                    border-top: 1px solid #ddd;
+                    border-bottom: none;
+
+                    .fa {
+                        font-size: 15px;
+                    }
+
+                    &:hover {
+                        background-color: #20484f;
+                        color: $white-color;
+                    }
+
+                    &.active {
+                        background-color: $theme-color;
+                        color: $white-color;
+
+                        &:hover {
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        .list-view {
+            .pager {
+                float: left;
+                width: 100%;
+
+                li a {
+                    top: -1px !important;
+                }
+            }
+
+            .expand-table .expand-td {
+                padding-bottom: 0px;
+            }
+
+            table tbody {
+                /* tr:hover {
+                    background: #f9f9f9 !important;
+                }*/
+
+                .inner-tr:nth-child(odd) {
+                    background-color: #f9f9f9;
+                }
+            }
+        }
+    }
+
+    .commentary-div {
+        .commentary {
+            form {
+                .comm_data {
+                    button {
+                        border: none !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .livebets, .permission {
+        .filter-panel {
+            .ui-select-bootstrap .ui-select-toggle {
+                border: 1px solid #ddd;
+                border-radius: 3px !important;
+            }
+
+            .input-list {
+                select {
+                    border: 1px solid $theme-color !important;
+                    border-radius: 3px;
+
+                    &:hover {
+                        box-shadow: 1.5px 1.5px 0px 0px #0f2327 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .login-history table tbody tr:nth-child(odd) {
+        background-color: transparent !important;
+    }
+
+    .my-bets {
+        .input-list {
+            width: 100%;
+
+            li {
+                select, input {
+                    border-radius: 3px;
+                    border: 1px solid $theme-color !important;
+
+                    &:hover {
+                        box-shadow: 1.5px 1.5px 0px 0px #0f2327 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.admin-part {
+    font-size: 12px;
+
+    .sports-leftmenu .sport-right-menu li .menu-link, .sports-leftmenu .sport-right-menu li .sport-type-inner.active {
+        color: #000;
+    }
+
+    .btn-light {
+        background-color: $btn-light-bg;
+        color: $btn-light-color !important
+    }
+    /* .form-pannel .ui-select-container span, .filter-panel .ui-select-container span, select {
+        color: #000 !important;
+    }*/
+
+    .currency {
+        .user-name {
+            line-height: 26px;
+        }
+    }
+
+    .list-view .list-view-table {
+        table {
+            tbody td {
+                .btn-secondary {
+                    line-height: 22px !important;
+                    border: 1px solid transparent !important;
+                    border-radius: 3px !important;
+                }
+            }
+        }
+    }
+}
+
+.master_wrap, .admin-part {
+    @include resize($float-left, $width);
+    margin-top: 5px;
+
+    .exposure-table {
+        .list-view-table {
+            th {
+                span {
+                    color: $white-color;
+                }
+            }
+        }
+
+        .total-tr {
+            border-top: 1px solid $theme-color;
+        }
+
+        .tab-desc {
+            table {
+                tbody {
+                    tr {
+                        &:last-child {
+                            @include border('bottom', 1px, solid, $border-color);
+                        }
+
+                        .match-title {
+
+
+                            .tomatch-score {
+                                height: 39px;
+                            }
+                        }
+
+                        td {
+                        }
+
+                        td {
+                            p {
+                                .name {
+                                    line-height: 40px;
+                                    padding-left: 10px;
+                                }
+
+                                span {
+                                    line-height: 40px;
+                                    padding-left: 6px;
+                                }
+                            }
+
+                            .runner_name {
+                                .patti-card {
+                                    width: 22px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .sports_book {
+            }
+        }
+
+        table {
+            thead tr {
+                background-color: $theme-color;
+            }
+        }
+
+        .full-market-back {
+            padding: 3px 0 5px 0 !important;
+
+            a {
+                margin-left: 10px;
+                font-weight: bold;
+            }
+
+            .fa-caret-right {
+                margin-left: 5px;
+            }
+        }
+
+        .table-bets.full-position-table {
+            margin: 0 10px;
+            width: 99%;
+        }
+    }
+
+    .content-wrap {
+        @include display(block);
+    }
+
+    .table-bets {
+        @include resize($float-left, $width);
+    }
+
+
+
+    .bookmark_table {
+        background-color: $white-color;
+        @include resize($float-left, $width);
+
+        .add-pin-square {
+            padding: 5px 7px 3px 7px !important;
+            margin-right: 6px;
+        }
+
+        .tr-data {
+            font-size: 10px;
+        }
+
+        .col-sm-8, .col-sm-4 {
+            @include padding(0px, 5px, 0px, 5px);
+        }
+
+        .icon-ladder {
+            font-size: 13px !important;
+        }
+    }
+
+    .black-back {
+        background-color: $purple;
+        color: $white-color;
+        @include padding(8px, 5px, 8px, 5px);
+        margin-bottom: 10px;
+        @include resize($float-left, $width);
+
+        .to-expand {
+            margin-left: 10px;
+            color: $white-color;
+            @include display(block);
+            width: 98%;
+        }
+
+        .add-pin-square {
+            float: $float-left;
+            @include padding(5px, 8px, 5px, 8px);
+        }
+
+        .faimg {
+            color: $white-color;
+            float: $float-right;
+            @include padding(5px, 8px, 0, 0);
+        }
+    }
+
+    .table-score {
+        tr {
+            @include resize($float-left, $width);
+
+            td {
+                border: none;
+
+                .price {
+                    @include display(block);
+                    text-align: $center;
+                    width: $width;
+                }
+            }
+        }
+    }
+
+    .filter-panel {
+        .span-check {
+            margin-right: 12px;
+        }
+
+        .input-list {
+            float: left;
+            //@include resize($float-left, $width);
+            .bet_name {
+                @include resize($float-left, $width);
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+
+            li {
+                @include resize($float-left, auto);
+
+                select {
+                    height: 34px;
+                    width: 95% !important;
+                    //font-size: 13px;
+                    background-color: $white-color;
+                    //@include border-radius(3px);
+                    @include padding(6px, 6px, 6px, 6px);
+                    @include border-all(1px, solid, $heading);
+                }
+
+                .input-group {
+                    margin-right: 10px;
+
+                    .form-control {
+                        width: 112px !important;
+                    }
+
+                    ul {
+                        li {
+                            width: auto;
+                        }
+                    }
+                }
+
+                .bet_select {
+                    @include resize($float-left, 52%);
+                }
+
+                .get_btn {
+                    @include resize(right, 12%);
+
+                    .bets {
+                        //background-color:$getbtn;
+                        @include border-radius(5px);
+                        //color:$bets-color;
+                    }
+                }
+            }
+
+            .list-statement {
+                margin-top: 15px;
+
+                li {
+                    width: auto;
+                    margin-right: 15px;
+
+                    a {
+                        @include txt(bold);
+                        text-align: $center;
+                        @include padding(5px, 12px, 5px, 12px);
+                        //@include headline($btn-font, 11px);
+                        //@include border-all(1px, solid, $medium-gray-black);
+                        @include border-radius(5px);
+                        //background-color:$list-statement-btn;
+                    }
+                }
+            }
+        }
+
+        .live-btn {
+            margin: 20px 0 0 12px;
+
+            a {
+                width: auto;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .path {
+        background: $light-purple;
+        height: 32px;
+        @include line-height(24px);
+        @include resize($float-left, $width);
+        @include position(relative);
+
+        .path-last {
+            a {
+                @include txt(bold);
+                text-transform: capitalize;
+                width: auto;
+            }
+        }
+
+        ul {
+            text-align: $float-left;
+
+            li {
+                a {
+                    @include headline ($white-color, $font-size-tab);
+                    @include padding (0px, 5px, 0px, 8px);
+                    @include line-height(23px);
+                }
+
+                &:last-child {
+                    background-image: none !important;
+                }
+            }
+        }
+    }
+
+    .sports-leftmenu {
+        .path {
+            height: 25px;
+        }
+    }
+
+    .commentary-div {
+        .left-section {
+            width: 260px;
+        }
+
+        .center-section {
+
+            ul {
+                li {
+                    @include display(inline-block);
+
+                    .btn {
+                        @include padding(5px, 8px, 5px, 8px);
+                        margin: 2px 4px 5px 0;
+                    }
+                }
+            }
+
+            .commentary {
+                .checkbox {
+                    input {
+                        margin-left: 0px;
+                    }
+                }
+
+                .comm_data {
+                    ul li {
+                        button {
+                            font-size: 12px;
+                        }
+
+                        button:focus {
+                            // background-color: $red !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.main-content {
+    width: $width;
+    //height: calc(100% - 103px);
+    display: table;
+    overflow: hidden;
+    z-index: 1;
+    @include position(relative);
+}
+
+.admin-down {
+    margin-bottom: 10px;
+    overflow: hidden;
+
+    .col-sm-2 {
+        //    @include padding(0px, 8px, 0, 10px);
+        width: 15.5%;
+    }
+
+    .add_btn {
+        width: 22.5%;
+
+        .btn {
+            margin-left: 5px;
+            @include padding(6px, 7px, 6px, 7px);
+        }
+    }
+}
+
+.total-data {
+    background-color: $white-color;
+    @include padding(5px, 10px, 5px, 10px);
+}
+
+.exposure-filter {
+    .form-control {
+        width: 92%;
+    }
+
+    background-color: transparent;
+    color: $white-color;
+    @include padding(5px, 10px, 5px, 10px);
+    @include border('bottom', 2px, solid, $border-color);
+
+    label {
+        font-weight: normal;
+    }
+
+    .filter-header {
+        margin-right: 15px;
+        color: $m-btn-default-bg;
+    }
+
+    label {
+        margin-right: 5px;
+    }
+
+    input[type="radio"] {
+        margin-top: 0px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .scorecard {
+        .game-head {
+            margin-bottom: 0px;
+            @include padding(4px, 2px, 4px, 2px);
+        }
+
+        .scores-team {
+            width: 46% !important;
+        }
+    }
+}
+
+.my-account {
+    .sports-leftmenu {
+        .sport-right-menu li {
+            .sport-type-inner.active:hover {
+                color: #8c1000;
+            }
+        }
+    }
+
+    .filter-panel {
+        select {
+            height: 34px !important;
+        }
+    }
+
+    .login-history {
+        table {
+            td {
+                a {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+.fa-pencil {
+    //margin-left: 5px;
+}
+
+.withdraw {
+    @include txt(bold);
+    @include headline($dark-blue, 13px);
+
+    a {
+        @include border-all(1px, solid, $gray);
+        @include border-radius(4px);
+        background-image: linear-gradient(-180deg, #FEFEFE 0%, #eaeaea 100%);
+        @include padding(6px, 10px, 6px, 10px);
+        cursor: $cursor;
+        color: $dark-blue;
+
+        &.disable {
+            background: $white-color;
+            color: $light-medium-grey;
+            cursor: not-allowed;
+
+            &:hover {
+                background-image: none;
+            }
+        }
+
+        &:hover {
+            background-image: linear-gradient(-180deg, #eaeaea 20%, #FEFEFE 100%);
+        }
+    }
+
+    ul {
+        @include display(inline-block);
+
+        li {
+            @include display(inline-block);
+
+            a {
+                @include border-radius(4px);
+                font-size: 13px;
+                @include position(relative);
+                color: $purple !important;
+
+                &:after {
+                    @include position(absolute, top -2px right -60px);
+                    width: 12px;
+                    font-size: 15px;
+                    @include txt(normal);
+                    @include line-height(30px);
+                    z-index: 2;
+                    padding-left: 5px;
+                }
+
+                &.select-D {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color !important;
+                    background: $green;
+                    // padding-right:0px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002b';
+                        color: $green;
+                        padding-left: 5px;
+                    }
+                }
+
+                &.select-W {
+                    border-color: rgba(0,0,0,0.2);
+                    color: $white-color !important;
+                    background: $red;
+                    // padding-right:4px;
+                    box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+
+                    &:after {
+                        content: '\002d';
+                        right: -26px;
+                        color: $red;
+                    }
+                }
+            }
+
+            &:first-of-type a {
+                border-right-width: 0;
+                border-radius: 4px 0 0 4px;
+            }
+
+            &:last-of-type a {
+                border-radius: 0 4px 4px 0;
+            }
+        }
+    }
+
+    input {
+        text-align: right;
+        @include border-all(1px, solid, $gray);
+        @include padding(4px, 5px, 4px, 5px);
+        height: 30px;
+        width: -webkit-calc(100% - 70px - 50px - 44px) !important;
+        width: -moz-calc(100% - 70px - 50px - 44px) !important;
+        width: calc(100% - 70px - 50px - 44px) !important;
+        @include border-radius(4px);
+        margin: 0 3px 0 7px;
+        box-shadow: inset 0px 2px 0px rgba(0,0,0,0.1);
+    }
+}
+
+.risk-management {
+    .tabbing-blue {
+        width: $width;
+        margin: 12px 0 10px 0 !important;
+    }
+
+    .permission {
+        @include resize($float-left, $width);
+        background-color: $white-color;
+
+        table {
+            tbody {
+                tr {
+                    @include border('bottom', 1px, solid, $border-color);
+                    @include border('right', 1px, solid, $border-color);
+                }
+            }
+        }
+    }
+}
+
+.position-special, .bm-maker {
+    .path {
+        ul {
+            li {
+                @include border('bottom', 1px, solid, $border-color);
+
+                a {
+                    @include display(inline-block);
+                    border: none;
+                    //@include padding(6px, 10px, 6px, 10px);
+                    color: $white-color;
+                }
+            }
+        }
+
+        .path-last {
+            background-color: $purple;
+            @include txt(bold);
+            font-size: 12px;
+            padding: 5px;
+        }
+    }
+
+    .inner-nav {
+        @include resize (left, $width);
+
+        .myaccount-nav {
+            a {
+                @include resize (left, $width !important);
+
+                &.active {
+                    background-color: #f00;
+                }
+            }
+        }
+
+        .left-menulist {
+            li {
+                @include display(block);
+
+                &:last-child {
+                    @include border('bottom', 2px, solid, $border-color);
+
+                    a {
+                        @include txt(bold);
+                    }
+                }
+
+                &:hover {
+                    background-color: transparent !important;
+                }
+
+                a {
+                    color: $purple;
+
+                    &:hover {
+                        background-color: transparent !important;
+                        color: #000;
+                    }
+                }
+            }
+        }
+
+        .add-pin {
+            float: $float-right;
+        }
+
+        .sidenav {
+            height: $height;
+            width: $width;
+            z-index: 1;
+            overflow-x: hidden;
+            background: $white-color;
+
+            a {
+                @include padding (3px, 5px, 3px, 10px);
+                text-decoration: none;
+                @include resize (left, $width);
+                margin-right: 10px;
+                @include line-height(18px);
+                @include headline($dark-gray-black, $font-size-tab);
+                @include display(block);
+                @include txt(normal);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                &:hover {
+                    color: $dark-gray-black;
+                    background-color: #e2e2e2;
+
+                    &:hover .Go {
+                        background-position: 0% -128px;
+                    }
+
+                    &:hover .go-icon {
+                        background-color: $black-color;
+                        color: $white-color;
+                    }
+                }
+            }
+
+            ul {
+                li {
+                    @include display(block);
+                    @include border('bottom', 1px, solid, $border-color);
+                    @include resize (left, $width);
+
+                    &:hover {
+                        background-color: #e2e2e2;
+                    }
+
+                    .go-icon {
+                        @include border-all(0.5px, solid, $gray);
+                        @include border-radius(25%);
+                        background-color: $light-grey;
+                        @include padding(2.5px, 0px, 0px, 4.5px);
+                        height: 15px;
+                        font-size: 9px;
+                        margin-top: 2px;
+                        @include resize(right, 15px);
+
+                        &:hover {
+                            background-color: $black-color;
+                            color: $white-color;
+                        }
+                    }
+
+                    .Go {
+                        background-position: 0% -104px;
+                        background-image: url('/public/images/left-arrow.png');
+                        background-repeat: repeat-x;
+                        text-indent: -99999px;
+                        @include resize (right, 30px);
+                        margin: 0px;
+                        height: 18px;
+                        @include position(absolute, right 2px);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.member-nav {
+    border-bottom: none !important;
+
+    li.active > a, li:hover > a {
+        background-color: $master-table-bg !important;
+        color: $master-switch !important;
+        border: 1px solid transparent !important;
+    }
+}
+
+.member-div {
+    background-color: $master-table-bg;
+    float: left;
+    width: 100%;
+    padding: 20px;
+}
+
+.master_wrap .member_table {
+    float: left;
+    width: 100%;
+    margin: 10px 0 0 0;
+
+    thead {
+        tr {
+            th {
+                color: #fff;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            color: #fff;
+
+            &:hover {
+                transition: background ease .5s;
+            }
+        }
+    }
+}
+
+.member-detail {
+    margin-top: 0px !important;
+    padding: 10px 20px 20px 20px;
+    float: left;
+    width: 100%;
+    background-color: $master-table-bg;
+    min-height: 500px;
+
+    .main-bg {
+        background-color: transparent !important;
+        padding: 0px;
+    }
+
+    .list-view {
+        //background-color: transparent !important;
+        padding-left: 0;
+        padding-right: 0;
+
+        .list-view-table {
+            table {
+                // background-color: transparent !important;
+                tbody tr td {
+                    line-height: 23px;
+                }
+            }
+        }
+    }
+
+    .pl-table {
+        .list-view {
+            .currency {
+                table {
+                    tbody tr:nth-child(odd) {
+                        background-color: transparent;
+                    }
+
+                    .childtr {
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .left-panel {
+        float: left;
+        width: 10%;
+
+        .apl-table {
+            margin-top: 37px;
+            background-color: transparent !important;
+
+            td {
+                text-align: center !important;
+                line-height: 26px;
+                color: #fff;
+                font-size: 15px;
+                text-transform: capitalize;
+                padding: 5px 10px;
+            }
+        }
+    }
+
+    .right-panel {
+        float: left;
+        width: calc(90% - 10px);
+        margin-left: 10px;
+
+        table {
+            thead {
+                tr th {
+                    color: #fff;
+                }
+            }
+
+            tbody {
+                tr {
+                    color: #fff;
+
+                    td {
+                        line-height: 26px;
+                        padding: 5px 10px;
+                    }
+
+                    &:nth-child(odd) {
+                        background-color: rgba(245, 245, 245, 0.1);
+                    }
+
+                    &:hover {
+                        background: $grid-hover;
+                    }
+                }
+            }
+        }
+    }
+
+    .date {
+        background-color: $grid-date !important;
+        line-height: 30px !important;
+    }
+
+    table {
+        background-color: transparent !important;
+
+        thead {
+            tr {
+                background-color: transparent !important;
+
+                th {
+                    line-height: 26px;
+                    padding: 5px 10px;
+                }
+            }
+        }
+
+        tbody {
+            td {
+                //line-height:35px;  padding:5px 10px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .btn_value {
+        padding: 0px 10px;
+    }
+
+    .filter-panel {
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid #fff;
+        padding: 0 0 10px 0;
+        color: #fff;
+
+        .input-group .uib-datepicker-popup {
+            div.uib-daypicker table tr {
+                color: #000 !important;
+
+                td {
+                    color: #000 !important;
+                }
+            }
+        }
+    }
+
+
+
+    .bet_list {
+        p {
+            padding: 10px 0 0 0;
+            float: left;
+            width: 100%;
+        }
+
+        .bet-manager {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+
+            .tab {
+                li a {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+
+        .input-date {
+            .input-group {
+                float: left;
+                display: inline-flex;
+
+                label {
+                    margin: 0 10px 0 0;
+                    color: #fff;
+                    float: left;
+                    line-height: 34px;
+                }
+
+                .form-control {
+                    float: left;
+                    padding: 6px;
+                    height: 30px;
+                    width: 19% !important;
+                    margin: 2px 14px 0 0;
+                }
+                //.btn{padding:0px 12px;}
+            }
+        }
+
+        .total-pnl {
+
+            span {
+                float: left;
+                padding: 5px 0px;
+            }
+        }
+
+        .table-listing {
+            color: #fff;
+        }
+    }
+
+    .list-table {
+        .bet-list-table table {
+            tbody {
+                tr td {
+                    //line-height: 55px;
+                    padding: 8px;
+                }
+
+                tr .bet_td {
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+
+    .transfer-table {
+        table {
+            tbody {
+                .td-date {
+                    padding: 0 0 0 25px;
+                }
+
+                .amount {
+                    padding: 0 5px 0 0px;
+                }
+            }
+        }
+    }
+}
+
+.position-special {
+    .left-section {
+        width: 20%;
+    }
+
+
+
+    .center-section {
+        width: 80%;
+        padding-right: 0px;
+        float: left;
+        max-width: 80%;
+    }
+}
+
+.multi-event_type {
+    background-color: $white-color;
+    @include padding(1px, 8px, 1px, 8px);
+    @include border-radius(4px);
+    margin: 0 10px 0 6px;
+    color: $dark-gray-black;
+}
+
+.exposure-border {
+    @include padding(1px, 4px, 1px, 4px);
+    @include border-radius(4px);
+    @include border-all(1px, solid, $border-color);
+    margin: 0 5px 0 0px;
+    float: $float-right;
+    color: $black-color;
+}
+
+.header-name {
+    float: left;
+    width: 100%;
+    // background-color: rgba(0, 0, 0, 0.4) !important;
+    // padding:15px 15px 0 15px;
+}
+
+.btn_value {
+    float: left;
+    width: auto;
+    margin-right: 15px;
+}
+
+.full-position {
+    .table-bets {
+        .list-view {
+            @include display(block);
+        }
+
+        table {
+            display: grid;
+        }
+
+        div[template-url="templates.pagination"] {
+            width: 800px;
+        }
+    }
+
+    .full-position-table {
+        div[template-url="templates.pagination"] {
+            width: 948px;
+        }
+    }
+
+    .tab-desc {
+        .full-market-back {
+            @include padding(0px, 0px, 4px, 0px);
+
+            a {
+                @include padding(0px, 3px, 0px, 3px);
+
+                .fa {
+                    margin-left: 2px;
+                }
+            }
+        }
+
+        .scorecard {
+            color: $white-color;
+
+            .twoTeam {
+                background-color: $purple;
+                @include padding(10px, 10px, 10px, 10px);
+            }
+        }
+
+        .game-visit {
+            font-size: 18px;
+        }
+
+        .game-vs {
+            font-size: $font-size-tab;
+            @include padding(3px, 0px, 0px, 5px);
+
+            .to_info {
+                margin-right: 3px;
+            }
+        }
+
+        .game-info {
+            clear: $clear-both;
+            background: #e2e2e2;
+            @include padding(0px, 8px, 5px, 0px);
+            color: $black-color;
+
+            span {
+                padding-top: 5px;
+                @include display(inline-block);
+                @include line-height(20px);
+                font-size: 12px;
+            }
+
+            .matches {
+                float: $float-right;
+                font-size: $font-size-tab;
+                @include line-height(30px);
+                padding-top: 0px;
+                display: inline;
+
+                span {
+                    padding-top: 0px;
+                }
+            }
+        }
+    }
+
+    .nav-tabs {
+        li {
+            background: #f2f2f2;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin-right: 2px;
+
+            &.active {
+                background: #ddd;
+            }
+        }
+
+        a {
+            color: black !important;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    }
+
+    .tab-content {
+        position: relative;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-top: none;
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+
+        .tab-pane {
+            float: left;
+            width: 100%;
+        }
+    }
+}
+
+.runner-right {
+    .run_matched {
+        .button.btn-remove {
+            @include resize($float-left, auto);
+            font-size: 8px !important;
+        }
+
+        .run-class {
+            .match_name {
+                @include resize($float-left, auto);
+            }
+        }
+
+        .bet_price {
+            @include resize($float-left, auto);
+
+            span {
+                width: 60px !important;
+            }
+
+            .bet_stake {
+                width: 80px !important;
+            }
+        }
+
+        .match_run {
+            @include resize(right, 81%);
+            margin-left: 20px;
+            font-size: 12px;
+        }
+
+        .unmatch {
+            .match_run {
+                @include resize(right, 81%);
+                margin-left: 20px;
+            }
+        }
+    }
+}
+
+.plus {
+    font-weight: bold;
+    color: #fff;
+    padding-left: 12px;
+    font-size: 17px;
+}
+/* popup form   */
+.option-detail-square {
+    padding: 0 10px 0 22px;
+    font-weight: normal;
+    position: relative;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: transparent;
+        border-radius: 0;
+        border: 2px solid #fff;
+
+        &.disable {
+            border: 2px solid #eee;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .checkmark:after {
+        left: 3px;
+        top: -1px;
+        width: 7px;
+        height: 10px;
+        border-radius: 0px;
+        border: solid $green;
+        border-width: 0 3px 2px 0;
+        -webkit-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+        transform: rotate(35deg);
+        background-color: transparent;
+    }
+}
+
+.option-detail-circle {
+    padding: 0 10px 0 22px;
+    font-weight: normal;
+    position: relative;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 2px solid #fff;
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .checkmark:after {
+        top: 2px;
+        left: 2px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $green;
+    }
+}
+
+.popup-div {
+    //   display:none;
+    //position: fixed;
+    color: white;
+    overflow: auto;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    .pop_close {
+        position: absolute;
+        top: -16px;
+        right: -18px;
+        cursor: pointer;
+        background-color: #dedede;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 50%;
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+
+        .fa {
+            padding-top: 6px;
+            font-size: 22px;
+        }
+    }
+
+    input {
+        padding: 0 5px;
+        border: 2px solid #ddd;
+        color: #000;
+    }
+
+    .form-control[disabled] {
+        background-color: #b4afbc;
+    }
+
+    .popup_form {
+        position: absolute;
+        width: 800px;
+        max-height: 80%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        color: #fff;
+    }
+
+    .pop-inner {
+        float: left;
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: $m-popup-bg;
+    }
+
+    .pop-form-row {
+        float: left;
+        width: 50%;
+        padding: 10px 10px 0px 0px;
+        min-height: 70px;
+
+        label {
+            float: left;
+            width: 100%;
+        }
+
+        .paswd {
+            width: 100%;
+            height: 35px;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        border: 2px solid #ddd;
+        min-width: 270px;
+        min-height: 100px;
+        color: #000;
+        padding: 5px;
+    }
+
+    .limit-value {
+        color: #fff;
+        padding-left: 5px;
+    }
+
+    .error-input, input.ng-invalid {
+        border: 2px solid red;
+    }
+
+    .popup-table {
+        width: auto;
+        margin-right: 60px;
+
+        tbody:nth-child(odd) {
+            background-color: transparent !important;
+        }
+
+        tr {
+            th {
+                padding: 8px;
+            }
+
+            td {
+                input {
+                    height: 33px;
+                }
+            }
+
+            .row-header {
+                width: 45%;
+            }
+
+            .td-limit {
+                padding: 8px;
+                min-width: 100px;
+
+                input {
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    .pop-option {
+        float: left;
+        width: 100%;
+        margin: 10px 0 0 0;
+
+        p {
+            font-size: 14px;
+            margin-bottom: 5px !important;
+        }
+
+        label {
+            text-transform: uppercase;
+            font-weight: normal;
+            vertical-align: middle;
+            position: relative;
+        }
+    }
+
+
+
+    .credit {
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        float: left;
+        margin-right: 25px;
+        width: 45%;
+
+        input {
+            width: 170px;
+            float: left;
+            height: 35px;
+            margin-right: 5px;
+        }
+
+        .c-value {
+            display: block;
+            line-height: 18px;
+        }
+    }
+
+    .pop-btn {
+        float: left;
+        width: 100%; //padding-bottom:50px;
+        .cancle-popup {
+            color: #18c432;
+            border: none;
+            background-color: transparent;
+            border: 1px dotted transparent;
+
+            &:focus {
+                border: 1px dotted #18c432;
+            }
+        }
+
+        .save-popup {
+            background-color: #0f8422;
+            color: #FFFFFF;
+            border-top: none;
+            border-left: none;
+            border-bottom: 2px solid #0a5616;
+            border-right: 2px solid #0a5616;
+        }
+
+        button {
+            padding: 8px 16px;
+            text-transform: capitalize;
+
+            &:focus {
+                outline: none !important;
+                border: 1px dotted;
+            }
+        }
+    }
+}
+
+.bulk-pt {
+    float: left;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    width: 100px;
+
+    .pt-header {
+        width: 100%;
+        text-align: center;
+        //font-weight: 700;
+    }
+
+    .take-give {
+        width: 50%;
+        float: left;
+        font-weight: 700;
+    }
+
+    .only-take {
+        margin: 10px 0px 0px 10px;
+    }
+
+    .take-give-value {
+        width: 40px;
+        height: 32px;
+        color: #444444;
+        float: left;
+        font-weight: normal;
+        padding: 4px 6px;
+        text-align: right;
+    }
+
+    input:focus {
+        border: 2px solid $m-input-border !important;
+        outline: 0;
+    }
+}
+/* Radio Button  */
+
+.master-bg {
+    .list-view .list-view-table .expand-table table {
+        background-color: transparent !important;
+
+        th {
+            line-height: unset;
+        }
+    }
+}
+
+.text-wrap {
+    white-space: pre-wrap !important;
+}
+
+.full-position {
+    font-size: 10px;
+
+    .list-view-table table.table thead tr .header, .list-view-table table.table {
+        font-size: 10px !important;
+    }
+
+
+    .list-view .list-view-table table thead tr th,
+    .list-view-table table.table tbody tr td {
+        padding: 4px !important;
+    }
+}

@@ -1,0 +1,89 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <label> {{::'eventtypes.label' | translate}} : &nbsp;</label>
+            <span>{{event.eventtypeName}}</span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-newspaper-o"></i></span>
+            <input id="name" type="text" minlength="1" maxlength="100"
+                   placeholder="{{::'event.name.placeholder' | translate}}"
+                   required autofocus ng-model="event.name" class="form-control">
+        </div>
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdown-event" role="button" data-toggle="dropdown" href="">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    <input type="text" class="form-control" required
+                           placeholder="{{::'event.starttime.placeholder' | translate}}"
+                           value="{{event.openDate | date:'dd-MM-yyyy hh:mm a Z'}}">
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="event.openDate"
+                                data-datetimepicker-config="{ dropdownSelector: '#dropdown-event' }"
+                                data-before-render="ctrl.beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </ul>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-chain"></i>
+            </span>
+            <input id="sourceid" type="text" maxlength="15"
+                   placeholder="{{::'event.sourceid.placeholder' | translate}}"
+                   ng-model="event.sourceId" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group ">
+            <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+            <input id="countrycode" type="text" maxlength="15"
+                   placeholder="{{::'event.country.placeholder' | translate}}"
+                   ng-model="event.countryCode" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar-times-o"></i></span>
+            <input id="timezone" type="text" maxlength="15"
+                   placeholder="{{::'event.timezone.placeholder' | translate}}"
+                   ng-model="event.timezone" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+            <input id="venue" type="text" maxlength="200"
+                   placeholder="{{::'event.venue.placeholder' | translate}}"
+                   ng-model="event.venue" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="input-group">
+            <select class="form-control" ng-model="event.scoreSource">
+                <option ng-repeat="s in scoreSourceList" value="{{s.id}}">
+                    {{s.name}}
+                </option>
+            </select>
+            <span class="input-group-addon">Score Source</span>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <input type="text" minlength="1" maxlength="100"
+                   ng-model="event.scoreSourceId " class="form-control">
+            <span class="input-group-addon">Score Source Id</span>
+        </div>
+    </div>
+</div>
+
+
+

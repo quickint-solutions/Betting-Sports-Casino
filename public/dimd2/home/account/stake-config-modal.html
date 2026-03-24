@@ -1,0 +1,30 @@
+﻿
+<div id="game-btn" class="bet-table tab-pane active">
+    <div class="table-responsive">
+        <table class="table button-value">
+            <thead>
+                <tr><th>Price Label</th> <th>Price Value</th></tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in data.stake | filter:{isActive:true}">
+                    <td>
+                        <input type="text" class="form-control" readonly value="{{s.stake | shortNumber}}">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" kt-number-only allow-decimal="true"
+                               positive-only="true"
+                               required ng-model="s.stake">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="text-right">
+        <button class="btn btn-primary btn-block" type="button"
+                ng-click="ctrl.modalOptions.ok()"
+                ng-disabled="modalOptions.modalForm.$invalid">
+            Submit
+        </button>
+    </div>
+</div>

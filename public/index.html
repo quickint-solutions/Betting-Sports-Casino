@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="intranet" ng-controller="appCtrl as appCtrl" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>India's Best Online Gaming Platform.</title>
+    <!--<link rel="manifest" href="/manifest.json">-->
+    <meta name="viewport" content="{{viewPort}}">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0" />
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="description" content="Bet with the most trusted online betting exchange in India. Get the best odds, instant withdrawals &amp; deposits, 24/7 customer service and refer bonus. Enjoy safe and secure betting, Cricket | Football | Tennis | Horse racing | Poker | Teenpatti | Live Casinos | Slot Games">
+
+    <link href="https://fonts.gstatic.com">
+
+
+    <meta name="theme-color" content="{{theme_color}}" />
+    <link rel="icon" href="{{fav_icon}}">
+    <script id="external_script"></script>
+
+    <script>
+        function close_info() {
+            document.getElementById('cus-placeholder').innerHTML = '';
+        }
+    </script>
+    <style>
+        [ng-cloak].splash {
+            display: table !important;
+            z-index: 9999999999;
+        }
+
+        .dsplash {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            position: fixed !important;
+            align-items: center;
+            position: relative;
+            z-index: 9999999999;
+            transition: all 0.5s ease;
+        }
+
+        .logo-login {
+            display: block;
+            widows: 100%;
+        }
+
+        #load-inner {
+            position: relative;
+            text-align: center;
+        }
+
+            #load-inner i {
+                font-size: 24px;
+                color: rgb(255, 255, 255);
+                margin-top: 40px;
+            }
+
+        .logo-login img {
+            max-height: 65px;
+            max-width: 250px;
+            display: block;
+        }
+
+        .splash {
+            /*background: #9a9342;*/
+            display: none;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+            .splash .centered {
+                display: table-cell;
+                margin: 0 auto;
+                vertical-align: middle;
+                width: 50%;
+            }
+    </style>
+    <style>
+        .widgets {
+            width: 100%;
+        }
+
+        .sr-lmt-plus__expand-icon {
+            max-height: 100%;
+            height: unset !important;
+        }
+
+        .sr-widget {
+            border: rgba(0,0,0,0.12) solid 1px;
+            margin-bottom: 24px;
+        }
+    </style>
+
+    <link href="vendor-styles/ng-table.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+    <link href="vendor-styles/select.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+
+    <link href="vendor-styles/textAngular.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+    <link href="vendor-styles/daterangepicker.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+
+    <link href="vendor-styles/dark-unica.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+    <link href="vendor-styles/jquery.mCustomScrollbar.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+    <link href="vendor-styles/odometer-theme-minimal.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+
+    <link href="vendor-styles/daterangepicker-custom.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+
+    <link href="vendor-styles/video-js.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+
+    <script async="" type="text/javascript">
+        document.onreadystatechange = function () {
+            var state = document.readyState
+            if (state == 'complete') {
+                document.querySelector('.bodymovinanim').style.display = 'none';
+            }
+        }
+    </script>
+    <!--<link href="vendor-styles/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />-->
+
+    <script id="meta_script"></script>
+    <noscript id="meta_noscript"></noscript>
+</head>
+<body translate-cloak>
+    <noscript id="noscript1"></noscript>
+
+    <!-- The splash screen must be first -->
+    <div class="splash" ng-cloak="">
+        <div class="centered">
+            <div class="spinner inverse large"></div>
+        </div>
+    </div>
+    <div ng-show="isLoading" ng-include="loadderTemplate" style="position: absolute; z-index: 9999999999; background: black; display: table; height: 100%; width: 100%;">
+
+    </div>
+    <div class="bodymovinanim" id="bodymovinanim">
+    </div>
+
+    <div ng-if="afterLoginSplashLoading" class="after-login-splash">
+        <img ng-src="{{afterLoginSplashGif}}">
+    </div>
+    <div id="cus-placeholder"></div>
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link href="../node_modules/angularjs-toaster/toaster.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <!--video js css moved to head-->
+    <link href="../custom-scripts/flashphoner/hls-player.css" rel="stylesheet" />
+    <link href="../custom-scripts/slick181/slick/slick.css" rel="stylesheet" />
+
+
+
+    <!-- endbuild -->
+    <!--Container for toaster notifications-->
+    <toaster-container toaster-options="toastConfig"></toaster-container>
+
+    <!-- Add your site or application content here -->
+
+    <div ui-view="main" noanimation="true" style="height:100%" id="main-wrapper">
+    </div>
+
+    <!-- build:js(public) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+        <script src="../node_modules/es5-shim/es5-shim.js"></script>
+        <script src="../node_modules/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+    <!-- build:js(public) scripts/vendor.js -->
+    <!-- fileblock:js vendor -->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../node_modules/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-promise-tracker/promise-tracker.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../node_modules/angular-translate/dist/angular-translate.min.js"></script>
+    <script src="../node_modules/angular-translate/dist/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+    <script src="../node_modules/ng-table/dist/ng-table.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+    <script src="../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+    <script src="../node_modules/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
+    <script src="../node_modules/ui-select/dist/select.js"></script>
+    <script src="../node_modules/angular-cache/dist/angular-cache.js"></script>
+    <script src="../node_modules/angularjs-toaster/toaster.js"></script>
+    <script src="../node_modules/mousetrap/mousetrap.js"></script>
+    <script src="../node_modules/angular-elastic/elastic.js"></script>
+    <script src="../node_modules/textAngular/dist/textAngular-sanitize.js"></script>
+    <script src="../node_modules/textAngular/dist/textAngular-rangy.min.js"></script>
+    <script src="../node_modules/textAngular/dist/textAngularSetup.js"></script>
+    <script src="../node_modules/textAngular/dist/textAngular.js"></script>
+    <script src="../node_modules/jquery-ui-dist/jquery-ui.js"></script>
+    <script src="../node_modules/angular-clipboard/angular-clipboard.js"></script>
+    <script src="../node_modules/angular-base64/angular-base64.js"></script>
+    <script src="../node_modules/crypto-js/crypto-js.js"></script>
+    <script src="../node_modules/crypto-js/tripledes.js"></script>
+    <script src="../node_modules/crypto-js/aes.js"></script>
+    <script src="../node_modules/crypto-js/enc-utf8.js"></script>
+    <script src="../node_modules/crypto-js/mode-ecb.js"></script>
+    <script src="../node_modules/crypto-js/pad-pkcs7.js"></script>
+    <script src="../node_modules/mathjs/dist/math.min.js"></script>
+    <script src="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../node_modules/ng-scrollbars/dist/scrollbars.min.js"></script>
+    <script src="../node_modules/angular-ismobile/dist/angular-ismobile.min.js"></script>
+    <script src="../node_modules/angular-uuid/angular-uuid.js"></script>
+    <script src="../node_modules/angular-recaptcha/release/angular-recaptcha.js"></script>
+    <script src="../node_modules/jquery-daterangepicker/lib/dist/jquery.daterangepicker.min.js"></script>
+    <script src="../custom-scripts/odometer/odometer.js"></script>
+    <script src="../custom-scripts/flashphoner/flashphoner.min.js"></script>
+    <script src="../custom-scripts/flashphoner/utils.js"></script>
+    <script src="../custom-scripts/FullScreen/fullscreen.js"></script>
+    <script src="../custom-scripts/ifvisiblejs/ifvisible.js"></script>
+    <script src="../custom-scripts/angular-websocket/dist/angular-websocket.js"></script>
+    <script src="../custom-scripts/slick181/slick/slick.min.js"></script>
+    <script src="../custom-scripts/slick181/slick/slick-animation.js"></script>
+    <script src="../custom-scripts/swiper/swiper-bundle.min.js"></script>
+    <!-- endfileblock -->
+    <!-- endbuild -->
+    <!-- build:js(public) scripts/scripts.js -->
+    <!-- fileblock:js scripts -->
+    <script src="../.generated/js/public/app/admin/module.js"></script>
+    <script src="../.generated/js/public/app/common/module.js"></script>
+    <script src="../.generated/js/public/app/help/module.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/tradex/module.js"></script>
+    <script src="../.generated/js/public/app/home/module.js"></script>
+    <script src="../.generated/js/public/app/livegamedemo/module.js"></script>
+    <script src="../.generated/js/public/app/master/module.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/module.js"></script>
+    <script src="../.generated/js/public/app/mobile/module.js"></script>
+    <script src="../.generated/js/public/app/services/module.js"></script>
+    <script src="../.generated/js/public/app/common/controllers/BetControllerBase.js"></script>
+    <script src="../.generated/js/public/app/common/controllers/ControllerBase.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/AdminCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/AdminDashboardCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAAccountCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAB2CSummaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAB2CTransactionsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SABetRateModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAFDLiveBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SALiveBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SANotificationModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAPaymorSummaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/SAStatementsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/account/VoidBetsModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/banking/SABankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/banking/SABankingListCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/banking/SAMemberCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/AddBetfairAccountModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/BetfairAccountCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/BetfairLiveBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/BetfairSportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/BotParamModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/betfair/BridgeSportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/casino-banking/SACasinoBankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/casino-banking/SACasinoBankingListCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/commentary/AddCommentaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/commentary/SASportTreeCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/crypto/AddTokenModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/crypto/ManageTokenCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/crypto/ManageWalletsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/crypto/ManageWithdrawalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/crypto/ViewRequestModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/language/AddLanguageModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/language/AddTranslationModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/language/LanguageCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/language/TranslationCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/offers/AddOfferModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/offers/ManageOffersCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/offers/OfferLogsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/permission/AddRolePermissionModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/permission/PermissionCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/position/SAFullPositionCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/position/SAPositionCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/position/SAPositionTreeCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SAAdminFDReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SADownlineReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SADownlineSummaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SAFDGameReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SAMarketReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/report/SAReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/settings/AddSettingModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/settings/ConfirmWithdrawalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/settings/ManageFDExposure.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/settings/SettingsCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddCompetitionModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddEventModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddEventTypeModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddMarketModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddMarketRuleModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddMarketTypeModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddNotificationModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddRunnerModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/AddRunnerPriceModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/CompetitionCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/EditCloseMarketModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/EventCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/EventTypeCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/GameRunnerStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/ImportMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/LinkVideoModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/ManageMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/MarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/MarketRulesCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/MarketTypeCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/RunnerCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/RunnerPriceCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/sport/RunnerStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/symbol/AddSymbolModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/symbol/SymbolCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/AddUserModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/BTModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/ChangeWebsiteModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/DWModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/NotifyUserModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/SaLiveUsersCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/UpdateSMSConfigModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/UserCommissionModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/user/UserCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/video/AddVideoModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/video/VideoManagerCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/AddCountryModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/AddCurrencyModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/AddIpModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/AddPaymentModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/AddWebsiteModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/CountryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/CurrencyCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/InquiryCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/ManageIpCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/OTPConfigModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/SocketListCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/SystemLog.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/ViewSystemLogModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/admin/controllers/website/WebsiteCtrl.js"></script>
+    <script src="../.generated/js/public/app/app-templates.js"></script>
+    <script src="../.generated/js/public/app/app.js"></script>
+    <script src="../.generated/js/public/app/appConfig.js"></script>
+    <script src="../.generated/js/public/app/common/components/animate-on-change/animate-on-change-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/ant-player/ant-player-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/bet-counter/bet-counter-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/button/button-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/cash-out/cash-out-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/chart/chart-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/countdown/countdown-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/daterangepicker/kt-daterangepicker.js"></script>
+    <script src="../.generated/js/public/app/common/components/file-picker/file-picker-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/file-select/file-select-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/glc-button/glc-button-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/glc-click/kt-click-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/glc-code/glc-code-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/glc-coin/glc-coin-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/grid/grid.controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/grid/grid.scope.js"></script>
+    <script src="../.generated/js/public/app/common/components/has-claim/has-claim-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/inline-bet/bet-modal-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/inline-bet/confirm-bet-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/inline-bet/inline-bet-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/inline-radar/inline-radar-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/kt-date-diff/kt-date-diff-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/kt-date/kt-date-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/kt-rules/kt-game-rules-modal-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/kt-rules/kt-rules-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/kt-rules/kt-rules-modal-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/lmt-score/lmt-score-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/match-box/match-box-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/match-box/match-box-scope.js"></script>
+    <script src="../.generated/js/public/app/common/components/messages/messages-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/messages/messages-scope.js"></script>
+    <script src="../.generated/js/public/app/common/components/number-only/number-only-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/odometer/odometer-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/play-sound/play-sound-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/price-ladder/price-ladder-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/radar/radar-icon-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/radiobutton/radiobutton-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/radiobutton/radiobutton-scope.js"></script>
+    <script src="../.generated/js/public/app/common/components/session-position/session-position-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/shortcut/shortcut-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/token-address/token-address-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/toolbar/toolbar-button/toolbar-button-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/toolbar/toolbar/toolbar-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/tree-view/tree-view-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/tree-view/tree-view-scope.js"></script>
+    <script src="../.generated/js/public/app/common/components/video-js-player/video-js-player-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/video-player/video-player-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/wcs-audio-player/wcs-audio-player-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/wcs-audio-pub/wcs-audio-pub-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/wcs-player/wcs-player-controller.js"></script>
+    <script src="../.generated/js/public/app/common/components/wcs-popup-tv/WcsPopupTVCtrl.js"></script>
+    <script src="../.generated/js/public/app/common/enums/AccountType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/BetFrom.js"></script>
+    <script src="../.generated/js/public/app/common/enums/BetStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/BetfairAccountType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/BettingType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/BinanceOrderType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/CaptchaMode.js"></script>
+    <script src="../.generated/js/public/app/common/enums/CommissionFrom.js"></script>
+    <script src="../.generated/js/public/app/common/enums/CommissionOn.js"></script>
+    <script src="../.generated/js/public/app/common/enums/CommissionType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/ContractType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/CryptoWithdrawalStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/DepositOptions.js"></script>
+    <script src="../.generated/js/public/app/common/enums/EventSource.js"></script>
+    <script src="../.generated/js/public/app/common/enums/EzugiGameType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/FaasAccessLevel.js"></script>
+    <script src="../.generated/js/public/app/common/enums/FairXPayOutStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/GameType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/LogLevel.js"></script>
+    <script src="../.generated/js/public/app/common/enums/MarketGroup.js"></script>
+    <script src="../.generated/js/public/app/common/enums/MarketStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/OTPProvider.js"></script>
+    <script src="../.generated/js/public/app/common/enums/OffPayStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/OfferOn.js"></script>
+    <script src="../.generated/js/public/app/common/enums/OfferType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/PTCode.js"></script>
+    <script src="../.generated/js/public/app/common/enums/PaymorPayoutStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/PriceLadderType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/RunnerStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/ScoreSource.js"></script>
+    <script src="../.generated/js/public/app/common/enums/Segment.js"></script>
+    <script src="../.generated/js/public/app/common/enums/SideType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/SportNodeType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/StorageMode.js"></script>
+    <script src="../.generated/js/public/app/common/enums/SupportedChannel.js"></script>
+    <script src="../.generated/js/public/app/common/enums/TableProvider.js"></script>
+    <script src="../.generated/js/public/app/common/enums/TemporaryStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/TokenChains.js"></script>
+    <script src="../.generated/js/public/app/common/enums/TokenHas.js"></script>
+    <script src="../.generated/js/public/app/common/enums/UserMarketStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/UserStatus.js"></script>
+    <script src="../.generated/js/public/app/common/enums/UserType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/VideoSource.js"></script>
+    <script src="../.generated/js/public/app/common/enums/WSMessageType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/WalletType.js"></script>
+    <script src="../.generated/js/public/app/common/enums/WithdrawalStatus.js"></script>
+    <script src="../.generated/js/public/app/common/filters/bet-filter/bet-filter.js"></script>
+    <script src="../.generated/js/public/app/common/filters/currency/currency-filter.js"></script>
+    <script src="../.generated/js/public/app/common/filters/empty/empty.js"></script>
+    <script src="../.generated/js/public/app/common/filters/response-message/response-message.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/ApkHelper.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/BetModal.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/CommonHelper.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/CreateModal.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/EnumToArray.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/EventTypeHelper.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/LocalCacheHelper.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/LocalStorageHelper.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/PlayingCards.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/PotentialPLCalc.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/SessionLadder.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/TokenPrice.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/VertexResponse.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/banner/BannerModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/toaster/ToastConfig.js"></script>
+    <script src="../.generated/js/public/app/common/helpers/toaster/ToastType.js"></script>
+    <script src="../.generated/js/public/app/common/interceptors/ExportFactory.js"></script>
+    <script src="../.generated/js/public/app/common/interceptors/ResponseInterceptorFactory.js"></script>
+    <script src="../.generated/js/public/app/common/interceptors/WSFactory.js"></script>
+    <script src="../.generated/js/public/app/common/interceptors/WSFairTradeFactory.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/IBaseSettings.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/IBetScopeBase.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/IParamsGrid.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/IScopeBase.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/init/IInit.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/init/IInitScopeValues.js"></script>
+    <script src="../.generated/js/public/app/common/interfaces/init/ILoadInitialData.js"></script>
+    <script src="../.generated/js/public/app/common/messaging/IResponse.js"></script>
+    <script src="../.generated/js/public/app/common/messaging/IResponseMessage.js"></script>
+    <script src="../.generated/js/public/app/common/messaging/ResponseMessage.js"></script>
+    <script src="../.generated/js/public/app/common/messaging/ResponseMessageType.js"></script>
+    <script src="../.generated/js/public/app/common/security/BaseAuthorizationService.js"></script>
+    <script src="../.generated/js/public/app/common/security/permission/IPermissionTypes.js"></script>
+    <script src="../.generated/js/public/app/common/security/permission/PermissionTypes.js"></script>
+    <script src="../.generated/js/public/app/common/services/AuthorizationService.js"></script>
+    <script src="../.generated/js/public/app/common/services/BaseAuthenticationService.js"></script>
+    <script src="../.generated/js/public/app/common/services/BaseService.js"></script>
+    <script src="../.generated/js/public/app/common/services/ConcurrencyService.js"></script>
+    <script src="../.generated/js/public/app/common/services/FilesService.js"></script>
+    <script src="../.generated/js/public/app/common/services/modal/ModalDefaults.js"></script>
+    <script src="../.generated/js/public/app/common/services/modal/ModalOptions.js"></script>
+    <script src="../.generated/js/public/app/common/services/modal/ModalResult.js"></script>
+    <script src="../.generated/js/public/app/common/services/modal/ModalService.js"></script>
+    <script src="../.generated/js/public/app/common/services/shared-data/CommonDataService.js"></script>
+    <script src="../.generated/js/public/app/common/services/shared-data/CommonProcessService.js"></script>
+    <script src="../.generated/js/public/app/common/services/shared-data/PlaceBetDataService.js"></script>
+    <script src="../.generated/js/public/app/common/services/toaster/ToasterService.js"></script>
+    <script src="../.generated/js/public/app/common/settings.js"></script>
+    <script src="../.generated/js/public/app/help/BaseHelpCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/AppCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/BaseCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/HomeCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/LoginCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/PromoCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/PromoSportsCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/AccountStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/BetHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/BonusStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/CasinoStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/ChangePasswordModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/CurrentBetCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/FDBetHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/FDProfitLossCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/LoginHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/LotusMyBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/MyAccountCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/MyBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/MyProfileCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/MyWalletCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/PasswordChangeCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/PaymentGatewayCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/PaymentReceivedCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/ProfitLossCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/RecentPayInOutModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/ReferralStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/SelectOfferModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/account/StakeConfigModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/BFChartModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/FooterCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/LiveGamesRulesModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/MaintenanceCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/PageNotFoundCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/PubLinkCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/RulesModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/SignUpCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/other/VerificationCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/BinaryMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/FullMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/GLCTVCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/HorseHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/HorseMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/InplayCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/InplayLotusCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/LiveGamesCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/LiveGamesHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/LiveGamesMarket.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/MarketHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/MultiMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/MyMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/MyPositionCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/OpenBetsByEventCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/OpenBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/PlaceBetCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/RadarModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/ResultsCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/SportTreeCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/UpcomingRaceCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/VirtualGamesCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/sport/VirtualGamesMarket.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/tradex/BuySellModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/tradex/HomeCtrl.js"></script>
+    <script src="../.generated/js/public/app/home/controllers/tradex/ManageModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/livegamedemo/VideoFrameCtrl.js"></script>
+    <script src="../.generated/js/public/app/livegamedemo/liveGameDemoCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/CreditReferenceModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/MasterCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/ViewCardsModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/account/LiveUsersCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/account/MasterDashboardCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/account/MasterMyAccountCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/account/MasterStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/account/UpdateInfoModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/AddDepositEntryModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/AddDepositOptionModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/BficBankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/OfflineBankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/PayinStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/PaymorPayoutStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/PayoutStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/SetDWLimitsModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banking/ViewBficTransactionModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banners/AddAgentBannerModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/banners/ManageAgentBannersCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/casino-banking/CasinoBankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/cp-users/AddCPUserCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/cp-users/CPAccessModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/cp-users/CPUsersCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/cp-users/EditCPUserModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/AddMemberCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/AddPlayerModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/BankingCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/BetConfigModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/ChangeStatusModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/DownlineCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/EditMemberModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/EditPTModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/NotifyChildCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/PTListingCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/ReferModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/TransferAllModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/TransferModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/downline/UserSettingModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/EventMgmtCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/ExposureDetail.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/FDLiveBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/LiveBetByMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/LiveBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/LiveGameExposureDetail.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/exposure/NetExposureCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/manage-sport/ManageSportCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/manage-sport/MarketParamModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/member/ActivityCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/member/MemberCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/member/MemberTransferCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/member/XMemberBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/B2CActivityCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/B2CSummaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/B2CTransactionsCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/BetListReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/DownlineReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/DownlineSummaryCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/FDGameReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/LotusBetListCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/myreport/MarketReportCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/offers/AddAgentOfferModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/offers/AgentOfferLogsCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/offers/ManageAgentOffersCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/position/FullPositionCtrl - Copy.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/position/FullPositionCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/position/PositionCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/position/PositionTreeCtrl.js"></script>
+    <script src="../.generated/js/public/app/master/controllers/position/PositionViewerCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/GLCChannelModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileBaseCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileBinaryMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileHomeCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileHorseMarket.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileInplayCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileLiveGamesCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileLiveGamesMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileMultiMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileMyMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileOpenBetsCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/MobileSportCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/OpenBetsModalCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileAccountStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileBetHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileCasinoStatementCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileCurrentBet.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileFDBetHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileFDProfitLossCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileLoginHistoryCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileMyProfileCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileMyWalletCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/account/MobileProfitLossCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/BkingHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/BkingLiveGamesHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenBaseCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenHomeCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenRaceHighlightCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenRaceMarketCtrl.js"></script>
+    <script src="../.generated/js/public/app/mobile/controllers/seven/SevenSportCtrl.js"></script>
+    <script src="../.generated/js/public/app/reference.js"></script>
+    <script src="../.generated/js/public/app/services/AccountService.js"></script>
+    <script src="../.generated/js/public/app/services/BetHistoryService.js"></script>
+    <script src="../.generated/js/public/app/services/BetService.js"></script>
+    <script src="../.generated/js/public/app/services/BetfairService.js"></script>
+    <script src="../.generated/js/public/app/services/BridgeService.js"></script>
+    <script src="../.generated/js/public/app/services/CasinoService.js"></script>
+    <script src="../.generated/js/public/app/services/CommentaryService.js"></script>
+    <script src="../.generated/js/public/app/services/CommissionService.js"></script>
+    <script src="../.generated/js/public/app/services/CompetitionService.js"></script>
+    <script src="../.generated/js/public/app/services/ConfigService.js"></script>
+    <script src="../.generated/js/public/app/services/CryptoService.js"></script>
+    <script src="../.generated/js/public/app/services/CurrencyService.js"></script>
+    <script src="../.generated/js/public/app/services/DashboardService.js"></script>
+    <script src="../.generated/js/public/app/services/EventService.js"></script>
+    <script src="../.generated/js/public/app/services/EventTypeService.js"></script>
+    <script src="../.generated/js/public/app/services/ExportService.js"></script>
+    <script src="../.generated/js/public/app/services/ExposureService.js"></script>
+    <script src="../.generated/js/public/app/services/FDService.js"></script>
+    <script src="../.generated/js/public/app/services/FairTradeService.js"></script>
+    <script src="../.generated/js/public/app/services/FeedService.js"></script>
+    <script src="../.generated/js/public/app/services/GoogleTagManagerService.js"></script>
+    <script src="../.generated/js/public/app/services/LanguageService.js"></script>
+    <script src="../.generated/js/public/app/services/MarketOddsService.js"></script>
+    <script src="../.generated/js/public/app/services/MarketRuleService.js"></script>
+    <script src="../.generated/js/public/app/services/MarketService.js"></script>
+    <script src="../.generated/js/public/app/services/MessageService.js"></script>
+    <script src="../.generated/js/public/app/services/NotificationService.js"></script>
+    <script src="../.generated/js/public/app/services/OfferService.js"></script>
+    <script src="../.generated/js/public/app/services/PaymentNumberService.js"></script>
+    <script src="../.generated/js/public/app/services/PermissionService.js"></script>
+    <script src="../.generated/js/public/app/services/PositionService.js"></script>
+    <script src="../.generated/js/public/app/services/RunnerPrice.js"></script>
+    <script src="../.generated/js/public/app/services/RunnerService.js"></script>
+    <script src="../.generated/js/public/app/services/SettingService.js"></script>
+    <script src="../.generated/js/public/app/services/SymbolService.js"></script>
+    <script src="../.generated/js/public/app/services/SystemLogService.js"></script>
+    <script src="../.generated/js/public/app/services/TokenService.js"></script>
+    <script src="../.generated/js/public/app/services/TranslationService.js"></script>
+    <script src="../.generated/js/public/app/services/UserMarketService.js"></script>
+    <script src="../.generated/js/public/app/services/UserService.js"></script>
+    <script src="../.generated/js/public/app/services/VertexService.js"></script>
+    <script src="../.generated/js/public/app/services/VideoService.js"></script>
+    <script src="../.generated/js/public/app/services/WebsiteService.js"></script>
+    <!-- endfileblock -->
+    <!-- endbuild -->
+    <!--<script src="APP03.js"></script>-->
+
+</body>
+</html>

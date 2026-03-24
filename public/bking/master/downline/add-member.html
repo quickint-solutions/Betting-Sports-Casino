@@ -1,0 +1,110 @@
+﻿<div class="master-page-class">
+    <div class="add-member">
+        <div class="list-view">
+            <form name="createuser" ng-submit="ctrl.addUser()" autocomplete="off">
+                <div class="agent-member ">
+                    <div class="member-inner col-sm-3">
+                        <h4 class="member-title">Information</h4>
+                        <div class="input-row" style="padding-top:0px;">
+                            <label>Usercode</label>
+                            <span class="user-input">
+                                {{parentCode}}&nbsp;-&nbsp;
+                                <input type="text" maxlength="1" id="userfl"
+                                       ng-class="{'error-input':newuser.isNameInvalid}"
+                                       required ng-model="newuser.fl" />
+                                &nbsp;-&nbsp;<input maxlength="1" type="text"
+                                                    ng-class="{'error-input':newuser.isNameInvalid}"
+                                                    ng-blur="ctrl.isNameAvailable()"
+                                                    required ng-model="newuser.sl" />
+                            </span>
+                        </div>
+                        <div class="input-row">
+                            <label>User Name</label>
+                            <input class="login-name" type="text" id="newusername"
+                                   min="4" max="16" required placeholder="Username"
+                                   ng-class="{'error-input':newuser.isInvalid}"
+                                   ng-blur="ctrl.isUsernameAvailable()" ng-model="newuser.username" />
+                        </div>
+                        <div class="input-row">
+                            <label>Password</label>
+                            <input class="paswd" autocomplete="new-password"
+                                   min="6" max="20" required placeholder="Password"
+                                   type="password" ng-model="newuser.password" />
+                        </div>
+                        <div class="input-row">
+                            <label>Repeat Password</label>
+                            <input class="paswd" type="password"
+                                   min="6" max="20" required placeholder="Repeat Password"
+                                   ng-model="newuser.confirmpassword" />
+                        </div>
+                        <div class="input-row">
+                            <label>Mobile Number</label>
+                            <input class="paswd" type="text"
+                                   min="6" max="20" placeholder="+919898989898"
+                                   ng-model="newuser.mobile" />
+                        </div>
+                        <div class="member-option">
+                            <p class="" style="padding-bottom:5px;">Status</p>
+                            <label for="active" class="option-detail-circle">
+                                <input type="radio" name="radio" ng-model="newuser.status" value="2">
+                                <span class="checkmark"></span>
+                                Active
+                            </label>
+                            <label for="active" class="option-detail-circle">
+                                <input type="radio" name="radio" ng-model="newuser.status" value="3">
+                                <span class="checkmark"></span>
+                                Inactive
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="member-inner credit-info col-sm-3">
+                        <h4 class="member-title">Credit & PT</h4>
+                        <div class="pop-form-row">
+                            <div class="credit">
+                                <label>Credit Limit</label>
+                                <input style="width:57%;" type="number"
+                                       string-to-number
+                                       min="0" max="{{crLimit}}"
+                                       required kt-number-only allow-decimal="true"
+                                       ng-model="newuser.creditRef" />
+                                <div style="display:inline-block; vertical-align:middle; margin-left:2px;">
+                                    <span class="c-value">>=0</span>
+                                    <span class="c-value"><i class="fa fa-angle-left"></i>={{crLimit | number:0}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pop-form-row mr-top-10">
+                            <div class="credit">
+                                <label>PT</label>
+                                <input style="width:57%;" type="text"
+                                       kt-number-only ng-model="newuser.pt" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-5" style="padding:0;display:inline-block ">
+                        <div class="member-inner notes-inner" style="width:100%">
+                            <h4 class="member-title">Notes</h4>
+                            <textarea maxlength="1000" ng-model="newuser.notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-8" style="width: calc(66.66% + 24px); padding: 0px;">
+                        <div class="add-btn align-r ">
+                            <button type="button" class="cancle-popup" ng-click="ctrl.cancelNewUser();">cancel</button>
+                            <button class="btn btn-default"
+                                    ng-disabled="createuser.$invalid"
+                                    type="submit">
+                                create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,674 @@
+﻿<div class="scrollwrap full-position" style="overflow:auto">
+    <div style="min-width:1500px;float:left">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="bookmark_table full_position">
+                    <div class="tab-desc">
+                        <div class="scorecard">
+                            <div class="game-head" style="" ng-class="{'column-2' : !market.commentary.inning2InPlay}">
+                                <table class="game-scores" style="display: table;color:white" ng-if="market.commentary">
+                                    <tbody>
+                                        <tr>
+                                            <td class="pin-btn"></td>
+                                            <td class="scores-team">
+                                                <h4 id="teamHome" class="bold">{{market.commentary.homeTeam}}</h4>
+                                                <h4 id="teamAway" class="bold">{{market.commentary.awayTeam}}</h4>
+                                                <div class="scores-time {{market.commentary.cssClass}}" ng-if="market.commentary.commentary">
+                                                    <i class="fa fa-commenting"></i>
+                                                    {{market.commentary.commentary}}
+                                                    <ul ng-if="market.commentary.lastOver" class="cmt-over-ul">
+                                                        <li ng-repeat="lo in market.commentary.lastOver track by $index" class="cmt-over-li">
+                                                            <span class="cmt-over-txt run_{{lo.innertxt}}">{{lo.innertxt}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <span class="scores-time" ng-if="market.commentary.stateOfBall">
+                                                    <span ng-if="market.commentary.currentDay">
+                                                        Day : {{market.commentary.currentDay}} &nbsp;&nbsp;&nbsp;
+                                                    </span>
+
+                                                    <span>
+                                                        <i class="fa fa-blind" style="color: #9dff9d;"></i>
+                                                        {{market.commentary.stateOfBall.batsmanName}}
+                                                    </span>
+                                                    &nbsp;
+                                                    <span>
+                                                        <i class="fa fa-circle" style="color:#db4b4b"></i>
+                                                        {{market.commentary.stateOfBall.bowlerName}}
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td class="scores-box">
+                                                <h4 class="bold">
+                                                    <span>{{market.commentary.inning1HomeScore}}</span>
+                                                </h4>
+                                                <h4 class="bold">
+                                                    <span>{{market.commentary.inning1AwayScore}}</span>
+                                                </h4>
+                                                <span class="scores-inns">Innings 1</span>
+                                            </td>
+                                            <td class="scores-box" style="display: table-cell;" ng-if="market.commentary.inning2InPlay">
+                                                <h4 class="bold">
+                                                    <span>{{market.commentary.inning2HomeScore}}</span>
+                                                </h4>
+                                                <h4 class="bold">
+                                                    <span>{{market.commentary.inning2AwayScore}}</span>
+                                                </h4>
+                                                <span class="scores-inns">Innings 2</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="game-scores" style="display: table;color:white" ng-if="market.score && market.isTennis">
+                                    <tbody>
+                                        <tr>
+                                            <td class="pin-btn"></td>
+                                            <td class="scores-team">
+                                                <h4 id="teamHome" class="bold">{{market.score.score.home.name}}</h4>
+                                                <h4 id="teamAway" class="bold">{{market.score.score.away.name}}</h4>
+                                                <span class="tennis-scores-time green-light">
+                                                    Set {{market.score.currentSet}}
+                                                </span>
+                                                <span> | </span>
+                                                <span class="tennis-scores-time green-light">
+                                                    {{market.score.fullTimeElapsed.hour}}h{{market.score.fullTimeElapsed.min}}
+                                                </span>
+                                            </td>
+                                            <td class="tennis-scores-box" ng-repeat="ig in [0,1,2,3] | limitTo:market.score.currentSet-1">
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.home.gameSequence[ig]}}</span>
+                                                </h4>
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.away.gameSequence[ig]}}</span>
+                                                </h4>
+                                                <span class="scores-inns">{{$index+1}}</span>
+                                            </td>
+                                            <td class="tennis-scores-box green-light">
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.home.games}}</span>
+                                                </h4>
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.away.games}}</span>
+                                                </h4>
+                                                <span class="scores-inns">{{market.score.currentSet}}</span>
+                                            </td>
+                                            <td class="tennis-scores-box green-light">
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.home.score}}</span>
+                                                </h4>
+                                                <h4 class="bold">
+                                                    <span>{{market.score.score.away.score}}</span>
+                                                </h4>
+                                                <span class="scores-inns">Point</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="twoTeam" ng-if="!market.commentary && !market.isTennis && !market.isSoccer">
+                                    <div class="game-visit bold">
+                                        {{market.event.name}}
+                                    </div>
+                                </div>
+
+                                <div class="twoTeam soccer-score" ng-if="market.isSoccer">
+                                    <table class="game-scores " style="display: table;color:white">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pin-btn"></td>
+                                                <td class="scores-team">
+                                                    <span class="bold">{{market.score.score.home.name}}</span>
+                                                    <span class="green-light">{{market.score.score.home.score}} - </span>
+                                                    <span class="green-light">{{market.score.score.away.score}}</span>
+                                                    <span class="bold"> {{market.score.score.away.name}}</span>
+                                                    <span class="scores-time green-light" ng-if="market.score.inPlayMatchStatus!='FirstHalfEnd'">
+                                                        <i class="fa fa-clock-o"></i> {{market.score.timeElapsed}} '
+                                                    </span>
+                                                    <span class="scores-time green-light" style="text-transform:capitalize" ng-if="market.score.inPlayMatchStatus=='FirstHalfEnd'">
+                                                        Half-Time
+                                                    </span>
+                                                    <span class="scores-time green-light" style="text-transform:capitalize" ng-if="market.score.inPlayMatchStatus=='COMPLETE'">
+                                                        Finished
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="progress_bar">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-6 progress-left">
+                                                    <div class="top-bar">
+                                                        <div class="bottom-bar" style="width:{{(market.score.firstHalf.timeElapsed)*(market.score.firstHalf.divideBy) | number:2}}%;"></div>
+                                                        <span ng-repeat="u in market.score.firstHalf.detail"
+                                                              ng-class="{'yellow-card':u.type=='YellowCard',
+                                'red-card':u.type=='RedCard',
+                                'ball':u.type=='Goal',
+                                'top-card':u.team=='home',
+                                'bottom-card':u.team=='away'}"
+                                                              style="left:{{(u.matchTime)*(market.score.firstHalf.divideBy) | number:2}}%"
+                                                              uib-tooltip="{{u.type=='YellowCard' || u.type=='RedCard' ? (u.matchTime+'\' '+u.teamName) : ''}}"
+                                                              tooltip-placement="{{u.team=='home' ? 'top' :'bottom'}}">
+                                                            <i class="fa fa-futbol-o" aria-hidden="true" ng-if="u.type=='Goal'"
+                                                               ng-class="{'mr-top-24':u.team=='away'}"
+                                                               tooltip-placement="{{u.team=='home' ? 'top' :'bottom'}}" uib-tooltip="{{u.matchTime}}' {{u.teamName}}"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 progress-right">
+                                                    <div class="top-bar">
+                                                        <div class="bottom-bar" style="width:{{(market.score.secondHalf.timeElapsed)*(market.score.secondHalf.divideBy) | number:2}}%;"></div>
+                                                        <span ng-repeat="u in market.score.secondHalf.detail"
+                                                              ng-class="{'yellow-card':u.type=='YellowCard',
+                                'red-card':u.type=='RedCard',
+                                'ball':u.type=='Goal',
+                                'top-card':u.team=='home',
+                                'bottom-card':u.team=='away'}"
+                                                              style="left:{{(u.left)*(market.score.secondHalf.divideBy) | number:2}}%"
+                                                              uib-tooltip="{{u.type=='YellowCard' || u.type=='RedCard' ? (u.matchTime+'\' '+u.teamName) : ''}}"
+                                                              tooltip-placement="{{u.team=='home' ? 'top' :'bottom'}}">
+                                                            <i class="fa fa-futbol-o" aria-hidden="true" ng-if="u.type=='Goal'"
+                                                               ng-class="{'mr-top-24':u.team=='away'}"
+                                                               tooltip-placement="{{u.team=='home' ? 'top' :'bottom'}}" uib-tooltip="{{u.matchTime}}' {{u.teamName}}"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-info">
+                                <span ng-if="market.inPlay && market.marketStatus!=4">
+                                    <i class="fa fa-clock-o fa-lg in-time"></i>
+                                    {{'inplay.label' | translate}}
+                                </span>
+
+                                <span ng-if="!market.inPlay && market.marketStatus!=4">
+                                    <i class="fa fa-clock-o fa-lg out-time"></i>
+                                    {{market.event.openDate | date:'EEE dd MMM, H:mm'}}
+                                </span>
+                                <span ng-if="market.marketStatus==4">
+                                    <i class="fa fa-clock-o fa-lg closed"></i>{{'closed.label' | translate}}
+                                </span>
+                                <span class="float-r" style="margin-right:10px">
+                                    <nope class="oneclick-off float-l" style="margin-right: 10px; line-height: 30px;">Include PT?</nope>
+                                    <span class="one-click-bet master-toggle float-l pad-0">
+                                        <label class="switch">
+                                            <input class="switch-input" type="checkbox" ng-model="includePT"
+                                                   ng-click="ctrl.includePTChanged();" />
+                                            <nope class="switch-label" data-on="Yes" data-off="No"></nope>
+                                            <nope class="switch-handle"></nope>
+                                        </label>
+                                    </span>
+                                </span>
+                                <span class="float-r" style="margin-right:10px">
+                                    <nope class="oneclick-off float-l" style="margin-right: 10px; line-height: 30px;">Event Bet Locked?</nope>
+                                    <span class="one-click-bet master-toggle float-l pad-0">
+                                        <label class="switch">
+                                            <input class="switch-input" type="checkbox" ng-model="bettingLocked"
+                                                   ng-click="ctrl.bettingLockStatusChanged();" />
+                                            <nope class="switch-label" data-on="Yes" data-off="No"></nope>
+                                            <nope class="switch-handle"></nope>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="collapse in">
+                            <div class="col-sm-12" style="border-right: 1px solid rgb(128, 128, 128);padding-bottom:15px">
+                                <table class="team-score" ng-if="market.bettingType!=6 && market.bettingType!=8">
+                                    <tbody ng-if="market.bettingType!=7 && market.bettingType!=2" ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                        <tr class="bet-all">
+                                            <td class="refer-bet">
+                                                <span>{{market.name}}</span>
+                                                <span class="mrg-left-5">
+                                                    <a class="text-danger" ng-click="ctrl.getUserPosition(market)"><i class="fa fa-refresh"></i></a>
+                                                </span>
+                                                <span class="mrg-left-5" ng-show="market.pl!=0">
+                                                    <i class="icon-ladder icons fa"
+                                                       ng-click="ctrl.openBook($event,market)"></i>
+                                                </span>
+                                            </td>
+                                            <td class="refer-bet" colspan="2"></td>
+                                            <td class="back-all bold"><a><span>{{'market.back.label' | translate}}</span></a></td>
+                                            <td class="lay-all bold"><a><span>{{'market.lay.label' | translate}}</span></a></td>
+                                            <td class="refer-book" colspan="2"></td>
+                                        </tr>
+                                        <tr class="tr-data" style="display: table-row;" ng-repeat="r in market.marketRunner">
+                                            <th class="team-name">
+                                                <p>
+                                                    {{r.runner.name}}
+                                                    <span ng-if="r.pl" class="positive"
+                                                          ng-class="{'negative':r.pl<0}">
+                                                        {{r.pl  | toRate}}
+                                                    </span>
+                                                    <span class="winner" ng-if="r.status==2">{{'winner.label'|translate}}</span>
+                                                </p>
+
+                                            </th>
+                                            <td class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                                                ng-repeat="i in [3,2,1]">
+                                                <kt-glc data-item="r.backPrice[i-1]" data-is-bm="{{market.source!=1}}"></kt-glc>
+                                            </td>
+                                            <td class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                                                ng-repeat="i in [1,2,3]">
+                                                <kt-glc data-item="r.layPrice[$index]" data-is-bm="{{market.source!=1}}"></kt-glc>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="market.bettingType==7 || market.bettingType==2" ng-show="market.mr.priceLength"
+                                           ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                        <tr class="bet-all">
+                                            <td class="refer-bet">
+                                                <span>{{market.name}}</span>
+                                                <span class="mrg-left-5">
+                                                    <a class="text-danger" ng-hide="market.marketStatus==4" ng-click="ctrl.getSessionPosition(market)">
+                                                        <i class="fa fa-refresh"></i>
+                                                    </a>
+                                                </span>
+                                                <span class="mrg-left-5" ng-show="market.pl!=0">
+                                                    <i class="icon-ladder icons fa"
+                                                       ng-click="ctrl.openBook($event,market)"></i>
+                                                </span>
+                                                <span ng-show="market.marketStatus==4"><strong> {{'winner.label'|translate}} is : {{market.winner}}</strong></span>
+                                            </td>
+                                            <td class="refer-bet" colspan="2"></td>
+                                            <td class="lay-all bold"><a><span>{{'market.no.label' | translate}}</span></a></td>
+                                            <td class="back-all bold"><a><span>{{'market.yes.label' | translate}}</span></a></td>
+                                            <td class="refer-book" colspan="2"></td>
+                                        </tr>
+                                        <tr class="tr-data" style="display: table-row;" ng-repeat="br in market.mr.priceLength">
+                                            <th class="team-name">
+                                                <p ng-if="$index==0">
+                                                    {{market.mr.runner.name}}
+                                                    <span class="positive"
+                                                          ng-class="{'negative':market.pl<0}">
+                                                        {{market.pl | toRate}}
+                                                    </span>
+                                                </p>
+                                            </th>
+                                            <td class="lay-3"></td>
+                                            <td class="lay-2"></td>
+                                            <td class="lay-1" kt-animate-on-change="market.mr.layPrice[$index].size">
+                                                <kt-glc data-item="market.mr.layPrice[$index]"></kt-glc>
+                                            </td>
+                                            <td class="back-1" kt-animate-on-change="market.mr.backPrice[$index].size">
+                                                <kt-glc data-item="market.mr.backPrice[$index]"></kt-glc>
+                                            </td>
+                                            <td class="back-2"></td>
+                                            <td class="back-3"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="team-score" ng-if="market.bettingType==6 || market.bettingType==8">
+                                    <div class="bet-all">
+                                        <div class="refer-bet">
+                                            <span>{{market.name}}</span>
+                                            <span class="mrg-left-5">
+                                                <a class="text-danger" ng-if="market.bettingType!=8" ng-click="ctrl.getUserPosition(market)"><i class="fa fa-refresh"></i></a>
+                                                <a class="text-danger" ng-if="market.bettingType==8" ng-click="ctrl.getSessionPosition(market)"><i class="fa fa-refresh"></i></a>
+                                            </span>
+                                            <span class="mrg-left-5" ng-show="market.pl!=0">
+                                                <i class="icon-ladder icons fa"
+                                                   ng-click="ctrl.openBook($event,market)"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports_book " ng-if="market.bettingType==6 || market.bettingType==8">
+                                    <table>
+                                        <tbody ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                            <tr class="sports_data">
+                                                <td class="sport_td" ng-repeat="r in market.marketRunner">
+                                                    <div class="runner_name">
+                                                        <p>
+                                                            <span class="name ng-binding">{{r.runner.name}}</span>
+                                                            <span ng-if="r.pl && market.bettingType!=8" class="positive"
+                                                                  ng-class="{'negative':r.pl<0}">
+                                                                {{r.pl  | toRate}}
+                                                            </span>
+                                                            <span ng-if="market.pl && market.bettingType==8" class="positive"
+                                                                  ng-class="{'negative':market.pl<0}">
+                                                                {{market.pl  | toRate}}
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="r_score com-button" kt-animate-on-change="r.backPrice[0].price">
+                                                        <kt-glc ng-show="r.status!=2" data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                                                        <a ng-show="r.status==2">{{'winner.label'|translate}}</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!--fancy match odds-->
+                            <div class="col-sm-12" ng-repeat="market in otherMarkets | filter:{temporaryStatus:'!4'} | orFilter:'bettingType':[1,9]">
+                                <table class="team-score">
+                                    <tbody ng-if="market.bettingType!=7 && market.bettingType!=2" ng-class="{'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                        <tr class="bet-all">
+                                            <td class="refer-bet">
+                                                <span>{{market.name}}</span>
+                                                <span class="mrg-left-5">
+                                                    <a class="text-danger" ng-click="ctrl.getUserPosition(market)"><i class="fa fa-refresh"></i></a>
+                                                </span>
+                                                <span class="mrg-left-5" ng-show="market.pl!=0">
+                                                    <i class="icon-ladder icons fa"
+                                                       ng-click="ctrl.openBook($event,market)"></i>
+                                                </span>
+                                            </td>
+                                            <td class="refer-bet" colspan="2"></td>
+                                            <td class="back-all bold"><a><span>{{'market.back.label' | translate}}</span></a></td>
+                                            <td class="lay-all bold"><a><span>{{'market.lay.label' | translate}}</span></a></td>
+                                            <td class="refer-book" colspan="2"></td>
+                                        </tr>
+                                        <tr class="tr-data" style="display: table-row;" ng-repeat="r in market.marketRunner">
+                                            <th class="team-name">
+                                                <p>
+                                                    {{r.runner.name}}
+                                                    <span ng-if="r.pl" class="positive"
+                                                          ng-class="{'negative':r.pl<0}">
+                                                        {{r.pl  | toRate}}
+                                                    </span>
+                                                    <span class="winner" ng-if="r.status==2">{{'winner.label'|translate}}</span>
+                                                </p>
+
+                                            </th>
+                                            <td class="back-{{i}} " kt-animate-on-change="r.backPrice[i-1].size"
+                                                ng-repeat="i in [3,2,1]">
+                                                <kt-glc data-item="r.backPrice[i-1]" data-is-bm="{{market.source!=1}}"></kt-glc>
+                                            </td>
+                                            <td class="lay-{{i}} " kt-animate-on-change="r.layPrice[$index].size"
+                                                ng-repeat="i in [1,2,3]">
+                                                <kt-glc data-item="r.layPrice[$index]" data-is-bm="{{market.source!=1}}"></kt-glc>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!--other market in tab-->
+                            <div class="col-sm-12 mr-top-20" ng-init="selectedTab=0">
+                                <ul class="nav nav-tabs">
+                                    <li ng-repeat="b in bettingTypeList"
+                                        ng-click="$parent.selectedTab=$index" ng-class="{'active':selectedTab==$index}">
+                                        <a>
+                                            {{ctrl.getTabName($index)}}
+                                            <span class="badge">{{(otherMarkets | filter:{temporaryStatus:'!4'} | filter:{bettingType:b.id}).length }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" ng-class="{'in active':selectedTab==$index}"
+                                         ng-repeat="b in bettingTypeList">
+                                        <div ng-repeat="market in otherMarkets | filter:{temporaryStatus:'!4'} |  filter:{bettingType:b.id} | orderBy:'displayOrder'">
+                                            <table class="team-score" ng-if="market.bettingType==7 || market.bettingType==2">
+                                                <tbody ng-show="market.mr.priceLength"
+                                                       ng-class="{'newitem':market.newitem,'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                                    <tr class="tr-data" style="display: table-row;" ng-repeat="br in market.mr.priceLength">
+                                                        <th class="team-name">
+                                                            <p ng-if="$index==0">
+                                                                {{market.name}}
+                                                                <span class="positive" ng-show="market.pl!=0"
+                                                                      ng-class="{'negative':market.pl<0}">
+                                                                    {{market.pl | toRate}}
+                                                                </span>
+                                                            </p>
+                                                        </th>
+                                                        <td class="lay-3">  <span ng-show="market.marketStatus==4"><strong>{{market.winner}}</strong></span></td>
+                                                        <td class="lay-2"></td>
+                                                        <td class="lay-1" kt-animate-on-change="market.mr.layPrice[$index].size">
+                                                            <kt-glc data-item="market.mr.layPrice[$index]"></kt-glc>
+                                                        </td>
+                                                        <td class="back-1" kt-animate-on-change="market.mr.backPrice[$index].size">
+                                                            <kt-glc data-item="market.mr.backPrice[$index]"></kt-glc>
+                                                        </td>
+                                                        <td class="back-2"></td>
+                                                        <td class="back-3">
+                                                            <span ng-if="$index==0">
+                                                                <span class="text-danger " ng-hide="market.marketStatus==4" ng-click="ctrl.getSessionPosition(market)"><i class=" fa fa-refresh"></i></span>
+                                                                <span class="mrg-left-5 parent-box box2" ng-show="market.pl!=0">
+                                                                    <i class="icon-ladder icons fa"
+                                                                       ng-click="ctrl.openBook($event,market)"></i>
+                                                                </span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="sports_book" ng-if="market.bettingType==6 || market.bettingType==8">
+                                                <div style="padding:5px 0px;">
+                                                    <span class="win-title">{{market.name}}</span>
+                                                    <span class="mrg-left-5">
+                                                        <a class="text-danger" ng-if="market.bettingType!=8" ng-click="ctrl.getUserPosition(market)"><i class=" fa fa-refresh"></i></a>
+                                                        <a class="text-danger" ng-if="market.bettingType==8" ng-click="ctrl.getSessionPosition(market)"><i class=" fa fa-refresh"></i></a>
+                                                    </span>
+                                                    <span class="mrg-left-5" ng-show="market.pl!=0">
+                                                        <i class="icon-ladder icons fa"
+                                                           ng-click="ctrl.openBook($event,market)"></i>
+                                                    </span>
+                                                </div>
+                                                <table>
+                                                    <tbody ng-class="{'newitem':market.newitem,'stop':market.temporaryStatus==3,'ball':market.temporaryStatus==2,'suspend':market.marketStatus==3,'closed':market.marketStatus==4}">
+                                                        <tr class="sports_data">
+                                                            <td class="sport_td" ng-repeat="r in market.marketRunner">
+                                                                <div class="runner_name">
+                                                                    <p>
+                                                                        <span class="name ng-binding">{{r.runner.name}}</span>
+                                                                        <span ng-if="r.pl && market.bettingType!=8" class="positive"
+                                                                              ng-class="{'negative':r.pl<0}">
+                                                                            {{r.pl  | toRate}}
+                                                                        </span>
+                                                                        <span ng-if="market.pl && market.bettingType==8" class="positive"
+                                                                              ng-class="{'negative':market.pl<0}">
+                                                                            {{market.pl  | toRate}}
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="r_score com-button" kt-animate-on-change="r.backPrice[0].price">
+                                                                    <kt-glc ng-show="r.status!=2" data-item="r.backPrice[0]" data-show-size="false"></kt-glc>
+                                                                    <a ng-show="r.status==2">{{'winner.label'|translate}}</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row filter-panel mrg-left-0">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-5 ">
+                            <div class="input_text ">
+                                <ui-select ng-model="search.selectedUser" theme="bootstrap"
+                                           close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                                        {{$select.selected.username+' ('+$select.selected.userCode+')'}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="u in anyUserList | filter: $select.search | limitTo:15"
+                                                       class="ui-select-choices"
+                                                       refresh="$parent.ctrl.searchUser($select.search)">
+                                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                        &nbsp;-&nbsp;
+                                        <span class="align-l" ng-bind-html="u.userCode | highlight: $select.search"></span>
+                                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.name"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input_text">
+                                <ui-select ng-model="search.selectedMarket" theme="bootstrap" tabindex="2" close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Market">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="mt in marketList | filter: $select.search | orderBy:'name'" class="ui-select-choices">
+                                        <span ng-bind-html="mt.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mr-top-10">
+                        <div class="col-sm-2 ">
+                            <select ng-model="search.status" class="form-control">
+                                <option ng-repeat="b in betStatus" value="{{b.id}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <select ng-model="search.betside" class="form-control">
+                                <option ng-repeat="b in betSides" value="{{b.id}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn bets" ng-click="ctrl.fetchLiveBetsData();">
+                                {{'common.button.getlivebets' | translate}}
+                            </a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-default" ng-click="ctrl.resetCriteria();">
+                                {{'common.button.reset' | translate}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-bets" ng-if="search.status == -1 || search.status ==3">
+                <kt-grid grid-id="kt-unmatchedlivebets-grid"
+                         load-items="ctrl.getUnmatchedBets(params)"
+                         show-total="true"
+                         data-total-row-msg="common.total.unmatchedbets.label"
+                         cache-key="ktunmatchedlivebetsgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable master_table"
+                           template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                        <tbody class="info-text">
+                            <tr ng-repeat="item in $data track by item.id">
+                                <td data-title="::'runner.name.label' | translate"
+                                    data-sortable="'runnername'"
+                                    data-header-class="'size-sm'" class="size-sm">
+                                    <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                                </td>
+                                <td data-title="::'user.name.label' | translate"
+                                    data-header-class="'size-sm'" class="size-sm"
+                                    uib-tooltip="{{item.user.parent.parent.username}} >> {{item.user.parent.username}} >> {{item.user.username}}">
+                                    <label>
+                                        <span><strong>{{item.user.username}}</strong></span>
+                                        <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent"></i>
+                                        <span ng-if="item.user.parent">{{item.user.parent.username}}</span>
+
+
+                                    </label>
+                                </td>
+                                <td data-title="::'side.label' | translate"
+                                    data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                    data-sortable="'side'">
+                                    <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}}</span>
+                                </td>
+                                <td data-title="::'price.label' | translate"
+                                    data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                    data-sortable="'price'">
+                                    <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                                </td>
+                                <td data-title="::'sizerem.label' | translate"
+                                    data-header-class="'size-md boolean'" class="size-md boolean"
+                                    data-sortable="'sizeremaining'">
+                                    <span title="{{item.sizeRemaining | toRate}}">{{item.sizeRemaining | toRate}} </span>
+                                </td>
+                                <td data-title="::'betid.label' | translate"
+                                    data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                    data-sortable="'id'">
+                                    <span title="{{item.id}}">{{item.id}} </span>
+                                </td>
+                                <td data-title="::'createddate.label' | translate"
+                                    data-header-class="'size-md'" class="size-md"
+                                    data-sortable="'createdon'">
+                                    <span title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+
+            <div class="table-bets full-position-table" ng-if="(search.status == -1 || search.status ==2) ">
+                <kt-grid grid-id="kt-matchedlivebets-grid"
+                         load-items="ctrl.getMatchedBets(params)"
+                         show-total="true"
+                         data-total-row-msg="common.total.matchedbets.label"
+                         cache-key="ktmatchedlivebetsgrid">
+
+                    <table ng-table="tableParams" class="table table-hover clickable master_table"
+                           template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                        <tbody class="info-text">
+                            <tr ng-repeat="item in $data track by item.id">
+                                <td data-title="::'market.name.label' | translate"
+                                    data-header-class="'size-sm'" class="size-sm">
+                                    <span>{{item.market.name}} </span>
+                                </td>
+                                <td data-title="::'runner.name.label' | translate"
+                                    data-header-class="'size-sm'" class="size-sm"
+                                    data-sortable="'runnername'">
+                                    <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                                </td>
+                                <td data-title="::'user.name.label' | translate"
+                                    data-header-class="'size-xsm'" class="size-xsm"
+                                    uib-tooltip="{{item.user.parent.parent.username}} >> {{item.user.parent.username}} >> {{item.user.username}}">
+                                    <label>
+                                        <span><strong>{{item.user.username}}</strong></span>
+                                    </label>
+                                </td>
+                                <td data-title="::'side.label' | translate"
+                                    data-header-class="'size-xs boolean'" class="size-xs boolean"
+                                    data-sortable="'side'">
+                                    <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}} </span>
+                                </td>
+                                <td data-title="::'price.label' | translate"
+                                    data-header-class="'size-xs boolean'" class="size-xs boolean"
+                                    data-sortable="'price'">
+                                    <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                                </td>
+                                <td data-title="::'sizematched.label' | translate"
+                                    data-header-class="'size-xsm boolean'" class="size-xsm boolean"
+                                    data-sortable="'sizematched'">
+                                    <span title="{{item.sizeMatched | toRate}}">{{item.sizeMatched | toRate}} </span>
+                                </td>
+                                <td data-title="::'avgprice.label' | translate"
+                                    data-header-class="'size-xsm boolean'" class="size-xsm boolean"
+                                    data-sortable="'avgprice'">
+                                    <span title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                                </td>
+                                <td data-title="::'betid.label' | translate"
+                                    data-header-class="'size-xsm boolean'" class="size-xsm boolean"
+                                    data-sortable="'id'">
+                                    <span title="{{item.id}}">{{item.betId}} </span>
+                                </td>
+                                <td data-title="::'createddate.label' | translate"
+                                    data-header-class="'size-sm'" class="size-sm"
+                                    data-sortable="'createdon'">
+                                    <span title="{{item.createdOn }}">{{item.createdOn | date:'dd MMM, HH:mm:ss'}} </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </kt-grid>
+            </div>
+        </div>
+    </div>
+</div>

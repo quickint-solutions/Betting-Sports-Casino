@@ -1,0 +1,118 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+
+#home.home-particles {
+	background:$lunching-bg;  //#020507;
+	overflow: hidden;
+}
+#home.home-particles .pg-canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100% !important;
+	width: 100% !important;
+	opacity: .12;
+}
+#home.home-particles .shadow-overlay {
+	display: none;
+}
+#home {
+	background: #020507;
+	width: 100%;
+    height:100vh;
+	//height: 100%;
+	/*min-height: 800px;*/
+	z-index: 600;
+	position: relative;
+}
+#home .shadow-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: .9;
+	background: -moz-linear-gradient(left, black 0%, black 20%, transparent 100%);  /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, black 0%, black 20%, transparent 100%);  /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, black 0%, black 20%, transparent 100%);  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#00000000', GradientType=1);  /* IE6-9 */
+}
+#home .row {
+	//max-width: 1290px;
+    margin:0 auto;
+    padding:0px 5%;
+}
+
+.section-logo{
+    background-repeat: no-repeat;
+    display:block;
+
+    margin-bottom:12rem;
+}
+
+.content-wrap-table {
+	width: 100%;
+	height: 100%;
+	display: table;
+	position: relative;
+}
+.main-content-tablecell {
+	display: table-cell;
+    vertical-align: middle;
+	z-index: 700;
+}
+.main-content-tablecell .row {
+	position: relative;
+	padding-top: 5.2rem;  //4.2rem;
+	padding-bottom: 15rem;
+}
+
+.main-content-tablecell #counter {
+	margin-bottom: 4.2rem;
+}
+.main-content-tablecell #counter:before,
+.main-content-tablecell #counter:after {
+	content: "";
+	display: table;
+}
+.main-content-tablecell #counter:after {
+	clear: both;
+}
+.main-content-tablecell #counter .half {
+	float: left;
+}
+.main-content-tablecell #counter span {
+	float: left;
+	text-align: right;
+	color: $lunching-title;
+	font-family: "roboto-black", sans-serif;
+	font-size: 7vw;
+	line-height: 1;
+	padding: 0;
+	margin-bottom: 1.5rem;
+    font-weight:bold;
+}
+.main-content-tablecell #counter span sup {
+	font-family: "roboto-bold", sans-serif;
+	font-size: .17em;
+	color: $lunch-text;
+	top: -3.6em;
+	right: 1em;
+}
+.main-content-tablecell h1 {
+	font-size: 3.5vw;
+	line-height: 1;
+	color: $lunching-title;
+	margin-bottom: 1.2rem;
+	//max-width: 600px;
+	position: relative;
+    font-weight:bold;
+}
+.main-content-tablecell p {
+	color:$lunch-text;
+	font-family: "roboto-regular", sans-serif;
+	font-size: 1.5vw;
+	//max-width: 80%;
+}

@@ -1,0 +1,136 @@
+﻿<div class="main-section">
+    <div class="wrapper">
+        <header class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="header-top col-sm-12">
+                        <div class="float-left" style="display:flex; min-height:100px;">
+                            <a ui-sref="base.home" class="logo-img"></a>
+                        </div>
+                        <ul class="float-right">
+                            <li class="search float-left">
+                                <div id="searchbar" class="collapsed">
+                                    <div id="search-box">
+                                        <div id="sliding-panel-outer">
+                                            <div id="sliding-panel-inner">
+                                                <input type="text" id="search-input" placeholder="All Events" />
+                                            </div>
+                                        </div>
+
+                                        <div class="search-label">
+                                            <i class="fas fa-search-plus"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="apk float-left">
+                                <div><a href="#">rules</a></div>
+                                <div><a ng-click="ctrl.downloadAPK()" ng-if="hasAPK">download apk<i class="fab fa-android" style="margin-left:3px;"></i></a></div>
+                                <div ng-if="isOBD"><a ui-sref="base.home.account.transferonline({tab:5})" style="text-decoration:underline;">Offline Bank Detail <i class="fas fa-university" style="margin-left:3px;"></i></a></div>
+                            </li>
+                            <li class="balance float-left">
+                                <div>
+                                    <span>
+                                        Balance:<b>
+                                            <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                                        </b>
+                                    </span>
+                                </div>
+                                <div>
+                                    <a href="#">
+                                        <span>exposure:<b><kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code></b></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="account float-left">
+                                <div class="header-dropdown">
+                                    <a class="header-drop">{{user.username}}<i class="fas fa-angle-down"></i></a>
+                                    <div class="menu-content">
+                                        <a href="" ui-sref="base.home.account.profile">
+                                            {{'myprofile.label' | translate}}
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.statement">
+                                            {{'accountstatement.label' | translate}}
+                                        </a>
+                                        <a ui-sref="base.home.account.wallet">
+                                            {{'mywallet.label' | translate}}
+                                        </a>
+                                        <a ng-if="isB2C"
+                                           ui-sref="base.home.account.transferonline">
+                                            Deposit/Withdrawal
+                                        </a>
+                                        <a ui-sref="base.home.account.bonusstatement" ng-if="isB2C">
+                                            Bonus Statement
+                                        </a>
+                                        <a ui-sref="base.home.account.referralstatement" ng-if="hasReferral">
+                                            Referral Statement
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.bets.current"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            {{'mybets.label' | translate}}
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.bets.history"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            Bet History
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.profitloss"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            ProfitLoss
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.fdprofitloss"
+                                           kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                            FD ProfitLoss
+                                        </a>
+                                        <a href="" ui-sref="base.home.account.loginhistory"
+                                           kt-has-claim claims="{Claims: ['client.loginhistory.view']}">
+                                            {{'loginhistory.label' | translate}}
+                                        </a>
+                                        <a ui-sref="base.home.account.setting">Set Button Values</a>
+                                        <a ui-sref="base.home.account.passwordchange">
+                                            Change Password
+                                        </a>
+                                        <a><hr /></a>
+                                        <a ng-click="ctrl.logout();">signout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <marquee scrollamount="3" ng-if="announcement">{{announcement}}</marquee>
+                    </div>
+
+                    <div class="header-bottom col-sm-12">
+                        <nav class="full-nav">
+                            <div class="navbar-col">
+                                <ul class="nav-bar">
+                                    <li><a ui-sref="base.home">home</a></li>
+                                    <li class="newlaunch">
+                                        <a class="newlaunch"
+                                           ui-sref="base.home.inplay">{{'inplay.label' | translate}}</a>
+                                    </li>
+
+                                    <li ng-repeat="e in eventTypes | filter:{showInMenu:true}" ng-class="{'newlaunch':e.isLiveGame}">
+                                        <a ng-click="ctrl.menuClick(e.id,e.name)" ng-class="{'newlaunch':e.isLiveGame}">
+                                            {{e.name}}
+                                        </a>
+                                    </li>
+                                    <li class="newlaunch" ng-if="hasCasino">
+                                        <a ui-sref="base.livegames" class="newlaunch">{{'fd.casino.label' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="base.home.results">{{'results.label' | translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <div class="main" ui-view="main">
+
+        </div>
+
+    </div>
+</div>

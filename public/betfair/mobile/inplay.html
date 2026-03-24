@@ -1,0 +1,38 @@
+﻿<div class="horse-racing" style="height: calc(100% - 0px);overflow:hidden">
+    <ul class="tabbing-blue">
+        <li ng-class="{'active':currentTab==2}"><a ng-click="ctrl.loadMarkets(2)">{{'inplay.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==0}"><a ng-click="ctrl.loadMarkets(0)">{{'today.label' | translate}}</a></li>
+        <li ng-class="{'active':currentTab==1}"><a ng-click="ctrl.loadMarkets(1)">{{'tomorrow.label' | translate}}</a></li>
+    </ul>
+
+    <div class="race-detail " ng-repeat="e in eventTypes">
+        <h3 class="black-back" ng-init="e.isExpanded=true">
+            <a class="to-expand" ng-click="e.isExpanded=!e.isExpanded" aria-expanded="true">
+                {{e.name}}
+                <i class="fa expand-img" aria-hidden="true" ng-class="{'fa-minus-square-o':e.isExpanded, 'fa-plus-square-o':!e.isExpanded}"></i>
+            </a>
+        </h3>
+        <div class="highlight" ng-show="e.isExpanded">
+            <div class="tab-desc" ng-class="{'column-2' : !hasAnyDrawMarket}">
+                <table class="team-score mrg-top-0">
+                    <tbody>
+                        <tr id="tr_{{h.id}}" ng-repeat="h in e.markets">
+                            <td class="team-title">
+                                <a href="" ui-sref="mobile.base.market({marketid:h.id})">
+                                    <i class="fa fa-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>{{h.event.name}}
+                                </a>
+                                <span class="play" ng-if="h.inPlay">{{'inplay.label' | translate}}</span>
+                                <span ng-if="!h.inPlay" class="game-list-time"> {{h.event.openDate | date:'yyyy-MM-dd HH:mm'}}</span>
+                            </td>
+
+                            <td class="pin" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                                <i class="fa fa-thumb-tack add-pin" ng-class="{'pinned':h.pin,'blue-pin':!h.pin}" ng-click="ctrl.pinMe(h);">
+                                </i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

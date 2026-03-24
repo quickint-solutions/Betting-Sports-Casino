@@ -1,0 +1,126 @@
+﻿<div class="content-wrap">
+    <div class="permission col-sm-12">
+        <header>
+            <h1 class="title">{{'btbets.label' | translate}}</h1>
+        </header>
+        <div class="filter-panel">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3 mr-top-10">
+                            <ui-select ng-model="search.eventType" tabindex="1" theme="bootstrap" on-select="ctrl.getCompetitions()" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.eventtype.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="eventtype in eventTypeList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="eventtype.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-3 mr-top-10">
+                            <ui-select ng-model="search.competition" tabindex="2" theme="bootstrap" ng-disabled="!search.eventType"
+                                       on-select="ctrl.getEvents()" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.competition.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="competition in competitionList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="competition.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-3 mr-top-10">
+                            <ui-select ng-model="search.event" theme="bootstrap" tabindex="3" ng-disabled="!search.competition" on-select="ctrl.getMarkets()" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.event.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="event in eventList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="event.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-3 mr-top-10">
+                            <ui-select ng-model="search.market" theme="bootstrap" tabindex="3" ng-disabled="!search.event" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.market.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="market in marketList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="market.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <ul class="input-list mr-top-10">
+                        <li>
+                            <label>{{'bt.orderprojection.label' | translate}}</label>
+                            <select ng-model="search.orderProjection">
+                                <option ng-repeat="b in orderProjection" value="{{b.value}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>{{'bt.orderby.label' | translate}}</label>
+                            <select ng-model="search.orderBy">
+                                <option ng-repeat="b in orderBy" value="{{b.value}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>{{'autorefresh.label' | translate}}</label>
+                            <select ng-model="selectedInterval" ng-change="ctrl.intervalChanged()">
+                                <option ng-repeat="c in refreshIntervals" value="{{c.value}}">
+                                    {{c.name}}
+                                </option>
+                            </select>
+                        </li>
+                        <li class="live-btn">
+                            <a class="btn small-btn" ng-click="ctrl.getBTBets();">
+                                {{'common.button.getlivebets' | translate}}
+                            </a>
+
+                            <a class="btn btn-default" ng-click="ctrl.resetCriteria();">
+                                {{'common.button.reset' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <table class="permission-table" style="width:100%; font-size:11px;">
+            <thead>
+                <tr>
+                    <th style="width:75px">BetId </th>
+                    <th style="width:300px;">Market </th>
+                    <th style="width:150px;">Runner </th>
+                    <th style="width:50px;">Price </th>
+                    <th style="width:50px;">Avg. Price</th>
+                    <th style="width:75px;">Size</th>
+                    <th style="width:75px;">Size Matched </th>
+                    <th style="width:75px;">Size Remaining </th>
+                    <th style="width:50px;">BT Avg. Price</th>
+                    <th style="width:75px;">BT Size</th>
+                    <th style="width:75px;">BT Size Matched </th>
+                    <th style="width:75px;">BT Size Remaining </th>
+                    <th style="width:50px;">Bet Status</th>
+                    <th style="width:130px;">Date</th>
+                    <th style="width:20px;">Error</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="b in btBtes" uib-tooltip="{{b.btError}}" tooltip-placement="top-right">
+                    <td style="width:75px">{{b.btId}} </td>
+                    <td style="width:300px;">{{b.market.event.name | shortme:25}} | <b>{{b.market.name | shortme:20}}</b></td>
+                    <td style="width:150px;">{{b.runnerName | shortme:25}}</td>
+                    <td style="width:50px;">{{b.price | number:2}} </td>
+                    <td style="width:50px;">{{b.avgPrice | number:2}} </td>
+                    <td style="width:75px;">{{b.size}} </td>
+                    <td style="width:75px;">{{b.sizeMatched}}</td>
+                    <td style="width:75px;">{{b.sizeRemaining}} </td>
+                    <td style="width:50px;">{{b.btAvgPrice | number:2}} </td>
+                    <td style="width:75px;">{{b.btSize}} </td>
+                    <td style="width:75px;">{{b.btSizeMatched}}</td>
+                    <td style="width:75px;">{{b.btSizeRemaining}} </td>
+                    <td style="width:50px;">{{ctrl.getBetStatus(b.status)}} </td>
+                    <td style="width:130px;">{{b.createdOn | date:'dd-MM-yyyy hh:mm a'}} </td>
+                    <td style="width:20px;" ng-class="{'red':b.btError}"><i class="fa fa-info-circle" ng-if="b.btError"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

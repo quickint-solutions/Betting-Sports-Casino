@@ -1,0 +1,64 @@
+﻿
+<div class="horse-racing">
+    <div class="popup_height">
+        <div class="filter-list">
+            <ul>
+                <li class="filter-head"><strong>{{'sportfilter.label' | translate}}</strong></li>
+                <li ng-repeat="f in filters | filter:{checked:true}">
+                    <span><i ng-if="$index != 0" class="fa fa-circle ng-scope"></i>{{f.name}}</span>
+                </li>
+                <li class="filter_team">
+                    <a>Filter</a>
+                    <div class="filter-pop">
+                        <ul>
+                            <li>
+                                <p class="span-check">
+                                    <input type="checkbox" id="chk_filter_all" ng-model="selectAll" ng-click="ctrl.eventTypeChanged(true)" />
+                                    <label for="chk_filter_all">{{'all.label' | translate}}</label>
+                                </p>
+                            </li>
+                            <li ng-repeat="f in filters">
+                                <p class="span-check">
+                                    <input id="chk_filter_{{$index}}" type="checkbox" ng-click="ctrl.eventTypeChanged()" ng-model="f.checked" />
+                                    <label for="chk_filter_{{$index}}">{{f.name}}</label>
+                                </p>
+                            </li>
+
+                        </ul>
+                        <div class="filter-btn">
+                            <a class="bets" ng-click="ctrl.getRecentResults()">Save</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="over-wrap recent-results">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{'settledtime.label' | translate}}</th>
+                        <th>{{'event.name.label' | translate}}</th>
+                        <th>{{'market.name.label' | translate}}</th>
+                        <th>{{'winner.label' | translate}}</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="m in resultsList">
+                    <td class="size-sm">{{m.settleTime | date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td class="eventDetail">
+                        <span>{{m.event.eventType.name}}</span>
+                        <img src="/public/images/arrow.png" />
+                        <span><strong>{{m.event.name}}</strong></span>
+                    </td>
+                    <td>
+                        {{m.name }}
+                    </td>
+                    <td>
+                        <span ng-repeat="w in m.marketRunner" title="{{w.runner.name}}">{{w.runner.name}} {{$last ? '':','}}</span>
+                        <span ng-if="m.winner" title="{{m.winner}}">{{m.winner}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>

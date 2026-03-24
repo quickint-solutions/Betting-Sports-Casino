@@ -1,0 +1,120 @@
+﻿<!--  Bets history  -->
+<div class="report-card">
+    <div class="bets-history">
+        <h1 class="title">FD {{'bethistory.label' | translate}}</h1>
+        <div class="filter-panel">
+            <ul class="input-list">
+
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li><a class="btn bets" ng-click="ctrl.refreshGrid();">{{'common.button.gethistory' | translate}}</a></li>
+            </ul>
+            <ul class="input-list">
+                <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+            </ul>
+        </div>
+        <div class="table-bets">
+            <kt-grid grid-id="kt-historybets-grid"
+                     load-items="ctrl.getHistoryBets(params)"
+                     export-to-excel="ctrl.exportBetHistory(params,1)"
+                     name-param="id"
+                     name-value-property="id"
+                     show-total="true"
+                     cache-key="kthistorybetsgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                       style="display: table;"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span id="to"><strong>{{item.tableName}} # {{item.roundId}}</strong></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label> {{'runner.name.label' | translate}} :&nbsp;</label>
+                                        <span>{{item.runner}}</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="float-r">
+                                            <label>Bet Id :&nbsp;</label>
+                                            <span>{{item.betId}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label> {{'side.label' | translate}} :&nbsp;</label>
+                                        <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">
+                                            {{item.side==1 ? 'Back' : 'Lay'}}
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="float-r">
+                                            <label>{{'price.label' | translate}} :&nbsp;</label>
+                                            <span title="{{item.price }}">{{item.price}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label> {{'sizematched.label' | translate}} :&nbsp;</label>
+                                        <span title="{{item.size | toRate }}">{{item.size | toRate}} </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="float-r">
+                                            <label> {{'profitloss.label' | translate}} :&nbsp;</label>
+                                            <span ng-class="{'positive':item.pl>=0,'negative':item.pl<0}">{{item.pl | toRate }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label>{{'createddate.label' | translate}} :&nbsp;</label>
+                                        <span title="{{item.createdOn }}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="float-r">
+                                            <label> {{'ipaddress.label' | translate}} :&nbsp;</label>
+                                            <span>{{item.remoteIp }} </span>
+                                            <span ng-if="item.referenceText" uib-tooltip="{{item.referenceText}}" tooltip-placement="left"><i class="fa fa-info-circle red"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

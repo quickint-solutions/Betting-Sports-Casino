@@ -1,0 +1,35 @@
+﻿<div class="casino login-casino">
+    <div class="header casino-header" style="font-size:12px;">
+        <img ng-src="{{webImagePath}}logo.png" alt="Logo">
+    </div>
+    <div class="game-lobby center" style="display:inline-block" ng-if="isSuccess">
+        <div style="display:inline-block;width:200px;">
+            <div style="text-align:center;margin-top:10px;">
+                <i class="fa fa-check-circle-o" style="font-size:200px;color:#6fe06f"></i>
+            </div>
+        </div>
+        <div style="display:inline-block">
+            <div style="text-align:center;margin-top:10px;font-weight: bold;font-size: 50px;">THANK YOU!</div>
+            <div style="text-align:center;margin-top:10px;" ng-if="transactionId">Your transaction id is <b>{{transactionId}}</b></div>
+            <div style="text-align:center;margin-top:10px;">
+                Please wait a moment we will auto redirect to exchange, if not then <a ng-click="ctrl.closeMe()">Click Here</a>
+            </div>
+        </div>
+    </div>
+    <div class="game-lobby center" style="display:inline-block" ng-if="!isSuccess">
+        <div style="display:inline-block;width:200px;">
+            <div style="text-align:center;margin-top:10px;">
+                <i class="fa fa-times-circle-o" style="font-size:200px;color:#ff5959"></i>
+            </div>
+        </div>
+        <div style="display:inline-block">
+            <div style="text-align:center;margin-top:10px;font-weight: bold;font-size: 50px;">OOPS!</div>
+            <div style="text-align:center;margin-top:10px;">Your payment failed, we cound not acquire the payment.</div>
+            <div style="text-align:center;margin-top:10px;" ng-if="transactionId">Your transaction id is <b>{{transactionId}}</b></div>
+            <div style="text-align:center;margin-top:10px;">Please contact your payment provider or upline</div>
+            <div style="text-align:center;margin-top:10px;">
+                Please wait a moment we will auto redirect to exchange, if not then <a ng-click="ctrl.closeMe()">Click Here</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿<div class="content-part my-account">
+    <div class="col-sm-2 acc-left">
+        <!-- <div class="row">-->
+        <div class="left-part">
+            <div class="sidebar-tab">
+                <div class="vertical-tab">
+                    <div class="path">
+                        <div class="left-drop">
+                            <a class="path-back"></a>
+                        </div>
+                        <ul>
+                            <li class="path-last">
+                                <a> {{user.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <nav class="inner-nav">
+                        <div id="mySidenav" class="sidenav myaccount-nav">
+                            <ul>
+                                <li>
+                                    <a kt-has-claim claims="{Claims: ['common.accounting.view']}" class="sport-type-inner"
+                                       ui-sref="admin.account.plstatement" ng-class="ctrl.isActive('/myaccount/pl-statement')">
+                                        <i class="fa fa-line-chart"></i>
+                                        P&L Statement
+                                    </a>
+                                </li>
+                                <li>
+                                    <a kt-has-claim claims="{Claims: ['common.accounting.view']}" class="sport-type-inner"
+                                       ui-sref="admin.account.creditstatement" ng-class="ctrl.isActive('/myaccount/credit-statement')">
+                                        <i class="fa fa-credit-card"></i>
+                                        Credit Statement
+                                    </a>
+                                </li>
+                                <li>
+                                    <a kt-has-claim claims="{Claims: ['common.accounting.view']}" class="sport-type-inner"
+                                       ui-sref="admin.account.transferstatement" ng-class="ctrl.isActive('/myaccount/transfer-statement')">
+                                        <i class="fa fa-money"></i>
+                                        Transfer Statement
+                                    </a>
+                                </li>
+                                <!--<li>
+                                    <a kt-has-claim claims="{Claims: ['common.accounting.view']}" class="sport-type-inner"
+                                       ui-sref="admin.account.casinostatement" ng-class="ctrl.isActive('/myaccount/casino-statement')">
+                                        <i class="fa fa-trophy"></i>
+                                        Casino Statement
+                                    </a>
+                                </li>-->
+                                <li>
+                                    <a ui-sref="admin.account.betshistory" class="sport-type-inner"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}"
+                                       ng-class="ctrl.isActive('/myaccount/betshistory')">
+                                        <i class="fa fa-history"></i>
+                                        Bet History
+                                    </a>
+                                </li>
+                                <!--<li>
+                                    <a ui-sref="admin.account.fdbetshistory" class="sport-type-inner"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}"
+                                       ng-class="ctrl.isActive('/myaccount/fd-betshistory')">
+                                        <i class="fa fa-clock-o"></i>
+                                        FD Bet History
+                                    </a>
+                                </li>-->
+                                <li>
+                                    <a ui-sref="admin.account.fdbetsprofitloss" class="sport-type-inner"
+                                       kt-has-claim claims="{Claims: ['client.bet.view']}"
+                                       ng-class="ctrl.isActive('/myaccount/fd-profit-loss')">
+                                        <i class="fa fa-clock-o"></i>
+                                        FD Betting P&L
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ui-sref="admin.account.history" class="sport-type-inner" kt-has-claim claims="{Claims: ['client.loginhistory.view']}"
+                                       ng-class="ctrl.isActive('/myaccount/login-history')">
+                                        <i class="fa fa-laptop"></i>
+                                        Login History
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- </div>-->
+    <div class="col-sm-10 acc-right">
+        <div class="row">
+            <div class="center-part">
+                <div class="my-bets" ui-view="content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

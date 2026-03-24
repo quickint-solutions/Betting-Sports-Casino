@@ -1,0 +1,432 @@
+﻿<div class="col-sm-12">
+    <div class="bets-history livebets">
+        <h1 class="title">{{'livebets.label' | translate}}</h1>
+        <div class="form-pannel">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-2 ">
+                            <div class="input_text" style="float:unset;width:100%">
+                                <ui-select ng-model="search.marketType" theme="bootstrap" close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Market Type: All">Market Type: {{$select.selected.displayName}}</ui-select-match>
+                                    <ui-select-choices repeat="mt in marketTypeList | filter: $select.search" class="ui-select-choices">
+                                        <span ng-bind-html="mt.displayName | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <div class="input_text" style="float:unset;width:100%">
+                                <ui-select ng-model="search.eventType" theme="bootstrap" on-select="ctrl.getEvents()" close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Sport: All">Sport: {{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="eventtype in eventTypeList | filter: $select.search" class="ui-select-choices">
+                                        <span ng-bind-html="eventtype.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <ui-select ng-model="search.event" theme="bootstrap" ng-disabled="!search.eventType.id" on-select="ctrl.getMarkets()" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.event.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="event in eventList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="event.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <ui-select ng-model="search.market" theme="bootstrap" ng-disabled="!search.event" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'market.search.market.placeholder' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="market in marketList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="market.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="input_text ">
+                                <ui-select ng-model="search.selectedUser" theme="bootstrap" on-select="ctrl.userSelected()"
+                                           close-on-select="true">
+                                    <ui-select-match class="ui-select-match" placeholder="Agency/Member Name">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="u in anyUserList | filter: $select.search | limitTo:15"
+                                                       class="ui-select-choices"
+                                                       refresh="$parent.ctrl.searchUser($select.search)">
+                                        <span class="align-l" ng-bind-html="u.username | highlight: $select.search"></span>
+                                        &nbsp;-&nbsp;
+                                        <span class="align-l" ng-bind-html="u.name | highlight: $select.search"></span>
+                                        <span class="float-r" style="color:{{u.extra.color}}" ng-bind-html="u.extra.init"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="filters-toggle" ng-click="showFilter=!showFilter;ctrl.loadChildLevel(1,true)" ng-class="{'selected':showFilter}">
+                                <i class="icon-filter" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" ng-show="showFilter">
+                    <div class="row mr-top-24" style="color:#fff">
+                        <div class="col-sm-2 ">
+                            <label>Admin</label>
+                            <ui-select ng-model="search.admin" tabindex="1" theme="bootstrap" on-select="ctrl.loadChildLevel(2)" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'user.search.webadmin.placeholder' | translate}}">
+                                    {{$select.selected.username}}
+                                    <span style="font-size:10px;">({{$select.selected.name}})</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="user in adminList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="user.username  "></span>
+                                    <span style="font-size:10px;float:right">Name : {{user.name }}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <label>Super Master</label>
+                            <ui-select ng-model="search.superMaster" tabindex="2" theme="bootstrap" ng-disabled="!search.admin"
+                                       on-select="ctrl.loadChildLevel(3)" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'user.search.admin.placeholder' | translate}}">
+                                    {{$select.selected.username}}
+                                    <span style="font-size:10px;">({{$select.selected.name}})</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="user in superMasterList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="user.username  "></span>
+                                    <span style="font-size:10px;float:right">Name : {{user.name }}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <label>Master</label>
+                            <ui-select ng-model="search.master" theme="bootstrap" tabindex="3" ng-disabled="!search.superMaster" on-select="ctrl.loadChildLevel(4)" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'user.search.supermaster.placeholder' | translate}}">
+                                    {{$select.selected.username}}
+                                    <span style="font-size:10px;">({{$select.selected.name}})</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="user in masterList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="user.username  "></span>
+                                    <span style="font-size:10px;float:right">Name : {{user.name }}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <label>Agent</label>
+                            <ui-select ng-model="search.agent" theme="bootstrap" tabindex="3" ng-disabled="!search.master" on-select="ctrl.loadChildLevel(5)" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'user.search.master.placeholder' | translate}}">
+                                    {{$select.selected.username}}
+                                    <span style="font-size:10px;">({{$select.selected.name}})</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="user in agentList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="user.username  "></span>
+                                    <span style="font-size:10px;float:right">Name : {{user.name }}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <label>Player</label>
+                            <ui-select ng-model="search.user" theme="bootstrap" tabindex="3" ng-disabled="!search.agent" close-on-select="true">
+                                <ui-select-match class="ui-select-match" placeholder="{{'user.search.user.placeholder' | translate}}">
+                                    {{$select.selected.username}}
+                                    <span style="font-size:10px;">({{$select.selected.name}})</span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="user in userList | filter: $select.search" class="ui-select-choices">
+                                    <span ng-bind-html="user.username  "></span>
+                                    <span style="font-size:10px;float:right">Name : {{user.name }}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" ng-show="showFilter">
+                    <div class="row mr-top-24">
+                        <div class="col-sm-2 ">
+                            <input type="text" class="form-control" placeholder="From Odds" ng-model="search.oddsfrom" />
+                        </div>
+                        <div class="col-sm-2 ">
+                            <input type="text" class="form-control" placeholder="To Odds" ng-model="search.oddsto" />
+                        </div>
+                        <div class="col-sm-2 ">
+                            <input type="text" class="form-control" placeholder="From Stake" ng-model="search.stakefrom" />
+                        </div>
+                        <div class="col-sm-2 ">
+                            <input type="text" class="form-control" placeholder="To Stake" ng-model="search.staketo" />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 mr-top-10" style="color:white">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label>From Date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                       uib-datepicker-popup="dd MMM yyyy"
+                                       ng-model="search.fromdate"
+                                       is-open="fopened"
+                                       placeholder="{{'fromdate.placeholder' | translate}}"
+                                       ng-click="fopened=true"
+                                       close-text="Close"
+                                       alt-input-formats="dd/MM/yyyy" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>To Date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                       uib-datepicker-popup="dd MMM yyyy"
+                                       ng-model="search.todate"
+                                       is-open="topened"
+                                       placeholder="{{'todate.placeholder' | translate}}"
+                                       ng-click="topened=true"
+                                       close-text="Close"
+                                       alt-input-formats="dd/MM/yyyy" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>{{'common.betstatus.label' | translate}}</label>
+                            <select ng-model="search.status" class="form-control">
+                                <option ng-repeat="b in betStatus" value="{{b.id}}">
+                                    {{b.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>{{'autorefresh.label' | translate}}</label>
+                            <select ng-model="selectedInterval" ng-change="ctrl.intervalChanged()" class="form-control">
+                                <option ng-repeat="c in refreshIntervals" value="{{c.value}}">
+                                    {{c.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mr-top-24">
+                                <a class="btn btn-secondary" ng-click="ctrl.fetchLiveBetsData();">
+                                    {{'common.button.getlivebets' | translate}}
+                                </a>
+
+                                <a class="btn btn-default" ng-click="ctrl.resetCriteria();">
+                                    {{'common.button.reset' | translate}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-listing" ng-if="search.status == -1 || search.status ==3">
+            <kt-grid grid-id="kt-unmatchedlivebets-grid"
+                     load-items="ctrl.getUnmatchedBets(params)"
+                     show-total="true"
+                     data-total-row-msg="common.total.unmatchedbets.label"
+                     cache-key="ktunmatchedlivebetsgrid">
+
+                <table ng-table="tableParams" class="table table-hover"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody class="info-text">
+                        <tr ng-repeat="item in $data track by item.id">
+                            <td data-title="::'betid.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                data-sortable="'id'">
+                                <span title="{{item.id}}">{{item.betId}} </span>
+                            </td>
+                            <td data-title="::'user.name.label' | translate"
+                                data-header-class="'size-lg boolean'" class="size-lg align-l"
+                                uib-tooltip="{{item.user.parent.parent.parent.username}} >> {{item.user.parent.parent.username}} >> {{item.user.parent.username}} >> {{item.user.username}}">
+                                <label>
+                                    <span id="to">
+                                        <strong>
+                                            <a target="_blank" ui-sref="admin.member.profile({memberid:item.user.id})">{{item.user.username}}</a>
+                                        </strong>
+                                    </span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent"></i>
+                                    <span id="from" ng-if="item.user.parent">{{item.user.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent"></i>
+                                    <span id="from" ng-if="item.user.parent.parent">{{item.user.parent.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent.parent"></i>
+                                    <span id="from" ng-if="item.user.parent.parent.parent">{{item.user.parent.parent.parent.username}}</span>
+                                </label>
+                            </td>
+                            <td data-title="::'market.name.label' | translate"
+                                data-header-class="'boolean'" class="align-l"
+                                data-sortable="'runnerName'"
+                                uib-tooltip="{{item.market.event.eventType.name}} >> {{item.market.event.name}} >> {{item.market.name}}">
+                                <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId">
+                                    <span id="to"><strong>{{item.market.event.name | shortme:35}}</strong></span>
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                    <span id="to">
+                                        <a target="_blank" ui-sref="admin.fullposition({marketid:item.market.id})">{{item.market.name | shortme:30}}</a>
+                                    </span>
+                                </label>
+                                <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId">
+                                    <span>
+                                        <a target="_blank" ui-sref="admin.fullposition({marketid:item.market.id})">{{item.market.name}} # {{item.market.roundId}}</a>
+                                    </span>
+                                </label>
+                            </td>
+                            <td data-title="::'runner.name.label' | translate"
+                                data-sortable="'runnername'"
+                                uib-tooltip="{{item.runnerName}}"
+                                data-header-class="'size-sm'" class="size-sm">
+                                <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                            </td>
+                            <td data-title="::'side.label' | translate"
+                                data-header-class="'size-xs boolean'" class="size-xs boolean"
+                                data-sortable="'side'">
+                                <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">
+                                    {{item.side==1 ? 'Back' : 'Lay'}}
+                                </span>
+                            </td>
+                            <td data-title="::'price.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                data-sortable="'price'">
+                                <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                            </td>
+                            <td data-title="::'sizematched.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'sizematched'">
+                                <span title="{{item.sizeMatched}}">{{item.sizeMatched}} </span>
+                            </td>
+                            <td data-title="::'sizerem.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'sizeremaining'">
+                                <span title="{{item.sizeRemaining}}">{{item.sizeRemaining}} </span>
+                            </td>
+                            <td data-title="::'createddate.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'createdon'">
+                                <span title="{{item.createdOn | date:'yyyy-MM-dd HH:mm'}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                            </td>
+                            <td data-title="::'updateddate.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'updatedOn'">
+                                <span title="{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                            </td>
+                            <td data-title="::'ipaddress.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span>{{item.remoteIp }} </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+
+
+        <div class="table-listing" ng-if="search.status == -1 || search.status ==2">
+            <div ng-if="totalMatched">{{'common.total.label' | translate}} {{totalMatched}} {{'common.total.matchedbets.label' | translate}}</div>
+            <kt-grid grid-id="kt-matchedlivebets-grid"
+                     load-items="ctrl.getMatchedBets(params)"
+                     name-param="id"
+                     name-value-property="id"
+                     data-items="$parent.gridItems"
+                     has-new-rights="true"
+                     new-button-label="Delete All"
+                     go-to-new-state="ctrl.deleteSelectedBets()"
+                     show-total="true"
+                     data-total-row-msg="common.total.matchedbets.label"
+                     cache-key="ktmatchedlivebetsgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody class="info-text">
+                        <tr ng-repeat="item in $data track by item.id" ng-class="{'alert-tr':item.alert}">
+                            <td data-title="::'betid.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                data-sortable="'id'">
+                                <span title="{{item.id}}">{{item.betId}} </span>
+                            </td>
+                            <td data-title="::'user.name.label' | translate"
+                                data-header-class="'size-lg boolean'" class="size-lg align-l"
+                                uib-tooltip="{{item.user.parent.parent.parent.username}} >> {{item.user.parent.parent.username}} >> {{item.user.parent.username}} >> {{item.user.username}}">
+                                <label>
+                                    <span id="to">
+                                        <strong>
+                                            <a target="_blank" ui-sref="admin.member.profile({memberid:item.user.id})">{{item.user.username}}</a>
+                                        </strong>
+                                    </span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent"></i>
+                                    <span id="from" ng-if="item.user.parent">{{item.user.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent"></i>
+                                    <span id="from" ng-if="item.user.parent.parent">{{item.user.parent.parent.username}}</span>
+                                    <i class="fa fa-caret-left" aria-hidden="true" ng-if="item.user.parent.parent.parent"></i>
+                                    <span id="from" ng-if="item.user.parent.parent.parent">{{item.user.parent.parent.parent.username}}</span>
+                                </label>
+                            </td>
+                            <td data-title="::'market.name.label' | translate"
+                                data-header-class="'boolean'" class="align-l"
+                                uib-tooltip="{{item.market.event.eventType.name}} >> {{item.market.event.name}} >> {{item.market.name}}"
+                                data-sortable="'runnerName'">
+                                <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId">
+                                    <span id="to"><strong>{{item.market.event.name | shortme:20}}</strong></span>
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                    <span id="to">
+                                        <a target="_blank" ui-sref="admin.fullposition({marketid:item.market.id})">{{item.market.name | shortme:30}}</a>
+                                    </span>
+                                </label>
+                                <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId">
+                                    <span>
+                                        <a target="_blank" ui-sref="admin.fullposition({marketid:item.market.id})">{{item.market.name}} # {{item.market.roundId}}</a>
+                                    </span>
+                                </label>
+                            </td>
+                            <td data-title="::'runner.name.label' | translate"
+                                data-header-class="'size-sm'" class="size-sm"
+                                uib-tooltip="{{item.runnerName}}"
+                                data-sortable="'runnername'">
+                                <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                            </td>
+                            <td data-title="::'side.label' | translate"
+                                data-header-class="'size-xs boolean'" class="size-xs boolean"
+                                data-sortable="'side'">
+                                <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">
+                                    {{item.side==1 ? 'Back' : 'Lay'}}
+                                </span>
+                            </td>
+                            <td data-title="::'price.label' | translate"
+                                data-header-class="'size-xsm boolean'" class="size-xsm boolean"
+                                data-sortable="'price'">
+                                <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                            </td>
+                            <td data-title="::'sizematched.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean"
+                                data-sortable="'sizematched'">
+                                <span title="{{item.sizeMatched}}">{{item.sizeMatched}} </span>
+                            </td>
+                            <td data-title="::'avgprice.label' | translate"
+                                data-header-class="'size-xsm boolean'" class="size-xsm boolean"
+                                data-sortable="'avgprice'">
+                                <span title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                            </td>
+                            <td data-title="::'createddate.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'createdon'">
+                                <span title="{{item.createdOn | date:'yyyy-MM-dd HH:mm'}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                            </td>
+                            <td data-title="::'updateddate.label' | translate"
+                                data-header-class="'size-md boolean'" class="size-md boolean"
+                                data-sortable="'updatedOn'">
+                                <span title="{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                            </td>
+                            <td data-title="::'ipaddress.label' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <span>{{item.remoteIp }} </span>
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'size-sm boolean'" class="size-sm boolean">
+                                <a id="btnvoid{{$index}}" class="btn btn-danger" ng-if="item.status==2"
+                                   kt-has-claim claims="{Claims: ['admin.bet.voidsize']}"
+                                   ng-click="$parent.$parent.$parent.$parent.ctrl.cancelBet(item)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <span class="mrg-left-10">
+                                    <input type="checkbox" id="chk-delete-{{$index}}" ng-model="item.isDelete" class="chk-box">
+                                    <label for="chk-delete-{{$index}}" style="margin-bottom:18px;"></label>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

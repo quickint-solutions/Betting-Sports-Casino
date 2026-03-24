@@ -1,0 +1,65 @@
+﻿<div class="full-wrap ">
+    <div class="content-part my-account">
+        <div class="col-sm-2">
+            <div class="row">
+                <div class="left-part">
+                    <div class="sidebar-tab">
+                        <div class="vertical-tab">
+                            <div class="path">
+                                <div class="left-drop">
+                                    <a class="path-back"></a>
+                                </div>
+                                <ul>
+                                    <li class="path-last">
+                                        <a> {{user.name}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <nav class="inner-nav">
+                                <div id="mySidenav" class="sidenav myaccount-nav">
+                                    <ul>
+                                        <li>
+                                            <a ui-sref="book.account.profile" ng-class="ctrl.isActive('/bmaccount/profile')">
+                                                <i class="fa fa-user"></i>
+                                                {{'common.myprofile.label' | translate}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ui-sref="book.account.statement" ng-class="ctrl.isActive('/bmaccount/statement')">
+                                                <i class="fa fa-money"></i>
+                                                {{'common.accountstatement.label' | translate}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ui-sref="book.account.bets.current" ng-class="ctrl.isActive('/bmaccount/bets')"
+                                               kt-has-claim claims="{Claims: ['client.bet.view']}">
+                                                <i class="fa fa-pie-chart"></i>
+                                                {{'bets.label' | translate}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ui-sref="book.account.history" kt-has-claim claims="{Claims: ['client.loginhistory.view']}"
+                                               ng-class="ctrl.isActive('/bmaccount/login-history')">
+                                                <i class="fa fa-history"></i>
+                                                {{'common.loginhistory.label' | translate}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="center-part">
+                    <div ng-scrollbars class="scrollwrap my-bets" ui-view="content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

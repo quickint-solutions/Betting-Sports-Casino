@@ -1,0 +1,691 @@
+﻿/// <reference path="../utils/_mixins.scss" />
+/// <reference path="../variables/__variables.scss" />
+
+table {
+    width: 100%;
+}
+
+.list-view {
+    margin-bottom: 20px;
+
+    .toolbar {
+        text-transform: capitalize;
+
+        .align-left {
+            @include resize($float-left, 49%);
+        }
+
+        .align-right {
+            @include resize(right, 49%);
+            text-align: right;
+
+            .btn {
+                background: #fec700;
+                color: #000;
+
+                &:hover {
+                    background: #ffd847;
+                }
+            }
+
+            li {
+                display: inline;
+                width: 100px;
+            }
+        }
+
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        @include padding(7px, 7px, 0px, 7px);
+
+
+        .invisible {
+            visibility: hidden;
+        }
+
+        .filter-active a {
+            color: $theme-color;
+            @include border-all(1px, solid, $theme-color);
+        }
+    }
+
+    .list-view-table {
+        overflow: {
+            x: auto;
+            y: auto;
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e9e9e9;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #e9e9e9;
+        }
+
+        width: $width;
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 0;
+
+        .currency {
+            th, td {
+                width: 250px !important;
+            }
+        }
+
+
+        div {
+            .pagination {
+                margin: 0px;
+                display: flex;
+
+                li {
+                    a {
+                        @include border-all(1px, solid, $gray);
+                        color: #fec700;
+
+                        &:hover {
+                            background-color: #fec700;
+                            color: $black-color !important;
+                            box-shadow: none !important;
+                        }
+                    }
+
+                    &.active a {
+                        background-color: #fec700;
+                        color: $black-color !important;
+                    }
+
+                    &:last-child a {
+                        // @include border-all(1px, solid, $nile-blue);
+                    }
+                }
+            }
+        }
+
+
+        table {
+            margin: 0;
+            font-size: 13px;
+
+            &.nowrap {
+                thead {
+                    tr {
+                        -ms-flex-flow: row nowrap;
+                        -webkit-flex-flow: row nowrap;
+                        flex-flow: row nowrap;
+                    }
+                }
+            }
+
+            .current-pl {
+                min-width: 250px;
+            }
+
+            .grid-btn {
+                min-width: 190px;
+            }
+
+            .customer-name {
+                min-width: 500px;
+            }
+
+            &.clickable {
+                tbody tr {
+                    cursor: $cursor;
+                }
+            }
+
+            thead {
+                width: $width;
+
+                tr {
+                    th {
+                        @include txt(bold);
+                        vertical-align: middle;
+
+                        span.sort-indicator {
+                            @include line-height(18px);
+
+                            &:before {
+                                @include border('top', 4px, solid, $black-color);
+                                right: 0px;
+                            }
+
+                            &:after {
+                                @include border('bottom', 4px, solid, $black-color);
+                                right: 0px;
+                            }
+                        }
+                    }
+
+                    .sort-desc .sort-indicator:after {
+                        @include border('top', 4px, solid, $black-color);
+                    }
+                }
+            }
+
+            tbody {
+                width: $width;
+                @include display(block);
+            }
+
+            tr {
+                display: flex;
+                flex-flow: row nowrap;
+                width: $width;
+            }
+
+            td, th {
+                -ms-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+                overflow: hidden;
+                //@include display(inline-block);
+                text: {
+                    align: left;
+                    overflow: ellipsis;
+                }
+
+                white-space: nowrap;
+                line-height: 1.2;
+
+                &.boolean {
+                    //text-align: $center !important;
+                }
+
+                &.number {
+                    text-align: right;
+                }
+
+                &.row-title {
+                    @include txt(bold);
+                }
+
+                &.size-xxs,
+                &.size-xs,
+                &.size-xsm,
+                &.size-sm,
+                &.size-smd,
+                &.size-md,
+                &.size-lg,
+                &.size-smxl,
+                &.size-xl, &.size-xxl {
+                    min-width: 0;
+                    -ms-flex: 0 0 auto;
+                    -webkit-flex: 0 0 auto;
+                    flex: 0 0 auto;
+                }
+
+                &.size-xxs {
+                    width: 25px;
+                }
+
+                &.size-xs {
+                    width: 50px;
+                }
+
+                &.size-xsm {
+                    width: 75px;
+                }
+
+                &.size-sm {
+                    width: 100px;
+                }
+
+                &.size-smd {
+                    width: 125px;
+                }
+
+                &.size-md {
+                    width: 150px;
+                }
+
+                &.size-lg {
+                    width: 200px;
+                }
+
+                &.size-xl {
+                    width: 300px;
+                }
+
+                &.size-xxl {
+                    width: 400px;
+                }
+
+                &.size-smxl {
+                    width: 375px;
+                }
+
+                .label {
+                    font-size: $width;
+                }
+
+                &.show-from-md {
+                    display: none;
+
+                    @include respond-to('md') {
+                        @include display(block);
+                    }
+                }
+            }
+
+            th {
+                & div {
+                    @include display(inline-block);
+                    width: $width;
+                    @include position(relative);
+                }
+
+                select {
+                    @include padding(0px, 2px, 0px, 2px);
+                }
+            }
+        }
+
+        .pager {
+            float: right;
+            @include padding(10px, 0, 10px, 0);
+            margin: 0px;
+
+            li {
+                height: 18px;
+                text-align: center;
+                line-height: 17px;
+
+                a {
+                    background-color: transparent;
+                    padding: 2px 7px 0 7px;
+                    border-radius: 0px;
+                    color: #fff;
+                    font-size: 10px;
+                    border: 1px solid transparent;
+                    float: unset;
+
+                    &:hover {
+                        color: #cccccc;
+                    }
+                }
+            }
+        }
+
+        div[template-url="templates.pagination"] {
+            margin: 10px 0;
+
+            @include resize ($float-left, $width);
+
+            div {
+                right: 10px;
+
+                button {
+                    color: #fec700;
+
+                    &:focus {
+                        outline: none;
+                        background-color: #fec700;
+                    }
+
+                    &.active {
+                        color: $black-color;
+                        background-color: #fec700;
+                    }
+
+                    &:hover {
+                        color: $black-color;
+                        background-color: #fec700;
+                    }
+                }
+            }
+        }
+    }
+
+    .list-view-table .pt-table {
+        margin-top: 7px;
+
+        .rowspan-top th {
+            padding-bottom: 2px !important;
+        }
+
+        .sport-icon {
+            font-size: 14px;
+        }
+
+        .border-right {
+            border-right: 1px solid $border-color;
+        }
+
+        tbody tr td {
+            padding: 5px;
+        }
+
+        .rowspan-labels th {
+            //color: #fff !important;
+            border-top: none;
+            padding: 7px 5px !important;
+        }
+
+        .pt-take-give {
+            width: 45px !important;
+            display: inline-block;
+            padding: 5px;
+        }
+    }
+}
+
+
+
+.total-pay {
+    text-align: $center;
+    margin: 15px 0;
+    @include resize($float-left, $width);
+
+    input {
+        @include border-all(1px, solid, $gray);
+        @include padding(3px, 5px, 4px, 5px);
+        height: 28px;
+        width: auto;
+        @include border-radius(4px);
+        margin: 0 6px 0 6px;
+        box-shadow: inset 0px 2px 0px rgba(0,0,0,0.1);
+    }
+
+    .btn {
+        @include padding(4px, 12px, 4px, 12px);
+        font-size: $font-size-tab;
+    }
+
+    .cancle {
+        color: $black-color;
+        // background-color: $light-medium-grey;
+    }
+}
+
+
+
+.table-listing {
+    float: left;
+    width: 100%;
+    display: block;
+}
+/* ---- popup css  ------ */
+.ui-select-container.dropdown {
+    ul {
+        @include padding(5px, 5px, 5px, 5px);
+
+        .ui-select-choices-group {
+            width: $width;
+            margin: 0px;
+        }
+    }
+
+    .ui-select-match-item {
+        background: $theme-color;
+        color: $white-color;
+
+        .close {
+            font-size: 1.3em;
+            line-height: 1;
+
+            &:hover, &:focus {
+                color: $white-color;
+                opacity: 1;
+            }
+        }
+
+        &:active:hover, &:active:focus {
+            color: $white-color;
+        }
+    }
+}
+
+
+
+.list-view {
+    position: relative;
+}
+
+.pad-0 {
+    padding: 0px !important;
+}
+
+.master-class .pl-market .list-view .list-view-table .pager, .master-class .list-view .list-view-table .pager {
+    right: 15px;
+    margin-top: 15px;
+    float: right;
+    position: absolute;
+    bottom: 0;
+
+    li {
+        height: 18px;
+        text-align: center;
+        line-height: 17px;
+
+        a {
+            background-color: transparent;
+            padding: 2px 7px 0;
+            border-radius: 0;
+            color: #fff;
+            font-size: 10px;
+            border: 1px solid transparent;
+            float: unset;
+            vertical-align: middle;
+        }
+    }
+
+    .active a {
+        background-image: none !important;
+        color: white !important;
+    }
+}
+
+.master-class {
+    .list-view {
+        float: left;
+        width: 100%;
+    }
+    .item-count{color:$theme-color;}
+    .list-view-table table {
+        background-color: transparent;
+
+        thead {
+            background-color: #000 !important;
+            background: 0 0;
+        }
+
+        th {
+            font-weight: 700;
+            vertical-align: middle;
+            color: $theme-color;
+            white-space: pre-line;
+            padding: 5px 0 7px 5px;
+            border: none;
+        }
+    }
+
+    .list-view .list-view-table div[template-url="templates.pagination"] {
+        padding: 0px;
+        border: 0px;
+    }
+
+    .list-view .list-view-table .pager .disabled > .number-dis, .list-view .list-view-table .pager .disabled > .number-dis span, .list-view .list-view-table .pager .disabled > .number-dis:focus, .list-view .list-view-table .pager .disabled > .number-dis:hover {
+        font-size: 10px !important;
+        vertical-align: baseline;
+    }
+
+    .list-view .list-view-table .pager .active > .number-dis, .list-view .list-view-table .pager .active > .number-dis:focus, .list-view .list-view-table .pager .active > .number-dis:hover {
+        border: 1px solid #777 !important;
+    }
+
+    .table-bets .list-view .list-view-table table {
+        color: #fff !important;
+    }
+
+    .scorecard .game-head {
+        background-color: $gray_black;
+    }
+}
+
+.master-class, .admin_part {
+    .list-view .list-view-table table.table-hover tbody tr:hover {
+        background-color: #181818;
+    }
+
+    .table-bets tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .list-view-table {
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: $theme-color;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: $theme-color;
+        }
+    }
+}
+
+.master_wrap {
+    .list-view-table table.table tbody tr:nth-child(even) {
+        background-color: rgba(108,108,108,.2);
+    }
+
+    .list-view .list-view-table table {
+        font-size: 14px;
+        min-width: 100%;
+        margin: 0;
+        display: table;
+        color: #fff !important;
+        border: none;
+    }
+
+    .statement-table {
+        float: left;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .list-view-table table.table tbody tr td {
+        border: none;
+        vertical-align: middle;
+        line-height: 22px;
+        padding: 5px 8px 3px;
+    }
+
+    .list-view-table table.table .summary-data {
+        background-color: transparent;
+    }
+
+    .table-bets tbody tr, .list-view-table.table-bets {
+        border: none;
+    }
+
+    .list-view {
+        padding-bottom: 50px;
+        margin-bottom: 0px;
+    }
+
+    .list-view .list-view-table table tbody tr span {
+        line-height: 26px;
+        vertical-align: middle;
+    }
+
+    .list-view-table table {
+        box-shadow: unset;
+    }
+
+    .toolbar {
+        padding: 7px;
+    }
+}
+
+.master_wrap .ma-listing .list-view-table table.table thead tr th div {
+    white-space: normal;
+    vertical-align: bottom;
+}
+
+.permission {
+    .permission-table {
+        @include border('left', 1px, solid, $lay-3-color);
+        background-color: $white-color;
+        @include border('right', 1px, solid, $lay-3-color);
+        margin-bottom: 10px;
+
+        tbody tr:hover {
+            background-color: #fefcbb;
+        }
+    }
+
+    [type="checkbox"]:checked + label, [type="checkbox"]:not(:checked) + label {
+        top: -10px;
+    }
+
+    .per-btn {
+        width: $width;
+        background-color: $body-color;
+        text-align: right;
+        @include padding(10px, 10px, 10px, 10px);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        .btn {
+            border: 1px solid $dark-gray-black !important;
+            @include border-radius(4px);
+            background-color: $theme-color;
+
+            &:hover, &:active, &:focus {
+                @include border-all(1px, solid, $theme-color);
+                background: $dark-gray-black;
+                color: $theme-color;
+            }
+        }
+    }
+
+    thead {
+        background-color: $gray_black;
+
+        th {
+            color: $font-color;
+            @include padding(2px, 5px, 2px, 5px);
+            font-size: 12px;
+
+            a.btn {
+                color: $white-color;
+                @include padding(3px, 8px, 3px, 8px);
+                background-color: $gray_black;
+                border-color: $gray_black;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                line-height: 35px;
+                @include border('bottom', 1px, solid, $lay-3-color);
+                @include padding(1px, 5px, 1px, 5px);
+
+                a.btn {
+                    color: $medium-gray-black;
+                    @include padding(4px, 10px, 4px, 10px);
+                    background-color: transparent;
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+﻿<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">Manage Offers</h1>
+            </header>
+            <kt-grid grid-id="kt-clarification-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     has-new-rights="true"
+                     new-button-label="{{'common.button.addnew' | translate}}"
+                     go-to-new-state="ctrl.addEditOffer()"
+                     cache-key="ktclarificationgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id">
+                            <td data-title="::'user.name.label' | translate"
+                                data-sortable="'Title'" data-header-class="'size-md'" class="size-md">
+                                <span>{{item.title | shortme:30}} </span>
+                            </td>
+                            <td data-title="::'Offer On' ">
+                                <span>{{$parent.$parent.$parent.ctrl.getOfferOn(item.offerOn)}} </span>
+                            </td>
+                            <td data-title="::'Offer Type' ">
+                                <span>{{$parent.$parent.$parent.ctrl.getOfferType(item.offerType)}} </span>
+                            </td>
+                            <td data-title="::'Value' ">
+                                <span>{{item.value}} </span>
+                            </td>
+                            <td data-title="::'Offer Used/Budget' ">
+                                <span>{{item.offerUsedBudget ? item.offerUsedBudget : 0}}/{{item.offerBudget}} </span>
+                            </td>
+                            <td data-title="::'User Count/Max' ">
+                                <span>{{item.offerUserUsed ? item.offerUserUsed : 0}}/{{item.offerUserLimit}} </span>
+                                <span ng-if="item.offerUserUsed>0">
+                                    <a ui-sref="admin.offerlog({id:item.id})" target="_blank"><i class="fa fa-external-link"></i></a>
+                                </span>
+                            </td>
+                            <td data-title="::'Website' ">
+                                <span>{{item.websiteName}} </span>
+                            </td>
+                            <td data-title="::'Order' " data-header-class="'size-xsm boolean'" class="size-xsm boolean">
+                                <span>{{item.displayOrder}} </span>
+                            </td>
+                            <td data-title="::'Start' ">
+                                <span>{{item.startDate | date:'dd-MM-yyyy HH:mm'}} </span>
+                            </td>
+                            <td data-title="::'End' ">
+                                <span>{{item.endDate | date:'dd-MM-yyyy HH:mm'}} </span>
+                            </td>
+
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean size-md'" class="boolean size-md">
+                                <a id="btnEdit{{$index}}" class="btn btn-light"
+                                   ng-click="$parent.$parent.$parent.ctrl.addEditOffer(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a id="delete{{$index}}" class="btn btn-danger"
+                                   ng-click="$parent.$parent.$parent.ctrl.deleteOffer(item.id)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

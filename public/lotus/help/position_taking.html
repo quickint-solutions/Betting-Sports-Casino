@@ -1,0 +1,133 @@
+﻿<div>
+    <h1 class="help-title">Position Taking</h1>
+    <div class="help-info">
+        <p>
+            This section describes what Position Taking is and how it works.
+        </p>
+        <p>Position Taking defines how the stake of a bet is divided between the agency users and can be best described through the following example.</p>
+        
+        <div class="">
+            <h2 class="sub-heading">Example</h2>
+            <p>A Member places a 1000-credit bet at 3.00 odds, backing team A. This means that if the Member loses, they lose 1000; if they win, they win 2000. Agency users take positions against the Member which reflects their liability for the bet.</p>
+
+            <p>
+                Scenario A: Member loses<br />
+                If the Member loses, agency users keep the Member's loss based on their Position Taking:
+            </p>
+            <div class="help-table">
+                <table>
+                    <thead style="text-align:left;">
+                        <tr>
+                            <th>User</th>
+                            <th>Position Taking (%)</th>
+                            <th>Amount kept by Agency User</th>
+                            <th>Amount passed on to upline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Member</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>1000</td>
+                        </tr>
+
+                        <tr>
+                            <td>Agent</td>
+                            <td>10</td>
+                            <td>100</td>
+                            <td>900</td>
+                        </tr>
+
+                        <tr>
+                            <td>MA</td>
+                            <td>15</td>
+                            <td>150</td>
+                            <td>750</td>
+                        </tr>
+
+                        <tr>
+                            <td>CUS</td>
+                            <td>20</td>
+                            <td>200</td>
+                            <td>550</td>
+                        </tr>
+
+                        <tr>
+                            <td>Company</td>
+                            <td>25</td>
+                            <td>250</td>
+                            <td>300 -- to Betfair</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>
+                The Agent keeps 10% (100) and passes up 900 to its upline.<br />
+                The {{ctrl.$stateParams.user}} keeps 15% (150) and passes up 750 to its upline.<br />
+                CUS keeps 20% (200) and passes up 550 to the Company.<br />
+                Scenario B: Member wins<br />
+            </p>
+            <p>If the Member wins, they get 2000 which is added up as follows:</p>
+            <div class="help-table">
+                <table>
+                    <thead style="text-align:left;">
+                        <tr>
+                            <th>User</th>
+                            <th>Position Taking (%)</th>
+                            <th>Amount received from the upline</th>
+                            <th> User's own contribution</th>
+                        </tr>
+
+                    </thead>
+                    <tbody class="tbody">
+                        <tr>
+                            <td>Company</td>
+                            <td>25</td>
+                            <td>600 -- from Betfair</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>MA</td>
+                            <td>15</td>
+                            <td>1500</td>
+                            <td>300</td>
+                        </tr>
+                        <tr>
+                            <td>Agent</td>
+                            <td>10</td>
+                            <td>1800</td>
+                            <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>Member</td>
+                            <td>--</td>
+                            <td>2000</td>
+                            <td>--</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="p-margin">
+                Betfair pays 600 to the Company. The Company (PT: 25%) adds 500 as its own contribution, and passes down 1100 to the Customer.<br />
+                The Customer (PT: 20%) passes down 1500 to the {{ctrl.$stateParams.user}} (1100 from the Company + 400 as their own contribution).<br />
+                The Agent (PT: 10%) passes down 2000 to its Member (1800 from the upline + 200 as their own contribution).<br />
+            </p>
+            <h2 class="sub-heading">Turning Position Taking on and off</h2>
+            <p>Turning Position Taking off means you will not take part in any subsequent bets placed by the Members. Bets will be placed without any involvement and any risks from your part.</p>
+            <p><b>Note</b>: You are liable to take position on any unmatched bets that your members have placed before switching off Position Taking if these bets are eventually matched by Betfair.</p>
+            <p>To turn Position Taking on or off, click the switch in the top right corner.</p>
+            <span class="img-span img-margin">
+                <img class="img-help" src="/public/images/help/position_taking_switch.png" />
+            </span>
+            <p>
+                <b>Note</b>: By default, Position Taking is turned on. If you turn it off, it will be turned off even when you log out and log back in.<br />
+                <b><a class="help-link" >Position Taking Management</a></b><br />
+                This section describes how you manage and view Position Taking for one or multiple MAs.<br />
+                <b>Parent topic</b>:<a class="help-link"> {{ctrl.$stateParams.user}} Management</a><br />
+            </p>
+
+
+        </div>
+    </div>
+</div>

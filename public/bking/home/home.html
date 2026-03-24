@@ -1,0 +1,213 @@
+﻿
+<div class="sidebar-content left-aside">
+    <div class="sidebar">
+        <h3>Quick Access</h3>
+        <ul class="side-list">
+            <li>
+                <a class="side-item" ui-sref="base.home">
+                    <span class="sid-img" >
+                        <i class="inplay"></i>
+                        <span>In-play</span>
+                    </span>
+                    <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                </a>
+            </li>
+            <li>
+                <a class="side-item" ui-sref="base.home.multimarket">
+                    <span class="sid-img" >
+                        <i class="favourite"></i>
+                        <span>{{'favourites.label' | translate}}</span>
+                    </span>
+                    <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                </a>
+            </li>
+            <li>
+                <a class="side-item" ui-sref="base.home.mymarkets">
+                    <span class="sid-img" >
+                        <i class="my-market"></i>
+                        <span>{{'mymarket.label' | translate}}</span>
+                    </span>
+                    <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                </a>
+            </li>
+            <li ng-if="hasCasino">
+                <a class="side-item" ui-sref="base.livegames">
+                    <span class="sid-img" >
+                        <i class="icon-sport-teen-patti"></i>
+                        <span>Live Casino</span>
+                    </span>
+                    <button class="chevr"><i class="fa fa-chevron-right"></i></button>
+                </a>
+            </li>
+
+            
+        </ul>
+        <h3>Sports</h3>
+        <ul class="side-list">
+            <li ng-repeat="sport in eventTypes" ng-if="sport.displayOrder>=0 && !sport.isLiveGame">
+                <div class="side-item li-togle" ng-click="ctrl.openChild(sport,null,sport.id)">
+                    <div class="sid-img">
+                        <i class="icon-sport-{{sport.name|joinme}}"></i>
+                        <span>{{sport.name}}</span>
+                    </div>
+                    <button class="chevr " ng-class="{'oval':sport.child.length>0}">
+                        {{sport.child.length}}
+                        <div ng-class="{'oval-img':sport.child.length>0}">
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                    </button>
+                </div>
+                <ul class="slideContent" ng-class="{'show':sport.isOpen && sport.child.length>0}">
+                    <li class="depth-2" ng-repeat="ch1 in sport.child" ng-init="ch1.isRace=sport.isRace">
+                        <div class="side-item li-togle" ng-click="ctrl.openChild(ch1,sport.id,sport.id)">
+                            <div class="sid-img">
+                                <i class="icon-sport-trophy"></i>
+                                <span ng-hide="sport.isRace">{{ch1.name}}</span>
+                                <span ng-show="sport.isRace">
+                                    <kt-date data-date-value="ch1.startTime" data-format="HH:mm"></kt-date>&nbsp;{{ch1.event.raceName}}
+                                </span>
+                            </div>
+                            <button class="chevr " ng-class="{'oval':ch1.child.length>0}">
+                                {{ch1.child.length}}
+                                <div ng-class="{'oval-img':ch1.child.length>0}">
+                                    <i class="fa fa-chevron-right"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <ul class="slideContent" ng-class="{'show':ch1.isOpen &&  ch1.child.length>0}">
+                            <li class="depth-3" ng-repeat="ch2 in ch1.child">
+                                <div class="side-item li-togle" ng-click="ctrl.openChild(ch2,ch1.id,sport.id)">
+                                    <div class="sid-img market-circle">
+                                        <span>{{ch2.name}}</span>
+                                    </div>
+                                    <button class="chevr">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="top-side">
+            <div class="foo-18"><img ng-src="{{webImagePath}}18.png" alt=""></div>
+            <span>© 2020-2024</span>
+        </div>
+    </div>
+</div>
+
+<div ui-view="center">
+</div>
+<div class="bet-content right-aside">
+    <div class="inner-bet">
+
+        <div class="section">
+            <div class="sec" ng-show="isVideoActive">
+                <h2>Live match status </h2>
+                <div class="on-off-toggle">
+                    <input class="on-off-toggle__input  first-toglle" ng-model="showVideo"
+                           type="checkbox" id="chktv" />
+                    <label for="chktv" class="on-off-toggle__slider"></label>
+                </div>
+            </div>
+            <div class="overview-detail" style="padding:0px 5px;margin-top:-15px" ng-show="showVideo">
+                <div ng-show="wcs_video">
+                    <kt-video-player wcs-config="wcs_video" style="height:180px" pause-me="{{ !showVideo}}" ng-if="wcs_video">
+                    </kt-video-player>
+                </div>
+                <div style="width:100%;height:100%" ng-show="bf_video">
+                    <iframe width="290" height="180" scrolling="no" ng-src="{{bf_video}}"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="section" ng-if="$parent.isB2C">
+            <div class="sec" style="margin-bottom:10px;">
+                <h2>
+                    <a ui-sref="base.account.transferonline({tab:5})" class="payment heartbeat">
+                        Deposit/Withdrawal
+                    </a>
+                </h2>
+                <button class="setings ">
+                    <div style="font-size:18px;">
+                        <i class="fa fa-credit-card y-icon" aria-hidden="true"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="section" ng-init="oneclick_chkbox=$parent.oneClickEnable">
+            <div class="sec">
+                <h2>1-Click Bet</h2>
+                <div class="on-off-toggle">
+                    <input class="on-off-toggle__input  first-toglle" ng-model="oneclick_chkbox" type="checkbox" ng-click="$parent.ctrl.oneClickEnabled();" id="bopis" />
+                    <label for="bopis" class="on-off-toggle__slider"></label>
+                </div>
+            </div>
+            <div class="sec-childe sec-childe-1" ng-if="$parent.oneClickEnable" ng-init="editOneClickStake=false">
+                <div class="sec-childe-inner">
+                    <button ng-show="!editOneClickStake" class="bet-but" ng-repeat="s in stakeConfig.oneClickStake | limitTo:3"
+                            ng-class="{'bet-but-active':s.isActive}"
+                            ng-click="ctrl.selectOneClickStake($index,s)" kt-click>
+                        {{s.stake}}
+                    </button>
+                    <button class="edit-st" ng-show="!editOneClickStake" ng-click="editOneClickStake=true">
+                        <div class="st-img">
+                            <img ng-src="{{webImagePath}}feather-white.png" alt="">
+                        </div>
+                        Edit Stakes
+                    </button>
+                    <input type="text" ng-model="s.stake" kt-number-only allow-decimal="true"
+                           positive-only="true" ng-repeat="s in stakeConfig.oneClickStake  | limitTo:3"
+                           class="bet-but" ng-show="editOneClickStake">
+                    <button class=" save" ng-show="editOneClickStake" ng-click="editOneClickStake=false;ctrl.saveOneClickStakeConfig()">
+                        <div class="st-img cls-img">
+                            <img ng-src="{{webImagePath}}check-client.png" alt="">
+                        </div>
+                        Save
+                    </button>
+                </div>
+                <div class="button-info">
+                    <img ng-src="{{webImagePath}}info-red.png" alt="">
+                    Please note: enabling 1 click betting will also enable accepting bets at all odds for BOOKMAKER.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="sec">
+                <h2> Bet Slip</h2>
+                <button class="setings " ng-click="showEditstake=!showEditstake" ng-show="!showEditstake">
+                    <div class="st-img cls-img">
+                        <img ng-src="{{webImagePath}}gear-edit-stake-client.png" alt="">
+                    </div>
+                    Edit stakes
+                </button>
+                <button class="setings" ng-click="showEditstake=false" ng-show="showEditstake">
+                    <div class="st-img cls-img">
+                        <img ng-src="{{webImagePath}}x.png" alt="">
+                    </div>
+                    Cancel Editing
+                </button>
+            </div>
+            <div ng-show="showEditstake">
+                <div class="YcXkh">
+                    <input type="text" class="bet-input"
+                           ng-model="s.stake" kt-number-only allow-decimal="true"
+                           positive-only="true"
+                           ng-repeat="s in $parent.stakeConfig.stake | filter:{isActive:true}">
+
+                    <button class="save-inp" ng-click="$parent.ctrl.saveStakeConfig();showEditstake=false;">
+                        <img ng-src="{{webImagePath}}check-white.png" alt="">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view="right_placebet">
+        </div>
+        <div ui-view="right_openbet">
+        </div>
+
+    </div>
+</div>

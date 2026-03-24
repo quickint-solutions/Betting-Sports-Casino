@@ -1,0 +1,47 @@
+﻿<div class="horse-racing" style="height: calc(100% - 0px);overflow:hidden">
+
+    <div class="m-inplay">
+        <div class="ip-header">
+            <span class="ip-title">
+                {{currentTab==2 ?  ('inplay.label' | translate) : (currentTab==0 ?  ('today.label' | translate) : ('tomorrow.label' | translate)) }}
+            </span>
+            <div class="ip-btn-grp">
+                <a ng-class="{'active':currentTab==2}" class="ip-btn" ng-click="ctrl.loadMarkets(2)">{{'inplay.label' | translate}}</a>
+                <a ng-class="{'active':currentTab==0}" class="ip-btn" ng-click="ctrl.loadMarkets(0)">{{'today.label' | translate}}</a>
+                <a ng-class="{'active':currentTab==1}" class="ip-btn" ng-click="ctrl.loadMarkets(1)">{{'tomorrow.label' | translate}}</a>
+            </div>
+        </div>
+        <div class="race-detail " ng-repeat="e in eventTypes">
+            <h3 class="black-back" ng-init="e.isExpanded=true">
+                <a class="to-expand" ng-click="e.isExpanded=!e.isExpanded" aria-expanded="true">
+                    {{e.name}}
+                </a>
+            </h3>
+            <div class="highlight sportmenu-li" ng-show="e.isExpanded">
+                <div class="tab-desc" ng-class="{'column-2' : !hasAnyDrawMarket}">
+                    <table class="team-score mrg-top-0">
+                        <tbody>
+                            <tr id="tr_{{h.id}}" ng-repeat="h in e.markets">
+                                <td class="team-title">
+                                    <a href="" ui-sref="mobile.base.market({marketid:h.id})">
+                                        <i class="fa fa-play-circle " ng-class="{'in-play':h.inPlay,'out-play':!h.inPlay}" aria-hidden="true"></i>{{h.event.name}}
+                                    </a>
+                                    <span class="play" ng-if="h.inPlay">{{'inplay.label' | translate}}</span>
+                                    <span ng-if="!h.inPlay" class="game-list-time"> {{h.event.openDate | date:'yyyy-MM-dd HH:mm'}}</span>
+                                </td>
+
+                                <td class="pin" ng-init="h.pin=ctrl.isMarketPinned(h.id)">
+                                    <i class="i-sport {{e.name | joinme}}" style="float:right;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-include="'sky/template/mobile-footer.html'" class="mobile-ftr">
+
+    </div>
+</div>

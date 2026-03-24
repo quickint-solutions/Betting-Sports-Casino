@@ -1,0 +1,168 @@
+﻿
+<div class="filter-panel">
+    <ul class="input-list">
+        <li><label>{{'common.betstatus.label' | translate}}</label></li>
+        <li>
+            <select ng-model="search.status">
+                <option ng-repeat="b in betStatus" value="{{b.id}}">
+                    {{b.name}}
+                </option>
+            </select>
+        </li>
+        <li></li>
+        <li><label style="margin-left:20px;">{{'side.label' | translate}}</label></li>
+        <li>
+            <select ng-model="search.betside" ng-change="ctrl.betSideChanged()">
+                <option ng-repeat="b in betSides" value="{{b.id}}">
+                    {{b.name}}
+                </option>
+            </select>
+        </li>
+    </ul>
+</div>
+
+<div ng-if="search.status == -1 || search.status ==3" class="table-bets">
+    <kt-grid grid-id="kt-unmatchedbets-grid"
+             load-items="ctrl.getUnmatchedBets(params)"
+             name-param="id"
+             name-value-property="id"
+             export-to-excel="ctrl.exportUnmatchedBets(params,1)"
+             export-to-pdf="ctrl.exportUnmatchedBets(params,2)"
+             data-total-row-msg="common.total.unmatchedbets.label"
+             show-total="true"
+             cache-key="ktunmatchedbetsgrid">
+
+        <table ng-table="tableParams" class="table table-hover clickable "
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody class="info-text">
+                <tr ng-repeat="item in $data track by item.id" ng-click="goToDetail(item)">
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'betid.label' | translate"
+                        data-sortable="'id'">
+                        <span title="{{item.betId}}">{{item.betId}} </span>
+                    </td>
+                    <td data-header-class="'size-xl'" class="size-xl align-l"
+                        data-title="::'market.name.label' | translate"
+                        data-sortable="'eventname'"
+                         uib-tooltip="{{item.market.event.eventType.name}} >> {{item.market.event.name}} >> {{item.market.name}}">
+                        <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                            <span id="from">{{item.market.event.eventType.name}}</span>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span id="to"><strong>{{item.market.event.name}}</strong></span>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span id="to">{{item.market.name}}</span>
+                        </label>
+                        <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                            <span id="to">{{item.market.name}} # {{item.market.roundId}}</span>
+                        </label>
+                    </td>
+                    <td data-header-class="'size-md boolean'" class="size-md boolean"
+                        data-title="::'runner.name.label' | translate"
+                        data-sortable="'runnername'">
+                        <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                    </td>
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'side.label' | translate"
+                        data-sortable="'side'">
+                        <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}}</span>
+                    </td>
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'price.label' | translate"
+                        data-sortable="'price'">
+                        <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                    </td>
+                    <td header-class="'cust-name boolean'" class="cust-name boolean" data-title="::'sizematched.label' | translate"
+                        data-sortable="'sizematched'">
+                        <span title="{{item.sizeMatched | toRate }}">{{item.sizeMatched  | toRate}} </span>
+                    </td>
+                    <td header-class="'cust-name boolean'" class="cust-name boolean" data-title="::'sizerem.label' | translate"
+                        data-sortable="'sizeremaining'">
+                        <span title="{{item.sizeRemaining | toRate }}">{{item.sizeRemaining  | toRate}} </span>
+                    </td>
+                    <td header-class="'cust-name'" class="cust-name" data-title="::'createddate.label' | translate"
+                        data-sortable="'createdon'">
+                        <span title="{{item.createdOn | date:'yyyy-MM-dd HH:mm'}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td header-class="'cust-name'" class="cust-name" data-title="::'updateddate.label' | translate"
+                        data-sortable="'updatedOn'">
+                        <span title="{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td data-header-class="'boolean'" class="boolean"
+                        data-title="::'grid.button.action.header' | translate">
+                        <a class="btn btn-danger" title="Credit"
+                           ng-click="$parent.$parent.$parent.ctrl.cancelBet(item.id)">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>
+
+
+<div ng-if="search.status == -1 || search.status ==2" class="table-bets">
+    <kt-grid grid-id="kt-matchedbets-grid"
+             load-items="ctrl.getMatchedBets(params)"
+             name-param="id"
+             name-value-property="id"
+             export-to-excel="ctrl.exportMatchedBets(params,1)"
+             export-to-pdf="ctrl.exportMatchedBets(params,2)"
+             show-total="true"
+             data-total-row-msg="common.total.matchedbets.label"
+             cache-key="ktmatchedbetsgrid">
+
+        <table ng-table="tableParams" class="table table-hover"
+               template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+            <tbody class="info-text">
+                <tr ng-repeat="item in $data track by item.id">
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'betid.label' | translate"
+                        data-sortable="'id'">
+                        <span title="{{item.betId}}">{{item.betId}} </span>
+                    </td>
+                    <td data-header-class="'size-xl'" class="size-xl align-l"
+                        data-title="::'market.name.label' | translate"
+                        data-sortable="'eventname'"
+                         uib-tooltip="{{item.market.event.eventType.name}} >> {{item.market.event.name}} >> {{item.market.name}}">
+                        <label ng-show="item.market.event.eventType.id != $parent.$parent.$parent.liveGamesId ">
+                            <span id="from">{{item.market.event.eventType.name}}</span>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span id="to"><strong>{{item.market.event.name}}</strong></span>
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                            <span id="to">{{item.market.name}}</span>
+                        </label>
+                        <label ng-show="item.market.event.eventType.id == $parent.$parent.$parent.liveGamesId ">
+                            <span id="to">{{item.market.name}} # {{item.market.roundId}}</span>
+                        </label>
+                    </td>
+                    <td data-header-class="'size-md boolean'" class="size-md boolean"
+                        data-title="::'runner.name.label' | translate"
+                        data-sortable="'runnername'">
+                        <span title="{{item.runnerName}}">{{item.runnerName}} </span>
+                    </td>
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'side.label' | translate"
+                        data-sortable="'side'">
+                        <span title="{{item.side}}" ng-class="{'lay-text':item.side==2,'back-text':item.side==1}">{{$parent.$parent.$parent.betSides[item.side].name}} </span>
+                    </td>
+                    <td header-class="'cust-no boolean'" class="cust-no boolean" data-title="::'price.label' | translate"
+                        data-sortable="'price'">
+                        <span title="{{item.price }}">{{item.price}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                    </td>
+                    <td header-class="'cust-name boolean'" class="cust-name boolean" data-title="::'sizematched.label' | translate"
+                        data-sortable="'sizematched'">
+                        <span title="{{item.sizeMatched | toRate }}">{{item.sizeMatched  | toRate}} </span>
+                    </td>
+                    <td header-class="'cust-name boolean'" class="cust-name boolean" data-title="::'avgprice.label' | translate"
+                        data-sortable="'avgprice'">
+                        <span title="{{item.avgPrice}}">{{item.avgPrice}}{{item.percentage && item.percentage!= 100 ? '('+item.percentage+'%)' : ''}} </span>
+                    </td>
+                    <td header-class="'cust-name'" class="cust-name" data-title="::'createddate.label' | translate"
+                        data-sortable="'createdon'">
+                        <span title="{{item.createdOn | date:'yyyy-MM-dd HH:mm'}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                    <td header-class="'cust-name'" class="cust-name" data-title="::'updateddate.label' | translate"
+                        data-sortable="'updatedOn'">
+                        <span title="{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}}">{{item.updatedOn | date:'yyyy-MM-dd HH:mm'}} </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

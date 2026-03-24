@@ -1,0 +1,94 @@
+﻿
+<div class="header admin-header master_header">
+    <div class="header-top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a ui-sref="book.base" class="logo-img"></a>
+                </div>
+                <div class="col-sm-5">
+                    <div class="marquee-text" ng-if="announcement">
+                        <i class="fa fa-bullhorn"></i>
+                        <marquee style="margin-left:5px;width:94%;">
+                            {{announcement}}
+                        </marquee>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <ul class="account-wrap">
+                        <li class="accountCredit" ng-init="utype=ctrl.getUserTypeShort(user.userType)">
+                            <div>
+                                <span class="usertype-lable {{utype}}"> {{utype}}</span>
+                                <span>{{user.username}}, &nbsp;</span>
+                            </div>
+                            <div>
+                                Main
+                                <strong class="betCredit"  ng-class="{'dark-red':balanceInfo.balance<0,'green':balanceInfo.balance>0}">
+                                    <kt-glc-code data-special="true" data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                                </strong>
+                            </div>
+                            <div>
+                                Exposure
+                                <strong class="totalExposure"  ng-class="{'dark-red':balanceInfo.exposure<0}">
+                                    <kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                                </strong>
+                            </div>
+                        </li>
+
+                        <li class="head-refresh">
+                            <a ng-click="ctrl.getBalance()"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-menu bookmarker_menu">
+        <div class="col-sm-9 left-mennu">
+            <ul id="sub-header">
+                <li>
+                    <a ng-class="ctrl.isContain('/bm/feed')" href=""
+                       ui-sref="book.base.feed">{{'dashboard.label' | translate}}</a>
+                </li>
+                <li>
+                    <a ng-class="ctrl.isContain('/bmdownline')" href=""
+                       ui-sref="book.downline">{{'downline.label' | translate}}</a>
+                </li>
+                <li>
+                    <a ng-class="ctrl.isContain('/bmaccount')" href=""
+                       ui-sref="book.account.profile">{{'common.myaccount.label' | translate}}</a>
+                </li>
+                <li kt-has-claim claims="{Claims: ['master.dw']}">
+                    <a ng-class="ctrl.isContain('/bm-banking')" href=""
+                       ui-sref="book.banking">{{'banking.label'| translate}}</a>
+                </li>
+                <li>
+                    <a ng-click="ctrl.changePassword()">{{'changepwd.label' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3 right-menu">
+            <ul id="sub-header" class="master-ul">
+                <li class="time-zone">
+                    <a>
+                        Time Zone :
+                        <span class="gmt" title="Time Zone"><b>{{timezone}}</b></span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a ng-click="ctrl.logout()">
+                        {{'logout.label' | translate}} <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div><!-- header -->
+
+<div class="main-bookmaker">
+    <div ui-view="main" class="full-wrap bm-maker">
+
+    </div>
+</div>
+

@@ -1,0 +1,234 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-telegram" ng-model="request.enableNotification">
+            <label for="chk-telegram">Is <b>Telegram</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">ChannelName</span>
+            <input type="text" ng-model="request.channelName" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">BotApiKey</span>
+            <input type="text" ng-model="request.botApiKey" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-fairex" ng-model="request.isEnabledFairEx">
+            <label for="chk-fairex">Is <b>Fairex</b> Gateway enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">payment Api Key</span>
+            <input type="text" ng-model="request.fairEx.paymentApiKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">payment Secret Key</span>
+            <input type="text" ng-model="request.fairEx.paymentSecretKey" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">payment Call Back</span>
+            <input type="text" ng-model="request.fairEx.paymentCallBack" class="form-control">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min D</span>
+            <input type="text" ng-model="request.fairEx.minDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max D</span>
+            <input type="text" ng-model="request.fairEx.maxDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min W</span>
+            <input type="text" ng-model="request.fairEx.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max W</span>
+            <input type="text" ng-model="request.fairEx.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-skrill" ng-model="request.isEnabledSkrill">
+            <label for="chk-skrill">Is <b>Skrill</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Merchant Id</span>
+            <input type="text" ng-model="request.skrill.merchantId " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Merchant Email</span>
+            <input type="text" ng-model="request.skrill.merchantEmail " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Secret</span>
+            <input type="text" ng-model="request.skrill.secret " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Api Password</span>
+            <input type="text" ng-model="request.skrill.apiPassword " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Pay In Url</span>
+            <input type="text" ng-model="request.skrill.payInUrl " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">Status Url</span>
+            <input type="text" ng-model="request.skrill.statusUrl " class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min D</span>
+            <input type="text" ng-model="request.skrill.minDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max D</span>
+            <input type="text" ng-model="request.skrill.maxDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min W</span>
+            <input type="text" ng-model="request.skrill.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max W</span>
+            <input type="text" ng-model="request.skrill.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="checkbox">
+            <input type="checkbox" id="chk-Netellr" ng-model="request.isEnabledNeteller">
+            <label for="chk-Netellr">Is <b>Neteller</b> enabled for <b>{{data.name}}</b>?</label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">client Key</span>
+            <input type="text" ng-model="request.neteller.clientKey " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="input-group">
+            <span class="input-group-addon">client Secret</span>
+            <input type="text" ng-model="request.neteller.clientSecret " class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">currency Code</span>
+            <input type="text" ng-model="request.neteller.currencyCode " class="form-control" maxlength="3">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">currency muliplier</span>
+            <input type="text" ng-model="request.neteller.currencyBaseUnitsMultiplier " class="form-control" maxlength="5">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="input-group">
+            <span class="input-group-addon">street</span>
+            <input type="text" ng-model="request.neteller.street " class="form-control" maxlength="50">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">city</span>
+            <input type="text" ng-model="request.neteller.city " class="form-control" maxlength="40">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">zip</span>
+            <input type="text" ng-model="request.neteller.zip " class="form-control" maxlength="10">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">state</span>
+            <input type="text" ng-model="request.neteller.state " class="form-control" maxlength="40">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">country</span>
+            <input type="text" ng-model="request.neteller.country " class="form-control" maxlength="2">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min D</span>
+            <input type="text" ng-model="request.neteller.minDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max D</span>
+            <input type="text" ng-model="request.neteller.maxDeposite" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Min W</span>
+            <input type="text" ng-model="request.neteller.minWithdrwal" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">Max W</span>
+            <input type="text" ng-model="request.neteller.maxWithdrwal" class="form-control">
+        </div>
+    </div>
+</div>

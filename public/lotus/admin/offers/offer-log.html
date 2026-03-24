@@ -1,0 +1,35 @@
+﻿<div class="content-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">Offer Statistics</h1>
+            </header>
+            <kt-grid grid-id="kt-clarification-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     cache-key="ktclarificationgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by $index">
+                            <td data-title="::'user.name.label' | translate" data-header-class="'size-xl'" class="size-xl">
+                                <span>{{item.username }} </span>
+                                <a target="_blank" ui-sref="admin.lotusmember.profile({memberid:item.userId,usertype:5})"><i class="fa fa-external-link"></i></a>
+                            </td>
+                            <td data-title="::'Deposit Amount' " data-header-class="'size-md boolean'" class="size-md boolean">
+                                <span>{{item.depositAmount}} </span>
+                            </td>
+                            <td data-title="::'Bonus Amount' " data-header-class="'size-md boolean'" class="size-md boolean">
+                                <span>{{item.bonusAmount}} </span>
+                            </td>
+                            <td data-title="::'Datetime' " data-header-class="'size-md'" class="size-md">
+                                <span>{{item.createdOn | date:'dd-MM-yyyy HH:mm'}} </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</div>

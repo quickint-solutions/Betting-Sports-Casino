@@ -1,0 +1,354 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.td-popup {
+    @include padding(5px, 0px, 5px, 0px);
+    @include border('bottom', 1px, solid, $base-color-light);
+    box-shadow: inset rgba(0, 0, 0, 0.22) 0px 0px 3px 3px;
+
+    .score-btn.khado {
+        width: 18% !important;
+    }
+
+    .score-btn-khado-to {
+        width: 5% !important;
+        float: left;
+        vertical-align: middle;
+        line-height: 28px;
+    }
+
+    .score-btn {
+        &.disable {
+            padding-top: 4px;
+        }
+
+        text-align: center;
+        background-color: $white-color;
+        @include border-all(1px, solid, $light-medium-grey);
+        @include border-radius(4px);
+        height: 30px;
+        @include display(block);
+        margin: 0px 7px 5px 7px;
+        @include resize (left, 24%);
+        color: black;
+
+        a {
+            line-height: 28px;
+            text-align: $text-center;
+            width: 25%;
+            background: #dcdcdc;
+
+            i {
+                font-size: $font-size-tab;
+                color: #303030;
+            }
+        }
+
+        input {
+            border: none;
+            text-align: $text-center;
+            width: 50%;
+            height: 28px;
+            font-size: 11px;
+            vertical-align: super;
+            @include border('left', 1px,solid,$light-gray-blue);
+            @include border('right', 1px, solid, $light-gray-blue);
+        }
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+
+    .select-btn {
+        @include resize (left, 24%);
+        padding: 0 5px !important;
+
+        .btn {
+            @include display(inline-block);
+            margin: 0px 20px 0px 0;
+            @include border-all(1px, solid, $light-medium-grey);
+            line-height: 15px;
+            width: $width;
+            font-size: 11px;
+            @include txt(bold);
+            background-color: #dcdcdc;
+        }
+
+        .cancle {
+            color: $dark-gray-black;
+            margin-right: 10px;
+        }
+
+        .dark-btn {
+            margin-right: 0px;
+        }
+    }
+
+    .inline-button {
+        margin-bottom: 5px;
+    }
+
+    .popup-list {
+        @include resize (left, $width);
+        vertical-align: middle;
+        /* background-image: url('/public/images/bg-header.png');
+        background-position: 0px -1389px;*/
+        margin-bottom:5px;
+        a {
+            border: 1px solid #b5b5b5;
+            height: 29px;
+            float: left;
+            width: 16.6%;
+            line-height: 28px;
+            color: #303030;
+            font-size: 11px;
+            text-align: center;
+            background: #dcdcdc;
+            font-weight: normal;
+
+            &:last-child {
+                border-right: 0px;
+            }
+
+            &:focus {
+                color: $theme-color !important;
+            }
+
+            &:hover {
+                color: $theme-color !important;
+            }
+        }
+    }
+}
+
+.highlight {
+    .team-score {
+        td {
+            a {
+                // color: #2789CE;
+            }
+        }
+
+        .td-popup {
+            @include resize (none, auto);
+            @include padding(5px, 0px, 5px, 0px);
+            @include border('bottom', 1px,solid,$base-color-light);
+        }
+    }
+}
+
+.highlight.main-score {
+    a {
+        @include txt(normal);
+    }
+}
+
+.tab-desc {
+    .longDescription {
+        .td-popup {
+            .score-btn {
+                height: 28px;
+                width: 25%;
+                margin: 0px 3px 5px 3px;
+
+                a {
+                    line-height: 19px;
+                    text-align: $text-center;
+                    width: 25%;
+
+                    i {
+                        font-size: 10px;
+                    }
+                }
+
+                input {
+                    height: 26px;
+                    font-size: 10px;
+                }
+
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+
+            .select-btn {
+                width: 23%;
+
+                .btn {
+                    margin: 0px 20px 0px 0;
+                    font-size: 10px;
+                    @include txt(bold);
+
+                    span {
+                        @include display(block);
+                        color: $white-color;
+                        font-size: 10px;
+                    }
+                }
+
+                .save {
+                    @include padding(1px, 1px, 1px, 1px);
+                    line-height: 12px;
+                }
+
+                .cancle {
+                    color: $dark-gray-black;
+                    margin-right: 10px;
+                }
+
+                .dark-btn {
+                    margin-right: 0px;
+                }
+            }
+
+            .popup-list {
+                height: 29px;
+
+                a {
+                    width: 16.6%;
+                    height: 26px;
+                    margin: 2px 0 0 0;
+                    line-height: 24px;
+                    @include headline($white-color, 10px);
+
+                    &:last-child {
+                        border-right: 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.td-popup.back-1:focus, .td-popup.back-1:active {
+    background: $back-1-color;
+}
+
+.td-popup.lay-1:focus, .td-popup.lay-1:active {
+    background: $lay-1-color;
+}
+
+.sports_book {
+    .sports_data {
+        .td-popup {
+            @include resize(left, $width);
+            max-width: inherit !important;
+
+            .score-btn {
+                text-align: $text-center;
+
+                span {
+                    line-height: 27px;
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+}
+
+.minline {
+    @include padding(5px, 5px, 5px, 5px);
+
+    .score-btn {
+        width: 48% !important;
+        margin: 0px 3px 5px 3px !important;
+
+        &.active {
+            box-shadow: 0px 1px 3px 1px #a3a39c !important;
+        }
+
+        &:hover {
+            box-shadow: unset;
+        }
+    }
+
+    .score-btn.khado {
+        width: 25% !important;
+    }
+
+    .score-btn-khado-to {
+        width: 20% !important;
+        float: left;
+        vertical-align: middle;
+        line-height: 28px;
+    }
+
+    .select-btn {
+        width: 49.3% !important;
+        margin: 4px 3px 4px 3px !important;
+    }
+
+    .popup-list {
+        a {
+            width: 15.4% !important;
+            margin: 0 2px !important;
+
+            &:last-child {
+                margin-right: 0px !important;
+            }
+        }
+    }
+
+    .one-click-bet {
+        float: $float-left;
+    }
+
+    .one-click {
+        width: 98% !important;
+        margin: 8px 5px 5px 5px !important;
+
+        .oneclick-off {
+            font-size: 15px;
+        }
+    }
+
+    .switch {
+        display: unset;
+        float: right;
+    }
+
+    .keypad {
+        //float: left;
+        width: 100%;
+        @include padding(4px, 6px, 4px, 2px);
+
+        tbody {
+            display: inline-table;
+            text-align: $text-center;
+            margin-top: 3px;
+            width: 100%;
+            background-color: white;
+        }
+
+        tr {
+            width: 100%;
+            height: 35px;
+        }
+
+        td {
+            width: 14%;
+            box-shadow: 0px 0px 2px 0px black;
+            vertical-align: middle;
+        }
+    }
+}
+
+.confirm-bet {
+    @include padding(20px, 5px, 20px, 5px);
+    margin: 15px 5px !important;
+    background-color: transparent;
+
+    &.back-border {
+        box-shadow: 1px 1px 6px 0px $back-1-color;
+    }
+
+    &.lay-border {
+        box-shadow: 1px 1px 6px 0px $lay-1-color;
+    }
+
+    &.row {
+        margin: unset;
+    }
+}

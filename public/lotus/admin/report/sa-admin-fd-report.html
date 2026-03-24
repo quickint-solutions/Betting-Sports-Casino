@@ -1,0 +1,102 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="filter-panel">
+        <ul class="input-list">
+            <li>
+                <select class="form-control" ng-model="search.userType">
+                    <option ng-repeat="s in lstUsertTypes" value="{{s.id}}">
+                        {{s.name}}
+                    </option>
+                </select>
+            </li>
+            <li>
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.fromdate"
+                       is-open="fopened"
+                       placeholder="{{'fromdate.placeholder' | translate}}"
+                       ng-click="fopened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </li>
+            <li>
+                <input type="text" class="form-control"
+                       uib-datepicker-popup="dd MMM yyyy"
+                       ng-model="search.todate"
+                       is-open="topened"
+                       placeholder="{{'todate.placeholder' | translate}}"
+                       ng-click="topened=true"
+                       close-text="Close"
+                       alt-input-formats="dd/MM/yyyy" />
+            </li>
+            <li> <input class="form-control" type="text" placeholder="Table Name" ng-model="search.tableName" /></li>
+            <li><a class="btn small-btn" ng-click="ctrl.refreshGrid();">{{'common.button.getpl' | translate}}</a></li>
+
+        </ul>
+        <ul class="input-list history-btn">
+            <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+            <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+        </ul>
+
+    </div>
+    <kt-grid grid-id="kt-adminfd-grid"
+             load-items="ctrl.getItems(params,filters)"
+             name-param="id"
+             data-items="gridItems"
+             show-total="true"
+             new-button-label="Export to Excel"
+             go-to-new-state="ctrl.exportFD()"
+             cache-key="ktadminfdgrid">
+        <table ng-table="tableParams" class="table table-hover clickable member_table "
+               template-pagination="{{:: $parent.$parent.paginationUrl }}">
+            <tbody class="info-text" ng-repeat="item in $data track by $index">
+                <tr>
+                    <td data-title="::'User' | translate">
+                        <a target="_blank" class="bold " ui-sref="admin.lotusmember.profile({memberid:item.user.id,usertype:1})">
+                            <span>{{item.user.username}} ({{item.user.userCode}})</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a ng-click="item.showChild=!item.showChild">Provider Wise</a>
+                    </td>
+                    <td class="boolean size-sm" header-class="'boolean size-sm'" data-title="::'Currency' | translate"><span>{{item.user.currency.name}}</span></td>
+                    <td class="boolean size-sm" header-class="'boolean size-sm'" data-title="::'Rate' | translate"><span>{{item.user.currency.rate}}</span></td>
+                    <td class="boolean size-sm" header-class="'boolean size-sm'" data-title="::'FD Code' | translate"><span>{{item.user.currency.fairDealCode}}</span></td>
+                    <td class="boolean size-sm" header-class="'boolean size-sm'" data-title="::'FD Rate' | translate"><span>{{item.user.currency.casinoRate}}</span></td>
+                    <td class="size-md" header-class="'size-md'" data-title="::'P&L' | translate" ng-class="{'positive':item.win>=0,'negative':item.win<0}">
+                        <span>{{item.win | toRate}}</span>
+                    </td>
+                    <td class="size-md" header-class="'size-md'" data-title="::'From (UTC)' | translate">{{item.from | date:'dd-MMM, HH:mm':'+0000'}}</td>
+                    <td class="size-md" header-class="'size-md'" data-title="::'To (UTC)' | translate">{{item.to | date:'dd-MMM, HH:mm':'+0000'}}</td>
+                </tr>
+                <tr class="expand-table" ng-if="item.showChild && item.winByProvider.length>0">
+                    <td></td>
+                    <td class="expand-td">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="boolean">Provider</th>
+                                    <th class="align-r boolean">{{'pl.label' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="e in item.winByProvider | orderBy:'provider'">
+                                    <td class="boolean">
+                                        <span>{{$parent.$parent.$parent.$parent.$parent.ctrl.getProvider(e.provider) }} </span>
+                                    </td>
+                                    <td class="align-r boolean">
+                                        <span title="{{e.win}}" ng-class="{'positive':e.win>=0,'negative':e.win<0}">{{e.win | toRate}}</span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </kt-grid>
+</div>

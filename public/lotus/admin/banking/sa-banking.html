@@ -1,0 +1,52 @@
+﻿<div class="content-wrap">
+    <div class="col-sm-12">
+        <header>
+            <h1 class="title">
+                {{'banking.label'| translate}}
+            </h1>
+        </header>
+        <div class="admin-down">
+            <div class="row total-data">
+
+                <div class="col-sm-2">
+                    <span class="col-name">Exposure</span><span class="negative"> {{balance.exposure | number:2}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">Balance Down : </span><span ng-class="{'negative':balance.balanceDown<0,'positive':balance.balanceDown>0}">
+                        {{balance.balanceDown | number:2}}
+                    </span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name"> Given Credit </span>
+                    <span  ng-class="{'positive':balance.givenCredit>0,'negative':balance.givenCredit<0}"> {{balance.givenCredit | number:2}}</span>
+                </div>
+
+            </div>
+            <div class="row total-data mr-top-10">
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.btavailabletobetbalance.label' | translate}}</span>
+                    <span ng-class="{'positive':balance.btBalance.availableToBetBalance>0,'negative':balance.btBalance.availableToBetBalance<0}"> {{balance.btBalance.availableToBetBalance | number:0}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.btexposure.label' | translate}}</span>
+                    <span ng-class="{'positive':balance.btBalance.exposure>0,'negative':balance.btBalance.exposure<0}"> {{balance.btBalance.exposure | number:0}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.btexposurelimit.label' | translate}}</span>
+                    <span ng-class="{'positive':balance.btBalance.exposureLimit>0,'negative':balance.btBalance.exposureLimit<0}"> {{balance.btBalance.exposureLimit | number:0}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.btdiscountrate.label' | translate}}</span>
+                    <span ng-class="{'positive':balance.btBalance.discountRate>0,'negative':balance.btBalance.discountRate<0}"> {{balance.btBalance.discountRate | number:0}}</span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="col-name">{{'common.btretainedcommission.label' | translate}}</span>
+                    <span ng-class="{'positive':balance.btBalance.retainedCommission>0,'negative':balance.btBalance.retainedCommission<0}"> {{balance.btBalance.retainedCommission | number:0}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="bankgrid">
+
+</div>

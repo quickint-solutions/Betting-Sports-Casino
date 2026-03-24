@@ -1,0 +1,103 @@
+﻿/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+
+.openbet-sidebar {
+    min-width: 80vw;
+    max-width: 80vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -90vw;
+    /* top layer */
+    z-index: 110;
+    transition: all 0.5s;
+    background-color: $white-color;
+
+    .slip-wrap {
+        .bet-slip {
+            display: inherit !important;
+        }
+
+        .mCustomScrollBox {
+            @include respond-to2(extra-small-screens) {
+                max-height: 520px !important;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width : 1023px) and (max-device-width : 1024px) and (orientation : landscape) {
+    .openbet-sidebar {
+        .slip-wrap {
+            .open-bet {
+                .mCustomScrollBox {
+                    max-height: 600px !important;
+                }
+            }
+        }
+    }
+}
+
+
+.openbet-sidebar.active {
+    left: 0;
+}
+
+.openbet-overlay {
+    /* full screen */
+    width: 100vw;
+    height: 100vh;
+    /* transparent black */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    /* middle layer, i.e. appears below the sidebar */
+    z-index: 100;
+}
+
+.market-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(51,51,51,0.56);
+
+    .loader {
+        background: url(/public/images/gif/spin-black2.gif);
+        width: 50px;
+        height: 50px;
+        background-size: 100%;
+        top: 45%;
+        z-index: 101;
+        left: 45%;
+        position: absolute;
+    }
+}
+
+.openbet-overlay.active {
+    @include display(block);
+    background-color:rgba(0, 0, 0, 0.60);
+}
+
+
+.setting-sidebar {
+    min-width: 80vw;
+    max-width: 80vw;
+    //height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -90vw;
+    /* top layer */
+    z-index: 110;
+    transition: all 0.5s;
+    background-color: $white-smoke;
+}
+
+.setting-sidebar.active {
+    right: 0;
+}

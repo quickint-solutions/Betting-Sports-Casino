@@ -1,0 +1,217 @@
+﻿/* treeview */
+
+/// <reference path="../../utlis/__utils.scss" />
+/// <reference path="../variables/__variables.scss" />
+/// <reference path="../base/__base.scss" />
+
+
+.tree-view {
+    table {
+        width: $width;
+        table-layout: fixed;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .table-nested, ul {
+        text-align: left;
+        @include position(relative);
+
+        li {
+            width: 95%;
+            clear: $clear-both;
+            padding: 1px 0 !important;
+        }
+
+        &:before {
+            content: "";
+            @include display(block);
+            width: 0;
+            z-index: 0;
+            @include position(absolute, top 4px bottom 7px left 4px);
+        }
+    }
+
+    .tree-scroll .table-nested:before {
+        @include border('left', 1px, dotted, $grayish)
+    }
+
+    .table-nested .indent {
+        @include display(inline-block);
+    }
+
+    .table-nested .parent > .cell-name {
+        cursor: $cursor;
+    }
+
+
+    .table-nested .parent > .cell-name > .indent {
+        margin-right: 5px;
+    }
+
+    .table-nested ul > .cell-name > .indent:before {
+        content: '';
+        background: $white-color url('/public/images/plus-button.png');
+        @include display(inline-block);
+        -moz-transition: -moz-transform 0.3s;
+        -o-transition: -o-transform 0.3s;
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        background-size: $font-size-tab;
+        background-repeat: $back-norepeat;
+        width: 12px;
+        height: 12px;
+        @include position(absolute, top 5px left -2px);
+        margin-top: -1px;
+    }
+
+    .btn-primary {
+        @include padding(1px, 5px, 1px, 5px);
+        font-size: $font-size-tab;
+        margin: 2px 0 2px 0;
+    }
+
+    .table-nested .children {
+        display: none;
+    }
+
+    .table-nested .opened > ul > .cell-name > .indent:before {
+        /*  -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+       font-family: FontAwesome;
+        content: "\f147";*/
+        content: '';
+        @include display(inline-block);
+        -moz-transition: -moz-transform 0.3s;
+        -o-transition: -o-transform 0.3s;
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        background: $white-color url('/public/images/minus-button.png');
+        background-size: $font-size-tab;
+        background-repeat: $back-norepeat;
+    }
+
+    .table-nested .opened > .children {
+        display: table-row;
+        // slide down animation
+    }
+
+    .withoutchild {
+        margin-left: 15px !important;
+    }
+
+    .treetext {
+        vertical-align: top;
+        @include padding(0px, 0px, 0px, 15px);
+    }
+
+    .tree-arrow {
+        vertical-align: top;
+    }
+
+    input.tree-checkbox {
+        margin: 2px 0 0;
+    }
+
+    .treeview-input {
+        @include border-all(1px, solid, $gray);
+        margin-bottom: 10px;
+        @include border-radius(2px);
+        height: 28px;
+        @include padding(0px, 4px, 0px, 4px);
+        width: $width;
+    }
+
+    .spinner {
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        left: -5px;
+        top: 2px;
+    }
+}
+
+.children {
+    .sub-parent {
+        margin-left: 20px;
+    }
+
+    @include position(relative);
+    @include resize (left, $width);
+
+    .child-ul {
+        @include resize (left, $width);
+        /* ul .child-li{
+            &:before{content: "";
+                display: block;
+                width: 0;
+                position: absolute;
+                top: 3px;
+                bottom: 0;
+                left: 30px;
+                border-left: 1px solid;
+              //  margin-bottom:10px;
+             }
+            
+            .parent  .cell-name{ position:relative;padding:3px 0 !important;
+                &:before{
+                    content: "";
+                    display: block;
+                    width: 0;
+                    position: absolute;
+                    top: 0px;
+                    bottom: 0;
+                    left: 0px;
+                    border-left: 1px solid;
+                   // margin-bottom:10px;
+               }
+            
+          } 
+     }*/
+    }
+}
+
+.table-nested {
+    li.opened {
+        .parent .treetext {
+        }
+    }
+}
+/*
+.child-ul:last-child li:before{background: white;
+    height: auto;
+    top: 0;
+    bottom: 1em;
+}
+
+
+.child-li ul.children  li ul.child-ul li.child-li{
+        position:relative;
+        &:before{content: "";
+                display: block;
+                width: 0;
+                position: absolute;
+                top: 0px;
+                bottom: 0;
+                left: 60px;
+                border-left: 1px solid;
+        }
+   }
+.active-bot .child-li ul.children  li ul.child-ul li.child-li{
+        position:relative;
+        &:before{content: "";
+                display: block;
+                width: 0;
+                position: absolute;
+                top: 0px;
+                bottom: 0;
+                left: 60px;
+                border-left: 1px solid;
+        }
+   }
+.child-li ul.children  li.opened ul.child-ul li.child-li ul .cell-name{line-height:28px;}
+
+
+    */

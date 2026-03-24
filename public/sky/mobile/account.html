@@ -1,0 +1,142 @@
+﻿<div class="m-account">
+    <div class="m-a-bal">
+        <div class="bal-line">
+            <span>Avilable to Bet</span><span>
+                <strong class="betCredit" ng-class="{'dark-red':(balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus)<0,'green':(balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus)>0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+        <div class="bal-line">
+            <span>Balance</span><span>
+                <strong class="betCredit" ng-class="{'dark-red':(balanceInfo.balance )<0,'green':(balanceInfo.balance)>0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.balance}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+        <div class="bal-line" ng-show="balanceInfo.creditLimit!=0">
+            <span>credit</span><span>
+                <strong class="totalExposure" ng-class="{'dark-red':balanceInfo.creditLimit<0,'green':balanceInfo.creditLimit>0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.creditLimit}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+        <div class="bal-line" ng-show="balanceInfo.bonus!=0">
+            <span>Bonus</span><span>
+                <strong class="totalExposure" ng-class="{'dark-red':balanceInfo.bonus<0,'green':balanceInfo.bonus>0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.bonus}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+        <div class="bal-line" ng-show="balanceInfo.bonusToRedeem!=0">
+            <span>Bonus To Redeem</span><span>
+                <strong class="totalExposure" ng-class="{'dark-red':balanceInfo.bonusToRedeem<0,'green':balanceInfo.bonusToRedeem>0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+        <div class="bal-line">
+            <span>Exposure</span><span>
+                <strong class="totalExposure" ng-class="{'dark-red':balanceInfo.exposure<0}">
+                    <kt-glc-code data-special="true" data-item="{{balanceInfo.exposure}}"></kt-glc-code>
+                </strong>
+            </span>
+        </div>
+
+        <div class="bal-line">
+            <span>One Click Status</span>
+            <div kt-has-claim claims="{Claims: ['client.bet.place']}" style="padding-top: 4px;">
+                <div class="one-click-bet master-toggle float-r" style="margin-top: -3px;">
+                    <label class="switch">
+                        <input class="switch-input" type="checkbox" ng-model="$parent.oneClickEnable"
+                               ng-click="$parent.$parent.ctrl.oneClickToggle()" />
+                        <span class="switch-label" data-on="On" data-off="Off"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="sports-list">
+        <div class="games-name">
+            <a ui-sref="mobile.base.profile">
+                <i class="fa fa-user"></i>
+                {{'common.myprofile.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ng-click="$parent.settingCollapse=false">
+                <i class="fa fa-cog"></i>
+                Settings
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.wallet">
+                <i class="fa fa-bank"></i>
+                {{'common.mywallet.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.transferonline" ng-if="isB2C">
+                <i class="fa fa-bank"></i>
+                Deposit/Withdrawal
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.accountstatement">
+                <i class="fa fa-money"></i>
+                {{'common.accountstatement.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.bonusstatement" ng-show="isB2C">
+                <i class="fa fa-magic"></i>
+                Bonus Statement
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.referralstatement" ng-show="hasReferral">
+                <i class="fa fa-user-plus"></i>
+                Referral Statement
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.currentbets">
+                <i class="fa fa-line-chart"></i>
+                {{'currentbets.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.bethistory">
+                <i class="fa fa-history"></i>
+                {{'bethistory.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <!--<a ui-sref="mobile.base.fdbethistory">
+        <i class="fa fa-clock-o"></i>
+        FD {{'bethistory.label' | translate}}
+        <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+    </a>-->
+            <a ui-sref="mobile.base.profitloss">
+                <i class="fa fa-area-chart"></i>
+
+                {{'profitloss.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.fdprofitloss">
+                <i class="fa fa-line-chart"></i>
+                FD {{'profitloss.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ui-sref="mobile.base.loginhistory">
+                <i class="fa fa-ticket"></i>
+                {{'common.loginhistory.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+            <a ng-click="ctrl.downloadAPK()" ng-if="hasAPK">
+                <i class="fa fa-android"></i>
+                {{'download.label' | translate}}
+                <span id="arrow" class="Go" style="cursor: pointer" type="EVENT_TYPE"></span>
+            </a>
+        </div>
+        <a class="logout_btn" ng-click="ctrl.logout();">
+            {{'logout.label' | translate}}
+        </a>
+    </div>
+    <div ng-include="'sky/template/mobile-footer.html'" class="mobile-ftr">
+
+    </div>
+</div>

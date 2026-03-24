@@ -1,0 +1,66 @@
+﻿<!--  Bets history  -->
+<div class="bets-history">
+    <div class="header-name">
+        <div class="filter-input">
+            <div class="filter-panel">
+                <h1 class="event-heading">Transfer Statement</h1>
+                <div class="btn_value float-r" >
+                    <button class="btn btn-secondary" ng-click="ctrl.exportDataToExcel()" ng-disabled="totalRows<=0">
+                        Download CSV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-listing transfer-table pl-table">
+        <p ng-show="totalrows<=0" style="color:white;margin-bottom:15px!important;">There have been no transfers in the last 180 days.</p>
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getTransferStatement(params)"
+                 show-total="false"
+                 data-items="gridItems"
+                 data-total="totalrows"
+                 data-date-group="true"
+                 data-group-field="createdOn"
+                 cache-key="ktaccountstatementgrid" ng-show="totalrows>0">
+
+            <table ng-table="tableParams" class="table table-hover clickable member_table"
+                   template-pagination="{{ :: paginationUrl }}">
+                <thead>
+                    <tr>
+                        <th class="size-md align-l">Date</th>
+                        <th class="align-l ">Payer/Payee</th>
+                        <th class="size-smd boolean">Amount</th>
+                        <th class="size-xsm align-r"></th>
+                    </tr>
+                </thead>
+                <tbody class="info-text" ng-repeat="itemGrp in $data track by $index">
+                    <tr>
+                        <td class="date">
+                            <kt-date data-date-value="itemGrp.date"></kt-date>
+                        </td>
+                    </tr>
+                    <tr class="childtr" ng-repeat="item in itemGrp.values track by $index" ng-init="tooltipIsOpen=false">
+                        <td class="size-md align-l pad-l-20">
+                            <span>
+                                <kt-date data-date-value="item.createdOn" data-format="HH:mm:ss"></kt-date>
+                            </span>
+                        </td>
+                        <td class="align-l">
+                            <span title="{{item.remarks}}">{{item.remarks}} </span>
+                        </td>
+                      
+                        <td class="size-smd boolean">
+                            <span class="positive" title="{{item.balance | toRate}}" ng-class="{'negative':item.balance<0}">{{item.balance  | toRate}} </span>
+                        </td>
+                        <td class="size-xsm align-r" 
+                            tooltip-class="master-tooltip"
+                               tooltip-placement="left"
+                               uib-tooltip-html="'{{item.comment}}'">
+                            <a class="link-a" ng-show="item.comment">Notes</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿<article>
+    <div>
+        <div class="col-sm-12">
+            <header>
+                <h1 class="title">{{'betfair.account.label' | translate}}</h1>
+            </header>
+            <kt-grid grid-id="kt-betfair-account-grid"
+                     load-items="ctrl.getItems(params,filters)"
+                     show-total="true"
+                     has-new-rights="true"
+                     new-button-label="{{'common.button.addnew' | translate}}"
+                     go-to-new-state="ctrl.addEditBetfairAccount()"
+                     cache-key="ktbetfairaccountgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody>
+                        <tr ng-repeat="item in $data track by item.id">
+                            <td data-title="::'betfairaccount.username.label' | translate"
+                                data-sortable="'username'"
+                                data-header-class="'size-xl'" class="size-xl">
+                                <span>{{item.username}} </span>
+                            </td>
+                            <td data-title="::'betfairaccount.password.label' | translate"
+                                data-sortable="'password'"
+                                data-header-class="'size-lg'" class="size-lg">
+                                <span>{{item.password}} </span>
+                            </td>
+                            <td data-title="::'betfairaccount.balance.label' | translate"
+                                data-sortable="'balance'"
+                                data-header-class="'size-lg'" class="size-lg">
+                                <span>{{item.balance | currency:"":2}} </span>
+                            </td>
+                            <td data-title="::'betfairaccount.betfairaccounttype.label' | translate"
+                                data-sortable="'betfairAccountType'"
+                                data-header-class="'size-md'" class="size-md">
+                                <span>{{$parent.$parent.$parent.ctrl.getBetfairAccountType(item.betfairAccountType)}} </span>
+                            </td>
+                            <td data-title="::'betfairaccount.isactive.label' | translate"
+                                data-sortable="'isactive'"
+                                data-header-class="'size-md boolean'" class="size-md boolean">
+                                <i ng-show="item.isActive" class="fa fa-check"></i>
+                            </td>
+                            <td data-title="::'grid.button.action.header' | translate"
+                                data-header-class="'boolean'" class="boolean">
+                                <a id="btnEdit{{$index}}" class="btn btn-light"
+                                   ng-click="$parent.$parent.$parent.ctrl.addEditBetfairAccount(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a id="btndelete{{$index}}" class="btn btn-danger"
+                                   ng-click="$parent.$parent.$parent.ctrl.deleteBetfairAccount(item.id)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+    </div>
+</article>

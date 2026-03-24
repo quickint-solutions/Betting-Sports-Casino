@@ -1,0 +1,79 @@
+﻿<div class="bf-row no-bottom-gutter gutter-pad-8">
+    <div class="bf-col-24-24">
+        <div class="todays-racing-mod-container" >
+            <div class="load-screen ng-animate-enabled">
+                <section class="mod-todays-racing">
+                    <div class="header">
+                        <span class="header-title">Horse Racing Schedule</span>
+                        <div class="header-schedule-filters">
+                            <button class="schedule-filter-button " title="Today"
+                                    data-ng-class="{'active':currentTab==0}" ng-click="ctrl.loadHighlightsBasedOnURL(0)">
+                                Today
+                            </button>
+                            <button class="schedule-filter-button" title="Tomorrow"
+                                    data-ng-class="{'active':currentTab==1}" ng-click="ctrl.loadHighlightsBasedOnURL(1)">
+                                Tomorrow
+                            </button>
+                            <button class="schedule-filter-button" title="After Tomorrow" ng-class="{'active':currentTab==2}"
+                                    ng-click="ctrl.loadHighlightsBasedOnURL(2)">
+                                After Tomorrow
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-if="highlights.length>0">
+                        <div>
+                            <div >
+                                <ul class="country-tabs-container">
+                                    <li class="country-tab" ng-class="{'active':selectedCountry==race.name}" ng-repeat="race in highlights">
+                                        <div class="tab-wrapper grouped-countries-tab-wrapper" ng-click="$parent.$parent.selectedCountry=race.name">
+                                            <svg class="flag">
+                                                <use xlink:href=""
+                                                     data-ng-href="{{imagePath}}images/icon2/sprite-bf-todays-racing_5081_.svg#country-flags-{{race.name | lowercase}}">
+                                                </use>
+                                            </svg>
+                                            <div class="country-label">
+                                                <span>
+                                                    {{race.name}} <span>({{race.events.length}})</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="country-content">
+                                    <li class="meeting-item" ng-repeat="rd in (highlights | filter:{name:selectedCountry})[0].events">
+                                        <div class="meeting-info">
+                                            <div class="meeting-description">
+                                                <div class="meeting-label"> {{rd.name}}</div>
+                                            </div>
+                                        </div>
+                                        <ul class="race-list">
+                                            <li class="race-information" ng-repeat="m in rd.markets">
+                                                <a class="race-link "
+                                                   ui-sref="base.home.sport.upcomingrace({nodetype:1,id:ctrl.$stateParams.eventTypeId,marketid:m.id,eventTypeId:ctrl.$stateParams.eventTypeId})"
+                                                   ng-class="{'inplay-state':m.inPlay}">
+                                                    <span class="inplay-icon" ng-if="m.inPlay">
+                                                        <svg class="icon">
+                                                            <use xlink:href=""
+                                                                 data-ng-href="{{imagePath}}images/icon2/sprite-bf-todays-racing_5081_.svg#icons-inplay"></use>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="label">{{m.startTime | date:'HH:mm'}}</span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bf-row no-bottom-gutter no-side-gutter  gutter-pad-8">
+    <div class="bf-col-24-24 footer-wrapper" ng-include="footerTemplate">
+
+    </div>
+</div>

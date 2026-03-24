@@ -1,0 +1,189 @@
+﻿<div class="report-card">
+    <div class="account-statement Profit-l">
+        <h1 class="title">Referral</h1>
+        <div class="filter-panel ">
+            <ul class="input-list">
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <select ng-model="search.viewType">
+                        <option ng-repeat="b in viewTypeList" value="{{b.id}}">
+                            {{b.name}}
+                        </option>
+                    </select>
+                </li>
+                <li>
+                    <a class="btn bets" ng-click="ctrl.refreshGrid();">
+                        Submit
+                    </a>
+                </li>
+            </ul>
+            <ul class="input-list">
+                <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+            </ul>
+            <ul class="input-list mr-top-10">
+                <li style="font-size:15px;margin-right:5px;">
+                    Referral Balance : <b>{{referralObj.balance | toRate}}</b>
+                </li>
+                <li><a class="btn bets" ng-click="ctrl.withdrawBalance()">Withdraw</a></li>
+            </ul>
+            <ul class="input-list mr-top-10">
+                <li style="font-size:15px;">
+                    Referral Link : <b>{{referralObj.link}}</b>&nbsp;<i ng-click="ctrl.copytext(referralObj.link)" style="cursor:pointer;" class="fa fa-copy"></i>
+                </li>
+            </ul>
+            <ul class="input-list mr-top-10">
+                <li style="font-size:13px;">
+                    •  Minimum <b>{{referralObj.minimumBalanceRequired | toRate}}</b> main balance required to get referral amount.<br />• Referral amount must be greater than <b>{{referralObj.minWithdrawalAmount | toRate}}</b> to withdraw.
+                </li>
+            </ul>
+        </div>
+        <div class="table-bets" ng-show="viewType==2">
+            <kt-grid grid-id="kt-referralstatement-grid"
+                     load-items="ctrl.getReferralStatement(params)"
+                     show-total="true"
+                     data-can-i-load="canILoad"
+                     cache-key="ktreferralstatementgrid">
+
+                <table ng-table="tableParams" class="table table-hover clickable hide-header"
+                       style="display: table;"
+                       template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                    <tbody class="info-text">
+                        <tr class="no-tr-hover" style="padding: 10px;" ng-repeat="item in $data track by $index">
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>User : </span>
+                                        <span class="bold">{{item.referralUser.username}} ({{item.referralUser.mobile}})</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>Balance : </span>
+                                        <span class="bold">{{item.balance | toRate}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>Narration : </span>
+                                        <span class="bold">{{item.narration }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>Is Pending? : </span>
+                                        <span class="bold">
+                                            <span ng-show="item.isPending">Yes</span>
+                                            <span ng-show="!item.isPending">No</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>CreatedOn : </span>
+                                        <span class="bold"><kt-date data-date-value="item.createdOn" data-format="dd MMM yyyy, HH:mm"></kt-date></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>UnlockOn : </span>
+                                        <span class="bold">
+                                            <span ng-show="item.isPending">
+                                                <kt-date data-date-value="item.unlockOn" data-format="dd MMM yyyy, HH:mm"></kt-date>
+                                            </span>
+                                            <span ng-show="!item.isPending">-</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </kt-grid>
+        </div>
+        <div class="table-bets" ng-show="viewType==1">
+            <div class="list-view">
+                <div ng-show="referralUsers.length>0">
+                    <div class="list-view-table myTranscludedContent currency">
+                        <table class="table table-hover clickable hide-header" style="display: table">
+                            <tbody class="info-text">
+                                <tr class="no-tr-hover" style="padding: 10px;" ng-repeat="item in referralUsers track by $index">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Username : </span>
+                                                <span class="bold">{{item.username}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Usercode : </span>
+                                                <span class="bold">{{item.userCode}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Mobile : </span>
+                                                <span class="bold">{{item.mobile}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Betting Lock : </span>
+                                                <span class="bold">{{item.bettingLock==2 ? 'Unlock' : 'Locked'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Status : </span>
+                                                <span class="bold">
+                                                    <span ng-show="item.status==2">ACTIVE</span>
+                                                    <span ng-show="item.status==3">INACTIVE</span>
+                                                    <span ng-show="item.status==4">SUSPENDED</span>
+                                                    <span ng-show="item.status==5">CLOSED</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <span>Last Login : </span>
+                                                <span class="bold">{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="alert alert-info empty-msg " ng-show="referralUsers.length<=0">
+                    <p>No Records Found.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

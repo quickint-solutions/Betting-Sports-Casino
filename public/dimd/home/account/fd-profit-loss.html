@@ -1,0 +1,87 @@
+﻿<!-- profit and loss -->
+<div class="Profit-l">
+    <div class="profit-title">
+        <h3 class="title">FD {{'profitloss.label' | translate}}</h3>
+        
+        <div class="filter-panel">
+            <ul class="input-list">
+                <li><label>{{'profitloss.period.label' | translate}}</label></li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.fromdate"
+                               is-open="fopened"
+                               placeholder="{{'fromdate.placeholder' | translate}}"
+                               ng-click="fopened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="dd MMM yyyy"
+                               ng-model="search.todate"
+                               is-open="topened"
+                               placeholder="{{'todate.placeholder' | translate}}"
+                               ng-click="topened=true"
+                               close-text="Close"
+                               alt-input-formats="dd/MM/yyyy" />
+                    </div>
+                </li>
+                <li>
+                    <a ng-click="ctrl.refreshGrid()" class="btn bets">{{'common.button.getpl' | translate}}</a>
+                </li>
+            </ul>
+            <ul class="input-list">
+                <li><a ng-click="ctrl.setDates(0,'d')" class="btn">{{'history.today.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-1,'d')" class="btn">{{'history.fromyesterday.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-7,'d')" class="btn">{{'history.last7day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-30,'d')" class="btn">{{'history.last30day.label' | translate}}</a></li>
+                <li><a ng-click="ctrl.setDates(-3,'M')" class="btn">{{'history.last3month.label' | translate}}</a></li>
+            </ul>
+        </div>
+    </div>
+   
+    <div class="table-bets">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getProfitLoss(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                    <tr ng-click="$parent.$parent.$parent.ctrl.getBet(item,!item.show)">
+                        <td class="align-l size-md" header-class="'size-md'"
+                            data-title="::'Round Id' | translate">
+                            <span>{{item.roundId}}</span>
+                        </td>
+
+                        <td data-title="::'Game Name' | translate" header-class="'align-l'" class="align-l"
+                            data-sortable="'tableName'">
+                            <span id="to">{{item.tableName}}</span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean" data-title="::'Provider' | translate">
+                            <span>{{$parent.$parent.$parent.ctrl.getTableProvider(item.provider)}} </span>
+                        </td>
+
+                        <td header-class="'size-sm boolean'" class="size-sm boolean"
+                            data-title="::'profitloss.label' | translate">
+                            <span ng-class="{'positive':item.win>=0,'negative':item.win<0}">{{item.win  | toRate}}</span>
+                        </td>
+                       
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'settledtime.label' | translate">
+                            <span>{{item.createdOn | date:'yy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

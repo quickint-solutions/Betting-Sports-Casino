@@ -1,0 +1,21 @@
+﻿<tr  class="position-bg">
+    <td style="padding-left:15px;">
+        <a class="p-user" ng-click="ctrl.open_Close_Check_Position(sm,true);">
+             {{sm.username}}
+            <i class="fa  float-r" ng-if="sm.downline" ng-class="{'fa-sitemap':!sm.open,'fa-sort-amount-asc fa-rotate-180':sm.open}"></i>
+        </a>
+    </td>
+    <td  style="width:150px" ng-repeat="mr in market.marketRunner track by $index">
+        <span class="market-team" ng-repeat="r in sm.marketRunners | filter:{runner:{id:mr.runner.id}}"
+              ng-class="{'positive':r.pl>=0,'negative':r.pl<0}">
+            {{r.pl  | toRate}}
+        </span>
+    </td>
+</tr>
+<tr ng-if="sm.downline && sm.open" style="background-color:rgba(245, 245, 245, 0);">
+    <td colspan="{{market.marketRunner.length+1}}" style="padding:0px">
+        <table ng-repeat="d in sm.downline track by $index" style="margin-top:7px;">
+            <tbody ng-include="userpositionChildTemplate"></tbody>
+        </table>
+    </td>
+</tr>

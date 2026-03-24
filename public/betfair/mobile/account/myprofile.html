@@ -1,0 +1,109 @@
+﻿<div class="event my-profile">
+    <h1 class="title" ng-if="!fromMember">{{'myprofile.label' | translate}}</h1>
+    <h1 class="title" ng-if="fromMember">{{'profile.label' | translate}}</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile-wrap">
+                <h3 class="heading">{{'myprofile.aboutyou.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.name.label' | translate}}</dt>
+                    <dd>{{user.name}}</dd>
+                    <dt>{{'user.mobile.label' | translate}}</dt>
+                    <dd>{{user.mobile}}</dd>
+                    <dt>{{'user.email.label' | translate}}</dt>
+                    <dd>{{user.email}}</dd>
+
+                    <dt>{{'user.password.label' | translate}}</dt>
+                    <dd>
+                        ********************************
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.manage']}"
+                           ng-if="!ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                        <a ng-click="ctrl.changePassword()" class="favor-set"
+                           kt-has-claim claims="{Claims: ['common.password.member.manage']}"
+                           ng-if="ctrl.$stateParams.memberid">
+                            {{'common.button.edit' | translate}}<i class="fa fa-pencil" aria-hidden="true" style="margin: 0 5px;"></i>
+                        </a>
+                    </dd>
+
+                    <dt ng-if="!fromMember">{{'languages.label' | translate}}</dt>
+                    <dd ng-if="!fromMember" class="dd-lang">
+                        <select ng-model="$parent.user.languageId" ng-change="ctrl.languageChanged()">
+                            <option ng-repeat="l in languageList" value="{{l.id}}">
+                                {{l.name}}
+                            </option>
+                        </select>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+       
+        <div class="col-sm-12">
+           
+            <div class="profile-wrap">
+                <h3 class="heading">{{'common.setting.label' | translate}}</h3>
+                <dl>
+                    <dt>{{'user.currency.label' | translate}}</dt>
+                    <dd>GLC</dd>
+
+                    <dt>{{'user.oddsformat.label' | translate}}</dt>
+                    <dd>--</dd>
+                    <dt ng-if="!fromMember">{{'user.timezone.label' | translate}}</dt>
+                    <dd ng-if="!fromMember">{{timezone}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-sm-12" ng-if="bankingDetail">
+            <div class="profile-wrap">
+                <h3 class="heading">Upline Banking Detail</h3>
+                <table>
+                    <tr>
+                        <td style="padding:5px 10px">
+                            <div ng-bind-html="bankingDetail.bankDetails"></div>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.whatsAppNo">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.whatsAppNo}} <a target="_blank" href="https://wa.me/{{bankingDetail.whatsAppNo}}"> <i class="fa fa-whatsapp"></i></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.telegramNo">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.telegramNo}} <a target="_blank" href="https://t.me/{{bankingDetail.telegramNo}}"> <i class="fa fa-telegram"></i></a>
+                        </td>
+                    </tr>
+                    <tr ng-if="bankingDetail.other">
+                        <td style="padding:5px 10px">
+                            {{bankingDetail.other}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="profile-wrap" style="overflow-x:auto">
+                <h3 class="heading" style="min-width:500px">{{'common.betconfig.label' | translate}}</h3>
+                <table style="font-size:11.5px;text-align:center;min-width:500px">
+                    <tr>
+                        <th> </th>
+                        <th class="align-c">{{'betconfig.min.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.max.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.delay.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.exposure.label'|translate}}</th>
+                        <th class="align-c">{{'betconfig.profit.label'|translate}}</th>
+                    </tr>
+                    <tr ng-repeat="e in eventTypes">
+                        <td style="padding-left:10px;text-align:left">{{e.name}}</td>
+                        <td>{{e.minBet | toRate }}</td>
+                        <td>{{e.maxBet | toRate }}</td>
+                        <td> {{ e.betDelay | toRate }} </td>
+                        <td>{{e.maxExposure | toRate }}</td>
+                        <td>{{e.maxProfit | toRate }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

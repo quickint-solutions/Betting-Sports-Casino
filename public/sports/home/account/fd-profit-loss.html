@@ -1,0 +1,90 @@
+﻿<div class="card">
+    <div class="card-header p-0" style="border-radius: 0px;">
+        <div class="filter-type-block">
+            <div class="date-filter d-flex flex-row flex-wrap mt-2">
+                <div class="d-flex flex-row mr-2">
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.fromdate"
+                                   is-open="fopened"
+                                   placeholder="{{'fromdate.placeholder' | translate}}"
+                                   ng-click="fopened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" />
+                            <i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="to-block">TO</div>
+                    <div class="calender-auto mx-datepicker disabled">
+                        <div class="mx-input-wrapper">
+                            <input type="text" class="mx-input"
+                                   uib-datepicker-popup="dd MMM yyyy"
+                                   ng-model="search.todate"
+                                   is-open="topened"
+                                   placeholder="{{'todate.placeholder' | translate}}"
+                                   ng-click="topened=true"
+                                   close-text="Close"
+                                   alt-input-formats="dd/MM/yyyy" /><i class="fa fa-calendar mx-icon-calendar">
+                            </i>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-sm search-btn mt-2 mt-md-0" ng-click="ctrl.refreshGrid();">
+                    <i class="material-icons">search</i>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0 table-responsive">
+        <kt-grid grid-id="kt-historybets-grid"
+                 load-items="ctrl.getProfitLoss(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="kthistorybetsgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody id="tr_{{$index}}" class="info-text" ng-repeat="item in $data track by $index">
+                    <tr>
+                        <td class="align-l size-md" header-class="'size-md'"
+                            data-title="::'Round Id' | translate">
+                            <span>{{item.roundId}}</span>
+                        </td>
+
+                        <td data-title="::'Game Name' | translate" header-class="'align-l'" class="align-l"
+                            data-sortable="'tableName'">
+                            <span id="to">{{item.tableName}}</span>
+                        </td>
+
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'Provider' | translate">
+                            <span>{{$parent.$parent.$parent.ctrl.getTableProvider(item.provider)}} </span>
+                        </td>
+
+                        <td header-class="'size-sm align-r'" class="size-sm align-r"
+                            data-title="::'profitloss.label' | translate">
+                            <span ng-class="{'text-success':item.win>=0,'text-danger':item.win<0}">{{item.win  | toRate}}</span>
+                        </td>
+
+                        <td header-class="'size-md boolean'" class="size-md boolean" data-title="::'settledtime.label' | translate">
+                            <span>{{item.createdOn | date:'yy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody ng-if="$data.length>0" class="summary-data">
+                    <tr>
+                        <td class="size-md"></td>
+                        <td></td>
+                        <td class="size-md align-r"></td>
+                        <td class="size-md align-r">{{$data | total:'win' | number:2}}</td>
+                        <td class="size-md"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>

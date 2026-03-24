@@ -1,0 +1,12 @@
+﻿
+<div>
+    <span class="d-block odds">
+        {{isBm=='true' && item.price ? (item.price | toBMPrice  ): item.price }}
+    </span>
+    <span class="d-block" ng-if="showSize == 'true' && item && item.size > 0 ">
+        {{item.size | toRateOnly | shortNumber}}
+    </span>
+    <span class="d-block" ng-if="showSize == 'false' && item.percentage ">
+        {{item.percentage}}
+    </span>
+</div>

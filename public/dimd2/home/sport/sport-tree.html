@@ -1,0 +1,274 @@
+﻿<div class="logo-box d-none-mobile">
+    <div class="logo">
+        <a ui-sref="base.home" aria-current="page" class="router-link-exact-active router-link-active">
+            <img ng-src="{{imagePath}}/images/{{currentWebApp}}/logo.png" class="img-fluid">
+        </a>
+    </div>
+</div>
+<div class="search-box ng-hide">
+    <div class="form-group">
+        <input type="text" placeholder="Search" autocomplete="off" class="form-control" style="text-transform: lowercase;">
+        <img ng-src="{{imagePath}}/images/{{currentWebApp}}/search.svg" class="search-icon">
+    </div>
+</div>
+<div class="special-menu">
+    <h5 class="text-yellow pl-2"><u>Quick Links</u></h5>
+    <ul class="navbar-nav" ng-init="selectedRace=-1">
+        <li class="nav-item dropdown dropright"
+            ng-class="{'show':sport.isOpen && ctrl.selectedRace==sport.sourceId}"
+            ng-repeat="sport in eventTypes | filter:{isRace:true}">
+            <a class="dropdown-toggle sport{{sport.sourceId}}" ng-click="ctrl.selectedRace=sport.sourceId;ctrl.openChild(sport,null,sport.id)">
+                <i class="d-icon icon-{{sport.sourceId}}"></i>
+                <span class="sport-name">{{sport.name}}</span>
+            </a>
+            <div class="dropdown-menu"
+                 ng-class="{'show':sport.isOpen && sport.child.length>0 && ctrl.selectedRace==sport.sourceId}"
+                 style="position: absolute; transform: translate3d(220px, 0px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="right-start">
+                <h5>All {{sport.name}}</h5>
+                <div class="horse-list-box">
+                    <a ng-repeat="ch1 in sport.child"
+                       ng-click="sport.isOpen=false;"
+                       ui-sref="base.home.sport.upcomingrace({marketid:ch1.id,nodetype:5,id:sport.id})">
+                        <p class="dropdown-item">
+                            <kt-date data-date-value="ch1.startTime" data-format="HH:mm"></kt-date>&nbsp;{{ch1.event.raceName}}&nbsp;({{ch1.event.countryCode}})
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="menu-box">
+    <h5 class="text-yellow pl-2"><u>All Sport</u></h5>
+    <div class="sports-list-content" ng-init="selectedSport=-1">
+        <div class="all-menu">
+            <span mode="out-in">
+                <ul class="navbar-nav" ng-repeat="sport in eventTypes | filter:{isRace:false} " ng-if="sport.displayOrder>=0">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport{{sport.sourceId}}" ng-click="ctrl.selectedSport=sport.sourceId;ctrl.openChild(sport,null,sport.id)">
+                            <i class="d-icon icon-{{sport.sourceId}}"></i>
+                            <span class="sport-name ifTooltip">{{sport.name}}</span>
+                        </a>
+                        <ul class="dropdown-menu" ng-class="{'show':sport.isOpen && sport.child.length>0}">
+                            <li class="text-dark" ng-repeat="ch1 in sport.child">
+                                <a class="dropdown-item dropdown-toggle" ng-click="ctrl.openChild(ch1,sport.id,sport.id)">
+                                    <span class="ifTooltip">{{ch1.name}}</span>
+                                </a>
+                                <ul class="dropdown-menu" ng-class="{'show':ch1.isOpen && ch1.child.length>0}">
+                                    <li class="text-dark" ng-repeat="ch2 in ch1.child">
+                                        <a class="dropdown-item" ng-click="ctrl.openChild(ch2,ch1.id,sport.id)">
+                                            <span class="ifTooltip">{{ch2.name}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport8">
+                            <i class="d-icon icon-8"></i> <span class="sport-name ifTooltip">Table Tennis</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport15">
+                            <i class="d-icon icon-15"></i> <span class="sport-name ifTooltip">Basketball</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport18">
+                            <i class="d-icon icon-18"></i> <span class="sport-name ifTooltip">Volleyball</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport59">
+                            <i class="d-icon icon-59"></i>
+                            <span class="sport-name ifTooltip">Snooker</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport19">
+                            <i class="d-icon icon-19"></i> <span class="sport-name ifTooltip">Ice Hockey</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport11">
+                            <i class="d-icon icon-11"></i>
+                            <span class="sport-name ifTooltip">E Games</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport9">
+                            <i class="d-icon icon-9"></i>
+                            <span class="sport-name ifTooltip">Futsal</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport39">
+                            <i class="d-icon icon-39"></i> <span class="sport-name ifTooltip">Handball</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport5">
+                            <i class="d-icon icon-5"></i> <span class="sport-name ifTooltip">Golf</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport55">
+                            <i class="d-icon icon-55"></i> <span class="sport-name ifTooltip">Rugby League</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport6">
+                            <i class="d-icon icon-6"></i> <span class="sport-name ifTooltip">Boxing</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport7">
+                            <i class="d-icon icon-7"></i> <span class="sport-name ifTooltip">Beach Volleyball</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport3">
+                            <i class="d-icon icon-3"></i> <span class="sport-name ifTooltip">Mixed Martial Arts</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport16">
+                            <i class="d-icon icon-16"></i> <span class="sport-name ifTooltip">MotoGP</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item dropdown-toggle sport17">
+                            <i class="d-icon icon-17"></i>
+                            <span class="sport-name ifTooltip">Chess</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport22">
+                            <i class="d-icon icon-22"></i> <span class="sport-name ifTooltip">Badminton</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport29">
+                            <i class="d-icon icon-29"></i> <span class="sport-name ifTooltip">Cycling</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport32">
+                            <i class="d-icon icon-32"></i> <span class="sport-name ifTooltip">Motorbikes</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport33">
+                            <i class="d-icon icon-33"></i> <span class="sport-name ifTooltip">Athletics</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport35">
+                            <i class="d-icon icon-35"></i> <span class="sport-name ifTooltip">Basketball 3X3</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport37">
+                            <i class="d-icon icon-37"></i> <span class="sport-name ifTooltip">Sumo</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport38">
+                            <i class="d-icon icon-38"></i> <span class="sport-name ifTooltip">Virtual sports</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport52">
+                            <i class="d-icon icon-52"></i> <span class="sport-name ifTooltip">Motor Sports</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport53">
+                            <i class="d-icon icon-53"></i> <span class="sport-name ifTooltip">Baseball</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport54">
+                            <i class="d-icon icon-54"></i> <span class="sport-name ifTooltip">Rugby Union</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport57">
+                            <i class="d-icon icon-57"></i> <span class="sport-name ifTooltip">Darts</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport58">
+                            <i class="d-icon icon-58"></i> <span class="sport-name ifTooltip">American Football</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="">
+                        <a class="dropdown-item sport64">
+                            <i class="d-icon icon-64"></i> <span class="sport-name ifTooltip">Esports</span>
+                        </a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+

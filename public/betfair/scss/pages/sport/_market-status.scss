@@ -1,0 +1,175 @@
+﻿/// <reference path="../../variables/__variables.scss" />
+/// <reference path="../../base/__base.scss" />
+/// <reference path="../../utils/__utils.scss" />
+
+
+tbody.suspend, tbody.closed, tbody.ball, tbody.stop {
+    @include position(relative);
+    height: $height;
+    background-color: rgba(255,255,255,.65);
+    opacity: 0.5;
+    display: inline-table;
+    width: $width;
+    pointer-events: none;
+    vertical-align: middle;
+}
+
+tbody.suspend:before, tbody.closed:before, tbody.ball:before, tbody.stop:before {
+    @include txt(bold);
+    @include padding(3px, 36px, 3px, 36px);
+    background-color: rgba(255,255,255,.65);
+    @include position(absolute, left 50% top 50%);
+    transform: translate(-50%, -50%);
+}
+
+tbody.suspend:before {
+    content: "SUSPENED";
+    @include headline($red-color, 15px);
+    @include border-all(2px, solid, $red-color);
+}
+
+tbody.ball:before {
+    content: "BALL";
+    @include headline($red-color, 15px);
+    @include border-all(2px, solid, $red-color);
+}
+
+
+tbody.closed:before {
+    content: "CLOSED";
+    @include headline($green-color, 15px);
+    @include border-all(2px, solid, $green-color);
+}
+
+tr.suspend, tr.closed, tr.ball, tr.stop {
+    @include position(relative);
+    height: $height;
+    background-color: rgba(255,255,255,.65);
+    opacity: 0.5;
+    width: $width;
+    pointer-events: none;
+}
+
+tr.suspend:before, tr.closed:before, tr.ball:before, tr.stop:before {
+    @include txt(bold);
+    @include padding(0, 36px, 0, 36px);
+    color: $red-color;
+    background-color: rgba(255,255,255,.65);
+    @include border-all(2px, solid, $red-color);
+    @include position(absolute, right 2%);
+    transform: translate(-50%, 0);
+}
+
+tr.suspend:before {
+    content: "SUSPENED";
+    @include border-all(2px, solid, $red-color);
+    @include headline($red-color, 15px);
+}
+
+tr.closed:before {
+    content: "CLOSED";
+    @include border-all(2px, solid, $green-color);
+    @include headline($green-color, 15px);
+}
+
+tr.ball:before {
+    content: "BALL";
+    @include border-all(2px, solid, $green-color);
+    @include headline($green-color, 15px);
+}
+
+tbody.bet-process {
+    @include position(relative);
+    height: $height;
+    display: inline-table;
+    width: $width;
+    pointer-events: none;
+    z-index: 100;
+}
+
+tbody.bet-process:before {
+    @include position(absolute, left 50% top 50%);
+    transform: translate(-50%, -50%);
+    content: "";
+    width: $width;
+    height: $height;
+    background-color: rgba(136, 136, 136, 0.59);
+    background-image: url(/public/images/gif/horizontal.gif);
+    background-repeat: no-repeat;
+    background-size: 10% 48% !important;
+    background-position: center center;
+}
+
+
+tr.bet-process {
+    @include position(relative);
+    height: $height;
+    width: $width;
+    pointer-events: none;
+    z-index: 100;
+}
+
+tr.bet-process:before {
+   @include position(absolute);
+    content: "Your bet is being processed. Please wait...";
+    background-color: #f2f2f2e0;
+    width: 100%;
+    z-index: 101;
+    height: 28px;
+    text-align: right;
+    padding-right: 50px;
+}
+
+tr.td-stop {
+    .back-1, .lay-1 {
+        @include position(relative);
+        height: $height;
+        opacity: 0.5;
+        width: $width;
+        pointer-events: none;
+    }
+}
+
+tbody.gameover,tbody.roundover{
+     @include position(relative);
+    height: $height;
+    background-color: rgba(255,255,255,.65);
+    opacity: 0.5;
+    display: inline-table;
+    width: $width;
+    pointer-events: none;
+    vertical-align: middle;
+}
+tbody.gameover,tbody.roundover {
+    .back1, .back2, .back3, .lay1, .lay2, .lay3, .empty-score,.tomatch-score,.back-1, .back-2, .back-3, .lay-1, .lay-2, .lay-3 {
+        opacity: 0.9;
+        pointer-events: none;
+    }
+}
+tbody.gameover:before,tbody.roundover:before{
+     @include txt(bold);
+    @include padding(3px, 36px, 3px, 36px);
+    background-color: rgba(255,255,255,.65);
+    @include position(absolute, left 50% top 50%);
+    transform: translate(-50%, -50%);
+    z-index:10;
+}
+tbody.roundover:before {
+    content: "ROUND OVER";
+    @include headline($red-color, 13px);
+    @include border-all(1px, solid, $red-color);
+    width: 170px;
+}
+tbody.gameover:before {
+    content: "GAME OVER";
+    @include headline($green-color, 13px);
+    @include border-all(1px, solid, $green-color);
+    width: 150px;
+}
+
+.process-div {
+    @include position(relative);
+    clear: both;
+    overflow: hidden;
+
+}

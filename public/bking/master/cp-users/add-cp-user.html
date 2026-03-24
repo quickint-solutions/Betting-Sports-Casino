@@ -1,0 +1,77 @@
+﻿<div class="master-page-class">
+    <div class="add-member">
+        <div class="list-view">
+            <form name="createuser" ng-submit="ctrl.createAdminUser()">
+                <div class="agent-member">
+                    <div class="member-inner" >
+                        <h4 class="member-title">Information</h4>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>Username</label></div>
+                        <div class="col-sm-4">
+                            <div class="input-row">
+                                <input class="login-name" type="text"
+                                       placeholder="eg: abc.xyz"
+                                       ng-blur="ctrl.checkusername()"
+                                       min="4" max="16" required
+                                       ng-class="{'error-input':newuser.isInvalidUser}"
+                                       ng-model="newuser.username" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>Status</label></div>
+                        <div class="col-sm-4" style="height:52px;">
+                            <div class="input-row">
+                                <select class="form-control" ng-model="newuser.status">
+                                    <option ng-repeat="status in userStatus" value="{{status.id}}">
+                                        {{status.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>Password</label></div>
+                        <div class="col-sm-4">
+                            <div class="input-row">
+                                <input class="paswd"
+                                       min="6" max="20" required
+                                       type="password" ng-model="newuser.password" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>Repeat Password</label></div>
+                        <div class="col-sm-4">
+                            <div class="input-row">
+                                <input class="paswd" type="password"
+                                       min="6" max="20" required
+                                       ng-model="newuser.confirmpassword" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>First Name</label></div>
+                        <div class="col-sm-4">
+                            <div class="input-row">
+                                <input class="login-name" type="text"
+                                       min="2" max="16" required ng-model="newuser.firstname" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pad-0" style="margin-top:12px;"><label>Last Name</label></div>
+                        <div class="col-sm-4">
+                            <div class="input-row">
+                                <input class="login-name" type="text"
+                                       min="2" max="16" required ng-model="newuser.lastname" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 mr-top-10">
+                            <div class="add-btn align-r" style="margin-bottom:20px;">
+                                <button type="button" class="cancle-popup" ng-click="ctrl.cancelNewUser();">cancel</button>
+                                <button class="btn btn-default"
+                                        ng-disabled="createuser.$invalid && !newuser.isInvalidUser"
+                                        type="submit">
+                                    create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿<div class="my-market-container" id="betSodaModal" style="min-height:500px;">
+    <div ng-show="eventName">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="bvw" id="exampleRadios1" value="1"
+                   ng-model="$parent.$parent.betViewType" ng-change="ctrl.betViewChanged()">
+            <label class="form-check-label" for="exampleRadios1">
+                {{eventName}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="bvw" id="exampleRadios2" value="2"
+                   ng-model="$parent.$parent.betViewType" ng-change="ctrl.betViewChanged()">
+            <label class="form-check-label" for="exampleRadios2">
+                All Events
+            </label>
+        </div>
+    </div>
+    <div ng-repeat="o in eventBets" ng-show="betViewType==1">
+        <div class="my-market-title" aria-expanded="true">
+            {{o.marketName}} [{{o.eventName}}]
+            <img ng-src="{{$parent.webImagePath}}arrow-down.svg" class="float-right">
+        </div>
+        <div class="bet-slip-box collapse show" ng-repeat="b in ctrl.matchedBetFilter(o.bets)">
+            <div class="bet-slip " ng-class="{'back-border':b.side==1,'lay-border':b.side==2}">
+                <div class="row row2 market-desc">
+                    <div class="col-12">
+                        {{'ref.label' | translate}}: {{b.betId}} || <kt-date data-date-value="b.createdOn"></kt-date>
+                    </div>
+                    <div class="col-6 text-left">
+                        <div class="my-market-nation">
+                            <span class="bold" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                            <span ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{o.marketName}} {{b.percentage}}%</span>
+                        </div>
+                    </div>
+                    <div class="col-2 text-center">
+                        <div>{{b.avgPrice }}</div>
+                    </div>
+                    <div class="col-2 text-center">
+                        <div>{{b.sizeMatched | toRate }}</div>
+                    </div>
+                    <div class="col-2 text-right">
+                        <div ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</div>
+                        <div ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loader-section-parent" ng-show="betPromiseTracker.active()">
+        <div class="loader-section">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div class="w-100" ng-show="betViewType==2">
+        <div class="form-group mt-2 p-1">
+            <select class="form-control" ng-model="selectedEvent">
+                <option ng-repeat="e in allEventBets" value="{{e.eventId}}">{{e.eventName}}</option>
+            </select>
+        </div>
+        <div ng-repeat="ae in allEventBets | filter:{eventId:selectedEvent}" class="w-100">
+            <div ng-repeat="o in ae.openBets" class="w-100">
+                <div class="my-market-title" aria-expanded="true">
+                    {{o.marketName}}
+                    <img ng-src="{{$parent.webImagePath}}arrow-down.svg" class="float-right">
+                </div>
+                <div class="bet-slip-box collapse show" ng-repeat="b in ctrl.matchedBetFilter(o.bets)">
+                    <div class="bet-slip " ng-class="{'back-border':b.side==1,'lay-border':b.side==2}">
+                        <div class="row row2 market-desc">
+                            <div class="col-12">
+                                {{'ref.label' | translate}}: {{b.betId}} || <kt-date data-date-value="b.createdOn"></kt-date>
+                            </div>
+                            <div class="col-6 text-left">
+                                <div class="my-market-nation">
+                                    <span class="bold" ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{b.runnerName | shortme:22}}</span>
+                                    <span ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{o.marketName}} {{b.percentage}}%</span>
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div>{{b.avgPrice }}</div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div>{{b.sizeMatched | toRate }}</div>
+                            </div>
+                            <div class="col-2 text-right">
+                                <div ng-if="o.bettingType!=7 && o.bettingType!=2 && o.bettingType!=8 ">{{(b.avgPrice-1) * b.sizeMatched  | toRate}}</div>
+                                <div ng-if="o.bettingType==7 || o.bettingType==2 || o.bettingType==8 ">{{((b.percentage/100)* b.sizeMatched)  | toRate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

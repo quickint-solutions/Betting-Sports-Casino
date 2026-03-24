@@ -1,0 +1,66 @@
+﻿<div class="row ">
+    <div class="col-sm-12">
+        <div class="input-group master_wrap">
+            <span>FairX Withdrawal Request Of : &nbsp;</span>
+            <label class="bold">{{item.user.username}}</label>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6  mr-top-10">
+        <div ng-show="item.firstName">Name : <b>{{item.firstName}}</b></div>
+        <div ng-show="item.phone">Mobile : <b class="red">{{item.phone }}</b></div>
+
+        <div ng-show="item.amount">Amount : <b class="green">{{item.amount | toRate}}</b></div>
+        <div>Current Status :    <b>{{ctrl.getStatus(item.oldstatus) }}</b></div>
+        <div class="mr-top-10" ng-show="item.cashNote">Cash Note : <b>{{item.cashNote}}</b></div>
+        <div ng-show="item.area">Area : <b>{{item.area}}</b></div>
+        <div ng-show="item.city">City : <b>{{item.city}}</b></div>
+        <div class="mr-top-10">Requested On : <kt-date data-date-value="item.createdOn" data-format="yyyy-MM-dd HH:mm"></kt-date></div>
+
+        <div class="mr-top-10" ng-show="item.oldstatus==1 && isPinWalletEnabled && !pinWalletTried">
+            <button type="button" class=" btn btn-info" kt-click ng-click="ctrl.processWithdrawalByPinWallet()">
+                Send to pin wallet
+                <i class="fa fa-spinner fa-pulse fa-fw" ng-show="isLoading"></i>
+            </button>
+        </div>
+
+        <div class="utr-img" ng-if="item.payOutSlip">
+            <img ng-click="ctrl.showReceipt();" ng-src="{{item.payOutSlip}}" />
+        </div>
+    </div>
+    <div class="col-sm-6  mr-top-10">
+        <div ng-show="item.acNo">A/C No. : <b class="red">{{item.acNo }}</b></div>
+        <div ng-show="item.bankName">Bank : <b>{{item.bankName }}</b></div>
+        <div ng-show="item.ifscCode">IFSC : <b>{{item.ifscCode }}</b></div>
+        <div ng-show="item.acName">A/C Name : <b>{{item.acName }}</b></div>
+        <div class="mr-top-10">
+            <div class="input-group">
+                <select class="form-control" ng-model="item.status">
+                    <option ng-repeat="s in fairxpayoutList" value="{{s.id}}">
+                        {{s.name}}
+                    </option>
+                </select>
+                <span class="input-group-addon">Status</span>
+            </div>
+        </div>
+        <div class="mr-top-10">
+            <div class="input-group">
+                <input class="form-control" type="text" maxlength="100" ng-model="item.comment"
+                       placeholder="Comment" />
+                <span class="input-group-addon">Comment</span>
+            </div>
+        </div>
+        <div class="mr-top-10">
+            <div class="form-group">
+                <input type="file" kt-file-select="onFileSelect($files)" class="form-control"
+                       ng-model="item.payOutSlip">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

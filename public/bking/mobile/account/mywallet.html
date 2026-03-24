@@ -1,0 +1,142 @@
+﻿<div class="my-wallet">
+    <h1 class="title">{{'mywallet.label' | translate}}</h1>
+    <div class="white-wrap" kt-has-claim claims="{Claims: ['ui.client.depositwithdrawal.process']}">
+        <div class="row">
+            <div class="col-sm-12 tab-wallet">
+                <div class="tab">
+                    <ul class="tabs-container">
+                        <li class="tab-container" ng-class="{'active':selectedPaymentTab==0}">
+                            <a class="tab-heading" ng-click="selectedPaymentTab=0">
+                                <i class="payment-img paytm" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="tab-container" ng-class="{'active':selectedPaymentTab==1}" ng-if="supportDetail.BankDetail">
+                            <a class="tab-heading" ng-click="$parent.selectedPaymentTab=1">
+                                <i class="payment-img bank" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="tab-container" ng-class="{'active':selectedPaymentTab==2}">
+                            <a class="tab-heading" ng-click="selectedPaymentTab=2">
+                                <i class="payment-img skrill" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="tab-container" ng-class="{'active':selectedPaymentTab==3}">
+                            <a class="tab-heading" ng-click="selectedPaymentTab=3">
+                                <i class="payment-img neteller" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="tab1" class="payment" ng-show="selectedPaymentTab==0">
+                    <div class="row">
+                        <div class="col-sm-6 wallet-detail">
+                            <form name="paytmdepositform" ng-submit="ctrl.paytmDeposit()">
+                                <h3 class="wallet-title">deposit</h3>
+                                <span class="wallet-input padding-r">
+                                    <label>Receiver Mobile Number</label>
+                                    <input type="text" ng-model="depositRequest.mobileNo" required disabled class="tab-text">
+                                </span>
+                                <span class="wallet-input">
+                                    <label>Transaction Id</label>
+                                    <input type="text" maxlength="50" required ng-model="depositRequest.transactionId" class="tab-text">
+                                </span>
+                                <button class="submit" type="submit" ng-disabled="paytmdepositform.$invalid">
+                                    Submit Deposit Request
+                                    <img class="grid-spinner" ng-show="showDLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-sm-6">
+                            <form name="paytmwithdrawalform" ng-submit="ctrl.paytmWithdraw()">
+                                <h3 class="wallet-title">
+                                    withdrawal
+                                    <span class="sub-text" ng-show="withdrawalRequest.minAmount>0">
+                                        * Minimum withdrawal amount is {{withdrawalRequest.minAmount |toRate}}
+                                    </span>
+                                </h3>
+                                <span class="wallet-input padding-r">
+                                    <label>Receiver Mobile Number</label>
+                                    <input type="text" class="tab-text" maxlength="50" required ng-model="withdrawalRequest.mobileNo">
+                                </span>
+                                <span class="wallet-input">
+                                    <label>Amount to Withdraw</label>
+                                    <input type="text" class="tab-text" maxlength="50" required ng-model="withdrawalRequest.amount">
+                                </span>
+                                <button class="submit" type="submit" ng-disabled="paytmwithdrawalform.$invalid">
+                                    Submit Withdrawal Request
+                                    <img class="grid-spinner" ng-show="showWLoading" ng-src="{{spinnerImg}}" />
+                                </button>
+                                <span class="wallet-input history-link">
+                                    <a ng-click="ctrl.showWithdrawalHistory()">Show Withdrawal History</a>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment" ng-if="selectedPaymentTab==1 && supportDetail.BankDetail">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span><b>Account Name</b> : {{supportDetail.BankDetail.AcName}}</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <span><b>Account Number</b> : {{supportDetail.BankDetail.AcNumber}}</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <span><b>IFSC</b> : {{supportDetail.BankDetail.IFSC}}</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <span><b>Account Type</b> : {{supportDetail.BankDetail.AcType}}</span>
+                        </div>
+                        <div class="col-sm-12">
+                            <span><b>Bank Name</b> : {{supportDetail.BankDetail.Bank}}</span>
+                        </div>
+                        <div class="col-sm-12" style="color:#fe1616;margin-top:5px"><i>** Deposit your preferred amount into given bank details. We will review and update your amount into your account.</i></div>
+                    </div>
+                </div>
+                <div class="payment" ng-show="selectedPaymentTab==2">
+                    <span style="font-size: 16px;font-weight:400">We are hardly working on it, will be available soon...</span>
+                </div>
+
+                <div class="payment" ng-show="selectedPaymentTab==3">
+                    <span style="font-size: 16px;font-weight:400">We are hardly working on it, will be available soon...</span>
+                </div>
+
+            </div>
+        </div>
+    </div><!-- white wrap -->
+
+    <div class="table-bets">
+        <kt-grid grid-id="kt-accountstatement-grid"
+                 load-items="ctrl.getAccountStatement(params)"
+                 name-param="id"
+                 name-value-property="id"
+                 show-total="true"
+                 cache-key="ktaccountstatementgrid">
+
+            <table ng-table="tableParams" class="table table-hover clickable"
+                   template-pagination="{{ :: $parent.$parent.paginationUrl }}">
+                <tbody>
+                    <tr id="tr_{{$index}}" ng-repeat="item in $data track by $index">
+                        <td header-class="'size-md align-l'" class="size-md align-l" data-title="::'account.datetime.name.label' | translate"
+                            data-sortable="'createdon'">
+                            <span title="{{item.createdOn}}">{{item.createdOn | date:'yyyy-MM-dd HH:mm:ss'}} </span>
+                        </td>
+                        <td data-title="::'account.narration.name.label' | translate"
+                            header-class="'size-md align-l'" class="size-md align-l">
+                            <span title="{{item.narration}}">{{item.narration}} </span>
+                        </td>
+                        <td class="align-l">
+                            <span ng-if="item.name" title="{{item.name}}">{{item.name }}</span>
+                            <span title="{{item.remarks}}" ng-if="item.remarks">{{item.remarks}} </span>
+                        </td>
+
+                        <td header-class="'size-md boolean'" class="size-md boolean" ng-class="{'positive':item.balance >= 0,'negative':item.balance < 0}" data-title="::'account.total.name.label' | translate">
+                            <span title="{{item.balance | toRate }}">{{item.balance | toRate }} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </kt-grid>
+    </div>
+</div>
+
