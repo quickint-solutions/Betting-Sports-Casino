@@ -159,30 +159,49 @@
             var carousel = $templateCache.get(settings.ThemeName + '/template/bootstrap/carousel.html');
             $templateCache.put('uib/template/carousel/carousel.html', carousel);
 
+            var isMobileView = function () {
+                return isMobile.any || window.innerWidth < 992;
+            };
+
             var checkResolution = function () {
                 var current_resolution = '';
-                if (isMobile.any) {
+                if (isMobileView()) {
                     current_resolution = 'mobile';
                 } else {
                     current_resolution = 'web';
                 }
 
                 var existing_resolution = localStorageHelper.get(settings.DeviceType);
-                if (!existing_resolution) {
-                    localStorageHelper.set(settings.DeviceType, current_resolution);
-                }
-                else if (current_resolution != existing_resolution) {
-                    localStorageHelper.set(settings.DeviceType, current_resolution);
+                localStorageHelper.set(settings.DeviceType, current_resolution);
+
+                if (!existing_resolution || current_resolution != existing_resolution) {
                     commonProcessService.onLoadLocationSelection();
+                } else {
+                    // Ensure URL matches current resolution (e.g., mobile view should be on /mobile/ route)
+                    var path = $location.path();
+                    var isMobilePath = path.indexOf('/mobile/') === 0;
+                    if (current_resolution === 'mobile' && !isMobilePath) {
+                        commonProcessService.onLoadLocationSelection();
+                    } else if (current_resolution === 'web' && isMobilePath) {
+                        commonProcessService.onLoadLocationSelection();
+                    }
                 }
             }();
 
             //commonProcessService.isAPILive();
 
-
-            //angular.element($window).bind('resize', function () {
-            //    $window.location.reload();
-            //});
+            var resizeTimer: any = null;
+            angular.element(window).bind('resize', function () {
+                if (resizeTimer) clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    var newResolution = isMobileView() ? 'mobile' : 'web';
+                    var storedResolution = localStorageHelper.get(settings.DeviceType);
+                    if (newResolution != storedResolution) {
+                        localStorageHelper.set(settings.DeviceType, newResolution);
+                        commonProcessService.onLoadLocationSelection();
+                    }
+                }, 300);
+            });
 
             if (settings.WebApp == 'baazibook' || settings.WebApp == 'fairbook') {
                 $rootScope.$on('$stateChangeSuccess', () => {

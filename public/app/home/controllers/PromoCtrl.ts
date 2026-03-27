@@ -704,6 +704,12 @@
             }
         }
 
+        public openCasinoGame(tableId: string): void {
+            this.commonDataService.setGameId(tableId);
+            this.localStorageHelper.set('pending_casino_game', tableId);
+            this.openModal('login-modal');
+        }
+
         public getCaptcha(refresh: boolean = true) {
             if (this.$scope.refreshCaptcha) { this.$timeout.cancel(this.$scope.refreshCaptcha); }
             this.userService.getCaptcha()
@@ -959,8 +965,19 @@
 
                                 this.checkAgentBanners();
 
+                                // Check if user clicked a casino game before login
+                                var pendingGame = this.localStorageHelper.get('pending_casino_game');
+                                if (pendingGame) {
+                                    this.localStorageHelper.set('pending_casino_game', '');
+                                    this.commonDataService.setGameId(pendingGame);
+                                    if (this.isMobile.any) {
+                                        this.$state.go('mobile.base.fdlivegames');
+                                    } else {
+                                        this.$state.go('base.livegames');
+                                    }
+                                }
                                 // redirect to respective panel
-                                if (this.isMobile.any) {
+                                else if (this.isMobile.any) {
                                     if (this.settings.ThemeName == 'bking' || this.settings.ThemeName == 'lotus') {
                                         this.$state.go('mobile.seven.base.home');
                                     }
@@ -1582,6 +1599,17 @@
                 var bigWinsSwiper = new Swiper('#bigWinsSwiper', {
                     slidesPerView: 'auto',
                     spaceBetween: 8,
+                    freeMode: true,
+                    grabCursor: true,
+                    loop: true,
+                    autoplay: {
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    },
+                })
+                var mobileBigWinsSwiper = new Swiper('#mobileBigWinsSwiper', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 10,
                     freeMode: true,
                     grabCursor: true,
                     loop: true,

@@ -180,6 +180,17 @@ module intranet.home {
                                 slidesPerView: (this.isMobile.any ? 4 : 8),
                                 spaceBetween: 5, freeMode: true,
                             });
+                            var mobileHomeBigWinsSwiper = new Swiper('#mobileHomeBigWinsSwiper', {
+                                slidesPerView: 'auto',
+                                spaceBetween: 10,
+                                freeMode: true,
+                                grabCursor: true,
+                                loop: true,
+                                autoplay: {
+                                    delay: 2000,
+                                    disableOnInteraction: false,
+                                },
+                            });
                         }, 100);
                     }
                 });

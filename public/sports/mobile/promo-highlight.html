@@ -50,6 +50,104 @@
 
     </div>
 </div>
+
+<!-- ===== RECENT BIG WINS SECTION ===== -->
+<div class="recent-big-wins-section" ng-if="hasCasino">
+    <div class="rbw-header">
+        <h3 class="rbw-title">Recent Big Wins</h3>
+        <div class="rbw-tabs">
+            <span class="rbw-tab" ng-class="{'active': !bigWinsFilter || bigWinsFilter === 'all'}" ng-click="bigWinsFilter='all'">All</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'popular'}" ng-click="bigWinsFilter='popular'">Popular</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'slots'}" ng-click="bigWinsFilter='slots'">Slots</span>
+            <span class="rbw-tab" ng-class="{'active': bigWinsFilter === 'exclusive'}" ng-click="bigWinsFilter='exclusive'">Exclusive</span>
+        </div>
+    </div>
+    <div class="rbw-games" id="mobileBigWinsSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><div class="game_box tone-copper"><a ng-click="ctrl.openCasinoGame('630df58edc0c3fd8f78bee2e')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/tp-day.jpg" alt="Teenpatti One Day" /></div><div class="game_box-info"><span class="game_box-name">Teenpatti One Day</span><span class="game_box-tag tag-coral">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-gold"><a ng-click="ctrl.openCasinoGame('630df6a0dc0c3fd8f78bef3c')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/andarbahar.jpg" alt="Andar Bahar" /></div><div class="game_box-info"><span class="game_box-name">Andar Bahar</span><span class="game_box-tag tag-gold">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-lime"><a ng-click="ctrl.openCasinoGame('630df9a30c22dbface4f73cb')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/roulette.jpg" alt="Roulette" /></div><div class="game_box-info"><span class="game_box-name">Roulette</span><span class="game_box-tag tag-lime">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-ruby"><a ng-click="ctrl.openCasinoGame('630dfaf3a419f88910179f46')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/baccarat.jpg" alt="Baccarat" /></div><div class="game_box-info"><span class="game_box-name">Baccarat</span><span class="game_box-tag tag-ruby">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-violet"><a ng-click="ctrl.openCasinoGame('630dfbca9510dff723385b75')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/tp2card.jpg" alt="2 Card Teenpatti" /></div><div class="game_box-info"><span class="game_box-name">2 Card Teenpatti</span><span class="game_box-tag tag-violet">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-olive"><a ng-click="ctrl.openCasinoGame('630df7b3dc0c3fd8f78bf072')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/dragontiger.jpg" alt="Dragon Tiger" /></div><div class="game_box-info"><span class="game_box-name">Dragon Tiger</span><span class="game_box-tag tag-olive">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-plum"><a ng-click="ctrl.openCasinoGame('630df6f49510dff723384d49')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/up7down.jpg" alt="7 Up Down" /></div><div class="game_box-info"><span class="game_box-name">7 Up Down</span><span class="game_box-tag tag-plum">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-sand"><a ng-click="ctrl.openCasinoGame('630df616a419f88910179087')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/hilow.jpg" alt="Hi Low" /></div><div class="game_box-info"><span class="game_box-name">Hi Low</span><span class="game_box-tag tag-sand">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-orange"><a ng-click="ctrl.openCasinoGame('630df8a79510dff72338530a')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/race2020.jpg" alt="Race 20-20" /></div><div class="game_box-info"><span class="game_box-name">Race 20-20</span><span class="game_box-tag tag-orange">Live</span></div></a></div></div>
+            <div class="swiper-slide"><div class="game_box tone-fuchsia"><a ng-click="ctrl.openCasinoGame('630df63e0c22dbface4f68f0')"><div class="game_box-media"><img ng-src="/public/images/drpapaya/casino/img/poker.jpg" alt="Poker" /></div><div class="game_box-info"><span class="game_box-name">Poker</span><span class="game_box-tag tag-fuchsia">Live</span></div></a></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== CATEGORIES SECTION ===== -->
+<div class="home-provider" ng-if="hasCasino">
+    <div class="hp-left">
+        <div class="hp-card hp-large hp-casino">
+            <a ng-click="ctrl.openModal('login-modal')">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-diamond"></i><span>Casino</span></div>
+                    <p>Dive into our in-house games, live casino and slots</p>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/casino-wheel.png" alt="Casino" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-large hp-sports">
+            <a ui-sref="mobile.promo.sports">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-futbol-o"></i><span>Sports</span></div>
+                    <p>Bet on Football, Cricket, eSports & over 80 sports!</p>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/sports-trophy.png" alt="Sports" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="hp-right">
+        <div class="hp-card hp-small hp-crazytime">
+            <a ng-click="ctrl.openModal('login-modal')">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-star"></i><span>Crazy Time</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/crazy-time.png" alt="Crazy Time" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-racing">
+            <a ui-sref="mobile.promo.sports">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-flag-checkered"></i><span>Racing</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/racing.png" alt="Racing" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-aviator">
+            <a ng-click="ctrl.openModal('login-modal')">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-paper-plane"></i><span>Aviator</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/aviator.png" alt="Aviator" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+        <div class="hp-card hp-small hp-mines">
+            <a ng-click="ctrl.openModal('login-modal')">
+                <div class="hp-card-copy">
+                    <div class="hp-card-title"><i class="fa fa-bomb"></i><span>Mines</span></div>
+                </div>
+                <div class="hp-card-art" aria-hidden="true">
+                    <img ng-src="{{webImagePath}}category/mines.png" alt="Mines" class="hp-art-img" />
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
 <div>
     <div class="main-tabs">
         <div class="game-list home swiper-container swiper-container-horizontal" id="swiper5">

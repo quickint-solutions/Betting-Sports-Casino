@@ -7,6 +7,10 @@
             private isMobile: any) {
         }
 
+        private isMobileView(): boolean {
+            return this.isMobile.any || window.innerWidth < 992;
+        }
+
         public onLoadLocationSelection(): void {
             //this.settingService.checkAPIstatus()
             //    .then((response: any) => {
@@ -21,7 +25,7 @@
             //else {
 
             if (this.$location.$$search.code) {
-                if (this.isMobile.any) {
+                if (this.isMobileView()) {
 
                     common.helpers.CommonHelper.isPromoWebsite(this.settings.WebApp)
                         ? this.$location.path('/mobile/m-promo') + '?code=' + this.$location.$$search.code
@@ -33,7 +37,7 @@
                         : this.$location.path('/register') + '?code=' + this.$location.$$search.code;
                 }
             }
-            else if (this.isMobile.any) {
+            else if (this.isMobileView()) {
                 if (this.settings.IsMobileSeperate) { window.location.href = this.settings.MobileUrl; } else {
                     common.helpers.CommonHelper.isPromoWebsite(this.settings.WebApp) && this.settings.WebSiteIdealFor <= 2
                         ? this.$location.path('/mobile/m-promo')
@@ -52,7 +56,7 @@
                 this.$location.path('/fs');
             }
             else {
-                if (this.isMobile.any) {
+                if (this.isMobileView()) {
                     common.helpers.CommonHelper.isPromoWebsite(this.settings.WebApp) && this.settings.WebSiteIdealFor <= 2
                         ? this.$location.path('/mobile/m-promo')
                         : this.$location.path('/mobile/login');
