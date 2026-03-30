@@ -18,7 +18,7 @@
         <div class="">
             <div class="tab">
                 <ul style="display:flex">
-                    <li ng-repeat="event in eventTypes ">
+                    <li ng-repeat="event in eventTypes" ng-if="event.name != 'Crypto' && event.name != 'My Market'">
                         <a class="tablinks" ng-class="{'active' : (event.id==selectedEventType)}" ng-click="ctrl.tabClicked(event.id)">
                             <span class="mb-icon"><img ng-src="{{webImagePath}}icon/{{event.name | joinme}}.png" /></span>
                             {{event.name}}

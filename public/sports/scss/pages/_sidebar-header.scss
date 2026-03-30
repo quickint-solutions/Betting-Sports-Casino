@@ -636,10 +636,11 @@ $btn-signup-bg: #4a3fdc;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: $footer-nav-height;
-    background: $footer-nav-bg;
+    height: 56px;
+    background: #1a1d21;
     z-index: 99999;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
 
     ul {
         display: flex;
@@ -653,6 +654,7 @@ $btn-signup-bg: #4a3fdc;
 
     .item {
         flex: 1;
+        position: relative;
 
         a {
             display: flex;
@@ -660,20 +662,43 @@ $btn-signup-bg: #4a3fdc;
             align-items: center;
             justify-content: center;
             gap: 2px;
-            color: #999;
+            color: rgba(255, 255, 255, 0.45);
             text-decoration: none;
             font-size: 10px;
-            padding: 4px 0;
-            transition: color $sidebar-transition;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            padding: 6px 0;
+            height: 100%;
+            transition: color 0.2s ease;
             cursor: pointer;
 
-            i {
-                font-size: 18px;
+            .material-icons-round,
+            .material-icons {
+                font-size: 22px;
             }
 
             &:hover,
             &.router-link-active {
                 color: #fff;
+            }
+
+            &.router-link-active {
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 20%;
+                    right: 20%;
+                    height: 2px;
+                    background-color: $btn-signup-bg;
+                    border-radius: 0 0 2px 2px;
+                }
+
+                .material-icons-round,
+                .material-icons {
+                    color: $btn-signup-bg;
+                }
             }
 
             &.casino-highlight i {

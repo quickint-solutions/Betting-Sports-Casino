@@ -42,6 +42,7 @@
         isB2C: any;
         hasReferral: any;
         isEnabledCrypto: any;
+        isLightTheme: boolean;
         isChatEnabled: boolean;
         webImagePath: any;
         imagePath: any;
@@ -201,6 +202,14 @@
             this.$scope.searchEventList = [];
 
             this.$scope.isChatEnabled = this.commonDataService.isChatActive();
+
+            // Light theme toggle
+            var savedTheme = this.localStorageHelper.get('mobile_theme_mode');
+            this.$scope.isLightTheme = savedTheme === 'light';
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+            }
+
             this.$scope.imagePath = this.settings.ImagePath
             this.$scope.webImagePath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/';
             this.$scope.currentWebApp = this.settings.WebApp;
@@ -341,6 +350,17 @@
 
         private logout(): void {
             this.commonDataService.logout();
+        }
+
+        private toggleTheme(): void {
+            this.$scope.isLightTheme = !this.$scope.isLightTheme;
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+                this.localStorageHelper.set('mobile_theme_mode', 'light');
+            } else {
+                jQuery('body').removeClass('light-theme');
+                this.localStorageHelper.set('mobile_theme_mode', 'dark');
+            }
         }
 
         // load event types for tab control

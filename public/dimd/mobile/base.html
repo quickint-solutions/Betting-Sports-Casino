@@ -17,11 +17,18 @@
                     </div>
                 </div>
                 <div class="col-sm-6" style="text-align:right;font-size:14px;">
-                    <div>
-                        <i class="fas fa-landmark"></i>
+                    <div style="display:flex;align-items:center;justify-content:flex-end;">
+                        <a class="theme-toggle" ng-click="ctrl.toggleTheme()">
+                            <i class="fas" ng-class="isLightTheme ? 'fa-moon' : 'fa-sun'"></i>
+                        </a>
+                        <i class="fas fa-landmark" style="margin-left:8px;"></i>
                         <span style="margin-left:3px;">
                             <kt-glc-code data-special="true" data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure+ balanceInfo.bonus}}"></kt-glc-code>
                         </span>
+                    </div>
+                    <div class="dw-buttons" ng-if="isB2C">
+                        <a class="dw-btn deposit-btn" ui-sref="mobile.base.transferonline({tab:5})">Deposit</a>
+                        <a class="dw-btn withdraw-btn" ui-sref="mobile.base.transferonline({tab:9})">Withdrawal</a>
                     </div>
                     <ul>
                         <li>
@@ -44,10 +51,6 @@
                                     </a>
                                     <a ui-sref="mobile.base.wallet">
                                         {{'mywallet.label' | translate}}
-                                    </a>
-                                    <a ng-if="isB2C"
-                                       ui-sref="mobile.base.transferonline">
-                                        Deposit/Withdrawal
                                     </a>
                                     <a ui-sref="mobile.base.bonusstatement" ng-show="isB2C">
                                         Bonus Statement
@@ -117,4 +120,24 @@
     <!--center part where all other screen will be placed-->
     <div class="mobilewrap main" ui-view="center">
     </div>
+    <!--bottom navigation bar-->
+    <nav class="mobile-bottom-nav" ng-if="!ctrl.isActiveState('mobile.base.fdlivegames')">
+        <ul>
+            <li ng-class="{'active': ctrl.isActiveState('mobile.base.home')}">
+                <a ui-sref="mobile.base.home"><i class="fas fa-home"></i><span>Home</span></a>
+            </li>
+            <li ng-class="{'active': ctrl.isActiveState('mobile.base.inplay')}">
+                <a ui-sref="mobile.base.inplay"><i class="fas fa-bolt"></i><span>In-Play</span></a>
+            </li>
+            <li ng-class="{'active': ctrl.isActiveState('mobile.base.mymarket')}">
+                <a ui-sref="mobile.base.mymarket"><i class="fas fa-star"></i><span>My Market</span></a>
+            </li>
+            <li ng-class="{'active': ctrl.isActiveState('mobile.base.sports')}">
+                <a ui-sref="mobile.base.sports"><i class="fas fa-trophy"></i><span>Sports</span></a>
+            </li>
+            <li ng-class="{'active': ctrl.isActiveState('mobile.base.openbets')}">
+                <a ui-sref="mobile.base.openbets"><i class="fas fa-list"></i><span>Bets</span></a>
+            </li>
+        </ul>
+    </nav>
 </div>

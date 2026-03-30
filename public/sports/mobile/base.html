@@ -112,20 +112,24 @@
                     </div>
                 </div>
             </div>
-            <div class="header-right d-flex  align-items-center p-2" id="top-header-bottom-detail"
-                 ng-class="{'justify-content-around':isB2C,'justify-content-end':!isB2C}">
-                <a ui-sref="mobile.base.depositcrypto" class="link-button d-flex flex-row gap-2 align-items-center" ng-if="isEnabledCrypto">
-                    <i class="material-icons-outlined">currency_bitcoin</i> <span>Crypto</span>
-                </a>
-                <a ui-sref="mobile.base.deposit" class="link-button d-flex flex-row gap-2 align-items-center" ng-if="isB2C">
+            <div class="header-right d-flex align-items-center p-2 justify-content-around" id="top-header-bottom-detail"
+                 ng-if="isB2C">
+                <a ui-sref="mobile.base.deposit" class="link-button d-flex flex-row gap-2 align-items-center">
                     <i class="material-icons-outlined">input</i> <span>Deposit</span>
                 </a>
-                <a ui-sref="mobile.base.withdrawal" class="link-button d-flex flex-row gap-2 align-items-center" ng-if="isB2C">
+                <a class="link-button d-flex flex-row gap-2 align-items-center" ng-click="ctrl.toggleTheme()">
+                    <i class="material-icons-outlined">{{isLightTheme ? 'dark_mode' : 'light_mode'}}</i>
+                    <span>{{isLightTheme ? 'Dark' : 'Light'}}</span>
+                </a>
+                <a ui-sref="mobile.base.withdrawal" class="link-button d-flex flex-row gap-2 align-items-center">
                     <i class="material-icons-outlined">logout</i> <span>Withdraw</span>
                 </a>
-                <a ui-sref="mobile.base.mymarket" class="link-button d-flex flex-row gap-2 align-items-center">
-                    <i class="material-icons-outlined">leaderboard</i>
-                    <span>My Market</span>
+            </div>
+            <div class="header-right d-flex align-items-center p-2 justify-content-end" id="top-header-bottom-detail"
+                 ng-if="!isB2C">
+                <a class="link-button d-flex flex-row gap-2 align-items-center" ng-click="ctrl.toggleTheme()">
+                    <i class="material-icons-outlined">{{isLightTheme ? 'dark_mode' : 'light_mode'}}</i>
+                    <span>{{isLightTheme ? 'Dark' : 'Light'}}</span>
                 </a>
             </div>
         </div>
@@ -146,10 +150,9 @@
                             <span class="material-icons-round">scoreboard</span> <span>Sports</span>
                         </a>
                     </li>
-                    <li class="item" ng-if="currentWebApp=='cbtfai'">
-                        <a ng-click="$parent.ctrl.aiprediction()">
-                            <span class="material-icons-round animate__animated animate__infinite  animate__delay-1s animate__slower  animate__bounceIn">rocket</span>
-                            <span>AI</span>
+                    <li class="item">
+                        <a ui-sref="mobile.base.mymarket" ui-sref-active="router-link-active">
+                            <span class="material-icons-round">star</span> <span>My Market</span>
                         </a>
                     </li>
                     <li class="item">

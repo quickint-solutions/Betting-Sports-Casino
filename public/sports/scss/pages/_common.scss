@@ -5859,114 +5859,98 @@ a {
     /*===== Mobile bottom navigation =====*/
     /* ================================= */
 
+    /* ================================= */
+    /* Redesigned Mobile Bottom Nav      */
+    /* Full-width flat bar style          */
+    /* ================================= */
+
     .mobile-bottom-navigation {
         display: block;
         position: fixed;
         left: 0;
         right: 0;
-        background-color: rgba(34, 38, 42, 0.7);
-        color: #fff;
-        font-size: 11px;
-        z-index: 9;
-        width: 95%;
-        margin: 0 auto;
-        bottom: 2px;
-        height: 55px;
-        border-radius: 50px;
-        overflow: hidden;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        bottom: 0;
+        width: 100%;
+        height: 56px;
+        background-color: #1a1d21;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 9999;
+        margin: 0;
+        border-radius: 0;
+        overflow: visible;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 
     .mobile-bottom-navigation ul {
         display: flex;
         margin: 0;
+        padding: 0;
+        height: 100%;
+        align-items: center;
     }
 
-    .mobile-bottom-navigation ul li {
-        -ms-flex-preferred-size: 25%;
-        flex-basis: 25%;
+    .mobile-bottom-navigation ul li,
+    .mobile-bottom-navigation ul .item {
+        flex: 1;
         text-align: center;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
         justify-content: center;
-        height: 55px;
-        margin: 0 4px;
-    }
-
-    .mobile-bottom-navigation ul li.mid-icon {
-        position: absolute;
-        height: 75px;
-        width: 20%;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        bottom: 1px;
-        z-index: 2;
-    }
-
-    .mobile-bottom-navigation ul li.mid-icon::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: -6px;
-        height: 64px;
-        background-color: #ebebeb;
-        border-radius: 100%;
-        z-index: -1;
-        width: 64px;
-        margin: auto;
-        -webkit-box-shadow: 0.3rem 0.3rem 0.6rem #bbb, -0.2rem -0.2rem 0.5rem #fff;
-        box-shadow: 0.3rem 0.3rem 0.6rem #bbb, -0.2rem -0.2rem 0.5rem #fff;
-    }
-
-    .mobile-bottom-navigation ul li.mid-icon a {
+        align-items: center;
+        height: 100%;
+        margin: 0;
         position: relative;
-        color: #5c6060;
-        top: -11px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .mobile-bottom-navigation ul li.mid-icon a .material-icons {
-        margin-bottom: 0;
-        font-size: 30px;
-        margin: 0 2px;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        border-radius: 0;
-        display: block;
     }
 
     .mobile-bottom-navigation ul .item a {
-        position: relative;
-        color: #f9fafa;
-        cursor: pointer;
-        font-size: 11px;
-        justify-content: center;
-        text-align: center;
-        position: relative;
         display: flex;
         flex-direction: column;
-        line-height: 16px;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        color: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+        font-size: 10px;
         font-weight: 500;
-        letter-spacing: .2px;
-        padding: 4px 0;
-        border-radius: 50px;
-        transition: all 0.3s ease;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 6px 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        transition: color 0.2s ease;
+        background: none;
+    }
+
+    .mobile-bottom-navigation ul .item a .material-icons-round,
+    .mobile-bottom-navigation ul .item a .material-icons {
+        font-size: 22px;
+        opacity: 1;
+        transition: color 0.2s ease;
     }
 
     .mobile-bottom-navigation ul .item a.router-link-active {
-        color: #FFF;
+        color: #fff;
+        background: none;
+    }
+
+    .mobile-bottom-navigation ul .item a.router-link-active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20%;
+        right: 20%;
+        height: 2px;
         background-color: $theme-color;
+        border-radius: 0 0 2px 2px;
+    }
+
+    .mobile-bottom-navigation ul .item a.router-link-active .material-icons-round,
+    .mobile-bottom-navigation ul .item a.router-link-active .material-icons {
+        color: $theme-color;
+        opacity: 1;
     }
 
     .mobile-bottom-navigation ul .item a.router-link-active .new-item {
@@ -5974,46 +5958,20 @@ a {
         color: $theme-color;
     }
 
-    .mobile-bottom-navigation ul .item a.router-link-active .material-icons {
-        opacity: 1;
-    }
-
-    .mobile-bottom-navigation ul .item a .material-icons {
-        opacity: 0.6;
-        font-size: 22px;
-    }
-    /*  .mobile-bottom-navigation ul .item a span:first-child {
-    margin-bottom: 2px;
-  }*/
     .mobile-bottom-navigation ul .item a img {
         display: inline-block;
-        margin: auto;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        width: 18px;
-        fill: #5c6060;
+        margin: 0 auto 2px;
+        width: 20px;
     }
 
     .mobile-bottom-navigation ul .item a svg {
         display: inline-block;
-        margin: auto;
-        margin-top: 2px;
-        margin-bottom: 2px;
+        margin: 0 auto 2px;
     }
 
     .mobile-bottom-navigation ul li a:hover,
     .mobile-bottom-navigation ul li a.active {
-        color: $theme-color;
-    }
-
-    .mobile-bottom-navigation ul li a:hover, img
-    .mobile-bottom-navigation ul li a.active img {
-        fill: red;
-    }
-
-    .mobile-bottom-navigation ul li a.active svg path {
-        fill: $theme-color;
-        ;
+        color: #fff;
     }
 }
 
@@ -8996,5 +8954,156 @@ div.login-casino {
         float: left;
         width: 100%;
         padding: 20px 25px;
+    }
+}
+
+// ==========================================
+// Light Theme Overrides (Mobile)
+// ==========================================
+body.light-theme {
+    background-color: #f0f2f5 !important;
+    color: #333;
+
+    .topbar-main-header-block {
+        background: linear-gradient(180deg, #e8eaf0 10%, #d5d9e3 100%) !important;
+
+        .mobile-nav-menu-button-icon {
+            .wallet-balance {
+                .wallet-amount {
+                    color: #333;
+                }
+            }
+
+            .user-profile-block .btn-type {
+                color: #333;
+            }
+        }
+
+        .wallet-dropdown {
+            background-color: #fff !important;
+
+            .drop-down a {
+                color: #333 !important;
+
+                h5 {
+                    color: #555;
+                }
+            }
+        }
+
+        #top-header-bottom-detail {
+            background-color: #e0e3ea;
+
+            .link-button {
+                color: #333 !important;
+            }
+        }
+    }
+
+    .main-container-block {
+        background-color: #f0f2f5;
+    }
+
+    .home-middle-block {
+        background-color: #f0f2f5;
+    }
+
+    // Bottom navigation light theme
+    .mobile-bottom-navigation {
+        background-color: #ffffff !important;
+        border-top: 1px solid #e0e0e0 !important;
+        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.06);
+
+        ul .item a {
+            color: rgba(0, 0, 0, 0.4) !important;
+
+            .material-icons-round,
+            .material-icons {
+                color: rgba(0, 0, 0, 0.4);
+            }
+
+            &.router-link-active {
+                color: $theme-color !important;
+
+                &::before {
+                    background-color: $theme-color;
+                }
+
+                .material-icons-round,
+                .material-icons {
+                    color: $theme-color;
+                }
+            }
+        }
+    }
+
+    // Card and content overrides
+    .home-provider-card {
+        .card-content {
+            background-color: #fff;
+            color: #333;
+        }
+    }
+
+    .recent-big-wins {
+        background-color: #fff;
+
+        .section-title {
+            color: #333;
+        }
+    }
+
+    // Tab and sport list overrides
+    .sport-tab-icon {
+        background-color: #e8eaf0;
+
+        .tab-item {
+            color: #555;
+
+            &.active {
+                color: $theme-color;
+                background-color: #fff;
+            }
+        }
+    }
+
+    .highlight-card,
+    .game-container {
+        background-color: #fff;
+        color: #333;
+        border-color: #e0e0e0;
+    }
+
+    // Profile dropdown light theme
+    .dropdown-menu.wallet-dropdown {
+        background-color: #fff !important;
+
+        .drop-down {
+            .topbar-info-block {
+                color: #333 !important;
+
+                i {
+                    color: #555;
+                }
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
+            }
+
+            &:last-child .topbar-info-block.last {
+                color: #d32f2f !important;
+            }
+        }
+    }
+
+    // General text and link overrides
+    .section-title,
+    .card-title {
+        color: #333;
+    }
+
+    .text-white {
+        color: #333 !important;
     }
 }
