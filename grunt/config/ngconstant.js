@@ -94,7 +94,28 @@
             }
         }
     },
-
+    deploy_new_ui: {
+        constants: {
+            settings: {
+                ApiBaseUrl: 'https://090fb07bdff3.book365.com/',
+                // ApiBaseUrl: 'https://3da24e98.bazigar.io/',
+                Title: 'Fairbet',
+                ImagePath: '../',
+                APKPath: 'apk/bookpro',
+                WebApp: 'drpapaya',
+                ThemeColor: '#efae10',
+                //IsFaaS: true,
+                //IsBetfairLabel: true,
+                WSUrl: "wss://ws1bde3a1550.one247.io/ws",
+                //WSUrl: "wss://b59bb5ce8147.bazigar.io/ws",
+                FairXIFrameUrl: 'https://www.casino.thefaircasino.games/#/',
+                //FairXIFrameUrl: 'https://casino.fairxstudio.com/#/',
+                //FairXIFrameUrl: 'http://localhost:9009/public/#/',
+                Maintenance_Obj: 'webApi_m',
+                WebSiteIdealFor: 1,
+            }
+        }
+    },
     deploy_one247_io: {
         constants: {
             settings: {

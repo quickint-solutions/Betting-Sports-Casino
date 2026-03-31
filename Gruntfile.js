@@ -408,6 +408,13 @@ module.exports = function (grunt) {
         'common_build'
     ]);
 
+    grunt.registerTask('deploy_new_ui', [
+        'build:js',
+        'ngconstant:deploy_new_ui',
+        'config_constants:deploy_new_ui',
+        'common_build'
+    ]);
+
     // lucky7
     grunt.registerTask('deploy_lotusbook9', [
         'build:js',
