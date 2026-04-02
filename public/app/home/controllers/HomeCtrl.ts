@@ -339,11 +339,22 @@
                     freeMode: true,
                     grabCursor: true,
                     loop: true,
+                    loopAdditionalSlides: 10,
                     autoplay: {
                         delay: 2000,
                         disableOnInteraction: false,
                     },
                 })
+                var originalGamesConfig = {
+                    slidesPerView: 'auto',
+                    spaceBetween: 10,
+                    freeMode: true,
+                    grabCursor: true,
+                    loop: false,
+                };
+                new Swiper('#homeOriginalGamesSwiper', originalGamesConfig);
+                new Swiper('#homeAuraGamesSwiper', originalGamesConfig);
+                new Swiper('#homeVimplayGamesSwiper', originalGamesConfig);
             }, 100);
         }
 

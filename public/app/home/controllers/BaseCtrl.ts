@@ -45,6 +45,7 @@
         imagePath: any;
 
         topMenuSelectNumber: any;
+        isLightTheme: boolean;
     }
 
     export class BaseCtrl extends intranet.common.ControllerBase<IBaseScope>
@@ -76,6 +77,13 @@
             var self = this;
 
             this.commonDataService.setBackground();
+
+            // Light theme toggle initialization
+            var savedTheme = this.localStorageHelper.get('theme_mode');
+            this.$scope.isLightTheme = savedTheme === 'light';
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+            }
 
             var refreshBalance = this.$rootScope.$on("balance-changed", () => {
                 this.getBalance();
@@ -671,6 +679,17 @@
 
         public openBonus(): void {
             this.$rootScope.$broadcast('open-bonus');
+        }
+
+        public toggleTheme(): void {
+            this.$scope.isLightTheme = !this.$scope.isLightTheme;
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+                this.localStorageHelper.set('theme_mode', 'light');
+            } else {
+                jQuery('body').removeClass('light-theme');
+                this.localStorageHelper.set('theme_mode', 'dark');
+            }
         }
 
         public searchEvents(search: string): void {

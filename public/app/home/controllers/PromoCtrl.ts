@@ -77,6 +77,7 @@
         selectedEventTypeName: any;
 
         needsToHideRightSide: boolean;
+        isLightTheme: boolean;
         isRequestProcessing: boolean;
     }
 
@@ -120,6 +121,13 @@
             jQuery('body').removeClass('mbg');
             jQuery('body').addClass('cbg');
             jQuery('body').addClass('promo-body');
+
+            // Light theme toggle initialization
+            var savedTheme = this.localStorageHelper.get('theme_mode');
+            this.$scope.isLightTheme = savedTheme === 'light';
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+            }
 
             if (this.isMobile.any) { jQuery('body').addClass('mobile-bg'); }
 
@@ -624,6 +632,17 @@
 
         public searchEvents(query: string): void {
             // Search handled by existing search logic if available
+        }
+
+        public toggleTheme(): void {
+            this.$scope.isLightTheme = !this.$scope.isLightTheme;
+            if (this.$scope.isLightTheme) {
+                jQuery('body').addClass('light-theme');
+                this.localStorageHelper.set('theme_mode', 'light');
+            } else {
+                jQuery('body').removeClass('light-theme');
+                this.localStorageHelper.set('theme_mode', 'dark');
+            }
         }
         // ===== End Sidebar & Header methods =====
 
@@ -1602,6 +1621,7 @@
                     freeMode: true,
                     grabCursor: true,
                     loop: true,
+                    loopAdditionalSlides: 10,
                     autoplay: {
                         delay: 2000,
                         disableOnInteraction: false,
@@ -1613,11 +1633,25 @@
                     freeMode: true,
                     grabCursor: true,
                     loop: true,
+                    loopAdditionalSlides: 10,
                     autoplay: {
                         delay: 2000,
                         disableOnInteraction: false,
                     },
                 })
+                var originalGamesConfig = {
+                    slidesPerView: 'auto',
+                    spaceBetween: 10,
+                    freeMode: true,
+                    grabCursor: true,
+                    loop: false,
+                };
+                new Swiper('#originalGamesSwiper', originalGamesConfig);
+                new Swiper('#mobileOriginalGamesSwiper', originalGamesConfig);
+                new Swiper('#auraGamesSwiper', originalGamesConfig);
+                new Swiper('#mobileAuraGamesSwiper', originalGamesConfig);
+                new Swiper('#vimplayGamesSwiper', originalGamesConfig);
+                new Swiper('#mobileVimplayGamesSwiper', originalGamesConfig);
             }, 100);
         }
 

@@ -1951,7 +1951,7 @@ table tbody td {
 }
 
 .main-content-block .slider-item img {
-    border-radius: 5px;
+    border-radius: 20px;
     width: 100%;
     /*  height: 100%;*/
     /*  min-height: 232px;*/
@@ -3197,27 +3197,90 @@ table tbody td {
 /*===== Footer =====*/
 /* ================================= */
 #footer-main .footer {
-    padding: 16px 5px 40px 5px;
-    bottom: 30px;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding: 30px 15px 20px;
+    background: #1e2121;
 }
-/*#footer-main .footer .betfair {
-  filter: invert(1);
-}*/
 
-.footer-menu {
-    display: grid;
-    grid-column-gap: 16px;
-    grid-template-columns: repeat(3,1fr);
-    justify-content: flex-start;
-    padding: 16px 0;
-    margin-bottom: 16px;
+/* Award Badges */
+.footer-awards {
+    padding: 28px 0;
+    overflow: hidden;
+
+    .footer-awards-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            flex: 0 0 calc(100% / 8);
+            padding: 0 5.25px;
+            margin-bottom: 24px;
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        }
+    }
+}
+
+/* Responsible Gaming Logos */
+.footer-responsible-gaming {
+    padding: 28px 0;
+
+    .responsible-logos-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 21px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: nowrap;
+
+        li {
+            flex-shrink: 0;
+
+            img {
+                width: 100px;
+                height: auto;
+                display: block;
+                opacity: 0.7;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+/* Footer Divider */
+.footer-divider {
+    height: 1px;
+    background: rgba(228, 234, 240, 0.098);
+    margin: 0;
+}
+
+/* 4-Column Footer Menu */
+.footer-menu.footer-menu-4col {
+    display: flex;
+    justify-content: space-between;
+    padding: 21px 14px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(228, 234, 240, 0.098);
+    border-bottom: 1px solid rgba(228, 234, 240, 0.098);
 }
 
 .footer-menu .footer-title {
-    font-weight: 500;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 15px;
     line-height: 20px;
     letter-spacing: normal;
     margin: 0 0 16px;
@@ -3232,38 +3295,201 @@ table tbody td {
 
 .footer-menu .footer-menu-list li a {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 16px;
     letter-spacing: .25px;
-    padding: 12px 0;
+    padding: 8px 0;
     display: flex;
-    color: #f9fafa;
+    color: rgba(255,255,255,0.55);
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #fff;
+    }
 }
 
-.footer-menu .footer-menu-list li a img {
-    filter: invert(1);
+/* Social Icons in Footer */
+.footer-social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
 }
 
-.footer-menu .footer-menu-list li .footer-apk-download {
-    justify-content: center;
+.social-circle {
+    display: inline-flex;
     align-items: center;
-    display: flex;
-}
-
-.footer-menu .footer-download-apk {
-    margin-right: 8px;
-    width: 64px;
-    background-color: #22262a;
-    border-radius: 5px;
-    //justify-content:;
-    font-style: italic;
-    display: flex;
     justify-content: center;
-    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 17px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+        transform: scale(1.1);
+        opacity: 0.85;
+        color: #fff;
+    }
+
+    &.whatsapp {
+        background: #25d366;
+    }
+    &.telegram {
+        background: #0088cc;
+    }
+    &.instagram {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+    &.facebook {
+        background: #1877f2;
+    }
 }
 
-.footer-menu .footer-download-apk:hover {
-    background-color: $dark-selected;
+/* Original Games Section (main content area) */
+.original-games-section {
+    padding: 20px 15px;
+
+    .original-games-title {
+        font-size: 16.8px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 12px;
+    }
+
+    .footer-games-swiper {
+        overflow: hidden;
+
+        .swiper-slide {
+            width: auto;
+            height: auto;
+
+            a {
+                display: block;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-3px);
+                }
+            }
+
+            img {
+                width: 160px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 10.5px;
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .original-games-section .footer-games-swiper .swiper-slide img {
+        width: 130px;
+        height: 65px;
+    }
+}
+
+/* Game Provider Sections */
+.footer-provider-section {
+    padding: 20px 0;
+
+    .footer-provider-title {
+        font-size: 16.8px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 12px;
+    }
+
+    .footer-games-swiper {
+        overflow: hidden;
+
+        .swiper-slide {
+            width: auto;
+            height: auto;
+
+            a {
+                display: block;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-3px);
+                }
+            }
+
+            img {
+                width: 160px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 10.5px;
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-provider-section .footer-games-swiper .swiper-slide img {
+        width: 130px;
+        height: 65px;
+    }
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    padding: 28px 14px;
+
+    .footer-bottom-logo {
+        margin-bottom: 16px;
+
+        .footer-logo-img {
+            height: 47px;
+        }
+    }
+
+    .footer-bottom-text {
+        p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.4);
+            margin: 0 0 8px;
+        }
+    }
+}
+
+/* Footer Copyright */
+.footer-copyright {
+    text-align: center;
+    padding: 28px 7px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    border-top: 1px solid rgba(228, 234, 240, 0.098);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .footer-awards .footer-awards-list li {
+        flex: 0 0 calc(100% / 4);
+    }
+
+    .footer-responsible-gaming .responsible-logos-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+
+        li img {
+            width: 80px;
+        }
+    }
+
+    .footer-menu.footer-menu-4col {
+        flex-wrap: wrap;
+        gap: 24px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -7381,7 +7607,7 @@ select:hover, select:active {
 }
 
 .banner .owl-carousel .owl-stage-outer {
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .banner .owl-theme .owl-dots .owl-dot span {
@@ -7621,7 +7847,8 @@ div:nth-of-type(2) {
 }
 
 .banner .slider-item {
-    border-radius: 5px;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .banner .slick-slide {
@@ -7630,7 +7857,48 @@ div:nth-of-type(2) {
 
 .banner .slick-slide img {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 20px;
+}
+
+// Banner container styling
+.banner {
+    margin: 14px 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+
+    .swiper-container {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.35);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+
+        &::after {
+            font-size: 16px;
+        }
+    }
+
+    .swiper-pagination {
+        bottom: 10px !important;
+    }
+
+    .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+        width: 8px;
+        height: 8px;
+
+        &-active {
+            background: #fff;
+        }
+    }
 }
 
 .live-casino-games-main-block .casino-item {
@@ -9105,5 +9373,240 @@ body.light-theme {
 
     .text-white {
         color: #333 !important;
+    }
+
+    // ===== Desktop Header Light Theme =====
+    .main-header {
+        background: linear-gradient(360deg, #e8eaf0, #f0f2f5 35%) !important;
+        border-image: linear-gradient(90deg, transparent, #c0c4d0 50%, transparent) !important;
+        border-image-slice: 1 !important;
+    }
+
+    .btn-hamburger {
+        background: #d5d9e3;
+        color: #333;
+
+        &:hover {
+            background: #c5c9d3;
+        }
+    }
+
+    .btn-icon {
+        background: #d5d9e3;
+        color: #333;
+
+        &:hover {
+            background: #c5c9d3;
+        }
+    }
+
+    .btn-theme-toggle {
+        .material-icons-outlined {
+            color: #333;
+        }
+    }
+
+    .header-auth {
+        .btn-signin {
+            color: #333;
+            border-color: #999;
+            box-shadow: none;
+
+            &:hover {
+                background: linear-gradient(90deg, #e0e3ea, #d0d4e0);
+                color: #333;
+            }
+        }
+
+        .btn-signup {
+            background: linear-gradient(90deg, #3433c9, #5a59e0);
+            color: #fff;
+        }
+    }
+
+    .balance-deposit-wrapper {
+        border-color: #c5c9d3;
+
+        .balance-trigger {
+            color: #333 !important;
+
+            .bal-label {
+                color: #666;
+            }
+        }
+    }
+
+    .btn-profile-circle {
+        border-color: #c5c9d3;
+    }
+
+    .wallet-dropdown-menu {
+        background: #fff !important;
+        border-color: #e0e0e0 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+        .wallet-dropdown-header h4 {
+            color: #333;
+        }
+
+        .wallet-dropdown-divider {
+            border-color: #e0e0e0;
+        }
+
+        .wallet-dropdown-item {
+            color: #555;
+        }
+    }
+
+    .profile-dropdown-menu {
+        background: #fff !important;
+        border-color: #e0e0e0 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+        li a {
+            color: #555 !important;
+
+            &:hover {
+                background: #f0f2f5;
+                color: #333 !important;
+            }
+        }
+
+        .logout-link {
+            color: #d32f2f !important;
+        }
+    }
+
+    // ===== Desktop Sidebar Light Theme =====
+    .leftbarSec {
+        background: #e8eaf0 !important;
+    }
+
+    .sidebar-link {
+        background: linear-gradient(90deg, #d0d4e0, #b8bdcc) !important;
+        border-color: #b8bdcc !important;
+        color: #333 !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+
+        &:hover {
+            background: linear-gradient(90deg, #c0c4d0, #a8adbc) !important;
+            border-color: #a8adbc !important;
+        }
+
+        &.expanded {
+            background: linear-gradient(90deg, #c0c4d0, #a8adbc) !important;
+            border-color: #a8adbc !important;
+        }
+    }
+
+    .submenu {
+        background: rgba(200, 204, 215, 0.5) !important;
+        border-color: #b8bdcc !important;
+
+        li a {
+            color: #555 !important;
+
+            &:hover {
+                background: linear-gradient(90deg, #d0d4e0, #b8bdcc) !important;
+                color: #333 !important;
+            }
+        }
+    }
+
+    .icon-sidebar {
+        li a {
+            &:hover {
+                background: rgba(200, 204, 215, 0.8) !important;
+            }
+        }
+    }
+
+    // ===== Main Content Light Theme =====
+    .main-content-block,
+    #main-column {
+        background-color: #f0f2f5;
+    }
+
+    .recent-big-wins-section {
+        .rbw-title {
+            color: #333;
+        }
+
+        .rbw-tab {
+            color: #666;
+
+            &.active {
+                color: #333;
+            }
+        }
+
+        .game_box {
+            background: #fff;
+
+            .game_box-name {
+                color: #333;
+            }
+
+            .game_box-info {
+                background: #fff;
+            }
+        }
+    }
+
+    // Category cards
+    .original-games-section,
+    .footer-provider-section {
+        .section-heading {
+            color: #333;
+        }
+    }
+
+    // News feed
+    .news-feed {
+        background: #e8eaf0 !important;
+        color: #333;
+    }
+
+    // Search overlay
+    .search-overlay {
+        background: rgba(240, 242, 245, 0.95) !important;
+
+        .search-input {
+            background: #fff;
+            border-color: #ccc;
+            color: #333;
+
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .btn-close-search {
+            background: #d5d9e3;
+            color: #333;
+        }
+
+        .search-result-item {
+            color: #555;
+
+            &:hover {
+                background: #e8eaf0;
+                color: #333;
+            }
+        }
+    }
+
+    // Footer
+    .footer-section {
+        background: #e8eaf0 !important;
+        color: #555;
+
+        a {
+            color: #666 !important;
+
+            &:hover {
+                color: #333 !important;
+            }
+        }
     }
 }

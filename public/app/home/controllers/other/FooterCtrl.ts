@@ -12,7 +12,8 @@
             private isMobile: any,
             private $state: ng.ui.IStateService,
             private commonDataService: common.services.CommonDataService,
-            private settings: intranet.common.IBaseSettings) {
+            private settings: intranet.common.IBaseSettings,
+            private $timeout: any) {
             super($scope);
 
             super.init(this);
@@ -31,10 +32,32 @@
                         this.$scope.supportDetail = JSON.parse(data.supportDetails);
                     }
                 });
+
+            this.initFooterSwipers();
+        }
+
+        private initFooterSwipers(): void {
         }
 
         private downloadAPK(): void {
             this.commonDataService.downloadClientAPK();
+        }
+
+        public openCasinoGame(tableId: string): void {
+            this.commonDataService.setGameId(tableId);
+            if (this.$state.current.name.indexOf('promo') > -1) {
+                if (this.isMobile.any) {
+                    this.$state.go('mobile.promo.casino');
+                } else {
+                    this.$state.go('promo.casino');
+                }
+            } else {
+                if (this.isMobile.any) {
+                    this.$state.go('mobile.base.casino');
+                } else {
+                    this.$state.go('base.casino');
+                }
+            }
         }
 
         private showLink(state: any) {

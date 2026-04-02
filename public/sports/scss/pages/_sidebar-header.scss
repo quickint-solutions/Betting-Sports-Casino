@@ -108,35 +108,46 @@ $btn-signup-bg: #4a3fdc;
     }
 }
 
+// Theme toggle button
+.btn-theme-toggle {
+    position: relative;
+
+    .material-icons-outlined {
+        font-size: 20px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    &:hover .material-icons-outlined {
+        transform: rotate(30deg);
+        color: #ffd700;
+    }
+}
+
 // Social icons
 .header-social {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 
     .social-icon {
-        width: 36px;
-        height: 36px;
+        width: 35px;
+        height: 35px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
-        font-size: 18px;
         text-decoration: none;
         transition: opacity $sidebar-transition;
+        background: transparent;
+
+        img {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
 
         &:hover {
             opacity: 0.85;
-            color: #fff;
-        }
-
-        &.whatsapp-icon {
-            background: #25d366;
-        }
-
-        &.telegram-icon {
-            background: #0088cc;
         }
     }
 }
@@ -214,69 +225,120 @@ $btn-signup-bg: #4a3fdc;
     gap: 8px;
 }
 
-// D/W buttons
-.header-dw {
+// Balance + Deposit wrapper (matches live site)
+.balance-deposit-wrapper {
     display: flex;
-    gap: 4px;
+    align-items: center;
+    border: 2px solid #3a4142;
+    border-radius: 10.5px;
+    padding: 7px;
+    gap: 8px;
 
-    .dw-btn {
-        width: 28px;
-        height: 28px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: 700;
-        color: #fff;
-        text-decoration: none;
-        transition: all $sidebar-transition;
+    .balance-section {
+        .balance-trigger {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            white-space: nowrap;
 
-        &.deposit-btn {
-            background: rgba(22, 156, 89, 0.35);
-
-            &:hover {
-                background: rgba(22, 156, 89, 0.55);
+            &:hover,
+            &:focus {
                 color: #fff;
+                text-decoration: none;
+            }
+
+            .bal-label {
+                opacity: 0.8;
+            }
+
+            .bal-amount {
+                font-weight: 600;
+            }
+
+            .fa-caret-down {
+                font-size: 12px;
+                opacity: 0.6;
+                margin-left: 2px;
             }
         }
+    }
 
-        &.withdrawal-btn {
-            background: rgba(0, 143, 255, 0.35);
+    .deposit-btn-new {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: linear-gradient(90deg, #090921, #3433c9);
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.2s ease;
+        cursor: pointer;
 
-            &:hover {
-                background: rgba(0, 143, 255, 0.55);
-                color: #fff;
-            }
+        .fa-plus {
+            font-size: 11px;
+        }
+
+        &:hover {
+            background: linear-gradient(90deg, #0e0e30, #4a49e0);
+            color: #fff;
+            text-decoration: none;
         }
     }
 }
 
-// Balance dropdown
-.balance-dropdown {
+// Bonus button in header
+.btn-bonus {
+    width: 42px;
+    height: 35px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: #3a4142;
-    border-radius: 7px;
-    padding: 6px 10px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    transition: background $sidebar-transition;
+    justify-content: center;
+    background: transparent !important;
+    border: none;
     cursor: pointer;
 
-    &:hover,
-    &:focus {
-        background: #4a5152;
-        color: #fff;
-        text-decoration: none;
+    img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+}
+
+// Profile circle button (matches live site)
+.btn-profile-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #3a4142;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+
+    img {
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
     }
 
-    .fa-plus-circle {
-        font-size: 12px;
-        opacity: 0.7;
+    &:hover {
+        border-color: #4a49e0;
     }
 }
 
@@ -571,6 +633,12 @@ $btn-signup-bg: #4a3fdc;
     i {
         font-size: 16px;
     }
+
+    img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
 }
 
 .sidebar-text {
@@ -618,6 +686,12 @@ $btn-signup-bg: #4a3fdc;
 
             i {
                 font-size: 14px;
+            }
+
+            img {
+                width: 18px;
+                height: 18px;
+                object-fit: contain;
             }
         }
 
@@ -853,36 +927,39 @@ $icon-sidebar-width: 62px;
         padding: 6px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
     }
 
     li {
-        width: 100%;
+        width: 50px;
+        height: 42px;
+        border-radius: 8px;
 
         a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: $sidebar-item-bg;
+            width: 50px;
+            height: 42px;
+            border-radius: 8px;
+            background: transparent;
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            transition: background 0.2s ease, transform 0.15s ease;
+            transition: background 0.2s ease;
             cursor: pointer;
 
             &:hover {
-                background: $sidebar-item-hover;
-                transform: scale(1.06);
-                color: #fff;
+                background: rgb(4, 24, 35);
+
+                img {
+                    animation: icon-bounce 1.5s ease infinite alternate;
+                }
             }
 
             img {
-                width: 28px;
-                height: 28px;
+                width: 22px;
+                height: 22px;
                 object-fit: contain;
-                border-radius: 4px;
             }
 
             i {
@@ -890,6 +967,12 @@ $icon-sidebar-width: 62px;
             }
         }
     }
+}
+
+@keyframes icon-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
 // When hamburger sidebar is open, hide the icon sidebar
@@ -921,6 +1004,30 @@ $icon-sidebar-width: 62px;
 
     .news-feed {
         margin-left: $icon-sidebar-width;
+    }
+}
+
+// Centered content layout on large screens (matches live site)
+@media (min-width: 1320px) {
+    .middle-block.home-page {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .main-header .header-inner {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    // Footer breaks out of the padding to go full-width
+    #footer-main {
+        margin-left: -5.264%;   // 5% / (100% - 5%) to cancel out the padding
+        margin-right: -5.264%;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 

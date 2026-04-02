@@ -191,6 +191,19 @@ module intranet.home {
                                     disableOnInteraction: false,
                                 },
                             });
+                            var originalGamesConfig = {
+                                slidesPerView: 'auto',
+                                spaceBetween: 10,
+                                freeMode: true,
+                                grabCursor: true,
+                                loop: false,
+                            };
+                            new Swiper('#homeOriginalGamesSwiper', originalGamesConfig);
+                            new Swiper('#mobileHomeOriginalGamesSwiper', originalGamesConfig);
+                            new Swiper('#homeAuraGamesSwiper', originalGamesConfig);
+                            new Swiper('#mobileHomeAuraGamesSwiper', originalGamesConfig);
+                            new Swiper('#homeVimplayGamesSwiper', originalGamesConfig);
+                            new Swiper('#mobileHomeVimplayGamesSwiper', originalGamesConfig);
                         }, 100);
                     }
                 });
