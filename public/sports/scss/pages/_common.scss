@@ -3219,10 +3219,14 @@ table tbody td {
             flex: 0 0 calc(100% / 8);
             padding: 0 5.25px;
             margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             img {
                 width: 100%;
-                height: auto;
+                height: 120px;
+                object-fit: contain;
                 display: block;
             }
         }
@@ -3376,8 +3380,8 @@ table tbody td {
             }
 
             img {
-                width: 160px;
-                height: 80px;
+                width: 240px;
+                height: 120px;
                 object-fit: cover;
                 border-radius: 10.5px;
                 display: block;
@@ -3388,8 +3392,8 @@ table tbody td {
 
 @media (max-width: 768px) {
     .original-games-section .footer-games-swiper .swiper-slide img {
-        width: 130px;
-        height: 65px;
+        width: 190px;
+        height: 95px;
     }
 }
 
@@ -3422,8 +3426,8 @@ table tbody td {
             }
 
             img {
-                width: 160px;
-                height: 80px;
+                width: 240px;
+                height: 120px;
                 object-fit: cover;
                 border-radius: 10.5px;
                 display: block;
@@ -3434,8 +3438,8 @@ table tbody td {
 
 @media (max-width: 768px) {
     .footer-provider-section .footer-games-swiper .swiper-slide img {
-        width: 130px;
-        height: 65px;
+        width: 190px;
+        height: 95px;
     }
 }
 
@@ -5984,6 +5988,33 @@ a {
         color: #fff;
     }
 
+    .topbar-main-header-block .btn-theme-toggle {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        vertical-align: middle;
+        flex-shrink: 0;
+
+        .material-icons-outlined {
+            font-size: 16px;
+            color: #fff;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        &:hover .material-icons-outlined {
+            transform: rotate(30deg);
+            color: #ffd700;
+        }
+    }
+
     .topbar-main-header-block .mobile-nav-menu-button-icon .mobile-menu {
         filter: invert(1);
     }
@@ -6017,6 +6048,7 @@ a {
 
     #mobile-top-main-header {
         display: flex !important;
+        flex-direction: column;
         transition: all 0.3s ease;
         box-shadow: none;
     }
@@ -9242,8 +9274,23 @@ body.light-theme {
                 }
             }
 
+            .mobile-logo img {
+                background: #1a1e2e;
+                border-radius: 50%;
+                padding: 2px;
+            }
+
             .user-profile-block .btn-type {
                 color: #333;
+            }
+        }
+
+        .btn-theme-toggle {
+            background: rgba(0, 0, 0, 0.08) !important;
+            border-color: rgba(0, 0, 0, 0.15) !important;
+
+            .material-icons-outlined {
+                color: #333 !important;
             }
         }
 
@@ -9365,6 +9412,21 @@ body.light-theme {
         }
     }
 
+    // Profile dropdown span text fix for light theme
+    .wallet-dropdown.show .drop-down a span {
+        color: #333 !important;
+    }
+
+    .wallet-dropdown.show .drop-down:last-child a.last span {
+        color: #d32f2f !important;
+    }
+
+    .user-profile-block .wallet-dropdown.show {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+
     // General text and link overrides
     .section-title,
     .card-title {
@@ -9401,8 +9463,11 @@ body.light-theme {
     }
 
     .btn-theme-toggle {
+        background: rgba(0, 0, 0, 0.08) !important;
+        border-color: rgba(0, 0, 0, 0.15) !important;
+
         .material-icons-outlined {
-            color: #333;
+            color: #333 !important;
         }
     }
 
@@ -9597,7 +9662,7 @@ body.light-theme {
     }
 
     // Footer
-    .footer-section {
+    #footer-main .footer {
         background: #e8eaf0 !important;
         color: #555;
 
@@ -9608,5 +9673,233 @@ body.light-theme {
                 color: #333 !important;
             }
         }
+
+        .footer-menu .footer-title {
+            color: #333;
+        }
+
+        .footer-menu .footer-menu-list li a {
+            color: #666 !important;
+
+            &:hover {
+                color: #333 !important;
+            }
+        }
+
+        .footer-divider {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-bottom-text p {
+            color: #666;
+        }
+
+        .footer-copyright {
+            color: #999;
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-awards-list li img {
+            filter: none;
+        }
+
+        .responsible-logos-list li img {
+            opacity: 0.8;
+        }
+    }
+
+    // ===== Sports Dashboard Shell =====
+    .sports-dashboard-shell {
+        background: #f0f2f5 !important;
+    }
+
+    // ===== Chart Content (sports listing wrapper) =====
+    .main-content-block .main-tabs .chart-content {
+        background-color: #f0f2f5 !important;
+    }
+
+    // ===== Event rows =====
+    .market-data .markets .market-left .event {
+        background-color: #fff !important;
+    }
+
+    .sport-event .event {
+        background-color: #fff !important;
+    }
+
+    // ===== Sports Event Listings =====
+    .home-page-sports {
+        .sports-collapse-btn-block a {
+            color: #333;
+        }
+
+        .sports-collapse-btn-block .event-count-block {
+            color: #666;
+        }
+
+        .sports-collapse-btn-block a.collapsed .plus,
+        .sports-collapse-btn-block a .plus {
+            color: #666;
+        }
+    }
+
+    // Sport league headers
+    .main-content-block .main-tabs .market-list .market-data .markets .sport-league {
+        background-color: #d5d9e3 !important;
+    }
+
+    .market-data .markets .sport-league .sport-league-name {
+        color: #333 !important;
+    }
+
+    // Event/match rows
+    .event-main-detail .event-level-one .runner-one,
+    .event-main-detail .event-level-one .runner-two,
+    .event-main-detail .event-level-one .runner-three {
+        color: #333 !important;
+    }
+
+    .market-data .markets .market-left .date-height .date-time {
+        color: #666;
+    }
+
+    // Market data container
+    .main-content-block .main-tabs .market-list .market-data .markets {
+        background-color: #fff;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+    // Odds buttons
+    .sport-market .market-back,
+    .sport-market .market-lay {
+        background-color: #e8eaf0 !important;
+    }
+
+    .sport-market .d-blue .odds,
+    .back-text {
+        color: #0066cc;
+    }
+
+    .sport-market .d-pink .odds,
+    .lay-text {
+        color: #cc3355;
+    }
+
+    .sport-market .odds {
+        color: #333;
+    }
+
+    // Match rate back/lay
+    .market-data .markets .market-right .match-rate .back {
+        background-color: rgba(0, 142, 251, 0.15) !important;
+        color: #0066cc;
+    }
+
+    .market-data .markets .market-right .match-rate .lay {
+        background-color: rgba(239, 84, 128, 0.15) !important;
+        color: #cc3355;
+    }
+
+    // Event date/time & live badge
+    .event-date-time {
+        color: #666 !important;
+    }
+
+    .live-match {
+        color: #fff !important;
+    }
+
+    // ===== Recent Big Wins =====
+    .recent-big-wins-section {
+        .rbw-title {
+            color: #333 !important;
+        }
+
+        .rbw-tab {
+            color: rgba(0, 0, 0, 0.45) !important;
+
+            &:hover {
+                color: rgba(0, 0, 0, 0.7) !important;
+            }
+
+            &.active {
+                color: #333 !important;
+            }
+        }
+    }
+
+    // ===== Promo bottom navigation on mobile =====
+    .promo-bottom-navigation,
+    .mobile-bottom-navigation {
+        background-color: #ffffff !important;
+        border-top: 1px solid #e0e0e0 !important;
+        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.06);
+
+        ul .item a,
+        .nav-item a {
+            color: rgba(0, 0, 0, 0.4) !important;
+
+            .material-icons-round,
+            .material-icons {
+                color: rgba(0, 0, 0, 0.4);
+            }
+
+            &.router-link-active {
+                color: $theme-color !important;
+
+                &::before {
+                    background-color: $theme-color;
+                }
+
+                .material-icons-round,
+                .material-icons {
+                    color: $theme-color;
+                }
+            }
+        }
+    }
+
+    // ===== Mobile header light theme (logged in) =====
+    .topbar-main-header-block .link-button {
+        color: #333 !important;
+    }
+
+    // ===== Highlight cards =====
+    .highlight-card,
+    .game-container,
+    .popular-event-item {
+        background-color: #fff !important;
+        color: #333;
+    }
+
+    // ===== Game boxes =====
+    .game_box {
+        background: #fff !important;
+
+        .game_box-name,
+        .game_box-info {
+            color: #333;
+            background: #fff;
+        }
+    }
+
+    // ===== Category cards =====
+    .home-provider-card .card-content,
+    .category-card {
+        background-color: #fff !important;
+        color: #333 !important;
+    }
+
+    // ===== Original games section title =====
+    .original-games-section .original-games-title,
+    .footer-provider-section .footer-provider-title {
+        color: #333 !important;
+    }
+
+    // ===== Bet slip =====
+    .bet-slip-block .bet-slip-body {
+        background: #fff !important;
+        color: #333;
     }
 }

@@ -204,7 +204,7 @@
             this.$scope.isChatEnabled = this.commonDataService.isChatActive();
 
             // Light theme toggle
-            var savedTheme = this.localStorageHelper.get('mobile_theme_mode');
+            var savedTheme = this.localStorageHelper.get('theme_mode');
             this.$scope.isLightTheme = savedTheme === 'light';
             if (this.$scope.isLightTheme) {
                 jQuery('body').addClass('light-theme');
@@ -356,10 +356,10 @@
             this.$scope.isLightTheme = !this.$scope.isLightTheme;
             if (this.$scope.isLightTheme) {
                 jQuery('body').addClass('light-theme');
-                this.localStorageHelper.set('mobile_theme_mode', 'light');
+                this.localStorageHelper.set('theme_mode', 'light');
             } else {
                 jQuery('body').removeClass('light-theme');
-                this.localStorageHelper.set('mobile_theme_mode', 'dark');
+                this.localStorageHelper.set('theme_mode', 'dark');
             }
         }
 

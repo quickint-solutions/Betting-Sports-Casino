@@ -1,47 +1,112 @@
-﻿<div id="footer-main" ng-controller="footerCtrl as fc">
+<div id="footer-main" ng-controller="footerCtrl as fc">
     <div class="footer">
-        <div class="d-flex justify-content-center mb-4">
+
+        <!-- Back to Top -->
+        <div class="d-flex justify-content-center mb-3">
             <div class="Scroll-top_icon">
                 <a href="javascript:void(0);" class="scrollToTop"><span>Back to Top</span></a>
             </div>
-        </div> <div class="footer-menu">
+        </div>
+
+        <!-- Award Badges -->
+        <div class="footer-awards">
+            <ul class="footer-awards-list">
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/casino-sigma-europe.webp" alt="Best Casino Operator SiGMA Europe 2023"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/crypto-casino-affpapa.webp" alt="Crypto Casino AFFPAPA 2022"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/mobile-sigma-africa.webp" alt="Best on Mobile SiGMA Africa 2024"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/platform-sigma-asia.webp" alt="Crypto Game Platform SiGMA Asia 2023"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/casino-sigma-europe.webp" alt="Best Casino Operator SiGMA Europe 2023"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/crypto-casino-affpapa.webp" alt="Crypto Casino AFFPAPA 2022"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/mobile-sigma-africa.webp" alt="Best on Mobile SiGMA Africa 2024"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/platform-sigma-asia.webp" alt="Crypto Game Platform SiGMA Asia 2023"></li>
+            </ul>
+        </div>
+
+        <!-- Responsible Gaming Logos -->
+        <div class="footer-responsible-gaming">
+            <ul class="responsible-logos-list">
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/sigma.webp" alt="SiGMA"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/responsible-gambling.webp" alt="Responsible Gambling"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/gamcare.webp" alt="GamCare"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/betblocker.webp" alt="betblocker"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/plus.webp" alt="18+"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/c9.webp" alt="Cloud9"></li>
+                <li><img loading="lazy" src="/public/images/drpapaya/footer/jason_derulo.webp" alt="Jason Derulo"></li>
+            </ul>
+        </div>
+
+        <!-- Divider -->
+        <div class="footer-divider"></div>
+
+        <!-- 4-Column Footer Links -->
+        <div class="footer-menu footer-menu-4col">
+            <!-- Promo -->
             <div class="footer-column">
-                <div class="footer-title">Info</div> <ul class="footer-menu-list">
-                    <li>
-                        <a ng-click="fc.showLink('privacypolicy')">Privacy Policy</a>
-                    </li>
+                <div class="footer-title">Promo</div>
+                <ul class="footer-menu-list">
+                    <li><a ng-click="fc.showLink('promo')">Promotions</a></li>
+                </ul>
+            </div>
+
+            <!-- Support/Legal -->
+            <div class="footer-column">
+                <div class="footer-title">Support/Legal</div>
+                <ul class="footer-menu-list">
+                    <li><a ng-click="fc.showLink('privacypolicy')">Privacy Policy</a></li>
+                    <li><a ng-click="fc.showLink('responsiblegambling')">Responsible Gaming</a></li>
                     <li><a ng-click="fc.showLink('termscondition')">Terms and Conditions</a></li>
-                    <li><a ng-click="fc.showLink('responsiblegambling')">Gambling can be addictive</a></li>
                 </ul>
             </div>
+
+            <!-- About Us -->
             <div class="footer-column">
-                <div class="footer-title">Get started</div>
+                <div class="footer-title">About Us</div>
                 <ul class="footer-menu-list">
-                    <li><a ng-click="fc.showLink('aboutus')">About Us</a></li>
-                    <li><a ng-click="fc.showLink('kyc')">KYC and Privacy Policy</a></li>
+                    <li><a ng-click="fc.showLink('aboutus')">Fair Play</a></li>
+                    <li><a ng-click="fc.showLink('aboutus')">Games Rules</a></li>
+                    <li><a ng-click="fc.showLink('termscondition')">Terms and Conditions</a></li>
                 </ul>
             </div>
+
+            <!-- Join Our Community -->
             <div class="footer-column">
-                <div class="footer-title title-mobile">{{displayName}}</div>
-                <ul class="footer-menu-list">
-                    <li class="d-flex">
-                        <div class="footer-apk-download">
-                            <a ng-click="fc.downloadAPK();" class="footer-download-apk">
-                                <img ng-src="{{webImagePath}}icons/android.png" width="24px" alt="apk">
-                            </a>
-                            <span class="animate-btn">Download our mobile app</span>
-                        </div>
-                    </li>
-                </ul>
+                <div class="footer-title">Join Our Community</div>
+                <div class="footer-social-icons">
+                    <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" class="social-circle whatsapp">
+                        <i class="fa fa-whatsapp"></i>
+                    </a>
+                    <a ng-if="supportDetail.telegram" ng-href="{{supportDetail.telegram}}" target="_blank" class="social-circle telegram">
+                        <i class="fa fa-telegram"></i>
+                    </a>
+                    <a ng-if="supportDetail.instagram" ng-href="{{supportDetail.instagram}}" target="_blank" class="social-circle instagram">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a href="javascript:void(0);" class="social-circle facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="helpline-numbers">
-            <div class="helpline-heading"><h5>Helpline Number</h5></div>
-            <a href="{{supportDetail.whatsapp}}" target="_blank" class="support-number">
-                <i aria-hidden="true" class="fa fa-whatsapp mr-2 fa-2x"></i>
-            </a>
-        </div> <div class="d-flex justify-content-center mt-3 mb-3">
-            <img loading="lazy" ng-src="{{webImagePath}}icons/betfair.png" class="mb-3 betfair">
+
+        <!-- Divider -->
+        <div class="footer-divider"></div>
+
+        <!-- Footer Bottom: Logo + Description -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-logo">
+                <img ng-src="{{webImagePath}}logo.png" alt="Logo" class="footer-logo-img">
+            </div>
+            <div class="footer-bottom-text">
+                <p>Your use of and access to this platform signifies that you fully understand and agree to be legally bound by the contents of our Terms of Service and Responsible Gaming Policy.</p>
+                <p>Crypto trading is not gambling by definition, therefore it is not covered by our gaming license.</p>
+            </div>
         </div>
+
+        <!-- Copyright -->
+        <div class="footer-divider"></div>
+        <div class="footer-copyright">
+            <span>&copy; {{displayName}}. ALL RIGHTS RESERVED.</span>
+        </div>
+
     </div>
 </div>

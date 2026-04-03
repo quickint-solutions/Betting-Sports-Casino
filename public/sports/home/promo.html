@@ -2,8 +2,8 @@
 <div class="main-wrapper sports-dashboard-shell">
     <div class="sportsexch-layout-main" ng-class="{'sidebar-open': ctrl.sidebarOpen}">
 
-        <!-- ===== HEADER ===== -->
-        <header class="main-header">
+        <!-- ===== HEADER (Desktop: >=768px) ===== -->
+        <header class="main-header d-none d-md-block">
             <div class="header-inner">
                 <!-- Left: Hamburger + Logo -->
                 <div class="header-left">
@@ -48,6 +48,31 @@
                 </div>
             </div>
         </header>
+
+        <!-- ===== HEADER (Mobile: <768px) — same layout as mobile/promo.html ===== -->
+        <div class="topbar-main-header-block mobile d-block d-md-none">
+            <div class="mobile-nav-menu-button-icon justify-content-between mt-1">
+                <a ui-sref="promo" class="mobile-logo router-link-exact-active router-link-active" title="logo" aria-current="page">
+                    <img ng-src="{{webImagePath}}logo.png" alt="Logo" class="promo-logo">
+                </a>
+            </div>
+            <div class="header-right d-flex justify-content-between align-items-center p-2">
+                <div class="d-flex align-items-center" style="gap: 8px;">
+                    <!-- Theme Toggle (icon-only, same as promo) -->
+                    <button class="btn-icon btn-theme-toggle" ng-click="ctrl.toggleTheme()" title="{{isLightTheme ? 'Switch to Dark' : 'Switch to Light'}}">
+                        <i class="material-icons-outlined" ng-if="!isLightTheme">light_mode</i>
+                        <i class="material-icons-outlined" ng-if="isLightTheme">dark_mode</i>
+                    </button>
+                    <h4 style="font-size: 13px; letter-spacing: 0.4px; font-weight: 500; margin: 0;">WELCOME</h4>
+                </div>
+                <div class="header-register">
+                    <button class="btn btn-signin button button-small button-animation" ng-click="ctrl.openModal('login-modal')"
+                            ng-class="{'btn-transparent':isRegisterEnabled}">Log In</button>
+                    <button class="btn btn-signup button button-small button-animation" ng-show="isRegisterEnabled"
+                            ng-click="ctrl.openModal('verify-modal')">Sign up</button>
+                </div>
+            </div>
+        </div>
 
         <!-- ===== SEARCH OVERLAY ===== -->
         <div class="search-overlay" ng-show="ctrl.searchOpen">

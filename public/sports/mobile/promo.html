@@ -8,7 +8,14 @@
                 </a>
             </div>
             <div class="header-right d-flex justify-content-between align-items-center p-2">
-                <h4 style="font-size: 13px; letter-spacing: 0.4px; font-weight: 500;">WELCOME</h4>
+                <div class="d-flex align-items-center" style="gap: 8px;">
+                    <!-- Theme Toggle (icon-only, same as web) -->
+                    <button class="btn-icon btn-theme-toggle" ng-click="ctrl.toggleTheme()" title="{{isLightTheme ? 'Switch to Dark' : 'Switch to Light'}}">
+                        <i class="material-icons-outlined" ng-if="!isLightTheme">light_mode</i>
+                        <i class="material-icons-outlined" ng-if="isLightTheme">dark_mode</i>
+                    </button>
+                    <h4 style="font-size: 13px; letter-spacing: 0.4px; font-weight: 500; margin: 0;">WELCOME</h4>
+                </div>
                 <div class="header-register">
                     <a ng-click="ctrl.openModal('login-modal')"
                        ng-class="{'btn-transparent':isRegisterEnabled}"

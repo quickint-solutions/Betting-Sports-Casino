@@ -112,25 +112,22 @@
                     </div>
                 </div>
             </div>
-            <div class="header-right d-flex align-items-center p-2 justify-content-around" id="top-header-bottom-detail"
-                 ng-if="isB2C">
-                <a ui-sref="mobile.base.deposit" class="link-button d-flex flex-row gap-2 align-items-center">
-                    <i class="material-icons-outlined">input</i> <span>Deposit</span>
-                </a>
-                <a class="link-button d-flex flex-row gap-2 align-items-center" ng-click="ctrl.toggleTheme()">
-                    <i class="material-icons-outlined">{{isLightTheme ? 'dark_mode' : 'light_mode'}}</i>
-                    <span>{{isLightTheme ? 'Dark' : 'Light'}}</span>
-                </a>
-                <a ui-sref="mobile.base.withdrawal" class="link-button d-flex flex-row gap-2 align-items-center">
-                    <i class="material-icons-outlined">logout</i> <span>Withdraw</span>
-                </a>
-            </div>
-            <div class="header-right d-flex align-items-center p-2 justify-content-end" id="top-header-bottom-detail"
-                 ng-if="!isB2C">
-                <a class="link-button d-flex flex-row gap-2 align-items-center" ng-click="ctrl.toggleTheme()">
-                    <i class="material-icons-outlined">{{isLightTheme ? 'dark_mode' : 'light_mode'}}</i>
-                    <span>{{isLightTheme ? 'Dark' : 'Light'}}</span>
-                </a>
+            <div class="header-right d-flex align-items-center p-2 justify-content-between" id="top-header-bottom-detail">
+                <div class="d-flex align-items-center" style="gap: 8px;">
+                    <!-- Theme Toggle (icon-only, same as web) -->
+                    <button class="btn-icon btn-theme-toggle" ng-click="ctrl.toggleTheme()" title="{{isLightTheme ? 'Switch to Dark' : 'Switch to Light'}}">
+                        <i class="material-icons-outlined" ng-if="!isLightTheme">light_mode</i>
+                        <i class="material-icons-outlined" ng-if="isLightTheme">dark_mode</i>
+                    </button>
+                </div>
+                <div class="d-flex align-items-center" style="gap: 12px;" ng-if="isB2C">
+                    <a ui-sref="mobile.base.deposit" class="link-button d-flex flex-row gap-2 align-items-center">
+                        <i class="material-icons-outlined">input</i> <span>Deposit</span>
+                    </a>
+                    <a ui-sref="mobile.base.withdrawal" class="link-button d-flex flex-row gap-2 align-items-center">
+                        <i class="material-icons-outlined">logout</i> <span>Withdraw</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div id="sitewrapper" class="main-container-block">

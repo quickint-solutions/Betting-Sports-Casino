@@ -394,7 +394,7 @@
 
         // get score from betfair
         private readScoreFromBF(): void {
-            if (this.$scope.fullMarket.inPlay) {
+            {
                 this.commonDataService.getEventTypes().then(() => {
                     var bfEventType = this.commonDataService.getBFEventTypeId(this.$scope.fullMarket.eventType.id);
                     if (bfEventType == this.settings.SoccerBfId

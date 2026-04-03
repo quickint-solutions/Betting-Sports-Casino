@@ -7,7 +7,7 @@
                  class="d-flex w-100 justify-content-center position-absolute"></div>
 
             <div class="main-market-block" ng-if="fullMarket && !isRequestProcessing">
-                <div class="main-market-header" ng-if="!fullMarket.commentary && !fullMarket.isTennis">
+                <div class="main-market-header" ng-if="false">
                     <div class="bg-sport-icons">
                         <img ng-show="eventTypeName" ng-src="{{webImagePath}}icons/{{eventTypeName|joinme}}.png" width="100vw" class="img-one">
                         <img ng-show="eventTypeName" ng-src="{{webImagePath}}icons/{{eventTypeName|joinme}}.png" width="100vw" class="img-two">
@@ -211,7 +211,7 @@
                     </div>
                 </div>
 
-                <div ng-if="fullMarket.event.scoreSource==4 && fullMarket.inPlay" class="mt-2"
+                <div ng-if="fullMarket.event.scoreSource==4" class="mt-2"
                      id="cricfeed-scorecard"
                      data-score-mid="{{fullMarket.event.sourceId}}"></div>
 
