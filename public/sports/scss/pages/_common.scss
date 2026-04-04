@@ -9264,35 +9264,28 @@ body.light-theme {
     background-color: #f0f2f5 !important;
     color: #333;
 
+    // Keep header same as dark theme — only override dropdowns
     .topbar-main-header-block {
-        background: linear-gradient(180deg, #e8eaf0 10%, #d5d9e3 100%) !important;
+        background: $mobile-header-bg !important;
+        color: #fff !important;
 
-        .mobile-nav-menu-button-icon {
-            .wallet-balance {
-                .wallet-amount {
-                    color: #333;
-                }
-            }
-
-            .mobile-logo img {
-                background: #1a1e2e;
-                border-radius: 50%;
-                padding: 2px;
-            }
-
-            .user-profile-block .btn-type {
-                color: #333;
-            }
+        // Keep all header text and links white
+        a, h4, span, .link-button, .header-right {
+            color: #fff !important;
         }
 
+        // Reset toggle & icon buttons to dark-theme look inside header
+        .btn-icon,
         .btn-theme-toggle {
-            background: rgba(0, 0, 0, 0.08) !important;
-            border-color: rgba(0, 0, 0, 0.15) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #fff !important;
+            border-color: rgba(255, 255, 255, 0.25) !important;
 
             .material-icons-outlined {
-                color: #333 !important;
+                color: #fff !important;
             }
         }
+
 
         .wallet-dropdown {
             background-color: #fff !important;
@@ -9303,14 +9296,6 @@ body.light-theme {
                 h5 {
                     color: #555;
                 }
-            }
-        }
-
-        #top-header-bottom-detail {
-            background-color: #e0e3ea;
-
-            .link-button {
-                color: #333 !important;
             }
         }
     }
@@ -9860,10 +9845,7 @@ body.light-theme {
         }
     }
 
-    // ===== Mobile header light theme (logged in) =====
-    .topbar-main-header-block .link-button {
-        color: #333 !important;
-    }
+    // Header keeps dark theme style — no overrides needed
 
     // ===== Highlight cards =====
     .highlight-card,
@@ -9901,5 +9883,297 @@ body.light-theme {
     .bet-slip-block .bet-slip-body {
         background: #fff !important;
         color: #333;
+    }
+
+    // ===== Market Page Light Theme =====
+
+    // Live TV / My Bets bar
+    .mobile-live-detail {
+        background-color: #e8eaf0 !important;
+
+        .mobie-live-tv,
+        .mobie-live-score {
+            background-color: transparent !important;
+        }
+
+        .mobie-live-tv a span,
+        .mobie-live-score a span {
+            color: #333 !important;
+        }
+
+        .mobie-live-tv .active,
+        .mobie-live-score .active,
+        .mobie-live-tv a[aria-expanded="true"],
+        .mobie-live-score a[aria-expanded="true"],
+        .mobie-live-tv.collapsed,
+        .mobie-live-score.collapsed {
+            background-color: #fff !important;
+        }
+
+        .nav-link {
+            color: #333 !important;
+        }
+
+        .badge.badge-dark {
+            background-color: #d5d9e3 !important;
+            color: #333 !important;
+        }
+    }
+
+    // Market header / scorecard
+    .main-market-header {
+        background-color: #fff !important;
+        color: #333 !important;
+
+        &.scorecard {
+            background-color: #fff !important;
+
+            .score-field {
+                color: #333 !important;
+            }
+
+            .score-t span {
+                color: #777 !important;
+            }
+        }
+
+        .market-title {
+            color: #333 !important;
+        }
+
+        .market-name {
+            color: #333 !important;
+
+            .left-team-title,
+            .team-full-title,
+            .vs-text span {
+                color: #333 !important;
+            }
+        }
+
+        .event-timer {
+            .count_day,
+            .count_hours,
+            .count_minutes,
+            .count_seconds {
+                background-color: #e8eaf0 !important;
+                color: #333 !important;
+            }
+
+            .position_timmer {
+                color: #333 !important;
+            }
+        }
+    }
+
+    // Market tabs (All, Match Odd, Bookmaker, Fancy)
+    .main-market-block .categories {
+        .select-category .category-scroll .tabs .tab {
+            background-color: #e0e3ea !important;
+
+            a, .tab-text {
+                color: #333 !important;
+            }
+
+            &.active {
+                background-color: $theme-color !important;
+
+                a, .tab-text {
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+    // Market details container
+    .main-market-block .main-market-details {
+        background-color: #fff !important;
+        border: 1px solid #e0e3ea;
+    }
+
+    // Event header (Match Odds, Bookmaker, Fancy Market titles)
+    .main-market-block .event-header {
+        background-color: #e8eaf0 !important;
+
+        .market-category-name {
+            color: #333 !important;
+        }
+
+        .market-info {
+            color: #555 !important;
+        }
+
+        .close-icon span {
+            color: #555 !important;
+        }
+    }
+
+    // Event runner rows (team names + odds)
+    .main-market-block .event-details {
+        background-color: #fff !important;
+    }
+
+    .main-market-block .event-runner-detail-main-block {
+        background-color: #fff !important;
+        border-bottom: 1px solid #e8eaf0;
+    }
+
+    .main-market-block .event-runner-detail {
+        .runner-name {
+            color: #333 !important;
+
+            p {
+                color: #333 !important;
+            }
+        }
+
+        .stake-amount {
+            color: #333 !important;
+        }
+    }
+
+    // Odds buttons - keep blue/pink but adjust for light bg
+    .d-blue,
+    .l-blue {
+        background-color: rgba(0, 142, 251, 0.15) !important;
+
+        .odds {
+            color: #008EFB !important;
+        }
+
+        span {
+            color: #555 !important;
+        }
+    }
+
+    .d-pink,
+    .l-pink {
+        background-color: rgba(239, 84, 128, 0.15) !important;
+
+        .odds {
+            color: #EF5480 !important;
+        }
+
+        span {
+            color: #555 !important;
+        }
+    }
+
+    // Fancy market
+    .fancy-main-block {
+        background-color: #fff !important;
+
+        .event-runner-detail {
+            background-color: #fff !important;
+        }
+    }
+
+    // Suspend overlay
+    .suspend {
+        background-color: rgba(240, 242, 245, 0.7) !important;
+        color: #d32f2f !important;
+
+        .suspend-cont {
+            color: #999 !important;
+
+            span, strong {
+                color: #999 !important;
+            }
+        }
+    }
+
+    // Market match name bar
+    .main-market-block .event-name-bar,
+    .main-market-block .market-match-name {
+        background-color: #e8eaf0 !important;
+        color: #333 !important;
+    }
+
+    // General market text
+    .main-market-block {
+        color: #333;
+    }
+
+    // Sports list / highlight pages
+    .sport-list-block,
+    .highlight-block {
+        background-color: #f0f2f5 !important;
+        color: #333;
+    }
+
+    .middle-block {
+        background-color: #f0f2f5 !important;
+    }
+
+    // ===== Home page cards & sections =====
+
+    // News/announcement marquee bar
+    .news-feed-block {
+        background-color: #e8eaf0 !important;
+        color: #333 !important;
+
+        a, span {
+            color: #333 !important;
+        }
+    }
+
+    // Home page category & game cards
+    .hp-card {
+        background-color: #fff !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-color: rgba(0, 0, 0, 0.06) !important;
+
+        &::before {
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 247, 250, 0.9) 38%, var(--surface)) !important;
+        }
+
+        &::after {
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.04), transparent 72%) !important;
+        }
+
+        &:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        // Light surface colors for each card type
+        --surface: rgba(83, 63, 233, 0.12);
+
+        &.hp-casino { --surface: rgba(83, 63, 233, 0.15); }
+        &.hp-sports { --surface: rgba(150, 62, 83, 0.15); }
+        &.hp-crazytime { --surface: rgba(196, 45, 48, 0.15); }
+        &.hp-racing { --surface: rgba(153, 87, 46, 0.15); }
+        &.hp-aviator { --surface: rgba(142, 49, 55, 0.15); }
+        &.hp-mines { --surface: rgba(100, 87, 48, 0.15); }
+
+        // Card text
+        span, a, p, h4, h5, .hp-card-title {
+            color: #333 !important;
+        }
+
+        a {
+            color: #333 !important;
+        }
+    }
+
+    // Home provider cards
+    .home-provider-section {
+        background-color: #f0f2f5 !important;
+    }
+
+    // Sport tab links in bottom area
+    .sport-tab-list a {
+        background-color: #e8eaf0 !important;
+        color: #333 !important;
+    }
+
+    // Recent big wins card text
+    .recent-big-wins .card-label,
+    .recent-big-wins .game-name {
+        color: #333 !important;
+    }
+
+    // Fairbet Original Games section
+    .original-games-section {
+        background-color: #f0f2f5 !important;
     }
 }
