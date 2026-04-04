@@ -1583,32 +1583,12 @@
                     loop: true,
                     autoplay: true,
                     autoHeight: true,
-                    // If we need pagination
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
-                    // Navigation arrows
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
                 })
                 var mySwiper2 = new Swiper('#right-casino-box', {
                     // Optional parameters
                     loop: true,
                     autoplay: true,
                     autoHeight: true,
-                    // If we need pagination
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
-                    // Navigation arrows
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
                 })
                 var mySwiper3 = new Swiper('#swiper5', {
                     // Optional parameters

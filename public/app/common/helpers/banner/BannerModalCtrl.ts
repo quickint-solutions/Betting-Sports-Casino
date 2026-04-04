@@ -41,10 +41,6 @@
                    // autoplay: true,
                     autoHeight: false,
                     freeMode: true,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
                 });
             }, 100);
 
