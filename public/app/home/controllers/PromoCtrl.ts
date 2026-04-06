@@ -79,6 +79,7 @@
         needsToHideRightSide: boolean;
         isLightTheme: boolean;
         isRequestProcessing: boolean;
+        authTab: string;
     }
 
     export class PromoCtrl extends intranet.common.BetControllerBase<IPromoScope>
@@ -121,6 +122,8 @@
             jQuery('body').removeClass('mbg');
             jQuery('body').addClass('cbg');
             jQuery('body').addClass('promo-body');
+
+            this.$scope.authTab = 'login';
 
             // Light theme toggle initialization
             var savedTheme = this.localStorageHelper.get('theme_mode');
@@ -630,6 +633,17 @@
             this.openModal('verify-modal');
         }
 
+        public switchAuthTab(tab: string): void {
+            this.$scope.authTab = tab;
+            if (tab === 'login') {
+                this.reloadCaptcha();
+                this.remember(false);
+            }
+            if (tab === 'signup') {
+                this.verification();
+            }
+        }
+
         public searchEvents(query: string): void {
             // Search handled by existing search logic if available
         }
@@ -694,6 +708,12 @@
         }
 
         public openModal(modalId: any): void {
+            // Map login-modal and verify-modal to combined auth-modal
+            if (modalId === 'login-modal' || modalId === 'verify-modal') {
+                this.$scope.authTab = (modalId === 'verify-modal') ? 'signup' : 'login';
+                modalId = 'auth-modal';
+            }
+
             if (this.settings.ThemeName == 'dimd2') {
                 this.closeAllMOdal();
                 jQuery('#' + modalId).addClass('disp');
@@ -708,8 +728,8 @@
                 }, 200);
             }
 
-            if (modalId == 'login-modal') { this.remember(false); }
-            if (modalId == 'login-modal' || modalId == 'register-modal' || modalId == 'demo-login-modal') {
+            if (this.$scope.authTab === 'login') { this.remember(false); }
+            if (this.$scope.authTab === 'login' || modalId == 'register-modal' || modalId == 'demo-login-modal') {
                 this.reloadCaptcha();
             }
             if (modalId == 'register-modal') {
@@ -717,8 +737,8 @@
                 if (verified_modal && verified_modal.mobileNo) { this.$scope.registerModel.mobile = verified_modal.mobileNo; }
                 if (this.$location.$$search.code) { this.$scope.registerModel.referralCode = this.$location.$$search.code; }
             }
-            if (modalId == 'verify-modal' || modalId == 'login-modal' || modalId == 'forget-modal') {
-                if (modalId == 'verify-modal') { this.verification(); }
+            if (this.$scope.authTab === 'signup' || modalId == 'forget-modal') {
+                if (this.$scope.authTab === 'signup') { this.verification(); }
                 if (modalId == 'forget-modal') { this.startForgetPassword(); }
             }
         }

@@ -363,6 +363,13 @@
             }
         }
 
+        public scrollToTop(): void {
+            var scrollEl = document.querySelector('.middle-block') || document.querySelector('.home-middle-block') || document.querySelector('.main-content-block');
+            if (scrollEl) {
+                scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
         // load event types for tab control
         private loadEventTypes(): void {
             this.eventTypeService.getEventTypes()

@@ -33,7 +33,6 @@ $btn-signup-bg: #4a3fdc;
     top: 0;
     z-index: 999;
     background: $header-gradient;
-    height: $header-height;
     width: 100%;
     border-bottom: 2px solid transparent;
     border-image: $header-border-gradient;
@@ -43,8 +42,34 @@ $btn-signup-bg: #4a3fdc;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 100%;
+        height: $header-height;
         padding: 0 12px;
+    }
+
+    .header-announcement {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.1));
+        padding: 4px 12px;
+        overflow: hidden;
+
+        .header-announcement-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-announcement-icon {
+            font-size: 16px;
+            color: #ffd463;
+            flex-shrink: 0;
+        }
+
+        .header-announcement-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+            white-space: nowrap;
+            line-height: 1.4;
+        }
     }
 
     .header-left {

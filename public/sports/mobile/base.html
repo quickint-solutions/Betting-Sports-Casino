@@ -2,131 +2,146 @@
 <div class="main-wrapper" ng-class="{'fd-casino-live':ctrl.isActiveState('mobile.base.fdlivegames')}">
     <div class="sportsexch-layout-main">
         <div id="mobile-top-main-header" class="topbar-main-header-block mobile d-block d-md-none">
-            <div class="mobile-nav-menu-button-icon justify-content-between mt-1">
-                <div class="dropdown">
-                    <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="wallet-balance d-block">
-                        <span class="wallet-amount d-flex flex-row justify-content-between">
-                            <kt-glc-code data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code>
-                        </span>
+            <div class="mobile-header-row">
+                <!-- Logo -->
+                <a ui-sref="mobile.base.home" class="mobile-header-logo" title="logo">
+                    <img ng-src="{{webImagePath}}logo.png" alt="Logo">
+                </a>
+
+                <!-- Search Bar -->
+                <div class="mobile-search-bar">
+                    <i class="material-icons mobile-search-icon">search</i>
+                    <input type="text" placeholder="Search events..." ng-model="searchEvent" ng-change="ctrl.searchEvents(searchEvent)" />
+                    <div class="mobile-search-results" ng-if="eventList.length > 0">
+                        <a ng-repeat="event in eventList" ng-click="ctrl.goToEvent(event)" class="mobile-search-result-item">
+                            {{event.name}}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Wallet Button -->
+                <div class="mobile-wallet-wrap dropdown">
+                    <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mobile-wallet-btn">
+                        <i class="material-icons">account_balance_wallet</i>
                     </a>
-                    <ul role="menu" aria-labelledby="dropdownMenu" class="dropdown-menu dropdown-menu-right blue wallet-dropdown">
-                        <li class="drop-down balance-text-top" ng-show="balanceInfo.creditLimit!=0">
-                            <a href="javascript:void(0)" class="topbar-info-block d-flex justify-content-between">
-                                <h5 class="mr-3">credit limits</h5> <div><kt-glc-code data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></div>
+                    <div class="dropdown-menu dropdown-menu-right mobile-wallet-dropdown">
+                        <div class="mw-balance-row">
+                            <span class="mw-balance-label">Balance</span>
+                            <span class="mw-balance-amount"><kt-glc-code data-item="{{balanceInfo.balance + balanceInfo.creditLimit + balanceInfo.exposure + balanceInfo.bonus}}"></kt-glc-code></span>
+                        </div>
+                        <div class="mw-details">
+                            <div class="mw-detail-item" ng-show="balanceInfo.creditLimit!=0">
+                                <span>Credit Limits</span>
+                                <span><kt-glc-code data-item="{{balanceInfo.creditLimit}}"></kt-glc-code></span>
+                            </div>
+                            <div class="mw-detail-item">
+                                <span>Balance</span>
+                                <span><kt-glc-code data-item="{{balanceInfo.balance}}"></kt-glc-code></span>
+                            </div>
+                            <div class="mw-detail-item" ng-show="balanceInfo.bonus!=0">
+                                <span>Bonus</span>
+                                <span><kt-glc-code data-item="{{balanceInfo.bonus}}"></kt-glc-code></span>
+                            </div>
+                            <div class="mw-detail-item" ng-show="balanceInfo.bonusToRedeem!=0">
+                                <span>Bonus To Redeem</span>
+                                <span><kt-glc-code data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code></span>
+                            </div>
+                            <div class="mw-detail-item">
+                                <span>Exposure</span>
+                                <span ng-class="{'text-danger':balanceInfo.exposure<0}"><kt-glc-code data-item="{{balanceInfo.exposure}}"></kt-glc-code></span>
+                            </div>
+                        </div>
+                        <div class="mw-actions" ng-if="isB2C">
+                            <a ui-sref="mobile.base.deposit" class="mw-action-btn mw-deposit">
+                                <i class="material-icons">add_circle</i> Deposit
+                            </a>
+                            <a ui-sref="mobile.base.withdrawal" class="mw-action-btn mw-withdraw">
+                                <i class="material-icons">remove_circle</i> Withdraw
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Button -->
+                <div class="user-profile-block dropdown">
+                    <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mobile-profile-btn">
+                        <i class="material-icons">person</i>
+                    </a>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right blue wallet-dropdown mobile-profile-dropdown">
+                        <!-- Theme Toggle -->
+                        <li class="drop-down mobile-theme-toggle-item">
+                            <a href="javascript:void(0)" ng-click="ctrl.toggleTheme()" class="topbar-info-block d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <i class="material-icons mr-3" ng-if="!isLightTheme">light_mode</i>
+                                    <i class="material-icons mr-3" ng-if="isLightTheme">dark_mode</i>
+                                    <span ng-if="!isLightTheme">Light Mode</span>
+                                    <span ng-if="isLightTheme">Dark Mode</span>
+                                </div>
+                                <div class="theme-toggle-switch" ng-class="{'active': isLightTheme}">
+                                    <div class="theme-toggle-knob"></div>
+                                </div>
                             </a>
                         </li>
-                        <li class="drop-down dropdown-menu-right bonus-text-top">
-                            <a href="javascript:void(0)" class="topbar-info-block d-flex justify-content-between">
-                                <h5 class="mr-3">Balance</h5> <div><kt-glc-code data-item="{{balanceInfo.balance}}"></kt-glc-code></div>
+                        <li class="drop-down">
+                            <a ui-sref="mobile.base.mymarket" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">leaderboard</i>
+                                <span>My Market</span>
                             </a>
                         </li>
-                        <li class="drop-down dropdown-menu-right bonus-text-top" ng-show="balanceInfo.bonus!=0">
-                            <a href="javascript:void(0)" class="topbar-info-block d-flex justify-content-between">
-                                <h5 class="mr-3">Bonus</h5> <div><kt-glc-code data-item="{{balanceInfo.bonus}}"></kt-glc-code></div>
+                        <li class="drop-down">
+                            <a ui-sref="mobile.base.openbets" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">view_timeline</i>
+                                <span>My Bets</span>
                             </a>
                         </li>
-                        <li class="drop-down dropdown-menu-right bonus-text-top" ng-show="balanceInfo.bonusToRedeem!=0">
-                            <a href="javascript:void(0)" class="topbar-info-block d-flex justify-content-between">
-                                <h5 class="mr-3">Bonus To Redeem</h5> <div><kt-glc-code data-item="{{balanceInfo.bonusToRedeem}}"></kt-glc-code></div>
+                        <li class="drop-down">
+                            <a ui-sref="mobile.base.accountstatement" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">payments</i> <span>Account Statement</span>
                             </a>
                         </li>
-                        <li class="drop-down exposure-text-top">
-                            <a href="javascript:void(0)" class="topbar-info-block d-flex justify-content-between">
-                                <h5 class="mr-3">Exposure</h5> <div ng-class="{'text-danger':balanceInfo.exposure<0}"><kt-glc-code data-item="{{balanceInfo.exposure}}"></kt-glc-code></div>
+                        <li class="drop-down" ng-show="isB2C">
+                            <a ui-sref="mobile.base.bonusstatement" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">payments</i> <span>Bonus Statement</span>
+                            </a>
+                        </li>
+                        <li class="drop-down" ng-show="hasReferral">
+                            <a ui-sref="mobile.base.referralstatement" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">payments</i> <span>Referral Statement</span>
+                            </a>
+                        </li>
+                        <li class="drop-down">
+                            <a ui-sref="mobile.base.bethistory" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">payments</i> <span>Bet History</span>
+                            </a>
+                        </li>
+                        <li class="drop-down">
+                            <a ui-sref="mobile.base.profitloss" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">legend_toggle</i> <span>Profit/Loss</span>
+                            </a>
+                        </li>
+                        <li class="drop-down" ng-if="hasCasino">
+                            <a ui-sref="mobile.base.fdprofitloss" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">legend_toggle</i> <span>Casino Profit/Loss</span>
+                            </a>
+                        </li>
+                        <li class="drop-down">
+                            <a ng-click="ctrl.openStakeConfigModal()" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">memory</i>
+                                <span>Chips Setting</span>
+                            </a>
+                        </li>
+                        <li class="drop-down">
+                            <a ng-click="ctrl.changePassword()" class="topbar-info-block d-flex align-items-center">
+                                <i class="material-icons mr-3">published_with_changes</i>
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+                        <li class="drop-down">
+                            <a ng-click="ctrl.logout()" class="topbar-info-block d-flex align-items-center last">
+                                <i class="material-icons mr-3">logout</i> <span>Logout</span>
                             </a>
                         </li>
                     </ul>
-                </div>
-                <a ui-sref="mobile.base.home" aria-current="page" class="mobile-logo router-link-exact-active router-link-active" title="logo">
-                    <img ng-src="{{webImagePath}}logo.png" alt="Logo">
-                </a>
-                <div class="user-profile-block">
-                    <div class="dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="d-flex flex-row justify-content-center align-items-center btn-type">
-                            <i class="material-icons" style="font-size: 16px;">account_circle</i> <span>Profile</span>
-                        </a>
-                        <ul role="menu" aria-labelledby="dropdownMenu" class="dropdown-menu dropdown-menu-right blue wallet-dropdown">
-                            <li class="drop-down">
-                                <a ui-sref="mobile.base.mymarket" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">leaderboard</i>
-                                    <span>My Market</span>
-                                </a>
-                            </li>
-                            <li class="drop-down">
-                                <a ui-sref="mobile.base.openbets" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">view_timeline</i>
-                                    <span>My Bets</span>
-                                </a>
-                            </li>
-                            <li class="drop-down">
-                                <a ui-sref="mobile.base.accountstatement" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">payments</i> <span>Account Statement</span>
-                                </a>
-                            </li>
-                            <li class="drop-down"  ng-show="isB2C">
-                                <a ui-sref="mobile.base.bonusstatement" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">payments</i> <span>Bonus Statement</span>
-                                </a>
-                            </li>
-                            <li class="drop-down" ng-show="hasReferral">
-                                <a ui-sref="mobile.base.referralstatement" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">payments</i> <span>Referral Statement</span>
-                                </a>
-                            </li>
-                            <li class="drop-down">
-                                <a ui-sref="mobile.base.bethistory" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">payments</i> <span>Bet History</span>
-                                </a>
-                            </li>
-                            <li class="drop-down">
-                                <a ui-sref="mobile.base.profitloss" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">legend_toggle</i> <span>Profit/Loss</span>
-                                </a>
-                            </li>
-                            <li class="drop-down" ng-if="hasCasino">
-                                <a ui-sref="mobile.base.fdprofitloss" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">legend_toggle</i> <span>Casino Profit/Loss</span>
-                                </a>
-                            </li>
-
-
-                            <li class="drop-down">
-                                <a ng-click="ctrl.openStakeConfigModal()" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">memory</i>
-                                    <span>Chips Setting</span>
-                                </a>
-                            </li>
-
-                            <li class="drop-down">
-                                <a ng-click="ctrl.changePassword()" class="topbar-info-block d-flex align-items-center">
-                                    <i class="material-icons mr-3">published_with_changes</i>
-                                    <span>Change Password</span>
-                                </a>
-                            </li>
-                            <li class="drop-down">
-                                <a ng-click="ctrl.logout()" class="topbar-info-block d-flex align-items-center last">
-                                    <i class="material-icons mr-3">logout</i> <span>Logout</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="header-right d-flex align-items-center p-2 justify-content-between" id="top-header-bottom-detail">
-                <div class="d-flex align-items-center" style="gap: 8px;">
-                    <!-- Theme Toggle (icon-only, same as web) -->
-                    <button class="btn-icon btn-theme-toggle" ng-click="ctrl.toggleTheme()" title="{{isLightTheme ? 'Switch to Dark' : 'Switch to Light'}}">
-                        <i class="material-icons-outlined" ng-if="!isLightTheme">light_mode</i>
-                        <i class="material-icons-outlined" ng-if="isLightTheme">dark_mode</i>
-                    </button>
-                </div>
-                <div class="d-flex align-items-center" style="gap: 12px;" ng-if="isB2C">
-                    <a ui-sref="mobile.base.deposit" class="link-button d-flex flex-row gap-2 align-items-center">
-                        <i class="material-icons-outlined">input</i> <span>Deposit</span>
-                    </a>
-                    <a ui-sref="mobile.base.withdrawal" class="link-button d-flex flex-row gap-2 align-items-center">
-                        <i class="material-icons-outlined">logout</i> <span>Withdraw</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -167,6 +182,9 @@
         </div>
     </div>
     </div>
+
+    <!-- ===== SCROLL TO TOP BUTTON ===== -->
+    <a href="javascript:void(0)" class="floating-scroll-top" ng-click="ctrl.scrollToTop()" title="Back to Top">
+        <i class="material-icons">keyboard_arrow_up</i>
+    </a>
 </div>
-
-

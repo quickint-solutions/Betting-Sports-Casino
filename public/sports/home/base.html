@@ -123,6 +123,13 @@
                     </div>
                 </div>
             </div>
+            <!-- Announcement Ticker -->
+            <div class="header-announcement" ng-if="announcement">
+                <div class="header-announcement-inner">
+                    <i class="material-icons header-announcement-icon">campaign</i>
+                    <marquee class="header-announcement-text" scrollamount="4">{{announcement}}</marquee>
+                </div>
+            </div>
         </header>
 
         <!-- ===== SEARCH OVERLAY ===== -->
@@ -390,11 +397,6 @@
             </ul>
         </div>
 
-        <!-- ===== NEWS FEED ===== -->
-        <div class="news-feed d-none d-md-block" ng-if="announcement">
-            <marquee class="marque-text">{{announcement}}</marquee>
-        </div>
-
         <!-- ===== MAIN CONTENT ===== -->
         <div id="sitewrapper" class="main-container-block">
             <div id="main-column" class="column" ui-view="main">
@@ -431,6 +433,11 @@
                 </li>
             </ul>
         </div>
+
+        <!-- ===== SCROLL TO TOP BUTTON ===== -->
+        <a href="javascript:void(0)" class="floating-scroll-top" ng-click="ctrl.scrollToTop()" title="Back to Top">
+            <i class="material-icons">keyboard_arrow_up</i>
+        </a>
 
     </div>
 </section>

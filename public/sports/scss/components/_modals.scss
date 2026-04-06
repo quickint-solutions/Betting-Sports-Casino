@@ -632,6 +632,7 @@
             width: 100%;
             border-radius: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             max-height: 100vh;
             font-family: 'Poppins', sans-serif;
 
@@ -644,6 +645,7 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             padding: 20px 20px 0;
+            position: relative;
 
             .tabbutton {
                 display: flex;
@@ -651,6 +653,40 @@
                 height: auto;
                 justify-content: space-between;
                 align-items: center;
+            }
+
+            .auth-tabs {
+                display: flex;
+                width: 100%;
+
+                .auth-tab {
+                    flex: 1;
+                    text-align: center;
+                    padding: 14px 0;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease, color 0.2s ease;
+                    color: rgba(255, 255, 255, 0.5);
+                    background: transparent;
+                    border: none;
+                    position: relative;
+
+                    &.active {
+                        background: $theme-color;
+                        color: #fff;
+                    }
+
+                    &:hover:not(.active) {
+                        color: rgba(255, 255, 255, 0.8);
+                        background: rgba(255, 255, 255, 0.05);
+                    }
+                }
+            }
+
+            &.auth-header {
+                padding: 0;
             }
 
             .dialog-title {
@@ -691,6 +727,7 @@
                 background: url(/public/images/icon2/close-round-2.svg) 0 0 no-repeat #3a4142;
                 box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
                 transition: opacity 0.2s ease;
+                z-index: 2;
 
                 &:hover {
                     opacity: 0.8;
@@ -816,6 +853,18 @@
             border-color: #4a49e0;
             box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
                         0 -2px 0 0 rgba(74, 73, 224, 0.55) inset;
+        }
+
+        &.demo-login-button {
+            background: linear-gradient(90deg, #b8860b, #daa520);
+            border: 1px solid #daa520;
+            box-shadow: 0 0 12px 0 rgba(184, 134, 11, 0.4),
+                        0 -2px 0 0 rgba(218, 165, 32, 0.49) inset;
+
+            &:hover {
+                background: linear-gradient(90deg, #cd950c, #f0c040);
+                border-color: #f0c040;
+            }
         }
     }
 
@@ -987,5 +1036,152 @@
 
     100% {
         transform: scale(1);
+    }
+}
+
+// Auth modal overrides for combined login/signup
+#auth-modal {
+    .dialog {
+        overflow: hidden;
+        border-radius: 10px;
+        background-color: #1a1d21;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .dialog-header.auth-header {
+        padding: 0;
+        background-color: #1a1d21;
+
+        .auth-tabs {
+            .auth-tab {
+                padding: 16px 0;
+                font-size: 17px;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+                color: rgba(255, 255, 255, 0.4);
+                background: #1a1d21;
+                border-bottom: 2px solid transparent;
+                transition: all 0.25s ease;
+
+                &:first-child {
+                    border-top-left-radius: 10px;
+                }
+
+                &:last-child {
+                    border-top-right-radius: 10px;
+                    padding-right: 20px;
+                }
+
+                &.active {
+                    background: $theme-color;
+                    color: #fff;
+                    border-bottom: none;
+                }
+
+                &:hover:not(.active) {
+                    color: rgba(255, 255, 255, 0.7);
+                    background: #22262a;
+                }
+            }
+        }
+
+        .close-dialog {
+            top: 12px;
+            right: 8px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: url(/public/images/icon2/close-round-2.svg) center/14px no-repeat $theme-color;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+    }
+
+    .dialog-logo {
+        display: block;
+        width: 100px;
+        height: auto;
+        margin: 12px auto 8px;
+        object-fit: contain;
+    }
+
+    .dialog-content {
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: calc(100vh - 55px);
+        padding: 10px 24px 24px;
+        box-sizing: border-box;
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        > div {
+            width: 100%;
+            overflow: hidden;
+
+            .left {
+                float: none;
+                width: 100%;
+            }
+        }
+    }
+
+    .login-input {
+        background-color: #22262a !important;
+        border: 1px solid #3a3f44 !important;
+        border-radius: 6px !important;
+        height: 46px !important;
+        font-size: 14px !important;
+        padding: 8px 16px !important;
+        margin-bottom: 10px !important;
+
+        &:focus, &:active {
+            border-color: $theme-color !important;
+        }
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.35) !important;
+        }
+    }
+
+    .two_input .first_box select {
+        background-color: #22262a !important;
+        border: 1px solid #3a3f44 !important;
+        border-radius: 6px !important;
+        height: 46px !important;
+    }
+
+    .login-button {
+        height: 44px !important;
+        border-radius: 6px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        margin: 6px 0 8px !important;
+    }
+
+    .forgot-link {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .login-link {
+        color: $theme-color;
+        font-weight: 600;
+    }
+
+    .text-center, .d-flex.justify-content-center {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .captcha-div {
+        .captcha-img {
+            border-radius: 4px;
+        }
     }
 }

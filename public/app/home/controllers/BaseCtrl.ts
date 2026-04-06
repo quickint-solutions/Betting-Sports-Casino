@@ -692,6 +692,13 @@
             }
         }
 
+        public scrollToTop(): void {
+            var scrollEl = document.querySelector('.middle-block') || document.querySelector('.main-content-block');
+            if (scrollEl) {
+                scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
         public searchEvents(search: string): void {
             this.searchEvent(search);
         }
