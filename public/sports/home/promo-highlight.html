@@ -1,5 +1,5 @@
 ﻿
-<div class="banner mb-2">
+<div class="banner">
     <div class="swiper-container swiper-container-horizontal" id="banners">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -12,37 +12,8 @@
                     <img ng-src="{{webImagePath}}banners/banner-2.jpg" />
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-3.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-4.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-5.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-6.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-7.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-8.jpg" />
-                </div>
-            </div>
         </div>
+        <div class="swiper-pagination"></div>
     </div>
 </div>
 
@@ -162,9 +133,19 @@
     </div>
 </div>
 
-<!-- FoxBetX Original Games -->
+<!-- ===== Fairbet Original Games ===== -->
 <div class="original-games-section">
-    <h3 class="original-games-title">{{displayName}} Original Games</h3>
+    <div class="ogs-header">
+        <h3 class="original-games-title">{{displayName}} Original Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
     <div class="swiper footer-games-swiper" id="originalGamesSwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df58edc0c3fd8f78bee2e')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/tp-day.jpg" alt="Teenpatti One Day"></a></div>
@@ -183,84 +164,55 @@
     </div>
 </div>
 
-<!-- Aura Games -->
-<div class="original-games-section">
-    <h3 class="original-games-title">Aura Games</h3>
-    <div class="swiper footer-games-swiper" id="auraGamesSwiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfaf3a419f88910179f46')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/baccarat.jpg" alt="Baccarat"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df6f49510dff723384d49')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/hilow.jpg" alt="Hi Low"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfd280c22dbface4f7c00')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/matka.jpg" alt="Matka"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df8a79510dff72338530a')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/race2020.jpg" alt="Race 20-20"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfcc99510dff723385da8')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/trio.jpg" alt="Trio"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfda8dc0c3fd8f78bf5a5')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/t20.jpg" alt="T20 Teen Patti"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df616a419f88910179087')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/dragontiger.jpg" alt="Dragon Tiger"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df979a419f88910179b37')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/poker.jpg" alt="Poker"></a></div>
-        </div>
+<!-- ===== Live Events (Sports Iframe Container) ===== -->
+<div class="iframe-game-container">
+    <div class="iframe-header">
+        <h3>Live Events</h3>
     </div>
-</div>
-
-<!-- Vimplay Games -->
-<div class="original-games-section">
-    <h3 class="original-games-title">Vimplay Games</h3>
-    <div class="swiper footer-games-swiper" id="vimplayGamesSwiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfbca9510dff723385b75')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/sicbo.jpg" alt="Sicbo"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df7d19510dff723385047')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/bollywoodcasino.jpg" alt="Bollywood Casino"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfdc90c22dbface4f7d7c')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/casinometer.jpg" alt="Casino Meter"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df6c20c22dbface4f6afd')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/casinowar.jpg" alt="Casino War"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64706b654833d7c4afecc03c')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/queen.jpg" alt="Queen"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64706bbf051288e71e3de9e9')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/superover.jpg" alt="Super Over"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('647087f6e7669443b0ca0641')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/trap.jpg" alt="Trap"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64708815e7669443b0ca067a')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/poker20.jpg" alt="Poker 20-20"></a></div>
-        </div>
-    </div>
-</div>
-
-<div>
-    <div class="main-tabs">
-        <div ng-include="'sports/template/loader-center.html'"
-             ng-show="isRequestProcessing"
-             class="d-flex w-100 justify-content-center position-absolute"></div>
-        <div class="chart-content mt-0" ng-if="!isRequestProcessing">
-            <div class="chart-body home-page-sports" ng-repeat="s in sports" ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0">
-                <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
-                    <a>
-                        <span>{{s.name}}</span>
-                        <i class="material-icons plus">expand_more</i>
-                    </a>
-                    <div class="event-count-block">
-                        {{s.competitions.length}} Events
+    <div class="iframe-scroll-area">
+        <div class="main-tabs">
+            <div ng-include="'sports/template/loader-center.html'"
+                 ng-show="isRequestProcessing"
+                 class="d-flex w-100 justify-content-center position-absolute"></div>
+            <div class="chart-content mt-0" ng-if="!isRequestProcessing">
+                <div class="chart-body home-page-sports" ng-repeat="s in sports" ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0">
+                    <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
+                        <a>
+                            <span>{{s.name}}</span>
+                            <i class="material-icons plus">expand_more</i>
+                        </a>
+                        <div class="event-count-block">
+                            {{s.competitions.length}} Events
+                        </div>
                     </div>
-                </div>
-                <div class="market-list collapse in">
-                    <div>
-                        <div class="market-data" ng-repeat="cmp in s.competitions">
-                            <div class="markets">
-                                <a class="sport-league">
-                                    <div class="sport-league-name"><span>{{cmp.name}}</span></div>
-                                    <h6 class="league-count d-flex flex-row align-items-center">
-                                        <span>{{(popularMarkets | filter:{event:{competitionId:cmp.id} }).length}}</span>
-                                        <span class="material-icons collapse-icon">expand_more</span>
-                                    </h6>
-                                </a>
-                                <div class="collapse in">
-                                    <a ng-repeat="h in popularMarkets | filter:{event:{competitionId:cmp.id} }" 
-                                       ng-click="ctrl.openModal('login-modal')"
-                                       class="event-name market-left">
-                                        <div class="sport-event">
-                                            <div class="event">
-                                                <div class="event-item">
-                                                    <div class="event-icon event-icon" ng-class="{'inplay':h.inPlay}">
-                                                        <span>
-                                                            <img ng-src="{{webImagePath}}icons/{{s.name|joinme}}.png" alt="cricket" width="18px">
-                                                        </span>
-                                                    </div>
-                                                    <div class="event-main-detail">
-                                                        <div class="event-detail justify-content-between">
-                                                            <div class="event-level-one">
-                                                                <div class="runner-one">
-                                                                    {{h.marketRunner[0].runner.name}}
+                    <div class="market-list collapse in">
+                        <div>
+                            <div class="market-data" ng-repeat="cmp in s.competitions">
+                                <div class="markets">
+                                    <a class="sport-league">
+                                        <div class="sport-league-name"><span>{{cmp.name}}</span></div>
+                                        <h6 class="league-count d-flex flex-row align-items-center">
+                                            <span>{{(popularMarkets | filter:{event:{competitionId:cmp.id} }).length}}</span>
+                                            <span class="material-icons collapse-icon">expand_more</span>
+                                        </h6>
+                                    </a>
+                                    <div class="collapse in">
+                                        <a ng-repeat="h in popularMarkets | filter:{event:{competitionId:cmp.id} }"
+                                           ng-click="ctrl.openModal('login-modal')"
+                                           class="event-name market-left">
+                                            <div class="sport-event">
+                                                <div class="event">
+                                                    <div class="event-item">
+                                                        <div class="event-icon event-icon" ng-class="{'inplay':h.inPlay}">
+                                                            <span>
+                                                                <img ng-src="{{webImagePath}}icons/{{s.name|joinme}}.png" alt="cricket" width="18px">
+                                                            </span>
+                                                        </div>
+                                                        <div class="event-main-detail">
+                                                            <div class="event-detail justify-content-between">
+                                                                <div class="event-level-one">
+                                                                    <div class="runner-one">
+                                                                        {{h.marketRunner[0].runner.name}}
                                                                 </div> <div class="runner-two">
                                                                     {{h.marketRunner[1].runner.name}}
                                                                 </div>
@@ -324,5 +276,62 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
+
+<!-- ===== Aura Games ===== -->
+<div class="original-games-section aura-games-section">
+    <div class="ogs-header">
+        <h3 class="original-games-title">Aura Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="swiper footer-games-swiper aura-swiper" id="auraGamesSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfaf3a419f88910179f46')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/baccarat-aura.png" alt="Baccarat"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df6f49510dff723384d49')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/hilow-aura.png" alt="Hi-Low"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfd280c22dbface4f7c00')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/matka-aura.png" alt="Matka"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df8a79510dff72338530a')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/race2020-aura.png" alt="20-20 Race"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfcc99510dff723385da8')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/trio-aura.png" alt="Trio"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfda8dc0c3fd8f78bf5a5')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/t20-aura.png" alt="T20 Teen Patti"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df616a419f88910179087')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/dragontiger-aura.png" alt="Dragon Tiger"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df979a419f88910179b37')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/poker-aura.png" alt="Poker"></a></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== Vimplay Games ===== -->
+<div class="original-games-section vimplay-games-section">
+    <div class="ogs-header">
+        <h3 class="original-games-title">Vimplay Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="swiper footer-games-swiper" id="vimplayGamesSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfbca9510dff723385b75')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/sicbo.jpg" alt="Sicbo"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df7d19510dff723385047')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/bollywoodcasino.jpg" alt="Bollywood Casino"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630dfdc90c22dbface4f7d7c')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/casinometer.jpg" alt="Casino Meter"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('630df6c20c22dbface4f6afd')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/casinowar.jpg" alt="Casino War"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64706b654833d7c4afecc03c')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/queen.jpg" alt="Queen"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64706bbf051288e71e3de9e9')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/superover.jpg" alt="Super Over"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('647087f6e7669443b0ca0641')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/trap.jpg" alt="Trap"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasinoGame('64708815e7669443b0ca067a')"><img loading="lazy" ng-src="{{webImagePath}}casino/img/poker20.jpg" alt="Poker 20-20"></a></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== Footer ===== -->
 <div ng-include="footerTemplate" ></div>

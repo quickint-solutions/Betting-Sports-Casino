@@ -1,93 +1,77 @@
 <div id="footer-main" ng-controller="footerCtrl as fc">
     <div class="footer">
 
-        <!-- Responsible Gaming Logos -->
-        <div class="footer-responsible-gaming">
-            <ul class="responsible-logos-list">
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/sigma.webp" alt="SiGMA"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/responsible-gambling.webp" alt="Responsible Gambling"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/gamcare.webp" alt="GamCare"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/betblocker.webp" alt="betblocker"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/plus.webp" alt="18+"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/c9.webp" alt="Cloud9"></li>
-                <li><img loading="lazy" src="/public/images/drpapaya/footer/jason_derulo.webp" alt="Jason Derulo"></li>
-            </ul>
+        <!-- Partner / Certification Logos -->
+        <div class="footer-partners">
+            <img loading="lazy" src="/public/images/drpapaya/footer/sigma.webp" alt="SiGMA">
+            <img loading="lazy" src="/public/images/drpapaya/footer/responsible-gambling.webp" alt="Responsible Gambling">
+            <img loading="lazy" src="/public/images/drpapaya/footer/gamcare.webp" alt="GamCare">
+            <img loading="lazy" src="/public/images/drpapaya/footer/betblocker.webp" alt="BetBlocker">
+            <img loading="lazy" src="/public/images/drpapaya/footer/plus.webp" alt="18+">
+            <img loading="lazy" src="/public/images/drpapaya/footer/c9.webp" alt="Cloud9">
+            <img loading="lazy" src="/public/images/drpapaya/footer/jason_derulo.webp" alt="Jason Derulo">
+            <img loading="lazy" src="/public/images/drpapaya/footer/jason_derulo.webp" alt="Partner">
         </div>
 
-        <!-- Divider -->
-        <div class="footer-divider"></div>
-
-        <!-- 4-Column Footer Links -->
-        <div class="footer-menu footer-menu-4col">
-            <!-- Promo -->
-            <div class="footer-column">
-                <div class="footer-title">Promo</div>
-                <ul class="footer-menu-list">
-                    <li><a ui-sref="base.promo">Promotions</a></li>
+        <!-- Four-column Navigation -->
+        <div class="footer-nav">
+            <div class="footer-col">
+                <div class="footer-col-title">Promo</div>
+                <ul>
+                    <li><a ng-click="fc.showLink('aboutus')">Promotions</a></li>
+                    <li><a ng-click="fc.showLink('aboutus')">Refer a Friend</a></li>
                 </ul>
             </div>
-
-            <!-- Support/Legal -->
-            <div class="footer-column">
-                <div class="footer-title">Support/Legal</div>
-                <ul class="footer-menu-list">
+            <div class="footer-col">
+                <div class="footer-col-title">Support/Legal</div>
+                <ul>
+                    <li><a ng-click="fc.showLink('aboutus')">Contact Us</a></li>
                     <li><a ng-click="fc.showLink('privacypolicy')">Privacy Policy</a></li>
                     <li><a ng-click="fc.showLink('responsiblegambling')">Responsible Gaming</a></li>
-                    <li><a ng-click="fc.showLink('termscondition')">Terms and Conditions</a></li>
                 </ul>
             </div>
-
-            <!-- About Us -->
-            <div class="footer-column">
-                <div class="footer-title">About Us</div>
-                <ul class="footer-menu-list">
+            <div class="footer-col">
+                <div class="footer-col-title">About Us</div>
+                <ul>
                     <li><a ng-click="fc.showLink('aboutus')">Fair Play</a></li>
                     <li><a ng-click="fc.showLink('aboutus')">Games Rules</a></li>
                     <li><a ng-click="fc.showLink('termscondition')">Terms and Conditions</a></li>
                 </ul>
             </div>
-
-            <!-- Join Our Community -->
-            <div class="footer-column">
-                <div class="footer-title">Join Our Community</div>
-                <div class="footer-social-icons">
-                    <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" class="social-circle whatsapp">
+            <div class="footer-col">
+                <div class="footer-col-title">Join Our Community</div>
+                <div class="footer-community-icons">
+                    <a ng-href="{{supportDetail.whatsapp ? ('https://wa.me/' + supportDetail.whatsapp) : 'javascript:void(0)'}}" target="_blank" class="community-icon whatsapp">
                         <i class="fa fa-whatsapp"></i>
                     </a>
-                    <a ng-if="supportDetail.telegram" ng-href="{{supportDetail.telegram}}" target="_blank" class="social-circle telegram">
+                    <a ng-href="{{supportDetail.telegram || 'javascript:void(0)'}}" target="_blank" class="community-icon telegram">
                         <i class="fa fa-telegram"></i>
                     </a>
-                    <a ng-if="supportDetail.instagram" ng-href="{{supportDetail.instagram}}" target="_blank" class="social-circle instagram">
+                    <a ng-href="{{supportDetail.instagram || 'javascript:void(0)'}}" target="_blank" class="community-icon instagram">
                         <i class="fa fa-instagram"></i>
                     </a>
-                    <a href="javascript:void(0);" class="social-circle facebook">
+                    <a ng-href="{{supportDetail.facebook || 'javascript:void(0)'}}" target="_blank" class="community-icon facebook">
                         <i class="fa fa-facebook"></i>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Divider -->
-        <div class="footer-divider"></div>
-
-        <!-- Divider -->
-        <div class="footer-divider"></div>
-
-        <!-- Footer Bottom: Logo + Description -->
-        <div class="footer-bottom">
+        <!-- Footer Bottom Disclaimer -->
+        <div class="footer-bottom-block">
             <div class="footer-bottom-logo">
-                <img ng-src="{{webImagePath}}logo.png" alt="Logo" class="footer-logo-img">
+                <img ng-src="{{webImagePath}}logo.png" alt="Logo">
             </div>
             <div class="footer-bottom-text">
-                <p>Your use of and access to this platform signifies that you fully understand and agree to be legally bound by the contents of our Terms of Service and Responsible Gaming Policy.</p>
+                <p>A multi-award winning crypto casino. With a player-centric approach, FoxBetX is able to satisfy millions of gamblers across the globe. FoxBetX has set its priority set on its community, ensuring an everlasting and endlessly entertaining gambling experience.</p>
+                <p>Your use of and access to FoxBetX signifies that you fully understand and agree to be legally bound by the contents of our Terms of Service and Responsible Gaming Policy.</p>
                 <p>Crypto trading is not gambling by definition, therefore it is not covered by our gaming license.</p>
             </div>
         </div>
 
         <!-- Copyright -->
-        <div class="footer-divider"></div>
         <div class="footer-copyright">
-            <span>&copy;{{currentYear}} {{displayName}}. ALL RIGHTS RESERVED.</span>
+            <span>&copy;{{currentYear}} Fenice Tech Ltd. ALL RIGHTS RESERVED.</span>
         </div>
 
     </div>

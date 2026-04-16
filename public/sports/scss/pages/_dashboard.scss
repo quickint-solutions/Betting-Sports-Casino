@@ -30,6 +30,27 @@
     }
 }
 
+// Banner carousel
+.banner {
+    margin-bottom: 16px;
+    border-radius: 14px;
+    overflow: hidden;
+
+    .swiper-container {
+        border-radius: 14px;
+    }
+
+    .slider-item img {
+        width: 100%;
+        display: block;
+        border-radius: 14px;
+    }
+
+    .swiper-pagination {
+        display: none !important;
+    }
+}
+
 .recent-big-wins-section {
     margin: 0 0 24px;
     padding: 8px 0 0;
@@ -108,7 +129,7 @@
     .game_box {
         --tile-start: #704225;
         --tile-end: #db8a2d;
-        width: 280px;
+        width: 140px;
         height: auto;
         cursor: pointer;
 
@@ -185,13 +206,13 @@
         a {
             position: relative;
             display: block;
-            border-radius: 10.5px;
+            border-radius: 12px;
             overflow: hidden;
             text-decoration: none;
             color: #fff;
             background: none;
-            box-shadow: none;
-            transition: transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
 
             &::before {
                 display: none;
@@ -202,7 +223,8 @@
             }
 
             &:hover {
-                transform: translateY(-2px);
+                transform: translateY(-3px) scale(1.03);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
             }
         }
 
@@ -215,8 +237,9 @@
         img {
             width: 100%;
             display: block;
-            aspect-ratio: 2 / 1;
+            aspect-ratio: 3 / 4;
             object-fit: cover;
+            border-radius: 12px;
         }
 
         .game_box-info {
@@ -278,11 +301,98 @@
     }
 }
 
+// Iframe Game Containers
+.iframe-game-container {
+    background: #1e2225;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px;
+    margin: 16px 0 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+    .iframe-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+    }
+
+    .iframe-scroll-area {
+        max-height: 600px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+        -webkit-overflow-scrolling: touch;
+        padding-right: 6px;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 4px;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+
+    iframe {
+        width: 100%;
+        border: none;
+        border-radius: 12px;
+        min-height: 400px;
+        background: #181b1e;
+    }
+
+    // Sports events inside iframe container
+    .main-tabs {
+        background: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+    .iframe-game-container {
+        padding: 12px;
+        border-radius: 12px;
+        margin: 12px 0 16px;
+
+        .iframe-header h3 {
+            font-size: 15px;
+        }
+
+        .iframe-scroll-area {
+            max-height: 480px;
+        }
+    }
+}
+
 .home-provider {
     display: grid;
     grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
     gap: 14px;
-    margin-bottom: 0;
+    margin-top: 41px;
+    margin-bottom: 10px;
     overflow: visible;
 
     .hp-left {
@@ -310,13 +420,20 @@
         overflow: visible;
         border-radius: 18px;
         background: #31363a;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        box-shadow: 0 18px 38px rgba(8, 10, 16, 0.24);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow:
+            0 18px 38px rgba(8, 10, 16, 0.24),
+            0 6px 0 -3px rgba(40, 44, 48, 0.6),
+            0 12px 0 -6px rgba(35, 38, 42, 0.4);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        transform: translateY(-4px);
 
         &:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 22px 42px rgba(8, 10, 16, 0.32);
+            transform: translateY(-8px);
+            box-shadow:
+                0 26px 48px rgba(8, 10, 16, 0.35),
+                0 8px 0 -3px rgba(40, 44, 48, 0.6),
+                0 16px 0 -6px rgba(35, 38, 42, 0.4);
         }
 
         &::before {
@@ -348,7 +465,7 @@
             padding: 20px;
             color: #fff;
             text-decoration: none;
-            overflow: hidden;
+            overflow: visible;
             border-radius: 18px;
         }
     }
@@ -458,26 +575,36 @@
 
     .hp-large .hp-card-art {
         width: 60%;
-        height: 100%;
+        height: 135%;
         right: 0;
-        bottom: 0;
+        top: -50px;
+        bottom: auto;
+    }
+
+    .hp-large.hp-sports .hp-card-art {
+        right: -25px;
     }
 
     .hp-large .hp-art-img {
         width: 100%;
         height: 100%;
+        object-position: top right;
+        filter: drop-shadow(0 18px 30px rgba(8, 10, 16, 0.55));
     }
 
     .hp-small .hp-card-art {
-        width: 55%;
-        height: 85%;
-        right: 5px;
-        bottom: 5px;
+        width: 58%;
+        height: 135%;
+        right: -15px;
+        bottom: -18px;
+        top: auto;
     }
 
     .hp-small .hp-art-img {
         width: 100%;
         height: 100%;
+        object-position: bottom right;
+        filter: drop-shadow(0 16px 24px rgba(8, 10, 16, 0.55));
     }
 }
 

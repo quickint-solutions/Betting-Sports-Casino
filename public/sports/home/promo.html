@@ -10,7 +10,7 @@
                     <button class="btn-hamburger" ng-click="ctrl.toggleSidebar()">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a ui-sref="promo" class="header-logo">
+                    <a ui-sref="promo" class="header-logo" ng-click="ctrl.closeSidebar()">
                         <img ng-src="{{webImagePath}}logo.png" alt="Logo" />
                     </a>
                 </div>
@@ -19,11 +19,11 @@
                 <div class="header-right">
                     <!-- Social icons -->
                     <div class="header-social">
-                        <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" class="social-icon whatsapp-icon">
-                            <i class="fa fa-whatsapp"></i>
+                        <a ng-href="{{supportDetail.whatsapp ? 'https://wa.me/' + supportDetail.whatsapp : 'javascript:void(0)'}}" target="_blank" class="social-icon whatsapp-icon">
+                            <img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" />
                         </a>
-                        <a ng-if="supportDetail.telegram" ng-href="{{supportDetail.telegram}}" target="_blank" class="social-icon telegram-icon">
-                            <i class="fa fa-telegram"></i>
+                        <a ng-href="{{supportDetail.telegram || 'javascript:void(0)'}}" target="_blank" class="social-icon telegram-icon">
+                            <img src="/public/images/drpapaya/sidebar/telegram.svg" alt="Telegram" />
                         </a>
                     </div>
 
@@ -52,7 +52,7 @@
         <!-- ===== HEADER (Mobile: <768px) — same layout as mobile/promo.html ===== -->
         <div class="topbar-main-header-block mobile d-block d-md-none">
             <div class="mobile-nav-menu-button-icon justify-content-between mt-1">
-                <a ui-sref="promo" class="mobile-logo router-link-exact-active router-link-active" title="logo" aria-current="page">
+                <a ui-sref="promo" class="mobile-logo router-link-exact-active router-link-active" title="logo" aria-current="page" ng-click="ctrl.closeSidebar()">
                     <img ng-src="{{webImagePath}}logo.png" alt="Logo" class="promo-logo">
                 </a>
             </div>
@@ -97,23 +97,23 @@
                         <span class="sidebar-text">Support</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'support'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'support'">
-                        <li ng-if="supportDetail.whatsapp">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'support'}">
+                        <li>
                             <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" /></span> <span>Whatsapp</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.telegram">
+                        <li>
                             <a ng-href="{{supportDetail.telegram}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/telegram.svg" alt="Telegram" /></span> <span>Telegram</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.instagram">
+                        <li>
                             <a ng-href="{{supportDetail.instagram}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/instagram.svg" alt="Instagram" /></span> <span>Instagram</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.facebook">
+                        <li>
                             <a ng-href="{{supportDetail.facebook}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/facebook.svg" alt="Facebook" /></span> <span>Facebook</span>
                             </a>
@@ -128,7 +128,7 @@
                         <span class="sidebar-text">Sports</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'sports'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'sports'">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'sports'}">
                         <li>
                             <a ui-sref="promo.inplay" ng-click="ctrl.closeSidebar()">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/inplay.webp" alt="In-Play" /></span> <span>In-play</span>
@@ -241,7 +241,7 @@
                         <span class="sidebar-text">Terms</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'terms'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'terms'">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'terms'}">
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/contactus.webp" alt="Contact Us" /></span> <span>Contact Us</span></a></li>
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/privacypolicy.webp" alt="Privacy Policy" /></span> <span>Privacy Policy</span></a></li>
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/responsible.webp" alt="Responsible Gaming" /></span> <span>Responsible Gaming</span></a></li>
@@ -334,9 +334,15 @@
             </ul>
         </div>
 
-        <!-- ===== NEWS FEED ===== -->
-        <div class="news-feed d-none d-md-block" ng-if="announcement">
-            <marquee class="marque-text">{{announcement}}</marquee>
+        <!-- Announcement Banner (after header) -->
+        <div class="announcement-banner" ng-if="announcement">
+            <div class="announcement-banner-inner">
+                <span class="announcement-icon">
+                    <img ng-src="{{webImagePath}}icons/announcement.png" alt="Announcement" />
+                </span>
+                <div class="announcement-label">Announcement</div>
+                <marquee class="announcement-text" scrollamount="4">{{announcement}}</marquee>
+            </div>
         </div>
 
         <!-- ===== MAIN CONTENT ===== -->

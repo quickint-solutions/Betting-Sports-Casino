@@ -1,14 +1,4 @@
-﻿<div class="news-feed-block d-block d-sm-no" ng-if="announcement && renderingFor==1">
-    <div class="d-flex flex-row align-items-center">
-        <div class="news-image">
-            <div id="announce-lottie" style="width: 50px; height: 50px; overflow: hidden; margin: 0px auto;">
-
-            </div>
-        </div>
-        <marquee class="marque-text"><span>{{announcement}}</span></marquee>
-    </div>
-</div>
-<div class="banner mb-2" ng-if="renderingFor==1">
+﻿<div class="banner mb-2" ng-if="renderingFor==1">
     <div class="swiper-container swiper-container-horizontal" id="banners">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -21,39 +11,7 @@
                     <img ng-src="{{webImagePath}}banners/banner-2.jpg" />
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-3.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-4.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-5.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-6.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-7.jpg" />
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-8.jpg" />
-                </div>
-            </div>
-
         </div>
-
     </div>
 </div>
 
@@ -175,7 +133,17 @@
 
 <!-- FoxBetX Original Games -->
 <div class="original-games-section">
-    <h3 class="original-games-title">{{displayName}} Original Games</h3>
+    <div class="ogs-header">
+        <h3 class="original-games-title">{{displayName}} Original Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
     <div class="swiper footer-games-swiper" id="homeOriginalGamesSwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df58edc0c3fd8f78bee2e')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/tp-day.jpg" alt="Teenpatti One Day"></a></div>
@@ -194,26 +162,167 @@
     </div>
 </div>
 
+<!-- ===== Live Events (Sports Iframe Container) ===== -->
+<div class="iframe-game-container" ng-if="renderingFor==1">
+    <div class="iframe-header">
+        <h3>Live Events</h3>
+    </div>
+    <div class="iframe-scroll-area">
+        <div class="main-tabs">
+            <div ng-include="'sports/template/loader-center.html'"
+                 ng-show="isRequestProcessing"
+                 class="d-flex w-100 justify-content-center position-absolute"></div>
+
+            <div class="chart-content mt-0" ng-if="highlights.length>0 && !isRequestProcessing">
+                <div class="chart-body home-page-sports" ng-repeat="s in eventTypes" ng-show="(highlights | filter:{eventTypeId:s.id}).length>0">
+                    <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
+                        <a>
+                            <span>{{s.name}}</span>
+                            <i class="material-icons plus">expand_more</i>
+                        </a>
+                        <div class="event-count-block">
+                            {{s.competitions.length}} Events
+                        </div>
+                    </div>
+                    <div class="market-list collapse in">
+                        <div>
+                            <div class="market-data" ng-repeat="cmp in s.competitions">
+                                <div class="markets">
+                                    <a class="sport-league">
+                                        <div class="sport-league-name"><span>{{cmp.name}}</span></div>
+                                        <h6 class="league-count d-flex flex-row align-items-center">
+                                            <span>{{(highlights | filter:{event:{competitionId:cmp.id} }).length}}</span>
+                                            <span class="material-icons collapse-icon">expand_more</span>
+                                        </h6>
+                                    </a>
+                                    <div class="collapse in">
+                                        <a ng-repeat="h in highlights | filter:{event:{competitionId:cmp.id} }" class="event-name market-left"
+                                           ui-sref="base.home.sport.fullmarket({nodetype:4,id:cmp.id,eventId:h.eventId,eventTypeId:s.id})">
+                                            <div class="sport-event">
+                                                <div class="event">
+                                                    <div class="event-item">
+                                                        <div class="event-icon event-icon" ng-class="{'inplay':h.inPlay}">
+                                                            <span>
+                                                                <img ng-src="{{webImagePath}}icons/{{s.name|joinme}}.png" alt="cricket" width="18px">
+                                                            </span>
+                                                        </div>
+                                                        <div class="event-main-detail">
+                                                            <div class="event-detail justify-content-between">
+                                                                <div class="event-level-one" ng-show="h.bettingType==1">
+                                                                    <div class="runner-one">
+                                                                        {{h.marketRunner[0].runner.name}}
+                                                                    </div>
+                                                                    <div class="runner-two">
+                                                                        {{h.marketRunner[1].runner.name}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="event-level-one" ng-show="h.bettingType!=1">
+                                                                    <div class="runner-three">
+                                                                        {{h.event.name}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex">
+                                                                    <div class="event-level-two">
+                                                                        <div class="live-match" ng-show="h.inPlay">Live</div>
+                                                                        <div class="event-date-time">
+                                                                            {{h.event.openDate | toDays}} {{h.event.openDate | date:'HH:mm'}}
+                                                                            <div class="event-fb-details">
+                                                                                <div class="live-match one" ng-show="h.hasVideo">
+                                                                                    <span class="material-icons">ondemand_video</span>
+                                                                                </div>
+                                                                                <div class="live-match two" ng-if="h.hasFancy">F</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sport-market">
+                                                        <div class="match-rate" ng-init="m0 = h.marketRunner[0]">
+                                                            <div class="market-back d-blue" kt-animate-on-change="m0.backPrice[0].price" kt-click>
+                                                                <span class="odds">{{m0.backPrice[0].price}}</span>
+                                                            </div>
+                                                            <div class="market-lay d-pink" kt-animate-on-change="m0.layPrice[0].price" ng-if="h.bettingType!=6">
+                                                                <span class="odds">{{m0.layPrice[0].price}}</span>
+                                                            </div>
+                                                            <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
+                                                        </div>
+                                                        <div class="match-rate" ng-init="m2 = h.marketRunner[2]">
+                                                            <div class="market-back d-blue" ng-if="m2" kt-animate-on-change="m2.backPrice[0].price">
+                                                                <span class="odds">{{ m2.backPrice[0].price }}</span>
+                                                            </div>
+                                                            <div class="market-back d-blue" ng-if="!m2"><span class="odds">-</span></div>
+                                                            <div class="market-lay d-pink" ng-if="m2 && h.bettingType!=6">
+                                                                <span class="odds">{{ m2.layPrice[0].price }}</span>
+                                                            </div>
+                                                            <div class="market-lay d-pink" ng-if="!m2 || h.bettingType==6"><span class="odds">-</span></div>
+                                                        </div>
+                                                        <div class="match-rate" ng-init="m1 = h.marketRunner[1]">
+                                                            <div class="market-back d-blue" kt-animate-on-change="m1.backPrice[0].price">
+                                                                <span class="odds">{{m1.backPrice[0].price }}</span>
+                                                            </div>
+                                                            <div class="market-lay d-pink" kt-animate-on-change="m1.layPrice[0].price"
+                                                                 ng-if="h.bettingType!=6">
+                                                                <span class="odds">{{m1.layPrice[0].price}}</span>
+                                                            </div>
+                                                            <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Aura Games -->
-<div class="original-games-section">
-    <h3 class="original-games-title">Aura Games</h3>
-    <div class="swiper footer-games-swiper" id="homeAuraGamesSwiper">
+<div class="original-games-section aura-games-section">
+    <div class="ogs-header">
+        <h3 class="original-games-title">Aura Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="swiper footer-games-swiper aura-swiper" id="homeAuraGamesSwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfaf3a419f88910179f46')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/baccarat.jpg" alt="Baccarat"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df6f49510dff723384d49')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/hilow.jpg" alt="Hi Low"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfd280c22dbface4f7c00')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/matka.jpg" alt="Matka"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df8a79510dff72338530a')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/race2020.jpg" alt="Race 20-20"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfcc99510dff723385da8')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/trio.jpg" alt="Trio"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfda8dc0c3fd8f78bf5a5')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/t20.jpg" alt="T20 Teen Patti"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df616a419f88910179087')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/dragontiger.jpg" alt="Dragon Tiger"></a></div>
-            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df979a419f88910179b37')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/poker.jpg" alt="Poker"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfaf3a419f88910179f46')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/baccarat-aura.png" alt="Baccarat"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df6f49510dff723384d49')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/hilow-aura.png" alt="Hi-Low"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfd280c22dbface4f7c00')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/matka-aura.png" alt="Matka"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df8a79510dff72338530a')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/race2020-aura.png" alt="20-20 Race"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfcc99510dff723385da8')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/trio-aura.png" alt="Trio"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfda8dc0c3fd8f78bf5a5')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/t20-aura.png" alt="T20 Teen Patti"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df616a419f88910179087')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/dragontiger-aura.png" alt="Dragon Tiger"></a></div>
+            <div class="swiper-slide"><a ng-click="ctrl.openCasino('630df979a419f88910179b37')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/poker-aura.png" alt="Poker"></a></div>
         </div>
     </div>
 </div>
 
 <!-- Vimplay Games -->
-<div class="original-games-section">
-    <h3 class="original-games-title">Vimplay Games</h3>
+<div class="original-games-section vimplay-games-section">
+    <div class="ogs-header">
+        <h3 class="original-games-title">Vimplay Games</h3>
+        <div class="ogs-nav">
+            <button class="ogs-nav-btn ogs-nav-prev" type="button" aria-label="Previous">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <button class="ogs-nav-btn ogs-nav-next" type="button" aria-label="Next">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
     <div class="swiper footer-games-swiper" id="homeVimplayGamesSwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><a ng-click="ctrl.openCasino('630dfbca9510dff723385b75')"><img loading="lazy" ng-src="/public/images/drpapaya/casino/img/sicbo.jpg" alt="Sicbo"></a></div>
@@ -228,169 +337,6 @@
     </div>
 </div>
 
-<div ng-if="renderingFor==1">
-    <div class="main-tabs">
-        <div class="game-list home swiper-container swiper-container-horizontal" id="swiper5">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="item">
-                        <a ui-sref="base.home.sport.market({nodetype:1,id:'5ead73fb7846303b7e7e7638',eventTypeId:'5ead73fb7846303b7e7e7638'})">
-                            <img ng-src="{{webImagePath}}icons/sports.png" />
-                            <h6>Sports</h6>
-                        </a>
-                    </div>
-                </div><div class="swiper-slide">
-                    <div class="item">
-                        <a ui-sref="base.home.inplay">
-                            <img ng-src="{{webImagePath}}icons/live.png" />
-                            <h6>In-Play</h6>
-                        </a>
-                    </div>
-                </div><div class="swiper-slide" ng-if="hasCasino">
-                    <div class="item">
-                        <a ui-sref="base.indiancasino">
-                            <img ng-src="{{webImagePath}}icons/indian-casino.png" />
-                            <h6>Indian Casino</h6>
-                        </a>
-                    </div>
-                </div><div class="swiper-slide" ng-if="hasCasino">
-                    <div class="item">
-                        <a ui-sref="base.casino">
-                            <img ng-src="{{webImagePath}}icons/live-casino.png" />
-                            <h6>Live Casino</h6>
-                        </a>
-                    </div>
-                </div>
-                <!--<div class="swiper-slide">
-                    <div class="item">
-                        <a ui-sref="base.slotcasino">
-                            <img ng-src="{{webImagePath}}icons/slot.png" />
-                            <h6>Slots</h6>
-                        </a>
-                    </div>
-                </div>-->
-                <div class="swiper-slide aviator-icon" ng-if="hasCasino">
-                    <div class="item">
-                        <a ng-click="ctrl.openCasino('6256b52c645bb5c7fcb51309')">
-                            <img ng-src="{{webImagePath}}icons/aviator.png" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div ng-include="'sports/template/loader-center.html'"
-             ng-show="isRequestProcessing"
-             class="d-flex w-100 justify-content-center position-absolute"></div>
-
-        <div class="chart-content mt-0" ng-if="highlights.length>0 && !isRequestProcessing">
-            <div class="chart-body home-page-sports" ng-repeat="s in eventTypes" ng-show="(highlights | filter:{eventTypeId:s.id}).length>0">
-                <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
-                    <a>
-                        <span>{{s.name}}</span>
-                        <i class="material-icons plus">expand_more</i>
-                    </a>
-                    <div class="event-count-block">
-                        {{s.competitions.length}} Events
-                    </div>
-                </div>
-                <div class="market-list collapse in">
-                    <div>
-                        <div class="market-data" ng-repeat="cmp in s.competitions">
-                            <div class="markets">
-                                <a class="sport-league">
-                                    <div class="sport-league-name"><span>{{cmp.name}}</span></div>
-                                    <h6 class="league-count d-flex flex-row align-items-center">
-                                        <span>{{(highlights | filter:{event:{competitionId:cmp.id} }).length}}</span>
-                                        <span class="material-icons collapse-icon">expand_more</span>
-                                    </h6>
-                                </a>
-                                <div class="collapse in">
-                                    <a ng-repeat="h in highlights | filter:{event:{competitionId:cmp.id} }" class="event-name market-left"
-                                       ui-sref="base.home.sport.fullmarket({nodetype:4,id:cmp.id,eventId:h.eventId,eventTypeId:s.id})">
-                                        <div class="sport-event">
-                                            <div class="event">
-                                                <div class="event-item">
-                                                    <div class="event-icon event-icon" ng-class="{'inplay':h.inPlay}">
-                                                        <span>
-                                                            <img ng-src="{{webImagePath}}icons/{{s.name|joinme}}.png" alt="cricket" width="18px">
-                                                        </span>
-                                                    </div>
-                                                    <div class="event-main-detail">
-                                                        <div class="event-detail justify-content-between">
-                                                            <div class="event-level-one" ng-show="h.bettingType==1">
-                                                                <div class="runner-one">
-                                                                    {{h.marketRunner[0].runner.name}}
-                                                                </div>
-                                                                <div class="runner-two">
-                                                                    {{h.marketRunner[1].runner.name}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="event-level-one" ng-show="h.bettingType!=1">
-                                                                <div class="runner-three">
-                                                                    {{h.event.name}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <div class="event-level-two">
-                                                                    <div class="live-match" ng-show="h.inPlay">Live</div>
-                                                                    <div class="event-date-time">
-                                                                        {{h.event.openDate | toDays}} {{h.event.openDate | date:'HH:mm'}}
-                                                                        <div class="event-fb-details">
-                                                                            <div class="live-match one" ng-show="h.hasVideo">
-                                                                                <span class="material-icons">ondemand_video</span>
-                                                                            </div>
-                                                                            <div class="live-match two" ng-if="h.hasFancy">F</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> <div class="sport-market">
-                                                    <div class="match-rate" ng-init="m0 = h.marketRunner[0]">
-                                                        <div class="market-back d-blue" kt-animate-on-change="m0.backPrice[0].price" kt-click>
-                                                            <span class="odds">{{m0.backPrice[0].price}}</span>
-                                                        </div>
-                                                        <div class="market-lay d-pink" kt-animate-on-change="m0.layPrice[0].price" ng-if="h.bettingType!=6">
-                                                            <span class="odds">{{m0.layPrice[0].price}}</span>
-                                                        </div>
-                                                        <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
-                                                    </div>
-                                                    <div class="match-rate" ng-init="m2 = h.marketRunner[2]">
-                                                        <div class="market-back d-blue" ng-if="m2" kt-animate-on-change="m2.backPrice[0].price">
-                                                            <span class="odds">{{ m2.backPrice[0].price }}</span>
-                                                        </div>
-                                                        <div class="market-back d-blue" ng-if="!m2"><span class="odds">-</span></div>
-
-                                                        <div class="market-lay d-pink" ng-if="m2 && h.bettingType!=6">
-                                                            <span class="odds">{{ m2.layPrice[0].price }}</span>
-                                                        </div>
-                                                        <div class="market-lay d-pink" ng-if="!m2 || h.bettingType==6"><span class="odds">-</span></div>
-                                                    </div>
-                                                    <div class="match-rate" ng-init="m1 = h.marketRunner[1]">
-                                                        <div class="market-back d-blue" kt-animate-on-change="m1.backPrice[0].price">
-                                                            <span class="odds">{{m1.backPrice[0].price }}</span>
-                                                        </div>
-                                                        <div class="market-lay d-pink" kt-animate-on-change="m1.layPrice[0].price"
-                                                             ng-if="h.bettingType!=6">
-                                                            <span class="odds">{{m1.layPrice[0].price}}</span>
-                                                        </div>
-                                                        <div class="market-lay d-pink" ng-if="h.bettingType==6"><span class="odds">-</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div ng-if="renderingFor==2">
     <div class="main-tabs">
         <div class="game-list swiper-container swiper-container-horizontal" id="swiper8">

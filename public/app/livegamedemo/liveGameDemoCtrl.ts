@@ -90,40 +90,39 @@
 
                         var logo = this.$scope.domain + 'images/' + this.settings.WebApp + '/casino-logo.png';
 
-                        //  this.settings.FairXIFrameUrl = 'http://localhost:9009/public/#/';
-
+                        var gameUrl = '';
                         if (tableId) {
                             var path = this.isMobile.any ? 'eg/2/list/-1' : 'list/-1';
                             if (this.isMobile.any) {
-                                var url = this.settings.FairXIFrameUrl + 'fs/mhome/' + path + '?token='
+                                gameUrl = this.settings.FairXIFrameUrl + 'fs/mhome/' + path + '?token='
                                     + response.data.token
                                     + '&tableId=' + tableId
                                     + '&operatorId=' + response.data.operatorId
                                     + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
-                                this.$scope.gameUrl = this.$sce.trustAsResourceUrl(url);
                             } else {
-                                var url = this.settings.FairXIFrameUrl + 'fs/hm/2/' + path + '?token='
+                                gameUrl = this.settings.FairXIFrameUrl + 'fs/hm/2/' + path + '?token='
                                     + response.data.token
                                     + '&tableId=' + tableId
                                     + '&operatorId=' + response.data.operatorId
                                     + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
-                                this.$scope.gameUrl = this.$sce.trustAsResourceUrl(url);
                             }
                         } else {
-                            var url = this.settings.FairXIFrameUrl + 'fs?token='
+                            gameUrl = this.settings.FairXIFrameUrl + 'fs?token='
                                 + response.data.token
                                 + '&operatorId=' + response.data.operatorId
                                 + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
-                            this.$scope.gameUrl = this.$sce.trustAsResourceUrl(url);
                         }
+
+                        // Direct redirect to the game URL (no iframe wrapper)
+                        this.commonDataService.setGameId('');
+                        this.$window.location.href = gameUrl;
                     } else {
                         this.toasterService.showMessages(response.messages);
                         this.$timeout(() => { this.close(); }, 5000);
                     }
                 }).finally(() => {
+                    // game id cleared above on success; still clear on failure
                     this.commonDataService.setGameId('');
-                    this.$window.scrollTop = document.body.scrollHeight;
-                    document.body.scrollTop = document.body.scrollHeight;
                 });
         }
 

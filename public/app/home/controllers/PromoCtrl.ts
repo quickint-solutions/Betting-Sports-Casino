@@ -80,6 +80,12 @@
         isLightTheme: boolean;
         isRequestProcessing: boolean;
         authTab: string;
+
+        originalGamesSwiper: any;
+        auraGamesSwiper: any;
+        vimplayGamesSwiper: any;
+        swiperPrev: (key: string) => void;
+        swiperNext: (key: string) => void;
     }
 
     export class PromoCtrl extends intranet.common.BetControllerBase<IPromoScope>
@@ -1599,10 +1605,15 @@
         private setSwiperForSports(): void {
             this.$timeout(() => {
                 var mySwiper = new Swiper('#banners', {
-                    // Optional parameters
                     loop: true,
-                    autoplay: true,
+                    speed: 1200,
+                    autoplay: { delay: 4000, disableOnInteraction: false },
                     autoHeight: true,
+                    pagination: { el: '.banner .swiper-pagination', clickable: true },
+                    effect: 'slide',
+                    direction: 'horizontal',
+                    slidesPerView: 1,
+                    grabCursor: true,
                 })
                 var mySwiper2 = new Swiper('#right-casino-box', {
                     // Optional parameters
@@ -1646,12 +1657,58 @@
                     grabCursor: true,
                     loop: false,
                 };
-                new Swiper('#originalGamesSwiper', originalGamesConfig);
+                var origSwiper = new Swiper('#originalGamesSwiper', originalGamesConfig);
                 new Swiper('#mobileOriginalGamesSwiper', originalGamesConfig);
-                new Swiper('#auraGamesSwiper', originalGamesConfig);
+                var auraSwiper = new Swiper('#auraGamesSwiper', originalGamesConfig);
                 new Swiper('#mobileAuraGamesSwiper', originalGamesConfig);
-                new Swiper('#vimplayGamesSwiper', originalGamesConfig);
+                var vimplaySwiper = new Swiper('#vimplayGamesSwiper', originalGamesConfig);
                 new Swiper('#mobileVimplayGamesSwiper', originalGamesConfig);
+                this.$scope.originalGamesSwiper = origSwiper;
+                this.$scope.auraGamesSwiper = auraSwiper;
+                this.$scope.vimplayGamesSwiper = vimplaySwiper;
+
+                var scrollSwiper = (s: any, direction: number) => {
+                    if (!s) return;
+                    var slideW = s.slides && s.slides[0] ? s.slides[0].offsetWidth + (s.params.spaceBetween || 0) : 200;
+                    var containerW = s.el ? s.el.offsetWidth : 800;
+                    var scrollBy = Math.max(slideW, Math.floor(containerW * 0.8 / slideW) * slideW);
+                    var currentTranslate = s.translate || 0;
+                    var maxTranslate = s.maxTranslate ? s.maxTranslate() : 0;
+                    var minTranslate = s.minTranslate ? s.minTranslate() : 0;
+                    var newTranslate = currentTranslate + (direction * -1 * scrollBy);
+                    if (newTranslate > minTranslate) newTranslate = minTranslate;
+                    if (newTranslate < maxTranslate) newTranslate = maxTranslate;
+                    s.setTransition(400);
+                    s.setTranslate(newTranslate);
+                    if (s.updateActiveIndex) s.updateActiveIndex();
+                    if (s.updateSlidesClasses) s.updateSlidesClasses();
+                };
+
+                var bindNav = (swiperInstance: any, section: string) => {
+                    var sel = '.' + section + ' .ogs-nav-btn';
+                    var btns: any = document.querySelectorAll(sel);
+                    if (btns.length === 0) {
+                        // Fallback for non-class sections (e.g., Fairbet)
+                        if (section === 'original-games-section') {
+                            btns = document.querySelectorAll('.original-games-section:not(.aura-games-section):not(.vimplay-games-section) .ogs-nav-btn');
+                        }
+                    }
+                    for (var i = 0; i < btns.length; i++) {
+                        (function (btn: any) {
+                            var isPrev = btn.classList.contains('ogs-nav-prev');
+                            btn.onclick = function (ev: any) {
+                                ev.preventDefault();
+                                scrollSwiper(swiperInstance, isPrev ? -1 : 1);
+                            };
+                        })(btns[i]);
+                    }
+                };
+                bindNav(origSwiper, 'original-games-section');
+                bindNav(auraSwiper, 'aura-games-section');
+                bindNav(vimplaySwiper, 'vimplay-games-section');
+
+                this.$scope.swiperPrev = (key: string) => scrollSwiper((this.$scope as any)[key], -1);
+                this.$scope.swiperNext = (key: string) => scrollSwiper((this.$scope as any)[key], 1);
             }, 100);
         }
 

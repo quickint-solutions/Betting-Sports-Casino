@@ -85,9 +85,15 @@ $btn-signup-bg: #4a3fdc;
     }
 
     .header-logo img {
-        height: 40px;
+        height: 38px;
         max-width: 140px;
         object-fit: contain;
+        filter: drop-shadow(0 0 6px rgba(74, 63, 220, 0.3));
+        transition: filter 0.3s ease;
+
+        &:hover {
+            filter: drop-shadow(0 0 10px rgba(74, 63, 220, 0.5));
+        }
     }
 }
 
@@ -109,6 +115,116 @@ $btn-signup-bg: #4a3fdc;
 
     &:hover {
         background: #4a5152;
+    }
+}
+
+// ===== Announcement Banner (below header) =====
+.announcement-banner {
+    position: relative;
+    margin: 12px 16px 0;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, rgba(42, 46, 200, 0.18) 0%, rgba(84, 80, 232, 0.10) 50%, rgba(42, 46, 200, 0.18) 100%);
+    border: 1px solid rgba(84, 80, 232, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(8, 10, 16, 0.18);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, #2a2ec8 0%, #5450e8 100%);
+    }
+
+    .announcement-banner-inner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .announcement-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(84, 80, 232, 0.4);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    .announcement-label {
+        flex-shrink: 0;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        color: #ffffff;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, #2a2ec8 0%, #5450e8 100%);
+        box-shadow: 0 2px 6px rgba(84, 80, 232, 0.35);
+    }
+
+    .announcement-text {
+        flex: 1;
+        min-width: 0;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        white-space: nowrap;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 600px) {
+    .announcement-banner {
+        margin: 10px 10px 0;
+        padding: 8px 12px;
+
+        .announcement-banner-inner {
+            gap: 8px;
+        }
+
+        .announcement-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .announcement-label {
+            font-size: 11px;
+            padding: 3px 7px;
+        }
+
+        .announcement-text {
+            font-size: 12px;
+        }
+    }
+}
+
+// Light theme override
+body.light-theme {
+    .announcement-banner {
+        background: linear-gradient(90deg, rgba(42, 46, 200, 0.08) 0%, rgba(84, 80, 232, 0.04) 50%, rgba(42, 46, 200, 0.08) 100%);
+        border-color: rgba(84, 80, 232, 0.2);
+        box-shadow: 0 2px 8px rgba(8, 10, 16, 0.08);
+
+        .announcement-text {
+            color: #333333;
+        }
     }
 }
 
@@ -174,7 +290,7 @@ $btn-signup-bg: #4a3fdc;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        transition: opacity $sidebar-transition;
+        transition: opacity $sidebar-transition, transform 0.2s ease;
         background: transparent;
 
         img {
@@ -183,8 +299,17 @@ $btn-signup-bg: #4a3fdc;
             object-fit: contain;
         }
 
+        &.whatsapp-icon {
+            background: #25d366;
+        }
+
+        &.telegram-icon {
+            background: #0088cc;
+        }
+
         &:hover {
             opacity: 0.85;
+            transform: scale(1.1);
         }
     }
 }
@@ -358,7 +483,7 @@ $btn-signup-bg: #4a3fdc;
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    border: 2px solid #3a4142;
+    border: 2px solid rgba(84, 80, 232, 0.5);
     background: transparent;
     display: flex;
     align-items: center;
@@ -366,16 +491,73 @@ $btn-signup-bg: #4a3fdc;
     cursor: pointer;
     padding: 0;
     overflow: hidden;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 
     img {
-        width: 35px;
-        height: 35px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        border-radius: 50%;
     }
 
     &:hover {
-        border-color: #4a49e0;
+        border-color: #5450e8;
+        box-shadow: 0 0 0 3px rgba(84, 80, 232, 0.2);
+        transform: scale(1.05);
+    }
+}
+
+// Download APK button — blue gradient with "Get App" text
+.btn-download-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 9px;
+    background: linear-gradient(90deg, #2a2ec8 0%, #5450e8 100%);
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 8px rgba(84, 80, 232, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    white-space: nowrap;
+
+    i.fa {
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+    .btn-download-label {
+        line-height: 1;
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+        box-shadow: 0 4px 14px rgba(84, 80, 232, 0.5);
+        transform: translateY(-1px);
+        color: #ffffff !important;
+        text-decoration: none;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-download-app .btn-download-label {
+        display: none;
+    }
+    .btn-download-app {
+        padding: 0 10px;
+        width: 36px;
+        justify-content: center;
     }
 }
 
@@ -571,13 +753,13 @@ $btn-signup-bg: #4a3fdc;
     left: 0;
     width: $sidebar-width;
     height: calc(100vh - #{$header-height});
-    background: $sidebar-bg;
+    background: #181b1f;
     z-index: 999;
     overflow-y: auto;
     overflow-x: hidden;
     transform: translateX(-#{$sidebar-width});
     transition: transform $sidebar-transition;
-    padding: 10px;
+    padding: 10px 10px 20px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 
@@ -585,7 +767,6 @@ $btn-signup-bg: #4a3fdc;
         transform: translateX(0);
     }
 
-    // On desktop, hamburger sidebar opens from left edge (icon sidebar hides)
     @media (min-width: 768px) {
         left: 0;
         z-index: 1001;
@@ -610,131 +791,180 @@ $btn-signup-bg: #4a3fdc;
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
 }
 
 .sidebar-item {
-    margin-bottom: 5px;
-    border-radius: $sidebar-item-radius;
-    overflow: hidden;
+    border-radius: 10px;
+    overflow: visible;
 }
 
+// Default item: dark rounded card
 .sidebar-link {
     display: flex;
     align-items: center;
-    height: $sidebar-item-height;
-    padding: 0 12px;
-    color: #fff;
+    min-height: 50px;
+    padding: 10px 12px;
+    color: #ffffff;
     text-decoration: none;
-    font-size: $sidebar-font-size;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(90deg, #090921, #3433c9);
-    border: 1px solid #3433c9;
-    border-radius: 7px;
-    box-shadow: 0 0 12px 0 rgba(14, 14, 52, 0.51),
-                0 -2px 0 0 rgba(51, 50, 197, 0.49) inset;
+    background: #2d3236;
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
     cursor: pointer;
-    transition: color 0.15s ease-in-out,
-                background-color 0.15s ease-in-out,
-                border-color 0.15s ease-in-out,
-                box-shadow 0.15s ease-in-out;
+    transition: background 0.2s ease, color 0.2s ease;
     gap: 10px;
     white-space: nowrap;
     user-select: none;
-    line-height: 18px;
+    line-height: 1.2;
 
     &:hover {
-        background: linear-gradient(90deg, #0e0e30, #4a49e0);
-        border-color: #4a49e0;
-        box-shadow: 0 0 16px 0 rgba(14, 14, 52, 0.65),
-                    0 -2px 0 0 rgba(74, 73, 224, 0.55) inset;
-        color: #fff;
+        background: linear-gradient(90deg, #13122f 0%, #2b2ecc 100%);
+        color: #ffffff;
         text-decoration: none;
     }
 
+    // Expanded accordion state — blue/purple gradient
     &.expanded {
-        background: linear-gradient(90deg, #0e0e30, #4a49e0);
-        border-color: #4a49e0;
-        border-radius: 7px 7px 0 0;
+        background: linear-gradient(90deg, #13122f 0%, #2b2ecc 100%);
+        color: #ffffff;
+        border-radius: 10px;
+    }
+}
+
+// Support item — always has the purple gradient (even when not expanded)
+.sidebar-item.has-submenu:first-child > .sidebar-link {
+    background: linear-gradient(90deg, #13122f 0%, #2b2ecc 100%);
+    color: #ffffff;
+
+    &:hover {
+        background: linear-gradient(90deg, #17153c 0%, #3436d9 100%);
     }
 }
 
 .sidebar-icon {
-    width: $sidebar-icon-size;
-    height: $sidebar-icon-size;
+    width: 26px;
+    height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    border-radius: 0;
+    background: transparent;
 
     i {
-        font-size: 16px;
+        font-size: 19px;
+        color: #ffffff;
     }
 
     img {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         object-fit: contain;
+    }
+}
+
+// Make Support's WhatsApp icon stand out with green
+.sidebar-item.has-submenu:first-child > .sidebar-link .sidebar-icon {
+    background: #25d366;
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    img {
+        width: 14px;
+        height: 14px;
+        filter: brightness(0) invert(1);
     }
 }
 
 .sidebar-text {
     flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
 // Accordion trigger arrow
 .accordion-trigger .submenu-arrow {
-    font-size: 11px;
-    opacity: 0.6;
+    font-size: 13px;
+    opacity: 0.75;
     transition: transform $sidebar-transition;
+    color: #ffffff;
 
     &.rotated {
         transform: rotate(180deg);
     }
 }
 
-// Submenu
+// Submenu (for Sports, Support, Terms)
 .submenu {
     list-style: none;
-    padding: 0;
-    margin: 0;
-    background: rgba(9, 9, 33, 0.6);
-    border: 1px solid #3433c9;
-    border-top: none;
-    border-radius: 0 0 7px 7px;
+    padding: 5px 0 0;
+    margin: 2px 0 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease;
+
+    &.open {
+        max-height: 460px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
 
     li a {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 12px 8px 20px;
-        color: #ccc;
+        padding: 9px 12px;
+        color: #ffffff;
         text-decoration: none;
-        font-size: 13px;
+        font-size: 15px;
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        transition: color 0.15s ease-in-out,
-                    background-color 0.15s ease-in-out;
+        transition: background 0.2s ease, color 0.2s ease;
         cursor: pointer;
+        background: #2d3236;
+        border-radius: 10px;
+        min-height: 48px;
 
         .sidebar-icon {
-            width: 20px;
-            height: 20px;
+            width: 26px;
+            height: 26px;
+            background: transparent;
+            border-radius: 0;
 
             i {
-                font-size: 14px;
+                font-size: 18px;
             }
 
             img {
-                width: 18px;
-                height: 18px;
+                width: 24px;
+                height: 24px;
                 object-fit: contain;
             }
         }
 
-        &:hover {
-            background: linear-gradient(90deg, #090921, #3433c9);
-            color: #fff;
+        &:hover,
+        &.active,
+        &.router-link-active {
+            background: linear-gradient(90deg, #13122f 0%, #2b2ecc 100%);
+            color: #ffffff;
         }
     }
 }
@@ -938,7 +1168,7 @@ $btn-signup-bg: #4a3fdc;
 // =========================
 // PERMANENT ICON SIDEBAR (Desktop)
 // =========================
-$icon-sidebar-width: 62px;
+$icon-sidebar-width: 70px;
 
 .icon-sidebar {
     position: fixed;
@@ -961,7 +1191,7 @@ $icon-sidebar-width: 62px;
     ul {
         list-style: none;
         margin: 0;
-        padding: 6px;
+        padding: 8px 10px;
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -971,6 +1201,7 @@ $icon-sidebar-width: 62px;
         width: 50px;
         height: 42px;
         border-radius: 8px;
+        margin: 0 0 5px;
 
         a {
             display: flex;
@@ -982,11 +1213,12 @@ $icon-sidebar-width: 62px;
             background: transparent;
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            transition: background 0.2s ease;
+            transition: background 0.3s ease;
             cursor: pointer;
+            padding: 10px;
 
             &:hover {
-                background: rgb(4, 24, 35);
+                background: #041823;
 
                 img {
                     animation: icon-bounce 1.5s ease infinite alternate;
@@ -1331,13 +1563,22 @@ $icon-sidebar-width: 62px;
 .sportsexch-layout-main {
     overflow: hidden;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    > .main-header {
+        flex-shrink: 0;
+    }
 
     .main-container-block {
         overflow: hidden;
+        flex: 1;
+        min-height: 0;
     }
 
     // Single scroll on the column content only
     .main-container-block .column {
+        height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
         scrollbar-width: thin;

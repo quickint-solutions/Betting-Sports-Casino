@@ -366,7 +366,7 @@
         public scrollToTop(): void {
             var scrollEl = document.querySelector('.middle-block') || document.querySelector('.home-middle-block') || document.querySelector('.main-content-block');
             if (scrollEl) {
-                scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+                (scrollEl as HTMLElement).scrollTop = 0;
             }
         }
 

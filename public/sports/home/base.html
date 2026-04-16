@@ -27,8 +27,9 @@
                     </div>
 
                     <!-- Download App -->
-                    <a ng-if="hasAPK" ng-click="ctrl.downloadAPK();" class="btn-icon btn-download-app" title="Download App">
+                    <a ng-if="hasAPK" ng-click="ctrl.downloadAPK();" class="btn-download-app" title="Download App">
                         <i class="fa fa-download"></i>
+                        <span class="btn-download-label">Get App</span>
                     </a>
 
                     <!-- Search -->
@@ -123,14 +124,18 @@
                     </div>
                 </div>
             </div>
-            <!-- Announcement Ticker -->
-            <div class="header-announcement" ng-if="announcement">
-                <div class="header-announcement-inner">
-                    <i class="material-icons header-announcement-icon">campaign</i>
-                    <marquee class="header-announcement-text" scrollamount="4">{{announcement}}</marquee>
-                </div>
-            </div>
         </header>
+
+        <!-- Announcement Banner (after header) -->
+        <div class="announcement-banner" ng-if="announcement">
+            <div class="announcement-banner-inner">
+                <span class="announcement-icon">
+                    <img ng-src="{{webImagePath}}icons/announcement.png" alt="Announcement" />
+                </span>
+                <div class="announcement-label">Announcement</div>
+                <marquee class="announcement-text" scrollamount="4">{{announcement}}</marquee>
+            </div>
+        </div>
 
         <!-- ===== SEARCH OVERLAY ===== -->
         <div class="search-overlay" ng-show="ctrl.searchOpen">
@@ -160,23 +165,23 @@
                         <span class="sidebar-text">Support</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'support'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'support'">
-                        <li ng-if="supportDetail.whatsapp">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'support'}">
+                        <li>
                             <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" /></span> <span>Whatsapp</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.telegram">
+                        <li>
                             <a ng-href="{{supportDetail.telegram}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/telegram.svg" alt="Telegram" /></span> <span>Telegram</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.instagram">
+                        <li>
                             <a ng-href="{{supportDetail.instagram}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/instagram.svg" alt="Instagram" /></span> <span>Instagram</span>
                             </a>
                         </li>
-                        <li ng-if="supportDetail.facebook">
+                        <li>
                             <a ng-href="{{supportDetail.facebook}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/facebook.svg" alt="Facebook" /></span> <span>Facebook</span>
                             </a>
@@ -191,7 +196,7 @@
                         <span class="sidebar-text">Sports</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'sports'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'sports'">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'sports'}">
                         <li>
                             <a ui-sref="base.home.inplay" ng-click="ctrl.closeSidebar()">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/inplay.webp" alt="In-Play" /></span> <span>In-play</span>
@@ -304,7 +309,7 @@
                         <span class="sidebar-text">Terms</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'terms'}"></i>
                     </a>
-                    <ul class="submenu" ng-show="ctrl.activeSubmenu === 'terms'">
+                    <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'terms'}">
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/contactus.webp" alt="Contact Us" /></span> <span>Contact Us</span></a></li>
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/privacypolicy.webp" alt="Privacy Policy" /></span> <span>Privacy Policy</span></a></li>
                         <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/responsible.webp" alt="Responsible Gaming" /></span> <span>Responsible Gaming</span></a></li>

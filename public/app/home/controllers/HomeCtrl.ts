@@ -17,6 +17,10 @@
         popularMarkets: any[];
 
         dimdViewType: any;
+
+        homeOriginalGamesSwiper: any;
+        homeAuraGamesSwiper: any;
+        homeVimplayGamesSwiper: any;
     }
 
     export class HomeCtrl extends intranet.common.ControllerBase<IHomeScope>
@@ -317,6 +321,16 @@
 
         private setSwiperForSports(): void {
             this.$timeout(() => {
+                var bannersSwiper = new Swiper('#banners', {
+                    loop: true,
+                    speed: 1200,
+                    autoplay: { delay: 4000, disableOnInteraction: false },
+                    autoHeight: true,
+                    effect: 'slide',
+                    direction: 'horizontal',
+                    slidesPerView: 1,
+                    grabCursor: true,
+                })
                 var mySwiper2 = new Swiper('#right-casino-box', {
                     // Optional parameters
                     loop: true,
@@ -352,9 +366,49 @@
                     grabCursor: true,
                     loop: false,
                 };
-                new Swiper('#homeOriginalGamesSwiper', originalGamesConfig);
-                new Swiper('#homeAuraGamesSwiper', originalGamesConfig);
-                new Swiper('#homeVimplayGamesSwiper', originalGamesConfig);
+                var homeOrigSwiper = new Swiper('#homeOriginalGamesSwiper', originalGamesConfig);
+                var homeAuraSwiper = new Swiper('#homeAuraGamesSwiper', originalGamesConfig);
+                var homeVimplaySwiper = new Swiper('#homeVimplayGamesSwiper', originalGamesConfig);
+                this.$scope.homeOriginalGamesSwiper = homeOrigSwiper;
+                this.$scope.homeAuraGamesSwiper = homeAuraSwiper;
+                this.$scope.homeVimplayGamesSwiper = homeVimplaySwiper;
+
+                var scrollSwiper = (s: any, direction: number) => {
+                    if (!s) return;
+                    var slideW = s.slides && s.slides[0] ? s.slides[0].offsetWidth + (s.params.spaceBetween || 0) : 200;
+                    var containerW = s.el ? s.el.offsetWidth : 800;
+                    var scrollBy = Math.max(slideW, Math.floor(containerW * 0.8 / slideW) * slideW);
+                    var currentTranslate = s.translate || 0;
+                    var maxTranslate = s.maxTranslate ? s.maxTranslate() : 0;
+                    var minTranslate = s.minTranslate ? s.minTranslate() : 0;
+                    var newTranslate = currentTranslate + (direction * -1 * scrollBy);
+                    if (newTranslate > minTranslate) newTranslate = minTranslate;
+                    if (newTranslate < maxTranslate) newTranslate = maxTranslate;
+                    s.setTransition(400);
+                    s.setTranslate(newTranslate);
+                    if (s.updateActiveIndex) s.updateActiveIndex();
+                    if (s.updateSlidesClasses) s.updateSlidesClasses();
+                };
+
+                var bindNav = (swiperInstance: any, section: string) => {
+                    var sel = '.' + section + ' .ogs-nav-btn';
+                    var btns: any = document.querySelectorAll(sel);
+                    if (btns.length === 0 && section === 'original-games-section') {
+                        btns = document.querySelectorAll('.original-games-section:not(.aura-games-section):not(.vimplay-games-section) .ogs-nav-btn');
+                    }
+                    for (var i = 0; i < btns.length; i++) {
+                        (function (btn: any) {
+                            var isPrev = btn.classList.contains('ogs-nav-prev');
+                            btn.onclick = function (ev: any) {
+                                ev.preventDefault();
+                                scrollSwiper(swiperInstance, isPrev ? -1 : 1);
+                            };
+                        })(btns[i]);
+                    }
+                };
+                bindNav(homeOrigSwiper, 'original-games-section');
+                bindNav(homeAuraSwiper, 'aura-games-section');
+                bindNav(homeVimplaySwiper, 'vimplay-games-section');
             }, 100);
         }
 
