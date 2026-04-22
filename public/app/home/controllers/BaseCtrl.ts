@@ -661,6 +661,43 @@
             this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
         }
 
+        public openSupportPanel(): void {
+            this.sidebarOpen = true;
+            this.activeSubmenu = 'support';
+        }
+
+        public supportFlyoutOpen: boolean = false;
+        public sportsFlyoutOpen: boolean = false;
+
+        public toggleSupportFlyout($event?: any): void {
+            if ($event && typeof $event.stopPropagation === 'function') {
+                $event.stopPropagation();
+            }
+            this.sportsFlyoutOpen = false;
+            this.supportFlyoutOpen = !this.supportFlyoutOpen;
+        }
+
+        public toggleSportsFlyout($event?: any): void {
+            if ($event && typeof $event.stopPropagation === 'function') {
+                $event.stopPropagation();
+            }
+            this.supportFlyoutOpen = false;
+            this.sportsFlyoutOpen = !this.sportsFlyoutOpen;
+        }
+
+        public closeSupportFlyout(): void {
+            this.supportFlyoutOpen = false;
+        }
+
+        public closeSportsFlyout(): void {
+            this.sportsFlyoutOpen = false;
+        }
+
+        public closeIconFlyouts(): void {
+            this.supportFlyoutOpen = false;
+            this.sportsFlyoutOpen = false;
+        }
+
         public openLoginModal(): void {
             this.$rootScope.$broadcast('open-login-modal');
         }

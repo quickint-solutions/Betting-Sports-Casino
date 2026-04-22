@@ -49,6 +49,9 @@
                 WebSiteIdealFor: 1, // 1=both, 2=client, 3=master
                 StorageMode: 1,
                 FairXIFrameUrl: 'https://www.casino.thefaircasino.games/#/',
+                // FairX Casino game-list endpoint. GET returns { success, data: [{ id, name, gameTables: [...] }] }.
+                // Requires FairDeal token + operatorId (fetched via fdService.launchFairDeal) in request headers.
+                FairXGameListUrl: 'https://f67867bd606e.thefaircasino.games/gametable/getgameinfo',
                 IsMobileSeperate: false,
                 MobileUrl: ''
             }
@@ -97,7 +100,7 @@
     deploy_new_ui: {
         constants: {
             settings: {
-                ApiBaseUrl: 'https://090fb07bdff3.book365.com/',
+                ApiBaseUrl: 'https://f768dafd155e.drpapaya.ai/',
                 // ApiBaseUrl: 'https://3da24e98.bazigar.io/',
                 Title: 'Fairbet',
                 ImagePath: '../',

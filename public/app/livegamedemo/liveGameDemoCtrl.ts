@@ -75,6 +75,7 @@
                 .success((response: common.messaging.IResponse<any>) => {
                     if (response.success) {
                         var tableId = this.commonDataService.getGameId();
+                        var pendingGame = this.commonDataService.getPendingGame();
 
                         var homeUrl = this.$location.$$absUrl.split('#')[0];
                         if (this.isMobile.any) {
@@ -90,31 +91,53 @@
 
                         var logo = this.$scope.domain + 'images/' + this.settings.WebApp + '/casino-logo.png';
 
+                        // Build the iframe URL.
+                        //
+                        // URL strategy (decided after inspecting the iframe app's routing + controllers):
+                        //
+                        // The iframe exposes three relevant states per table provider:
+                        //   - fs.home.list          -> `fs/hm/:topid/list/:gameid`            (lobby — always has content)
+                        //   - fs.home.egamesmarket  -> `fs/hm/:topid/game-market/:gametableid` (specific Fairdeal live-dealer table)
+                        //   - fs.home.fawk          -> `fs/hm/:topid/fawk/:tableid`            (FAWK poker client — always has content)
+                        //
+                        // For Fairdeal casino tables (all current catalog entries), the game-market view only renders
+                        // when there is an active live round / video stream (wcs_video is set from gameTable.streamName;
+                        // the rest of the template is ng-if'd behind fullMarket populating from gameRoundService.getGameInfo).
+                        // If the dealer is offline, that page is genuinely blank — this matches the iframe's own behavior
+                        // when the user clicks an offline table from its own lobby.
+                        //
+                        // To avoid landing users on a blank page for offline tables, we open the LOBBY (list/-1) which
+                        // is always populated, and include ?tableId=... as a hint (ignored by the iframe today; safe
+                        // if the iframe is ever updated to read it). Users see all games and click their choice.
+                        // For FAWK-type games (provider-specific routing), extend this switch when catalog gains those.
+
+                        var commonQs = 'token=' + response.data.token
+                            + '&operatorId=' + response.data.operatorId
+                            + '&language=en&stakes=' + this.$scope.stakes
+                            + '&oneclickstakes=' + this.$scope.oneClick
+                            + '&homeurl=' + encodeURIComponent(homeUrl)
+                            + '&logo=' + encodeURIComponent(logo);
+
                         var gameUrl = '';
-                        if (tableId) {
-                            var path = this.isMobile.any ? 'eg/2/list/-1' : 'list/-1';
+                        if (pendingGame && pendingGame.providerId) {
+                            // Direct provider-specific route (e.g. fs/hm/2/fawk/{uniqueKey} for FAWK,
+                            // fs/hm/2/game-market/{id} for Fairdeal live tables). Skips the generic lobby.
+                            var route = services.GameListService.buildIframeRoute(pendingGame, !!this.isMobile.any);
+                            gameUrl = this.settings.FairXIFrameUrl + route + '?' + commonQs;
+                        } else if (tableId) {
+                            var tableQs = '&tableId=' + encodeURIComponent(tableId);
                             if (this.isMobile.any) {
-                                gameUrl = this.settings.FairXIFrameUrl + 'fs/mhome/' + path + '?token='
-                                    + response.data.token
-                                    + '&tableId=' + tableId
-                                    + '&operatorId=' + response.data.operatorId
-                                    + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
+                                gameUrl = this.settings.FairXIFrameUrl + 'fs/mhome/eg/2/list/-1?' + commonQs + tableQs;
                             } else {
-                                gameUrl = this.settings.FairXIFrameUrl + 'fs/hm/2/' + path + '?token='
-                                    + response.data.token
-                                    + '&tableId=' + tableId
-                                    + '&operatorId=' + response.data.operatorId
-                                    + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
+                                gameUrl = this.settings.FairXIFrameUrl + 'fs/hm/2/list/-1?' + commonQs + tableQs;
                             }
                         } else {
-                            gameUrl = this.settings.FairXIFrameUrl + 'fs?token='
-                                + response.data.token
-                                + '&operatorId=' + response.data.operatorId
-                                + '&language=en&stakes=' + this.$scope.stakes + '&oneclickstakes=' + this.$scope.oneClick + '&homeurl=' + encodeURIComponent(homeUrl) + '&logo=' + encodeURIComponent(logo);
+                            gameUrl = this.settings.FairXIFrameUrl + 'fs?' + commonQs;
                         }
 
                         // Direct redirect to the game URL (no iframe wrapper)
                         this.commonDataService.setGameId('');
+                        this.commonDataService.setPendingGame(null);
                         this.$window.location.href = gameUrl;
                     } else {
                         this.toasterService.showMessages(response.messages);

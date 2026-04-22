@@ -86,6 +86,15 @@
         vimplayGamesSwiper: any;
         swiperPrev: (key: string) => void;
         swiperNext: (key: string) => void;
+
+        // Dynamic game sections (null = loading, [] = empty/failed, Game[] = loaded).
+        bigWins: services.IGame[] | null;
+        fairbetGames: services.IGame[] | null;
+        auraGames: services.IGame[] | null;
+        vimplayGames: services.IGame[] | null;
+        gameFallbackImage: string;
+        bigWinsTones: string[];
+        bigWinsTags: string[];
     }
 
     export class PromoCtrl extends intranet.common.BetControllerBase<IPromoScope>
@@ -118,6 +127,7 @@
             private eventTypeService: services.EventTypeService,
             private websiteService: services.WebsiteService,
             private offerService: services.OfferService,
+            private gameListService: services.GameListService,
             private $state: ng.ui.IStateService) {
             super($scope);
 
@@ -223,6 +233,23 @@
             this.$scope.timezone = common.helpers.CommonHelper.getTimeZone();
             this.$scope.selectedTimezone = this.$scope.timezone;
 
+            // Dynamic game sections — start in loading state; populated by loadGameSections().
+            this.$scope.bigWins = null;
+            this.$scope.fairbetGames = null;
+            this.$scope.auraGames = null;
+            this.$scope.vimplayGames = null;
+            this.$scope.gameFallbackImage = this.$scope.webImagePath + 'casino/img/placeholder.jpg';
+            // Visual tone cycling for Big Wins cards (matches the hardcoded palette that was there before).
+            this.$scope.bigWinsTones = [
+                'tone-copper','tone-gold','tone-lime','tone-ruby','tone-violet','tone-olive',
+                'tone-plum','tone-sand','tone-orange','tone-fuchsia','tone-amber','tone-emerald',
+                'tone-flame','tone-aqua'
+            ];
+            this.$scope.bigWinsTags = [
+                'tag-coral','tag-gold','tag-lime','tag-ruby','tag-violet','tag-olive',
+                'tag-plum','tag-sand','tag-orange','tag-fuchsia','tag-amber','tag-emerald',
+                'tag-flame','tag-aqua'
+            ];
         }
 
         public loadInitialData() {
@@ -566,13 +593,68 @@
                         }
                     }
                 }).finally(() => {
-                    if (this.settings.ThemeName == 'sports') { this.setSwiperForSports(); }
+                    if (this.settings.ThemeName == 'sports') {
+                        this.setSwiperForSports();
+                        this.loadGameSections();
+                    }
                     if (this.$scope.captchaMode == common.enums.CaptchaMode.System) {
                         this.getCaptcha();
                     } else if (this.$scope.captchaMode == common.enums.CaptchaMode.GoogleV2) {
                         this.addGoogleCaptcha();
                     }
                 });
+        }
+
+        // Fetches the four game sections in parallel and re-inits swipers once the DOM has the new slides.
+        // Each promise writes [] on failure so the template's empty-state path fires instead of spinning forever.
+        public loadGameSections(): void {
+            if (!this.gameListService) { return; }
+            var bigWins = this.gameListService.getRecentBigWins(24)
+                .then((games: services.IGame[]) => { this.$scope.bigWins = games || []; })
+                .catch(() => { this.$scope.bigWins = []; });
+
+            var fairbet = this.gameListService.getGamesByProvider(services.PROVIDER_FAIRBET)
+                .then((games: services.IGame[]) => { this.$scope.fairbetGames = games || []; })
+                .catch(() => { this.$scope.fairbetGames = []; });
+
+            var aura = this.gameListService.getGamesByProvider(services.PROVIDER_AURA)
+                .then((games: services.IGame[]) => { this.$scope.auraGames = games || []; })
+                .catch(() => { this.$scope.auraGames = []; });
+
+            var vimplay = this.gameListService.getGamesByProvider(services.PROVIDER_VIMPLAY)
+                .then((games: services.IGame[]) => { this.$scope.vimplayGames = games || []; })
+                .catch(() => { this.$scope.vimplayGames = []; });
+
+            this.$q.all([bigWins, fairbet, aura, vimplay]).finally(() => {
+                // Re-init swipers on the next tick so they see the rendered ng-repeat slides.
+                this.$timeout(() => { this.setSwiperForSports(); }, 0);
+            });
+        }
+
+        // Click handler for the 4 dynamic sections.
+        // - If backend returned a ready-to-open directGameUrl (logged-in users or public-launch games),
+        //   redirect to it without opening an iframe.
+        // - Otherwise fall back to the existing openCasinoGame(tableId) flow, which stashes the
+        //   tableId in localStorage and opens the login modal. This is the same behavior the old
+        //   hardcoded cards had — required because the promo page forces logout on init and the
+        //   upstream endpoint isn't callable anonymously.
+        public openGame(game: services.IGame): void {
+            if (!game) { return; }
+            if (game.directGameUrl) {
+                this.$window.open(game.directGameUrl, '_blank');
+                return;
+            }
+            if (game.tableId) {
+                // Stash the full game so after login we route directly to the right provider view.
+                this.localStorageHelper.set('pending_casino_game_meta', {
+                    tableId:    game.tableId,
+                    uniqueKey:  game.uniqueKey || '',
+                    providerId: game.providerId || 0,
+                    isVirtual:  !!game.isVirtual,
+                    name:       game.name || '',
+                });
+                this.openCasinoGame(game.tableId);
+            }
         }
 
         private clearModelObjects(): void {
@@ -610,6 +692,8 @@
         public sidebarOpen: boolean = false;
         public searchOpen: boolean = false;
         public activeSubmenu: string = '';
+        public supportFlyoutOpen: boolean = false;
+        public sportsFlyoutOpen: boolean = false;
 
         public toggleSidebar(): void {
             this.sidebarOpen = !this.sidebarOpen;
@@ -652,6 +736,23 @@
 
         public searchEvents(query: string): void {
             // Search handled by existing search logic if available
+        }
+
+        public toggleSupportFlyout($event?: any): void {
+            if ($event && $event.stopPropagation) $event.stopPropagation();
+            this.sportsFlyoutOpen = false;
+            this.supportFlyoutOpen = !this.supportFlyoutOpen;
+        }
+
+        public toggleSportsFlyout($event?: any): void {
+            if ($event && $event.stopPropagation) $event.stopPropagation();
+            this.supportFlyoutOpen = false;
+            this.sportsFlyoutOpen = !this.sportsFlyoutOpen;
+        }
+
+        public closeIconFlyouts(): void {
+            this.supportFlyoutOpen = false;
+            this.sportsFlyoutOpen = false;
         }
 
         public toggleTheme(): void {
@@ -1010,19 +1111,17 @@
 
                                 this.checkAgentBanners();
 
-                                // Check if user clicked a casino game before login
-                                var pendingGame = this.localStorageHelper.get('pending_casino_game');
-                                if (pendingGame) {
-                                    this.localStorageHelper.set('pending_casino_game', '');
-                                    this.commonDataService.setGameId(pendingGame);
-                                    if (this.isMobile.any) {
-                                        this.$state.go('mobile.base.fdlivegames');
-                                    } else {
-                                        this.$state.go('base.livegames');
-                                    }
-                                }
+                                // Clear any pending-casino-game hints from the promo click path so
+                                // they don't leak into the home session. Post-login always routes to
+                                // the home page; users click the specific game from there (where
+                                // MarketHighlightCtrl.openGame handles the direct-table launch).
+                                this.localStorageHelper.set('pending_casino_game', '');
+                                this.localStorageHelper.set('pending_casino_game_meta', '');
+                                this.commonDataService.setGameId('');
+                                this.commonDataService.setPendingGame(null);
+
                                 // redirect to respective panel
-                                else if (this.isMobile.any) {
+                                if (this.isMobile.any) {
                                     if (this.settings.ThemeName == 'bking' || this.settings.ThemeName == 'lotus') {
                                         this.$state.go('mobile.seven.base.home');
                                     }

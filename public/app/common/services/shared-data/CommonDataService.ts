@@ -534,6 +534,11 @@
             var remember = this.localStorageHelper.get('remember_' + this.settings.WebApp);
             var promo_banner = this.localStorageHelper.get('agent_banner_' + this.settings.WebApp);
             var last_LoginMethod = this.localStorageHelper.get('loginmethod_' + this.settings.WebApp);
+            // Preserve pending casino game so a wrong-password attempt (which 401s and triggers
+            // clearStorage via ConcurrencyService.fetchTokenFromResponsePromise) doesn't drop the
+            // user on home.base.home after they retry and log in successfully.
+            var pending_casino_game = this.localStorageHelper.get('pending_casino_game');
+            var pending_casino_game_meta = this.localStorageHelper.get('pending_casino_game_meta');
 
             this.openBets = [];
             this.userPLs = [];
@@ -548,6 +553,8 @@
             if (remember) { this.localStorageHelper.set('remember_' + this.settings.WebApp, remember); }
             if (promo_banner) { this.localStorageHelper.set('agent_banner_' + this.settings.WebApp, promo_banner); }
             if (last_LoginMethod > 0) { this.localStorageHelper.set('loginmethod_' + this.settings.WebApp, last_LoginMethod); }
+            if (pending_casino_game) { this.localStorageHelper.set('pending_casino_game', pending_casino_game); }
+            if (pending_casino_game_meta) { this.localStorageHelper.set('pending_casino_game_meta', pending_casino_game_meta); }
         }
 
 
@@ -1247,6 +1254,12 @@
         private tableId = '';
         public setGameId(tableId) { this.tableId = tableId; }
         public getGameId(): any { return this.tableId; }
+
+        // Full pending-game payload so LiveGameDemoCtrl can route directly to the provider-specific
+        // iframe view (FAWK needs uniqueKey, Fairdeal live vs virtual differs, etc).
+        private pendingGame: any = null;
+        public setPendingGame(game: any) { this.pendingGame = game; }
+        public getPendingGame(): any { return this.pendingGame; }
 
         public copyText(txt) {
             // creating textarea of html

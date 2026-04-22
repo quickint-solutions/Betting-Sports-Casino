@@ -25,6 +25,15 @@ module intranet.home {
         webImagePath: any;
 
         isRequestProcessing: boolean;
+
+        // Dynamic game sections (null = loading, [] = empty/failed, Game[] = loaded). Mirrors promo page.
+        bigWins: services.IGame[] | null;
+        fairbetGames: services.IGame[] | null;
+        auraGames: services.IGame[] | null;
+        vimplayGames: services.IGame[] | null;
+        gameFallbackImage: string;
+        bigWinsTones: string[];
+        bigWinsTags: string[];
     }
 
     export class MarketHighlightCtrl extends intranet.common.BetControllerBase<IMarketHighlightScope>
@@ -45,7 +54,9 @@ module intranet.home {
             public settings: common.IBaseSettings,
             public betService: services.BetService,
             public modalService: common.services.ModalService,
-            private $q: ng.IQService) {
+            private $q: ng.IQService,
+            private gameListService: services.GameListService,
+            private fdService: services.FDService) {
             super($scope);
 
             var place_bet_started = this.$rootScope.$on("place-bet-started", (event, data) => { this.betProcessStarted(data.marketId); });
@@ -97,6 +108,83 @@ module intranet.home {
             this.$scope.highlights = [];
             this.$scope.imagePath = this.settings.ImagePath;
             this.$scope.webImagePath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/';
+
+            // Dynamic game sections — same contract as PromoCtrl so the shared SCSS/markup reuse works.
+            this.$scope.bigWins = null;
+            this.$scope.fairbetGames = null;
+            this.$scope.auraGames = null;
+            this.$scope.vimplayGames = null;
+            this.$scope.gameFallbackImage = this.$scope.webImagePath + 'casino/img/placeholder.jpg';
+            this.$scope.bigWinsTones = [
+                'tone-copper','tone-gold','tone-lime','tone-ruby','tone-violet','tone-olive',
+                'tone-plum','tone-sand','tone-orange','tone-fuchsia','tone-amber','tone-emerald',
+                'tone-flame','tone-aqua'
+            ];
+            this.$scope.bigWinsTags = [
+                'tag-coral','tag-gold','tag-lime','tag-ruby','tag-violet','tag-olive',
+                'tag-plum','tag-sand','tag-orange','tag-fuchsia','tag-amber','tag-emerald',
+                'tag-flame','tag-aqua'
+            ];
+        }
+
+        // Home page: authenticate via FDService, then fetch the real FairX catalog.
+        // On any failure, falls back to the static catalog (identical UI, just bundled data).
+        public loadGameSections(): void {
+            if (!this.gameListService) { return; }
+            this.fdService.launchFairDeal()
+                .success((response: common.messaging.IResponse<any>) => {
+                    if (!response || !response.success || !response.data || !response.data.token) {
+                        this.loadGameSectionsFromCatalog();
+                        return;
+                    }
+                    this.gameListService.loadGamesWithFairDealToken(response.data.token, response.data.operatorId)
+                        .then((games: services.IGame[]) => {
+                            this.applyGameSections(games || []);
+                        })
+                        .catch(() => { this.loadGameSectionsFromCatalog(); });
+                })
+                .error(() => { this.loadGameSectionsFromCatalog(); });
+        }
+
+        private applyGameSections(games: services.IGame[]): void {
+            this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
+            this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
+            this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
+            this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
+            this.$timeout(() => { this.setSwiperForSports(); }, 0);
+        }
+
+        private loadGameSectionsFromCatalog(): void {
+            var bigWins = this.gameListService.getRecentBigWins(24)
+                .then((games: services.IGame[]) => { this.$scope.bigWins = games || []; })
+                .catch(() => { this.$scope.bigWins = []; });
+            var fairbet = this.gameListService.getGamesByProvider(services.PROVIDER_FAIRBET)
+                .then((games: services.IGame[]) => { this.$scope.fairbetGames = games || []; })
+                .catch(() => { this.$scope.fairbetGames = []; });
+            var aura = this.gameListService.getGamesByProvider(services.PROVIDER_AURA)
+                .then((games: services.IGame[]) => { this.$scope.auraGames = games || []; })
+                .catch(() => { this.$scope.auraGames = []; });
+            var vimplay = this.gameListService.getGamesByProvider(services.PROVIDER_VIMPLAY)
+                .then((games: services.IGame[]) => { this.$scope.vimplayGames = games || []; })
+                .catch(() => { this.$scope.vimplayGames = []; });
+            this.$q.all([bigWins, fairbet, aura, vimplay]).finally(() => {
+                this.$timeout(() => { this.setSwiperForSports(); }, 0);
+            });
+        }
+
+        // Click handler for the 4 dynamic sections on home.
+        // Stores the full game so LiveGameDemoCtrl can build the provider-specific direct URL
+        // (e.g. fs/hm/2/fawk/{uniqueKey} for FAWK games instead of the generic lobby hint).
+        public openGame(game: services.IGame): void {
+            if (!game) { return; }
+            if (game.directGameUrl) {
+                (window as any).open(game.directGameUrl, '_blank');
+                return;
+            }
+            if (game.tableId) {
+                this.commonDataService.setPendingGame(game);
+                this.openCasino(game.tableId);
+            }
         }
 
         public loadInitialData() {
@@ -111,6 +199,7 @@ module intranet.home {
                     }
                     if (this.settings.ThemeName == 'sports') {
                         this.setSwiperForSports();
+                        this.loadGameSections();
                     }
                     if (this.settings.ThemeName == 'dimd2') {
                         waitForElement('highlight_carousel', function () {

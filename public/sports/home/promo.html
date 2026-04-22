@@ -87,6 +87,9 @@
         <!-- ===== SIDEBAR OVERLAY ===== -->
         <div class="sidebar-overlay" ng-class="{'active': ctrl.sidebarOpen}" ng-click="ctrl.toggleSidebar()"></div>
 
+        <!-- ===== ICON FLYOUT OVERLAY (closes Support/Sports popup on outside click) ===== -->
+        <div class="support-flyout-overlay" ng-if="ctrl.supportFlyoutOpen || ctrl.sportsFlyoutOpen" ng-click="ctrl.closeIconFlyouts()"></div>
+
         <!-- ===== LEFT SIDEBAR ===== -->
         <div class="leftbarSec" ng-class="{'open': ctrl.sidebarOpen}">
             <ul class="sidebar-menu">
@@ -237,17 +240,17 @@
                 <!-- Terms (Accordion) -->
                 <li class="sidebar-item has-submenu">
                     <a class="sidebar-link accordion-trigger" ng-click="ctrl.toggleSubmenu('terms')" ng-class="{'expanded': ctrl.activeSubmenu === 'terms'}">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/termsandconditions.webp" alt="Terms" /></span>
+                        <span class="sidebar-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
                         <span class="sidebar-text">Terms</span>
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'terms'}"></i>
                     </a>
                     <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'terms'}">
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/contactus.webp" alt="Contact Us" /></span> <span>Contact Us</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/privacypolicy.webp" alt="Privacy Policy" /></span> <span>Privacy Policy</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/responsible.webp" alt="Responsible Gaming" /></span> <span>Responsible Gaming</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/fairplay.webp" alt="Fairplay" /></span> <span>Fairplay</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/gamesrules.webp" alt="Games Rules" /></span> <span>Games Rules</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/termsandconditions.webp" alt="Terms and Conditions" /></span> <span>Terms and Conditions</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span> <span>Contact Us</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-lock" aria-hidden="true"></i></span> <span>Privacy Policy</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></span> <span>Responsible Gaming</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span> <span>Fairplay</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-book" aria-hidden="true"></i></span> <span>Games Rules</span></a></li>
+                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span> <span>Terms and Conditions</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -256,15 +259,43 @@
         <!-- ===== PERMANENT ICON SIDEBAR (Desktop) ===== -->
         <div class="icon-sidebar d-none d-md-block">
             <ul>
-                <li ng-if="supportDetail.whatsapp">
-                    <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank" title="WhatsApp">
-                        <img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" />
+                <li ng-if="supportDetail" class="support-flyout-wrap" ng-class="{'open': ctrl.supportFlyoutOpen}">
+                    <a ng-click="ctrl.toggleSupportFlyout($event)" title="Support" class="support-icon-btn">
+                        <i class="fa fa-headphones"></i>
                     </a>
+                    <div class="support-flyout-popup" ng-class="{'open': ctrl.supportFlyoutOpen}">
+                        <a ng-href="{{supportDetail.whatsapp ? 'https://wa.me/' + supportDetail.whatsapp : '#'}}" target="_blank" title="Whatsapp" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" />
+                        </a>
+                        <a ng-href="{{supportDetail.telegram || '#'}}" target="_blank" title="Telegram" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/telegram.svg" alt="Telegram" />
+                        </a>
+                        <a ng-href="{{supportDetail.instagram || '#'}}" target="_blank" title="Instagram" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/instagram.svg" alt="Instagram" />
+                        </a>
+                        <a ng-href="{{supportDetail.facebook || '#'}}" target="_blank" title="Facebook" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/facebook.svg" alt="Facebook" />
+                        </a>
+                    </div>
                 </li>
-                <li>
-                    <a ui-sref="promo.inplay" title="Sports">
+                <li class="sports-flyout-wrap" ng-class="{'open': ctrl.sportsFlyoutOpen}">
+                    <a ng-click="ctrl.toggleSportsFlyout($event)" title="Sports">
                         <img src="/public/images/drpapaya/sidebar/cricket.webp" alt="Sports" />
                     </a>
+                    <div class="support-flyout-popup sports" ng-class="{'open': ctrl.sportsFlyoutOpen}">
+                        <a ui-sref="promo.inplay" ng-click="ctrl.closeIconFlyouts()" title="In-play" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/inplay.webp" alt="In-play" />
+                        </a>
+                        <a ng-click="ctrl.menuClick(4, 'Cricket'); ctrl.closeIconFlyouts();" title="Cricket" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/cricket.webp" alt="Cricket" />
+                        </a>
+                        <a ng-click="ctrl.menuClick(1, 'Soccer'); ctrl.closeIconFlyouts();" title="Soccer" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/soccer.webp" alt="Soccer" />
+                        </a>
+                        <a ng-click="ctrl.menuClick(2, 'Tennis'); ctrl.closeIconFlyouts();" title="Tennis" class="social-chip">
+                            <img src="/public/images/drpapaya/sidebar/tennis.webp" alt="Tennis" />
+                        </a>
+                    </div>
                 </li>
                 <li ng-if="hasCasino">
                     <a ng-click="ctrl.openCasinoGame('mines')" title="Mines">
@@ -337,10 +368,9 @@
         <!-- Announcement Banner (after header) -->
         <div class="announcement-banner" ng-if="announcement">
             <div class="announcement-banner-inner">
-                <span class="announcement-icon">
-                    <img ng-src="{{webImagePath}}icons/announcement.png" alt="Announcement" />
+                <span class="announcement-icon" aria-label="Announcement">
+                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
                 </span>
-                <div class="announcement-label">Announcement</div>
                 <marquee class="announcement-text" scrollamount="4">{{announcement}}</marquee>
             </div>
         </div>

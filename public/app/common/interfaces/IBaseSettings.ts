@@ -55,6 +55,7 @@
         IsFirstLogin: any;
 
         FairXIFrameUrl: string;
+        FairXGameListUrl: string;
 
         IsMobileSeperate: boolean;
         MobileUrl: string;

@@ -72,7 +72,7 @@
             }
         }
 
-        private getCSRF(token: string): any {
+        public getCSRF(token: string): any {
             if (token) {
                 var key = CryptoJS.enc.Utf8.parse(token.substr(0, 32));
                 var iv = CryptoJS.enc.Utf8.parse(this.settings.CSRFKey);
