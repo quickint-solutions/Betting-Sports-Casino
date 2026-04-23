@@ -535,8 +535,38 @@
         }
     }
 
+    // Auth-modal validation / error messages — kt-messages renders a bare
+    // <table> inside an .alert-danger div, which ships with browser default
+    // table padding and a full-width wrapper. Scope it here so the "Username
+    // or Password is wrong" banner stays compact and fits the form width.
+    .dialog-content .alert-wrapper,
+    .dialog-content kt-messages .alert-wrapper {
+        padding: 0 !important;
+        margin: 0 0 10px !important;
+        width: 100%;
+        max-width: 100%;
+    }
+    .dialog-content .alert {
+        padding: 8px 12px !important;
+        margin: 0 !important;
+        font-size: 13px;
+        line-height: 1.4;
+
+        table {
+            width: 100%;
+            margin: 0;
+            border-collapse: collapse;
+
+            td {
+                padding: 0;
+                border: 0;
+            }
+        }
+    }
+
     .div-input .drp-login-method {
         position: absolute;
+        top: 0;
         right: 0;
         height: 50px;
         display: flex;
@@ -547,18 +577,30 @@
             color: #fff;
         }
 
+        // Bootstrap's default dropdown-menu styles are overridden elsewhere, so pin
+        // this menu absolutely below the toggle. Without these it flows inline and
+        // squeezes between the password / captcha rows.
         .dropdown-menu {
-            width: 95px;
-            min-width: 95px;
+            position: absolute;
+            top: 100%;
+            left: auto;    // override Bootstrap's default `left: 0` which wins over our `right: 0`
+            right: 0;
+            margin-top: 4px;
+            z-index: 100;
+            display: none;
+            width: 140px;
+            min-width: 140px;
+            white-space: nowrap;
             background-color: #1e2121;
             border: 1px solid #3a4142;
             border-radius: 8px;
             padding: 4px 0;
             font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
             .dropdown-item {
-                width: 95px;
-                padding: 8px 10px;
+                width: 100%;
+                padding: 8px 12px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -577,13 +619,15 @@
             }
 
             .fa {
-                right: 0;
-                margin-right: 5px;
+                position: static;
+                right: auto;
+                top: auto;
+                margin-right: 8px;
             }
         }
 
         &.open > .dropdown-menu {
-            display: unset;
+            display: block;
         }
 
         .fa {

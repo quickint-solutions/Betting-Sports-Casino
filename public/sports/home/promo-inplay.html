@@ -1,7 +1,7 @@
 ﻿
 
 <div>
-    <div class="main-tabs" ng-init="ctrl.selectedEventType=sports[0].id">
+    <div class="main-tabs" ng-if="sports.length" ng-init="ctrl.selectedEventType = (findSportIdByName(sports, initialTabName) || sports[0].id)">
         <div class="game-list swiper-container swiper-container-horizontal" id="swiper8">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" ng-repeat="e in sports ">

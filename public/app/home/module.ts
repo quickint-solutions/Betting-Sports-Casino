@@ -306,7 +306,10 @@
 
                 })
                 .state('base.home.inplay', {
-                    url: 'inplay',
+                    url: 'inplay?tab',
+                    params: {
+                        tab: { squash: true, value: null }
+                    },
                     views: {
                         "center@base.home": {
                             controller: 'inplayCtrl',
@@ -526,7 +529,10 @@
                     }
                 })
                 .state('base.casino', {
-                    url: '/casino',
+                    url: '/casino?provider',
+                    params: {
+                        provider: { squash: true, value: null }
+                    },
                     views: {
                         "main@base": {
                             controller: 'promoSportsCtrl',
@@ -552,7 +558,10 @@
                     }
                 })
                 .state('base.slotcasino', {
-                    url: '/slot-casino',
+                    url: '/slot-casino?provider',
+                    params: {
+                        provider: { squash: true, value: null }
+                    },
                     views: {
                         "main@base": {
                             controller: 'promoSportsCtrl',
@@ -840,7 +849,10 @@
                     }
                 })
                 .state('promo.inplay', {
-                    url: '/inplay',
+                    url: '/inplay?tab',
+                    params: {
+                        tab: { squash: true, value: null }
+                    },
                     views: {
                         "homecenter@promo": {
                             controller: 'promoSportsCtrl',
@@ -853,7 +865,10 @@
                     }
                 })
                 .state('promo.casino', {
-                    url: '/casino',
+                    url: '/casino?provider',
+                    params: {
+                        provider: { squash: true, value: null }
+                    },
                     views: {
                         "center@promo": {
                             controller: 'promoSportsCtrl',
@@ -879,7 +894,10 @@
                     }
                 })
                 .state('promo.slotcasino', {
-                    url: '/slot-casino',
+                    url: '/slot-casino?provider',
+                    params: {
+                        provider: { squash: true, value: null }
+                    },
                     views: {
                         "center@promo": {
                             controller: 'promoSportsCtrl',

@@ -856,6 +856,33 @@
             this.openModal('login-modal');
         }
 
+        // On the promo (logged-out) page, every provider click prompts the user to log
+        // in first. After login they'll land on the home flow where the same sidebar
+        // items navigate to base.casino/base.slotcasino with the provider filter applied.
+        public openCasinoProvider(key: string): void {
+            this.localStorageHelper.set('pending_casino_provider', key);
+            this.closeSidebar();
+            this.openModal('login-modal');
+        }
+
+        // Bonus / Promotion pages require a logged-in account. On the promo
+        // flow, open the login modal instead of the (nonexistent) bonus page.
+        public openBonus(): void {
+            this.closeSidebar();
+            this.openModal('login-modal');
+        }
+
+        public openPromotions(): void {
+            this.closeSidebar();
+            this.openModal('login-modal');
+        }
+
+        public openSportTab(tab: string): void {
+            this.$state.go('promo.inplay', { tab: tab });
+            this.closeSidebar();
+            this.closeIconFlyouts();
+        }
+
         public getCaptcha(refresh: boolean = true) {
             if (this.$scope.refreshCaptcha) { this.$timeout.cancel(this.$scope.refreshCaptcha); }
             this.userService.getCaptcha()

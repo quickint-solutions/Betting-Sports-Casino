@@ -19,6 +19,17 @@
 
     export class InplayCtrl extends intranet.common.BetControllerBase<IInplayScope>
         implements intranet.common.init.IInit {
+
+        // URL ?tab=<name> → filter name, e.g. 'cricket' → 'Cricket'.
+        private static SPORT_TAB_MAP: { [key: string]: string } = {
+            cricket: 'Cricket',
+            soccer: 'Football',
+            football: 'Football',
+            tennis: 'Tennis',
+            horse: 'Horse Racing',
+            greyhound: 'Greyhound Racing'
+        };
+
         constructor($scope: IInplayScope,
             private marketOddsService: services.MarketOddsService,
             public $timeout: ng.ITimeoutService,
@@ -31,7 +42,8 @@
             public toasterService: intranet.common.services.ToasterService,
             public commonDataService: common.services.CommonDataService,
             public settings: common.IBaseSettings,
-            public betService: services.BetService) {
+            public betService: services.BetService,
+            private $stateParams: any) {
             super($scope);
 
             var place_bet_started = this.$rootScope.$on("place-bet-started", (event, data) => { this.betProcessStarted(data.marketId); });
@@ -197,7 +209,11 @@
                 if (this.$scope.filters.length > 0) {
                     this.$scope.filters = this.$scope.filters.filter((a: any) => { return a.displayOrder > 0 && a.id != this.settings.HorseRacingId && a.id != this.settings.GreyhoundId; });
                     this.$scope.filters.forEach((a: any) => { a.checked = true; });
-                    this.$scope.selectedEventType = this.$scope.filters[0].id;
+                    // Honor ?tab=<sport> — pick the matching filter if present, else default to the first one.
+                    var tabParam = this.$stateParams && this.$stateParams.tab ? String(this.$stateParams.tab).toLowerCase() : '';
+                    var targetName = InplayCtrl.SPORT_TAB_MAP[tabParam];
+                    var match = targetName ? this.$scope.filters.filter((a: any) => a.name === targetName)[0] : null;
+                    this.$scope.selectedEventType = match ? match.id : this.$scope.filters[0].id;
                     if (this.settings.ThemeName == 'sports') { this.setSwiperForSports(); }
                 }
 

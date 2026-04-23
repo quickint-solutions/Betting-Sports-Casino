@@ -138,17 +138,17 @@
                             </a>
                         </li>
                         <li>
-                            <a ng-click="ctrl.menuClick(4, 'Cricket'); ctrl.closeSidebar();">
+                            <a ng-click="ctrl.openSportTab('cricket')">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/cricket.webp" alt="Cricket" /></span> <span>Cricket</span>
                             </a>
                         </li>
                         <li>
-                            <a ng-click="ctrl.menuClick(1, 'Soccer'); ctrl.closeSidebar();">
+                            <a ng-click="ctrl.openSportTab('soccer')">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/soccer.webp" alt="Soccer" /></span> <span>Soccer</span>
                             </a>
                         </li>
                         <li>
-                            <a ng-click="ctrl.menuClick(2, 'Tennis'); ctrl.closeSidebar();">
+                            <a ng-click="ctrl.openSportTab('tennis')">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/tennis.webp" alt="Tennis" /></span> <span>Tennis</span>
                             </a>
                         </li>
@@ -157,69 +157,105 @@
 
                 <!-- Casino Game Links -->
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('mines'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/mines.webp" alt="Mines" /></span>
-                        <span class="sidebar-text">Mines</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ui-sref="promo.casino" ng-click="ctrl.closeSidebar()">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('')">
                         <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/casino.webp" alt="Casino" /></span>
                         <span class="sidebar-text">Casino</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ui-sref="promo.slotcasino" ng-click="ctrl.closeSidebar()">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('')">
                         <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/slots.webp" alt="Slots" /></span>
                         <span class="sidebar-text">Slots</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('kingmaker'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/kingmaker.webp" alt="Kingmaker" /></span>
-                        <span class="sidebar-text">Kingmaker</span>
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('virtual-casino')">
+                        <span class="sidebar-icon"><i class="fa fa-gamepad" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Virtual Casino</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('supernowa'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/casino.webp" alt="Supernowa" /></span>
-                        <span class="sidebar-text">Supernowa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('aviator'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/aviator.webp" alt="Aviator" /></span>
-                        <span class="sidebar-text">Aviator</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('evolution'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/evolution.webp" alt="Evolution" /></span>
-                        <span class="sidebar-text">Evolution</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('ezugi'); ctrl.closeSidebar();">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('ezugi')">
                         <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/ezugi.webp" alt="Ezugi" /></span>
                         <span class="sidebar-text">Ezugi</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('xpg'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/xpg.webp" alt="XPG" /></span>
-                        <span class="sidebar-text">XPG</span>
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('aura-casino')">
+                        <span class="sidebar-icon"><i class="fa fa-diamond" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Aura Casino</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('vivo'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/vivo.webp" alt="Vivo" /></span>
-                        <span class="sidebar-text">Vivo</span>
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('supernova')">
+                        <span class="sidebar-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Supernova</span>
                     </a>
                 </li>
                 <li class="sidebar-item" ng-if="hasCasino">
-                    <a class="sidebar-link" ng-click="ctrl.openCasinoGame('qtech'); ctrl.closeSidebar();">
-                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/qtech.webp" alt="Qtech" /></span>
-                        <span class="sidebar-text">Qtech</span>
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('evolution')">
+                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/evolution.webp" alt="Evolution" /></span>
+                        <span class="sidebar-text">Evolution</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('sa-gaming')">
+                        <span class="sidebar-icon"><i class="fa fa-cube" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">SA Gaming</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('vivo-gaming')">
+                        <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/vivo.webp" alt="Vivo Gaming" /></span>
+                        <span class="sidebar-text">Vivo Gaming</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('skywind-live')">
+                        <span class="sidebar-icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Skywind Live</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('betgames-tv')">
+                        <span class="sidebar-icon"><i class="fa fa-television" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Betgames.TV</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('beter-live')">
+                        <span class="sidebar-icon"><i class="fa fa-trophy" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">BETER Live</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('table-games')">
+                        <span class="sidebar-icon"><i class="fa fa-th" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Table Games</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('instant-win')">
+                        <span class="sidebar-icon"><i class="fa fa-bolt" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Instant Win</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('scratch-games')">
+                        <span class="sidebar-icon"><i class="fa fa-ticket" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Scratch Games</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('lottery-shooting')">
+                        <span class="sidebar-icon"><i class="fa fa-crosshairs" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Lottery &amp; Shooting</span>
+                    </a>
+                </li>
+                <li class="sidebar-item" ng-if="hasCasino">
+                    <a class="sidebar-link" ng-click="ctrl.openCasinoProvider('exchange')">
+                        <span class="sidebar-icon"><i class="fa fa-exchange" aria-hidden="true"></i></span>
+                        <span class="sidebar-text">Exchange</span>
                     </a>
                 </li>
 
@@ -245,12 +281,12 @@
                         <i class="fa fa-chevron-down submenu-arrow" ng-class="{'rotated': ctrl.activeSubmenu === 'terms'}"></i>
                     </a>
                     <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'terms'}">
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span> <span>Contact Us</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-lock" aria-hidden="true"></i></span> <span>Privacy Policy</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></span> <span>Responsible Gaming</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span> <span>Fairplay</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-book" aria-hidden="true"></i></span> <span>Games Rules</span></a></li>
-                        <li><a ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span> <span>Terms and Conditions</span></a></li>
+                        <li><a ui-sref="promo.publink.aboutus" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span> <span>Contact Us</span></a></li>
+                        <li><a ui-sref="promo.publink.privacypolicy" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-lock" aria-hidden="true"></i></span> <span>Privacy Policy</span></a></li>
+                        <li><a ui-sref="promo.publink.responsiblegambling" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></span> <span>Responsible Gaming</span></a></li>
+                        <li><a ui-sref="promo.publink.termscondition" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span> <span>Fairplay</span></a></li>
+                        <li><a ui-sref="promo.publink.kyc" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-book" aria-hidden="true"></i></span> <span>Games Rules</span></a></li>
+                        <li><a ui-sref="promo.publink.termscondition" ng-click="ctrl.closeSidebar()"><span class="sidebar-icon"><i class="fa fa-gavel" aria-hidden="true"></i></span> <span>Terms and Conditions</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -286,70 +322,100 @@
                         <a ui-sref="promo.inplay" ng-click="ctrl.closeIconFlyouts()" title="In-play" class="social-chip">
                             <img src="/public/images/drpapaya/sidebar/inplay.webp" alt="In-play" />
                         </a>
-                        <a ng-click="ctrl.menuClick(4, 'Cricket'); ctrl.closeIconFlyouts();" title="Cricket" class="social-chip">
+                        <a ng-click="ctrl.openSportTab('cricket')" title="Cricket" class="social-chip">
                             <img src="/public/images/drpapaya/sidebar/cricket.webp" alt="Cricket" />
                         </a>
-                        <a ng-click="ctrl.menuClick(1, 'Soccer'); ctrl.closeIconFlyouts();" title="Soccer" class="social-chip">
+                        <a ng-click="ctrl.openSportTab('soccer')" title="Soccer" class="social-chip">
                             <img src="/public/images/drpapaya/sidebar/soccer.webp" alt="Soccer" />
                         </a>
-                        <a ng-click="ctrl.menuClick(2, 'Tennis'); ctrl.closeIconFlyouts();" title="Tennis" class="social-chip">
+                        <a ng-click="ctrl.openSportTab('tennis')" title="Tennis" class="social-chip">
                             <img src="/public/images/drpapaya/sidebar/tennis.webp" alt="Tennis" />
                         </a>
                     </div>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('mines')" title="Mines">
-                        <img src="/public/images/drpapaya/sidebar/mines.webp" alt="Mines" />
-                    </a>
-                </li>
-                <li ng-if="hasCasino">
-                    <a ui-sref="promo.casino" title="Casino">
+                    <a ng-click="ctrl.openCasinoProvider('')" title="Casino">
                         <img src="/public/images/drpapaya/sidebar/casino.webp" alt="Casino" />
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ui-sref="promo.slotcasino" title="Slots">
+                    <a ng-click="ctrl.openCasinoProvider('')" title="Slots">
                         <img src="/public/images/drpapaya/sidebar/slots.webp" alt="Slots" />
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('kingmaker')" title="Kingmaker">
-                        <img src="/public/images/drpapaya/sidebar/kingmaker.webp" alt="Kingmaker" />
+                    <a ng-click="ctrl.openCasinoProvider('virtual-casino')" title="Virtual Casino">
+                        <i class="fa fa-gamepad" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('supernowa')" title="Supernowa">
-                        <img src="/public/images/drpapaya/sidebar/casino.webp" alt="Supernowa" />
-                    </a>
-                </li>
-                <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('aviator')" title="Aviator">
-                        <img src="/public/images/drpapaya/sidebar/aviator.webp" alt="Aviator" />
-                    </a>
-                </li>
-                <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('evolution')" title="Evolution">
-                        <img src="/public/images/drpapaya/sidebar/evolution.webp" alt="Evolution" />
-                    </a>
-                </li>
-                <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('ezugi')" title="Ezugi">
+                    <a ng-click="ctrl.openCasinoProvider('ezugi')" title="Ezugi">
                         <img src="/public/images/drpapaya/sidebar/ezugi.webp" alt="Ezugi" />
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('xpg')" title="XPG">
-                        <img src="/public/images/drpapaya/sidebar/xpg.webp" alt="XPG" />
+                    <a ng-click="ctrl.openCasinoProvider('aura-casino')" title="Aura Casino">
+                        <i class="fa fa-diamond" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('vivo')" title="Vivo">
-                        <img src="/public/images/drpapaya/sidebar/vivo.webp" alt="Vivo" />
+                    <a ng-click="ctrl.openCasinoProvider('supernova')" title="Supernova">
+                        <i class="fa fa-star" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li ng-if="hasCasino">
-                    <a ng-click="ctrl.openCasinoGame('qtech')" title="Qtech">
-                        <img src="/public/images/drpapaya/sidebar/qtech.webp" alt="Qtech" />
+                    <a ng-click="ctrl.openCasinoProvider('evolution')" title="Evolution">
+                        <img src="/public/images/drpapaya/sidebar/evolution.webp" alt="Evolution" />
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('sa-gaming')" title="SA Gaming">
+                        <i class="fa fa-cube" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('vivo-gaming')" title="Vivo Gaming">
+                        <img src="/public/images/drpapaya/sidebar/vivo.webp" alt="Vivo Gaming" />
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('skywind-live')" title="Skywind Live">
+                        <i class="fa fa-cloud" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('betgames-tv')" title="Betgames.TV">
+                        <i class="fa fa-television" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('beter-live')" title="BETER Live">
+                        <i class="fa fa-trophy" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('table-games')" title="Table Games">
+                        <i class="fa fa-th" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('instant-win')" title="Instant Win">
+                        <i class="fa fa-bolt" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('scratch-games')" title="Scratch Games">
+                        <i class="fa fa-ticket" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('lottery-shooting')" title="Lottery &amp; Shooting">
+                        <i class="fa fa-crosshairs" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-if="hasCasino">
+                    <a ng-click="ctrl.openCasinoProvider('exchange')" title="Exchange">
+                        <i class="fa fa-exchange" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li>

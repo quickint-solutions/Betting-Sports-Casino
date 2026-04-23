@@ -56,6 +56,8 @@
 
         FairXIFrameUrl: string;
         FairXGameListUrl: string;
+        FairXOperatorId: string;      // tenant Mongo ID sent as `operator` header
+        FairXPrimaryToken: string;    // pre-shared tenant client token sent as `primary-token` header
 
         IsMobileSeperate: boolean;
         MobileUrl: string;

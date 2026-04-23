@@ -1186,7 +1186,11 @@ $icon-sidebar-width: 70px;
     bottom: 0;
     width: $icon-sidebar-width;
     background: $sidebar-bg;
-    z-index: 1000;
+    // Must be ABOVE .support-flyout-overlay (z-index 1050) so the flyout popup
+    // (a descendant, which creates its stacking order inside this context) isn't
+    // buried below the overlay. Otherwise clicks on WhatsApp/Telegram/Cricket…
+    // inside the flyout get swallowed by the overlay sitting visually on top.
+    z-index: 1200;
     overflow-y: auto;
     overflow-x: hidden;
     border-right: 1px solid rgba(255, 255, 255, 0.06);
@@ -1453,8 +1457,10 @@ li.sports-flyout-wrap {
         padding-right: 0;
     }
 
-    // Footer breaks out of the padding to go full-width
-    #footer-main {
+    // Footer breaks out of the 5% padding of .middle-block.home-page to go full-width.
+    // Scoped to that container — otherwise it extends under the icon sidebar on pages
+    // without the 5% padding (e.g., publink pages).
+    .middle-block.home-page #footer-main {
         margin-left: -5.264%;   // 5% / (100% - 5%) to cancel out the padding
         margin-right: -5.264%;
         padding-left: 0;

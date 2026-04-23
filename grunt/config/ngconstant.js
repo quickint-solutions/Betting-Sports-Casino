@@ -50,8 +50,13 @@
                 StorageMode: 1,
                 FairXIFrameUrl: 'https://www.casino.thefaircasino.games/#/',
                 // FairX Casino game-list endpoint. GET returns { success, data: [{ id, name, gameTables: [...] }] }.
-                // Requires FairDeal token + operatorId (fetched via fdService.launchFairDeal) in request headers.
+                // Requires three headers: `token` (session, from fdService.launchFairDeal),
+                // `operator` (tenant Mongo ID — NOT the numeric operatorId from fdService),
+                // and `primary-token` (pre-shared tenant client token). Configure the
+                // latter two here; the session token is supplied at call time.
                 FairXGameListUrl: 'https://f67867bd606e.thefaircasino.games/gametable/getgameinfo',
+                FairXOperatorId: '63cfbb55040828cb17f60f4b',
+                FairXPrimaryToken: 'b52179f2-9544-4ec0-bdce-ba000ebe72a2',
                 IsMobileSeperate: false,
                 MobileUrl: ''
             }
@@ -74,6 +79,9 @@
                 FairXIFrameUrl: 'https://crimson-cake-a35e.cricfeed10.workers.dev/#/',
                 //FairXIFrameUrl: 'https://casino.fairxstudio.com/#/',
                 //FairXIFrameUrl: 'http://localhost:9009/public/#/',
+                FairXGameListUrl: 'https://f67867bd606e.thefaircasino.games/gametable/getgameinfo',
+                FairXOperatorId: '63cfbb55040828cb17f60f4b',
+                FairXPrimaryToken: 'b52179f2-9544-4ec0-bdce-ba000ebe72a2',
                 Maintenance_Obj: 'webApi_m',
                 WebSiteIdealFor: 1,
 

@@ -710,12 +710,31 @@
             this.$rootScope.$broadcast('open-casino-game', { game: game });
         }
 
+        public openCasinoProvider(key: string): void {
+            var slotProviders: string[] = ['qtech', 'aviator', 'mines'];
+            var isSlot = slotProviders.indexOf(key) >= 0;
+            var state = isSlot ? 'base.slotcasino' : 'base.casino';
+            this.$state.go(state, { provider: key });
+            this.closeSidebar();
+        }
+
+        public openSportTab(tab: string): void {
+            // Use the logged-in inplay state — navigating to promo.inplay from base
+            // would trigger CommonProcessService's logged-in → /promo redirect and
+            // bounce the user back to the promo home page.
+            this.$state.go('base.home.inplay', { tab: tab });
+            this.closeSidebar();
+            this.closeIconFlyouts();
+        }
+
         public openPromotions(): void {
-            this.$rootScope.$broadcast('open-promotions');
+            this.$state.go('base.account.bonusstatement');
+            this.closeSidebar();
         }
 
         public openBonus(): void {
-            this.$rootScope.$broadcast('open-bonus');
+            this.$state.go('base.account.bonusstatement');
+            this.closeSidebar();
         }
 
         public toggleTheme(): void {

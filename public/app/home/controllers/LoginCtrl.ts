@@ -67,6 +67,7 @@
             private $stateParams: any,
             public settings: common.IBaseSettings,
             private websiteService: services.WebsiteService,
+            private userStorageService: services.UserStorageService,
             private $state: ng.ui.IStateService) {
             super($scope);
 
@@ -293,6 +294,10 @@
 
                             //store user detail
                             this.localStorageHelper.set(this.settings.UserData, data);
+
+                            var allLoginData = this.userStorageService.getAllLoginData();
+                            console.log('All login data from localStorage:', allLoginData);
+
                             if (data.user && data.user.betConfigs) {
                                 this.commonDataService.setUserBetConfig(data.user.betConfigs);
                             }
