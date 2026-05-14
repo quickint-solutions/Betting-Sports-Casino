@@ -25,6 +25,11 @@
 
     export class HomeCtrl extends intranet.common.ControllerBase<IHomeScope>
         implements intranet.common.init.IInit {
+        // Pending $timeout for the delayed 'splash:end' broadcast. Tracked so
+        // it can be cancelled on $destroy — otherwise the broadcast can fire
+        // after the user has navigated away and stomp on a newer splash session.
+        private splashEndTimer: any = null;
+
         constructor($scope: IHomeScope,
             private toasterService: intranet.common.services.ToasterService,
             private localStorageHelper: common.helpers.LocalStorageHelper,
@@ -41,6 +46,15 @@
             private videoService: services.VideoService) {
             super($scope);
 
+            // Open the splash gate as early as possible — before the template
+            // paints. AppCtrl listens for this event (sports theme only) and
+            // flips $scope.isLoading on, which the index.html overlay reacts to.
+            // The matching 'splash:end' fires at the end of loadInitialData().
+            // Same pattern as PromoCtrl, by design.
+            if (this.settings.ThemeName == 'sports') {
+                this.$rootScope.$broadcast('splash:start');
+            }
+
             var listenEvent = this.$scope.$on('event-changed', (event, data) => {
                 this.loadVideo(data);
             });
@@ -51,6 +65,9 @@
             this.$scope.$on('$destroy', () => {
                 stateWatcher();
                 listenEvent();
+                // Cancel the pending splash:end broadcast so it can't fire
+                // after we've navigated away and stomp on a newer splash.
+                if (this.splashEndTimer) { this.$timeout.cancel(this.splashEndTimer); this.splashEndTimer = null; }
             });
 
             super.init(this);
@@ -80,6 +97,19 @@
             if (this.settings.ThemeName == 'dimd2') {
                 this.loadEventTypes();
                 this.playSliders();
+            }
+
+            // Close the splash gate once initial setup has had a moment to
+            // settle. Mirrors the pattern in PromoCtrl: we tag the broadcast
+            // with the current generation so AppCtrl can ignore stale fires
+            // from older destroyed controllers, and we store the $timeout
+            // reference so $destroy can cancel it.
+            if (this.settings.ThemeName == 'sports') {
+                var gen = (this.$rootScope.getSplashGen && this.$rootScope.getSplashGen()) || 0;
+                this.splashEndTimer = this.$timeout(() => {
+                    this.$rootScope.$broadcast('splash:end', gen);
+                    this.splashEndTimer = null;
+                }, 800);
             }
         }
 
@@ -347,6 +377,12 @@
                         prevEl: '.swiper-button-prev',
                     },
                 })
+                // observer/observeParents/observeSlideChildren make Swiper re-apply
+                // spaceBetween margins whenever the slide list changes — required
+                // because the bigWins / fairbet / aura / vimplay arrays are populated
+                // asynchronously by MarketHighlightCtrl after the catalog API resolves.
+                // Without observers, slides added by ng-repeat AFTER swiper init have
+                // no spaceBetween margin → inconsistent visible gap between cards.
                 var homeBigWinsSwiper = new Swiper('#homeBigWinsSwiper', {
                     slidesPerView: 'auto',
                     spaceBetween: 8,
@@ -354,6 +390,9 @@
                     grabCursor: true,
                     loop: true,
                     loopAdditionalSlides: 10,
+                    observer: true,
+                    observeParents: true,
+                    observeSlideChildren: true,
                     autoplay: {
                         delay: 2000,
                         disableOnInteraction: false,
@@ -365,6 +404,9 @@
                     freeMode: true,
                     grabCursor: true,
                     loop: false,
+                    observer: true,
+                    observeParents: true,
+                    observeSlideChildren: true,
                 };
                 var homeOrigSwiper = new Swiper('#homeOriginalGamesSwiper', originalGamesConfig);
                 var homeAuraSwiper = new Swiper('#homeAuraGamesSwiper', originalGamesConfig);

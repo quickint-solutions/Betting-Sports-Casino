@@ -55,8 +55,7 @@ module intranet.home {
             public betService: services.BetService,
             public modalService: common.services.ModalService,
             private $q: ng.IQService,
-            private gameListService: services.GameListService,
-            private fdService: services.FDService) {
+            private gameListService: services.GameListService) {
             super($scope);
 
             var place_bet_started = this.$rootScope.$on("place-bet-started", (event, data) => { this.betProcessStarted(data.marketId); });
@@ -127,49 +126,18 @@ module intranet.home {
             ];
         }
 
-        // Home page: authenticate via FDService, then fetch the real FairX catalog.
-        // On any failure, falls back to the static catalog (identical UI, just bundled data).
+        // Home page: load game catalog from fairx-catalog.json and split into the
+        // four home-page sections. No fallbacks — the catalog file is the single source.
         public loadGameSections(): void {
             if (!this.gameListService) { return; }
-            this.fdService.launchFairDeal()
-                .success((response: common.messaging.IResponse<any>) => {
-                    if (!response || !response.success || !response.data || !response.data.token) {
-                        this.loadGameSectionsFromCatalog();
-                        return;
-                    }
-                    this.gameListService.loadGamesWithFairDealToken(response.data.token, response.data.operatorId)
-                        .then((games: services.IGame[]) => {
-                            this.applyGameSections(games || []);
-                        })
-                        .catch(() => { this.loadGameSectionsFromCatalog(); });
-                })
-                .error(() => { this.loadGameSectionsFromCatalog(); });
-        }
-
-        private applyGameSections(games: services.IGame[]): void {
-            this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
-            this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
-            this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
-            this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
-            this.$timeout(() => { this.setSwiperForSports(); }, 0);
-        }
-
-        private loadGameSectionsFromCatalog(): void {
-            var bigWins = this.gameListService.getRecentBigWins(24)
-                .then((games: services.IGame[]) => { this.$scope.bigWins = games || []; })
-                .catch(() => { this.$scope.bigWins = []; });
-            var fairbet = this.gameListService.getGamesByProvider(services.PROVIDER_FAIRBET)
-                .then((games: services.IGame[]) => { this.$scope.fairbetGames = games || []; })
-                .catch(() => { this.$scope.fairbetGames = []; });
-            var aura = this.gameListService.getGamesByProvider(services.PROVIDER_AURA)
-                .then((games: services.IGame[]) => { this.$scope.auraGames = games || []; })
-                .catch(() => { this.$scope.auraGames = []; });
-            var vimplay = this.gameListService.getGamesByProvider(services.PROVIDER_VIMPLAY)
-                .then((games: services.IGame[]) => { this.$scope.vimplayGames = games || []; })
-                .catch(() => { this.$scope.vimplayGames = []; });
-            this.$q.all([bigWins, fairbet, aura, vimplay]).finally(() => {
-                this.$timeout(() => { this.setSwiperForSports(); }, 0);
-            });
+            this.gameListService.loadGamesWithFairDealToken('', '')
+                .then((games: services.IGame[]) => {
+                    this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
+                    this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
+                    this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
+                    this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
+                    this.$timeout(() => { this.setSwiperForSports(); }, 0);
+                });
         }
 
         // Click handler for the 4 dynamic sections on home.

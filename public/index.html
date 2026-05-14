@@ -3,11 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>India's Best Online Gaming Platform.</title>
-    <!--<link rel="manifest" href="/manifest.json">-->
+    <link rel="manifest" href="manifest.json">
     <meta name="viewport" content="{{viewPort}}">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0" />
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -26,6 +23,13 @@
     <script>
         function close_info() {
             document.getElementById('cus-placeholder').innerHTML = '';
+        }
+        if ('serviceWorker' in navigator && window.isSecureContext) {
+            window.addEventListener('load', function () {
+                // Relative path so it resolves to /public/sw.js in `grunt serve`
+                // and to /sw.js in the production dist build.
+                navigator.serviceWorker.register('sw.js').catch(function () {});
+            });
         }
     </script>
     <style>
@@ -175,8 +179,8 @@
 
     <!-- build:js(public) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
-        <script src="../node_modules/es5-shim/es5-shim.js"></script>
-        <script src="../node_modules/json3/lib/json3.min.js"></script>
+        <script defer src="../node_modules/es5-shim/es5-shim.js"></script>
+        <script defer src="../node_modules/json3/lib/json3.min.js"></script>
     <![endif]-->
     <!-- endbuild -->
     <!-- build:js(public) scripts/vendor.js -->

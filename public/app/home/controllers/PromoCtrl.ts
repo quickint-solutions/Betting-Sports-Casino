@@ -99,6 +99,11 @@
 
     export class PromoCtrl extends intranet.common.BetControllerBase<IPromoScope>
         implements intranet.common.init.IInit {
+        // Pending $timeout for the delayed 'splash:end' broadcast. Tracked so
+        // it can be cancelled on $destroy — otherwise the broadcast can fire
+        // after the user has navigated away and stomp on a newer splash session.
+        private splashEndTimer: any = null;
+
         constructor($scope: IPromoScope,
             private baseAuthenticationService: common.services.BaseAuthenticationService,
             private userService: services.UserService,
@@ -130,6 +135,14 @@
             private gameListService: services.GameListService,
             private $state: ng.ui.IStateService) {
             super($scope);
+
+            // Open the splash gate as early as possible — before the template
+            // paints. AppCtrl listens for this event (sports theme only) and
+            // flips $scope.isLoading on, which the index.html overlay reacts to.
+            // The matching 'splash:end' fires at the end of loadInitialData().
+            if (this.settings.ThemeName == 'sports') {
+                this.$rootScope.$broadcast('splash:start');
+            }
 
             this.$rootScope.viewPort = "width=device-width, initial-scale=1.0,maximum-scale=1";
 
@@ -177,6 +190,9 @@
                 if (currenttime) { this.$interval.cancel(currenttime); }
                 this.$timeout.cancel(this.$scope.timer_otp);
                 this.$timeout.cancel(this.$scope.refreshCaptcha);
+                // Cancel the pending splash:end broadcast so it can't fire
+                // after we've navigated away and stomp on a newer splash.
+                if (this.splashEndTimer) { this.$timeout.cancel(this.splashEndTimer); this.splashEndTimer = null; }
                 jQuery("body").removeClass('modal-open');
                 jQuery("html").removeClass('html-scroll-off');
                 jQuery('body').removeClass('promo-body');
@@ -294,6 +310,15 @@
                 this.$scope.bannerPath = this.settings.ImagePath + 'images/promo-banner.jpg';
 
                 this.$timeout(() => {
+                    jQuery('.lotus-card-slider').not('.slick-initialized').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        arrows: true,
+                        dots: true,
+                        infinite: true
+                    });
                     jQuery('.top-banner').slick({
                         slidesToShow: 1,
                         slidesToScroll: 1,
@@ -399,6 +424,21 @@
                 if (this.$location.$$search.code) {
                     this.openModal('verify-modal');
                 }
+            }
+
+            // Close the splash gate once initial setup has had a moment to
+            // settle. The broadcast carries the current splash generation so
+            // AppCtrl can drop it if a newer splash:start has happened (e.g.
+            // the user navigated away and back during the 800 ms window).
+            // We also store the $timeout reference so the $destroy handler can
+            // cancel it, preventing a stale splash:end from firing later and
+            // dismissing a newer splash session prematurely.
+            if (this.settings.ThemeName == 'sports') {
+                var gen = (this.$rootScope.getSplashGen && this.$rootScope.getSplashGen()) || 0;
+                this.splashEndTimer = this.$timeout(() => {
+                    this.$rootScope.$broadcast('splash:end', gen);
+                    this.splashEndTimer = null;
+                }, 800);
             }
         }
 
@@ -605,30 +645,19 @@
                 });
         }
 
-        // Fetches the four game sections in parallel and re-inits swipers once the DOM has the new slides.
-        // Each promise writes [] on failure so the template's empty-state path fires instead of spinning forever.
+        // Loads the four game sections from fairx-catalog.json via GameListService —
+        // identical data source to the home page so promo + home stay in sync.
         public loadGameSections(): void {
             if (!this.gameListService) { return; }
-            var bigWins = this.gameListService.getRecentBigWins(24)
-                .then((games: services.IGame[]) => { this.$scope.bigWins = games || []; })
-                .catch(() => { this.$scope.bigWins = []; });
-
-            var fairbet = this.gameListService.getGamesByProvider(services.PROVIDER_FAIRBET)
-                .then((games: services.IGame[]) => { this.$scope.fairbetGames = games || []; })
-                .catch(() => { this.$scope.fairbetGames = []; });
-
-            var aura = this.gameListService.getGamesByProvider(services.PROVIDER_AURA)
-                .then((games: services.IGame[]) => { this.$scope.auraGames = games || []; })
-                .catch(() => { this.$scope.auraGames = []; });
-
-            var vimplay = this.gameListService.getGamesByProvider(services.PROVIDER_VIMPLAY)
-                .then((games: services.IGame[]) => { this.$scope.vimplayGames = games || []; })
-                .catch(() => { this.$scope.vimplayGames = []; });
-
-            this.$q.all([bigWins, fairbet, aura, vimplay]).finally(() => {
-                // Re-init swipers on the next tick so they see the rendered ng-repeat slides.
-                this.$timeout(() => { this.setSwiperForSports(); }, 0);
-            });
+            this.gameListService.loadGamesWithFairDealToken('', '')
+                .then((games: services.IGame[]) => {
+                    this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
+                    this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
+                    this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
+                    this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
+                    // Re-init swipers on the next tick so they see the rendered ng-repeat slides.
+                    this.$timeout(() => { this.setSwiperForSports(); }, 0);
+                });
         }
 
         // Click handler for the 4 dynamic sections.
@@ -815,10 +844,18 @@
         }
 
         public openModal(modalId: any): void {
-            // Map login-modal and verify-modal to combined auth-modal
+            // Track which auth tab is active for templates that read $scope.authTab.
+            // Different themes ship different modal DOM:
+            //   - lotus  → has `#login-modal` and `#verify-modal`
+            //   - sports → has a combined `#auth-modal` (no `#login-modal` at all)
+            // Detect which one is actually in the DOM and route there. Without this,
+            // clicking Sign In on the sports theme silently does nothing because
+            // `#login-modal` does not exist.
             if (modalId === 'login-modal' || modalId === 'verify-modal') {
                 this.$scope.authTab = (modalId === 'verify-modal') ? 'signup' : 'login';
-                modalId = 'auth-modal';
+                if (!jQuery('#' + modalId).length && jQuery('#auth-modal').length) {
+                    modalId = 'auth-modal';
+                }
             }
 
             if (this.settings.ThemeName == 'dimd2') {

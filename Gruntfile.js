@@ -142,7 +142,7 @@ module.exports = function (grunt) {
         'build:html',
         'clean:tsoutput',
         'ngconstant:local',
-        'config_constants:local',
+        'config_constants:local',   
         //'fileExistsChecker:vendorJs',
         'fileblocks:intranet',
         'dart-sass:local',
@@ -167,7 +167,7 @@ module.exports = function (grunt) {
         project['short_name'] = gruntConfig.config.constants.Title.split(' ')[0];
         project['name'] = gruntConfig.config.constants.Title;
         project['description'] = gruntConfig.config.constants.Title;
-        project['icons'][0].src = '/images/' + gruntConfig.config.constants.WebApp + '/fav192.png';
+        project['icons'][0].src = '/images/' + gruntConfig.config.constants.WebApp + '/fav.png';
         project['background_color'] = gruntConfig.config.constants.ThemeColor;
         project['theme_color'] = gruntConfig.config.constants.ThemeColor;
 
@@ -206,6 +206,9 @@ module.exports = function (grunt) {
         'htmlmin',
         //'addExternalFile',
         //'concurrent:app'
+        // `replace` (no target) runs every target in replace.js — `dev` rewrites
+        // asset paths in CSS/JS, `deferScripts` adds `defer` to the production
+        // <script> tags so they don't block first paint.
         'replace',
         //'compress'
         'copy:deploy',
@@ -412,6 +415,13 @@ module.exports = function (grunt) {
         'build:js',
         'ngconstant:deploy_new_ui',
         'config_constants:deploy_new_ui',
+        'common_build'
+    ]);
+
+    grunt.registerTask('deploy_lotus_allwin111', [
+        'build:js',
+        'ngconstant:deploy_lotus_allwin111',
+        'config_constants:deploy_lotus_allwin111',
         'common_build'
     ]);
 

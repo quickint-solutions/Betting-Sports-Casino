@@ -9,7 +9,7 @@
     generatedJs: '.generated/js/public/app',
 
     // theme: 'sky',
-    //theme: 'lotus',
+    // theme: 'lotus',
     //theme: 'dimd',
     //theme: 'bking',
     theme: 'sports',

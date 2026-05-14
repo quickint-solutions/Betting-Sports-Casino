@@ -280,7 +280,11 @@
                             templateUrl: settings.ThemeName + '/home/home.html'
                         },
                         "sporttree@base.home": {
-                            templateUrl: settings.ThemeName + '/home/sport/sport-tree.html'
+                            // Match the same theme guards used by 'left@base.home' below.
+                            // Without these, sports/bking/dimd/dimd2 themes hit a 404 on
+                            // a template they never even render — noisy in the network
+                            // panel and can stall ui-router state activation.
+                            templateUrl: settings.ThemeName != 'bking' && settings.ThemeName != 'dimd' && settings.ThemeName != 'dimd2' && settings.ThemeName != 'sports' ? settings.ThemeName + '/home/sport/sport-tree.html' : ''
                         },
                         "left@base.home": {
                             controller: settings.ThemeName != 'bking' && settings.ThemeName != 'dimd' && settings.ThemeName != 'dimd2' && settings.ThemeName != 'sports' ? 'sportTreeCtrl' : '',

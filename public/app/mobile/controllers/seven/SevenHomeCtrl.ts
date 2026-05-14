@@ -192,6 +192,17 @@
             if (this.settings.ThemeName == 'bking') { this.startBkingSlick(); }
             else {
                 this.$timeout(() => {
+                    if (this.settings.ThemeName == 'lotus') {
+                        jQuery('.lotus-card-slider').not('.slick-initialized').slick({
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplay: true,
+                            autoplaySpeed: 3000,
+                            arrows: true,
+                            dots: true,
+                            infinite: true
+                        });
+                    }
                     jQuery('.top-banner').slick({
                         slidesToShow: 1,
                         slidesToScroll: 1,

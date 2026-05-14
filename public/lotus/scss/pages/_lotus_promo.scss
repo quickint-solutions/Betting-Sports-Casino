@@ -1169,3 +1169,132 @@
         width: 80%;
     }
 }
+
+.lotus-card-slider {
+    width: 100%;
+    overflow: hidden;
+    margin: 15px 0 0;
+    padding: 0;
+    position: relative;
+
+    // Before slick initializes, only show the first banner (no stacked flash).
+    // Once slick adds .slick-initialized, this rule no longer matches and the
+    // full carousel takes over.
+    &:not(.slick-initialized) > div:not(:first-child) {
+        display: none;
+    }
+
+    .slick-list {
+        width: 100%;
+    }
+
+    .lotus-card-slider__slide {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .slick-slide {
+        height: auto;
+
+        > div {
+            line-height: 0;
+        }
+    }
+
+    .slick-prev,
+    .slick-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: none;
+        border-radius: 50%;
+        color: transparent;
+        font-size: 0;
+        line-height: 0;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background: rgba(0, 0, 0, 0.65);
+            outline: none;
+        }
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+        }
+    }
+
+    .slick-prev {
+        left: 12px;
+
+        &::before {
+            transform: translate(-30%, -50%) rotate(-135deg);
+        }
+    }
+
+    .slick-next {
+        right: 12px;
+
+        &::before {
+            transform: translate(-70%, -50%) rotate(45deg);
+        }
+    }
+
+    .slick-dots {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        list-style: none;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+
+        li {
+            display: inline-block;
+            margin: 0 4px;
+            vertical-align: middle;
+
+            button {
+                width: 10px;
+                height: 10px;
+                padding: 0;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                color: transparent;
+                font-size: 0;
+                line-height: 0;
+                cursor: pointer;
+                transition: background 0.2s ease, transform 0.2s ease;
+
+                &:hover,
+                &:focus {
+                    background: rgba(255, 255, 255, 0.85);
+                    outline: none;
+                }
+            }
+
+            &.slick-active button {
+                background: #fff;
+                transform: scale(1.25);
+            }
+        }
+    }
+}

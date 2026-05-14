@@ -112,16 +112,92 @@
             if (this.settings.ThemeName == 'dimd' || this.settings.ThemeName == 'lotus' || this.settings.ThemeName == 'bking') {
                 this.$scope.isLoading = true;
 
-                this.$scope.logoPath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/logo.png';
+                if (this.settings.ThemeName == 'lotus') {
+                    this.$scope.logoPath = this.settings.ImagePath + 'images/lotus/logo.png';
+                } else {
+                    this.$scope.logoPath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/logo.png';
+                }
 
                 this.$scope.loadderTemplate = this.settings.ThemeName + '/template/splash-loader.html';
                 this.$timeout(() => { this.$scope.isLoading = false; }, 700);
+            }
+            else if (this.settings.ThemeName == 'sports') {
+                // Splash gate plumbing for sports theme. We do NOT auto-show on
+                // app boot anymore — each state opts in by broadcasting
+                // 'splash:start'. The promo state (PromoCtrl) opts in; the
+                // home state does NOT, because covering the home page with a
+                // full-viewport loader hides the data while it renders and
+                // looked worse than letting it render incrementally.
+                //
+                // Splash lifts on 'splash:end' (broadcast by the same controller
+                // after its init has had time to settle) or via a 4 s safety
+                // cap so a hung API can never lock the UI.
+                this.$scope.logoPath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/logo.png';
+                this.$scope.loadderTemplate = 'sports/template/splash-loader.html';
+
+                // Each splash:start increments the generation. splash:end must
+                // carry the same generation to take effect.
+                var splashGen = 0;
+                var resetSafetyHide: any = null;   // resets on each splash:start
+                var hardCeilingHide: any = null;   // does NOT reset — guaranteed hide
+                var hideGraceTimer: any = null;
+                var hardCeilingActive = false;
+
+                var doHide = () => {
+                    this.$scope.isLoading = false;
+                    if (resetSafetyHide) { this.$timeout.cancel(resetSafetyHide); resetSafetyHide = null; }
+                    if (hardCeilingHide) { this.$timeout.cancel(hardCeilingHide); hardCeilingHide = null; }
+                    if (hideGraceTimer) { this.$timeout.cancel(hideGraceTimer); hideGraceTimer = null; }
+                    hardCeilingActive = false;
+                };
+
+                this.$rootScope.$on('splash:start', () => {
+                    splashGen++;
+                    this.$scope.isLoading = true;
+                    // Resettable cap: replaced on every splash:start, gives a fresh
+                    // 2.5 s for each navigation.
+                    if (resetSafetyHide) { this.$timeout.cancel(resetSafetyHide); }
+                    if (hideGraceTimer) { this.$timeout.cancel(hideGraceTimer); hideGraceTimer = null; }
+                    resetSafetyHide = this.$timeout(doHide, 2500);
+                    // Hard ceiling: started ONCE per "session" and never reset.
+                    // Guarantees that no matter what (repeated splash:starts,
+                    // missed splash:ends, stuck templates), the splash hides
+                    // within 5 s of first appearing. Re-armed only after the
+                    // splash has fully hidden via doHide().
+                    if (!hardCeilingActive) {
+                        hardCeilingActive = true;
+                        hardCeilingHide = this.$timeout(doHide, 5000);
+                    }
+                });
+                this.$rootScope.$on('splash:end', (_evt: any, gen?: number) => {
+                    if (typeof gen === 'number' && gen !== splashGen) { return; }
+                    if (resetSafetyHide) { this.$timeout.cancel(resetSafetyHide); resetSafetyHide = null; }
+                    if (hideGraceTimer) { this.$timeout.cancel(hideGraceTimer); }
+                    hideGraceTimer = this.$timeout(doHide, 150);
+                });
+                // Fallback: if any view actually finishes loading while the
+                // splash is showing, treat that as a content-ready signal.
+                // This protects against the case where a controller's
+                // splash:end timer is cancelled by a $destroy mid-navigation.
+                this.$rootScope.$on('$viewContentLoaded', () => {
+                    if (this.$scope.isLoading) {
+                        if (hideGraceTimer) { this.$timeout.cancel(hideGraceTimer); }
+                        hideGraceTimer = this.$timeout(doHide, 150);
+                    }
+                });
+                // Expose the current generation so controllers can read it
+                // when scheduling their delayed splash:end broadcast.
+                this.$rootScope.getSplashGen = () => splashGen;
             }
 
             this.$scope.title = this.settings.Title;
             this.$scope.theme_color = this.settings.ThemeColor;
             this.$rootScope.highlightOnOddsChange = true;
-            this.$scope.fav_icon = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/fav.png';
+            if (this.settings.ThemeName == 'lotus') {
+                this.$scope.fav_icon = this.settings.ImagePath + 'images/lotus/fav.png';
+            } else {
+                this.$scope.fav_icon = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/fav.png';
+            }
             this.$rootScope.betQueue = [];
 
             if (this.isMobile.any) {

@@ -65,8 +65,10 @@
     local: {
         constants: {
             settings: {
-                ApiBaseUrl:'https://090fb07bdff3.book365.com/',
+                // ApiBaseUrl:'https://aa3c0c4c14w2.allwin111.com/',
+                // ApiBaseUrl:'https://090fb07bdff3.book365.com/',
                 // ApiBaseUrl: 'https://3da24e98.bazigar.io/',
+                ApiBaseUrl:'https://f768dafd155e.drpapaya.ai/',
                 Title: 'Fairbet',
                 ImagePath: '/public/',
                 APKPath: 'apk/bookpro',
@@ -105,6 +107,23 @@
             }
         }
     },
+
+    deploy_lotus_allwin111: {
+        constants: {
+            settings: {
+                ApiBaseUrl:'https://xapi.drpapaya.ai/',
+                Title: 'Lotusbook',
+                ImagePath: '../',
+                APKPath: 'apk/lotusbook',
+                WebApp: 'lotusbook',
+                ThemeColor: '#09363c',
+                WSUrl: "wss://xapi.drpapaya.ai/ws",
+                PublishName: "allwin111.com",
+                WebSiteIdealFor: 1,
+            }
+        }
+    },
+
     deploy_new_ui: {
         constants: {
             settings: {

@@ -108,46 +108,97 @@
         // query param — load the game catalog and show a grid. Without a provider, we
         // show the full catalog; with one, we filter by providerId / bucket.
         //
-        // Why we skip fdService.launchFairDeal() here: the global $http responseError
-        // interceptor in appConfig.ts hard-redirects to /promo on any 401, which logs
-        // the user out. On demo builds the fdstudio/launchfairdeal endpoint returns 401,
-        // so calling it would bounce every logged-in user out of the page and show the
-        // "Authentication Failed" message. Instead we call loadGamesWithFairDealToken
-        // with empty token — GameListService short-circuits to its bundled catalog
-        // (which is also what it falls back to when the real token flow errors out),
-        // so users always see games regardless of backend state. Wiring the real token
-        // flow back in is a one-line change once the fdstudio endpoint works on this
-        // build, but it must go through a call path that doesn't trip the 401 interceptor.
+        // Auth flow (mirrors MarketHighlightCtrl.loadGameSections):
+        //   1. fdService.launchFairDeal() → returns { token, operatorId } for the logged-in user
+        //   2. gameListService.loadGamesWithFairDealToken(token, operatorId) → real FairX catalog
+        //   3. On any failure (401, network, empty payload), GameListService internally
+        //      falls through to the static JSON snapshot, then to the hardcoded catalog,
+        //      so the grid always renders.
+        // Note: a 401 on fdstudio/launchfairdeal will trip the global $http responseError
+        // interceptor and redirect to /promo (standard logged-out behavior).
         private maybeLoadProviderGames(providerKey: string): void {
             var user = this.commonDataService.getLoggedInUserData();
             if (!user) { return; }
             this.$scope.useApiGrid = true;
             this.$scope.providerLoading = true;
-            this.gameListService.loadGamesWithFairDealToken('', '')
-                .then((games: services.IGame[]) => this.applyProviderFilter(games || [], providerKey || ''))
-                .catch(() => {
-                    this.$scope.providerLoading = false;
-                    this.$scope.useApiGrid = false;
+
+            this.fdService.launchFairDeal()
+                .success((response: common.messaging.IResponse<any>) => {
+                    var token = response && response.success && response.data ? response.data.token : '';
+                    var operatorId = response && response.success && response.data ? response.data.operatorId : '';
+                    this.gameListService.loadGamesWithFairDealToken(token || '', operatorId || '')
+                        .then((games: services.IGame[]) => this.applyProviderFilter(games || [], providerKey || ''))
+                        .catch(() => {
+                            this.$scope.providerLoading = false;
+                            this.$scope.useApiGrid = false;
+                        });
+                })
+                .error(() => {
+                    // launchFairDeal failed (network or non-401 error) — still try the
+                    // bundled catalog path so the grid has something to render.
+                    this.gameListService.loadGamesWithFairDealToken('', '')
+                        .then((games: services.IGame[]) => this.applyProviderFilter(games || [], providerKey || ''))
+                        .catch(() => {
+                            this.$scope.providerLoading = false;
+                            this.$scope.useApiGrid = false;
+                        });
                 });
         }
 
-        // Per-provider game list — strict match against the raw API category name.
+        // Per-provider game list — fuzzy, case-insensitive match against the raw API
+        // category name. Real-world API responses vary in casing, whitespace, and
+        // sometimes append qualifiers (e.g. "Ezugi" vs "Ezugi Live Casino" vs "EZUGI ").
         //  • No provider key → full catalog (for /casino and /slot-casino).
-        //  • Known provider key → only games whose `category` field equals the
-        //    real API category name (e.g. "Ezugi", "Aura Casino", "Supernova").
-        //    If the API response has no games for that category, the grid renders
-        //    empty — no synthesized entries, no fallback to other categories.
+        //  • Known provider key → games whose `category` field matches the configured
+        //    target name (case-insensitive, trimmed, substring).
+        //  • Unknown provider key → fall back to substring-matching the key itself
+        //    against category names (so a sidebar item like 'foo-bar' tries to match
+        //    'foo' or 'bar' in any category name even without a CATEGORY_MAP entry).
         private applyProviderFilter(games: services.IGame[], providerKey: string): void {
             var list = games || [];
-            var key = String(providerKey || '').toLowerCase();
+            var key = String(providerKey || '').toLowerCase().trim();
             if (!key) {
                 this.$scope.providerGames = list;
-            } else {
-                var targetCategory = PromoSportsCtrl.CATEGORY_MAP[key];
-                this.$scope.providerGames = targetCategory
-                    ? list.filter(g => (g.category || '') === targetCategory)
-                    : [];
+                this.$scope.providerLoading = false;
+                return;
             }
+
+            // Build the set of candidate target names to match. Start with the explicit
+            // CATEGORY_MAP value if present, then add tokens derived from the key itself
+            // (e.g. 'sa-gaming' → ['sa gaming', 'sa', 'gaming']).
+            var configured = PromoSportsCtrl.CATEGORY_MAP[key];
+            var keyTokens = key.replace(/[-_]+/g, ' ').split(/\s+/).filter(t => t.length > 1);
+            var candidates: string[] = [];
+            if (configured) { candidates.push(String(configured).toLowerCase().trim()); }
+            candidates.push(key.replace(/[-_]+/g, ' '));
+            keyTokens.forEach(t => { if (candidates.indexOf(t) === -1) candidates.push(t); });
+
+            this.$scope.providerGames = list.filter(g => {
+                var cat = String(g.category || '').toLowerCase().trim();
+                if (!cat) { return false; }
+                for (var i = 0; i < candidates.length; i++) {
+                    var c = candidates[i];
+                    if (!c) { continue; }
+                    // Exact match OR substring (handles "Ezugi" matching "Ezugi Live Casino", etc.)
+                    if (cat === c || cat.indexOf(c) !== -1) { return true; }
+                }
+                return false;
+            });
+
+            // Diagnostic: when the grid would otherwise render empty, log the available
+            // categories so we can see exactly what the upstream API returned and adjust
+            // CATEGORY_MAP accordingly. Cheap to leave on — fires only when empty.
+            if (!this.$scope.providerGames.length) {
+                var available: { [k: string]: number } = {};
+                list.forEach(g => {
+                    var c = String(g.category || '').trim();
+                    if (c) { available[c] = (available[c] || 0) + 1; }
+                });
+                console.warn('[PromoSportsCtrl] No games matched provider key "' + providerKey
+                    + '". Tried candidates:', candidates,
+                    'Available API categories (name → count):', available);
+            }
+
             this.$scope.providerLoading = false;
         }
 

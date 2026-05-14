@@ -9,7 +9,7 @@
             </div>
             <div class="swiper-slide">
                 <div class="slider-item">
-                    <img ng-src="{{webImagePath}}banners/banner-2.jpg" />
+                    <img ng-src="{{webImagePath}}banners/banner-2.jpg" loading="lazy" />
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                     <p>Dive into our in-house games, live casino and slots</p>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/casino-wheel.png" alt="Casino" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/casino-wheel.webp" loading="lazy" alt="Casino" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -76,7 +76,7 @@
                     <p>Bet on Football, Cricket, eSports & over 80 sports!</p>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/sports-trophy.png" alt="Sports" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/sports-trophy.webp" loading="lazy" alt="Sports" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -88,7 +88,7 @@
                     <div class="hp-card-title"><i class="fa fa-star"></i><span>Crazy Time</span></div>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/crazy-time.png" alt="Crazy Time" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/crazy-time.webp" loading="lazy" alt="Crazy Time" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -98,7 +98,7 @@
                     <div class="hp-card-title"><i class="fa fa-flag-checkered"></i><span>Racing</span></div>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/racing.png" alt="Racing" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/racing.webp" loading="lazy" alt="Racing" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -108,7 +108,7 @@
                     <div class="hp-card-title"><i class="fa fa-paper-plane"></i><span>Aviator</span></div>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/aviator.png" alt="Aviator" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/aviator.webp" loading="lazy" alt="Aviator" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -118,7 +118,7 @@
                     <div class="hp-card-title"><i class="fa fa-bomb"></i><span>Mines</span></div>
                 </div>
                 <div class="hp-card-art" aria-hidden="true">
-                    <img ng-src="{{webImagePath}}category/mines.png" alt="Mines" class="hp-art-img" />
+                    <img ng-src="{{webImagePath}}category/mines.webp" loading="lazy" alt="Mines" class="hp-art-img" />
                 </div>
             </a>
         </div>
@@ -145,8 +145,7 @@
             </div>
             <div class="swiper-slide" ng-repeat="game in fairbetGames track by $index">
                 <a ng-click="ctrl.openGame(game)">
-                    <img loading="lazy" ng-src="{{game.image || gameFallbackImage}}" alt="{{game.name}}"
-                         onerror="this.onerror=null;this.src='/public/images/drpapaya/casino/img/placeholder.jpg'" />
+                    <img loading="lazy" ng-src="{{game.image}}" alt="{{game.name}}" />
                 </a>
             </div>
         </div>

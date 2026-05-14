@@ -19,7 +19,7 @@
                 <div class="header-right">
                     <!-- Social icons -->
                     <div class="header-social">
-                        <a ng-href="{{supportDetail.whatsapp ? 'https://wa.me/' + supportDetail.whatsapp : 'javascript:void(0)'}}" target="_blank" class="social-icon whatsapp-icon">
+                        <a ng-href="{{supportDetail.whatsapp || 'javascript:void(0)'}}" target="_blank" class="social-icon whatsapp-icon">
                             <img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" />
                         </a>
                         <a ng-href="{{supportDetail.telegram || 'javascript:void(0)'}}" target="_blank" class="social-icon telegram-icon">
@@ -102,7 +102,7 @@
                     </a>
                     <ul class="submenu" ng-class="{'open': ctrl.activeSubmenu === 'support'}">
                         <li>
-                            <a ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
+                            <a ng-href="{{supportDetail.whatsapp}}" target="_blank">
                                 <span class="sidebar-icon"><img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" /></span> <span>Whatsapp</span>
                             </a>
                         </li>
@@ -300,7 +300,7 @@
                         <i class="fa fa-headphones"></i>
                     </a>
                     <div class="support-flyout-popup" ng-class="{'open': ctrl.supportFlyoutOpen}">
-                        <a ng-href="{{supportDetail.whatsapp ? 'https://wa.me/' + supportDetail.whatsapp : '#'}}" target="_blank" title="Whatsapp" class="social-chip">
+                        <a ng-href="{{supportDetail.whatsapp || '#'}}" target="_blank" title="Whatsapp" class="social-chip">
                             <img src="/public/images/drpapaya/sidebar/whatsapp.svg" alt="WhatsApp" />
                         </a>
                         <a ng-href="{{supportDetail.telegram || '#'}}" target="_blank" title="Telegram" class="social-chip">
@@ -471,7 +471,7 @@
                     </a>
                 </li>
                 <li class="item">
-                    <a ng-if="supportDetail.whatsapp" ng-href="https://wa.me/{{supportDetail.whatsapp}}" target="_blank">
+                    <a ng-if="supportDetail.whatsapp" ng-href="{{supportDetail.whatsapp}}" target="_blank">
                         <i class="fa fa-whatsapp"></i> <span>Support</span>
                     </a>
                 </li>

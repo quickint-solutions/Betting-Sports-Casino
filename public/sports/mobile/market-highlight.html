@@ -13,44 +13,47 @@
         <div class="banner mb-2" ng-if="renderingFor==1">
             <div class="swiper-container swiper-container-horizontal" id="banners">
                 <div class="swiper-wrapper">
+                    <!-- Each slide hides itself if its image is missing on this
+                         WebApp. drpapaya only ships banner-1 and banner-2; other
+                         WebApps ship all 8. onerror keeps the template generic. -->
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-1.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-1.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-2.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-2.jpg" loading="lazy" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-3.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-3.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-4.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-4.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-5.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-5.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-6.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-6.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-7.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-7.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slider-item">
-                            <img ng-src="{{webImagePath}}banners/banner-8.jpg" />
+                            <img ng-src="{{webImagePath}}banners/banner-8.jpg" onerror="this.parentNode.parentNode.style.display='none'" />
                         </div>
                     </div>
 
@@ -105,7 +108,7 @@
                             <p>Dive into our in-house games, live casino and slots</p>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/casino-wheel.png" alt="Casino" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/casino-wheel.webp" loading="lazy" alt="Casino" class="hp-art-img" />
                         </div>
                     </a>
                 </div>
@@ -116,7 +119,7 @@
                             <p>Bet on Football, Cricket, eSports & over 80 sports!</p>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/sports-trophy.png" alt="Sports" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/sports-trophy.webp" loading="lazy" alt="Sports" class="hp-art-img" />
                         </div>
                     </a>
                 </div>
@@ -128,7 +131,7 @@
                             <div class="hp-card-title"><i class="fa fa-star"></i><span>Crazy Time</span></div>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/crazy-time.png" alt="Crazy Time" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/crazy-time.webp" loading="lazy" alt="Crazy Time" class="hp-art-img" />
                         </div>
                     </a>
                 </div>
@@ -138,7 +141,7 @@
                             <div class="hp-card-title"><i class="fa fa-flag-checkered"></i><span>Racing</span></div>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/racing.png" alt="Racing" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/racing.webp" loading="lazy" alt="Racing" class="hp-art-img" />
                         </div>
                     </a>
                 </div>
@@ -148,7 +151,7 @@
                             <div class="hp-card-title"><i class="fa fa-paper-plane"></i><span>Aviator</span></div>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/aviator.png" alt="Aviator" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/aviator.webp" loading="lazy" alt="Aviator" class="hp-art-img" />
                         </div>
                     </a>
                 </div>
@@ -158,7 +161,7 @@
                             <div class="hp-card-title"><i class="fa fa-bomb"></i><span>Mines</span></div>
                         </div>
                         <div class="hp-card-art" aria-hidden="true">
-                            <img ng-src="{{webImagePath}}category/mines.png" alt="Mines" class="hp-art-img" />
+                            <img ng-src="{{webImagePath}}category/mines.webp" loading="lazy" alt="Mines" class="hp-art-img" />
                         </div>
                     </a>
                 </div>

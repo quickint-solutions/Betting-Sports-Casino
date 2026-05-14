@@ -74,6 +74,7 @@
                 || webapp == 'win555'
                 || webapp == 'king247'
                 || webapp == 'bsafe999'
+                || webapp == 'lotusbook'
             ) {
                 return true;
             }

@@ -33,7 +33,7 @@
                 expand: true,
                 cwd: '<%= config.pub %>',
                 dest: '<%= config.dist %>/',
-                src: ['manifest.json']
+                src: ['manifest.json', 'sw.js']
             }
             //, {
             //    expand: true,

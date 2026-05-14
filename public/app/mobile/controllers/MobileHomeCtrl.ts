@@ -96,6 +96,19 @@
                 this.loadDimd2Sliders();
                 this.loadPopularMarkets();
             }
+            if (this.settings.ThemeName == 'lotus') {
+                this.$timeout(() => {
+                    jQuery('.lotus-card-slider').not('.slick-initialized').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        arrows: true,
+                        dots: true,
+                        infinite: true
+                    });
+                }, 1000);
+            }
         }
 
         // load already pinned market from storage
