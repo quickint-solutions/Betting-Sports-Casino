@@ -133,9 +133,13 @@ module intranet.home {
             this.gameListService.loadGamesWithFairDealToken('', '')
                 .then((games: services.IGame[]) => {
                     this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
-                    this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
-                    this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
-                    this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
+                    // Source the sections from the raw API categories instead of the coarse
+                    // provider buckets. Original + Aura both come from "aura-casino", split by
+                    // isVirtual (live -> Original, virtual -> Aura); Vimplay = "virtual-casino".
+                    var auraCasino = this.gameListService.filterByCategory(games, 'aura-casino');
+                    this.$scope.fairbetGames = auraCasino.filter((g) => !g.isVirtual);
+                    this.$scope.auraGames    = auraCasino.filter((g) => !!g.isVirtual);
+                    this.$scope.vimplayGames = this.gameListService.filterByCategory(games, 'virtual-casino');
                     this.$timeout(() => { this.setSwiperForSports(); }, 0);
                 });
         }

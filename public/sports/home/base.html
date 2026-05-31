@@ -126,8 +126,8 @@
             </div>
         </header>
 
-        <!-- Announcement Banner (after header) -->
-        <div class="announcement-banner" ng-if="announcement">
+        <!-- Announcement Banner (after header) — hidden while a game iframe is open -->
+        <div class="announcement-banner" ng-if="announcement && !inGameView">
             <div class="announcement-banner-inner">
                 <span class="announcement-icon" aria-label="Announcement">
                     <i class="fa fa-bullhorn" aria-hidden="true"></i>

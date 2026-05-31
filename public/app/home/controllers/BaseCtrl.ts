@@ -18,6 +18,9 @@
         enableLoader: boolean;
 
         announcement: string;
+        // True while the live-game iframe view is active; hides the top announcement
+        // banner so the game gets the full content height.
+        inGameView: boolean;
 
         // has andriod APK
         hasAPK: boolean;
@@ -123,12 +126,17 @@
                 this.playAudio();
             });
 
+            // Hide the announcement banner while the game iframe is open (set on the very
+            // first paint too, in case the user deep-links straight to the game view).
+            this.$scope.inGameView = this.isGameView(this.$state.current && this.$state.current.name);
+
             var stateWatcher = $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
                 if (toState.name == 'base.home' && fromState.name != toState.name) {
                     if (this.settings.ThemeName == 'sports') {
                         this.playLottieForAnnoucement(1000);
                     }
                 }
+                this.$scope.inGameView = this.isGameView(toState && toState.name);
             });
 
             this.$scope.$on('$destroy', () => {
@@ -153,6 +161,15 @@
             this.calMainContentHeight(self);
 
             super.init(this);
+        }
+
+        // The live-game iframe (#fairxcasino) renders in these states. base.home.sport.livegames
+        // is intentionally excluded — it's a games LIST (liveGamesCtrl), not the iframe.
+        private isGameView(stateName: string): boolean {
+            var n = String(stateName || '');
+            return n === 'base.livegames'
+                || n === 'base.home.livegames'
+                || n.indexOf('fdlivegames') !== -1;   // mobile.base.fdlivegames / mobile.seven.base.fdlivegames
         }
 
         private scrollChanged(self: any): void {

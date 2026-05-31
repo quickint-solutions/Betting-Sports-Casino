@@ -1426,6 +1426,15 @@ li.sports-flyout-wrap {
         width: calc(100% - #{$icon-sidebar-width});
     }
 
+    // The announcement banner is a flex sibling that sits BEFORE .main-container-block,
+    // so it doesn't inherit the icon-sidebar offset. Without this its left edge — and the
+    // bullhorn icon — slides under the fixed icon rail (70px wide, z-index 1200). Match the
+    // rail width plus the banner's usual 16px gutter so the icon clears it on every desktop
+    // width. Below 768px the icon rail is hidden (d-md-block), so the base margin applies.
+    .announcement-banner {
+        margin-left: calc(#{$icon-sidebar-width} + 16px);
+    }
+
     // Remove old 56px top margin from column (was for old topbar)
     .main-container-block .column {
         margin-top: 0;

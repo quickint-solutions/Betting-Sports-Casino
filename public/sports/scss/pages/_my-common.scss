@@ -106,20 +106,29 @@
 .casino-bg {
     position: relative;
     width: 100%;
+    // Fill the parent content view (which is laid out beside the sidebar / below the
+    // header). The vh fallback keeps the game iframe full-height on layouts where the
+    // ancestor doesn't supply a definite height (e.g. some mobile views), so it stays
+    // responsive on every screen size.
     height: 100%;
-    min-height: 500px;
+    min-height: 80vh;
     background: rgba(51,51,51,0.94);
     z-index: 999;
 
     .game-lobby {
         position: absolute;
-        top: 00px;
-        bottom: 00px;
-        left: 00px;
-        right: 00px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         background: #000;
-        //width: calc(100% - 60px);
-        //box-shadow: rgba(20, 21, 18,1) 0px 0px 5px 2px;
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
     }
 }
 

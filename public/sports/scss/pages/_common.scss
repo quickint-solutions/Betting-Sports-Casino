@@ -8343,6 +8343,57 @@ div:nth-of-type(2) {
         overflow: hidden;
     }
 
+    // First-load loader, scoped to `.banner-hero` only. The bare `.banner`
+    // class is reused by many other carousels (casino rows, market highlights),
+    // so none of the hide/reserve rules below must leak onto them — only the
+    // top promo hero banner opts in via the extra `banner-hero` class.
+    &.banner-hero {
+        // Fade the slider in once Swiper has sized its slides, so the raw
+        // un-initialized slides never flash at the wrong size on first load.
+        .swiper-container {
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+
+        // Until Swiper fires its `init` event, reserve the banner area at the
+        // real banner aspect ratio (~32:10) and keep the un-sized slides hidden
+        // behind the loader. `swiper-ready` is added in PromoCtrl on init.
+        &:not(.swiper-ready) {
+            aspect-ratio: 32 / 10;
+        }
+
+        &.swiper-ready .swiper-container {
+            opacity: 1;
+        }
+
+        &.swiper-ready .banner-loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        // Loading overlay: centered spinner over the reserved banner area.
+        .banner-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            z-index: 2;
+            transition: opacity .35s ease, visibility .35s ease;
+        }
+
+        .banner-spinner {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #fff;
+            animation: bannerSpin .8s linear infinite;
+        }
+    }
+
     .swiper-button-next,
     .swiper-button-prev {
         color: #fff;
@@ -8370,6 +8421,10 @@ div:nth-of-type(2) {
             background: #fff;
         }
     }
+}
+
+@keyframes bannerSpin {
+    to { transform: rotate(360deg); }
 }
 
 .live-casino-games-main-block .casino-item {
@@ -10819,4 +10874,43 @@ body.light-theme {
     .main-market-header .opt-text {
         color: #555 !important;
     }
+}
+
+/* ===== <game-thumb> image + logo-placeholder fallback =====
+   The wrapper replaces a bare <img>, so the inner .game-thumb-img still inherits
+   the existing `... img { width/height }` rules of each card context. When the
+   image is missing or fails to load, .game-thumb-placeholder is shown instead:
+   a centered, dimmed logo inside a filled box. */
+.game-thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.game-thumb .game-thumb-img {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.game-thumb .game-thumb-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    aspect-ratio: 3 / 4;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.game-thumb .game-thumb-placeholder .game-thumb-logo {
+    max-width: 65%;
+    max-height: 55%;
+    object-fit: contain;
+    opacity: 0.7;
 }

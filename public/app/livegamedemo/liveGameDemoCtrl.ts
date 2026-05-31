@@ -135,10 +135,15 @@
                             gameUrl = this.settings.FairXIFrameUrl + 'fs?' + commonQs;
                         }
 
-                        // Direct redirect to the game URL (no iframe wrapper)
+                        // Render the game inside the in-page iframe (#fairxcasino in
+                        // live-game-demo.html) instead of a full-page redirect, so the app
+                        // header + sidebar stay visible and the game fills the remaining
+                        // content area. FairXIFrameUrl points at the framing-safe proxy, so
+                        // X-Frame-Options won't block embedding. The iframe's src must be a
+                        // trusted resource URL for Angular's $sce to allow it.
                         this.commonDataService.setGameId('');
                         this.commonDataService.setPendingGame(null);
-                        this.$window.location.href = gameUrl;
+                        this.$scope.gameUrl = this.$sce.trustAsResourceUrl(gameUrl);
                     } else {
                         this.toasterService.showMessages(response.messages);
                         this.$timeout(() => { this.close(); }, 5000);

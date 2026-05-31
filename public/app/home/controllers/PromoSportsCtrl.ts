@@ -87,6 +87,11 @@
             this.$scope.webImagePath = this.settings.ImagePath + 'images/' + this.settings.WebApp + '/';
             this.$scope.liveGamesMarkets = common.helpers.CommonHelper.GetLiveGameIconList(this.settings.ThemeName);
             var providerKey = this.$stateParams && this.$stateParams.provider;
+            // The Slots pages (base.slotcasino / promo.slotcasino / base.home.slotcasino /
+            // mobile.*.slotcasino) carry no provider param, so without this they fall into
+            // the "no key → full catalog" branch and show every game. Default them to the
+            // "slot" category so they show only Slot games (the template title is "ALL SLOT").
+            if (!providerKey && this.isSlotState()) { providerKey = 'slot'; }
             this.$scope.providerKey = providerKey || null;
             this.$scope.providerGames = [];
             this.$scope.useApiGrid = false;
@@ -102,6 +107,13 @@
             };
 
             this.maybeLoadProviderGames(providerKey);
+        }
+
+        // True when the active ui-router state is one of the Slots pages
+        // (base.slotcasino, promo.slotcasino, base.home.slotcasino, mobile.*.slotcasino).
+        private isSlotState(): boolean {
+            var name = (this.$state && this.$state.current && this.$state.current.name) || '';
+            return String(name).toLowerCase().indexOf('slotcasino') !== -1;
         }
 
         // For any logged-in visit to the casino/slot page — with or without a provider
@@ -164,14 +176,19 @@
             }
 
             // Build the set of candidate target names to match. Start with the explicit
-            // CATEGORY_MAP value if present, then add tokens derived from the key itself
-            // (e.g. 'sa-gaming' → ['sa gaming', 'sa', 'gaming']).
+            // CATEGORY_MAP value if present, then add the full de-hyphenated key phrase
+            // (e.g. 'sa-gaming' → 'sa gaming') as a fallback for unmapped keys.
+            //
+            // We deliberately match on WHOLE category names only — never on single tokens
+            // like 'casino', 'gaming' or 'live'. Those tokens are shared across many
+            // categories ("Virtual Casino"/"Aura Casino", "SA Gaming"/"Vivo Gaming",
+            // "Skywind Live"/"BETER Live"), so token matching collapsed distinct providers
+            // into one identical list.
             var configured = PromoSportsCtrl.CATEGORY_MAP[key];
-            var keyTokens = key.replace(/[-_]+/g, ' ').split(/\s+/).filter(t => t.length > 1);
             var candidates: string[] = [];
             if (configured) { candidates.push(String(configured).toLowerCase().trim()); }
-            candidates.push(key.replace(/[-_]+/g, ' '));
-            keyTokens.forEach(t => { if (candidates.indexOf(t) === -1) candidates.push(t); });
+            var phrase = key.replace(/[-_]+/g, ' ').trim();
+            if (phrase && candidates.indexOf(phrase) === -1) { candidates.push(phrase); }
 
             this.$scope.providerGames = list.filter(g => {
                 var cat = String(g.category || '').toLowerCase().trim();
@@ -179,7 +196,8 @@
                 for (var i = 0; i < candidates.length; i++) {
                     var c = candidates[i];
                     if (!c) { continue; }
-                    // Exact match OR substring (handles "Ezugi" matching "Ezugi Live Casino", etc.)
+                    // Exact match OR full-phrase substring (handles a configured name like
+                    // "Ezugi" matching an API variant such as "Ezugi Live Casino").
                     if (cat === c || cat.indexOf(c) !== -1) { return true; }
                 }
                 return false;
@@ -320,4 +338,37 @@
 
     }
     angular.module('intranet.home').controller('promoSportsCtrl', PromoSportsCtrl);
+
+    // <game-thumb src="lg.image" name="{{lg.name}}" img-class="..."> — renders a game
+    // thumbnail, falling back to a centered-logo placeholder div whenever the image is
+    // missing (empty src) OR fails to load (404 / blocked). Drop-in replacement for the
+    // bare <img> used in the casino grids and home carousels. Uses ng-show (not ng-if)
+    // so the <img> element persists and its native error event stays observable.
+    angular.module('intranet.home').directive('gameThumb', ['settings', function (settings: intranet.common.IBaseSettings) {
+        var logoUrl = settings.ImagePath + 'images/' + settings.WebApp + '/logo.png';
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: { src: '=', name: '@', imgClass: '@' },
+            template:
+                '<span class="game-thumb">' +
+                    '<img class="game-thumb-img" ng-class="imgClass" ng-src="{{src}}" alt="{{name}}" loading="lazy" ng-show="src && !failed" />' +
+                    '<span class="game-thumb-placeholder" ng-show="!src || failed">' +
+                        '<img class="game-thumb-logo" src="' + logoUrl + '" alt="{{name}}" />' +
+                    '</span>' +
+                '</span>',
+            link: function (scope: any, el: any) {
+                scope.failed = false;
+                // Reset on source change so a recycled ng-repeat node doesn't keep a
+                // previous card's failure state when it's reused for a game with a good image.
+                scope.$watch('src', function () { scope.failed = false; });
+                var imgEl = el[0] && el[0].querySelector ? el[0].querySelector('.game-thumb-img') : null;
+                if (imgEl) {
+                    imgEl.addEventListener('error', function () {
+                        scope.$evalAsync(function () { scope.failed = true; });
+                    });
+                }
+            }
+        };
+    }]);
 }

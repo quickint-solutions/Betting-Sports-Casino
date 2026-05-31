@@ -4,15 +4,16 @@
     {
       "name": "local",
       "runtimeExecutable": "/bin/bash",
-      "runtimeArgs": ["-c", "source $HOME/.nvm/nvm.sh && npx grunt serve:local"],
+      "runtimeArgs": ["-c", "unset MallocNanoZone MallocStackLogging MallocStackLoggingNoCompact; source $HOME/.nvm/nvm.sh && npx grunt serve:local"],
       "port": 9002,
       "path": "/public/"
     },
     {
       "name": "running",
       "runtimeExecutable": "/bin/bash",
-      "runtimeArgs": ["-c", "echo 'already running on port 3000'"],
-      "port": 3000
+      "runtimeArgs": ["-c", "cd /Users/neelpatel/Documents/projects/v2 && echo 'already running on port 9002' && sleep 86400"],
+      "port": 9002,
+      "path": "/public/"
     }
   ]
 }

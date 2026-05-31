@@ -15,6 +15,8 @@
     </div>
 </div>
 
+<!-- WITHOUT LOGIN PAGE -->
+
 <!-- ===== RECENT BIG WINS SECTION ===== -->
 <div class="recent-big-wins-section" ng-if="renderingFor==1 && hasCasino">
     <div class="rbw-header">
@@ -32,10 +34,10 @@
                 <div class="game_box tone-copper skeleton-card"></div>
             </div>
             <div class="swiper-slide" ng-repeat="game in bigWins track by $index">
-                <div class="game_box" ng-class="bigWinsTones[$index % bigWinsTones.length]">
+                <div class="game_box" ng-class="bigWinsTones[$index % bigWinsTones.length]" style="margin-right: 10px;">
                     <a ng-click="ctrl.openGame(game)">
                         <div class="game_box-media">
-                            <img ng-src="{{game.image}}" loading="lazy" alt="{{game.name}}" />
+                            <game-thumb src="game.image" name="{{game.name}}"></game-thumb>
                         </div>
                         <div class="game_box-info">
                             <span class="game_box-name">{{game.name}}</span>
@@ -141,8 +143,7 @@
             </div>
             <div class="swiper-slide" ng-repeat="game in fairbetGames track by $index">
                 <a ng-click="ctrl.openGame(game)">
-                    <img loading="lazy" ng-src="{{game.image || gameFallbackImage}}" alt="{{game.name}}"
-                         onerror="this.onerror=null;this.src='/public/images/drpapaya/casino/img/placeholder.jpg'" />
+                    <game-thumb src="game.image" name="{{game.name}}"></game-thumb>
                 </a>
             </div>
         </div>
@@ -299,8 +300,7 @@
             </div>
             <div class="swiper-slide" ng-repeat="game in auraGames track by $index">
                 <a ng-click="ctrl.openGame(game)">
-                    <img loading="lazy" ng-src="{{game.image || gameFallbackImage}}" alt="{{game.name}}"
-                         onerror="this.onerror=null;this.src='/public/images/drpapaya/casino/img/placeholder.jpg'" />
+                    <game-thumb src="game.image" name="{{game.name}}"></game-thumb>
                 </a>
             </div>
         </div>
@@ -329,8 +329,7 @@
             </div>
             <div class="swiper-slide" ng-repeat="game in vimplayGames track by $index">
                 <a ng-click="ctrl.openGame(game)">
-                    <img loading="lazy" ng-src="{{game.image || gameFallbackImage}}" alt="{{game.name}}"
-                         onerror="this.onerror=null;this.src='/public/images/drpapaya/casino/img/placeholder.jpg'" />
+                    <game-thumb src="game.image" name="{{game.name}}"></game-thumb>
                 </a>
             </div>
         </div>

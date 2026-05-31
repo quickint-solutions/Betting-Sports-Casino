@@ -634,7 +634,6 @@
                     }
                 }).finally(() => {
                     if (this.settings.ThemeName == 'sports') {
-                        this.setSwiperForSports();
                         this.loadGameSections();
                     }
                     if (this.$scope.captchaMode == common.enums.CaptchaMode.System) {
@@ -652,9 +651,13 @@
             this.gameListService.loadGamesWithFairDealToken('', '')
                 .then((games: services.IGame[]) => {
                     this.$scope.bigWins      = this.gameListService.shuffleSlice(games, 24);
-                    this.$scope.fairbetGames = this.gameListService.filterByProvider(games, services.PROVIDER_FAIRBET);
-                    this.$scope.auraGames    = this.gameListService.filterByProvider(games, services.PROVIDER_AURA);
-                    this.$scope.vimplayGames = this.gameListService.filterByProvider(games, services.PROVIDER_VIMPLAY);
+                    // Source the sections from the raw API categories instead of the coarse
+                    // provider buckets. Original + Aura both come from "aura-casino", split by
+                    // isVirtual (live -> Original, virtual -> Aura); Vimplay = "virtual-casino".
+                    var auraCasino = this.gameListService.filterByCategory(games, 'aura-casino');
+                    this.$scope.fairbetGames = auraCasino.filter((g) => !g.isVirtual);
+                    this.$scope.auraGames    = auraCasino.filter((g) => !!g.isVirtual);
+                    this.$scope.vimplayGames = this.gameListService.filterByCategory(games, 'virtual-casino');
                     // Re-init swipers on the next tick so they see the rendered ng-repeat slides.
                     this.$timeout(() => { this.setSwiperForSports(); }, 0);
                 });
@@ -1767,6 +1770,21 @@
 
         private setSwiperForSports(): void {
             this.$timeout(() => {
+                // Destroy any Swiper instances already attached to these containers
+                // before re-initializing. setSwiperForSports() runs once on entry and
+                // again from loadGameSections().then() after the catalog populates
+                // ng-repeat slides. Without this cleanup, the second `new Swiper(...)`
+                // call layers a fresh instance on top of stale inline transforms left
+                // by the first, pushing real slides off-canvas on desktop.
+                var swiperIds = ['#banners', '#bigWinsSwiper', '#mobileBigWinsSwiper',
+                    '#originalGamesSwiper', '#mobileOriginalGamesSwiper',
+                    '#auraGamesSwiper', '#mobileAuraGamesSwiper',
+                    '#vimplayGamesSwiper', '#mobileVimplayGamesSwiper'];
+                swiperIds.forEach((sel: string) => {
+                    var el: any = document.querySelector(sel);
+                    if (el && el.swiper) { el.swiper.destroy(true, true); }
+                });
+
                 var mySwiper = new Swiper('#banners', {
                     loop: true,
                     speed: 1200,
@@ -1777,6 +1795,14 @@
                     direction: 'horizontal',
                     slidesPerView: 1,
                     grabCursor: true,
+                    on: {
+                        // Reveal the banner (and hide the loader) only after Swiper
+                        // has sized its slides, so they don't flash at the wrong
+                        // size on first load. See `.banner` styles in _common.scss.
+                        init: function () {
+                            jQuery('.banner').addClass('swiper-ready');
+                        },
+                    },
                 })
                 var mySwiper2 = new Swiper('#right-casino-box', {
                     // Optional parameters

@@ -12,6 +12,7 @@ namespace intranet.services {
         name: string;
         image: string;
         provider: string;          // UI bucket: 'fairbet' | 'aura' | 'vimplay'
+        providerCore: string;          // UI bucket: 'fairbet' | 'aura' | 'vimplay'
         category?: string;         // Raw API category name e.g. "Ezugi", "Aura Casino", "Supernova", "Evolution", "SA Gaming", "Vivo Gaming", "Slot", "Exchange", etc. Use this for strict per-provider filtering.
         tableId: string;           // MongoDB id used for Fairdeal routes
         directGameUrl: string;
@@ -56,6 +57,23 @@ namespace intranet.services {
         public filterByProvider(games: IGame[], provider: string): IGame[] {
             const target = (provider || '').toLowerCase();
             return (games || []).filter((g) => (g.provider || '').toLowerCase() === target);
+        }
+
+        // Category-based selection. Matches against the raw API category name
+        // normalized to a kebab key (e.g. "Aura Casino" -> "aura-casino"), the same
+        // keys flattenFairXResponse buckets by. Use this for strict per-category
+        // sections instead of the coarse provider buckets.
+        public getGamesByCategory(category: string): ng.IPromise<IGame[]> {
+            return this.getAllGames().then((games) => this.filterByCategory(games, category));
+        }
+
+        public filterByCategory(games: IGame[], category: string): IGame[] {
+            const key = this.toCategoryKey(category);
+            return (games || []).filter((g) => this.toCategoryKey(g.category || '') === key);
+        }
+
+        private toCategoryKey(name: string): string {
+            return String(name || '').trim().toLowerCase().replace(/\s+/g, '-');
         }
 
         public shuffleSlice(games: IGame[], n: number): IGame[] {
@@ -126,10 +144,11 @@ namespace intranet.services {
         private flattenFairXResponse(body: any): IGame[] {
             const categories = this.extractList(body);
             const out: IGame[] = [];
+
             categories.forEach((cat: any) => {
                 if (!cat || !Array.isArray(cat.gameTables)) { return; }
-                const rawCategoryName = String(cat.name || '');
-                const catNameLower = rawCategoryName.toLowerCase();
+                const rawCategoryName = String(cat.name || '').trim();
+                const catNameLower = rawCategoryName.toLowerCase().trim();
                 const bucket = this.bucketForCategory(catNameLower);
                 // Home-page carousel split for Aura Casino:
                 //   live (isVirtual=false)  → fairbet bucket → "Fairbet Original Games" section
@@ -142,18 +161,21 @@ namespace intranet.services {
                     if (isAuraCasino) {
                         finalProvider = t.isVirtual ? PROVIDER_FAIRBET : PROVIDER_AURA;
                     }
-                    out.push({
+                    const game: IGame = {
                         gameId:        String(t.id),
                         name:          String(t.name || ''),
                         image:         t.url ? String(t.url) : '',
                         provider:      finalProvider,
+                        providerCore:      finalProvider,
                         category:      rawCategoryName,
                         tableId:       String(t.id),
                         directGameUrl: '',
                         uniqueKey:     t.uniqueKey ? String(t.uniqueKey) : '',
                         providerId:    providerNum,
                         isVirtual:     !!t.isVirtual,
-                    });
+                    }
+
+                    out.push(game);
                 });
             });
             return out;
