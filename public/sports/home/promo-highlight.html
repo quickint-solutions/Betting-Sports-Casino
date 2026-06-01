@@ -167,7 +167,7 @@
             <div ng-include="'sports/template/loader-center.html'"
                  ng-show="isRequestProcessing"
                  class="d-flex w-100 justify-content-center position-absolute"></div>
-            <div class="chart-content mt-0" ng-if="!isRequestProcessing">
+            <div class="chart-content mt-0" style="background: none !important;" ng-if="!isRequestProcessing">
                 <div class="chart-body home-page-sports" ng-repeat="s in sports" ng-show="(popularMarkets | filter:{eventTypeId:s.id}).length>0">
                     <div class="d-flex flex-row justify-content-between align-items-center sports-collapse-btn-block" ng-init="s.hide=false">
                         <a>

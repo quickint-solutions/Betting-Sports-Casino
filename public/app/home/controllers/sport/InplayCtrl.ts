@@ -15,6 +15,13 @@
         competitions: any[];
 
         isRequestProcessing: boolean;
+
+        // 'all' = every game (in-play + upcoming), 'live' = in-play only.
+        gameFilter: string;
+        // Angular list-filter predicate honoring gameFilter (used in the template).
+        liveFilter: (m: any) => boolean;
+        // Count of markets visible for a sport under the current filter (for empty states).
+        visibleCount: (eventTypeId: any) => number;
     }
 
     export class InplayCtrl extends intranet.common.BetControllerBase<IInplayScope>
@@ -97,6 +104,15 @@
             this.$scope.currentTab = 2;
             this.$scope.selectAll = true;
             this.$scope.marketDetails = [];
+            this.$scope.competitions = [];
+            // Default to showing all games; the toggle narrows to live-only.
+            this.$scope.gameFilter = 'all';
+            this.$scope.liveFilter = (m: any) => this.$scope.gameFilter === 'all' || !!m.inPlay;
+            this.$scope.visibleCount = (eventTypeId: any) => {
+                var et = (this.$scope.eventTypes || []).filter((e: any) => e.id == eventTypeId)[0];
+                if (!et || !et.markets) { return 0; }
+                return et.markets.filter((m: any) => this.$scope.gameFilter === 'all' || !!m.inPlay).length;
+            };
         }
 
         public loadInitialData() {
@@ -140,24 +156,127 @@
         }
 
         private loadInPlayMarkets(): void {
+            console.log('[inplay-debug] loadInPlayMarkets() called → GET marketodds/getinplay');
             this.marketOddsService.getInPlayMarkets()
                 .success((response: common.messaging.IResponse<any>) => {
+                    var ipGroups = (response && response.data) || [];
+                    var ipAll: any[] = [];
+                    ipGroups.forEach((e: any) => (e.markets || []).forEach((m: any) => ipAll.push(m)));
+                    console.log('[inplay-debug] getinplay response:', {
+                        success: response && response.success,
+                        eventTypeGroups: ipGroups.length,
+                        totalMarkets: ipAll.length,
+                        liveCount: ipAll.filter((m: any) => !!m.inPlay).length,
+                        inPlayValuesSeen: ipAll.map((m: any) => m.inPlay).filter((v: any, i: any, a: any) => a.indexOf(v) === i),
+                        raw: response && response.data
+                    });
                     if (response.success) {
-                        this.$scope.eventTypes = response.data;
+                        this.$scope.eventTypes = response.data || [];
                         this.$scope.eventTypes.forEach((e: any) => {
-                            e.markets.forEach((m: any) => {
-                                if (this.commonDataService.BetInProcess(m.id)) { m.betInProcess = true; }
-                                if (m.marketRunner.length > 2) {
-                                    m.hasAnyDrawMarket = true;
-                                }
-                                m.eventTypeId = m.eventType.id;
-                                m.hasVideo = m.event.videoId ? true : false;
-                                m.hasFancy = m.event.hasFancy ? true : false;
-                            });
-                        }); if (this.settings.ThemeName == 'sports') { this.countCompetition(); }
-                        this.subscribeOdds();
+                            e.markets.forEach((m: any) => { this.decorateMarket(m); });
+                        });
                     }
-                }).finally(() => { this.$scope.isRequestProcessing = false; });
+                })
+                .error((err: any, status: any) => {
+                    console.error('[inplay-debug] getinplay FAILED status=' + status, err);
+                })
+                .finally(() => {
+                    // Render in-play right away and clear the loader so the page/tabs stay
+                    // interactive immediately (same timing as before). Popular/upcoming
+                    // markets are then merged in the background so the page shows ALL games.
+                    this.refreshGrouping();
+                    this.$scope.isRequestProcessing = false;
+                    this.loadAllMarkets();
+                });
+        }
+
+        // Pull popular markets for every (non-racing) sport and merge them into the
+        // in-play eventTypes grouping, so one list holds live + upcoming games. Runs in
+        // the background — it must never gate the loader (see loadInPlayMarkets).
+        private loadAllMarkets(): void {
+            // Reuse the event-type ids already loaded for the tab strip; fall back to the
+            // ids present on the in-play data. We deliberately avoid calling
+            // commonDataService.getEventTypes() again here — a second concurrent call can
+            // leave its shared deferred pending and stall this chain.
+            var ids = (this.$scope.filters || [])
+                .filter((a: any) => a.id != this.settings.HorseRacingId && a.id != this.settings.GreyhoundId)
+                .map((a: any) => a.id);
+            if (!ids.length) {
+                ids = (this.$scope.eventTypes || []).map((e: any) => e.id).filter((id: any) => !!id);
+            }
+            console.log('[inplay-debug] loadAllMarkets() eventTypeIds for getpopularsports:', ids);
+            if (!ids.length) { console.warn('[inplay-debug] no eventTypeIds — skipping popular load'); return; }
+            this.marketOddsService.getPopularSports(30, ids)
+                .success((response: common.messaging.IResponse<any>) => {
+                    var popular = (response && response.data) || [];
+                    console.log('[inplay-debug] getpopularsports response:', {
+                        success: response && response.success,
+                        markets: popular.length,
+                        liveCount: popular.filter((m: any) => !!m.inPlay).length,
+                        inPlaySample: popular.filter((m: any) => !!m.inPlay).map((m: any) => ({ name: m.event && m.event.name, inPlay: m.inPlay, eventTypeId: m.eventTypeId })).slice(0, 10),
+                        inPlayValuesSeen: popular.map((m: any) => m.inPlay).filter((v: any, i: any, a: any) => a.indexOf(v) === i)
+                    });
+                    if (response.success) {
+                        this.mergePopularMarkets(response.data || []);
+                        this.refreshGrouping();
+                    }
+                })
+                .error((err: any, status: any) => {
+                    console.error('[inplay-debug] getpopularsports FAILED status=' + status, err);
+                });
+        }
+
+        private mergePopularMarkets(markets: any[]): void {
+            markets.forEach((m: any) => {
+                this.decorateMarket(m);
+                var etId = m.eventTypeId;
+                if (!etId) { return; }
+                var et = this.$scope.eventTypes.filter((e: any) => e.id == etId)[0];
+                if (!et) {
+                    // Popular-feed markets carry no eventType object, so resolve the sport
+                    // name from the tab filters (by id) for the per-game icon/label.
+                    var f = (this.$scope.filters || []).filter((x: any) => x.id == etId)[0];
+                    var name = (f && f.name)
+                        || (m.event && m.event.eventType && m.event.eventType.name)
+                        || (m.eventType && m.eventType.name) || '';
+                    et = { id: etId, name: name, markets: [] };
+                    this.$scope.eventTypes.push(et);
+                }
+                // Dedup: an in-play market can also appear in the popular feed.
+                if (!et.markets.some((x: any) => x.id == m.id)) { et.markets.push(m); }
+            });
+        }
+
+        // Normalize a market record from either the in-play or popular feed so the
+        // template bindings (eventTypeId, hasVideo, hasFancy, draw) work for both.
+        private decorateMarket(m: any): void {
+            if (this.commonDataService.BetInProcess(m.id)) { m.betInProcess = true; }
+            if (m.marketRunner && m.marketRunner.length > 2) { m.hasAnyDrawMarket = true; }
+            m.eventTypeId = (m.event && m.event.eventType) ? m.event.eventType.id
+                : (m.eventType ? m.eventType.id : m.eventTypeId);
+            m.hasVideo = (m.event && m.event.videoId) ? true : false;
+            m.hasFancy = (m.event && m.event.hasFancy) ? true : false;
+        }
+
+        // Rebuild competition grouping + re-subscribe odds after the market set changes.
+        // Does NOT touch isRequestProcessing — the loader is cleared as soon as in-play
+        // loads so background popular-market merges can never block the UI/tabs.
+        private refreshGrouping(): void {
+            if (this.settings.ThemeName == 'sports') { this.countCompetition(); }
+            this.subscribeOdds();
+            console.log('[inplay-debug] refreshGrouping summary:', {
+                theme: this.settings.ThemeName,
+                gameFilter: this.$scope.gameFilter,
+                selectedEventType: this.$scope.selectedEventType,
+                filtersCount: (this.$scope.filters || []).length,
+                eventTypeGroups: (this.$scope.eventTypes || []).length,
+                competitions: (this.$scope.competitions || []).length,
+                totalMarkets: (this.$scope.eventTypes || []).reduce((n: number, e: any) => n + ((e.markets || []).length), 0),
+                visibleForSelected: (typeof this.$scope.visibleCount === 'function') ? this.$scope.visibleCount(this.$scope.selectedEventType) : 'n/a',
+                eventTypeIdsWithCounts: (this.$scope.eventTypes || []).map((e: any) => ({ id: e.id, name: e.name, markets: (e.markets || []).length, live: (e.markets || []).filter((m: any) => !!m.inPlay).length })),
+                liveMarketsTotal: (this.$scope.eventTypes || []).reduce((n: number, e: any) => n + (e.markets || []).filter((m: any) => !!m.inPlay).length, 0),
+                liveMarketsSample: (this.$scope.eventTypes || []).reduce((arr: any[], e: any) => arr.concat((e.markets || []).filter((m: any) => !!m.inPlay).map((m: any) => ({ sport: e.name, name: m.event && m.event.name, inPlay: m.inPlay }))), []).slice(0, 10)
+            });
         }
 
         public subscribeOdds(): void {
@@ -337,7 +456,11 @@
                     }
                     var cIndex = common.helpers.Utility.IndexOfObject(this.$scope.competitions, 'id', p.event.competitionId);
                     if (cIndex <= -1) {
-                        this.$scope.competitions.push({ name: p.event.competitionName, id: p.event.competitionId, eventTypeId: p.eventType.id });
+                        // Use the parent group's id (always present) rather than p.eventType.id —
+                        // popular-feed markets have only eventTypeId (string), no eventType object,
+                        // so p.eventType.id would throw and abort grouping → blank page.
+                        var etId = e.id || p.eventTypeId || (p.eventType && p.eventType.id);
+                        this.$scope.competitions.push({ name: p.event.competitionName, id: p.event.competitionId, eventTypeId: etId });
                     }
                 });
             });

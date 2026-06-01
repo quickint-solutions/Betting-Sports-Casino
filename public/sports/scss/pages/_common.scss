@@ -10876,6 +10876,69 @@ body.light-theme {
     }
 }
 
+/* ===== In-play page: All / Live game filter ===== */
+.inplay-game-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px 4px;
+
+    .igf-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.2;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+        &:hover { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+
+        &.active {
+            background: linear-gradient(135deg, #2a2ec8 0%, #5450e8 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+    }
+
+    .igf-live-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff4d4f;
+        box-shadow: 0 0 0 rgba(255, 77, 79, 0.6);
+        animation: igf-live-pulse 1.6s infinite;
+    }
+    .igf-live.active .igf-live-dot { background: #fff; animation: none; }
+}
+
+@keyframes igf-live-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.55); }
+    70%  { box-shadow: 0 0 0 6px rgba(255, 77, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
+}
+
+body.light-theme .inplay-game-filter .igf-tab {
+    border-color: rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.03);
+    color: #555;
+    &.active { color: #fff; }
+}
+
+@media (max-width: 480px) {
+    .inplay-game-filter {
+        padding: 8px 10px 2px;
+        .igf-tab { padding: 5px 14px; font-size: 12px; }
+    }
+}
+
 /* ===== <game-thumb> image + logo-placeholder fallback =====
    The wrapper replaces a bare <img>, so the inner .game-thumb-img still inherits
    the existing `... img { width/height }` rules of each card context. When the

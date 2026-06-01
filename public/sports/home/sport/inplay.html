@@ -45,21 +45,32 @@
                 </div>
             </div>
         </div>
+        <!-- All / Live filter -->
+        <div class="inplay-game-filter">
+            <button type="button" class="igf-tab" ng-class="{'active': gameFilter==='all'}" ng-click="gameFilter='all'">
+                All Games
+            </button>
+            <button type="button" class="igf-tab igf-live" ng-class="{'active': gameFilter==='live'}" ng-click="gameFilter='live'">
+                <span class="igf-live-dot"></span> Live
+            </button>
+        </div>
         <div ng-include="'sports/template/loader-center.html'"
              ng-show="isRequestProcessing"
              class="d-flex w-100 justify-content-center position-absolute"></div>
-        <div class="chart-content mt-2" ng-show="(eventTypes | filter:{id:selectedEventType}).length<=0 && !isRequestProcessing">
+        <div class="chart-content mt-2" ng-show="!isRequestProcessing && visibleCount(selectedEventType)===0">
             <div class="chart-body not-found-block">
-                <h5 class="text">There is a no match available at this time <span class="text-success">in InPlay</span></h5>
+                <h5 class="text" ng-if="gameFilter==='live'">No <span class="text-success">live</span> matches right now — try <a href="" ng-click="gameFilter='all'">All Games</a>.</h5>
+                <h5 class="text" ng-if="gameFilter!=='live'">There is no match available at this time.</h5>
             </div>
         </div>
         <div class="chart-content mt-0">
-            <div class="chart-body home-page-sports" ng-show="(eventTypes | filter:{id:selectedEventType}).length>0"
+            <div class="chart-body home-page-sports" ng-show="visibleCount(selectedEventType)>0"
                  ng-repeat="e in eventTypes | filter:{id:selectedEventType}">
 
                 <div class="market-list collapse in">
                     <div>
-                        <div class="market-data" ng-repeat="cmp in competitions | filter:{eventTypeId:e.id}">
+                        <div class="market-data" ng-repeat="cmp in competitions | filter:{eventTypeId:e.id}"
+                             ng-if="(e.markets | filter:{event:{competitionId:cmp.id} } | filter:liveFilter).length > 0">
                             <div class="markets">
                                 <a class="sport-league">
                                     <div class="sport-league-name"><span>{{cmp.name}}</span></div>
@@ -68,7 +79,7 @@
                                     </h6>
                                 </a>
                                 <div class="collapse in">
-                                    <a ng-repeat="h in e.markets | filter:{event:{competitionId:cmp.id} }" class="event-name market-left"
+                                    <a ng-repeat="h in e.markets | filter:{event:{competitionId:cmp.id} } | filter:liveFilter" class="event-name market-left"
                                        ui-sref="base.home.sport.fullmarket({nodetype:4,id:cmp.id,eventId:h.eventId,eventTypeId:e.id})">
                                         <div class="sport-event">
                                             <div class="event">
